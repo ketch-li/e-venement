@@ -1795,6 +1795,14 @@
         <source>Updated_at</source>
         <target state="translated">Hizivaet d'an</target>
       </trans-unit>
+      <trans-unit xml:space="preserve" id="450" approved="yes">
+        <source>With shipment</source>
+        <target state="translated">Gant kas</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="451" approved="yes">
+        <source>Detail</source>
+        <target state="translated">Munud</target>
+      </trans-unit>    
     </body>
   </file>
 </xliff>

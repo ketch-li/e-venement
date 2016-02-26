@@ -1,4 +1,4 @@
-          <h4>Total</h4>
+          <h4><?php echo __('Total') ?></h4>
           <table class="declinations total">
             <tbody>
               <tr class="total">
