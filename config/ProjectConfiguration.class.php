@@ -69,6 +69,7 @@ class ProjectConfiguration extends sfProjectConfiguration implements liGarbageCo
       'sfFeed2Plugin',
       'sfiCalCreatorPlugin',
       'liOfcPlugin',
+      'nvDoctrineSessionStoragePlugin',
     ));
     
     $this->loadProjectConfiguration();

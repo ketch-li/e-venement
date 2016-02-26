@@ -1,0 +1,77 @@
+nvDoctrineSessionStoragePlugin
+==============================
+
+nvDoctrineSessionStoragePlugin provides a Doctrine based session storage handler.
+Each user session is a doctrine record, making this plugin a solid base component for complex sessions usage applications, using powerful database interactions doctrine abilities.
+
+Additionnaly, it includes a soft lock mechanism to mimic php file based session handling, and avoid session overlap issues.
+
+Installation
+------------
+
+  * Install the plugin
+
+        symfony plugin:install nvDoctrineSessionStoragePlugin
+
+  * Rebuild your model
+
+        symfony doctrine-build-all-reload
+
+  * Change the storage class in factories.yml
+
+        storage:
+          class: nvDoctrineSessionStorage
+
+Configuration
+-------------
+
+nvDoctrineSessionStoragePlugin uses the same parameters as the default sfSessionStorage class (session_name, session_cookie_lifetime, ...).
+
+It also has its own ones :
+
+  * **session_gc_set** : *Set PHP Garbage Collection parameters (true by default)*
+  * **session_gc_maxlifetime** : *Garbage Collection maxlifetime (1440 by default)*
+  * **session_gc_probability** : *Garbage Collection probability (1 by default)*
+  * **session_gc_divisor** : *Garbage Collection divisor (100 by default)*
+  * **lock_enable** : *Enable lock mechanism (true by default)*
+  * **lock_lifetime** : *Lock lifetime in seconds (300 by default)*
+  * **lock_loop_delay** : *Lock loop delay in microseconds (10000 by default)*
+  * **lock_loop_timeout** : *Lock loop timeout in seconds (10 by default)*
+
+Garbage Collection
+------------------
+
+By default, the plugin defines its own garbage collection parameters, based on those defined in the default php.ini file.
+This to avoid potential issues with debian based linux distribution (see [http://redotheweb.com/2008/02/01/database-session-handling-and-garbage-collector/](http://redotheweb.com/2008/02/01/database-session-handling-and-garbage-collector/)), and keep the plugin working out of the box.
+
+You can disable it by setting the parameter **session_gc_set** to false.
+
+You can also adjust the garbage collection parameters with **session_gc_maxlifetime**,  **session_gc_probability** and **session_gc_divisor** (see [http://www.php.net/manual/en/session.configuration.php](http://www.php.net/manual/en/session.configuration.php))
+
+Lock mechanism
+--------------
+
+The plugin includes a soft lock mechanism to avoid session overlap issues.
+The workflow is pretty hard to describe in markdown format, so, please, read the commented code :)
+
+It's enabled by default to keep the plugin working out of the box, but you can disable it by setting the **lock_enable** parameter to false.
+
+User interaction
+----------------
+
+Using symfony event system, the plugin allow the doctrine session record to be accessed directly by the symfony user.
+
+Just use :
+
+    $this->getUser()->getSession()
+
+Session events
+--------------
+
+The plugin also provide its own events :
+
+  * **session.read** : *Notify that a session is about to be reading*
+    * id      : *Session Id*
+    * session : *Doctrine Session Record*
+
+You can use them to interact with the session workflow.
