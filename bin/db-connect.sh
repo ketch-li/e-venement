@@ -7,7 +7,7 @@ LINE=1
 export PGUSER=`grep username config/databases.yml | grep -v '^#' | sed "s/\s*username:[^a-Z]*\(\w*\)$/\1/g" | head -n$LINE | tail -n1`
 
 # passwd
-export PGPASSWORD=`grep password config/databases.yml | grep -v '^#' | sed "s/\s*password:[^a-Z^0-9]*\(\w*\)$/\1/g" | head -n$LINE | tail -n1`
+export PGPASSWORD=`grep password config/databases.yml | grep -v '^#' | sed "s/\s*password:[^a-Z^0-9]*\(.*\)$/\1/g" | head -n$LINE | tail -n1`
 
 # host & db
 CONN=`grep dsn config/databases.yml | grep -v '^#' | sed "s/\s*dsn:\s*'\(.*\):host=\(.*\);dbname=\(\w*\).*/\1:\2:\3/g" | head -n$LINE | tail -n1`
