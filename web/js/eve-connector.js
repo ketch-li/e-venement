@@ -47,6 +47,8 @@ EveConnector = function(uri, directExecute) {
     };
     var log      = this.log;
 
+    var onError = function(){ }
+
     // Starts the connection to the server
     // (io must be in the global namespace: load socket.io before this file)
     this.socket = io(uri);
@@ -57,15 +59,15 @@ EveConnector = function(uri, directExecute) {
     });
     this.socket.on('connect_error', function(err){
         log('error', 'connect_error', err);
-        this.onError();
+        onError();
     });
     this.socket.on('connect_failed', function(err){
         log('error', 'connect_failed', err);
-        this.onError();
+        onError();
     });
     this.socket.on('error', function(err){
-        log('error', 'error', err);
-        this.onError();
+        log('error', 'socket error', err);
+        onError();
     });
 
     this.isDeviceAvailable = function(device) {
@@ -79,7 +81,16 @@ EveConnector = function(uri, directExecute) {
             });
         });
     };
-    
+
+    this.startPoll = function(device, callback) {
+        this.socket.emit('startPoll', device);
+        this.socket.on('usbPoll', callback);
+    };
+
+    this.stopPoll = function(device) {
+        this.socket.emit('stopPoll', device);
+    };
+
     this.areDevicesAvailable = function(query) {
         var socket = this.socket;
         return new Promise(function(resolve, reject){
@@ -103,7 +114,17 @@ EveConnector = function(uri, directExecute) {
             });
         });
     };
-    
-    this.onError = function(){ }
+
+    this.readData = function(device, data) {
+        var socket = this.socket;
+        return new Promise(function(resolve, reject){
+            socket.emit('readData', device, data);
+            socket.on('readData', function(msg) {
+                if (msg.err)
+                    reject(msg.err);
+                resolve(msg.res);
+            });
+        });
+    };
 }
 

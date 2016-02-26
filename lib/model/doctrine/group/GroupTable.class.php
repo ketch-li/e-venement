@@ -7,8 +7,9 @@
  */
 class GroupTable extends PluginGroupTable
 {
-  public function createQuery($alias = 'a')
+  public function createQuery($alias = 'g')
   {
+    //$alias = 'g'; // can't be something else, because of the "CASE WHEN" huge optimization & doctrine limitations
     $u  = 'u'  != $alias ? 'u'  : 'u1';
     $c  = 'c'  != $alias ? 'c'  : 'c1';
     $p  = 'p'  != $alias ? 'p'  : 'p1';
@@ -39,7 +40,7 @@ class GroupTable extends PluginGroupTable
     
     return $query
       ->leftJoin("$alias.Users users")
-      ->andWhere("CASE WHEN $alias.sf_guard_user_id IS NULL THEN CASE WHEN ? THEN true ELSE CASE WHEN ? THEN (SELECT count(sf_guard_user_id) > 0 FROM group_user WHERE group_id = $alias.id AND sf_guard_user_id = ?) ELSE false END END ELSE $alias.sf_guard_user_id = ? END",array(
+      ->andWhere("(CASE WHEN g.sf_guard_user_id IS NULL THEN CASE WHEN true = ? THEN true ELSE CASE WHEN true = ? THEN (SELECT count(sf_guard_user_id) > 0 FROM group_user WHERE group_id = g.id AND sf_guard_user_id = ?) ELSE false END END ELSE g.sf_guard_user_id = ? END)",array(
         $sf_user->hasCredential(array('admin-users','admin-power'),false),
         $sf_user->hasCredential('pr-group-common') ? true : false,
         $sf_user->getId(),

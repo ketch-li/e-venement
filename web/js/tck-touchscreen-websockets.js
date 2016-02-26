@@ -69,13 +69,29 @@ $(document).ready(function(){
                             // sends data to the printer through the connector
                             connector.log('info', 'Sending data...');
                             connector.log('info', data);
-                            connector.sendData({ type: 'usb', params: myDevice }, data)
+                            var device = { type: 'usb', params: myDevice };
+                            connector.sendData(device, data)
                             .then(
                                 function(res){
                                     connector.log('info', 'Data sent!');
+                                    connector.readData(device).then(
+                                      function(res){
+                                        connector.log('info', res);
+                                        if ( res !== undefined ) {
+                                          var BS = new BocaStatus();
+                                          connector.log('info', 'BocaStutus.getStatuses():', BS.getStatuses(atob(res)));
+                                          LI.alert(BS.getStatuses(atob(res)));
+                                        }
+                                      },
+                                      function(err){
+                                        connector.log('error', 'connector.readData()', err);
+                                        LI.alert(err, 'error');
+                                      }
+                                    )
                                 },
                                 function(err){
-                                    connector.log('error', 'Data not sent!');
+                                    connector.log('error', 'Data not sent!', err);
+                                    LI.alert(err, 'error');
                                 }
                             );
                         }

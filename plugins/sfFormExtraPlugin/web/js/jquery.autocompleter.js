@@ -335,7 +335,23 @@ $.Autocompleter = function(input, options) {
 	function receiveData(q, data) {
 		if ( data && data.length && hasFocus ) {
 			stopLoading();
-			select.display(data, q);
+			
+			// ordering data by their first column of data
+			data.sort(function(a, b){
+			  // normal alphabetical sort
+			  if ( /^[\w\d]/.test(a.data[0]) && /^[\w\d]/.test(b.data[0]) )
+  			  return (a.data[0] < b.data[0]) ? -1 : (a.data[0] > b.data[0]) ? 1 : 0;
+			  if ( !/^[\w\d]/.test(a.data[0]) && !/^[\w\d]/.test(b.data[0]) )
+  			  return (a.data[0] < b.data[0]) ? -1 : (a.data[0] > b.data[0]) ? 1 : 0;
+  			
+  			// abnormal sort (non alphanumeric chars after alphanumeric chars)
+			  if ( /^[\w\d]/.test(a.data[0]) && !/^[\w\d]/.test(b.data[0]) )
+			    return -1;
+			  if ( !/^[\w\d]/.test(a.data[0]) && /^[\w\d]/.test(b.data[0]) )
+			    return 1;
+			});
+			
+			select.display(data.sort(), q);
 			autoFill(q, data[0].value);
 			select.show();
 		} else {

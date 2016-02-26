@@ -92,9 +92,10 @@ abstract class BaseFormDoctrine extends sfFormDoctrine
       $object = $this->object;
     
     foreach ( $object->Groups as $group )
-    if ( !$user->hasCredential('pr-group-common') && is_null($group->sf_guard_user_id) // no credential for editting common groups
-      || $group->sf_guard_user_id !== $user->getId() && !is_null($group->sf_guard_user_id) // no credential for editting others' personal groups
-      || !in_array($user->getId(), $group->Users->getPrimaryKeys()) ) // no credential for editting THIS particular group
+    if ( is_null($group->sf_guard_user_id) && !$user->hasCredential('pr-group-common') // no credential for editting common groups
+      || is_null($group->sf_guard_user_id) && $user->hasCredential('pr-group-common') && !in_array($user->getId(), $group->Users->getPrimaryKeys()) // no credential for editting this specific common group
+      || !is_null($group->sf_guard_user_id) && $group->sf_guard_user_id !== $user->getId() // no credential for editting others' personal groups
+    ) // no credential for editting THIS particular group
     {
       $this->values[$field][] = $group->id;
     }
