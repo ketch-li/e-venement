@@ -79,7 +79,16 @@ EveConnector = function(uri, directExecute) {
             });
         });
     };
-    
+
+    this.startPoll = function(device, callback) {
+        this.socket.emit('startPoll', device);
+        this.socket.on('usbPoll', callback);
+    };
+
+    this.stopPoll = function(device) {
+        this.socket.emit('stopPoll', device);
+    };
+
     this.areDevicesAvailable = function(query) {
         var socket = this.socket;
         return new Promise(function(resolve, reject){
@@ -103,7 +112,18 @@ EveConnector = function(uri, directExecute) {
             });
         });
     };
-    
-    this.onError = function(){ }
-}
 
+    this.readData = function(device, data) {
+        var socket = this.socket;
+        return new Promise(function(resolve, reject){
+            socket.emit('readData', device, data);
+            socket.on('readData', function(msg) {
+                if (msg.err)
+                    reject(msg.err);
+                resolve(msg.res);
+            });
+        });
+    };
+
+	this.onError = function(){ }
+}
