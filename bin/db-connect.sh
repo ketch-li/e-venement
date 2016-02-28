@@ -6,9 +6,12 @@ TMP=1;
 [ "$TMP" -gt 1 ] &> /dev/null && LINE=$TMP
 
 # user
+echo $PGUSER;
+[ -z "$PGUSER" ] && \
 export PGUSER=`grep username config/databases.yml | grep -v '^#' | sed "s/\s*username:[^a-Z]*\(\w*\)$/\1/g" | head -n$LINE | tail -n1`
 
 # passwd
+[ -z "$PGPASSWORD" ] && \
 export PGPASSWORD=`grep password config/databases.yml | grep -v '^#' | sed "s/\s*password:[^a-Z^0-9]*\(.*\)$/\1/g" | head -n$LINE | tail -n1`
 
 # host & db
