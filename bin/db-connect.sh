@@ -1,7 +1,9 @@
 #!/bin/bash
 
 LINE=1
-[ "$1" -gt 1 ] && LINE=$1
+TMP=1;
+[ "$1" != "" ] && TMP="$1"
+[ "$TMP" -gt 1 ] &> /dev/null && LINE=$TMP
 
 # user
 export PGUSER=`grep username config/databases.yml | grep -v '^#' | sed "s/\s*username:[^a-Z]*\(\w*\)$/\1/g" | head -n$LINE | tail -n1`
