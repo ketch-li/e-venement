@@ -29,10 +29,8 @@ dev:
       delivery_strategy: none
 
 all:
-  user: 
-    class: myUser
-    param:
-      timeout: 3600
+  #storage:
+  #  class: nvDoctrineSessionStorage
 
   routing:
     class: sfPatternRouting

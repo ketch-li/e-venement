@@ -34,6 +34,9 @@ all:
     param:
       timeout: 3600
 
+  #storage:
+  #  class: nvDoctrineSessionStorage
+
   routing:
     class: sfPatternRouting
     param:
@@ -58,7 +61,7 @@ all:
       transport:
         class: Swift_SmtpTransport
         param:
-          host:       smtp.mydomain.tld
+          host:       smtp.libre-informatique.fr
           port:       25
           encryption: ~
           username:   ~

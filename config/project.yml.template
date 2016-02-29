@@ -62,7 +62,7 @@ all:
       fr: Français
       en: English
       br: Brezhoneg
-    plugins: []       # e.g. [liMemberCardPlugin]
+    plugins: []       # e.g. [liMemberCardPlugin, nvDoctrineSessionStoragePlugin]
 
   eticketting:
     salt: ARANDOMSALTHERE

@@ -21,18 +21,16 @@ test:
 
   mailer:
     param:
-      delivery_strategy: single_address
+      delivery_strategy: none
 
 dev:
   mailer:
     param:
-      delivery_strategy: single_address
+      delivery_strategy: none
 
 all:
-  user: 
-    class: myUser
-    param:
-      timeout: 3600
+  #storage:
+  #  class: nvDoctrineSessionStorage
 
   routing:
     class: sfPatternRouting
@@ -45,22 +43,3 @@ all:
     param:
       cache_key_use_vary_headers: true
       cache_key_use_host_name:    true
-
-  mailer:
-    class: liMailer
-    param:
-      logging:           %SF_LOGGING_ENABLED%
-      charset:           %SF_CHARSET%
-      delivery_strategy: none
-      delivery_address:  admin@libre-informatique.fr
-      spool_class:       liSpool
-      spool_arguments:   [ EmailSpool, message, getSpooledMessages ]
-      transport:
-        class: Swift_SmtpTransport
-        param:
-          host:       smtp.libre-informatique.fr
-          port:       25
-          encryption: ~
-          username:   ~
-          password:   ~
-
