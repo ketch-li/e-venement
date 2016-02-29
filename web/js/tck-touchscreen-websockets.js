@@ -105,7 +105,7 @@ $(document).ready(function(){
                 connector.log('error', error);
             }
         );
-        
+
         connector.onError = function(){
           $('#li_transaction_museum .print [name=direct], #li_transaction_manifestations .print [name=direct]')
             .remove();

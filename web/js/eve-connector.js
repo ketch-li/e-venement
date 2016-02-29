@@ -47,7 +47,7 @@ EveConnector = function(uri, directExecute) {
     };
     var log      = this.log;
 
-    var onError = function(){ }
+    var onError = function(){ };
 
     // Starts the connection to the server
     // (io must be in the global namespace: load socket.io before this file)
@@ -126,5 +126,4 @@ EveConnector = function(uri, directExecute) {
             });
         });
     };
-}
-
+};

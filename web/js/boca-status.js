@@ -69,6 +69,5 @@ BocaStatus = function(){
     }
     return statuses;
   };
-  
-};
 
+};
