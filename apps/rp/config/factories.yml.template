@@ -34,6 +34,9 @@ all:
     param:
       timeout: 3600
         
+  #storage:
+  #  class: nvDoctrineSessionStorage
+
   routing:
     class: sfPatternRouting
     param:

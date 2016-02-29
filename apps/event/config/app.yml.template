@@ -27,7 +27,7 @@ all:
     #extra_informations_enable: false
     #editable_in_calendar: false
     price_manifestations: true  # true by default
-    price_gauges: true          # false by default
+    #price_gauges: true          # false by default
     #prefer_short_name: false
     online_users: [vel] # for stats
     #show_location_ajax: false
@@ -44,7 +44,7 @@ all:
     #security_token:
     #  xxxxxxxmytokenxxxxxxx: my_username
     cron_period: 1 hour
-    email_from: no-reply@domain.tld
+    email_from: no-reply@unapei.org
     alarms:
       when: [-4 hours, -1 hour]
       what: [display, email]
