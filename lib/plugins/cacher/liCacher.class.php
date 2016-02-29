@@ -105,6 +105,11 @@ class liCacher
     
     return $this->cache;
   }
+  public function clear()
+  {
+    $this->getDBCache()->delete();
+    return $this;
+  }
   public function loadData()
   {
     $this->setData(unserialize($this->getDBCache()->content));
