@@ -69,10 +69,22 @@ $(document).ready(function(){
                             // sends data to the printer through the connector
                             connector.log('info', 'Sending data...');
                             connector.log('info', data);
-                            connector.sendData({ type: 'usb', params: myDevice }, data)
+                            var device = { type: 'usb', params: myDevice };
+                            connector.sendData(device, data)
                             .then(
                                 function(res){
                                     connector.log('info', 'Data sent!');
+                                    connector.readData(device).then(
+                                      function(res){
+                                        connector.log('info', res);
+                                        if ( res !== undefined ) {
+                                          console.log(BocaStatus.getStatuses(atob(res)));
+                                        }
+                                      },
+                                      function(err){
+                                        connector.log('error', 'connector.readData()', err);
+                                      }
+                                    )
                                 },
                                 function(err){
                                     connector.log('error', 'Data not sent!');
@@ -89,7 +101,7 @@ $(document).ready(function(){
                 connector.log('error', error);
             }
         );
-        
+
         connector.onError = function(){
           $('#li_transaction_museum .print [name=direct], #li_transaction_manifestations .print [name=direct]')
             .remove();
