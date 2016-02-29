@@ -46,7 +46,7 @@ generator:
           _clean:
             action: clean
             ui-icon: wrench
-            params: confirm=Are you sure? title=pouet
+            params: confirm=Are you sure?
             credentials: pr-card-mod
           _save: ~
       new:     ~

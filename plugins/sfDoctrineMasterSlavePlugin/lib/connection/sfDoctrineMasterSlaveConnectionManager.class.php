@@ -212,7 +212,7 @@ class sfDoctrineMasterSlaveConnectionManager
       }
     }
 
-    throw new InvalidArgumentException(sprintf('Could not determine a group for the "%s" connection'));
+    throw new InvalidArgumentException(sprintf('Could not determine a group for the "%s" connection', $name));
   }
 
   /**

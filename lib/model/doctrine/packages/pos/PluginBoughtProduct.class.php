@@ -15,7 +15,12 @@ abstract class PluginBoughtProduct extends BaseBoughtProduct
   public function preDelete($event)
   {
     if ( $this->member_card_id )
-      throw new liEvenementException('You cannot remove a product linked with a member card, you should better try to remove the member card...');
+    {
+      if ( $this->MemberCard->active )
+        throw new liEvenementException('You cannot remove a product linked with a member card, you should better try to remove the member card...');
+      else
+        $this->MemberCard->delete();
+    }
   }
   public function preSave($event)
   {
@@ -94,7 +99,18 @@ abstract class PluginBoughtProduct extends BaseBoughtProduct
       }
       $this->Declination->save();
     }
-    return parent::preUpdate($event);
+    
+    // Member cards
+    if ( $this->Declination->MemberCardTypes->count() == 1 && !$this->member_card_id && !is_null($this->integrated_at) )
+    {
+      $this->MemberCard = new MemberCard;
+      $this->MemberCard->active = true;
+      $this->MemberCard->Transaction = $this->Transaction;
+      $this->MemberCard->Contact = $this->Transaction->Contact;
+      $this->MemberCard->MemberCardType = $this->Declination->MemberCardTypes[0];
+    }
+    
+    return parent::preSave($event);
   }
   
   public function postDelete($event)

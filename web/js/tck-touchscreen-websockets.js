@@ -78,16 +78,20 @@ $(document).ready(function(){
                                       function(res){
                                         connector.log('info', res);
                                         if ( res !== undefined ) {
-                                          console.log(BocaStatus.getStatuses(atob(res)));
+                                          var BS = new BocaStatus();
+                                          connector.log('info', 'BocaStutus.getStatuses():', BS.getStatuses(atob(res)));
+                                          LI.alert(BS.getStatuses(atob(res)));
                                         }
                                       },
                                       function(err){
                                         connector.log('error', 'connector.readData()', err);
+                                        LI.alert(err, 'error');
                                       }
                                     )
                                 },
                                 function(err){
-                                    connector.log('error', 'Data not sent!');
+                                    connector.log('error', 'Data not sent!', err);
+                                    LI.alert(err, 'error');
                                 }
                             );
                         }

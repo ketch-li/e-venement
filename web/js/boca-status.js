@@ -56,19 +56,18 @@ BocaStatus = function(){
   };
 
   this.getStatus = function(code) {
-    return ( this.statusCodes.code != undefined ) ? this.statusCode.code : false;
+    return ( this.statusCodes[code] != undefined ) ? this.statusCodes[code] : false;
   };
 
-  this.getStatuses = function(b64) {
-    var decoded = atob(b64);
+  this.getStatuses = function(codes) {
     var statuses = [];
-    for (var i=0; i<decoded.length; i++) {
-      var code = decoded.charCodeAt(i);
+    for (var i=0; i<codes.length; i++) {
+      var code = codes.charCodeAt(i);
       var status = this.getStatus(code);
       if ( status )
         statuses.push(status);
     }
     return statuses;
   };
-  
+
 };

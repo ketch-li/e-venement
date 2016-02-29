@@ -126,4 +126,4 @@ EveConnector = function(uri, directExecute) {
             });
         });
     };
-}
+};
