@@ -12,5 +12,8 @@ class GeoFrStreetBaseForm extends BaseGeoFrStreetBaseForm
 {
   public function configure()
   {
+//    parent::configure();
+//    $this->validatorSchema['updated_at']->setOption('required', false);
+//    $this->validatorSchema['created_at']->setOption('required', false);
   }
 }

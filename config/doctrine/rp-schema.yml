@@ -385,6 +385,12 @@ GeoFrRegion:
       notnull: true
 GeoFrStreetBase:
   package: rp
+  actAs:
+    Timestampable: ~
+  indexes:
+    geo_fr_street_base_unique_idx:
+      fields: [zip, rivoli, num]
+      unique: true
   columns:
     address:
       type: string(255)

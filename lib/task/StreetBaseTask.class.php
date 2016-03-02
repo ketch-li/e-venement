@@ -28,6 +28,9 @@
  */
 class StreetBaseTask  extends sfBaseTask
 {
+  protected $zipCodes = array();
+  protected $counter = array();
+
   protected function configure() {
     $this->addOptions(array(
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environement', 'dev'),
@@ -39,13 +42,12 @@ class StreetBaseTask  extends sfBaseTask
     $this->briefDescription = 'Fetches data to update the Street Base';
     $this->detailedDescription = 'Fetches data to update the Street Base';
 
+    $this->resetCounters();
     $this->zipCodes = $this->loadZipCodes();
   }
 
   protected function execute($arguments = array(), $options = array())
   {
-//    throw new liEvenementException('Work still in progress... contact@libre-informatique.fr for more information.');
-
     sfContext::createInstance($this->configuration, $options['env']);
     $databaseManager = new sfDatabaseManager($this->configuration);
 
@@ -56,83 +58,154 @@ class StreetBaseTask  extends sfBaseTask
       $this->logBlock('Failed downloading and extracting '.$localitiesUrl, 'ERROR');
       return 1;
     }
-    $localities = $this->parseCSV($localitiesFile);
-    if (!$localities) {
-      $this->logBlock('Failed parsing '.$localitiesFile, 'ERROR');
-      return 2;
-    }
+    //$localitiesFile = '/tmp/LIEUX_DITS_NM/LIEUX_DITS_NM.csv';
+    $this->importCSV($localitiesFile, 'locality', 0);
 
     // Streets
     $streetsUrl = 'http://data.nantes.fr/fileadmin/data/datastore/nm/urbanisme/24440040400129_NM_NM_00001/ADRESSES_NM_csv.zip';
     $streetsFile = $this->downloadCSVFile($streetsUrl, 'ADRESSES_NM');
     if (! $streetsFile ) {
       $this->logBlock('Failed downloading and extracting '.$streetsUrl, 'ERROR');
-      return 3;
+      return 2;
     }
-    $streets = $this->parseCSV($streetsFile);
-    if (!$streets) {
-      $this->logBlock('Failed parsing '.$streetsFile, 'ERROR');
-      return 4;
-    }
+    //$streetsFile = '/tmp/ADRESSES_NM/ADRESSES_NM.csv';
+    $this->importCSV($streetsFile, 'street', 0);
 
-    // Delete DB table content
-    Doctrine_Query::create()->from('GeoFrStreetBase')->delete()->execute();
-
-    // Import data into DB
-    $this->importLocalities($localities, $options['env']);
-    $this->importStreets($streets, $options['env']);
+    $this->logSection('Done', '', null, 'INFO');
+    print_r($this->counter);
 
     return 0;
   }
 
-  protected function importLocalities($localities, $env)
+  /**
+   * @param string $file    full path of CSV file to be parsed
+   * @param string $type    can be "locality" or "street"
+   * @return bool           true for success, false for failure
+   */
+  protected function importCSV($file, $type, $max_iter = null)
   {
-    $this->logSection('Updating DB (localities)', '', 0, 'INFO');
-    sfContext::createInstance($this->configuration, $env);
-    $databaseManager = new sfDatabaseManager($this->configuration);
+    $this->logSection('Updating DB from CSV', $file, null, 'INFO');
+    $time_start = microtime(true);
+    $start_datetime = date('Y-m-d H:i:s');
+    $count = 0;
 
-    foreach ($localities as $k => $d) {
-      $sb = new GeoFrStreetBase;
-      $sb->setLocality(true);
-      $sb->setCity($d[0]);
-      $zipcode = $this->findZipCode($d[0]);
-      if (!$zipcode)
-        continue;
-      $sb->setZip($zipcode);
-      $sb->setAddress($d[2]);
-      $sb->setRivoli($d[3]);
-      $sb->setIris2008($d[4]);
-      $sb->setLongitude($d[5]);
-      $sb->setLatitude($d[6]);
-      $sb->save();
-       print('.');
+    if (($handle = fopen($file, "r")) !== FALSE)
+    {
+      fgetcsv($handle, 0, ","); // skip first line
+
+      while (($data = fgetcsv($handle, 0, ",")) !== FALSE)
+      if (!$max_iter || $count < $max_iter)
+      {
+        // read data from CSV
+        $sb = $this->parseCSVline($data, $type);
+
+        // validate data
+        $form = new GeoFrStreetBaseForm();
+        $form->getValidator($form->getCSRFFieldName())->setOption('required', false);
+        $form->bind($sb);
+        if ( !$form->isValid() )
+        {
+          $this->counter['validation_errors']++;
+          continue;
+        }
+
+        // check if record already exists in DB
+        $query = Doctrine_Core::getTable('GeoFrStreetBase')
+          ->createQuery('sb')
+          ->where('sb.zip = ?', $sb['zip'])
+          ->andWhere('sb.rivoli = ?', $sb['rivoli'])
+          ->andWhere('sb.num = ?', $sb['num']);
+        $old_sb = $query->fetchOne();
+
+        // if record exists, do an update
+        if ($old_sb) {
+          $old_sb->setAddress($sb['address']);
+          $old_sb->setLocality($sb['locality']);
+          $old_sb->setCity($sb['city']);
+          $old_sb->setIris2008($sb['iris2008']);
+          $old_sb->setLongitude($sb['longitude']);
+          $old_sb->setLatitude($sb['latitude']);
+          $old_sb->setUpdatedAt('now'); // force update even if there are no changes
+          if ( $old_sb->trySave() )
+            $this->counter['updates']++;
+          else
+            $this->counter['db_errors']++;
+        }
+        else { // insert new record
+          try {
+            $form->save();
+            $this->counter['creations']++;
+          } catch (Exception $exc) {
+            $this->counter['db_errors']++;
+          }
+        }
+        //if ($count % 10 ==0) print('.');
+        $count++;
+      }
+      fclose($handle);
     }
+    else {
+      throw new sfCommandException(sprintf("Could not open CSV file: %s", $file));
+    }
+
+    // delete records that have not been updated
+    $this->deleteOldRecords($start_datetime, $type);
+
+    $this->counter['lines'] += $count;
+    $this->counter['import_time'] += microtime(true) - $time_start;
   }
 
-  protected function importStreets($streets, $env)
+  /**
+   * @param array $line     array of data extacted from a CSV line
+   * @param string $type    can be "locality" or "street"
+   * @return array          GeoFrStreetBase
+   */
+  protected function parseCSVline($line, $type)
   {
-    sfContext::createInstance($this->configuration, $env);
-    $databaseManager = new sfDatabaseManager($this->configuration);
+    foreach($line as $k => $d)
+      $line[$k] = trim(utf8_encode($d));  // data must latin1
 
-    foreach ($streets as $k => $d) {
-      $sb = new GeoFrStreetBase;
-      $sb->setLocality(false);
-      $sb->setAddress($d[0]);
-      $sb->setCity($d[1]);
-      $sb->setNum($d[3]);
-      $sb->setRivoli($d[4]);
-      $sb->setZip($d[5]);
-      $sb->setIris2008($d[6]);
-      $sb->setLongitude($d[7]);
-      $sb->setLatitude($d[8]);
-      $sb->save();
-      if ($k % 10 == 0) print('.');
+    $sb_array = array();
+    switch ($type) {
+      case 'locality':
+        $sb_array['locality'] = true;
+        $sb_array['city'] = $line[0];
+        $sb_array['zip'] = $this->findZipCode($line[0]);
+        $sb_array['address'] = $line[2];
+        $sb_array['rivoli'] = $line[3];
+        $sb_array['iris2008'] = $line[4];
+        $sb_array['longitude'] = $line[5];
+        $sb_array['latitude'] = $line[6];
+        $sb_array['num'] = '';
+        break;
+      case 'street':
+        $sb_array['locality'] = false;
+        $sb_array['address'] = $line[0];
+        $sb_array['city'] = $line[1];
+        $sb_array['num'] = $line[3];
+        $sb_array['rivoli'] = $line[4];
+        $sb_array['zip'] = $line[5];
+        $sb_array['iris2008'] = $line[6];
+        $sb_array['longitude'] = $line[7];
+        $sb_array['latitude'] = $line[8];
+        break;
+      default:
+        throw new sfCommandException(sprintf("Invalid type parameter for parseCSVline(): %s", $type));
     }
+    return $sb_array;
   }
 
+  /**
+   * Downloads the zip file, extract it and return the fownloaded CSV file path
+   *
+   * @param string $url        url of the zip file to fetch
+   * @param string $prefix     directory (relative to /tmp) where the files will be extracted
+   * @return boolean|string    CSV file path or false on failure
+   */
   protected function downloadCSVFile($url, $prefix)
   {
     $this->logSection('Downloading', $url, $this->strlen($url), 'INFO');
+    $time_start = microtime(true);
 
     set_time_limit(0); //prevent timeout
 
@@ -170,26 +243,8 @@ class StreetBaseTask  extends sfBaseTask
     foreach (glob("$destDir/*.csv") as $file) {
       $files[] = $file;
     }
+    $this->counter['download_time'] += microtime(true) - $time_start;
     return $files ? $files[0] : false;
-  }
-
-  protected function parseCSV($file, $header = true)
-  {
-    $this->logSection('Parsing CSV', $file, $this->strlen($file), 'INFO');
-    $rows = array();
-    if (($handle = fopen($file, "r")) !== FALSE)
-    {
-      if ($header) fgetcsv($handle, 0, ","); // skip first line
-
-      while (($data = fgetcsv($handle, 0, ",")) !== FALSE)
-      {
-          foreach($data as $k => $d)
-            $data[$k] = trim(utf8_encode($d));
-          $rows[] = $data;
-      }
-      fclose($handle);
-    }
-    return $rows;
   }
 
   protected function loadZipCodes() {
@@ -223,6 +278,39 @@ class StreetBaseTask  extends sfBaseTask
 
   protected function findZipCode($city) {
     return isset($this->zipCodes[$city]) ? $this->zipCodes[$city] : "";
+  }
+
+  protected function resetCounters()
+  {
+    $this->counter = array(
+      'lines' => 0,
+      'updates' => 0,
+      'creations' => 0,
+      'deletions' => 0,
+      'db_errors' => 0,
+      'validation_errors' => 0,
+      'download_time' => 0,
+      'import_time' => 0,
+    );
+  }
+
+  /**
+   * Delete all records that have not been updated after a given date
+   *
+   * @param string $date      yyyy-mm-dd hh:mm:ss formated datetime
+   * @param string $type      "locality" or "street"
+   */
+  protected function deleteOldRecords($date, $type)
+  {
+    $query = Doctrine_Core::getTable('GeoFrStreetBase')
+      ->createQuery('sb')
+      ->where('sb.locality = ?', $type == 'locality')
+      ->andWhere('sb.updated_at < ?', $date);
+
+    //echo $query->delete()->getSqlQuery() . "\n";
+    $nb_deleted = $query->delete()->execute();
+    $this->counter['deletions'] += $nb_deleted;
+    return $nb_deleted;
   }
 
 }
