@@ -80,7 +80,7 @@ class nvDoctrineSessionStorage extends sfSessionStorage
         }
 
         // Start session
-        session_start();
+        @session_start();
     }
 
     /**
