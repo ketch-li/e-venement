@@ -21,7 +21,7 @@
         $contact['ticket-ids'][$t->Gauge->workspace_id][$t->id] = $t->id;
         if ( !isset($contact['ticket-nums'][$t->Gauge->workspace_id]) )
           $contact['ticket-nums'][$t->Gauge->workspace_id] = array('name' => $t->Gauge->Workspace->name);
-        if ( $t->numerotation && $sf_user->hasCredential('seats-allocation') )
+        if ( $t->numerotation )
           $contact['ticket-nums'][$t->Gauge->workspace_id][$t->id] = $t->numerotation;
         
         if ( !isset($contact['prices'][$t->Gauge->workspace_id]) )
