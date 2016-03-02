@@ -33,7 +33,7 @@
       ->andWhere('tck.duplicating IS NULL') // to count only originals tickets, not duplicates
       ->leftJoin('tck.Transaction t')
       ->leftJoin('tck.Gauge g')
-      ->orderBy('translation.name, m.happens_at, l.name, tck.price_name, u.first_name, u.last_name, tck.sf_guard_user_id, tck.cancelling IS NULL DESC, tck.updated_at');
+      ->orderBy('translation.name, m.happens_at, l.name, tck.price_id, u.first_name, u.last_name, tck.sf_guard_user_id, tck.cancelling IS NULL DESC, tck.updated_at');
     
     $str = 'tck.printed_at IS NOT NULL OR tck.cancelling IS NOT NULL OR tck.integrated_at IS NOT NULL';
     if ( !isset($criterias['not-yet-printed']) )
