@@ -170,7 +170,7 @@ class Transaction extends PluginTransaction
     foreach ( $m_c as $mc )
     if ( $including_not_activated === true && $mc->transaction_id == $this->id
       || $mc->active && $mc->transaction_id != $this->id )
-    if ( $mc->value > 0 || $mc->MemberCardPrices->count() > 0 )
+    if ( $mc->value > 0 )
     {
       $mcs[$mc->id] = $mc->copy();
       foreach ( $mc->MemberCardPrices as $mcp )

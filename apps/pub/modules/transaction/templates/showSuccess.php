@@ -152,6 +152,10 @@ $(document).ready(function(){
 <?php endif ?>
 <?php endforeach ?>
 </tbody>
+<?php $recalculated = array(
+    'total'     => $transaction->getPrice(true, true),
+    'withmc'    => $transaction->getTicketsLinkedToMemberCardPrice(true),
+) ?>
 <tfoot>
   <?php if ( $total['mc_qty'] && ($total['mc_value'] < 0 || count($member_cards) == 0) ): ?>
   <tr class="total">
@@ -164,7 +168,7 @@ $(document).ready(function(){
       <td></td>
     <?php endif ?>
     <td class="qty"><?php echo $total['mc_qty'] + $total['qty'] ?></td>
-    <td class="total"><?php echo format_currency($total['value']+$total['mc_value'],'€'); ?></td>
+    <td class="total"><?php echo format_currency($recalculated['total'],'€'); ?></td>
     <?php if ( sfConfig::get('app_options_synthetic_plans', false) && $current_transaction ): ?>
     <td class="linked-stuff"></td>
     <?php endif ?>
@@ -180,7 +184,7 @@ $(document).ready(function(){
       <td></td>
     <?php endif ?>
     <td class="qty"><?php echo $total['mc_qty'] ?></td>
-    <td class="total"><?php echo format_currency(-$total['mc_value'],'€'); ?></td>
+    <td class="total"><?php echo $total['mc_value'] = format_currency($recalculated['withmc'],'€'); ?></td>
     <?php if ( sfConfig::get('app_options_synthetic_plans', false) && $current_transaction ): ?>
     <td class="linked-stuff"></td>
     <?php endif ?>
@@ -200,12 +204,12 @@ $(document).ready(function(){
       <td></td>
     <?php endif ?>
     <td class="qty"><?php echo $total['qty'] ?></td>
-    <td class="total"><?php echo format_currency($total['value'],'€'); ?></td>
+    <td class="total"><?php echo format_currency($recalculated['total'] - $recalculated['withmc'],'€'); ?></td>
     <td class="extra-taxes"><?php echo format_currency($total['taxes'],'€'); ?></td>
     <?php if ( sfConfig::get('app_options_synthetic_plans', false) && $current_transaction ): ?>
     <td class="linked-stuff"></td>
     <?php endif ?>
-    <td class="total-total"><?php echo format_currency($total['value']+$total['taxes'],'€'); ?></td>
+    <td class="total-total"><?php echo format_currency($recalculated['total'] + $total['taxes'],'€'); ?></td>
   </tr>
 </tfoot>
 <thead>
