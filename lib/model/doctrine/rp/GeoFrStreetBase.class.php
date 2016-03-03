@@ -12,4 +12,9 @@
  */
 class GeoFrStreetBase extends PluginGeoFrStreetBase
 {
+  public function __destruct()
+  {
+    foreach ( array('_node', '_table', '_locator', '_null', '_errorStack') as $prop )
+      unset($this->prop);
+  }
 }
