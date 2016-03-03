@@ -59,6 +59,8 @@
       (<?php echo __('gov.',null,'about') ?>)
       <?php endif ?>
     </p>
+    <p class="instance"><?php echo __('Instance %%name%%', array('%%name%%' => $_SERVER['HTTP_HOST']), 'about') ?></p>
+    <p class="server"><?php echo __('Server %%name%%', array('%%name%%' => exec('/bin/hostname')), 'about') ?></p>
   </div>
   <div class="logo-marketing">
     <?php if ( isset($firm['logo']) ) echo image_tag('/private/'.$firm['logo']) ?>
