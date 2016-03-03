@@ -23,7 +23,7 @@ all:
   about:
     name: e-venement
     contributors: [Baptiste SIMON, Bevlhay FERRAND, Ludovic SOULIÉ, Ayoub HIDRI, Mick LOEFFEL, Très Tôt Théâtre, Le 3ème étage de l'Opéra de Paris, Libre Informatique, Symfony Team, #symfony-fr, Ofis Publik Ar Brezhoneg]
-    version: 2.8.6 Elderberry Wine
+    version: 2.8.7 Elderberry Wine
   internals:
     charset:
       old:    ISO-8859-1
