@@ -60,6 +60,12 @@
       $q->andWhereIn('tck.id',$tids);
     }
     
+    // improving the speed reducing the fist set of tickets
+    if ( $request->getParameter('price_name', false) )
+      $q->andWhere('tck.price_name ILIKE ?', $request->getParameter('price_name'));
+    if ( $request->getParameter('manifestation_id', false) )
+      $q->andWhere('tck.manifestation_id = ?', $request->getParameter('manifestation_id'));
+    
     $this->transactions = $q->execute();
     $this->manifestation_id = $request->getParameter('manifestation_id');
     
@@ -75,8 +81,7 @@
     $update = array('printed_at' => array(), 'integrated_at' => array());
     
     // grouped tickets
-    if ( sfConfig::has('app_tickets_authorize_grouped_tickets')
-      && sfConfig::get('app_tickets_authorize_grouped_tickets')
+    if ( sfConfig::get('app_tickets_authorize_grouped_tickets', false)
       && $request->hasParameter('grouped_tickets') )
     {
       $fingerprint = date('YmdHis').'-'.$this->getUser()->getId();

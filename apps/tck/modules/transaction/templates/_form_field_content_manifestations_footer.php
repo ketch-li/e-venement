@@ -10,7 +10,7 @@
       autocomplete="off">
   <p>
     <input type="submit" name="s" value="<?php echo __('Print') ?>" class="ui-widget-content ui-state-default ui-corner-all ui-widget fg-button" />
-    <?php if ( sfConfig::has('app_tickets_authorize_grouped_tickets') && sfConfig::get('app_tickets_authorize_grouped_tickets') ): ?>
+    <?php if ( sfConfig::get('app_tickets_authorize_grouped_tickets', false) ): ?>
     <input type="checkbox" name="grouped_tickets" value="true" title="<?php echo __('Grouped tickets') ?>" />
     <?php endif ?>
     <?php if ( $sf_user->hasCredential('tck-print-ticket') && $sf_user->hasCredential('tck-duplicate-ticket') ): ?>
