@@ -129,6 +129,10 @@ if ( $group->Answers->count() > 0 )
   $i++;
 }
 
+// get personal parameters for extractions
+$params = OptionCsvForm::getDBOptions();
+
+// forge the options of the extraction
 $this->options = array(
  'ms'        => in_array('microsoft',$params['option']),    // microsoft-compatible extraction
  'fields'    => array_keys($this->lines['title']),
