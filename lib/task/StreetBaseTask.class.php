@@ -30,6 +30,7 @@ class StreetBaseTask  extends sfBaseTask
 {
   protected $zipCodes = array();
   protected $counter = array();
+  protected $mem = 0;
 
   protected function configure() {
     $this->addOptions(array(
@@ -89,20 +90,31 @@ class StreetBaseTask  extends sfBaseTask
     $start_datetime = date('Y-m-d H:i:s');
     $count = 0;
 
+    $form = new GeoFrStreetBaseForm();
+    $form->getValidator($form->getCSRFFieldName())->setOption('required', false);
+    $form->setValidator('id', new sfValidatorNumber(array('required' => false)));
+
     if (($handle = fopen($file, "r")) !== FALSE)
     {
       fgetcsv($handle, 0, ","); // skip first line
 
+      $csv = array();
       while (($data = fgetcsv($handle, 0, ",")) !== FALSE)
       if (!$max_iter || $count < $max_iter)
+        $csv[] = $data;
+      fclose($handle);
+
+      foreach($csv as $data)
       {
+        $loopMem = memory_get_usage();
+        $this->memDiff(1);
         // read data from CSV
         $sb = $this->parseCSVline($data, $type);
+        $this->memDiff(2);
 
         // validate data
-        $form = new GeoFrStreetBaseForm();
-        $form->getValidator($form->getCSRFFieldName())->setOption('required', false);
         $form->bind($sb);
+        $this->memDiff(3);
         if ( !$form->isValid() )
         {
           $this->counter['validation_errors']++;
@@ -112,37 +124,39 @@ class StreetBaseTask  extends sfBaseTask
         // check if record already exists in DB
         $query = Doctrine_Core::getTable('GeoFrStreetBase')
           ->createQuery('sb')
-          ->where('sb.zip = ?', $sb['zip'])
-          ->andWhere('sb.rivoli = ?', $sb['rivoli'])
-          ->andWhere('sb.num = ?', $sb['num']);
-        $old_sb = $query->fetchOne();
+          ->select('sb.id')
+          ->andWhere('sb.zip = :zip')
+          ->andWhere('sb.rivoli = :rivoli')
+          ->andWhere('sb.num = :num');
+        $id = $query->fetchOne( array(':zip'=>$sb['zip'], ':rivoli'=>$sb['rivoli'], ':num'=>$sb['num']),  Doctrine_Core::HYDRATE_NONE );
+        $query->free();
+        $this->memDiff(4);
 
         // if record exists, do an update
-        if ($old_sb) {
-          $old_sb->setAddress($sb['address']);
-          $old_sb->setLocality($sb['locality']);
-          $old_sb->setCity($sb['city']);
-          $old_sb->setIris2008($sb['iris2008']);
-          $old_sb->setLongitude($sb['longitude']);
-          $old_sb->setLatitude($sb['latitude']);
-          $old_sb->setUpdatedAt('now'); // force update even if there are no changes
-          if ( $old_sb->trySave() )
+        if ($id) {
+          $sb['id'] = $id[0];
+          //$sb['updated_at'] = date('Y-m-d H:i:s'); // force update even if there are no changes
+          $form->bind($sb);
+          $this->memDiff(5);
+        }
+        try {
+          $form->save();
+          $this->memDiff(6);
+          if ($id)
             $this->counter['updates']++;
           else
-            $this->counter['db_errors']++;
-        }
-        else { // insert new record
-          try {
-            $form->save();
             $this->counter['creations']++;
-          } catch (Exception $exc) {
-            $this->counter['db_errors']++;
-          }
+        } catch (Exception $exc) {
+          print ($exc);
+          die('toto');
+          $this->counter['db_errors']++;
         }
         //if ($count % 10 ==0) print('.');
         $count++;
+        $this->memDiff(7);
+        printf("loop mem : %d\n", memory_get_usage() - $loopMem);
+        print("\n------------\n");
       }
-      fclose($handle);
     }
     else {
       throw new sfCommandException(sprintf("Could not open CSV file: %s", $file));
@@ -153,6 +167,17 @@ class StreetBaseTask  extends sfBaseTask
 
     $this->counter['lines'] += $count;
     $this->counter['import_time'] += microtime(true) - $time_start;
+  }
+
+  protected function findRecord($zip, $rivoli, $num)
+  {
+    $query = Doctrine_Core::getTable('GeoFrStreetBase')
+      ->createQuery('sb')
+      ->andWhere('sb.zip = :zip')
+      ->andWhere('sb.rivoli = :rivoli')
+      ->andWhere('sb.num = :num');
+    $res = $query->fetchOne( array(':zip'=>$zip, ':rivoli'=>$rivoli, ':num'=>$num) );
+    $query->free();
   }
 
   /**
@@ -292,6 +317,14 @@ class StreetBaseTask  extends sfBaseTask
       'download_time' => 0,
       'import_time' => 0,
     );
+    $this->mem = 0;
+  }
+
+  protected function memDiff($msg)
+  {
+    $old_mem = $this->mem;
+    $this->mem = memory_get_usage();
+    printf("- mem %s : %+d \n", $msg, $this->mem - $old_mem);
   }
 
   /**

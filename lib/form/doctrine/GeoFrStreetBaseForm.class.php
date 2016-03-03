@@ -10,8 +10,12 @@
  */
 class GeoFrStreetBaseForm extends BaseGeoFrStreetBaseForm
 {
+  public $noTimestampableUnset = true;
+
   public function configure()
   {
+      $this->noTimestampableUnset = true;
+
 //    parent::configure();
 //    $this->validatorSchema['updated_at']->setOption('required', false);
 //    $this->validatorSchema['created_at']->setOption('required', false);

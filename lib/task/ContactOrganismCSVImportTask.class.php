@@ -53,13 +53,13 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
   protected function execute($arguments = array(), $options = array())
   {
     //throw new liEvenementException('Work still in progress... contact@libre-informatique.fr for more information.');
-    
+
     sfContext::createInstance($this->configuration, $options['env']);
     $databaseManager = new sfDatabaseManager($this->configuration);
-    
+
     if (!( $fp = fopen($arguments['input'],'r') ))
       throw new liEvenementException('Error reading the file!!');
-    
+
     // init
     $contacts  = new Doctrine_Collection('Contact');
     $organisms  = new Doctrine_Collection('Organism');
@@ -69,15 +69,14 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
     $protypes   = new Doctrine_Collection('ProfessionalType');
     foreach ( Doctrine::getTable('ProfessionalType')->createQuery('pt')->execute() as $pt )
       $protypes[$pt->id] = $pt;
-    
-    $lines = fgetcsv($fp);
+
     if ( $options['no-headers'] )
       fgetcsv($fp);
     for ( $l = 0 ; ($line = fgetcsv($fp)) ; $l++ )
     {
       $organism = $contact = NULL;
       $i = 0;
-      
+
       // there is a contact
       // if an id is given for the organism
       $contactrank = $i+1;
@@ -91,7 +90,7 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
         $contact->id = trim($line[$i-1]);
       foreach ( array('name', 'firstname', 'address', 'postalcode', 'city', 'country') as $field )
         $contact->$field = trim($line[$i++]);
-      
+
       for ( $j = 0 ; $j < 2 ; $j++ )
       {
         $pn = new ContactPhonenumber;
@@ -100,11 +99,11 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
         if ( trim($pn->number) )
           $contact->Phonenumbers[] = $pn;
       }
-      
+
       $contact->email = trim($line[$i++]);
       $contact->email_no_newsletter = trim($line[$i++]) ? true : false;
       $contact->description = trim($line[$i++]);
-      
+
       if ( trim($line[$contactrank]) )
       {
         if ( $arguments['go'] )
@@ -114,7 +113,7 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
         }
         $this->logSection('Contact', $contact.' added or updated with id #'.$contact->id);
       }
-      
+
       // there is an organism
       // if an id is given for the organism
       $orgrank = $i+1;
@@ -122,11 +121,11 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
         $organism = new Organism;
       else
         $organism = $organisms[$line[$i]];
-      
+
       if ( trim($line[$i++]) )
         $organism->id = trim($line[$i-1]);
       $organism->name = trim($line[$i++]);
-      
+
       // Organism Category
       $cat = $line[$i++];
       if ( trim($line[$i+1]) )
@@ -140,10 +139,10 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
           $orgcats[$organism->Category->id] = $organism->Category;
         }
       }
-      
+
       foreach ( array('administrative_number', 'url', 'address', 'postalcode', 'city', 'country') as $field )
         $organism->$field = trim($line[$i++]);
-      
+
       for ( $j = 0 ; $j < 2 ; $j++ )
       {
         $pn = new OrganismPhonenumber;
@@ -152,10 +151,10 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
         if ( trim($pn->number) )
           $organism->Phonenumbers[] = $pn;
       }
-      
+
       $organism->email = trim($line[$i++]);
       $organism->email_no_newsletter = trim($line[$i++]) ? true : false;
-      
+
       if ( trim($line[$orgrank]) )
       {
         if ( $arguments['go'] )
@@ -165,14 +164,14 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
         }
         $this->logSection('Organism', $organism.' added or updated with id #'.$organism->id);
       }
-      
+
       // there is a professional
       if ( trim($line[1]) && trim($line[$orgrank]) )
       {
         $pro = new Professional;
         $pro->Contact = $contact;
         $pro->Organism = $organism;
-        
+
         $type = $line[$i++];
         if ( ($key = array_search($type, $protypes->toKeyValueArray('id', 'name'))) !== false )
           $pro->ProfessionalType = $protypes[$key];
@@ -183,18 +182,18 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
           $pro->ProfessionalType->save();
           $protypes[$pro->ProfessionalType->id] = $pro->ProfessionalType;
         }
-        
+
         foreach ( array('name', 'department', 'contact_number', 'contact_email') as $field )
           $pro->$field = $line[$i++];
-        
+
         $pro->contact_email_no_newsletter = trim($line[$i++]) ? true : false;
-        
+
         if ( $arguments['go'] )
           $pro->save();
         $this->logSection('Professional', 'A position has been added for contact '.$contact.' in organism '.$organism);
       }
     }
-    
+
     fclose($fp);
     $this->logSection('Done', '... done '.(!$arguments['go'] ? 'but for fake: add the [go] parameter to do it for real' : ''));
     if ( $arguments['go'] )
