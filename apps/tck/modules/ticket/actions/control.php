@@ -223,7 +223,9 @@
       }
       else
       {
-        $this->getUser()->setFlash('error',__("Don't forget to specify a checkpoint and a ticket id"));
+        $this->success = false;
+        $this->errors[] = __("Don't forget to specify a checkpoint and a ticket id");
+        return 'Result';
       }
     }
     

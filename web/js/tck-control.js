@@ -65,7 +65,7 @@ $(document).ready(function(){
         {
           $('<ul class="errors"></ul>').appendTo(control);
           $.each(json.details.control.errors, function(i, error){
-            $('<li></li>').text(error).appendTo(control.find('.errors'));
+            $('<li></li>').html(error).appendTo(control.find('.errors'));
           });
         }
         
