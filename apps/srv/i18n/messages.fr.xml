@@ -5,6 +5,14 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Query</source>
+        <target>Question</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Updated at</source>
+        <target>Mise à jour</target>
+      </trans-unit>
+      <trans-unit>
         <source>Tickets</source>
         <target>Billets</target>
       </trans-unit>
