@@ -14,7 +14,9 @@ $(document).ready(function(){
   $('form').submit(function(){
     if ( window.location.hash == '#debug' )
     {
-      $(this).append('<input type="hidden" name="debug" value="" />')
+      $(this)
+        .prop('method', 'get')
+        .append('<input type="hidden" name="debug" value="" />')
         .prop('target', '_blank');
       $('#transition .close').click();
       return true;

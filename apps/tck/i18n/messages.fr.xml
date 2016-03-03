@@ -9,6 +9,10 @@
         <target>Code postal</target>
       </trans-unit>
       <trans-unit>
+        <source>Careful: each line needs to be saved individually...</source>
+        <target>Attention&nbsp;: les lignes doivent être enregistrées une à une.</target>
+      </trans-unit>
+      <trans-unit>
         <source>Surveys for transaction #%%id%%</source>
         <target>Questionnaires pour l'opération de vente #%%id%%</target>
       </trans-unit>
