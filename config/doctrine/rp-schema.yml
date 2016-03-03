@@ -37,7 +37,7 @@ Contact:
       fields: [firstname]
     contact_sf_guard_user_id_idx:
       fields: [sf_guard_user_id]
-      unique: true
+      type: unique
   columns:
     firstname: string(255)
     shortname: string(255)
@@ -390,7 +390,7 @@ GeoFrStreetBase:
   indexes:
     geo_fr_street_base_unique_idx:
       fields: [zip, rivoli, num]
-      unique: true
+      type: unique
   columns:
     address:
       type: string(255)
