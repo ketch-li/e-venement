@@ -226,6 +226,7 @@ Authentication:
     ip_address:  string(255)
     user_agent:  string(255)
     referer:     string(255)
+    server:      string(255)
     success:     boolean
   relations:
     User:

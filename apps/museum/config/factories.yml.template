@@ -34,6 +34,11 @@ all:
     param:
       timeout: 3600
 
+  #storage:
+  #  class: nvDoctrineSessionStorage
+  #  param:
+  #    lock_enable: false
+
   routing:
     class: sfPatternRouting
     param:
@@ -52,13 +57,13 @@ all:
       logging:           %SF_LOGGING_ENABLED%
       charset:           %SF_CHARSET%
       delivery_strategy: spool
-      delivery_address:  admin@mydomain.tld
+      delivery_address:  admin@libre-informatique.fr
       spool_class:       liSpool
       spool_arguments:   [ EmailSpool, message, getSpooledMessages ]
       transport:
         class: Swift_SmtpTransport
         param:
-          host:       smtp.mydomain.tld
+          host:       smtp.libre-informatique.fr
           port:       25
           encryption: ~
           username:   ~

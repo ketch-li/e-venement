@@ -220,6 +220,10 @@ class organismActions extends autoOrganismActions
   public function executeFilters(sfWebRequest $request)
   {
     $this->executeIndex($request);
+    
+    // optimizations
+    $ws = $this->filters->getWidgetSchema();
+    $ws['groups_list'] = $ws['not_groups_list'];
   }
   public function executeSideBar(sfWebRequest $request)
   {
@@ -347,6 +351,13 @@ class organismActions extends autoOrganismActions
   
   public function executeFilter(sfWebRequest $request)
   {
+    // remove cached data
+    Doctrine::getTable('Cache')->createQuery('c')
+      ->andWhere('c.domain = ?', 'rp-index')
+      ->andWhere('c.identifier LIKE ?', '%/sideBar?sf_guard_user_id='.$this->getUser()->getId())
+      ->delete()
+      ->execute();
+
     if ( sfConfig::get('app_options_design',false) == 'tdp' && sfConfig::get(sfConfig::get('app_options_design').'_active',false) )
     {
       $this->setFilters($this->configuration->getFilterDefaults());

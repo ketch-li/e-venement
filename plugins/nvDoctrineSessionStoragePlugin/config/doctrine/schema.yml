@@ -1,0 +1,33 @@
+nvSession:
+  options:
+    type:            InnoDB
+    character_set:   utf8
+    collate:         utf8_unicode_ci
+  columns:
+    id:
+      type:          integer
+      primary:       true
+      autoincrement: true
+    session_id:
+      type:          string(40)
+      notnull:       true
+    session_data:
+      type:          clob
+    session_time:
+      type:          timestamp
+      notnull:       true
+    is_locked:
+      type:          boolean
+      default:       false
+    lock_time:
+      type:          integer
+  indexes:
+    session_id:
+      fields:        [session_id]
+      type:          unique
+    session_time:
+      fields:        [session_time]
+    is_locked:
+      fields:        [is_locked]
+    lock_time:
+      fields:        [lock_time]

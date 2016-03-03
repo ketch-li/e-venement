@@ -6,7 +6,9 @@
     <title>e-venement, Billet</title>
     <link rel="shortcut icon" href="/images/logo-evenement.png" />
     <style><?php require(sfConfig::get('sf_web_dir').'/css/print-accounting.css') ?></style>
-    <style><?php require(sfConfig::get('sf_web_dir').'/private/print-accounting.css') ?></style>
+    <?php if ( file_exists($path = sfConfig::get('sf_web_dir').'/private/print-accounting.css') ): ?>
+    <style><?php require($path) ?></style>
+    <?php endif ?>
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/print-tickets.js"></script>
   </head>

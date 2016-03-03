@@ -29,6 +29,7 @@
   margin-top: 100px;
   margin-bottom: 30px;
 }
+.ui-widget-about .desc .server, .ui-widget-about .desc .instance { font-weight: normal; font-size: 70%; }
 .ui-widget-about .desc, .ui-widget-about .desc a { color: #5b595a; }
 .ui-widget-about.ui-widget .ui-widget-header { margin: -18px -18px 0 -18px; }
 .about-home .ui-widget-about.ui-widget .ui-widget-header { margin: -5px -5px 0 -5px; }
@@ -83,7 +84,7 @@
 
 iframe#about {
   width: 305px;
-  height: 495px;
+  height: 515px;
   cursor: default;
   position: fixed;
   overflow: hidden;

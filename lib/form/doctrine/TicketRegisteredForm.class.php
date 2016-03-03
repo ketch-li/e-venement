@@ -91,6 +91,10 @@ class TicketRegisteredForm extends TicketForm
       $this->object->value = NULL;
     }
     
+    // changing the comment
+    if ( isset($this->values['comment']) )
+      $this->object->comment = $this->values['comment'] ? $this->values['comment'] : NULL;
+    
     $this->object->contact_id = $this->values['contact_id'];
     $this->object->save();
     return $this->object;

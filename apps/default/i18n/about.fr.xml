@@ -5,6 +5,14 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Server %%name%%</source>
+        <target>Serveur %%name%%</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Instance %%name%%</source>
+        <target>Instance %%name%%</target>
+      </trans-unit>
+      <trans-unit>
         <source>Legal notices</source>
         <target>Mentions légales</target>
       </trans-unit>

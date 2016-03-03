@@ -15,6 +15,9 @@ generator:
       actions: ~
       fields:
         value: { type: mixed }
+        list_survey: { label: Survey }
+        list_transaction_id: { label: Transaction }
+        list_contact: { label: Contact }
       list:
         display: [_list_survey, _list_transaction_id, _list_contact, lang, Query, value, updated_at]
         actions:        []

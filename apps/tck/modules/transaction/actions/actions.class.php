@@ -166,8 +166,8 @@ class transactionActions extends autoTransactionActions
     if ( !$this->getUser()->hasCredential('tck-transaction-reduc') && isset($data[$id]['reduc']) )
       unset($data[$id]['reduc']);
     $this->form->bind($data[$id]);
-
-    if ( $request->hasParameter('debug') && sfConfig::get('sf_web_debug') )
+    
+    if ( $request->hasParameter('debug') && sfConfig::get('sf_web_debug', false) )
     {
       $this->debug = true;
       $this->getResponse()->setContentType('text/html');

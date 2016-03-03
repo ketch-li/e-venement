@@ -44,5 +44,11 @@
       </form>
       <?php endforeach ?>
     </div>
+    <div class="label ui-helper-clearfix">
+      <div class="help">
+        <span class="ui-icon ui-icon-help floatleft"></span>
+        <?php echo __('Careful: each line needs to be saved individually...') ?>
+      </div>
+    </div>
   </div>
 </div>
