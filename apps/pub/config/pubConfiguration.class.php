@@ -153,7 +153,7 @@ class pubConfiguration extends sfApplicationConfiguration
     $transaction = $params['transaction'];
     
     $wo = NULL;
-    $event->getSubject()->getUser()->getOriginId() && $wo = Doctrine::getTable('WebOrigin')->createQuery('wo')
+    $event->getSubject()->getOriginId() && $wo = Doctrine::getTable('WebOrigin')->createQuery('wo')
       ->andWhere('wo.transaction_id = ?', $event->getSubject()->getOriginId())
       ->fetchOne();
     
