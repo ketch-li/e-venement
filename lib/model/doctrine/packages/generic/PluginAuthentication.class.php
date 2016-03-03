@@ -12,4 +12,13 @@
  */
 abstract class PluginAuthentication extends BaseAuthentication
 {
+  public function preInsert($event)
+  {
+    parent::preInsert($event);
+    try {
+      $this->server = @exec('/bin/hostname');
+    } catch ( Exception $e ) {
+      error_log('Authentication: associating the `hostname` with the current connexion');
+    }
+  }
 }
