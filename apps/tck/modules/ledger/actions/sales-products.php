@@ -37,7 +37,7 @@
       $q->andWhere($str);
     else
       $q->leftJoin('t.Payments p')
-        ->andWhere('t.transaction_id IN (SELECT oo.transaction_id FROM Order oo) OR p.id IS NOT NULL OR '.$str);
+        ->andWhere('t.id IN (SELECT oo.transaction_id FROM Order oo) OR p.id IS NOT NULL OR '.$str);
     
     if ( !isset($criterias['tck_value_date_payment']) )
       $q->andWhere('(bp.integrated_at >= ? AND bp.integrated_at < ?)',array(
