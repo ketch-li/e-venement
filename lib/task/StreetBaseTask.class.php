@@ -31,12 +31,14 @@ class StreetBaseTask  extends sfBaseTask
   protected $zipCodes = array();
   protected $counter = array();
   protected $mem = 0;
+  protected $display_mem = false;
 
   protected function configure() {
     $this->addOptions(array(
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environement', 'dev'),
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application', 'default'),
-      new sfCommandOption('no-headers', sfCommandOption::PARAMETER_OPTIONAL),
+      new sfCommandOption('display-mem', null, sfCommandOption::PARAMETER_OPTIONAL, 'debug memory usage', false),
+      new sfCommandOption('max-iter', null, sfCommandOption::PARAMETER_OPTIONAL, 'max nb of lines to import from CSV', 0),
     ));
     $this->namespace = 'e-venement';
     $this->name = 'street-base';
@@ -52,6 +54,9 @@ class StreetBaseTask  extends sfBaseTask
     sfContext::createInstance($this->configuration, $options['env']);
     $databaseManager = new sfDatabaseManager($this->configuration);
 
+    $this->display_mem = $options['display-mem'];
+    $max_iter = $options['max-iter'];
+
     // Localities ("lieux-dits")
     $localitiesUrl = 'http://data.nantes.fr/fileadmin/data/datastore/nm/urbanisme/24440040400129_NM_NM_00090/LIEUX_DITS_NM_csv.zip';
     $localitiesFile = $this->downloadCSVFile($localitiesUrl, 'LIEUX_DITS_NM');
@@ -60,7 +65,7 @@ class StreetBaseTask  extends sfBaseTask
       return 1;
     }
     //$localitiesFile = '/tmp/LIEUX_DITS_NM/LIEUX_DITS_NM.csv';
-    $this->importCSV($localitiesFile, 'locality', 0);
+    $this->importCSV($localitiesFile, 'locality', $max_iter);
 
     // Streets
     $streetsUrl = 'http://data.nantes.fr/fileadmin/data/datastore/nm/urbanisme/24440040400129_NM_NM_00001/ADRESSES_NM_csv.zip';
@@ -70,7 +75,7 @@ class StreetBaseTask  extends sfBaseTask
       return 2;
     }
     //$streetsFile = '/tmp/ADRESSES_NM/ADRESSES_NM.csv';
-    $this->importCSV($streetsFile, 'street', 0);
+    $this->importCSV($streetsFile, 'street', $max_iter);
 
     $this->logSection('Done', '', null, 'INFO');
     print_r($this->counter);
@@ -89,35 +94,34 @@ class StreetBaseTask  extends sfBaseTask
     $time_start = microtime(true);
     $start_datetime = time() - 60;
     $count = 0;
-    
+
     $this->memDiff(0);
     $table = Doctrine::getTable('GeoFrStreetBase');
     $query = Doctrine_Query::create($table->getConnection(), 'liDoctrineQuery')
       ->from('GeoFrStreetBase sb');
     $form = new GeoFrStreetBaseForm;
 
-    //$form = new GeoFrStreetBaseForm();
-    //$form->getValidator($form->getCSRFFieldName())->setOption('required', false);
-    //$form->setValidator('id', new sfValidatorNumber(array('required' => false)));
-
     if (($handle = fopen($file, "r")) !== FALSE)
     {
       $this->memDiff(0);
       $cpt = 0;
       fgetcsv($handle, 0, ","); // skip first line
-      $memLoop = memory_get_usage();
+      $memLoop = memory_get_usage()/1024;
       while ( ($data = fgetcsv($handle, 0, ",")) !== FALSE )
+      if ( !$max_iter || $max_iter >= ($cpt + 1))
       {
         $cpt++;
         $i = 100;
-        echo "Loop #$cpt\n";
+        if ($this->display_mem)
+          echo "Loop #$cpt\n";
         $this->memDiff($i++);
         $sb = $this->parseCSVline($data, $type);
         $this->memDiff($i++);
         $this->processRecord($sb, $query, $form);
         //$table->getConnection()->commit();
         $this->memDiff($i++);
-        printf("loop mem : %d kB | %d kB\n", memory_get_usage()/1024 - $memLoop, $memLoop = memory_get_usage()/1024);
+        if ($this->display_mem)
+          printf("loop mem : %d kB | %d kB\n", memory_get_usage()/1024 - $memLoop, $memLoop = memory_get_usage()/1024);
       }
     }
     else {
@@ -127,61 +131,63 @@ class StreetBaseTask  extends sfBaseTask
     // delete records that have not been updated
     $this->deleteOldRecords($start_datetime, $type);
 
-    $this->counter['lines'] += $count;
+    $this->counter['lines'] += $cpt;
     $this->counter['import_time'] += microtime(true) - $time_start;
   }
 
   protected function processRecord($sb, $query, $form)
   {
     $i=0;
-  
-        $this->memDiff($i++);
-        
-        $query
-          ->where('sb.zip = ?', $sb['zip'])
-          ->andWhere('sb.rivoli = ?', $sb['rivoli'])
-          ->andWhere('sb.num = ?', $sb['num'])
-          ->limit(1)
-        ;
-        $this->memDiff($i++); // 1
-        $street = $query->fetchOne();
-        $this->memDiff('new '.$i++); // 2
-        $street = $street ? $street : new GeoFrStreetBase;
-        $this->memDiff('new '.$i++); // 3
-        
-        $this->memDiff('form '.$i++); // 4
-        $form->bind($sb);
-        $this->memDiff('form '.$i++);
-        
-        if ( $form->isValid() )
-        {
-          $modified = false;
-          foreach ( $sb as $key => $value )
-            $street->$key = $value;
-          $this->memDiff('match '.$i++);
-          
-          $street->save($query->getConnection());
-          $this->memDiff('save '.$i++);
-          
-          $street->free(true);
-          $this->memDiff('free '.$i++);
-        }
+
+    $this->memDiff($i++);
+
+    $query
+      ->where('sb.zip = ?', $sb['zip'])
+      ->andWhere('sb.city = ?', $sb['city'])
+      ->andWhere('sb.address = ?', $sb['address'])
+      ->limit(1)
+    ;
+    $this->memDiff($i++); // 1
+    $street = $query->fetchOne();
+    $this->memDiff('new '.$i++); // 2
+    $new = $street ? false : true;
+    $street = $street ? $street : new GeoFrStreetBase;
+    $this->memDiff('new '.$i++); // 3
+
+    $this->memDiff('form '.$i++); // 4
+    $form->bind($sb);
+    $this->memDiff('form '.$i++); // 5
+
+    if ( $form->isValid() )
+    {
+      $modified = false;
+      foreach ( $sb as $key => $value )
+        $street->$key = $value;
+      $street->updated_at = 'now';
+      $this->memDiff('match '.$i++);
+
+      if ( $street->isModified() )
+      {
+        $street->save($query->getConnection());
+        if ($new)
+          $this->counter['creations']++;
         else
-          echo "ERROR: ".$form->getErrorSchema();
-        
-        unset($street);
-        $this->memDiff('object '.$i++);
-  }
-  
-  protected function findRecord($zip, $rivoli, $num)
-  {
-    $query = Doctrine_Core::getTable('GeoFrStreetBase')
-      ->createQuery('sb')
-      ->andWhere('sb.zip = :zip')
-      ->andWhere('sb.rivoli = :rivoli')
-      ->andWhere('sb.num = :num');
-    $res = $query->fetchOne( array(':zip'=>$zip, ':rivoli'=>$rivoli, ':num'=>$num) );
-    $query->free();
+          $this->counter['updates']++;
+        $this->memDiff('save '.$i++);
+      }
+
+      $street->free(true);
+      $street = null;
+      $this->memDiff('free '.$i++);
+    }
+    else
+    {
+      echo "ERROR: ".$form->getErrorSchema()."\n";
+      $this->counter['validation_errors']++;
+    }
+
+    unset($street);
+    $this->memDiff('object '.$i++);
   }
 
   /**
@@ -326,6 +332,8 @@ class StreetBaseTask  extends sfBaseTask
 
   protected function memDiff($msg)
   {
+    if (!$this->display_mem)
+      return;
     $old_mem = $this->mem;
     $this->mem = memory_get_usage();
     printf("- mem %s : %+d kB \n", $msg, ($this->mem - $old_mem)/1024);
