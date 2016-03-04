@@ -327,23 +327,3 @@ Cache:
     content: blob
     domain: string(255)
     identifier: string(255)
-
-Domain:
-  package: generic
-  indexes:
-    domain_idx:
-      fields: [name]
-  columns:
-    sf_guard_user_id:
-      type: integer
-      notnull: true
-      unique: true
-    name:
-      type: string(255)
-      notnull: true
-  relations:
-    User:
-      class: sfGuardUser
-      foreignAlias: Domain
-      onDelete: CASCADE
-      onUpdate: CASCADE
