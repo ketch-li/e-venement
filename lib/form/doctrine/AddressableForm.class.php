@@ -23,5 +23,10 @@ class AddressableForm extends BaseAddressableForm
       if ( isset($this->widgetSchema[$option->value]) )
         $this->validatorSchema[$option->value]->setOption('required', true);
     }
+    
+    $this->validatorSchema['address'] = new liValidatorDoctrineGeoFrStreetBase(array(
+      'form'      => $this,
+      'required' => $this->validatorSchema['address']->getOption('required'),
+    ));
   }
 }

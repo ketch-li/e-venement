@@ -48,6 +48,7 @@ body #content { width: auto; }
 #tdp-content #sf_admin_content .tdp-line.city input { padding-top: 3px; padding-bottom: 3px; }
 #tdp-content .tdp-organism #sf_admin_content .tdp-widget-header input { width: 75%; }
 #tdp-content #sf_admin_content .tdp-line.address label { display: inline-block; width: 100px; }
+#tdp-content #sf_admin_content .tdp-line.address .tdp-address { display: block; width: 285px; }
 #tdp-content #sf_admin_content .tdp-line.address .tdp-address label { display: none; }
 #tdp-content #sf_admin_content .tdp-line.address textarea { display: block; margin: 0 70px 0 0; width: 265px; height: 75px; }
 #tdp-content #sf_admin_content .tdp-line.address select { position: absolute; margin-top: -4em; width: 279px; }
