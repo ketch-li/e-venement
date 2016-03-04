@@ -34,7 +34,7 @@ Group:
       fields: [display_everywhere]
     group_name_user_idx:
       fields: [name, sf_guard_user_id]
-      type_idx: unique
+      type: unique
   columns:
     name:
       type: string(255)

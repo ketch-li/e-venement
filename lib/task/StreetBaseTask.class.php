@@ -55,7 +55,7 @@ class StreetBaseTask  extends sfBaseTask
     $databaseManager = new sfDatabaseManager($this->configuration);
 
     $this->display_mem = $options['display-mem'];
-    $max_iter = $options['max-iter']
+    $max_iter = $options['max-iter'];
 
     // Localities ("lieux-dits")
     $localitiesUrl = 'http://data.nantes.fr/fileadmin/data/datastore/nm/urbanisme/24440040400129_NM_NM_00090/LIEUX_DITS_NM_csv.zip';
@@ -92,7 +92,8 @@ class StreetBaseTask  extends sfBaseTask
   {
     $this->logSection('Updating DB from CSV', $file, null, 'INFO');
     $time_start = microtime(true);
-    $start_datetime = date('Y-m-d H:i:s');
+    $start_datetime = time() - 60;
+    $count = 0;
 
     $this->memDiff(0);
     $table = Doctrine::getTable('GeoFrStreetBase');
@@ -341,15 +342,15 @@ class StreetBaseTask  extends sfBaseTask
   /**
    * Delete all records that have not been updated after a given date
    *
-   * @param string $date      yyyy-mm-dd hh:mm:ss formated datetime
+   * @param integer $time     EPOCH integer
    * @param string $type      "locality" or "street"
    */
-  protected function deleteOldRecords($date, $type)
+  protected function deleteOldRecords($time, $type)
   {
     $query = Doctrine_Core::getTable('GeoFrStreetBase')
       ->createQuery('sb')
       ->where('sb.locality = ?', $type == 'locality')
-      ->andWhere('sb.updated_at < ?', $date);
+      ->andWhere('sb.updated_at < ?', date('Y-m-d H:i:s', $time));
 
     //echo $query->delete()->getSqlQuery() . "\n";
     $nb_deleted = $query->delete()->execute();
