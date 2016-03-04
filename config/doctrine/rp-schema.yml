@@ -391,6 +391,12 @@ GeoFrStreetBase:
     geo_fr_street_base_unique_idx:
       fields: [zip, rivoli, num]
       type: unique
+    geo_fr_street_base_address_idx:
+      fields: [address]
+    geo_fr_street_base_zip_idx:
+      fields: [zip]
+    geo_fr_street_base_city_idx:
+      fields: [city]
   columns:
     address:
       type: string(255)
