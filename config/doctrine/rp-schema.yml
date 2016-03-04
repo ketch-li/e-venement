@@ -389,12 +389,13 @@ GeoFrStreetBase:
     Timestampable: ~
   indexes:
     geo_fr_street_base_unique_idx:
-      fields: [zip, rivoli, num]
+      fields: [zip, city, address]
       unique: true
   columns:
     address:
       type: string(255)
       notnull: true
+      notblank: true
     locality:
       type: boolean
       notnull: true
@@ -404,9 +405,11 @@ GeoFrStreetBase:
     city:
       type: string(255)
       notnull: true
+      notblank: true
     zip:
       type: string(7)
       notnull: true
+      notblank: true
     rivoli:
       type: string(4)
     iris2008:

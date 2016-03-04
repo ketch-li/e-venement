@@ -14,7 +14,7 @@ class GeoFrStreetBaseForm extends BaseGeoFrStreetBaseForm
   {
     $this->disableCSRFProtection();
   }
-  
+
   public function setup()
   {
     $this->setValidators(array(
@@ -35,7 +35,7 @@ class GeoFrStreetBaseForm extends BaseGeoFrStreetBaseForm
 
     $this->setupInheritance();
   }
-  
+
   public function changeObject($object)
   {
     $class = $this->getModelName();
