@@ -87,7 +87,7 @@ class StreetBaseTask  extends sfBaseTask
   {
     $this->logSection('Updating DB from CSV', $file, null, 'INFO');
     $time_start = microtime(true);
-    $start_datetime = date('Y-m-d H:i:s');
+    $start_datetime = time() - 60;
     $count = 0;
     
     $this->memDiff(0);
@@ -160,12 +160,8 @@ class StreetBaseTask  extends sfBaseTask
             $street->$key = $value;
           $this->memDiff('match '.$i++);
           
-          if ( $street->isModified() )
-          {
-            $street->save($query->getConnection());
-            echo $street."\n";
-            $this->memDiff('save '.$i++);
-          }
+          $street->save($query->getConnection());
+          $this->memDiff('save '.$i++);
           
           $street->free(true);
           $this->memDiff('free '.$i++);
@@ -338,15 +334,15 @@ class StreetBaseTask  extends sfBaseTask
   /**
    * Delete all records that have not been updated after a given date
    *
-   * @param string $date      yyyy-mm-dd hh:mm:ss formated datetime
+   * @param integer $time     EPOCH integer
    * @param string $type      "locality" or "street"
    */
-  protected function deleteOldRecords($date, $type)
+  protected function deleteOldRecords($time, $type)
   {
     $query = Doctrine_Core::getTable('GeoFrStreetBase')
       ->createQuery('sb')
       ->where('sb.locality = ?', $type == 'locality')
-      ->andWhere('sb.updated_at < ?', $date);
+      ->andWhere('sb.updated_at < ?', date('Y-m-d H:i:s', $time));
 
     //echo $query->delete()->getSqlQuery() . "\n";
     $nb_deleted = $query->delete()->execute();

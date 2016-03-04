@@ -323,7 +323,7 @@ Cache:
   indexes:
     cache_domain_identifier_idx:
       fields: [domain, identifier]
-      unique: true
+      type: unique
   columns:
     content: blob
     domain: string(255)
