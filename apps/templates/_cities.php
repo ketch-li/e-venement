@@ -34,19 +34,16 @@
                 $(elt).removeClass('waiting-wheel');
               },
               success: function(json){
-                console.error('here', json);
                 $('.sf_admin_form_field_cities select').html('');
                 $.each(json, function(key, val) {
                   $('.sf_admin_form_field_cities select')
                     .append('<option value="'+key+'">'+val+'</option>')
                     .find('option:first-child').attr('selected',true);
                 });
-                console.error('there');
                 $('.sf_admin_form_field_cities select option').click(function(){
                   $('.sf_admin_form_field_postalcode input, .tdp-postalcode input').val($(this).val().replace(/.+ %%(\d+)%%$/,'$1'));
                   $('.sf_admin_form_field_city input, .tdp-city input').val($(this).val().replace(/ %%\d+%%$/,''));
                 });
-                console.error('over');
               }
             });
           },300));
