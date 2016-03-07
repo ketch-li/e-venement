@@ -56,4 +56,10 @@ class GeoFrStreetBaseForm extends BaseGeoFrStreetBaseForm
 
     $this->updateDefaultsFromObject();
   }
+
+  public static function sanitizeSearch($str)
+  {
+    $charset = sfConfig::get('software_internals_charset');
+    return preg_replace('/\s+/',' ',trim(iconv($charset['db'],$charset['ascii'],$str)));
+  }
 }

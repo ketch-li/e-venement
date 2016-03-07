@@ -59,8 +59,22 @@ class eventActions extends autoEventActions
       {
         $manifestation = new Manifestation;
         $manifestation->event_id = $ics['event_id'];
-        $manifestation->happens_at = implode('-', $vevent->dtstart['value']).' 0:00';
-        $manifestation->ends_at = implode('-', $vevent->dtend['value']).' 0:00';
+        $manifestation->happens_at = sprintf('%s-%s-%s %s:%s:%s',
+          $vevent->dtstart['value']['year'],
+          $vevent->dtstart['value']['month'],
+          $vevent->dtstart['value']['day'],
+          $vevent->dtstart['value']['hour'] ? $vevent->dtstart['value']['hour'] : '00',
+          $vevent->dtstart['value']['min']  ? $vevent->dtstart['value']['min']  : '00',
+          $vevent->dtstart['value']['sec']  ? $vevent->dtstart['value']['sec']  : '00'
+        );
+        $manifestation->ends_at = sprintf('%s-%s-%s %s:%s:%s',
+          $vevent->dtend['value']['year'],
+          $vevent->dtend['value']['month'],
+          $vevent->dtend['value']['day'],
+          $vevent->dtend['value']['hour'] ? $vevent->dtend['value']['hour'] : '00',
+          $vevent->dtend['value']['min']  ? $vevent->dtend['value']['min']  : '00',
+          $vevent->dtend['value']['sec']  ? $vevent->dtend['value']['sec']  : '00'
+        );
         $manifestation->location_id = $this->importForm->getValue('location_id');
         $manifestation->vat_id = $vat->id;
         
