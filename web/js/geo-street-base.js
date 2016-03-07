@@ -22,7 +22,7 @@ $(document).ready(function(){
         return;
       if ( (city = $.trim($('.sf_admin_form_field_city input').val())).length < 3 )
         return;
-      if ( (address = $.trim($('.sf_admin_form_field_address textarea').val())).length < 5 )
+      if ( (address = $.trim($('.sf_admin_form_field_address textarea').val())).replace("\n", '').length < 5 )
         return;
       
       $(elt).addClass('waiting-wheel');
@@ -52,7 +52,16 @@ $(document).ready(function(){
           var addresses = $('<select></select>').addClass('addresses').prop('size', 3)
             .appendTo($(elt).closest('.tdp-address'))
             .change(function(){
-              $(this).closest('.tdp-address').find('textarea').val($(this).val());
+              var newAddr = $(this).val();
+              $(this).closest('.tdp-address').find('textarea').each(function(){
+                var lines = $(this).val().split("\n");
+                console.error(lines);
+                lines.pop();
+                console.error(lines);
+                lines.push(newAddr);
+                console.error(lines);
+                $(this).val(lines.join("\n"));
+              });
               $(this).remove();
             });
           while ( (address = json.shift()) )
