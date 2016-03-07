@@ -21,10 +21,7 @@ if [ "`echo $CONN | cut -d : -f 1`" = 'pgsql' ]; then
 fi
 
 # host
-export PGHOST=''
-if [ ! "`echo $CONN | cut -d : -f 2`" = 'localhost' ]; then
-  PGHOST=`echo $CONN | cut -d : -f 2`
-fi
+export PGHOST=`echo $CONN | cut -d : -f 2`
 
 # db
 export PGDATABASE=`echo $CONN | cut -d : -f 3`
