@@ -35,7 +35,7 @@ class StreetBaseTask  extends sfBaseTask
 
   protected function configure() {
     $this->addOptions(array(
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environement', 'dev'),
+      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environement', 'task'),
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application', 'default'),
       new sfCommandOption('display-mem', null, sfCommandOption::PARAMETER_OPTIONAL, 'debug memory usage', false),
       new sfCommandOption('max-iter', null, sfCommandOption::PARAMETER_OPTIONAL, 'max nb of lines to import from CSV', 0),
@@ -53,6 +53,8 @@ class StreetBaseTask  extends sfBaseTask
   {
     sfContext::createInstance($this->configuration, $options['env']);
     $databaseManager = new sfDatabaseManager($this->configuration);
+
+    sfConfig::set('sf_debug', false);
 
     $this->display_mem = $options['display-mem'];
     $max_iter = $options['max-iter'];
