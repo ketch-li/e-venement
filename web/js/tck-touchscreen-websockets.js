@@ -66,34 +66,27 @@ $(document).ready(function(){
                                 return;
                             }
 
-                            // sends data to the printer through the connector
+                            // sends data to the printer through the connector then reads the printer answer
                             connector.log('info', 'Sending data...');
                             connector.log('info', data);
                             var device = { type: 'usb', params: myDevice };
+
                             connector.sendData(device, data)
-                            .then(
-                                function(res){
-                                    connector.log('info', 'Data sent!');
-                                    connector.readData(device).then(
-                                      function(res){
-                                        connector.log('info', res);
-                                        if ( res !== undefined ) {
-                                          var BS = new BocaStatus();
-                                          connector.log('info', 'BocaStutus.getStatuses():', BS.getStatuses(atob(res)));
-                                          LI.alert(BS.getStatuses(atob(res)));
-                                        }
-                                      },
-                                      function(err){
-                                        connector.log('error', 'connector.readData()', err);
-                                        LI.alert(err, 'error');
-                                      }
-                                    )
-                                },
-                                function(err){
-                                    connector.log('error', 'Data not sent!', err);
-                                    LI.alert(err, 'error');
+                            .then(connector.readData(device))
+                            .then(function(res){
+                                connector.log('info', res);
+                                if ( res !== undefined ) {
+                                  var BS = new BocaStatus();
+                                  if ( BS.isBoca(myDevice) ) {
+                                      connector.log('info', 'BocaStutus.getStatuses():', BS.getStatuses(atob(res)));
+                                      LI.alert(BS.getStatuses(atob(res)));
+                                  }
                                 }
-                            );
+                            })
+                            .catch(function(err){
+                                connector.log('error', 'sendData / readData error', err);
+                                LI.alert(err, 'error');
+                            });
                         }
                     });
 
@@ -112,5 +105,6 @@ $(document).ready(function(){
           $('#li_transaction_museum .print').prop('title', null);
         };
     });
+
 });
 

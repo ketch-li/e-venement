@@ -56,7 +56,7 @@ BocaStatus = function(){
   };
 
   this.getStatus = function(code) {
-    return ( this.statusCodes[code] != undefined ) ? this.statusCodes[code] : false;
+    return ( this.statusCodes[code] !== undefined ) ? this.statusCodes[code] : false;
   };
 
   this.getStatuses = function(codes) {
@@ -68,6 +68,10 @@ BocaStatus = function(){
         statuses.push(status);
     }
     return statuses;
+  };
+
+  this.isBoca = function(device) {
+    return device.vid == 2627 && device.pid == 514;
   };
 
 };
