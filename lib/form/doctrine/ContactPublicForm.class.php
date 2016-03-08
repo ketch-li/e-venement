@@ -46,7 +46,7 @@ class ContactPublicForm extends ContactForm
     if ( sfConfig::get('app_contact_newsletter', true) )
     {
       $this->widgetSchema   ['newsletter']      = new sfWidgetFormInputCheckbox(array(
-        'default' => !$this->object->isNew() && $this->object->email_no_newsletter ? false : true,
+        'default' => !$this->object->isNew() && !$this->object->email_no_newsletter ? true : false,
         'value_attribute_value' => 'yes',
         'label' => 'I agree to receive e-mail newsletters',
       ));
