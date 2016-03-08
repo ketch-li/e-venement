@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Payment by other means</source>
+        <target>Paiement par d'autres moyens</target>
+      </trans-unit>
+      <trans-unit>
         <source>Resume contacts</source>
         <target>Reprendre des contacts</target>
       </trans-unit>
