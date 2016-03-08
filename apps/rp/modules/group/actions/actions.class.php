@@ -127,6 +127,28 @@ class groupActions extends autoGroupActions
           $mc->save();
           $cpt++;
         }
+        
+        $pros = new Doctrine_Collection('Professional');
+        $pros->merge($this->group->Professionals);
+        foreach ( $this->group->Organisms as $org ) // taking into account also the prefered professionals of organisms
+        if ( $org->professional_id )
+          $pros[] = $org->CloseContact;
+        // pro by pro, including issued from organisms members
+        foreach ( $pros as $pro )
+        if ( !in_array($pro->contact_id, $cids) )
+        {
+          $cids[] = $pro->contact_id;
+          $mc = new MemberCard;
+          $mc->expire_at = sfConfig::has('project_cards_expiration_delay')
+            ? date('Y-m-d H:i:s',strtotime(sfConfig::get('project_cards_expiration_delay'),strtotime($params['created_at'])))
+            : (strtotime(date('Y').'-'.sfConfig::get('project_cards_expiration_date')) > strtotime('now')
+            ? date('Y').'-'.sfConfig::get('project_cards_expiration_date')
+            : (date('Y')+1).'-'.sfConfig::get('project_cards_expiration_date'));
+          $mc->MemberCardType = $mct;
+          $mc->contact_id = $pro->contact_id;
+          $mc->save();
+          $cpt++;
+        }
       }
       
       $this->getUser()->setFlash('notice', format_number_choice('[0,1]%%cpt%% member card has been created|(1,+Inf]%%cpt%% member cards have been created', array('%%cpt%%' => $cpt), $cpt));
