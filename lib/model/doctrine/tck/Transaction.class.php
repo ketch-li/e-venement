@@ -386,9 +386,10 @@ class Transaction extends PluginTransaction
   public function getDirectContacts()
   {
     $contacts = array();
+    $contacts[$this->contact_id] = $this->Contact;
     foreach ( $this->Tickets as $ticket )
-    if ( $ticket->contact_id )
-        $contacts[] = $ticket->DirectContact;
+    if ( $ticket->contact_id && !isset($contacts[$ticket->contact_id]) )
+        $contacts[$ticket->contact_id] = $ticket->DirectContact;
     return $contacts;
   }
 }
