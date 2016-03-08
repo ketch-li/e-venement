@@ -42,6 +42,7 @@
           <?php endif ?>
           <?php include_partial('global/menu_setup_groups') ?>
           <?php include_partial('global/menu_setup_mc') ?>
+          <?php include_partial('global/menu_setup_surveys') ?>
           <?php include_partial('global/menu_setup_online') ?>
           <?php include_partial('global/menu_extra', array('name' => 'setup')) ?>
         </ul>
