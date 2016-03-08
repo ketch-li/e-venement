@@ -149,6 +149,7 @@ ul.no-bullet li.highlight { text-decoration: underline; }
 #details a:hover { text-decoration: underline; }
 
 #transaction-content { padding-top: 1px; float: left; }
+#transaction-content .contacts { display: none; }
 
 #payments table {
 	margin-left: 25px;
