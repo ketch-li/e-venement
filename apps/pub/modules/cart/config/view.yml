@@ -1,2 +1,4 @@
 widgetSuccess:
   layout: nude
+orderSuccess:
+  stylesheets: [pub-payments?<?php echo date('Ymd') ?>]

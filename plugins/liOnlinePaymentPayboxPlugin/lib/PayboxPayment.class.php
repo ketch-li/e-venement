@@ -42,7 +42,9 @@
       $this->createBankPayment($request)->save();
       
       // renewing the paybox's key cache
-      $pem = sfConfig::get('app_payment_pem',array());
+      $pem = in_array(PayboxPayment::name, $payments = sfConfig::get('app_payments_list', array()))
+        ? $payments[PayboxPayment::name]['pem']
+        : $pem = sfConfig::get('app_payment_pem',array());
       if ( !isset($pem['local'] ) ) $pem['local']  = 'paybox.pem';
       if ( !isset($pem['remote']) ) $pem['remote'] = 'http://www1.paybox.com/telechargements/pubkey.pem';
       if ( !file_exists($path = sfConfig::get('sf_module_cache_dir').'/paybox/') )
@@ -113,7 +115,7 @@
       foreach ( $this->getPayboxVars() as $name => $value )
         $r .= "\n".'<input type="hidden" name="'.$name.'" value="'.$value.'" />';
       
-      $r .= '<input type="submit" value="Paybox" />';
+      $r .= '<input type="image" value="Paybox" src="https://preprod-tpeweb.paybox.com/favicon.ico" /><a href="#" onclick="javascript: console.error(this); $(this).closest(\'form\').submit(); return false;">aybox</a>';
       $r .= '</form>';
       
       return $r;
@@ -123,7 +125,7 @@
     {
       try {
         return $this->render(array(
-          'class' => sfConfig::get('app_payment_autosubmit',true) ? 'autosubmit' : '',
+          'class' => $this->autosubmit ? 'autosubmit' : '',
           'id' => 'payment-form'
         ));
       }
