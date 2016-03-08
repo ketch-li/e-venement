@@ -49,6 +49,13 @@
 </div>
 <?php else: ?>
   
+  <?php if ( sfConfig::get('app_options_synthetic_plans', false) ): ?>
+    <?php use_stylesheet('pub-manifestation-synthetic?'.date('Ymd')) ?>
+    <?php use_javascript('pub-manifestation-synthetic?'.date('Ymd')) ?>
+    <div id="tickets">
+      <?php include_partial('show_named_tickets', array('manifestation' => $manifestation)) ?>
+    </div>
+  <?php endif ?>
   <?php include_partial('show_gauges', array('gauges' => $gauges, 'manifestation' => $manifestation, 'form' => $form, 'mcp' => $mcp, )) ?>
   <?php include_partial('show_footer', array('manifestation' => $manifestation)) ?>
   <?php include_partial('show_ease') ?>
