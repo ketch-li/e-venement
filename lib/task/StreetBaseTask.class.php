@@ -31,14 +31,17 @@ class StreetBaseTask  extends sfBaseTask
   protected $zipCodes = array();
   protected $counter = array();
   protected $mem = 0;
-  protected $display_mem = false;
+  protected $verbosity = 0;
+  protected $sendEmail = 0;
+  protected $emailContent = "";
 
   protected function configure() {
     $this->addOptions(array(
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environement', 'task'),
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application', 'default'),
-      new sfCommandOption('display-mem', null, sfCommandOption::PARAMETER_OPTIONAL, 'debug memory usage', false),
-      new sfCommandOption('max-iter', null, sfCommandOption::PARAMETER_OPTIONAL, 'max nb of lines to import from CSV', 0),
+      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application', 'rp'),
+      new sfCommandOption('verbosity', null, sfCommandOption::PARAMETER_OPTIONAL, '0: nothing / 1: summary at end of task / 2: summary + memory usage', 0),
+      new sfCommandOption('email', null, sfCommandOption::PARAMETER_OPTIONAL, '0: no emails / 1: email on failure / 2: email on success or failure', 0),
+      new sfCommandOption('max-iter', null, sfCommandOption::PARAMETER_OPTIONAL, 'max nb of lines to import from each CSV file (0 = no limit)', 0),
     ));
     $this->namespace = 'e-venement';
     $this->name = 'street-base';
@@ -46,6 +49,7 @@ class StreetBaseTask  extends sfBaseTask
     $this->detailedDescription = 'Fetches data to update the Street Base';
 
     $this->resetCounters();
+    $this->emailContent = "";
     $this->zipCodes = $this->loadZipCodes();
   }
 
@@ -56,31 +60,41 @@ class StreetBaseTask  extends sfBaseTask
 
     sfConfig::set('sf_debug', false);
 
-    $this->display_mem = $options['display-mem'];
+    $this->verbosity = (int)$options['verbosity'];
+    $this->sendEmail = (int)$options['email'];
     $max_iter = $options['max-iter'];
 
     // Localities ("lieux-dits")
     $localitiesUrl = 'http://data.nantes.fr/fileadmin/data/datastore/nm/urbanisme/24440040400129_NM_NM_00090/LIEUX_DITS_NM_csv.zip';
     $localitiesFile = $this->downloadCSVFile($localitiesUrl, 'LIEUX_DITS_NM');
     if (! $localitiesFile ) {
-      $this->logBlock('Failed downloading and extracting '.$localitiesUrl, 'ERROR');
+      $this->logError('Failed downloading and extracting '.$localitiesUrl);
+      $this->emailContent .= "ERROR : Failed downloading and extracting $localitiesUrl \n";
+      $this->sendEmail('error');
       return 1;
     }
-    //$localitiesFile = '/tmp/LIEUX_DITS_NM/LIEUX_DITS_NM.csv';
+//    $localitiesFile = '/tmp/LIEUX_DITS_NM/LIEUX_DITS_NM.csv';
     $this->importCSV($localitiesFile, 'locality', $max_iter);
 
     // Streets
     $streetsUrl = 'http://data.nantes.fr/fileadmin/data/datastore/nm/urbanisme/24440040400129_NM_NM_00001/ADRESSES_NM_csv.zip';
     $streetsFile = $this->downloadCSVFile($streetsUrl, 'ADRESSES_NM');
     if (! $streetsFile ) {
-      $this->logBlock('Failed downloading and extracting '.$streetsUrl, 'ERROR');
+      $this->logError('Failed downloading and extracting '.$streetsUrl);
+      $this->emailContent .= "ERROR : Failed downloading and extracting $streetsUrl \n";
+      $this->sendEmail('error');
       return 2;
     }
-    //$streetsFile = '/tmp/ADRESSES_NM/ADRESSES_NM.csv';
+//    $streetsFile = '/tmp/ADRESSES_NM/ADRESSES_NM.csv';
     $this->importCSV($streetsFile, 'street', $max_iter);
 
-    $this->logSection('Done', '', null, 'INFO');
-    print_r($this->counter);
+    $this->logInfo('Done', '');
+
+    if ($this->verbosity > 0)
+      print_r($this->counter);
+
+    $this->emailContent .= print_r($this->counter, 1) . "\n";
+    $this->sendEmail('success');
 
     return 0;
   }
@@ -92,7 +106,7 @@ class StreetBaseTask  extends sfBaseTask
    */
   protected function importCSV($file, $type, $max_iter = null)
   {
-    $this->logSection('Updating DB from CSV', $file, null, 'INFO');
+    $this->logInfo('Updating DB from CSV', $file);
     $time_start = microtime(true);
     $start_datetime = time() - 60;
     $count = 0;
@@ -114,7 +128,7 @@ class StreetBaseTask  extends sfBaseTask
       {
         $cpt++;
         $i = 100;
-        if ($this->display_mem)
+        if ($this->verbosity > 1)
           echo "Loop #$cpt\n";
         $this->memDiff($i++);
         $sb = $this->parseCSVline($data, $type);
@@ -122,7 +136,7 @@ class StreetBaseTask  extends sfBaseTask
         $this->processRecord($sb, $query, $form);
         //$table->getConnection()->commit();
         $this->memDiff($i++);
-        if ($this->display_mem)
+        if ($this->verbosity > 1)
           printf("loop mem : %d kB | %d kB\n", memory_get_usage()/1024 - $memLoop, $memLoop = memory_get_usage()/1024);
       }
     }
@@ -241,7 +255,7 @@ class StreetBaseTask  extends sfBaseTask
    */
   protected function downloadCSVFile($url, $prefix)
   {
-    $this->logSection('Downloading', $url, $this->strlen($url), 'INFO');
+    $this->logInfo('Downloading', $url);
     $time_start = microtime(true);
 
     set_time_limit(0); //prevent timeout
@@ -284,6 +298,10 @@ class StreetBaseTask  extends sfBaseTask
     return $files ? $files[0] : false;
   }
 
+  /**
+   * @todo THIS IS WRONG (a city can have many zip codes)
+   * @return array
+   */
   protected function loadZipCodes() {
     return array(
       "NANTES" => "44000",
@@ -334,11 +352,11 @@ class StreetBaseTask  extends sfBaseTask
 
   protected function memDiff($msg)
   {
-    if (!$this->display_mem)
-      return;
-    $old_mem = $this->mem;
-    $this->mem = memory_get_usage();
-    printf("- mem %s : %+d kB \n", $msg, ($this->mem - $old_mem)/1024);
+    if ($this->verbosity > 1) {
+      $old_mem = $this->mem;
+      $this->mem = memory_get_usage();
+      printf("- mem %s : %+d kB \n", $msg, ($this->mem - $old_mem)/1024);
+    }
   }
 
   /**
@@ -358,6 +376,59 @@ class StreetBaseTask  extends sfBaseTask
     $nb_deleted = $query->delete()->execute();
     $this->counter['deletions'] += $nb_deleted;
     return $nb_deleted;
+  }
+
+  protected function logInfo($section, $msg) {
+    $this->logSection($section, $msg, null, 'INFO');
+    $this->emailContent .= "$section :\n\t$msg\n\n";
+  }
+
+  protected function logError($msg) {
+    $this->logBlock($msg, 'ERROR');
+    $this->emailContent .= "ERROR :\n\t$msg\n\n";
+  }
+
+  /**
+   * @param string $type    'success' or 'failure'
+   */
+  protected function sendEmail($type)
+  {
+    $subject = "[e-venement] ";
+    $client = sfConfig::get('project_about_client');
+    $clientName = $client && isset($client['name']) ? $client['name'] : 'no name Client';
+
+    switch($type) {
+      case 'failure':
+        if ($this->sendEmail < 1)
+          return;
+        $subject .= "StreetBaseTask ERROR report for $clientName";
+        break;
+      case 'success':
+        if ($this->sendEmail < 2)
+          return;
+        $subject .= "StreetBaseTask report for $clientName";
+        break;
+    }
+
+    $firm = sfConfig::get('project_about_firm');
+    $recipient = $firm && isset($firm['email']) ? $firm['email'] : null;
+    if ( !$recipient ) {
+      $this->logError('Could not send email (no recipient)');
+      return;
+    }
+
+    $this->logSection('Sending email report', "to: $recipient", null, 'INFO');
+    $this->logSection('Sending email report', "subject: $subject", null, 'INFO');
+
+    $email = new Email;
+    $email->isATest(false);
+    $email->setNoSpool(true);
+    $email->field_subject = $subject;
+    $email->to = $recipient;
+    $email->field_from = $recipient;
+    $email->content = str_replace("\n", "<br>", $this->emailContent);
+    $email->content_text = $this->emailContent;
+    $email->save();
   }
 
 }
