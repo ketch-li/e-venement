@@ -46,7 +46,12 @@ ul.no-bullet li.highlight { text-decoration: underline; }
 .mod-cart.action-order #login h2, .mod-cart.action-register #login h2, #contact-form h2 { margin: 0; }
 .mod-cart.action-order #login p, .mod-cart.action-register #login p, #contact-form .field { background-color: white; padding: 1px 3px; border-radius: 3px; clear: both; }
 .mod-cart.action-order #login p input, .mod-cart.action-register #login p input, #contact-form .field input:not([type=checkbox]),
+#contact-form .field select,
 .mod-cart.action-order #login p textarea, .mod-cart.action-register #login p textarea, #contact-form .field textarea { border: 1px solid black; border-radius: 3px; background-color: whitesmoke; width: 30em; }
+#contact-form .field.address select { border-radius: 5px; border-width: 1px; border-color: black; height: 5em; margin-left: 5px; width: 20em; }
+#contact-form .field.address textarea { transition: width 0.5s; }
+#contact-form .field.address.autocompleting textarea { width: 20em; }
+
 .mod-cart.action-order #login label, .mod-cart.action-register #login label, #contact-form .field label { width: 140px; display: block; float: left; margin-top: 3px; font-weight: bold; }
 .mod-cart.action-order #login .submit, .mod-cart.action-register #login .submit, #contact-form .submit { margin-left: 142px; }
 .mod-cart.action-order #login .create, .mod-cart.action-register #login .create { display: none; }
@@ -452,3 +457,5 @@ tfoot, thead { font-weight: bold; }
 .mod-event.action-index #promo-code { margin-top: 0; margin-bottom: 0; text-align: left; }
 .mod-manifestation #promo-code { position: static; margin-top: 0; margin-left: 2em; text-align: left; }
 }
+
+#content .waiting-wheel { background: transparent url('../sfFormExtraPlugin/images/indicator.gif') no-repeat scroll calc(100% - 3px) 3px; }

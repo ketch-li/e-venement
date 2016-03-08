@@ -1,4 +1,0 @@
-all:
-  credentials: super-admin
-ajax:
-  credentials: [[pr-contact, pr-organism]]

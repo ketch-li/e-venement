@@ -60,10 +60,11 @@ class liValidatorDoctrineGeoFrStreetBase extends sfValidatorString
       ->andWhere('LOWER(sb.zip)     = ?', $postalcode)
       ->select('id');
     if ( $q->count() == 0 )
-    {
-      echo $q->getRawSql();
       return $value;
-    }
+    
+    $tmp  = explode("\n", $address);
+    $address = array_pop($tmp);
+    $personaladdr = implode("\n", $tmp);
     
     // if an address can match, it must match!!
     $q = Doctrine::getTable('GeoFrStreetBase')->createQuery('sb')
@@ -73,7 +74,7 @@ class liValidatorDoctrineGeoFrStreetBase extends sfValidatorString
       ->limit(1)
     ;
     if ( $sb = $q->fetchOne() )
-      return $sb->address;
+      return $personaladdr."\n".$sb->address;
     
     // no luck...
     throw new sfValidatorError($this, 'invalid', array('value' => $value));

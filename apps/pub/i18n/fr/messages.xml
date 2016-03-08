@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Invalid.</source>
+        <target>Invalide</target>
+      </trans-unit>
+      <trans-unit>
         <source>Resume contacts</source>
         <target>Reprendre des contacts</target>
       </trans-unit>

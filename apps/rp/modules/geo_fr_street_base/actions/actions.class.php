@@ -29,12 +29,13 @@ class geo_fr_street_baseActions extends autoGeo_fr_street_baseActions
     
     $this->addresses = array();
     
-    $address  = explode(' ',$addr = $this->sanitizeSearch($request->getParameter('address')));
+    $addr = explode("\n",$this->sanitizeSearch($request->getParameter('address')));
+    $address  = explode(' ',$addr[count($addr)-1]);
     $city    = strtoupper(str_replace(array(' '), array('-'), $this->sanitizeSearch($request->getParameter('city'))));
-    $cityst  = str_replace(array('STE-', 'ST-'), array('SAINTE-', 'SAINT-'), $city);
+    $cityst  = str_replace(array('STE-', 'ST-'), array('SAINTE-', 'SAINT-'), $city); // a french specificity
     $zip  = preg_replace('/\s+/','',$this->sanitizeSearch($request->getParameter('zip')));
     
-    if ( !$zip || !$city || mb_strlen($addr) < 5 )
+    if ( !$zip || !$city || mb_strlen(implode('', $addr)) < 5 )
       return 'Success';
     
     $q = Doctrine::getTable('GeoFrStreetBase')->createQuery('sb')
