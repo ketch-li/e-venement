@@ -382,16 +382,25 @@ class myUser extends pubUser
   
   public function resetTransaction()
   {
-    $contact = false;
+    $professional_id = $contact = false;
     if ( $this->getAttribute('transaction_id',false) && $this->hasContact() )
+    {
       $contact = $this->getContact();
+      if ( sfConfig::get('app_contact_professional', false) )
+        $professional_id = $this->getTransaction()->professional_id;
+    }
     
     $this->setOriginId();
     $this->getAttributeHolder()->remove('transaction_id');
     $this->transaction = NULL;
     $this->getTransaction();
+    
     if ( $contact )
+    {
+      if ( sfConfig::get('app_contact_professional', false) && $professional_id )
+        $this->getTransaction()->professional_id = $professional_id;
       $this->setContact($contact);
+    }
     
     return $this;
   }
