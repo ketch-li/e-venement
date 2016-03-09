@@ -66,8 +66,8 @@
       'city'            => $contact->city,
       'country'         => $contact->country,
       'price'           => $ticket->price_name,
-      'value'           => format_currency($ticket->value, '€'),
-      'taxes'           => format_currency($ticket->taxes, '€'),
+      'value'           => format_currency($ticket->value, $this->getContext()->getConfiguration()->getCurrency()),
+      'taxes'           => format_currency($ticket->taxes, $this->getContext()->getConfiguration()->getCurrency()),
     );
   }
   

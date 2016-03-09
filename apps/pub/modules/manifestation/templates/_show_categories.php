@@ -12,7 +12,7 @@
     {
       $groups[$gauge->group_name][$pm->price_id] = array(
         'price'   => $pm->Price,
-        'values'  => array('manif' => format_currency($pm->value,'€')),
+        'values'  => array('manif' => format_currency($pm->value,$sf_context->getConfiguration()->getCurrency())),
       );
     }
     
@@ -59,7 +59,7 @@
       <?php if ( $price['price']->isAccessibleBy($sf_user->getRawValue()) ): ?>
       <option value="<?php echo $id ?>">
         <?php echo $price['price']->description ? $price['price']->description : $price['price'] ?>
-        <?php foreach ( $price['values'] as $key => $value ) $price['values'][$key] = format_currency($value,'€'); ?>
+        <?php foreach ( $price['values'] as $key => $value ) $price['values'][$key] = format_currency($value,$sf_context->getConfiguration()->getCurrency()); ?>
         (<?php echo implode(', ', array_unique($price['values'])) ?>)
       </option>
       <?php endif ?>

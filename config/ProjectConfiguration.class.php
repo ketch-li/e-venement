@@ -201,6 +201,12 @@ class ProjectConfiguration extends sfProjectConfiguration implements liGarbageCo
   public function initGarbageCollectors(sfCommandApplicationTask $task = NULL)
   { }
   
+  public function getCurrency()
+  {
+    $currency = sfConfig::get('project_internals_currency', array('iso' => 978, 'symbol' => '€'));
+    return isset($currency['symbol']) ? $currency['symbol'] : '€';
+  }
+  
   protected function catchError(Exception $e)
   {
     // avoid any mistake

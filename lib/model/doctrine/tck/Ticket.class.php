@@ -184,7 +184,7 @@ EOF
       //, __('Category', null, 'li_tickets_email'), $this->Gauge->Workspace->on_ticket ? $this->Gauge->Workspace->on_ticket : (string)$this->Gauge
       , __('Category', null, 'li_tickets_email'), $this->isNew() ? '' : $this->category, $this->isNew() ? '' : (!$this->seat_id && !$this->Manifestation->Location->getWorkspaceSeatedPlan($this->Gauge->workspace_id) ? __('Free seating', null, 'li_tickets_email') : __('Seated', null, 'li_tickets_email'))
       , __('Date', null, 'li_tickets_email'), $this->Manifestation->getFormattedDate()
-      , __('Price', null, 'li_tickets_email'), $this->price_name, format_currency($this->value,'€')
+      , __('Price', null, 'li_tickets_email'), $this->price_name, format_currency($this->value,sfContext::hasInstance() ? sfContext::getInstance()->getConfiguration()->getCurrency() : '€')
       , $this->seat_id ? __('Seat #', null, 'li_tickets_email') : ($this->Manifestation->voucherized ? __('Voucher', null, 'li_ticket_email') : ''), $this->isNew() ? '' : ($this->seat_id ? $this->Seat : ($this->Manifestation->Location->getWorkspaceSeatedPlan($this->Gauge->workspace_id) ? __('Not yet allocated', null, 'li_tickets_email') : __('Free seating', null, 'li_tickets_email')))
       , $this->comment ? $this->comment : sfConfig::get('project_eticketting_default_comment', __('This is your ticket', null, 'li_tickets_email'))
       , $this->transaction_id, $this->id
@@ -214,7 +214,7 @@ EOF
       $this->Manifestation->Location,
       $seat,
       $this->Price,
-      format_currency($this->value, '€')
+      format_currency($this->value, sfContext::hasInstance() ? sfContext::getInstance()->getConfiguration()->getCurrency() : '€')
     );
   }
   

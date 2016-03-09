@@ -198,7 +198,7 @@ echo ""
 echo ""
 echo "Don't forget to configure those extra features:"
 echo "- Check the different apps/*/config/*.yml.template to be sure that a apps/*/config/*.yml exists, create it if necessary"
-echo "- Change the apps/*/config/factories.yml to replace sfMailer with liMailer and Swift_DoctrineSpool with liSpool, and correct your scripts to use the task e-venement:send-emails --time-limit=XX instead of project:send-emails"
+echo "- Online Sales (pub) + Paybox: you must check that 'app_payment_type' is set to 'paybox', or your 'pub' app will not be usable anymore."
 
 echo ""
 echo "Don't forget to inform your users about those evolutions"
