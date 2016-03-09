@@ -70,7 +70,7 @@ $(document).ready(function(){
   <?php $last['gauge_id'] = $gauge->id; ?>
   <td class="mod"><?php if ( $current_transaction && $manif->IsNecessaryTo->count() == 0 ): ?>
     <?php echo link_to(__('modify'),'manifestation/show?id='.$manif->id) ?>
-    <?php echo link_to(__('delete'),'manifestation/del?gauge_id='.$gauge->id.'&price_id='.$ticket->price_id) ?>
+    <?php echo link_to(__('delete'), sfConfig::get('app_options_synthetic_plans', false) ? 'manifestation/del?ticket_id='.$ticket->id : 'manifestation/del?gauge_id='.$gauge->id.'&price_id='.$ticket->price_id) ?>
   <?php endif ?></td>
 </tr>
 <?php endforeach ?>
@@ -97,7 +97,7 @@ $(document).ready(function(){
   <?php endif ?>
   <td class="mod"><?php if ( $current_transaction ): ?>
     <?php echo link_to(__('modify'),'card/index') ?>
-    <?php echo link_to(__('delete'),'card/del?mct_id='.$mc->id) ?>
+    <?php echo link_to(__('delete'), 'card/del?mct_id='.$mc->id) ?>
   <?php endif ?></td>
 </tr>
 <?php endforeach ?>
