@@ -29,22 +29,25 @@
     // security checks
     if (!(
         $this->transaction instanceof Transaction
-     && (sfConfig::get('app_payment_type', false) == 'onthespot' || isset($payments['onthespot']))
+     && (sfConfig::get('app_payment_type', false) == 'onthespot' || array_key_exists('onthespot', $payments))
      && $this->transaction->contact_id == $this->getUser()->getContact()->id
      && ($this->transaction->BoughtProducts->count() > 0 || $this->transaction->Tickets->count() > 0 || $this->transaction->MemberCards->count() > 0 )
     ))
     {
-      if (!( sfConfig::get('app_payment_type', false) == 'onthespot' || isset($payments['onthespot']) ))
+      if (!( sfConfig::get('app_payment_type', false) == 'onthespot' || array_key_exists('onthespot', $payments) ))
         error_log('cart/onthespot: Someone tried to access the "onthespot" payment plugin, whereas it has not been enabled.');
       $this->getUser()->setFlash('notice', $str = __('Please control your order...'));
-      error_log('cart/onthespot - Transaction #'.$this->getUser()->getTransactionId().': '.$str);
+      error_log('cart/onthespot - Transaction #'.($this->transaction instanceof Transaction ? $this->transaction->id : '?').': '.$str);
       $this->redirect('@homepage');
     }
     
     // recording the order
-    $this->transaction->Order[] = new Order;
-    $this->createPaymentsDoneByMemberCards();
-    $this->transaction->save();
+    if ( $this->transaction->Order->count() == 0 )
+    {
+      $this->transaction->Order[] = new Order;
+      $this->createPaymentsDoneByMemberCards();
+      $this->transaction->save();
+    }
     
     // confirmation email
     $this->sendConfirmationEmails($this->transaction, $this);
@@ -55,7 +58,7 @@
     // notices on screen
     if ( $this->transaction->Payments->count() > 0 )
       $this->getUser()->setFlash('notice',__("Your command has been passed on your member cards, you don't have to pay anything."));
-    elseif ( sfConfig::get('app_payment_type', 'paybox') == 'onthespot' )
+    elseif ( sfConfig::get('app_payment_type', false) == 'onthespot' || array_key_exists('onthespot', $payments) )
       $this->getUser()->setFlash('notice',__("Your command has been booked, you will have to pay for it directly with us."));
     
     // redirection
