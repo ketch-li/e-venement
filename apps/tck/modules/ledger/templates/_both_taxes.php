@@ -10,13 +10,13 @@
 <?php foreach ( $taxes as $tax ): ?>
   <tr class="<?php echo ($class = !$class) ? 'overlined' : '' ?>">
     <td class="name"><?php echo $tax ?></td>
-    <td class="value amount"><?php echo $tax->type == 'percentage' ? $tax->value.'%' : format_currency($tax->value, '€') ?></td>
+    <td class="value amount"><?php echo $tax->type == 'percentage' ? $tax->value.'%' : format_currency($tax->value, $sf_context->getConfiguration()->getCurrency()) ?></td>
     <td class="qty amount"><?php echo $tax->qty_out; $qty['out'] += $tax->qty_out; ?></td>
-    <td class="outcomes amount"><?php echo format_currency($tax->amount_out,'€'); $total['out'] += $tax->amount_out; ?></td>
+    <td class="outcomes amount"><?php echo format_currency($tax->amount_out,$sf_context->getConfiguration()->getCurrency()); $total['out'] += $tax->amount_out; ?></td>
     <td class="qty amount"><?php echo $tax->qty_in; $qty['in'] += $tax->qty_in; ?></td>
-    <td class="incomes amount"><?php echo format_currency($tax->amount_in,'€'); $total['in'] += $tax->amount_in; ?></td>
+    <td class="incomes amount"><?php echo format_currency($tax->amount_in,$sf_context->getConfiguration()->getCurrency()); $total['in'] += $tax->amount_in; ?></td>
     <td class="qty amount"><?php echo $tax->qty_in - $tax->qty_out; ?></td>
-    <td class="incomes amount"><?php echo format_currency($tax->amount_in+$tax->amount_out,'€') ?></td>
+    <td class="incomes amount"><?php echo format_currency($tax->amount_in+$tax->amount_out,$sf_context->getConfiguration()->getCurrency()) ?></td>
   </tr>
 <?php endforeach ?>
 <tbody>
@@ -25,11 +25,11 @@
     <td class="name">Total</td>
     <td class="value amount">-</td>
     <td class="qty amount"><?php echo $qty['out'] ?></td>
-    <td class="outcomes amount"><?php echo format_currency($total['out'], '€') ?></td>
+    <td class="outcomes amount"><?php echo format_currency($total['out'], $sf_context->getConfiguration()->getCurrency()) ?></td>
     <td class="qty amount"><?php echo $qty['in'] ?></td>
-    <td class="incomes amount"><?php echo format_currency($total['in'], '€') ?></td>
+    <td class="incomes amount"><?php echo format_currency($total['in'], $sf_context->getConfiguration()->getCurrency()) ?></td>
     <td class="qty amount"><?php echo $qty['in']-$qty['out'] ?></td>
-    <td class="incomes amount"><?php echo format_currency($total['in']+$total['out'], '€') ?></td>
+    <td class="incomes amount"><?php echo format_currency($total['in']+$total['out'], $sf_context->getConfiguration()->getCurrency()) ?></td>
   </tr>
 </tfoot>
 <thead>

@@ -30,7 +30,7 @@
     <?php $value += $payment->value ?>
     <p>
       <span class="method"><?php echo $payment->Method; ?></span>
-      <span class="value"><?php echo format_currency($payment->value,'€') ?></span>
+      <span class="value"><?php echo format_currency($payment->value,$sf_context->getConfiguration()->getCurrency()) ?></span>
     </p>
     <?php endforeach ?>
     <?php if ( isset($nocancel) && $nocancel && $transaction->Translinked->count() > 0 ): ?>
@@ -39,18 +39,18 @@
     <?php $value += $payment->value ?>
     <p>
       <span class="method"><?php echo $payment->Method; ?></span>
-      <span class="value"><?php echo format_currency($payment->value,'€') ?></span>
+      <span class="value"><?php echo format_currency($payment->value,$sf_context->getConfiguration()->getCurrency()) ?></span>
     </p>
     <?php endforeach ?>
     <?php endforeach ?>
     <?php endif ?>
     <p class="total">
       <span class="method"><?php echo __('Total', null, 'li_accounting') ?></span>
-      <span class="value"><?php echo format_currency($value,'€') ?></span>
+      <span class="value"><?php echo format_currency($value,$sf_context->getConfiguration()->getCurrency()) ?></span>
     </p>
     <p class="topay">
       <span class="method"><?php echo __('Still missing', null, 'li_accounting') ?></span>
-      <span class="value"><?php echo format_currency($totals['tip'] <= $value ? 0 : $totals['tip'] - $value, '€') ?></span>
+      <span class="value"><?php echo format_currency($totals['tip'] <= $value ? 0 : $totals['tip'] - $value, $sf_context->getConfiguration()->getCurrency()) ?></span>
     </p>
   </div>
 </div>

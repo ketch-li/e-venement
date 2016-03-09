@@ -9,7 +9,7 @@
     <input name="ticket[nb]" value="1" type="text" size="4" maxlength="3" autocomplete="off" />
     <input autocomplete="off" type="checkbox" name="select_all" value="true" title="<?php echo __('Add to all manifestations') ?>" />
   <?php foreach ( $prices as $price ): ?>
-    <input type="submit" name="ticket[price_name]" value="<?php echo $price ?>" title="<?php echo $price->description.' (def: '.format_number(round($price->value,2)).'€)' ?>" />
+    <input type="submit" name="ticket[price_name]" value="<?php echo $price ?>" title="<?php echo $price->description.' (def: '.format_currency($price->value, $sf_context->getConfiguration()->getCurrency()).')' ?>" />
   <?php endforeach ?>
   <a href="<?php echo url_for('ticket/cancelPartial') ?>"
      onclick="javascript: $(this).unbind(); $(this).closest('.prices_list').toggleClass('cancel'); return false;"

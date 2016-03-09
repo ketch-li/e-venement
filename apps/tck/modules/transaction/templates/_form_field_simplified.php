@@ -32,7 +32,7 @@
           <span class="category"><?php echo __('Still missing') ?></span>
         </div>
         <div class="right">
-          <span class="value"><?php echo format_currency(0,'€') ?></span>
+          <span class="value"><?php echo format_currency(0,$sf_context->getConfiguration()->getCurrency()) ?></span>
         </div>
       </li>
       <li class="paid end">
@@ -40,7 +40,7 @@
           <span class="category"><?php echo __('Total') ?></span>
         </div>
         <div class="right">
-          <span class="value" data-value="0"><?php echo format_currency(0,'€') ?></span>
+          <span class="value" data-value="0"><?php echo format_currency(0,$sf_context->getConfiguration()->getCurrency()) ?></span>
         </div>
       </li>
       <li class="total end">
@@ -49,7 +49,7 @@
           <span class="qty" data-qty="0">0</span>
         </div>
         <div class="right">
-          <span class="value" data-value="0"><?php echo format_currency(0,'€') ?></span>
+          <span class="value" data-value="0"><?php echo format_currency(0,$sf_context->getConfiguration()->getCurrency()) ?></span>
         </div>
       </li>
     </ul>

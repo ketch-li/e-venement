@@ -53,11 +53,11 @@
       <?php include_partial('ticket_manifestation_ws',array('ticket' => $ticket,'nb_gauges' => $manif->Gauges->count())) ?>
     <?php endif ?>
     <?php if ( $ticket->Duplicatas->count() == 0 ): ?>
-    <input alt="#<?php echo $ticket->id.($ticket->numerotation ? '&nbsp;('.__('seat').'&nbsp;'.$ticket->numerotation.')' : '') ?>" type="hidden" name="ticket[prices][<?php echo $ticket->gauge_id ?>][<?php echo $ticket->Price ?>][]" value="<?php echo $ticket->value ?>" title="PU: <?php echo format_currency($ticket->value,'€') ?>" class="<?php echo $ticket->printed_at ? 'printed' : ($ticket->integrated_at ? 'integrated' : 'notprinted') ?>" />
+    <input alt="#<?php echo $ticket->id.($ticket->numerotation ? '&nbsp;('.__('seat').'&nbsp;'.$ticket->numerotation.')' : '') ?>" type="hidden" name="ticket[prices][<?php echo $ticket->gauge_id ?>][<?php echo $ticket->Price ?>][]" value="<?php echo $ticket->value ?>" title="PU: <?php echo format_currency($ticket->value,$sf_context->getConfiguration()->getCurrency()) ?>" class="<?php echo $ticket->printed_at ? 'printed' : ($ticket->integrated_at ? 'integrated' : 'notprinted') ?>" />
     <?php $total += $ticket->value ?>
     <?php endif ?>
   <?php endforeach ?>
   </span>
 <?php endif ?>
 </span>
-<span class="total"><?php if ( $active ) echo format_currency($total,'€') ?></span>
+<span class="total"><?php if ( $active ) echo format_currency($total,$sf_context->getConfiguration()->getCurrency()) ?></span>

@@ -12,9 +12,9 @@
   <tr class="<?php echo ($class = !$class) ? 'overlined' : '' ?>">
     <td class="name"><?php echo $pm['name'] ?></td>
     <td class="nb"><?php echo $pm['nb']; $total['nb'] += $pm['nb'] ?></td>
-    <td class="outcomes amount"><?php echo format_currency($pm['value-'],'€'); $total['value+'] += $pm['value+']; ?></td>
-    <td class="incomes amount"><?php echo format_currency($pm['value+'],'€'); $total['value-'] += $pm['value-'] ?></td>
-    <td class="total"><?php echo format_currency($pm['value-']+$pm['value+'],'€'); ?></td>
+    <td class="outcomes amount"><?php echo format_currency($pm['value-'],$sf_context->getConfiguration()->getCurrency()); $total['value+'] += $pm['value+']; ?></td>
+    <td class="incomes amount"><?php echo format_currency($pm['value+'],$sf_context->getConfiguration()->getCurrency()); $total['value-'] += $pm['value-'] ?></td>
+    <td class="total"><?php echo format_currency($pm['value-']+$pm['value+'],$sf_context->getConfiguration()->getCurrency()); ?></td>
   </tr>
 <?php endforeach ?>
 <tbody>
@@ -22,9 +22,9 @@
   <tr class="<?php echo ($class = !$class) ? 'overlined' : '' ?>">
     <td class="name">Total</td>
     <td class="nb"><?php echo $total['nb'] ?></td>
-    <td class="outcomes amount"><?php echo format_currency($total['value-'],'€') ?></td>
-    <td class="incomes amount"><?php echo format_currency($total['value+'],'€') ?></td>
-    <td class="total"><?php echo format_currency($total['value+']+$total['value-'],'€') ?></td>
+    <td class="outcomes amount"><?php echo format_currency($total['value-'],$sf_context->getConfiguration()->getCurrency()) ?></td>
+    <td class="incomes amount"><?php echo format_currency($total['value+'],$sf_context->getConfiguration()->getCurrency()) ?></td>
+    <td class="total"><?php echo format_currency($total['value+']+$total['value-'],$sf_context->getConfiguration()->getCurrency()) ?></td>
   </tr>
 </tfoot>
 <thead>
