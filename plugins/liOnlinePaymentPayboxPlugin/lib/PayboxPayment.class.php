@@ -115,7 +115,7 @@
       foreach ( $this->getPayboxVars() as $name => $value )
         $r .= "\n".'<input type="hidden" name="'.$name.'" value="'.$value.'" />';
       
-      $r .= '<input type="image" value="Paybox" src="https://preprod-tpeweb.paybox.com/favicon.ico" /><a href="#" onclick="javascript: console.error(this); $(this).closest(\'form\').submit(); return false;">aybox</a>';
+      $r .= '<input type="image" alt="P" value="Paybox" src="https://preprod-tpeweb.paybox.com/favicon.ico" /><a href="#" onclick="javascript: console.error(this); $(this).closest(\'form\').submit(); return false;">aybox</a>';
       $r .= '</form>';
       
       return $r;
