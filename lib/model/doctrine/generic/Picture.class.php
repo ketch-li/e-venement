@@ -41,9 +41,13 @@ class Picture extends PluginPicture
     
     return $this->_getImageTag($attributes);
   }
+  public function getBase64Data()
+  {
+    return 'data:'.$this->type.';base64,'.$this->content;
+  }
   public function getHtmlTagInline(array $attributes = array())
   {
-    $attributes['src'] = 'data:'.$this->type.';base64,'.$this->content;
+    $attributes['src'] = $this->getBase64Data();
     return $this->_getImageTag($attributes);
   }
   protected function _getImageTag(array $attributes = array())

@@ -172,7 +172,7 @@ class Ticket extends PluginTicket
     </td>
     <td class="bc">%s</td>
   <tr></table>
-  <img class="background" src="data:image/png;base64,%s" alt="" />
+  <img class="background" src="%s" alt="" />
   </div>
 EOF
       , __('Meta-event', null, 'li_tickets_email'), $this->Manifestation->Event->MetaEvent
@@ -191,11 +191,13 @@ EOF
       , $this->contact_id ? '' : $this->Transaction->contact_id ? __('Guest of') : '', $this->contact_id ? $this->DirectContact->title : $this->Transaction->Contact->title, $this->contact_id ? $this->DirectContact : $this->Transaction->Contact, $this->Transaction->professional_id ? $this->Transaction->Professional->Organism : ''
       , !$this->duplicating ? '' : __('This ticket is a duplicate of #%%tid%%, it replaces and cancels any previous version of this ticket you might have recieved', array('%%tid%%' => $this->transaction_id.'-'.$this->duplicating), 'li_tickets_email')
       , $barcode
-      , base64_encode(file_get_contents(
-        file_exists($file = sfConfig::get('sf_web_dir').'/private/ticket-simplified-layout.png')
-          ? $file
-          : sfConfig::get('sf_web_dir').'/images/ticket-simplified-layout-100dpi.png'
-      ))
+      , $this->Manifestation->Event->MetaEvent->picture_id
+        ? $this->Manifestation->Event->MetaEvent->Picture->getBase64Data()
+        : 'data:image/png;base64,'.base64_encode(file_get_contents(
+          file_exists($file = sfConfig::get('sf_web_dir').'/private/ticket-simplified-layout.png')
+            ? $file
+            : sfConfig::get('sf_web_dir').'/images/ticket-simplified-layout-100dpi.png'
+        ))
     );
   }
   
