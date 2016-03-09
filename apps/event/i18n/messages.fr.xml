@@ -5,6 +5,14 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Tickets background</source>
+        <target>Fond de billet</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Optional and used only with dematerialized ticketing</source>
+        <target>Optionnel et utile uniquement en billetterie dématérialisée</target>
+      </trans-unit>
+      <trans-unit>
         <source>%%nb%% tickets</source>
         <target>%%nb%% billets</target>
       </trans-unit>

@@ -17,6 +17,9 @@ generator:
         list_hide_in_month_calendars: { label: In calendars? }
         hide_in_month_calendars: { label: To be hidden in calendars? }
         list_description: { label: Description }
+        Picture:
+          label: Tickets background
+          help: Optional and used only with dematerialized ticketing
       list:
         display: [name, _list_description, _list_hide_in_month_calendars]
         sort: [translation.name,'']
@@ -24,6 +27,7 @@ generator:
       form:
         display:
           General: [name, description, hide_in_month_calendars]
+          Tickets: [Picture, _show_picture, _form_picture_del]
           Users:   [users_list]
       edit:
         title: Edit Meta event "%%name%%"
@@ -31,3 +35,4 @@ generator:
       show:
         display:
           General: [name, description]
+          Tickets: [_show_picture]

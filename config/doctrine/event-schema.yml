@@ -113,6 +113,7 @@ MetaEvent:
       type: boolean
       default: false
       notnull: true
+    picture_id: integer
   relations:
     Users:
       class: sfGuardUser
@@ -120,6 +121,10 @@ MetaEvent:
       foreignAlias: MetaEvents
       local: meta_event_id
       foreign: sf_guard_user_id
+    Picture:
+      foreignAlias: MetaEvent
+      onDelete: SET NULL
+      onUpdate: CASCADE
 MetaEventUser:
   package: event
   columns:
