@@ -93,6 +93,13 @@ class groupActions extends autoGroupActions
       && $this->csrf_token == $request->getParameter('_csrf_token') )
     {
       $cpt = 0;
+      $expire_at = sfConfig::has('project_cards_expiration_delay')
+        ? date('Y-m-d H:i:s',strtotime(sfConfig::get('project_cards_expiration_delay')))
+        : (strtotime(date('Y').'-'.sfConfig::get('project_cards_expiration_date')) > strtotime('now')
+          ? date('Y').'-'.sfConfig::get('project_cards_expiration_date')
+          : (date('Y')+1).'-'.sfConfig::get('project_cards_expiration_date')
+        )
+      ;
       
       foreach ( $this->member_card_types as $mct )
       {
@@ -101,29 +108,9 @@ class groupActions extends autoGroupActions
         {
           $cids[] = $contact->id;
           $mc = new MemberCard;
-          $mc->expire_at = sfConfig::has('project_cards_expiration_delay')
-            ? date('Y-m-d H:i:s',strtotime(sfConfig::get('project_cards_expiration_delay'),strtotime($params['created_at'])))
-            : (strtotime(date('Y').'-'.sfConfig::get('project_cards_expiration_date')) > strtotime('now')
-            ? date('Y').'-'.sfConfig::get('project_cards_expiration_date')
-            : (date('Y')+1).'-'.sfConfig::get('project_cards_expiration_date'));
+          $mc->expire_at = $expire_at;
           $mc->MemberCardType = $mct;
           $mc->Contact = $contact;
-          $mc->save();
-          $cpt++;
-        }
-        
-        foreach ( $this->group->Professionals as $pro )
-        if ( !in_array($pro->contact_id, $cids) )
-        {
-          $cids[] = $pro->contact_id;
-          $mc = new MemberCard;
-          $mc->expire_at = sfConfig::has('project_cards_expiration_delay')
-            ? date('Y-m-d H:i:s',strtotime(sfConfig::get('project_cards_expiration_delay'),strtotime($params['created_at'])))
-            : (strtotime(date('Y').'-'.sfConfig::get('project_cards_expiration_date')) > strtotime('now')
-            ? date('Y').'-'.sfConfig::get('project_cards_expiration_date')
-            : (date('Y')+1).'-'.sfConfig::get('project_cards_expiration_date'));
-          $mc->MemberCardType = $mct;
-          $mc->contact_id = $pro->contact_id;
           $mc->save();
           $cpt++;
         }
@@ -133,17 +120,15 @@ class groupActions extends autoGroupActions
         foreach ( $this->group->Organisms as $org ) // taking into account also the prefered professionals of organisms
         if ( $org->professional_id )
           $pros[] = $org->CloseContact;
+        elseif ( $org->Professionals->count() == 1 )
+          $pros[] = $org->Professionals[0];
         // pro by pro, including issued from organisms members
         foreach ( $pros as $pro )
         if ( !in_array($pro->contact_id, $cids) )
         {
           $cids[] = $pro->contact_id;
           $mc = new MemberCard;
-          $mc->expire_at = sfConfig::has('project_cards_expiration_delay')
-            ? date('Y-m-d H:i:s',strtotime(sfConfig::get('project_cards_expiration_delay'),strtotime($params['created_at'])))
-            : (strtotime(date('Y').'-'.sfConfig::get('project_cards_expiration_date')) > strtotime('now')
-            ? date('Y').'-'.sfConfig::get('project_cards_expiration_date')
-            : (date('Y')+1).'-'.sfConfig::get('project_cards_expiration_date'));
+          $mc->expire_at = $expire_at;
           $mc->MemberCardType = $mct;
           $mc->contact_id = $pro->contact_id;
           $mc->save();
