@@ -109,7 +109,7 @@
       'seat' => $ticket->numerotation,
       'price' => $ticket->price_id ? (string)$ticket->Price : $ticket->price_name,
       'value' => $ticket->value,
-      'value_txt' => format_currency($ticket->value, '€'),
+      'value_txt' => format_currency($ticket->value, $sf_context->getConfiguration()->getCurrency()),
       'url' => url_for('ticket/show?id='.$ticket->id, true),
       'users' => $users,
       'cancel'  => $success && (sfConfig::get('app_control_permissive', false) || $sf_user->hasCredential('tck-control-admin'))

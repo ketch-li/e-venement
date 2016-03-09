@@ -4,7 +4,7 @@
 <ul>
   <?php foreach ( $transaction->Payments as $payment ): ?>
     <li class="method-<?php echo $payment->payment_method_id ?>">
-      <span class="value"><?php echo format_currency($payment->value,'€') ?></span>
+      <span class="value"><?php echo format_currency($payment->value,$sf_context->getConfiguration()->getCurrency()) ?></span>
       <?php $total += $payment->value ?>
       <ul>
         <li class="created_at"><?php echo format_date($payment->created_at) ?></li>
@@ -15,7 +15,7 @@
   <?php endforeach ?>
   <?php if ( $transaction->Payments->count() > 1 ): ?>
   <li class="total">
-    <span class="value"><?php echo format_currency($total, '€') ?></span>
+    <span class="value"><?php echo format_currency($total, $sf_context->getConfiguration()->getCurrency()) ?></span>
   </li>
   <?php endif ?>
 </ul>

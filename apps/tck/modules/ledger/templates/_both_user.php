@@ -11,14 +11,14 @@
   <tr class="<?php echo ($class = !$class) ? 'overlined' : '' ?>">
     <td class="name"><?php echo $u ?></td>
     <td class="nb"><?php echo $u->nb_cancelling; $total['nb_cancelling'] += $u->nb_cancelling ?></td>
-    <td class="outcome amount"><?php echo format_currency($u->outcome,'€'); $total['value-'] += $u->outcome ?></td>
+    <td class="outcome amount"><?php echo format_currency($u->outcome,$sf_context->getConfiguration()->getCurrency()); $total['value-'] += $u->outcome ?></td>
     <td class="nb"><?php echo $u->nb_paying; $total['nb_paying'] += $u->nb_paying ?></td>
-    <td class="income amount"><?php echo format_currency($u->income,'€'); $total['value+'] += $u->income ?></td>
-    <td class="average" title="<?php echo __('Without cancellations') ?>"><?php echo $u->nb_paying > 0 ? format_currency($u->income/$u->nb_paying,'€') : 'N/A' ?></td>
+    <td class="income amount"><?php echo format_currency($u->income,$sf_context->getConfiguration()->getCurrency()); $total['value+'] += $u->income ?></td>
+    <td class="average" title="<?php echo __('Without cancellations') ?>"><?php echo $u->nb_paying > 0 ? format_currency($u->income/$u->nb_paying,$sf_context->getConfiguration()->getCurrency()) : 'N/A' ?></td>
     <td class="nb"><?php echo $u->nb_free; $total['nb_free'] += $u->nb_free ?></td>
-    <td class="average" title="<?php echo __('Without cancellations') ?>"><?php echo $u->nb_free+$u->nb_paying > 0 ? format_currency($u->income/($u->nb_free+$u->nb_paying),'€') : 'N/A' ?></td>
+    <td class="average" title="<?php echo __('Without cancellations') ?>"><?php echo $u->nb_free+$u->nb_paying > 0 ? format_currency($u->income/($u->nb_free+$u->nb_paying),$sf_context->getConfiguration()->getCurrency()) : 'N/A' ?></td>
     <td class="nb"><?php echo $u->nb_paying + $u->nb_free + $u->nb_cancelling ?></td>
-    <td class="total"><?php echo format_currency($u->income+$u->outcome,'€') ?></td>
+    <td class="total"><?php echo format_currency($u->income+$u->outcome,$sf_context->getConfiguration()->getCurrency()) ?></td>
   </tr>
 <?php endforeach ?>
 <tbody>
@@ -26,14 +26,14 @@
   <tr class="<?php echo ($class = !$class) ? 'overlined' : '' ?>">
     <td class="name">Total</td>
     <td class="nb"><?php echo $total['nb_cancelling'] ?></td>
-    <td class="outcome amount"><?php echo format_currency($total['value-'],'€') ?></td>
+    <td class="outcome amount"><?php echo format_currency($total['value-'],$sf_context->getConfiguration()->getCurrency()) ?></td>
     <td class="nb"><?php echo $total['nb_paying'] ?></td>
-    <td class="income amount"><?php echo format_currency($total['value+'],'€') ?></td>
-    <td class="average" title="<?php echo __('Without cancellations') ?>"><?php echo $total['nb_paying'] > 0 ? format_currency(($total['value+']/$total['nb_paying']),'€') : 'N/A' ?></td>
+    <td class="income amount"><?php echo format_currency($total['value+'],$sf_context->getConfiguration()->getCurrency()) ?></td>
+    <td class="average" title="<?php echo __('Without cancellations') ?>"><?php echo $total['nb_paying'] > 0 ? format_currency(($total['value+']/$total['nb_paying']),$sf_context->getConfiguration()->getCurrency()) : 'N/A' ?></td>
     <td class="nb"><?php echo $total['nb_free'] ?></td>
-    <td class="average" title="<?php echo __('Without cancellations') ?>"><?php echo $total['nb_free']+$total['nb_paying'] > 0 ? format_currency($total['value+']/($total['nb_free']+$total['nb_paying']),'€') : 'N/A' ?></td>
+    <td class="average" title="<?php echo __('Without cancellations') ?>"><?php echo $total['nb_free']+$total['nb_paying'] > 0 ? format_currency($total['value+']/($total['nb_free']+$total['nb_paying']),$sf_context->getConfiguration()->getCurrency()) : 'N/A' ?></td>
     <td class="nb"><?php echo $total['nb_free'] + $total['nb_paying'] + $total['nb_cancelling'] ?></td>
-    <td class="total"><?php echo format_currency($total['value+']+$total['value-'],'€') ?></td>
+    <td class="total"><?php echo format_currency($total['value+']+$total['value-'],$sf_context->getConfiguration()->getCurrency()) ?></td>
   </tr>
 </tfoot>
 <thead>

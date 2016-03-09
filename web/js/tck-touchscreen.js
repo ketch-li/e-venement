@@ -219,6 +219,7 @@ $(document).ready(function(){
     $(this).appendTo('body');
     elt = this;
     $(this).click();
+    console.error('click');
     setTimeout(function(){ $(elt).insertBefore($('#li_transaction_field_payments_list input:last')); }, 250);
   });
   $('#li_transaction_field_payments_list [name=invoice]').mousedown(function(){

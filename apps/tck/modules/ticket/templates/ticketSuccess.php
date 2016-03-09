@@ -22,7 +22,7 @@
         <span></span>
         <span></span>
         <span></span>
-        <span class="total"><?php echo format_currency(0,'€') ?></span>
+        <span class="total"><?php echo format_currency(0,$sf_context->getConfiguration()->getCurrency()) ?></span>
       </li>
     </ul>
 </div>

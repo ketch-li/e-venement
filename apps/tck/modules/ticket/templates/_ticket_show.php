@@ -11,7 +11,7 @@
 </span>
 <?php endforeach ?>
 <?php if ( $transaction->Tickets->count() > 0 ): ?>
-<span class="total"><?php echo format_currency($total,'€') ?></span>
+<span class="total"><?php echo format_currency($total,$sf_context->getConfiguration()->getCurrency()) ?></span>
 <?php endif ?>
 <script type="text/javascript"><!--
   $(document).ready(function(){
