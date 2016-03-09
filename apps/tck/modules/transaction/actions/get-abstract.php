@@ -190,7 +190,7 @@
         $q->andWhere('(g.id = ? OR (ng.id = ? AND g.workspace_id = ng.workspace_id))',array($gid, $gid));
       
       // ordering stuff avoids bugs w/ duplicates in some isolated cases
-      $q->orderBy('m.id, g.id, tck.id');
+      $q->orderBy('m.id, g.id'); //, tck.id');
     
     break;
     case 'store':
