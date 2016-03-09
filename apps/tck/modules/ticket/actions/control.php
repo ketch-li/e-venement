@@ -58,7 +58,8 @@
       // creating tickets ids array
       if ( $field != 'othercode' )
       {
-        if ( $params['ticket_id'] = json_decode($params['ticket_id']) ); // json array
+        if ( $tmp = json_decode($params['ticket_id']) )
+          $params['ticket_id'] = $tmp; // json array
         else // human encoded arrays
         {
           $tmp = explode(',',$params['ticket_id']);
@@ -76,6 +77,8 @@
               $params['ticket_id'][] = $ids[0];
           }
         }
+        if ( !is_array($params['ticket_id']) )
+          $params['ticket_id'] = array($params['ticket_id']);
         // decode EAN if it exists
         if ( $field == 'id' )
         foreach ( $params['ticket_id'] as $key => $value )
