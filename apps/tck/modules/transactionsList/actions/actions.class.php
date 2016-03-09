@@ -69,9 +69,9 @@ class transactionsListActions extends autoTransactionsListActions
         'price_name'  => (string)$ticket->Price,
         'price_id'    => $ticket->price_id,
         'value'       => $ticket->value,
-        'value_txt'   => format_currency($ticket->value,'€'),
+        'value_txt'   => format_currency($ticket->value,$this->getContext()->getConfiguration()->getCurrency()),
         'taxes'       => $ticket->taxes,
-        'taxes_txt'   => format_currency($ticket->taxes,'€'),
+        'taxes_txt'   => format_currency($ticket->taxes,$this->getContext()->getConfiguration()->getCurrency()),
         'vat'         => $ticket->vat,
         'vat_txt'     => format_currency($ticket->vat*100, '%'),
         'seat_id'     => $ticket->seat_id,
@@ -96,19 +96,19 @@ class transactionsListActions extends autoTransactionsListActions
           'price_name'  => (string)$pdt->Price,
           'price_id'    => $pdt->price_id,
           'value'       => $pdt->value,
-          'value_txt'   => format_currency($pdt->value,'€'),
+          'value_txt'   => format_currency($pdt->value,$this->getContext()->getConfiguration()->getCurrency()),
           'vat'         => $pdt->vat,
           'vat_txt'     => format_currency($pdt->vat*100, '%'),
           'sold'        => $pdt->isSold(),
           'qty'         => 1,
           'total'       => $pdt->value,
-          'total_txt'   => format_currency($pdt->value, '€'),
+          'total_txt'   => format_currency($pdt->value, $this->getContext()->getConfiguration()->getCurrency()),
         );
       else
       {
         $this->json['products'][$id]['qty']++;
         $this->json['products'][$id]['total'] += $pdt->value;
-        $this->json['products'][$id]['total_txt'] = format_currency($this->json['products'][$id]['total'], '€');
+        $this->json['products'][$id]['total_txt'] = format_currency($this->json['products'][$id]['total'], $this->getContext()->getConfiguration()->getCurrency());
       }
     }
     
@@ -122,7 +122,7 @@ class transactionsListActions extends autoTransactionsListActions
         'declination' => $mc->mini_date,
         'transaction_id' => $mc->transaction_id,
         'value'       => $pdt->value,
-        'value_txt'   => format_currency($pdt->value,'€'),
+        'value_txt'   => format_currency($pdt->value,$this->getContext()->getConfiguration()->getCurrency()),
         'contact_id'  => $mc->contact_id,
         'contact'     => (string)$mc->Contact,
         'contact_url' => cross_app_url_for('rp', 'contact/edit?id='.$mc->contact_id, true),

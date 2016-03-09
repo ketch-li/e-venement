@@ -17,6 +17,7 @@
 </ul>
 <ul class="payments">
   <li class="translinked"><?php echo __('This payment is linked to the cancelling transaction #%%id%%') ?></li>
+  <li class="currency"><?php echo format_currency(0, $sf_context->getConfiguration()->getCurrency()) ?></li>
 </ul>
 <ul class="prices">
   <li class="free-price"><?php echo __('Pay what you want') ?></li>

@@ -10,6 +10,18 @@ $(document).ready(function(){
   ', #li_transaction_field_more input[type=checkbox]'+
   '').change(function(){ $(this).closest('form').submit(); });
   
+  var _currency = null;
+  var _fr_style = null;
+  LI.tckFormatCurrency = function(value, html){
+    if ( _currency == undefined )
+      _currency = LI.get_currency($('#li_transaction_field_close .payments .currency').html());
+    if ( _fr_style == undefined )
+      _style = LI.currency_style($('#li_transaction_field_close .payments .currency').html()) == 'fr';
+    if ( html == undefined )
+      html = true;
+    return LI.format_currency(value, true, _fr_style, _currency);
+  }
+  
   LI.initContent();
   $('#li_transaction_field_content h2 a').click(function(){
     LI.initContent();
@@ -613,7 +625,7 @@ LI.calculateTotals = function()
   $.each(totals, function(index, value){
     var total = $(elt).find('.'+index.replace(/\s+/g,'.'));
     if ( $(total).hasClass('money') )
-      value = value ? LI.format_currency(value) : '-';
+      value = value ? LI.tckFormatCurrency(value) : '-';
     if ( total.is('.qty') )
       total.find('.qty').html(value);
     else
@@ -634,7 +646,7 @@ LI.calculateTotals = function()
   $.each(totals, function(index, value){
     var total = $(megaelt).find('.'+index.replace(/\s+/g,'.'));
     if ( $(total).hasClass('money') )
-      value = value ? LI.format_currency(value) : '';
+      value = value ? LI.tckFormatCurrency(value) : '';
     if ( total.is('.qty') )
       total.find('.qty').html(value);
     else
@@ -660,14 +672,14 @@ LI.calculateTotals = function()
   });
   
   $.each(total, function(index, value){
-    $('#li_transaction_field_payments_list .topay .'+index).html(LI.format_currency(value));
+    $('#li_transaction_field_payments_list .topay .'+index).html(LI.tckFormatCurrency(value));
     
     var tmp = LI.parseFloat($('#li_transaction_field_payments_list tfoot .total .sf_admin_list_td_list_value').html());
     tmp = isNaN(tmp) ? 0 : tmp;
     tmp = total[index] - tmp * total[index]/total.pit;
     tmp = isNaN(tmp) ? 0 : tmp;
     $('#li_transaction_field_payments_list .change .'+index)
-      .html(LI.format_currency(tmp));
+      .html(LI.tckFormatCurrency(tmp));
   });
 }
 
