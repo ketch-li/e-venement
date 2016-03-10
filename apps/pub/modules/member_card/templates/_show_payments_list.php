@@ -9,7 +9,7 @@
     <tr>
       <td><?php echo cross_app_link_to('#'.$payment->transaction_id,'tck','ticket/pay?id='.$payment->transaction_id) ?></td>
       <td><?php echo $payment->Method ?></td>
-      <td class="payment_value"><?php echo format_currency($payment->value,'€'); $value += $payment->value ?></td>
+      <td class="payment_value"><?php echo format_currency($payment->value,$sf_context->getConfiguration()->getCurrency()); $value += $payment->value ?></td>
     </tr>
   <?php endforeach ?>
   </tbody>
@@ -17,7 +17,7 @@
     <tr>
       <td></td>
       <td></td>
-      <td class="payment_value"><?php echo format_currency($value,'€') ?></td>
+      <td class="payment_value"><?php echo format_currency($value,$sf_context->getConfiguration()->getCurrency()) ?></td>
     </tr>
   </tfoot>
   </table>

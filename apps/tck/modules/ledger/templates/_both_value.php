@@ -9,9 +9,9 @@
 <?php $total = array('nb' => 0, 'value' => 0, 'exo' => 0); $class = false; ?>
 <?php foreach ( $byValue as $value ): ?>
   <tr class="<?php echo ($class = !$class) ? 'overlined' : '' ?>">
-    <td class="name nb"><?php echo format_currency($value['value'],'€') ?></td>
+    <td class="name nb"><?php echo format_currency($value['value'],$sf_context->getConfiguration()->getCurrency()) ?></td>
     <td class="nb"><?php echo $value['nb']; $total['nb'] += $value['nb']; ?></td>
-    <td class="total"><?php echo format_currency($value['total'],'€'); $total['value'] += $value['total']; ?></td>
+    <td class="total"><?php echo format_currency($value['total'],$sf_context->getConfiguration()->getCurrency()); $total['value'] += $value['total']; ?></td>
     <?php if ( $value['value'] == 0 ) $total['exo'] += $value['nb'] ?>
   </tr>
 <?php endforeach ?>
@@ -20,7 +20,7 @@
   <tr class="<?php echo ($class = !$class) ? 'overlined' : '' ?>">
     <td class="name">Total</td>
     <td class="nb"><?php echo $total['nb'] ?></td>
-    <td class="total"><?php echo format_currency($total['value'],'€') ?></td>
+    <td class="total"><?php echo format_currency($total['value'],$sf_context->getConfiguration()->getCurrency()) ?></td>
   </tr>
 </tfoot>
 <thead>
@@ -50,7 +50,7 @@
   </tr>
   <tr class="<?php echo ($class = !$class) ? 'overlined' : '' ?>">
     <td class="name"><?php echo __('Average price by product') ?></td>
-    <td class="value"><?php echo $total['nb'] > 0 ? format_currency($total['value']/$total['nb'],'€') : 'N/A' ?></td>
+    <td class="value"><?php echo $total['nb'] > 0 ? format_currency($total['value']/$total['nb'],$sf_context->getConfiguration()->getCurrency()) : 'N/A' ?></td>
     <td class="rating">-</td>
   </tr>
   <tr class="<?php echo ($class = !$class) ? 'overlined' : '' ?>">
@@ -65,7 +65,7 @@
   </tr>
   <tr class="<?php echo ($class = !$class) ? 'overlined' : '' ?>">
     <td class="name"><?php echo __('Average price for paid products') ?></td>
-    <td class="value"><?php echo $total['nb']-$total['exo'] > 0 ? format_currency($total['value'] / ($total['nb']-$total['exo']),'€') : 'N/A' ?></td>
+    <td class="value"><?php echo $total['nb']-$total['exo'] > 0 ? format_currency($total['value'] / ($total['nb']-$total['exo']),$sf_context->getConfiguration()->getCurrency()) : 'N/A' ?></td>
     <td class="rating">-</td>
   </tr>
 </tbody>

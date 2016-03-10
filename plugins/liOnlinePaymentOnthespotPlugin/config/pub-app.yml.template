@@ -1,0 +1,10 @@
+# sample
+# this content has to be added into your apps/pub/config/app.yml or equivalent
+
+all:
+  payment:
+    type: onthespot
+    autofollow: true
+  payments:
+    list:
+      onthespot: ~

@@ -4,4 +4,4 @@
     <td class="operand">x</td>
     <td class="qty"><?php echo isset($nb) ? $nb : $objects->count() ?></td>
     <td class="operand">=</td>
-    <td class="value"><?php echo format_currency($price,'€') ?></td>
+    <td class="value"><?php echo format_currency($price,$sf_context->getConfiguration()->getCurrency()) ?></td>

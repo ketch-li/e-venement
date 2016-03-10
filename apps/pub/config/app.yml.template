@@ -78,13 +78,24 @@ all:
     ## install (if it is not included) the plugin in the sf_plugin_dir
     ## then read the README file
     ################################
+    ## if you want to enable more than one payment method
+    ## use this syntax:
+    ## app:
+    ##   payments:
+    ##     list:
+    ##       paybox:
+    ##         id: 1
+    ##         (...)
+    ##       onthespot: ~
+    ##       (...)
+    ################################
     type: paybox
     autosubmit: true
     id: "1"
     rank: "32"
     site: "1999888"
     key: "0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF"
-    currency: 978
+    currency: '<?php $cur = sfConfig::get('project_internals_currency', array('iso' => 978, 'symbol' => '€')); echo $cur['iso'] ?>'
     url:
       payment: [https://preprod-tpeweb.paybox.com/, https://preprod-tpeweb1.paybox.com/]
       uri: cgi/MYchoix_pagepaiement.cgi

@@ -87,10 +87,10 @@ $(document).ready(function(){
   <?php $value = $mc->MemberCardType->value; foreach ( $mc->BoughtProducts as $bp ) $value += $bp->value + $bp->shipping_fees; ?>
   <?php $total['qty']++; $total['value'] += $value ?>
   <?php if ( !sfConfig::get('app_options_synthetic_plans', false) ): ?>
-  <td class="value"><?php echo format_currency($value,'€') ?></td>
+  <td class="value"><?php echo format_currency($value,$sf_context->getConfiguration()->getCurrency()) ?></td>
   <td class="qty">1</td>
   <?php endif ?>
-  <td class="total"><?php echo format_currency($value,'€') ?></td>
+  <td class="total"><?php echo format_currency($value,$sf_context->getConfiguration()->getCurrency()) ?></td>
   <td class="extra-taxes" title="<?php echo __('Booking fees') ?>"></td>
   <?php if ( sfConfig::get('app_options_synthetic_plans', false) && $current_transaction ): ?>
   <td class="linked-stuff"></td>
@@ -125,12 +125,12 @@ $(document).ready(function(){
   </td>
   <?php $total['qty']++; $total['value'] += $product->value ?>
   <?php if ( !sfConfig::get('app_options_synthetic_plans', false) ): ?>
-    <td class="value"><?php echo format_currency($product->value,'€') ?></td>
+    <td class="value"><?php echo format_currency($product->value,$sf_context->getConfiguration()->getCurrency()) ?></td>
     <td class="qty">1</td>
   <?php endif ?>
-  <td class="total"><?php echo format_currency($product->value,'€') ?></td>
+  <td class="total"><?php echo format_currency($product->value,$sf_context->getConfiguration()->getCurrency()) ?></td>
   <td class="extra-taxes" title="<?php echo __('Booking fees') ?>">
-    <?php echo $product->shipping_fees ? format_currency($product->shipping_fees,'€') : '' ?>
+    <?php echo $product->shipping_fees ? format_currency($product->shipping_fees,$sf_context->getConfiguration()->getCurrency()) : '' ?>
     <?php $total['taxes'] += $product->shipping_fees ?>
   </td>
   <?php if ( sfConfig::get('app_options_synthetic_plans', false) && $current_transaction ): ?>
@@ -168,7 +168,7 @@ $(document).ready(function(){
       <td></td>
     <?php endif ?>
     <td class="qty"><?php echo $total['mc_qty'] + $total['qty'] ?></td>
-    <td class="total"><?php echo format_currency($recalculated['total'],'€'); ?></td>
+    <td class="total"><?php echo format_currency($recalculated['total'],$sf_context->getConfiguration()->getCurrency()); ?></td>
     <?php if ( sfConfig::get('app_options_synthetic_plans', false) && $current_transaction ): ?>
     <td class="linked-stuff"></td>
     <?php endif ?>
@@ -184,7 +184,7 @@ $(document).ready(function(){
       <td></td>
     <?php endif ?>
     <td class="qty"><?php echo $total['mc_qty'] ?></td>
-    <td class="total"><?php echo $total['mc_value'] = format_currency($recalculated['withmc'],'€'); ?></td>
+    <td class="total"><?php echo $total['mc_value'] = format_currency($recalculated['withmc'],$sf_context->getConfiguration()->getCurrency()); ?></td>
     <?php if ( sfConfig::get('app_options_synthetic_plans', false) && $current_transaction ): ?>
     <td class="linked-stuff"></td>
     <?php endif ?>
@@ -204,12 +204,12 @@ $(document).ready(function(){
       <td></td>
     <?php endif ?>
     <td class="qty"><?php echo $total['qty'] ?></td>
-    <td class="total"><?php echo format_currency($recalculated['total'] - $recalculated['withmc'],'€'); ?></td>
-    <td class="extra-taxes"><?php echo format_currency($total['taxes'],'€'); ?></td>
+    <td class="total"><?php echo format_currency($recalculated['total'] - $recalculated['withmc'],$sf_context->getConfiguration()->getCurrency()); ?></td>
+    <td class="extra-taxes"><?php echo format_currency($total['taxes'],$sf_context->getConfiguration()->getCurrency()); ?></td>
     <?php if ( sfConfig::get('app_options_synthetic_plans', false) && $current_transaction ): ?>
     <td class="linked-stuff"></td>
     <?php endif ?>
-    <td class="total-total"><?php echo format_currency($recalculated['total'] + $total['taxes'],'€'); ?></td>
+    <td class="total-total"><?php echo format_currency($recalculated['total'] + $total['taxes'],$sf_context->getConfiguration()->getCurrency()); ?></td>
   </tr>
 </tfoot>
 <thead>

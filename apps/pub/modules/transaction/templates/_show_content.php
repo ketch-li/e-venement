@@ -48,4 +48,10 @@
   <?php endif ?>
   <?php endif ?>
   
+  <li class="contacts">
+    <span class="title"><?php echo __('Details (CSV)') ?>:</span>
+    <span class="std"><?php echo link_to(__('Standard'), 'transaction/contacts?type=std&id='.$transaction->id) ?>
+    <span class="ms"><?php echo link_to(__('Microsoft'), 'transaction/contacts?type=ms&id='.$transaction->id) ?></span>
+  </li>
+  
 </ul>

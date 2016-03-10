@@ -9,6 +9,30 @@
         <target>Invalide</target>
       </trans-unit>
       <trans-unit>
+        <source>Space</source>
+        <target>Espace</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Date &amp; time</source>
+        <target>Date &amp; heure</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Standard</source>
+        <target>Standard</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Microsoft</source>
+        <target>Microsoft</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Details (CSV)</source>
+        <target>Détails (CSV)</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Payment by other means</source>
+        <target>Paiement par d'autres moyens</target>
+      </trans-unit>
+      <trans-unit>
         <source>Resume contacts</source>
         <target>Reprendre des contacts</target>
       </trans-unit>

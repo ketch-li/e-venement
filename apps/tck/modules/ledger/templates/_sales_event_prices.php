@@ -30,13 +30,13 @@
         $i += $k-1;
         echo $qty;
       ?></td>
-      <td class="value" title="<?php echo __('PIT').' = '.__('TEP').' + '.__('VAT') ?>"><?php echo format_currency($value,'€') ?></td>
-      <td class="extra-taxes" title="<?php echo __('Incl. VAT') ?>"><?php echo format_currency($taxes,'€') ?></td>
+      <td class="value" title="<?php echo __('PIT').' = '.__('TEP').' + '.__('VAT') ?>"><?php echo format_currency($value,$sf_context->getConfiguration()->getCurrency()) ?></td>
+      <td class="extra-taxes" title="<?php echo __('Incl. VAT') ?>"><?php echo format_currency($taxes,$sf_context->getConfiguration()->getCurrency()) ?></td>
       <?php foreach ( $total['vat'] as $t => $v ): ?>
       <td class="vat"><?php
         if ( !sfConfig::get('app_ledger_sum_rounding_before',false) )
         if ( isset($x[$t]) )
-          echo format_currency($x[$t],'€');
+          echo format_currency($x[$t],$sf_context->getConfiguration()->getCurrency());
         /*
           && strtotime($ticket->cancelling ? $ticket->created_at : ($ticket->printed_at ? $ticket->printed_at : $ticket->integrated_at)) >= strtotime(sfConfig::get('app_ledger_sum_rounding_before')) )
         if ( $manif->Tickets->count() < 25 )
@@ -45,7 +45,7 @@
           foreach ( $manif->Tickets as $ticket )
           if ( $ticket->vat == $t )
             $x += round($ticket->value - $ticket->value/(1+$ticket->vat),2);
-          echo $x ? format_currency($x,'€') : '';
+          echo $x ? format_currency($x,$sf_context->getConfiguration()->getCurrency()) : '';
         }
         */
       ?></td>

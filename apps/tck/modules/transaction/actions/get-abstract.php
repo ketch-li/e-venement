@@ -168,7 +168,7 @@
           ->select('m.id')
           ->andWhere("m.happens_at + (m.duration||' seconds')::interval > NOW()")
           ->andWhere('e.museum = ?', $type == 'museum') // differenciate museums & manifestations
-          ->orderBy('m.happens_at ASC')
+          ->orderBy('m.happens_at ASC, m.id')
           ->limit($conf['max_display']);
         $ids = array();
         foreach ( $q2->execute() as $manif )
@@ -188,6 +188,9 @@
       }
       if ( $gid = $request->getParameter('gauge_id', false) )
         $q->andWhere('(g.id = ? OR (ng.id = ? AND g.workspace_id = ng.workspace_id))',array($gid, $gid));
+      
+      // ordering stuff avoids bugs w/ duplicates in some isolated cases
+      $q->orderBy('m.id, g.id'); //, tck.id');
     
     break;
     case 'store':
@@ -361,7 +364,7 @@
             ->leftJoin('g.Workspace w')
             ->leftJoin('w.Order wuo ON wuo.workspace_id = w.id AND wuo.sf_guard_user_id = ?',$this->getUser()->getId())
             //->orderBy('et.name, me.name, m.happens_at, m.duration, wuo.rank, w.name, pmpt.name, pgpt.name') // BUG 2015-05-13 3è étage: selecting translations from PriceGauges & PriceManifestations is impossible: Couldn't hydrate. Found non-unique key mapping named 'lang'.
-            ->orderBy('et.name, met.name, m.happens_at, m.duration, wuo.rank, w.name')
+            ->orderBy('et.name, met.name, m.happens_at, m.duration, wuo.rank, w.name, m.id')
             ->leftJoin('pmp.WorkspacePrices pmpwp WITH pmpwp.workspace_id = w.id')
             ->leftJoin('pmp.UserPrices      pmpup WITH pmpup.sf_guard_user_id = ?',$this->getUser()->getId())
             ->leftJoin('pgp.WorkspacePrices pgpwp WITH pgpwp.workspace_id = w.id')
@@ -551,9 +554,9 @@
               'id'  => $pp->price_id,
               'name'  => (string)$pp->Price,
               'description'  => $pp->Price->description,
-              'value' => format_currency($pp->value,'€'),
+              'value' => format_currency($pp->value,$this->getContext()->getConfiguration()->getCurrency()),
               'raw_value' => floatval($pp->value),
-              'currency' => '€',
+              'currency' => $this->getContext()->getConfiguration()->getCurrency(),
             );
           }
           ksort($this->json[$product->ordering_key][$this->json[$product->ordering_key]['declinations_name']][$declination->id]['available_prices']);

@@ -149,6 +149,7 @@ ul.no-bullet li.highlight { text-decoration: underline; }
 #details a:hover { text-decoration: underline; }
 
 #transaction-content { padding-top: 1px; float: left; }
+#transaction-content .contacts { display: none; }
 
 #payments table {
 	margin-left: 25px;
@@ -362,7 +363,7 @@ tfoot, thead { font-weight: bold; }
 .prices .explanation span { font-size: 80%; color: silver; display: inline-block; width: 125px; }
 #location, #manifestation { display: inline-block; }
 #location { font-weight: bold; }
-#depends_on, #manifestation { padding: 0px 5px 15px 25px; }
+#depends_on, #manifestation { padding: 15px 5px 15px 25px; }
 #login label { min-width: 125px; display: inline-block; }
 #login .submit { margin-left: 0; }
 #login .submit input { margin-left: 5px; }

@@ -285,16 +285,8 @@
     
     // setting up the vars to commit to the bank
     $redirect = false;
-    if ( ($topay = $this->transaction->getPrice(true,true)) > 0 && sfConfig::get('app_payment_type','paybox') != 'onthespot' )
-    {
-      if (!(
-         class_exists($class = ucfirst($plugin = sfConfig::get('app_payment_type','paybox')).'Payment')
-      && is_a($class, 'OnlinePaymentInterface', true)
-      ))
-        throw new liOnlineSaleException('You asked for a payment plugin ('.$plugin.') that does not exist or is not compatible.');
-      $this->online_payment = $class::create($this->transaction);
-    }
-    else // no payment to be done
+    $this->online_payments = array();
+    if ( ($topay = $this->transaction->getPrice(true,true)) == 0 )
     {
       $this->getContext()->getConfiguration()->loadHelpers('I18N');
       
@@ -318,6 +310,40 @@
         $this->getUser()->setFlash('notice',__("Your command has been booked, you will have to pay for it directly with us."));
       
       $redirect = 'transaction/show?id='.$transaction->id;
+    }
+    else
+    {
+      // simple configuration
+      if ( sfConfig::get('app_payment_type', false) )
+      {
+        if (!(
+           class_exists($class = ucfirst($plugin = sfConfig::get('app_payment_type','paybox')).'Payment')
+        && is_a($class, 'OnlinePaymentInterface', true)
+        ))
+          throw new liOnlineSaleException('You asked for a payment plugin ('.$plugin.') that does not exist or is not compatible.');
+        $this->online_payments[] = $class::create($this->transaction);
+      }
+      
+      // multiple payment methods
+      if ( sfConfig::get('app_payments_list', array()) )
+      foreach ( sfConfig::get('app_payments_list', array()) as $name => $options )
+      {
+        // init things
+        sfConfig::set('app_payment_type', $name);
+        foreach ( $options as $option => $value )
+          sfConfig::set('app_payment_'.$option, $value);
+        if (!(
+           class_exists($class = ucfirst($plugin = sfConfig::get('app_payment_type','paybox')).'Payment')
+        && is_a($class, 'OnlinePaymentInterface', true)
+        ))
+          throw new liOnlineSaleException('You asked for a payment plugin ('.$plugin.') that does not exist or is not compatible.');
+        $this->online_payments[] = $class::create($this->transaction);
+        
+        // reset things
+        foreach ( $options as $option => $value )
+          sfConfig::set('app_payment_'.$option, null);
+        sfConfig::set('app_payment_type', null);
+      }
     }
     
     // empty'ing the password if asked for

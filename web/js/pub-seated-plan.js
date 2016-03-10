@@ -92,6 +92,9 @@ LI.pubInitTicketsData = function(json){
   $('.prices .seats *').remove();
   $('.prices .price .ticket').remove();
   
+  var currency = LI.get_currency($('.adding-tickets .prices tfoot .total').text());
+  var fr_style = LI.currency_style($('.adding-tickets .prices tfoot .total').text()) == 'fr';
+  
   // commenting out to avoid "blinking" seats
   //$('.seated-plan.picture .seat.ordered.in-progress')
   //  .removeClass('ordered').removeClass('in-progress')
@@ -129,7 +132,7 @@ LI.pubInitTicketsData = function(json){
     // extra taxes
     line.find('.extra-taxes').each(function(){
       var val;
-      $(this).html(LI.format_currency(val = parseFloat($(this).attr('data-value'))+ticket['extra-taxes']));
+      $(this).html(LI.format_currency(val = parseFloat($(this).attr('data-value'))+ticket['extra-taxes'], true, fr_style, currency));
       $(this).attr('data-value', val);
     });
     

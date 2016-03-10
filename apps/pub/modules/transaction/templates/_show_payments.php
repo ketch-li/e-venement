@@ -5,7 +5,7 @@
     <tr>
       <td class="method"><?php echo $payment->Method ?></td>
 			<td class="date"><?php echo format_date($payment->created_at) ?></td>
-      <td class="value"><?php echo format_currency($payment->value,'€'); $total += $payment->value ?></td>
+      <td class="value"><?php echo format_currency($payment->value,$sf_context->getConfiguration()->getCurrency()); $total += $payment->value ?></td>
     </tr>
     <?php endforeach ?>
   </tbody>
@@ -13,7 +13,7 @@
     <tr>
       <td class="method"><?php echo __('Total') ?></td>
 			<td class="date"></td>
-      <td class="value"><?php echo format_currency($total,'€') ?></td>
+      <td class="value"><?php echo format_currency($total,$sf_context->getConfiguration()->getCurrency()) ?></td>
 		</tr>
   <thead>
     <tr>

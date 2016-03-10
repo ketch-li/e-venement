@@ -272,9 +272,9 @@ class Transaction extends PluginTransaction
           case 'horizontal': // every tickets for one manifestation
             $id = 'm'.$ticket->manifestation_id;
             break;
-          case 'vertical': // every tickets of a single DirectContact
+          case 'vertical': // every tickets of a single DirectContact for a single MetaEvent
             if ( $ticket->contact_id )
-              $id = 'c'.$ticket->contact_id;
+              $id = 'c'.$ticket->contact_id.'me'.$ticket->Manifestation->Event->meta_event_id;
             break;
         }
         
@@ -386,9 +386,10 @@ class Transaction extends PluginTransaction
   public function getDirectContacts()
   {
     $contacts = array();
+    $contacts[$this->contact_id] = $this->Contact;
     foreach ( $this->Tickets as $ticket )
-    if ( $ticket->contact_id )
-        $contacts[] = $ticket->DirectContact;
+    if ( $ticket->contact_id && !isset($contacts[$ticket->contact_id]) )
+        $contacts[$ticket->contact_id] = $ticket->DirectContact;
     return $contacts;
   }
 }

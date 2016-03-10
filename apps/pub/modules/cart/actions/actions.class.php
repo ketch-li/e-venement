@@ -219,6 +219,11 @@ class cartActions extends sfActions
     require(dirname(__FILE__).'/order.php');
   }
 
+  public function executeOnthespot(sfWebRequest $request)
+  {
+    require(dirname(__FILE__).'/onthespot.php');
+  }
+
   public function executeResponse(sfWebRequest $request)
   {
     // WHERE THE BANK PINGS BACK WHEN THE ORDER IS PAID

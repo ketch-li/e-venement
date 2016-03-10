@@ -55,31 +55,6 @@ function ticket_events()
         $('#contact #micro-show').append($(data));
       });
       return;
-      
-      $.get($(this).prop('href'),function(data){
-        $('#contact #micro-show').find('#sf_fieldset_none, #sf_fieldset_address, .tdp-object').remove();
-        $($.parseHTML(data)).find('#sf_fieldset_none, #sf_fieldset_address, .tdp-object:first').appendTo('#contact #micro-show');
-        
-        // TDP design
-        $('#contact #micro-show .tdp-object').find('select, input[type=radio], input[type=checkbox]').each(function(){
-          if ( $(this).find('option:selected').length > 0 )
-            $(this).parent().append($(this).find('option:selected').html()+' ');
-          $(this).remove();
-        });
-        $('#contact #micro-show .tdp-object').find('input[type=text], textarea').each(function(){
-          $(this).parent().append($(this).val()+' ');
-          $(this).remove();
-        });
-        $('#contact #micro-show .tdp-object .tdp-widget-header').each(function(){
-          $(this).find('h1').prependTo($(this).closest('.tdp-object'));
-          $(this).remove();
-        });
-        $('#contact #micro-show .tdp-object .tdp-email').appendTo('#contact #micro-show .tdp-object:first');
-        
-        // CLASSICAL design
-        for ( i = 0 ; i < 3 ; i++ )
-          $('#contact #micro-show #sf_fieldset_address').find('.sf_admin_form_row:first-child').remove();
-      });
     }
   }).mouseleave(function(data){
     $('#contact #micro-show').fadeOut();
@@ -626,22 +601,21 @@ function ticket_process_amount(add)
   if ( add == 'undefined' ) add = false;
   
   // the total combinated amount
-  total = 0;
-  currency = '&nbsp;€'; // default currency
+  var total = 0;
+  var currency = LI.get_currency($('#topay #to_pay').html());
+  var fr_style = LI.currency_style($('#topay #to_pay').html()) == 'fr';
   $('#to_pay, #prices .manifestations_list .manif .total').each(function(){
     if ( $(this).html() )
-    {
-      total += parseFloat($(this).html().replace(',','.').replace('&nbsp;',''));
-      currency = $(this).html().replace(/^-{0,1}(\d+&nbsp;)*\d+[,\.]\d+/g,'');
-    }
+      total += LI.clear_currency($(this).html());
   });
-  $('#prices .manifestations_list .total .total').html(total.toFixed(2)+currency);
-  $('#payment tbody tr.topay .sf_admin_list_td_list_value').html(total.toFixed(2)+currency);
-  $('#payment tbody tr.change .sf_admin_list_td_list_value').html(
-    (total-parseFloat($('#payment tbody tr.total .sf_admin_list_td_list_value').html().replace(',','.').replace('&nbsp;',''))).toFixed(2)
-    +currency);
+  $('#prices .manifestations_list .total .total').html(LI.format_currency(total, true, fr_style, currency));
+  $('#payment tbody tr.topay .sf_admin_list_td_list_value').html(LI.format_currency(total, true, fr_style, currency));
+  $('#payment tbody tr.change .sf_admin_list_td_list_value').html(LI.format_currency(
+    total-LI.clear_currency($('#payment tbody tr.total .sf_admin_list_td_list_value').html()),
+    true, fr_style, currency
+  ));
   
-  if ( total <= parseFloat($('#payment tbody tr.total .sf_admin_list_td_list_value').html().replace(',','.').replace('&nbsp;','')) )
+  if ( total <= LI.clear_currency($('#payment tbody tr.total .sf_admin_list_td_list_value').html()) )
   {
     $('#validation .form-valid').fadeIn();
     if ( add )
@@ -661,13 +635,13 @@ function ticket_enable_payment()
     $('#print, #payment').fadeIn();
 
     // if there is nothing left to pay
-    if ( parseFloat($('#prices .manifestations_list .total .total').html()) <= 0
+    if ( LI.clear_currency($('#prices .manifestations_list .total .total').html()) <= 0
       && $('#payment tbody tr').length <= 3 )
     {
       $('#print, #validation form').fadeIn();
     }
     // if there is something left to pay
-    else if ( parseFloat($('#prices .manifestations_list .total .total').html()) > 0
+    else if ( LI.clear_currency($('#prices .manifestations_list .total .total').html()) > 0
       || $('#payment tbody tr').length > 3 )
     {
       $('#print, #payment').fadeIn();

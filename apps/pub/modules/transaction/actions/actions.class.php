@@ -110,6 +110,11 @@ class transactionActions extends sfActions
   {
   }
   
+  public function executeContacts(sfWebRequest $request)
+  {
+    return require(__DIR__.'/contacts.php');
+  }
+  
   public function executeShow(sfWebRequest $request)
   {
     $this->getContext()->getConfiguration()->hardenIntegrity();

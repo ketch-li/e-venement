@@ -36,9 +36,9 @@
         <?php if ( $sf_user->hasCredential('tck-transaction-reduc') ): ?>
         <span class="reduc" title="<?php echo __('Reduction') ?>">
           <label><?php echo __('Reduction') ?></label>
-          <?php echo $form['reduc'] ?> (€|%)
+          <?php echo $form['reduc'] ?> (<?php echo $sf_context->getConfiguration()->getCurrency() ?>|%)
         </span>
-        <span class="value"><?php echo format_currency($ticket->value, '€') ?></span>
+        <span class="value"><?php echo format_currency($ticket->value, $sf_context->getConfiguration()->getCurrency()) ?></span>
         <?php endif ?>
         <span><input type="submit" value="<?php echo __('Validate', null, 'sf_admin') ?>" name="submit" /><input type="hidden" name="id" value="<?php echo $ticket->id ?>" /></span>
       </form>

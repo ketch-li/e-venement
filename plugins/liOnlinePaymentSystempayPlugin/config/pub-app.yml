@@ -6,7 +6,7 @@ all:
     type: systempay
     id: 11223344
     certificate: 1122334455667788
-    currency: 978
+    currency: '<?php $cur = sfConfig::get('project_internals_currency', array('iso' => 978, 'symbol' => '€')); echo $cur['iso'] ?>'
     mode: test # choices: production or test
     #validation: auto # choices: manual or auto
     #delay: 0 # number of days before this transaction is effective in every bank accounts
