@@ -45,9 +45,9 @@ class debtsActions extends sfActions
     foreach ( $this->lines as $nb => $line )
     {
       $this->lines[$nb]['date'] = format_date($line['date']);
-      $this->lines[$nb]['debt'] = format_currency($line['outcome'] - $line['income'],'€');
-      $this->lines[$nb]['outcome'] = format_currency(0+$line['income'],'€');
-      $this->lines[$nb]['income'] = format_currency(0+$line['outcome'],'€');
+      $this->lines[$nb]['debt'] = format_currency($line['outcome'] - $line['income'],$this->getContext()->getConfiguration()->getCurrency());
+      $this->lines[$nb]['outcome'] = format_currency(0+$line['income'],$this->getContext()->getConfiguration()->getCurrency());
+      $this->lines[$nb]['income'] = format_currency(0+$line['outcome'],$this->getContext()->getConfiguration()->getCurrency());
     }
     
     $params = OptionCsvForm::getDBOptions();

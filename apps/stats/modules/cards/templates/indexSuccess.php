@@ -15,7 +15,7 @@
     <?php foreach ( $cards as $card ): ?>
     <p>
       <span><?php echo __('Prices for %%price%%',array('%%price%%' => __($card['name']))) ?>:</span>
-      <span><input type="text" name="accounting[price][<?php echo $card['name'] ?>]" value="<?php echo isset($accounting['price'][$card['name']]) ? $accounting['price'][$card['name']] : 0 ?>" />€</span>
+      <span><input type="text" name="accounting[price][<?php echo $card['name'] ?>]" value="<?php echo isset($accounting['price'][$card['name']]) ? $accounting['price'][$card['name']] : 0 ?>" /><?php echo $sf_context->getConfiguration()->getCurrency() ?></span>
     </p>
     <?php endforeach ?>
     <p><span></span><span><input type="submit" name="submit" value="ok" /></span></p>
