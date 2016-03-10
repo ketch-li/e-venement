@@ -91,6 +91,9 @@ if ( LI == undefined )
   var LI = {};
 LI.statsCompleteFillingData = function(json)
 {
+  var currency = LI.get_currency($('.sf_admin_form_field_prices_list tbody .value').html());
+  var fr_style = LI.currency_style($('.sf_admin_form_field_prices_list tbody .value').html()) == 'fr';
+      
   // showing optional data by default
   $('#sf_fieldset_statistics .filling-complete .sf_admin_row.held').show();
   $('#sf_fieldset_statistics .filling-complete').find('td').show();
@@ -123,17 +126,17 @@ LI.statsCompleteFillingData = function(json)
         nb: json[type].free[state].nb + json[type].ordered[state].nb + json[type].printed[state].nb + json[type].held[state].nb,
         min: {
           money: json[type].free[state].min.money + json[type].ordered[state].money + json[type].printed[state].money + json[type].held[state].money,
-          money_txt: LI.format_currency(json[type].free[state].min.money + json[type].ordered[state].money + json[type].printed[state].money + json[type].held[state].money, false)
+          money_txt: LI.format_currency(json[type].free[state].min.money + json[type].ordered[state].money + json[type].printed[state].money + json[type].held[state].money, false, fr_style, currency)
         },
         max: {
           money: json[type].free[state].max.money + json[type].ordered[state].money + json[type].printed[state].money + json[type].held[state].money,
-          money_txt: LI.format_currency(json[type].free[state].max.money + json[type].ordered[state].money + json[type].printed[state].money + json[type].held[state].money, false)
+          money_txt: LI.format_currency(json[type].free[state].max.money + json[type].ordered[state].money + json[type].printed[state].money + json[type].held[state].money, false, fr_style, currency)
         },
       },
       'not-free': {
         nb: json[type].ordered[state].nb + json[type].printed[state].nb + json[type].held[state].nb,
         money: json[type].ordered[state].money + json[type].printed[state].money + json[type].held[state].money,
-        money_txt: LI.format_currency(json[type].ordered[state].money + json[type].printed[state].money + json[type].held[state].money, false)
+        money_txt: LI.format_currency(json[type].ordered[state].money + json[type].printed[state].money + json[type].held[state].money, false, fr_style, currency)
       }
     }
     if ( data != 'total' && data != 'not-free' )
@@ -147,7 +150,7 @@ LI.statsCompleteFillingData = function(json)
     $('#sf_fieldset_statistics .filling-complete .'+data+' .f-'+tckprefix+'-'+gaugeprefix+' .nb')
       .text(nb);
     $('#sf_fieldset_statistics .filling-complete .'+data+' .f-'+tckprefix+'-'+gaugeprefix+' .percent')
-      .text(LI.format_currency(100 * nb / calculated['total'].nb, false, true, ''));
+      .text(LI.format_currency(100 * nb / calculated['total'].nb, false, true, ''), fr_style, currency);
     
     // money
     $.each(['min', 'max'], function(id, key){
@@ -171,7 +174,7 @@ LI.statsCompleteFillingData = function(json)
       $('#sf_fieldset_statistics .filling-complete .'+data+(key ? '.'+key : '')+' .sos-'+tckprefix+'-'+gaugeprefix+' .money')
         .text(value.money_txt);
       $('#sf_fieldset_statistics .filling-complete .'+data+(key ? '.'+key : '')+' .sos-'+tckprefix+'-'+gaugeprefix+' .percent')
-        .text(LI.format_currency(100 * value.money / ( key && data == 'free' ? calculated['total'][key].money : calculated['total'].max.money ), false, true, ''));
+        .text(LI.format_currency(100 * value.money / ( key && data == 'free' ? calculated['total'][key].money : calculated['total'].max.money ), false, true, ''), fr_style, currency);
     });
   }); // type
   }); // data
