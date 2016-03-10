@@ -28,7 +28,7 @@
       <?php echo $contact['pro'] ? $sf_data->getRaw('contact')['pro']->Organism->groups_picto : '' ?>
     </td>
     <td class="tickets"><?php include_partial('show_spectators_list_tickets',array('tickets' => $ws, 'show_workspaces' => $show_workspaces)) ?></td>
-    <td class="price"><?php echo format_currency($contact['value'][$wsid],'€') ?></td>
+    <td class="price"><?php echo format_currency($contact['value'][$wsid],$sf_context->getConfiguration()->getCurrency()) ?></td>
     <td class="accounting"><?php if ( $contact['transaction']->Invoice[0]->id ): ?>#<?php echo $contact['transaction']->Invoice[0]->id ?><?php else: ?>-<?php endif ?></td>
     <td class="transaction" title="<?php echo __('Updated at %%d%% by %%u%%',array('%%d%%' => format_datetime($transac->updated_at), '%%u%%' => $transac->User)) ?>">
       <?php if ( trim($transac->description) ): ?><span class="ui-icon ui-icon-alert" title="<?php echo $transac->description ?>"></span><?php endif ?>

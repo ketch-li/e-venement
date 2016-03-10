@@ -68,7 +68,7 @@ class manifestationActions extends autoManifestationActions
       $this->json[$field]['value'] += $gauge[$field]*$gauge['value'];
     $this->getContext()->getConfiguration()->loadHelpers('Number');
     foreach ( array('max', 'min') as $field )
-      $this->json[$field]['currency'] = format_currency($this->json[$field]['value'], '€');
+      $this->json[$field]['currency'] = format_currency($this->json[$field]['value'], $this->getContext()->getConfiguration()->getCurrency());
     
     if (!( sfConfig::get('sf_web_debug', true) && $request->hasParameter('debug') ))
       return 'Json';
