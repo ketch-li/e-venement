@@ -28,6 +28,3 @@
 [submodule "plugins/liOnlinePaymentPayplugPlugin/lib/externals/payplug_php"]
 	path = plugins/liOnlinePaymentPayplugPlugin/lib/externals/payplug_php
 	url = https://bitbucket.org/payplug/payplug_php
-[submodule "lib/vendor/externals/EPTEmulator"]
-	path = lib/vendor/externals/EPTEmulator
-	url = git@github.com:libre-informatique/EPTEmulator.git
