@@ -54,7 +54,7 @@
           <span class="event">Total</span>:
           <span class="nb"><?php echo $total['qty'] ?></span>
           <?php if ( $sf_user->hasCredential('tck-ledger-sales') ): ?>
-          <span class="value"><?php echo format_currency($total['value'],'€') ?></span>
+          <span class="value"><?php echo format_currency($total['value'],$sf_context->getConfiguration()->getCurrency()) ?></span>
           <?php endif ?>
         </li>
       </ul>
