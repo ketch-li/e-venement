@@ -8,6 +8,7 @@ editSuccess:
     - "tck-touchscreen-websockets?<?php echo date('Ymd') ?>"
     - "socket.io.js?<?php echo date('Ymd') ?>"
     - "boca-status.js"
+    - "ept-emulator.js"
 respawnSuccess:
   stylesheets: [-tck-touchscreen]
 registeredSuccess:

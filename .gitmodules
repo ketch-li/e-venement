@@ -28,3 +28,6 @@
 [submodule "plugins/liOnlinePaymentPayplugPlugin/lib/externals/payplug_php"]
 	path = plugins/liOnlinePaymentPayplugPlugin/lib/externals/payplug_php
 	url = https://bitbucket.org/payplug/payplug_php
+[submodule "lib/vendor/externals/EveConnector"]
+	path = lib/vendor/externals/EveConnector
+	url = git@github.com:libre-informatique/EveConnector.git
