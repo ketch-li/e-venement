@@ -84,7 +84,7 @@
     foreach ( $spectator->Tickets as $ticket )
     if ( !isset($this->prices['price_'.$ticket->price_id]) )
     {
-      $this->prices['price_'.$ticket->price_id] = $ticket->price_name.' ('.format_currency($ticket->value,'€').')';
+      $this->prices['price_'.$ticket->price_id] = $ticket->price_name.' ('.format_currency($ticket->value,$this->getContext()->getConfiguration()->getCurrency()).')';
       $this->prices['price_'.$ticket->price_id.'_value'] = __('Value');
     }
     

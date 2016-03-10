@@ -70,7 +70,7 @@
         'seat_name' => $seat->name,
         'seat_class'=> $seat->class,
         'debt'      => $debt,
-        'debt-txt'  => format_currency($debt, '€'),
+        'debt-txt'  => format_currency($debt, $this->getContext()->getConfiguration()->getCurrency()),
         'gauge_id'  => $seat->Tickets[0]->Gauge->id,
         'transaction_id' => $seat->Tickets[0]->transaction_id,
         'position' => array($seat->x-$seat->diameter/2, $seat->y-$seat->diameter/2+4), // +2 is for half of the font height
