@@ -22,7 +22,7 @@
   <tr class="value">
     <?php use_helper('Number') ?>
     <td><?php echo __('Value') ?></td>
-    <td><?php echo format_currency($member_card->value,'€') ?></td>
+    <td><?php echo format_currency($member_card->value,$sf_context->getConfiguration()->getCurrency()) ?></td>
   </tr>
   <?php endif ?>
   <?php if ( $member_card->nb_prices > 0 ): ?>
