@@ -142,6 +142,14 @@ class cartActions extends sfActions
     // harden data
     $this->getContext()->getConfiguration()->hardenIntegrity();
 
+    // if every ticket needs a DirectContact
+    if ( sfConfig::get('app_tickets_always_need_a_contact', false) && sfConfig::get('app_options_synthetic_plans', false)
+      && in_array(NULL, $this->getUser()->getTransaction()->Tickets->toKeyValueArray('id', 'contact_id')) )
+    {
+      $this->getUser()->setFlash('error', __('You still have tickets without any contact information, and this is not allowed. Please fill in contact informations for each of your tickets.'));
+      $this->redirect('transaction/show?id='.$this->getUser()->getTransactionId());
+    }
+
     // pay a specific transaction
     $this->specific_transaction = intval($request->getParameter('transaction_id')).'' === ''.$request->getParameter('transaction_id','')
       ? Doctrine::getTable('Transaction')->find($request->getParameter('transaction_id'))
