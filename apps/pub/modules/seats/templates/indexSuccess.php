@@ -45,10 +45,10 @@
     if ( count($prices[$seated_plan_workspaces[$seat->seated_plan_id]->Gauges[0]->id]) > 0 )
     $infos[] = min($prices[$seated_plan_workspaces[$seat->seated_plan_id]->Gauges[0]->id]) != max($prices[$seated_plan_workspaces[$seat->seated_plan_id]->Gauges[0]->id])
       ? __('from %%from%% to %%to%%', array(
-        '%%from%%' => format_currency(min($prices[$seated_plan_workspaces[$seat->seated_plan_id]->Gauges[0]->id]), '€'),
-        '%%to%%'   => format_currency(max($prices[$seated_plan_workspaces[$seat->seated_plan_id]->Gauges[0]->id]), '€'),
+        '%%from%%' => format_currency(min($prices[$seated_plan_workspaces[$seat->seated_plan_id]->Gauges[0]->id]), $sf_context->getConfiguration()->getCurrency()),
+        '%%to%%'   => format_currency(max($prices[$seated_plan_workspaces[$seat->seated_plan_id]->Gauges[0]->id]), $sf_context->getConfiguration()->getCurrency()),
       ))
-      : format_currency(min($prices[$seated_plan_workspaces[$seat->seated_plan_id]->Gauges[0]->id]), '€')
+      : format_currency(min($prices[$seated_plan_workspaces[$seat->seated_plan_id]->Gauges[0]->id]), $sf_context->getConfiguration()->getCurrency())
     ;
     
     $seats[] = array(

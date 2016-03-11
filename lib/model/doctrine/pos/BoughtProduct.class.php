@@ -139,7 +139,7 @@ EOF
       , __('Precision', null, 'li_tickets_email'), (string)$this->declination
       , __('Image', null, 'li_tickets_email'), $picture
       , $description
-      , __('Price', null, 'li_tickets_email'), $this->price_name, format_currency($this->value,'€')
+      , __('Price', null, 'li_tickets_email'), $this->price_name, format_currency($this->value, sfContext::hasInstance() ? sfContext::getInstance()->getConfiguration()->getCurrency() : '€')
       , $this->transaction_id, $this->id, $this->code
       , $this->Transaction->professional_id ? $this->Transaction->Professional->getFullName() : (string)$this->Transaction->Contact
       , $barcode

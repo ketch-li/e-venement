@@ -12,7 +12,7 @@ all:
     rank: "32"
     site: "1999888"
     key: "0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF"
-    currency: 978
+    currency: '<?php $cur = sfConfig::get('project_internals_currency', array('iso' => 978, 'symbol' => '€')); echo $cur['iso'] ?>'
     url:
       payment: [https://preprod-tpeweb.paybox.com/, https://preprod-tpeweb1.paybox.com/]
       uri: cgi/MYchoix_pagepaiement.cgi

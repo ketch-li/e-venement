@@ -12,7 +12,7 @@ all:
     key: "abCdefghiklMn0pqrSTu"
     contract: '0000000'         # this is a string, not an integer, do not ommit the ""
     mode: pro # can be "test" or "prod"
-    currency: 978
+    currency: '<?php $cur = sfConfig::get('project_internals_currency', array('iso' => 978, 'symbol' => '€')); echo $cur['iso'] ?>'
     url:
       normal: cart/done
       cancel: cart/cancel

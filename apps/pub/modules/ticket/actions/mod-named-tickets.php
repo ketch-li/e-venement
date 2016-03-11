@@ -223,13 +223,13 @@
       if ( $pm->Price->isAccessibleBy($this->getUser()) )
       {
         $order[$pm->price_id] = $pm->value;
-        $tmp[$pm->price_id] = ($pm->Price->description ? $pm->Price->description : (string)$pm->Price).' ('.format_currency($pm->value,'€').')';
+        $tmp[$pm->price_id] = ($pm->Price->description ? $pm->Price->description : (string)$pm->Price).' ('.format_currency($pm->value,$this->getContext()->getConfiguration()->getCurrency()).')';
       }
       foreach ( $ticket->Gauge->PriceGauges as $pg )
       if ( $pg->Price->isAccessibleBy($this->getUser()) )
       {
         $order[$pg->price_id] = $pg->value;
-        $tmp[$pg->price_id] = ($pg->Price->description ? $pg->Price->description : (string)$pg->Price).' ('.format_currency($pg->value,'€').')';
+        $tmp[$pg->price_id] = ($pg->Price->description ? $pg->Price->description : (string)$pg->Price).' ('.format_currency($pg->value,$this->getContext()->getConfiguration()->getCurrency()).')';
       }
       arsort($order);
       foreach ( $order as $pid => $value )
@@ -248,8 +248,8 @@
       'price_name'        => !$ticket->price_id ? '' : ($ticket->Price->description ? $ticket->Price->description : (string)$ticket->Price),
       'price_id'          => $ticket->price_id,
       'prices_list'       => $prices,
-      'value'             => $ticket->price_id ? format_currency($ticket->value, '€') : '',
-      'taxes'             => floatval($ticket->taxes) ? format_currency($ticket->taxes, '€') : '',
+      'value'             => $ticket->price_id ? format_currency($ticket->value, $this->getContext()->getConfiguration()->getCurrency()) : '',
+      'taxes'             => floatval($ticket->taxes) ? format_currency($ticket->taxes, $this->getContext()->getConfiguration()->getCurrency()) : '',
       'gauge_name'        => $ticket->Gauge->group_name ? $ticket->Gauge->group_name : (string)$ticket->Gauge,
       'gauge_id'          => $ticket->gauge_id,
       'contact_id'        => $ticket->contact_id,

@@ -10,13 +10,13 @@
   </td>
   <?php if ( !sfConfig::get('app_options_synthetic_plans', false) ): ?>
   <td class="value">
-    <?php echo format_currency($ticket->value,'€') ?>
+    <?php echo format_currency($ticket->value,$sf_context->getConfiguration()->getCurrency()) ?>
   </td>
   <td class="qty"></td>
   <?php endif ?>
   <td class="total">
-    <?php echo format_currency($ticket->value,'€') ?>
+    <?php echo format_currency($ticket->value,$sf_context->getConfiguration()->getCurrency()) ?>
   </td>
   <td class="extra-taxes" title="<?php echo __('Booking fees') ?>">
-    <?php echo format_currency($ticket->taxes,'€') ?>
+    <?php echo format_currency($ticket->taxes,$sf_context->getConfiguration()->getCurrency()) ?>
   </td>
