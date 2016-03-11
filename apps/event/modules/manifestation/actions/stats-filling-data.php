@@ -76,13 +76,13 @@
         'closed' => array(
           'online' => array(
             'nb' => 0,
-            'min' => array('money' => 0, 'money_txt' => format_currency(0, '€')),
-            'max' => array('money' => 0, 'money_txt' => format_currency(0, '€')),
+            'min' => array('money' => 0, 'money_txt' => format_currency(0, $this->getContext()->getConfiguration()->getCurrency())),
+            'max' => array('money' => 0, 'money_txt' => format_currency(0, $this->getContext()->getConfiguration()->getCurrency())),
           ),
           'onsite' => array(
             'nb' => 0,
-            'min' => array('money' => 0, 'money_txt' => format_currency(0, '€')),
-            'max' => array('money' => 0, 'money_txt' => format_currency(0, '€')),
+            'min' => array('money' => 0, 'money_txt' => format_currency(0, $this->getContext()->getConfiguration()->getCurrency())),
+            'max' => array('money' => 0, 'money_txt' => format_currency(0, $this->getContext()->getConfiguration()->getCurrency())),
           ),
           'wideopen' => array(
             'nb' => 0,
@@ -91,8 +91,8 @@
           ),
           'all' => array(
             'nb' => 0,
-            'min' => array('money' => 0, 'money_txt' => format_currency(0, '€')),
-            'max' => array('money' => 0, 'money_txt' => format_currency(0, '€')),
+            'min' => array('money' => 0, 'money_txt' => format_currency(0, $this->getContext()->getConfiguration()->getCurrency())),
+            'max' => array('money' => 0, 'money_txt' => format_currency(0, $this->getContext()->getConfiguration()->getCurrency())),
           ),
         ),
       ),
@@ -137,13 +137,13 @@
         'closed' => array(
           'online' => array(
             'nb' => 0,
-            'min' => array('money' => 0, 'money_txt' => format_currency(0, '€')),
-            'max' => array('money' => 0, 'money_txt' => format_currency(0, '€')),
+            'min' => array('money' => 0, 'money_txt' => format_currency(0, $this->getContext()->getConfiguration()->getCurrency())),
+            'max' => array('money' => 0, 'money_txt' => format_currency(0, $this->getContext()->getConfiguration()->getCurrency())),
           ),
           'onsite' => array(
             'nb' => 0,
-            'min' => array('money' => 0, 'money_txt' => format_currency(0, '€')),
-            'max' => array('money' => 0, 'money_txt' => format_currency(0, '€')),
+            'min' => array('money' => 0, 'money_txt' => format_currency(0, $this->getContext()->getConfiguration()->getCurrency())),
+            'max' => array('money' => 0, 'money_txt' => format_currency(0, $this->getContext()->getConfiguration()->getCurrency())),
           ),
           'all' => array(
             'nb' => 0,
@@ -259,15 +259,15 @@
     {
       if ( isset($this->json['seats'][$state]['online']['min']) )
       {
-        $this->json['seats'][$state]['online']['min']['money_txt'] = format_currency($this->json['seats'][$state]['online']['min']['money'], '€');
-        $this->json['seats'][$state]['online']['max']['money_txt'] = format_currency($this->json['seats'][$state]['online']['max']['money'], '€');
-        $this->json['seats'][$state]['wideopen']['min']['money_txt'] = format_currency($this->json['seats'][$state]['wideopen']['min']['money'], '€');
-        $this->json['seats'][$state]['wideopen']['max']['money_txt'] = format_currency($this->json['seats'][$state]['wideopen']['max']['money'], '€');
+        $this->json['seats'][$state]['online']['min']['money_txt'] = format_currency($this->json['seats'][$state]['online']['min']['money'], $this->getContext()->getConfiguration()->getCurrency());
+        $this->json['seats'][$state]['online']['max']['money_txt'] = format_currency($this->json['seats'][$state]['online']['max']['money'], $this->getContext()->getConfiguration()->getCurrency());
+        $this->json['seats'][$state]['wideopen']['min']['money_txt'] = format_currency($this->json['seats'][$state]['wideopen']['min']['money'], $this->getContext()->getConfiguration()->getCurrency());
+        $this->json['seats'][$state]['wideopen']['max']['money_txt'] = format_currency($this->json['seats'][$state]['wideopen']['max']['money'], $this->getContext()->getConfiguration()->getCurrency());
       }
       else
       {
-        $this->json['seats'][$state]['online']['money_txt'] = format_currency($this->json['seats'][$state]['online']['money'], '€');
-        $this->json['seats'][$state]['wideopen']['money_txt'] = format_currency($this->json['seats'][$state]['wideopen']['money'], '€');
+        $this->json['seats'][$state]['online']['money_txt'] = format_currency($this->json['seats'][$state]['online']['money'], $this->getContext()->getConfiguration()->getCurrency());
+        $this->json['seats'][$state]['wideopen']['money_txt'] = format_currency($this->json['seats'][$state]['wideopen']['money'], $this->getContext()->getConfiguration()->getCurrency());
       }
     }
     
@@ -310,11 +310,11 @@
     {
       if ( isset($this->json['seats'][$state]['onsite']['min']) )
       {
-        $this->json['seats'][$state]['onsite']['min']['money_txt'] = format_currency($this->json['seats'][$state]['onsite']['min']['money'], '€');
-        $this->json['seats'][$state]['onsite']['max']['money_txt'] = format_currency($this->json['seats'][$state]['onsite']['max']['money'], '€');
+        $this->json['seats'][$state]['onsite']['min']['money_txt'] = format_currency($this->json['seats'][$state]['onsite']['min']['money'], $this->getContext()->getConfiguration()->getCurrency());
+        $this->json['seats'][$state]['onsite']['max']['money_txt'] = format_currency($this->json['seats'][$state]['onsite']['max']['money'], $this->getContext()->getConfiguration()->getCurrency());
       }
       else
-        $this->json['seats'][$state]['onsite']['money_txt'] = format_currency($this->json['seats'][$state]['onsite']['money'], '€');
+        $this->json['seats'][$state]['onsite']['money_txt'] = format_currency($this->json['seats'][$state]['onsite']['money'], $this->getContext()->getConfiguration()->getCurrency());
     }
     
     // closed seats -- the longer SQL query
@@ -338,8 +338,8 @@
       $this->json['seats'][$state]['all']['min']['money']    += min(array(is_null($seat->gauge_min) ? 999999 : $seat->gauge_min, is_null($seat->manifestation_min) ? 999999 : $seat->manifestation_min));
       $this->json['seats'][$state]['all']['max']['money']    += max(array($seat->gauge_max, $seat->manifestation_max));
     }
-    $this->json['seats'][$state]['all']['min']['money_txt'] = format_currency($this->json['seats'][$state]['all']['min']['money'], '€');
-    $this->json['seats'][$state]['all']['max']['money_txt'] = format_currency($this->json['seats'][$state]['all']['max']['money'], '€');
+    $this->json['seats'][$state]['all']['min']['money_txt'] = format_currency($this->json['seats'][$state]['all']['min']['money'], $this->getContext()->getConfiguration()->getCurrency());
+    $this->json['seats'][$state]['all']['max']['money_txt'] = format_currency($this->json['seats'][$state]['all']['max']['money'], $this->getContext()->getConfiguration()->getCurrency());
     
     // formatting "all" data, and removing "wideopen" seats, that has been counted twice
     foreach ( array('printed', 'ordered', 'held', 'free', 'closed') as $state )
@@ -349,13 +349,13 @@
       {
         $this->json['seats'][$state]['all']['min']['money'] -= $this->json['seats'][$state]['wideopen']['min']['money'];
         $this->json['seats'][$state]['all']['max']['money'] -= $this->json['seats'][$state]['wideopen']['max']['money'];
-        $this->json['seats'][$state]['all']['min']['money_txt'] = format_currency($this->json['seats'][$state]['all']['min']['money'], '€');
-        $this->json['seats'][$state]['all']['max']['money_txt'] = format_currency($this->json['seats'][$state]['all']['max']['money'], '€');
+        $this->json['seats'][$state]['all']['min']['money_txt'] = format_currency($this->json['seats'][$state]['all']['min']['money'], $this->getContext()->getConfiguration()->getCurrency());
+        $this->json['seats'][$state]['all']['max']['money_txt'] = format_currency($this->json['seats'][$state]['all']['max']['money'], $this->getContext()->getConfiguration()->getCurrency());
       }
       else
       {
         $this->json['seats'][$state]['all']['money'] -= $this->json['seats'][$state]['wideopen']['money'];
-        $this->json['seats'][$state]['all']['money_txt'] = format_currency($this->json['seats'][$state]['onsite']['money'], '€');
+        $this->json['seats'][$state]['all']['money_txt'] = format_currency($this->json['seats'][$state]['onsite']['money'], $this->getContext()->getConfiguration()->getCurrency());
       }
     }
   }
@@ -426,7 +426,7 @@
     if ( !$request->getParameter('limit', false) || $request->getParameter('limit') == $type )
     foreach ( array('printed', 'ordered', 'held',) as $state )
     foreach ( array('seats', 'gauges') as $value )
-      $this->json[$value][$state][$type]['money_txt'] = format_currency($this->json[$value][$state][$type]['money'], '€');
+      $this->json[$value][$state][$type]['money_txt'] = format_currency($this->json[$value][$state][$type]['money'], $this->getContext()->getConfiguration()->getCurrency());
     
     // FREE gauges
     $q = Doctrine::getTable('Gauge')->createQuery('g')
@@ -468,8 +468,8 @@
       }
       
     }
-    $this->json['gauges']['free']['online']['min']['money_txt'] = format_currency($this->json['gauges']['free']['online']['min']['money'], '€');
-    $this->json['gauges']['free']['online']['max']['money_txt'] = format_currency($this->json['gauges']['free']['online']['max']['money'], '€');
+    $this->json['gauges']['free']['online']['min']['money_txt'] = format_currency($this->json['gauges']['free']['online']['min']['money'], $this->getContext()->getConfiguration()->getCurrency());
+    $this->json['gauges']['free']['online']['max']['money_txt'] = format_currency($this->json['gauges']['free']['online']['max']['money'], $this->getContext()->getConfiguration()->getCurrency());
     
     // onsite
     if ( !$request->getParameter('limit', false) || $request->getParameter('limit') == 'onsite' )
@@ -481,8 +481,8 @@
       $this->json['gauges']['free']['onsite']['min']['money'] += ($gauge->value - $gauge->printed - $gauge->ordered) * $gauge->getPriceMin($users);
       $this->json['gauges']['free']['onsite']['max']['money'] += ($gauge->value - $gauge->printed - $gauge->ordered) * $gauge->getPriceMax($users);
     }
-    $this->json['gauges']['free']['onsite']['min']['money_txt'] = format_currency($this->json['gauges']['free']['onsite']['min']['money'], '€');
-    $this->json['gauges']['free']['onsite']['max']['money_txt'] = format_currency($this->json['gauges']['free']['onsite']['max']['money'], '€');
+    $this->json['gauges']['free']['onsite']['min']['money_txt'] = format_currency($this->json['gauges']['free']['onsite']['min']['money'], $this->getContext()->getConfiguration()->getCurrency());
+    $this->json['gauges']['free']['onsite']['max']['money_txt'] = format_currency($this->json['gauges']['free']['onsite']['max']['money'], $this->getContext()->getConfiguration()->getCurrency());
 
     // all
     if ( !$request->getParameter('limit', false) || $request->getParameter('limit') == 'all' )
@@ -491,8 +491,8 @@
       $this->json['gauges']['free']['all']['min']['money'] = $this->json['gauges']['free']['onsite']['min']['money'] + $this->json['gauges']['free']['online']['min']['money'] - $this->json['gauges']['free']['wideopen']['min']['money'];
       $this->json['gauges']['free']['all']['max']['money'] = $this->json['gauges']['free']['onsite']['max']['money'] + $this->json['gauges']['free']['online']['max']['money'] - $this->json['gauges']['free']['wideopen']['max']['money'];
     }
-    $this->json['gauges']['free']['all']['min']['money_txt'] = format_currency($this->json['gauges']['free']['all']['min']['money'], '€');
-    $this->json['gauges']['free']['all']['max']['money_txt'] = format_currency($this->json['gauges']['free']['all']['max']['money'], '€');
+    $this->json['gauges']['free']['all']['min']['money_txt'] = format_currency($this->json['gauges']['free']['all']['min']['money'], $this->getContext()->getConfiguration()->getCurrency());
+    $this->json['gauges']['free']['all']['max']['money_txt'] = format_currency($this->json['gauges']['free']['all']['max']['money'], $this->getContext()->getConfiguration()->getCurrency());
   }
   
   // closed
@@ -525,8 +525,8 @@
           - (isset($this->json[$type]['held']['all']) ? $this->json[$type]['held']['all']['nb'] : 0)
         ;
       
-      $this->json[$type]['closed']['all']['min']['money_txt'] = format_currency($this->json[$type]['closed']['all']['min']['money'], '€');
-      $this->json[$type]['closed']['all']['max']['money_txt'] = format_currency($this->json[$type]['closed']['all']['max']['money'], '€');
+      $this->json[$type]['closed']['all']['min']['money_txt'] = format_currency($this->json[$type]['closed']['all']['min']['money'], $this->getContext()->getConfiguration()->getCurrency());
+      $this->json[$type]['closed']['all']['max']['money_txt'] = format_currency($this->json[$type]['closed']['all']['max']['money'], $this->getContext()->getConfiguration()->getCurrency());
     }
   }
   

@@ -78,7 +78,7 @@ class geoActions extends sfActions
     }
     foreach ( $this->data['value'] as $name => $data )
     {
-      $this->lines[$name]['value'] = format_currency($data, '€');
+      $this->lines[$name]['value'] = format_currency($data, $this->getContext()->getConfiguration()->getCurrency());
       $this->lines[$name]['value%'] = format_number(round($data*100/($total['value'] ? $total['value'] : 1), 2));
     }
     
@@ -88,7 +88,7 @@ class geoActions extends sfActions
       'percent'       => 100,
       'tickets'       => $total['tickets'],
       'tickets%'      => 100,
-      'value'         => format_currency($total['value'],'€'),
+      'value'         => format_currency($total['value'],$this->getContext()->getConfiguration()->getCurrency()),
       'value%'        => 100,
     );
     

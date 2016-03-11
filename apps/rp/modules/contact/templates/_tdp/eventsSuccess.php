@@ -54,7 +54,7 @@
             <?php echo cross_app_link_to($event['event'],'event','event/show?id='.$event['event']->id,false,null,false, 'title="'.$event['title'].'"') ?>:
             <?php if ( $sf_user->hasCredential('tck-transaction') ): ?><span class="transactions ui-widget-content ui-corner-all"><?php echo implode('<br/>', $event['transaction_links']) ?></span><?php endif ?>
             <span class="nb"><?php echo count($event['ids']) ?></span>
-            <?php if ( $sf_user->hasCredential('tck-ledger-sales') ): ?><span class="value"><?php echo format_currency($event['value'],'€') ?></span><?php endif ?>
+            <?php if ( $sf_user->hasCredential('tck-ledger-sales') ): ?><span class="value"><?php echo format_currency($event['value'],$sf_context->getConfiguration()->getCurrency()) ?></span><?php endif ?>
           </li>
           <!-- /EVENT -->
         <?php endif ?>
@@ -66,7 +66,7 @@
           <?php if ( count($total['ids']) > 0 ): ?>
           <span class="event">Total</span>:
           <span class="nb"><?php echo count($total['ids']) ?></span>
-            <?php if ( $sf_user->hasCredential('tck-ledger-sales') ): ?><span class="value"><?php echo format_currency($total['value'],'€') ?></span><?php endif ?>
+            <?php if ( $sf_user->hasCredential('tck-ledger-sales') ): ?><span class="value"><?php echo format_currency($total['value'],$sf_context->getConfiguration()->getCurrency()) ?></span><?php endif ?>
           <?php endif ?>
         </li>
       </ul>

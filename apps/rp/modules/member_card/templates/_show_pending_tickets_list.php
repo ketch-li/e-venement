@@ -16,7 +16,7 @@
       <td class="transation_id"><?php echo cross_app_link_to('#'.$ticket->transaction_id,'tck','transaction/edit?id='.$ticket->transaction_id) ?></td>
       <td class="ticket_id"><?php echo '#'.$ticket->id ?></td>
       <td class="price_name"><?php echo $ticket->price_name ?></td>
-      <td class="ticket_value"><?php echo format_currency($ticket->value,'€'); $value += $ticket->value; $nb += is_null($ticket->cancelling)*2-1 ?></td>
+      <td class="ticket_value"><?php echo format_currency($ticket->value,$sf_context->getConfiguration()->getCurrency()); $value += $ticket->value; $nb += is_null($ticket->cancelling)*2-1 ?></td>
       <td class="ticket_manifestation"><?php echo cross_app_link_to($ticket->Manifestation,'event','manifestation/show?id='.$ticket->manifestation_id) ?></td>
     </tr>
   <?php endforeach ?>
@@ -25,7 +25,7 @@
     <tr>
       <td class="transation_id"></td>
       <td class="ticket_id" colspan="2"><?php echo __('%%nb%% ticket(s)',array('%%nb%%' => $nb)) ?></td>
-      <td class="ticket_value"><?php echo format_currency($value,'€') ?></td>
+      <td class="ticket_value"><?php echo format_currency($value,$sf_context->getConfiguration()->getCurrency()) ?></td>
       <td class="ticket_manifestation"></td>
     </tr>
   </tfoot>

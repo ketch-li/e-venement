@@ -29,7 +29,7 @@
   <tr class="<?php echo ($overlined = !$overlined) ? 'overlined' : '' ?>">
     <td class="name"><?php echo $ticket ?></td>
     <td class="qty"><?php echo $ticket->price_name ?></td>
-    <td class="price"><?php echo format_currency($ticket->value,'€') ?></td>
+    <td class="price"><?php echo format_currency($ticket->value,$sf_context->getConfiguration()->getCurrency()) ?></td>
     <td class="transaction"><?php echo cross_app_link_to('#'.$ticket->Transaction,'tck','ticket/sell?id='.$ticket->transaction_id) ?></td>
     <td class="contact"><?php
       echo $ticket->Transaction->professional_id
@@ -58,7 +58,7 @@
   <tr class="<?php echo ($overlined = !$overlined) ? 'overlined' : '' ?>">
     <td class="name"><?php echo $ticket ?></td>
     <td class="qty"><?php echo $ticket->price_name ?></td>
-    <td class="price"><?php echo format_currency($ticket->value,'€') ?></td>
+    <td class="price"><?php echo format_currency($ticket->value,$sf_context->getConfiguration()->getCurrency()) ?></td>
     <td class="transaction"><?php echo cross_app_link_to('#'.$ticket->Transaction,'tck','ticket/sell?id='.$ticket->transaction_id) ?></td>
     <td class="contact"><?php
       echo $ticket->Transaction->professional_id
