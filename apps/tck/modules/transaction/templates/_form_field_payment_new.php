@@ -25,3 +25,8 @@
   <button name="s" value="" class="ui-widget-content ui-state-default ui-corner-all ui-widget fg-button"><?php echo __('Add') ?></button>
 </p>
 </form>
+
+<div id="ept-transaction" style="display: none">
+  <p><?php echo __('EPT transaction...') ?></p>
+  <button id="cancel-ept-transaction"><?php echo __('Cancel') ?></button>
+</div>
