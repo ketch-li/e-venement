@@ -116,6 +116,9 @@ class cartActions extends sfActions
       $this->getUser()->setFlash('error',__('No cart to display'));
       $this->redirect('cart/show');
     }
+    
+    // waits for the "response"
+    sleep(2);
 
     // go back to the just-paid transaction, what ever it is
     $transaction = Doctrine::getTable('Transaction')->createQuery('t')
@@ -124,6 +127,7 @@ class cartActions extends sfActions
       ->leftJoin('t.Payments p')
       ->andWhere('p.id IS NOT NULL')
       ->orderBy('p.created_at DESC')
+      ->limit(1)
       ->fetchOne();
     if (! $transaction instanceof Transaction )
       $transaction = $this->getUser()->getTransaction();

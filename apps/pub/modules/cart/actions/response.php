@@ -22,9 +22,26 @@
 ***********************************************************************************/
 ?>
 <?php
+$result = false;
+$payments = array_keys(sfConfig::get('app_payments_list', array()));
+$options = array_values(sfConfig::get('app_payments_list', array()));
+  
+
+for ( $i = -1 ; $i < count($options) ; $i++ )
+{
+  if ( $i >= 0 )
+  {
+    // init things
+    sfConfig::set('app_payment_type', $payments[$i]);
+    foreach ( $options[$i] as $option => $value )
+      sfConfig::set('app_payment_'.$option, $value);
+  }
+  elseif ( !sfConfig::get('app_payment_type', false) )
+    continue;
+
   if (!(
-     class_exists($class = ucfirst($plugin = sfConfig::get('app_payment_type','paybox')).'Payment')
-  && is_a($class, 'OnlinePaymentInterface', true)
+    class_exists($class = ucfirst($plugin = sfConfig::get('app_payment_type','paybox')).'Payment')
+    && is_a($class, 'OnlinePaymentInterface', true)
   ))
     throw new liOnlineSaleException('You asked for a payment plugin ('.$plugin.') that does not exist.');
   
@@ -41,12 +58,12 @@
   $r = $this->online_payment->response($request);
   if ( !$r['success'] )
   {
-    error_log('An error occurred during the bank verifications for transaction #'.$r['transaction_id']);
-    return sfView::NONE;
+    error_log('An error occurred during the bank verifications for transaction #'.$r['transaction_id'].' and payment plugin '.sfConfig::get('app_payment_type').' (with '.(count($payments)+1).' payment means)');
+    continue;
   }
   
   if ( $transaction->getPaid().'' >= ''.$transaction->getPrice(true, true) ) // this .'' is a hack for precise float values
-    return sfView::NONE;
+    continue;
   
   // direct payment
   $payment = new Payment;
@@ -86,7 +103,10 @@
   $transaction->Contact->confirmed = true;        // transaction's contact
   foreach ( $transaction->Tickets as $ticket )    // for "named" tickets
   if ( $ticket->contact_id )
+  {
     $ticket->DirectContact->confirmed = true;
+    error_log('confirmation of a contact');
+  }
   
   // order
   $transaction->Payments[] = $payment;
@@ -112,5 +132,14 @@
     else
       throw $e;
   }
-  return sfView::NONE;
 
+  // reset things
+  if ( $i >= 0 )
+  {
+    foreach ( $options[$i] as $option => $value )
+      sfConfig::set('app_payment_'.$option, null);
+    sfConfig::set('app_payment_type', null);
+  }
+}
+
+return sfView::NONE;

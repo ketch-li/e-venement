@@ -52,6 +52,16 @@
     // confirmation email
     $this->sendConfirmationEmails($this->transaction, $this);
     
+    // confirming all the contacts
+    $contacts = new Doctrine_Collection('Contact');
+    if ( $this->transaction->contact_id && !$this->transaction->Contact->confirmed )
+      $contacts[] = $this->transaction->Contact;
+    foreach ( $this->transaction->Tickets as $ticket )
+    if ( $ticket->contact_id && !$ticket->DirectContact->confirmed )
+      $contacts[] = $ticket->DirectContact;
+    $ticket->DirectContact->confirmed = true;
+    $contacts->save();
+    
     // starting a new transaction
     $this->getUser()->resetTransaction();
     
