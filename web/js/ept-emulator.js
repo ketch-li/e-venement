@@ -57,11 +57,21 @@ function startEPT(button) {
 
   evelayer.application.logical.physical.on('applicationSuccess', function(result){
     console.log('applicationSuccess', result);
+    if ( parseInt(result.private) != transaction_id ) {
+      console.log('...for another transaction_id:', result.private);
+      return;
+    }
+    evelayer.application.logical.physical.clear(['applicationSuccess', 'applicationFailure']);
     alert('applicationSuccess');
     toggleEPTtransaction();
   });
   evelayer.application.logical.physical.on('applicationFailure', function(result){
     console.log('applicationFailure', result);
+    if ( parseInt(result.private) != transaction_id ) {
+      console.log('...for another transaction_id:', result.private);
+      return;
+    }
+    evelayer.application.logical.physical.clear(['applicationSuccess', 'applicationFailure']);
     alert('applicationFailure');
     toggleEPTtransaction();
   });
