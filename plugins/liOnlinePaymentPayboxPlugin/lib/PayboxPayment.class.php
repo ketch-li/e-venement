@@ -42,23 +42,20 @@
       $this->createBankPayment($request)->save();
       
       // renewing the paybox's key cache
-      $pem = in_array(PayboxPayment::name, $payments = sfConfig::get('app_payments_list', array()))
-        ? $payments[PayboxPayment::name]['pem']
-        : $pem = sfConfig::get('app_payment_pem',array());
-      if ( !isset($pem['local'] ) ) $pem['local']  = 'paybox.pem';
-      if ( !isset($pem['remote']) ) $pem['remote'] = 'http://www1.paybox.com/telechargements/pubkey.pem';
+      if ( !isset($this->pem['local'] ) ) $this->pem['local']  = 'paybox.pem';
+      if ( !isset($this->pem['remote']) ) $this->pem['remote'] = 'http://www1.paybox.com/telechargements/pubkey.pem';
       if ( !file_exists($path = sfConfig::get('sf_module_cache_dir').'/paybox/') )
         mkdir($path);
       chmod($path, 0777);
-      $fp = fopen($path.$pem['local'],'a+');
+      $fp = fopen($path.$this->pem['local'],'a+');
       $stat = fstat($fp);
       if ( $stat['size'] == 0 || $stat['mtime'] < strtotime('yesterday') )
-        fwrite($fp, file_get_contents($pem['remote']));
+        fwrite($fp, file_get_contents($this->pem['remote']));
       fclose($fp);
-      chmod($path.$pem['local'], 0777);
+      chmod($path.$this->pem['local'], 0777);
       
       // getting the paybox's public key
-      $cert = file_get_contents($path.$pem['local']);
+      $cert = file_get_contents($path.$this->pem['local']);
       $pubkeyid = openssl_get_publickey($cert);
       
       $signature = base64_decode($request->getParameter('signature'));
@@ -94,6 +91,7 @@
       $this->url      = sfConfig::get('app_payment_url',array());
       $this->autosubmit = sfConfig::get('app_payment_autosubmit',true);
       $this->datetime = date('c');
+      $this->pem      = sfConfig::get('app_payment_pem',array());
       
       // the transaction and the amount
       parent::__construct($transaction);
