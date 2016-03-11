@@ -12,6 +12,7 @@
 /web/uploads/*
 /data/sql/*
 
+/apps/email/config/app.yml
 /apps/pos/config/app.yml
 /apps/default/config/app.yml
 /apps/museum/config/app.yml
