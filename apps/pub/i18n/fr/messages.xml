@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>You still have tickets without any contact information, and this is not allowed. Please fill in contact informations for each of your tickets.</source>
+        <target>Vous avez toujours des billets sans information nominative, et cela n'est pas possible. Renseignez, s'il vous plaît, des informations pour chacun de vos billets.</target>
+      </trans-unit>
+      <trans-unit>
         <source>Space</source>
         <target>Espace</target>
       </trans-unit>
