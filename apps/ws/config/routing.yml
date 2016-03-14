@@ -1,3 +1,21 @@
+option_pub_texts:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                OptionPubTexts
+    module:               texts
+    prefix_path:          /texts
+    column:               id
+    with_wildcard_routes: true
+
+option:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Option
+    module:               texts
+    prefix_path:          /texts
+    column:               id
+    with_wildcard_routes: true
+
 auto_group:
   class: sfDoctrineRouteCollection
   options:

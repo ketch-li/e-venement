@@ -24,17 +24,17 @@
 <?php if ( $sf_user->hasCredential('ws-group') || $sf_user->hasCredential('ws-admin') || $sf_user->hasCredential('stats-pub') ): ?>
   <li class="menu-setup-online"><a><?php echo __('Online ticketting',array(),'menu') ?></a>
     <ul class="third">
+      <?php if ( $sf_user->hasCredential('pub-texts') ): ?>
+        <li><a href="<?php echo cross_app_url_for('ws','texts/index') ?>"><?php echo __('Texts',array(),'menu') ?></a></li>
+      <?php endif ?>
       <?php if ( $sf_user->hasCredential('ws-admin') ): ?>
-        <li><a href="<?php echo cross_app_url_for('ws','remote_authentication') ?>"><?php echo __('Authentication',array(),'menu') ?></a></li>
+        <li class="spaced"><a href="<?php echo cross_app_url_for('ws','remote_authentication') ?>"><?php echo __('Authentication',array(),'menu') ?></a></li>
       <?php endif ?>
       <?php if ( $sf_user->hasCredential('ws-group') ): ?>
         <li><a href="<?php echo cross_app_url_for('ws','auto_group') ?>"><?php echo __('Group association',array(),'menu') ?></a></li>
       <?php endif ?>
       <?php if ( $sf_user->hasCredential('stats-pub') ): ?>
         <li class="spaced"><a href="<?php echo cross_app_url_for('stats','web_origin_ip') ?>"><?php echo __('Stats: IP addresses matching',array(),'menu') ?></a></li>
-      <?php endif ?>
-      <?php if ( $sf_user->hasCredential('pub-texts') ): ?>
-        <li class="spaced"><a href="<?php echo cross_app_url_for('ws','texts') ?>"><?php echo __('Texts',array(),'menu') ?></a></li>
       <?php endif ?>
     </ul>
   </li>

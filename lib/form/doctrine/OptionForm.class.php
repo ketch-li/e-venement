@@ -46,7 +46,7 @@ class OptionForm extends sfForm
       if ( !is_array($values) )
         $values = array($values);
       foreach ( $values as $value )
-      if ( !is_null($value) )
+      if ( !empty($value) )
       {
         $opt = new $this->model();
         $opt->sf_guard_user_id = $user_id;
