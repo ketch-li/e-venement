@@ -383,3 +383,12 @@ SlavePing:
       values: [end, ping, error]
       notnull: true
     created_at: timestamp
+
+OptionPubTexts:
+  package: rp
+  inheritance:
+    extends: Option
+    type: column_aggregation
+    keyField: type
+    keyValue: 'pub-texts'
+                    

@@ -80,7 +80,7 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
     return array(
-      'payment_onthespot_info'     => __("Content of the popup which appears after a 'on site' payment"),
+      'payment_onsite_info'     => __("Content of the popup which appears after a 'on site' payment"),
       // TODO: complete, if necessary, with other params
     );
   }
@@ -97,7 +97,7 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
       );
       
       $terms[$lang] = array(
-        'payment_onthespot_info'   => $i18n->__('Thank you in advance to send us your payment as soon as possible so that we can confirm your order'),
+        'payment_onsite_info'   => $i18n->__('Thank you in advance to send us your payment as soon as possible so that we can confirm your order'),
         'manifestation_bottom'  => $i18n->__("Placement libre.\nPaiement par carte bancaire."),
         // TODO: complete like the previous example with all the texts from online sales, foundable in apps/pub/config/app.yml.template
         // careful: the i18n of those terms have to be placed in the "ws" app, whereas their storage for production use will be located in the DB
