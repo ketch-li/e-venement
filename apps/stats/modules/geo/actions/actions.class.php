@@ -100,6 +100,15 @@ class geoActions extends sfActions
       'noheader'  => false,
     );
     
+    // for data coming from GeoFrStreetBase
+    if ( isset($this->data['iris2008']) )
+    {
+      foreach ( $this->data['iris2008'] as $name => $iris )
+        $this->lines[$name]['iris2008'] = $iris;
+      $this->lines['total']['iris2008'] = '';
+      array_unshift($this->options['fields'], 'iris2008');
+    }
+    
     $this->outstream = 'php://output';
     $this->delimiter = $this->options['ms'] ? ';' : ',';
     $this->enclosure = '"';
@@ -301,14 +310,22 @@ class geoActions extends sfActions
       $q = $this->buildQuery()
         ->select('t.id, c.id AS contact_id')
         ->addSelect('(SELECT db.name FROM GeoFrStreetBase sb LEFT JOIN sb.GeoFrDistrictBase db WHERE c.address = sb.address AND c.postalcode = sb.zip AND c.city = sb.city) AS iris')
+        ->addSelect('(SELECT sb2.iris2008 FROM GeoFrStreetBase sb2 WHERE c.address = sb2.address AND c.postalcode = sb2.zip AND c.city = sb2.city) AS iris2008')
         ->addSelect('count(DISTINCT tck.id) AS qty')
         ->addSelect('sum(tck.value) AS sum')
         ->groupBy('t.id, c.id, c.postalcode, pro.id, o.postalcode, t.postalcode')
       ;
       $contacts = array();
       foreach ( $arr = $q->fetchArray() as $pc )
-      foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
+      foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum', 'iris2008' => 'iris2008') as $approach => $field )
       {
+        if ( $field == 'iris2008' )
+        {
+          if ( !isset($res[$approach][$pc['iris']]) )
+            $res[$approach][$pc['iris']] = $pc[$field];
+          continue;
+        }
+        
         if ( !isset($res[$approach][$pc['iris']]) )
           $res[$approach][$pc['iris']] = 0;
         $res[$approach][$pc['iris']] += is_int($field) ? $field : $pc[$field];
@@ -318,27 +335,17 @@ class geoActions extends sfActions
       
       $cpt = 0;
       foreach ( $res[$count_tickets ? 'tickets' : 'nb'] as $code => $qty )
+      if ( $format != 'csv' && $cpt >= sfConfig::get('app_geo_limits_'.$type, 12) || !trim($code) )
       {
-        if ( str_pad(intval($code).'',5,'0',STR_PAD_LEFT) !== ''.$code )
+        foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
         {
-          foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
-          if ( isset($res[$approach][$code]) )
-          {
-            $others[$approach] += $res[$approach][$code];
-            unset($res[$approach][$code]);
-          }
-          continue;
+          $others[$approach] += $res[$approach][$code];
+          unset($res[$approach][$code]);
         }
-        if ( $format != 'csv' && $cpt >= sfConfig::get('app_geo_limits_'.$type, 12) )
-        {
-          foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
-          {
-            $others[$approach] += $res[$approach][$code];
-            unset($res[$approach][$code]);
-          }
-        }
-        $cpt++;
       }
+      else
+        $cpt++;
+      
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
       {
         $res[$approach]['others'] = $others[$approach];

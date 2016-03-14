@@ -44,6 +44,7 @@
     'tickets%'          => __('Percent'),
     'value'             => __('Value'),
     'value%'            => __('Percent'),
+    'iris2008'          => __('IRIS'),
   );
   
   include_partial('global/csv',$vars);

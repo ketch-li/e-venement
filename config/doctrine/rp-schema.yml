@@ -421,7 +421,7 @@ GeoFrStreetBase:
     rivoli:
       type: string(4)
     iris2008:
-      type: integer
+      type: string(255)
       notnull: true
     longitude:
       type: float
