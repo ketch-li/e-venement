@@ -67,7 +67,7 @@ all:
     currency:
       id: 978
       symbol: €
-    plugins: []       # e.g. [liMemberCardPlugin, nvDoctrineSessionStoragePlugin]
+    plugins: []       # e.g. [liMemberCardPlugin]
     #users_domain: eve # to restrict the listing of users in this particular domain and its subdomain (this is not a DNS but an internal split only)
     #usb:         # change things here only if you know exactly what you do, and refer to config/e-venement.yml params
     #  printers:
