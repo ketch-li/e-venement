@@ -38,6 +38,15 @@ class OrganismFormFilter extends BaseOrganismFormFilter
    */
   public function configure()
   {
+    $this->widgetSchema   ['district'] = new liWidgetFormDoctrineJQueryAutocompleter(array(
+      'model' => 'GeoFrDistrictBase',
+      'url'   => url_for('geo_fr_street_base/districts'),
+    ));
+    $this->validatorSchema['district'] = new sfValidatorDoctrineChoice(array(
+      'model' => 'GeoFrDistrictBase',
+      'required' => false,
+    ));
+    
     $this->widgetSchema['groups_list']->setOption(
       'order_by',
       array('u.id IS NULL DESC, u.username, name','')
@@ -112,6 +121,7 @@ class OrganismFormFilter extends BaseOrganismFormFilter
   public function getFields()
   {
     $fields = parent::getFields();
+    $fields['district']             = 'District';
     $fields['duplicates']           = 'Duplicates';
     $fields['postalcode']           = 'Postalcode';
     $fields['contacts_groups']      = 'ContactsGroups';
@@ -124,6 +134,15 @@ class OrganismFormFilter extends BaseOrganismFormFilter
 
     return $fields;
   }
+
+  public function addDistrictColumnQuery(Doctrine_Query $q, $field, $value)
+  {
+    $o = $q->getRootAlias();
+    if ( $value )
+      $q->addWhere("(SELECT count(district_sb.id) FROM GeoFrStreetBase district_sb WHERE district_sb.iris2008 = ? AND $o.address = district_sb.address AND $o.postalcode = district_sb.zip AND $o.city = district_sb.city) > 0",$value);
+    return $q;
+  }
+
 
   public function addEmailNewsletterColumnQuery(Doctrine_Query $q, $field, $value)
   {

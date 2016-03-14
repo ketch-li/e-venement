@@ -71,7 +71,7 @@ generator:
             credentials: pr-contact-label
       filter:
         display:
-          Organism:   [name, postalcode, city, region_id, country, email, administrative_number, organism_category_id]
+          Organism:   [name, district, postalcode, city, region_id, country, email, administrative_number, organism_category_id]
           Relations:  [contacts_groups, groups_list, not_groups_list]
           Communication: [npai, email_npai, email_newsletter, has_close_contact]
           Others:     [duplicates, professional_meta_event_id, description]

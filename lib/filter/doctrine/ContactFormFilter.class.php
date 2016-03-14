@@ -49,6 +49,15 @@ class ContactFormFilter extends BaseContactFormFilter
       ->groupBy('hqc.id')
       ->select('hqc.id');
     
+    $this->widgetSchema   ['district'] = new liWidgetFormDoctrineJQueryAutocompleter(array(
+      'model' => 'GeoFrDistrictBase',
+      'url'   => url_for('geo_fr_street_base/districts'),
+    ));
+    $this->validatorSchema['district'] = new sfValidatorDoctrineChoice(array(
+      'model' => 'GeoFrDistrictBase',
+      'required' => false,
+    ));
+    
     $this->widgetSchema   ['groups_intersection'] = new sfWidgetFormInputCheckbox(array(
       'value_attribute_value' => 1,
     ));
@@ -386,6 +395,7 @@ EOF;
   public function getFields()
   {
     $fields = parent::getFields();
+    $fields['district']             = 'District';
     $fields['postalcode']           = 'Postalcode';
     $fields['YOB']                  = 'YOB';
     $fields['not_contacts_list']    = 'NotContactsList';
@@ -1003,6 +1013,13 @@ EOF;
     if ( $value['text'] )
       $q->addWhere("$c.postalcode LIKE ? OR (o.id IS NOT NULL AND o.postalcode LIKE ?)",array($value['text'].'%',$value['text'].'%'));
     
+    return $q;
+  }
+  public function addDistrictColumnQuery(Doctrine_Query $q, $field, $value)
+  {
+    $c = $q->getRootAlias();
+    if ( $value )
+      $q->addWhere("(SELECT count(district_sb.id) FROM GeoFrStreetBase district_sb WHERE district_sb.iris2008 = ? AND $c.address = district_sb.address AND $c.postalcode = district_sb.zip AND $c.city = district_sb.city) > 0",$value);
     return $q;
   }
   

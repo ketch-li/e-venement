@@ -15,15 +15,14 @@ class geo_fr_street_baseActions extends autoGeo_fr_street_baseActions
 {
   public function executeAjax(sfWebRequest $request)
   {
-    if ( $request->hasParameter('debug') && $this->getContext()->getConfiguration()->getEnvironment() == 'dev' )
+    if ( $request->hasParameter('debug') && sfConfig::get('sf_web_debug', false) )
     {
       $this->getResponse()->setContentType('text/html');
-      sfConfig::set('sf_debug',true);
       $this->setLayout('nude');
     }
     else
     {
-      sfConfig::set('sf_debug',false);
+      sfConfig::set('sf_web_debug',false);
       sfConfig::set('sf_escaping_strategy', false);
     }
     
@@ -49,6 +48,32 @@ class geo_fr_street_baseActions extends autoGeo_fr_street_baseActions
       $q->andWhere('sb.address ILIKE ?', '%'.$elt.'%');
     foreach ( $q->fetchArray() as $sb )
       $this->addresses[] = $sb['address'];
+  }
+  
+  public function executeDistricts(sfWebRequest $request)
+  {
+    if ( $request->hasParameter('debug') && sfConfig::get('sf_web_debug', false) )
+    {
+      $this->getResponse()->setContentType('text/html');
+      $this->setLayout('nude');
+    }
+    else
+    {
+      sfConfig::set('sf_web_debug',false);
+      sfConfig::set('sf_escaping_strategy', false);
+    }
+    
+    $this->districts = array();
+    $search = $this->sanitizeSearch($request->getParameter('q'));
+    
+    $q = Doctrine::getTable('GeoFrDistrictBase')->createQuery('db')
+      ->orderBy('db.name, db.id')
+      ->limit($request->getParameter('limit', 10))
+      ->select('db.id, db.name')
+      ->andWhere('db.name ILIKE ?', '%'.$search.'%')
+    ;
+    foreach ( $q->fetchArray() as $db )
+      $this->districts[$db['id']] = $db['name'];
   }
   
   protected function sanitizeSearch($str)
