@@ -224,7 +224,7 @@ class StreetBaseTask  extends sfBaseTask
         $sb_array['zip'] = $this->findZipCode($line[0]);
         $sb_array['address'] = $line[2];
         $sb_array['rivoli'] = $line[3];
-        $sb_array['iris2008'] = $line[4];
+        $sb_array['iris2008'] = $line[4] ? $line[4] : null;
         $sb_array['longitude'] = $line[5];
         $sb_array['latitude'] = $line[6];
         $sb_array['num'] = '';
@@ -236,7 +236,7 @@ class StreetBaseTask  extends sfBaseTask
         $sb_array['num'] = $line[3];
         $sb_array['rivoli'] = $line[4];
         $sb_array['zip'] = $line[5];
-        $sb_array['iris2008'] = $line[6];
+        $sb_array['iris2008'] = $line[6] ? $line[6] : null;
         $sb_array['longitude'] = $line[7];
         $sb_array['latitude'] = $line[8];
         break;
