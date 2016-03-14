@@ -13,6 +13,9 @@
 <?php if ( isset($client['postalcode']) && is_array($client['postalcode']) ): ?>
 <?php include_partial('chart', array('title' => __('Your metropolis'), 'type' => 'metropolis-in')) ?>
 <?php endif ?>
+<?php if ( Doctrine::getTable('GeoFrStreetBase')->createQuery('sb')->count() > 0 ): ?>
+<?php include_partial('chart', array('title' => __('By district'), 'type' => 'districts')) ?>
+<?php endif ?>
 <?php include_partial('chart', array('title' => __('By postalcode'), 'type' => 'postalcodes')) ?>
 <?php include_partial('chart', array('title' => __('By department'), 'type' => 'departments')) ?>
 <?php include_partial('chart', array('title' => __('By region'), 'type' => 'regions')) ?>

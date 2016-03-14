@@ -397,6 +397,8 @@ GeoFrStreetBase:
       fields: [zip]
     geo_fr_street_base_city_idx:
       fields: [city]
+    geo_fr_street_base_iris2008_idx:
+      fields: [iris2008]
   columns:
     address:
       type: string(255)
@@ -419,8 +421,53 @@ GeoFrStreetBase:
     rivoli:
       type: string(4)
     iris2008:
-      type: string(9)
+      type: integer
+      notnull: true
     longitude:
       type: float
     latitude:
       type: float
+  relations:
+    GeoFrDistrictBase:
+      local: iris2008
+      foreign: id
+      onDelete: SET NULL
+      onUpdate: CASCADE
+GeoFrDistrictBase:
+  package: rp
+  actAs:
+    Timestampable: ~
+  columns:
+    id:
+      type: string(255)
+      primary: true
+    department:
+      type: string(5)
+      notnull: true
+    metropol:
+      type: string(255)
+      notnull: true
+    citycode:
+      type: string(255)
+      notnull: true
+    city:
+      type: string(255)
+      notnull: true
+    triris:
+      type: string(255)
+      notnull: true
+    metadistrict:
+      type: string(255)
+      notnull: true
+    name:
+      type: string(255)
+      notnull: true
+    type:
+      type: string(255)
+      notnull: true
+    modif:
+      type: string(255)
+      notnull: true
+    label:
+      type: string(255)
+      notnull: true

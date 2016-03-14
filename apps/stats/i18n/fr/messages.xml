@@ -221,6 +221,10 @@
         <target>Votre métropole</target>
       </trans-unit>
       <trans-unit>
+        <source>By district</source>
+        <target>Par quartier</target>
+      </trans-unit>
+      <trans-unit>
         <source>By postalcode</source>
         <target>Par code postal</target>
       </trans-unit>

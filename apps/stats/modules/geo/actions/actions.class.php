@@ -55,7 +55,7 @@ class geoActions extends sfActions
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N','Date','CrossAppLink','Number'));
     
     $criterias = $this->getCriterias();
-    $this->data = $this->getData($request->getParameter('type','ego'), !(isset($criterias['approach']) && $criterias['approach'] === ''));
+    $this->data = $this->getData($request->getParameter('type','ego'), !(isset($criterias['approach']) && $criterias['approach'] === ''), 'csv');
     
     $total = array('nb' => 0, 'value' => 0, 'tickets' => 0);
     foreach ( $total as $approach => $val )
@@ -222,7 +222,7 @@ class geoActions extends sfActions
     return $q;
   }
   
-  protected function getData($type = 'ego', $count_tickets = false)
+  protected function getData($type = 'ego', $count_tickets = false, $format = 'data')
   {
     $this->type = $type;
     $res = array('nb' => array(), 'tickets' => array(), 'value' => array());
@@ -281,6 +281,55 @@ class geoActions extends sfActions
           continue;
         }
         if ( $cpt >= sfConfig::get('app_geo_limits_'.$type, 8) )
+        {
+          foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
+          {
+            $others[$approach] += $res[$approach][$code];
+            unset($res[$approach][$code]);
+          }
+        }
+        $cpt++;
+      }
+      foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
+      {
+        $res[$approach]['others'] = $others[$approach];
+        arsort($res[$approach]);
+      }
+    break;
+    
+    case 'districts':
+      $q = $this->buildQuery()
+        ->select('t.id, c.id AS contact_id')
+        ->addSelect('(SELECT db.name FROM GeoFrStreetBase sb LEFT JOIN sb.GeoFrDistrictBase db WHERE c.address = sb.address AND c.postalcode = sb.zip AND c.city = sb.city) AS iris')
+        ->addSelect('count(DISTINCT tck.id) AS qty')
+        ->addSelect('sum(tck.value) AS sum')
+        ->groupBy('t.id, c.id, c.postalcode, pro.id, o.postalcode, t.postalcode')
+      ;
+      $contacts = array();
+      foreach ( $arr = $q->fetchArray() as $pc )
+      foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
+      {
+        if ( !isset($res[$approach][$pc['iris']]) )
+          $res[$approach][$pc['iris']] = 0;
+        $res[$approach][$pc['iris']] += is_int($field) ? $field : $pc[$field];
+      }
+      foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
+        arsort($res[$approach]);
+      
+      $cpt = 0;
+      foreach ( $res[$count_tickets ? 'tickets' : 'nb'] as $code => $qty )
+      {
+        if ( str_pad(intval($code).'',5,'0',STR_PAD_LEFT) !== ''.$code )
+        {
+          foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
+          if ( isset($res[$approach][$code]) )
+          {
+            $others[$approach] += $res[$approach][$code];
+            unset($res[$approach][$code]);
+          }
+          continue;
+        }
+        if ( $format != 'csv' && $cpt >= sfConfig::get('app_geo_limits_'.$type, 12) )
         {
           foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
           {
