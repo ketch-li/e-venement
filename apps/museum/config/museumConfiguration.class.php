@@ -42,7 +42,7 @@ class museumConfiguration extends sfApplicationConfiguration
       $section = 'Gauge timeout';
 
       // Check configuration
-      if ( !sfConfig::get('project_museums_enable', false) || !sfConfig::get('app_gauge_enable_timeout', false) ) {
+      if ( !sfConfig::get('project_museums_enable', false) || !sfConfig::get('app_manifestation_exit_on_timeout', false) ) {
         $this->stdout($section, 'Skipped (not enabled)', 'INFO');
         return;
       }

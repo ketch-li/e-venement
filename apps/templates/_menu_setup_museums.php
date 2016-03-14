@@ -21,7 +21,7 @@
 *
 ***********************************************************************************/
 ?>
-<?php if ( sfConfig::get('app_gauge_enable_timeout', false) ): ?>
+<?php if ( sfConfig::get('app_manifestation_exit_on_timeout', false) ): ?>
   <li class="menu-setup-museum"><a><?php echo __('Museum',array(),'menu') ?></a>
     <ul class="third">
       <li><?php echo cross_app_link_to(__('Gauge timeout', null, 'menu'), 'museum', 'gauge_timeout/index') ?></li>
