@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Ability to change the text of the online sales using a GUI</source>
+        <target>Possibilité de changer les textes de la VeL via une interface</target>
+      </trans-unit>
+      <trans-unit>
         <source>Ability to sell tickets for museums</source>
         <target>Possibilité de vendre des billets pour les lieux/musées</target>
       </trans-unit>

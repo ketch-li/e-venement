@@ -146,11 +146,6 @@ echo ""
 echo "Be careful with DB errors. A table with an error is an empty table !... If necessary take back the DB backup and correct things by hand before retrying this migration script."
 echo ""
 
-read -p "Do you want to add permissions for the promo codes? [Y/n] " fixtures
-if [ "$fixtures" != 'n' ]; then
-  ./symfony doctrine:data-load --append data/fixtures/11-permissions-v30-promo.yml
-fi
-
 echo ''
 read -p "Do you want to refresh your Searchable data for Contacts & Organisms (recommanded, but it can take a while) ? [y/N] " refresh
 if [ "$refresh" == 'y' ]; then
@@ -170,6 +165,19 @@ echo ''
 echo "Changing (or not) file permissions for the e-venement Messaging Network ..."
 chmod -R 777 web/liJappixPlugin/store web/liJappixPlugin/tmp web/liJappixPlugin/log &> /dev/null
 echo "... done."
+
+echo ""
+read -p "Do you want to add the new permissions? [Y/n] " add
+if [ "$add" != 'n' ]
+then
+  echo "If you get Symfony errors in the next few actions, it is not a problem, the permissions simply exist already in the DB"
+  echo ""
+  echo "Permissions & groups for the ws module (pub setup)"
+  ./symfony doctrine:data-load --append data/fixtures/11-permissions-v210-ws.yml
+  echo ""
+  echo "Permissions & groups for promo codes"
+  ./symfony doctrine:data-load --append data/fixtures/11-permissions-v210-promo.yml
+fi
 
 # Checking data...
 i=0; for elt in `echo 'SELECT count(*) FROM ticket WHERE (printed_at IS NOT NULL OR integrated_at IS NOT NULL);' | psql`
