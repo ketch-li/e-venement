@@ -55,3 +55,5 @@ all:
       #who: [organizers, applicant, location, admins] # default: [organizers, applicant, location]
   #cacher:
   #  timeout: 1 day ago
+  #gauge:
+    #enable_timeout: true

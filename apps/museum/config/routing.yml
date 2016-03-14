@@ -1,3 +1,12 @@
+option_gauge_timeout:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                OptionGaugeTimeout
+    module:               gauge_timeout
+    prefix_path:          /gauge_timeout
+    column:               id
+    with_wildcard_routes: true
+
 hold:
   class: sfDoctrineRouteCollection
   options:

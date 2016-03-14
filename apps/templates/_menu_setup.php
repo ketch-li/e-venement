@@ -34,6 +34,9 @@
             <?php include_partial('global/menu_setup_pr') ?>
           <?php endif ?>
           <?php include_partial('global/menu_setup_events') ?>
+          <?php if ( sfConfig::get('project_museums_enable', false) ): ?>
+            <?php include_partial('global/menu_setup_museums') ?>
+          <?php endif ?>
           <?php include_partial('global/menu_setup_pos') ?>
           <?php if ( $sf_user->hasCredential('tck-admin-payment')
                   || $sf_user->hasCredential('event-admin-price')
