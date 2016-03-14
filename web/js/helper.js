@@ -38,7 +38,7 @@ LI.get_currency = function(value)
   return value.replace(/[\d\.,\s]+/g, '').replace('&nbsp;','');
 }
 
-LI.clear_currency = function(value)
+LI.clear_currency = function(value, stayStringed)
 {
   if ( typeof(value) != 'string' )
     return value;
@@ -54,8 +54,9 @@ LI.format_currency = function(value, nbsp, fr_style, currency)
   if ( typeof(value) == 'string' ) value = parseFloat(value);
   if ( !value ) value = 0;
 
+  
   var r = $('.currency:first').length > 0
-    ? $('.currency:first').html()
+    ? $('.currency:first').html().replace(/[\d,\.]+/,'%d')
     : (fr_style ? '%d '+currency : currency+'%d');
   value = r.replace('%d',value.toFixed(2));
 
