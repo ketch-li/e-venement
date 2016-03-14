@@ -1,4 +1,9 @@
 sfGuardPermission:
+  sfGuardPermission_154:
+    name: pub-texts
+    description: 'Permission to change the text of the online sales using a GUI'
+    created_at: '2016-03-14 14:15:00'
+    updated_at: '2016-03-14 14:15:00'
   sfGuardPermission_150:
     name: pr-card-promo
     description: 'Permission to access the promo codes of member cards'
@@ -711,6 +716,11 @@ sfGuardPermission:
     updated_at: '2014-05-28 09:20:41'
 
 sfGuardGroupPermission:
+  sfGuardGroupPermission_62_154:
+    Group: sfGuardGroup_62
+    Permission: sfGuardPermission_154
+    created_at: '2016-03-14 14:15:00'
+    updated_at: '2016-03-14 14:15:00'
   sfGuardGroupPermission_60_150:
     Group: sfGuardGroup_60
     Permission: sfGuardPermission_150
@@ -1813,6 +1823,11 @@ sfGuardGroupPermission:
     updated_at: '2014-05-28 09:20:00'
 
 sfGuardGroup:
+  sfGuardGroup_62:
+    name: pub-texts
+    description: 'Ability to change the text of the online sales using a GUI'
+    created_at: '2016-03-14 14:15:00'
+    updated_at: '2016-03-14 14:15:00'
   sfGuardGroup_60:
     name: pr-card-promo
     description: 'Ability to access the promo codes of member cards'

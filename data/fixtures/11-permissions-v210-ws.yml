@@ -1,0 +1,18 @@
+sfGuardGroup:
+  sfGuardGroup_62:
+    name: pub-texts
+    description: 'Ability to change the text of the online sales using a GUI'
+    created_at: '2016-03-14 14:15:00'
+    updated_at: '2016-03-14 14:15:00'
+sfGuardPermission:
+  sfGuardPermission_154:
+    name: pub-texts
+    description: 'Permission to change the text of the online sales using a GUI'
+    created_at: '2016-03-14 14:15:00'
+    updated_at: '2016-03-14 14:15:00'
+sfGuardGroupPermission:
+  sfGuardGroupPermission_62_154:
+    Group: sfGuardGroup_62
+    Permission: sfGuardPermission_154
+    created_at: '2016-03-14 14:15:00'
+    updated_at: '2016-03-14 14:15:00'
