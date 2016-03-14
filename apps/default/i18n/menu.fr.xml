@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Texts</source>
+        <target>Textes</target>
+      </trans-unit>
+      <trans-unit>
         <source>Alerts</source>
         <target>Alertes</target>
       </trans-unit>
