@@ -53,10 +53,16 @@
     
     public function render(array $attributes = array())
     {
+      if ( !isset($attributes['onclick']) )
+        $attributes['onclick'] = "javascript: return $(this).find('span').length > 0 ? confirm($(this).find('span').text()) : true";
+      
       $attrs = '';
       foreach ( $attributes as $name => $value )
         $attrs .= " $name=\"$value\"";
-      return '<a href="'.url_for('cart/onthespot?id='.$this->transaction->id).'" '.$attrs.'>'.__('Payment by other means').'</a>';
+      $content = __('Payment by other means');
+      if ( pubConfiguration::getText('app_texts_payment_onsite_info') )
+        $content .= '<span style="display:none;">'.pubConfiguration::getText('app_texts_payment_onthespot_info').'</span>';
+      return '<a href="'.url_for('cart/onthespot?id='.$this->transaction->id).'" '.$attrs.'>'.$content.'</a>';
     }
 
     public function __toString()
