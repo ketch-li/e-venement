@@ -32,8 +32,9 @@
       
       if ( $(form).find('[name=duplicate]').prop('checked') && $(form).find('[name=price_name]').val() )
         $(form).find('[name=manifestation_id]').val($('#li_transaction_manifestations .item.ui-state-highlight').closest('.family').attr('data-family-id'));
+      var r = LI.checkGauges(form);
       setTimeout(function(){ $('#li_transaction_manifestations .footer .print [name=price_name]').val('').blur(); }, 2500);
-      return LI.checkGauges(form);
+      return r;
     }
     
     $(document).ready(function(){
@@ -42,7 +43,7 @@
         $('#li_transaction_field_board').addClass('alpha');
       }).focusout(function(){
         if ( !$(this).val() )
-        $('#li_transaction_field_board').removeClass('alpha');
+          $('#li_transaction_field_board').removeClass('alpha');
       }).click(function(){
         if ( !$(this).val() ) $(this).val(' ');
       }).blur(function(){
