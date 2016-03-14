@@ -33,7 +33,7 @@
       <?php if ( $sf_user->hasCredential('stats-pub') ): ?>
         <li class="spaced"><a href="<?php echo cross_app_url_for('stats','web_origin_ip') ?>"><?php echo __('Stats: IP addresses matching',array(),'menu') ?></a></li>
       <?php endif ?>
-      <?php if (0 && $sf_user->hasCredential('pub-texts') ): ?>
+      <?php if ( $sf_user->hasCredential('pub-texts') ): ?>
         <li class="spaced"><a href="<?php echo cross_app_url_for('ws','texts') ?>"><?php echo __('Texts',array(),'menu') ?></a></li>
       <?php endif ?>
     </ul>
