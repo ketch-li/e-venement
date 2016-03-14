@@ -45,7 +45,7 @@ class OptionGaugeTimeoutForm extends BaseOptionGaugeTimeoutForm
 
   public static function getDBOptions()
   {
-    $r = array();
+    $r = array('timeout' => '');
 
     foreach ( self::buildOptionsQuery()->fetchArray() as $opt )
       $r[$opt['name']] = $opt['value'];
@@ -54,7 +54,8 @@ class OptionGaugeTimeoutForm extends BaseOptionGaugeTimeoutForm
 
   protected static function buildOptionsQuery()
   {
-    return $q = Doctrine::getTable('OptionGaugeTimeout')->createQuery('ol')
-      ->andWhere('ol.type = ?', 'gauge_timeout');
+    return $q = Doctrine::getTable('OptionGaugeTimeout')->createQuery('ogt')
+      ->andWhere('ogt.type = ?', 'gauge_timeout')
+      ->andWhere('ogt.name = ?', 'timeout');
   }
 }

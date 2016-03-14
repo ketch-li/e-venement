@@ -40,4 +40,35 @@ class gauge_timeoutActions extends sfActions
     $this->redirect('gauge_timeout/index');
   }
 
+  /**
+   * Creates an exit checkpoint for all events that:
+   *  - doesn't have an exit checkpoint yet
+   *  - have an entrance checkpoint created after a given timestamp
+   *
+   * @param sfWebRequest $request     $request['since'] is the limit Unix timestamp
+   */
+  public function executeAutoExit(sfWebRequest $request)
+  {
+    $since = date('Y-m-d H:i:s', (int)$request->getParameter('since'));
+    $this->getContext()->getConfiguration()->loadHelpers('I18N');
+
+    $query = Doctrine_Query::create()->from('Event e')
+      ->leftJoin('e.Checkpoints c1 ON c1.event_id=e.id AND c1.type=?', 'entrance')
+      ->leftJoin('e.Checkpoints c2 ON c2.event_id=e.id AND c2.type=?', 'exit')
+      ->where('e.museum')
+      ->andWhere('c2.id IS NULL')
+      ->andWhere('c1.created_at < ?', $since)
+        ;
+
+    $events = $query->execute();
+    foreach( $events as $event ) {
+      $checkpoint = new Checkpoint();
+      $checkpoint->event_id = $event->id;
+      $checkpoint->type = 'exit';
+      $checkpoint->name = __('Gauge timeout');
+      $checkpoint->description = __('This exit checkpoint has been created automatically after gauge timeout.');
+      $checkpoint->save();
+    }
+  }
+
 }
