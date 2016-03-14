@@ -1,0 +1,2 @@
+default:
+  stylesheets: [ws-pub-texts: { position: last }]
