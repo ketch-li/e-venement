@@ -273,6 +273,7 @@ class geoActions extends sfActions
         if ( str_pad(intval($code).'',5,'0',STR_PAD_LEFT) !== ''.$code )
         {
           foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
+          if ( isset($res[$approach][$code]) )
           {
             $others[$approach] += $res[$approach][$code];
             unset($res[$approach][$code]);
@@ -514,7 +515,7 @@ class geoActions extends sfActions
       }
     break;
     
-    default:
+    default: // 'ego'
       if ( !isset($client) )
         $client = sfConfig::get('app_about_client',array());
       if ( !isset($client['postalcode']) )
@@ -563,8 +564,9 @@ class geoActions extends sfActions
           ->addSelect('count(DISTINCT tck.id) AS qty')
           ->addSelect('sum(tck.value) AS sum')
           ->groupBy('t.id, c.id')
-          ->andWhere('(pro.id IS NOT NULL AND o.postalcode IN ('.implode(',',$qs).') OR pro.id IS NULL AND c.id IS NOT NULL AND c.postalcode IN ('.implode(',',$qs).') OR c.id IS NULL AND t.postalcode IN ('.implode(',',$qs).'))', array($client['postalcode'], $client['postalcode'], $client['postalcode']))
-          ->andWhere('(pro.id IS NULL AND (c.country ILIKE ? OR c.country IS NULL OR c.country = ?) OR pro.id IS NOT NULL AND (o.country ILIKE ? OR o.country IS NULL OR o.country = ?))', array(isset($client['country']) ? $client['country'] : 'France', '', isset($client['country']) ? $client['country'] : 'France', '',));
+          ->andWhere('(pro.id IS NOT NULL AND o.postalcode IN ('.implode(',',$qs).') OR pro.id IS NULL AND c.id IS NOT NULL AND c.postalcode IN ('.implode(',',$qs).') OR c.id IS NULL AND t.postalcode IN ('.implode(',',$qs).'))', $arr = array_merge($client['postalcode'], $client['postalcode'], $client['postalcode']))
+          ->andWhere('(pro.id IS NULL AND (c.country ILIKE ? OR c.country IS NULL OR c.country = ?) OR pro.id IS NOT NULL AND (o.country ILIKE ? OR o.country IS NULL OR o.country = ?))', array(isset($client['country']) ? $client['country'] : 'France', '', isset($client['country']) ? $client['country'] : 'France', '',))
+        ;
         foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
           $res[$approach]['metropolis'] = 0;
         $contacts = array();
