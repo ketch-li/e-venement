@@ -1,0 +1,20 @@
+sfGuardGroup:
+  sfGuardGroup_63:
+    name: museum-admin
+    description: 'Ability to access and edit museum parameters'
+    created_at: '2016-03-14 17:30:00'
+    updated_at: '2016-03-14 17:30:00'
+
+sfGuardPermission:
+  sfGuardPermission_155:
+    name: museum-gauge-timeout
+    description: 'Permission to access and edit the museum automatic gauge timeout'
+    created_at: '2016-03-14 17:30:00'
+    updated_at: '2016-03-14 17:30:00'
+
+sfGuardGroupPermission:
+  sfGuardGroupPermission_63_155:
+    Group: sfGuardGroup_63
+    Permission: sfGuardPermission_155
+    created_at: '2016-03-14 17:30:00'
+    updated_at: '2016-03-14 17:30:00'

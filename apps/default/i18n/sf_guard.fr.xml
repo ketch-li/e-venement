@@ -244,6 +244,10 @@
         <source>Associate automatically a group to a contact created online</source>
         <target>Capacité à associer automatiquement un contact créé en ligne à un groupe</target>
       </trans-unit>
+      <trans-unit>
+        <source>Ability to access and edit museum parameters</source>
+        <target>Capacité à voir et modifier le paramétrage du musée</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

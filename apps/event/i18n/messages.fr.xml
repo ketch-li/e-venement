@@ -2070,6 +2070,10 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>This exit checkpoint has been created automatically after gauge timeout.</source>
         <target>Ce point de contrôle de sortie a été créé automatiquement.</target>
       </trans-unit>
+      <trans-unit>
+        <source>Your configuration has been updated with %i% option(s).</source>
+        <target>Votre configuration a été mise à jour avec %i% paramètre(s).</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
