@@ -16,5 +16,45 @@ class OptionGaugeTimeoutForm extends BaseOptionGaugeTimeoutForm
   public function configure()
   {
     parent::configure();
+    $this->model = 'OptionGaugeTimeout';
+
+    self::enableCSRFProtection();
+
+    foreach ( array('type','name','value','sf_guard_user_id','created_at','updated_at',) as $id )
+    {
+      unset($this->widgetSchema   [$id]);
+      unset($this->validatorSchema[$id]);
+    }
+
+    $this->widgets = array(
+      '' => array(
+        'timeout' => 'Timeout',
+      ),
+    );
+
+    $this->widgetSchema['timeout'] = new sfWidgetFormInput(array(
+        'type' => 'text',
+        'label' => 'Timeout (in minutes)',
+        ),
+      array(
+        'title' => 'Timeout',
+        'help' => '(in minutes)',
+    ));
+    $this->validatorSchema['timeout'] = new sfValidatorInteger();
+  }
+
+  public static function getDBOptions()
+  {
+    $r = array();
+
+    foreach ( self::buildOptionsQuery()->fetchArray() as $opt )
+      $r[$opt['name']] = $opt['value'];
+    return $r;
+  }
+
+  protected static function buildOptionsQuery()
+  {
+    return $q = Doctrine::getTable('OptionGaugeTimeout')->createQuery('ol')
+      ->andWhere('ol.type = ?', 'gauge_timeout');
   }
 }
