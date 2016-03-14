@@ -520,6 +520,10 @@
         <source>Surveys</source>
         <target>Questionnaires</target>
       </trans-unit>
+      <trans-unit>
+        <source>Gauge timeout</source>
+        <target>Contrôle de sortie automatique</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
