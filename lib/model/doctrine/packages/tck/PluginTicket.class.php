@@ -173,6 +173,8 @@ abstract class PluginTicket extends BaseTicket
     if ( sfContext::hasInstance()
       && sfContext::getInstance()->getConfiguration()->getApplication() == 'tck'  // if we are in the "tck" app
       && $this->Manifestation->Event->museum                                      // if the event is a visit for museums
+      && strtotime(sfConfig::get('app_control_future'))       > strtotime($this->Manifestation->happens_at)
+      && strtotime(sfConfig::get('app_control_past').' ago')  < strtotime($this->Manifestation->ends_at)
       && ($this->printed_at || $this->integrated_at)                              // if $this is integrated or printed already
       && $this->Manifestation->Location->auto_control                             // if the location requires auto controls
       && in_array('entrance', $this->Manifestation->Event->Checkpoints->toKeyValueArray('id', 'type')) // if the event has an entrance
