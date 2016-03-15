@@ -219,8 +219,8 @@
               $cpt++;
               if ( $ticket->Manifestation->no_print )
               {
-                // member cards (cf. PluginTicket::preUpdate())
-                if ( $ticket->Price->member_card_linked )
+                // member cards (cf. PluginTicket::preUpdate()) OR auto controled tickets
+                if ( $ticket->Price->member_card_linked || $ticket->Manifestation->Location->auto_control )
                 {
                   $cpt += 2; // because member cards treatments take a loong time
                   $ticket->integrated_at = date('Y-m-d H:i:s');
@@ -234,8 +234,8 @@
               }
               else
               {
-                // member cards (cf. PluginTicket::preUpdate())
-                if ( $ticket->Price->member_card_linked )
+                // member cards (cf. PluginTicket::preUpdate()) OR auto controled tickets
+                if ( $ticket->Price->member_card_linked || $ticket->Manifestation->Location->auto_control )
                 {
                   $cpt += 2; // because member cards treatments take a loong time
                   $ticket->printed_at = date('Y-m-d H:i:s');

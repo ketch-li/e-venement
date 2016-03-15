@@ -284,6 +284,9 @@ Location:
     unlimited:
       type: boolean
       default: false
+    auto_control:
+      type: boolean
+      default: false
   relations:
     Organism:
       foreignAlias: Locations

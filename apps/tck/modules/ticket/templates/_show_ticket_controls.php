@@ -7,7 +7,7 @@
   $dates = $users = array();
   foreach ( $ticket->Controls as $control )
   {
-    $dates[] = format_datetime($control->updated_at);
+    $dates[] = format_datetime($control->updated_at).' → '.__($control->Checkpoint->type);
     $users[] = (string)$control->User;
   }
 ?>

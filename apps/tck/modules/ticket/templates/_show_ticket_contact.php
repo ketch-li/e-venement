@@ -6,7 +6,7 @@
     <span class="picto"><?php echo $sf_data->getRaw('ticket')->DirectContact->groups_picto ?></span>
   <?php else: ?>
   <?php echo cross_app_link_to($ticket->Transaction->Contact, 'rp', 'contact/show?id='.$ticket->Transaction->contact_id) ?>
-  <span class="picto"><?php echo $sf_data->getRaw('ticket')->Transaction->Contact->groups_picto ?></span>
+  <span class="picto"><?php if ( $ticket->Transaction->contact_id ) echo $sf_data->getRaw('ticket')->Transaction->Contact->groups_picto ?></span>
   <?php endif ?>
 </td>
 <td>

@@ -5,6 +5,14 @@
     <header/>
     <body>
       <trans-unit>
+        <source>when a ticket is printed, it is automatically controled in entrance</source>
+        <target>quand un billet est imprimé, il est automatiquement controlé en entrée</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Automatic control</source>
+        <target>Contrôle automatique</target>
+      </trans-unit>
+      <trans-unit>
         <source>Tickets background</source>
         <target>Fond de billet</target>
       </trans-unit>
