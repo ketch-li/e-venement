@@ -63,7 +63,7 @@ class gauge_timeoutActions extends sfActions
       ->leftJoin('tck.Controls c2 WITH c2.id != c.id')
       ->leftJoin('c2.Checkpoint cp2 WITH cp2.type = ?', 'exit')
       
-      ->andWhere('cp2.id IS NULL')
+      ->andWhere('cp2.id IS NULL AND c2.checkpoint_id = cp2.id')
       ->andWhere('c.created_at < ?', $since)
     ;
     
