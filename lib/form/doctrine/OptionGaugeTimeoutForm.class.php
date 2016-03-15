@@ -75,6 +75,7 @@ class OptionGaugeTimeoutForm extends BaseOptionGaugeTimeoutForm
   {
     return $q = Doctrine::getTable('OptionGaugeTimeout')->createQuery('ogt')
       ->andWhere('ogt.type = ?', 'gauge_timeout')
-      ->andWhere('ogt.name = ?', 'timeout');
+      ->andWhere('ogt.name = ?', 'timeout')
+      ->andWhere('ogt.sf_guard_user_id IS NULL');
   }
 }

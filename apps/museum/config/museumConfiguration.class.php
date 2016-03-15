@@ -65,9 +65,6 @@ class museumConfiguration extends sfApplicationConfiguration
       $action->executeAutoExit($request);
 
       $this->stdout($section, 'Done', 'INFO');
-
-
     });
   }
-
 }

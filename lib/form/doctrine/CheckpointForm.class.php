@@ -13,5 +13,13 @@ class CheckpointForm extends BaseCheckpointForm
   public function configure()
   {
     $this->widgetSchema['event_id']->setOption('add_empty',true);
+    
+    if ( sfConfig::get('app_manifestation_exit_on_timeout', false) )
+    {
+      $choices = $this->widgetSchema['type']->getOption('choices');
+      unset($choices[array_search('exit', $choices)]);
+      $this->widgetSchema['type']   ->setOption('choices', $choices);
+      $this->validatorSchema['type']->setOption('choices', $choices);
+    }
   }
 }
