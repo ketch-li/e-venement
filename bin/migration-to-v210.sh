@@ -207,6 +207,7 @@ echo ""
 echo "Don't forget to configure those extra features:"
 echo "- Check the different apps/*/config/*.yml.template to be sure that a apps/*/config/*.yml exists, create it if necessary"
 echo "- Online Sales (pub) + Paybox: you must check that 'app_payment_type' is set to 'paybox', or your 'pub' app will not be usable anymore."
+echo '- Auto control on exit, for museum: you must add the execution of "./symfony e-venement:garbage-collector museum" every minute (in your crontab?)'
 
 echo ""
 echo "Don't forget to inform your users about those evolutions"

@@ -50,23 +50,50 @@ class gauge_timeoutActions extends sfActions
   {
     $since = date('Y-m-d H:i:s', (int)$request->getParameter('since'));
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
-
-    $query = Doctrine_Query::create()->from('Event e')
-      ->leftJoin('e.Checkpoints c1 ON c1.event_id=e.id AND c1.type=?', 'entrance')
-      ->leftJoin('e.Checkpoints c2 ON c2.event_id=e.id AND c2.type=?', 'exit')
-      ->where('e.museum')
-      ->andWhere('c2.id IS NULL')
-      ->andWhere('c1.created_at < ?', $since)
-        ;
-
-    $events = $query->execute();
-    foreach( $events as $event ) {
-      $checkpoint = new Checkpoint();
-      $checkpoint->event_id = $event->id;
-      $checkpoint->type = 'exit';
-      $checkpoint->name = __('Gauge timeout');
-      $checkpoint->description = __('This exit checkpoint has been created automatically after gauge timeout.');
-      $checkpoint->save();
+    
+    // find out every checkpoint which has no exit sibling
+    $q = Doctrine::getTable('Control')->createQuery('c')
+      ->leftJoin('c.Checkpoint cp')
+      ->andWhere('cp.type = ?', 'entrance')
+      
+      ->leftJoin('cp.Event e')
+      ->select('c.*, cp.*, e.*')
+      
+      ->leftJoin('c.Ticket tck')
+      ->leftJoin('tck.Controls c2 WITH c2.id != c.id')
+      ->leftJoin('c2.Checkpoint cp2 WITH cp2.type = ?', 'exit')
+      
+      ->andWhere('cp2.id IS NULL')
+      ->andWhere('c.created_at < ?', $since)
+    ;
+    
+    foreach ( $q->execute() as $control )
+    {
+      // getting back the first exit checkpoint foundable
+      $checkpoint = null;
+      foreach ( $control->Checkpoint->Event->Checkpoints as $cp )
+      if ( $cp->type == 'exit' )
+      {
+        $checkpoint = $cp;
+        break;
+      }
+      
+      // creating an exit checkpoint if not present yet
+      if ( !$checkpoint )
+      {
+        $checkpoint = new Checkpoint;
+        $checkpoint->Event = $control->Checkpoint->Event;
+        $checkpoint->type = 'exit';
+        $checkpoint->name = __('Timeout');
+        $checkpoint->description = __('This exit checkpoint has been created automatically after gauge timeout.');
+        $checkpoint->save();
+      }
+      
+      $c = new Control;
+      $c->Checkpoint = $checkpoint;
+      $c->Ticket = $control->Ticket;
+      $c->automatic = true;
+      $c->save();
     }
   }
 
