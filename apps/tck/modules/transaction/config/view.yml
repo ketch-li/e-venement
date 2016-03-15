@@ -7,7 +7,7 @@ editSuccess:
     - "EveConnector/web/js/eve-connector.js"
     - "tck-touchscreen-websockets?<?php echo date('Ymd') ?>"
     - "socket.io.js?<?php echo date('Ymd') ?>"
-    - "boca-status.js"
+    - "tck-boca-status.js"
 
     - "EveConnector/ept-emulator/web-prompt.class.js"
     - "EveConnector/ept-emulator/protocol-helpers.class.js"
@@ -16,7 +16,7 @@ editSuccess:
     - "EveConnector/ept-emulator/logical-layer.class.js"
     - "EveConnector/ept-emulator/application-layer.class.js"
     - "EveConnector/web/js/eve-connector-layer.class.js"
-    - "ept-emulator.js"
+    - "ept-client.js"
 respawnSuccess:
   stylesheets: [-tck-touchscreen]
 registeredSuccess:
