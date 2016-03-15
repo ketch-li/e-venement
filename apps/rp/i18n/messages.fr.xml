@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>District</source>
+        <target>Quartier</target>
+      </trans-unit>
+      <trans-unit>
         <source>Code</source>
         <target>Code</target>
       </trans-unit>
