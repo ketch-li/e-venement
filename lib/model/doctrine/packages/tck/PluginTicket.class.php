@@ -169,6 +169,36 @@ abstract class PluginTicket extends BaseTicket
     try { sfContext::getInstance()->getEventDispatcher()->notify(new sfEvent($this, 'tck.ticket_post_save')); }
     catch ( Exception $e ) { error_log('Error processing the event dispatcher in Ticket::postSave() with ticket #'.$this->id.': '.$e->getMessage()); }
     
+    // the ticket is controled automatically
+    if ( sfContext::hasInstance()
+      && sfContext::getInstance()->getConfiguration()->getApplication() == 'tck'  // if we are in the "tck" app
+      && $this->Manifestation->Event->museum                                      // if the event is a visit for museums
+      && ($this->printed_at || $this->integrated_at)                              // if $this is integrated or printed already
+      && $this->Manifestation->Location->auto_control                             // if the location requires auto controls
+      && in_array('entrance', $this->Manifestation->Event->Checkpoints->toKeyValueArray('id', 'type')) // if the event has an entrance
+      && !in_array('entrance', $this->Controls->toKeyValueArray('id', 'type')) )  // if $this has not been controled in an entrance already
+    {
+      if ( sfConfig::get('sf_web_debug', false) )
+        error_log('Ticket: controlling automatically the ticket #'.$this->id);
+      
+      $control = new Control;
+      $control->Ticket = $this;
+      $checkpoint = null;
+      foreach ( $this->Manifestation->Event->Checkpoints as $cp )
+      if ( $cp->type == 'entrance' )
+      {
+        $checkpoint = $cp;
+        break;
+      }
+      if ( $checkpoint )
+      {
+        $control->Checkpoint = $checkpoint;
+        $control->save();
+      }
+    }
+    elseif ( sfConfig::get('sf_web_debug', false) )
+      error_log('Ticket: cannot control automatically the ticket #'.$this->id.' in state '.($this->printed_at ? 'printed' : $this->integrated_at ? 'integrated' : 'fresh'));
+    
     return parent::postSave($event);
   }
   public function postInsert($event)

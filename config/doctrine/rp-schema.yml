@@ -420,9 +420,7 @@ GeoFrStreetBase:
       notblank: true
     rivoli:
       type: string(4)
-    iris2008:
-      type: string(255)
-      notnull: true
+    iris2008: string(255)
     longitude:
       type: float
     latitude:
