@@ -79,7 +79,6 @@
               .val($(this).attr('data-type'));
             $(this).closest('form').find('[name="transaction[price_new][bunch]"]')
               .val($(this).attr('data-bunch-id'));
-            console.error($(this).attr('data-bunch-id'));
           })
         ;
       });
