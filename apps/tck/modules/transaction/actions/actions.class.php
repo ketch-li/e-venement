@@ -147,7 +147,7 @@ class transactionActions extends autoTransactionActions
       && $ticket->Duplicatas->count() == 0
       && !$ticket->cancelling )
       $tickets[$ticket->id] = $ticket;
-    
+
     asort($tickets); // sorting tickets to keep the same order anytime
     foreach ( $tickets as $ticket )
     {
@@ -166,7 +166,7 @@ class transactionActions extends autoTransactionActions
     if ( !$this->getUser()->hasCredential('tck-transaction-reduc') && isset($data[$id]['reduc']) )
       unset($data[$id]['reduc']);
     $this->form->bind($data[$id]);
-    
+
     if ( $request->hasParameter('debug') && sfConfig::get('sf_web_debug', false) )
     {
       $this->debug = true;
@@ -246,7 +246,7 @@ class transactionActions extends autoTransactionActions
       'model' => 'Professional',
       'required' => false,
     ));
-    
+
     $this->form['postalcode'] = new sfForm;
     $ws = $this->form['postalcode']->getWidgetSchema()->setNameFormat('transaction[%s]');
     $vs = $this->form['postalcode']->getValidatorSchema();
@@ -386,6 +386,7 @@ class transactionActions extends autoTransactionActions
     $ws['payment_method_id'] = new sfWidgetFormDoctrineChoice(array(
       'expanded' => true,
       'model' => 'PaymentMethod',
+      'method' => 'toStringEPT',
       'order_by' => array('name', ''),
       'query' => $q = Doctrine::getTable('PaymentMethod')->createQuery('pm')
         ->andWhere('pm.display = ?',true),

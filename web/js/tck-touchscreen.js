@@ -9,7 +9,7 @@ $(document).ready(function(){
   ', [name="transaction[description]"]'+
   ', #li_transaction_field_more input[type=checkbox]'+
   '').change(function(){ $(this).closest('form').submit(); });
-  
+
   var _currency = null;
   var _fr_style = null;
   LI.tckFormatCurrency = function(value, html){
@@ -21,7 +21,7 @@ $(document).ready(function(){
       html = true;
     return LI.format_currency(value, true, _fr_style, _currency);
   }
-  
+
   LI.initContent();
   $('#li_transaction_field_content h2 a').click(function(){
     LI.initContent();
@@ -349,12 +349,15 @@ $(document).ready(function(){
 
   // NEW PAYMENT
   $('#li_transaction_field_payment_new [name="transaction[payment_new][payment_method_id]"]').each(function(){
-    $(this).closest('li').find('input, label').hide();
-    $('<button />').text($(this).closest('li').find('label').text())
+    var $li = $(this).closest('li');
+    var label = $li.find('label').text();
+    $li.find('input, label').hide();
+    $('<button />').text(label.replace('_EPT_', ''))
       .click(function(){
-        $(this).closest('li').find('input').prop('checked',true);
+        $li.find('input').prop('checked',true);
       })
-      .appendTo($(this).closest('li'));
+      .attr('data-ept', label.indexOf('_EPT_') === 0 ? 1 : 0)
+      .appendTo($li);
   });
   $('#li_transaction_field_payment_new .submit').hide();
 

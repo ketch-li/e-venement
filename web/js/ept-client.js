@@ -31,15 +31,20 @@ function toggleEPTtransaction()
 }
 
 var getCentsAmount = function (value) {
+  value = value + '';
   var amount = value.replace(",", ".").trim();
     if( /^(\-|\+)?[0-9]+(\.[0-9]+)?$/.test(amount) )
       return Math.round(amount * 100);
-  return NaN;
+  return 'Not a number';
 };
 
 function startEPT(button) {
-  var amount = getCentsAmount($('#transaction_payment_new_value').val());
-  if ( isNaN(amount) ) {
+  var value = $('#transaction_payment_new_value').val().trim();
+  if ( value === '' )
+    value = LI.parseFloat($('#li_transaction_field_payments_list tfoot .change .sf_admin_list_td_list_value.pit').html());
+
+  var amount = getCentsAmount(value);
+  if ( isNaN(amount) || amount <= 0 ) {
     alert('Wrong amount');
     return false;
   }
@@ -52,7 +57,6 @@ function startEPT(button) {
   // replace new payment form by EPT transaction message
   toggleEPTtransaction();
 
-
   evelayer.prepareTransaction(amount, transaction_id);
 
   evelayer.application.logical.physical.on('applicationSuccess', function(result){
@@ -62,7 +66,7 @@ function startEPT(button) {
       return;
     }
     evelayer.application.logical.physical.clear(['applicationSuccess', 'applicationFailure']);
-    alert('applicationSuccess');
+    $('#li_transaction_field_payment_new form').submit();
     toggleEPTtransaction();
   });
   evelayer.application.logical.physical.on('applicationFailure', function(result){
@@ -72,7 +76,7 @@ function startEPT(button) {
       return;
     }
     evelayer.application.logical.physical.clear(['applicationSuccess', 'applicationFailure']);
-    alert('applicationFailure');
+    alert('EPT: payment failure');
     toggleEPTtransaction();
   });
 
@@ -87,7 +91,7 @@ function cancelEPT() {
 
 $(document).ready(function(){
   // "Carte Bancaire" click handler
-  $('#transaction_payment_new_payment_method_id_3').siblings('button').click(startEPT);
+  $('#transaction_payment_new_payment_method_id_3').siblings('button[data-ept=1]').click(startEPT);
 
   $('#cancel-ept-transaction').click(cancelEPT);
 });
