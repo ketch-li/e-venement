@@ -5,6 +5,18 @@
     <header/>
     <body>
       <trans-unit>
+        <source>EPT</source>
+        <target>TPE</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Electronic payment terminal</source>
+        <target>Terminal électronique de paiement</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Edit Payment method</source>
+        <target>Modifier la méthode de paiement</target>
+      </trans-unit>
+      <trans-unit>
         <source>e-venement will print the tickets directly on your printer</source>
         <target>e-venement va imprimer directement les billets sur votre imprimante</target>
       </trans-unit>

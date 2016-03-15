@@ -15,8 +15,11 @@ generator:
       actions: ~
       fields:
         member_card_linked: { label: "Linked w/ MC?", credentials: [tck-admin-member-cards] }
+        ept: { label: "EPT" }
       list:    ~
       filter:  ~
-      form:    ~
+      form:
+        fields:
+          ept: { label: "Electronic payment terminal" }
       edit:    ~
       new:     ~
