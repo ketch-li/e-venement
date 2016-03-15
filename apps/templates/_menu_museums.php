@@ -27,7 +27,7 @@
         || $sf_user->hasCredential('event-seated-plan')
         || $sf_user->hasCredential('event-calendar-gui')
         || $sf_user->hasCredential('event-location') ): ?>
-      <li class="menu-event">
+      <li class="menu-museum">
         <ul class="second">
           <?php if ( $sf_user->hasCredential('event-event') ): ?>
           <li><a href="<?php echo cross_app_url_for('museum','event') ?>"><?php echo __('Visits',array(),'menu') ?></a></li>

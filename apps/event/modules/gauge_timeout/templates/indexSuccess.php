@@ -1,7 +1,7 @@
 <?php include_partial('global/assets') ?>
 <div class="sf_admin_form ui-widget-content ui-corner-all sf_admin_edit full-lines" id="sf_admin_container">
   <div class="fg-toolbar ui-widget-header ui-corner-all">
-    <h1><?php echo __('Automatic gauge timeout') ?></h1>
+    <h1><?php echo __('Gauge timeout', null, 'menu') ?></h1>
   </div>
   <?php include_partial('form_header',array('form' => $form,)); ?>
   <?php include_partial('global/flashes') ?>

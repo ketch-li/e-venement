@@ -2059,10 +2059,6 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <target>Vider</target>
       </trans-unit>
       <trans-unit>
-        <source>Automatic gauge timeout</source>
-        <target>Contrôle de sortie automatique</target>
-      </trans-unit>
-      <trans-unit>
         <source>Timeout (in minutes)</source>
         <target>Délai (en minutes)</target>
       </trans-unit>

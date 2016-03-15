@@ -522,7 +522,7 @@
       </trans-unit>
       <trans-unit>
         <source>Gauge timeout</source>
-        <target>Contrôle de sortie automatique</target>
+        <target>Sorties automatisées</target>
       </trans-unit>
     </body>
   </file>

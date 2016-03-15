@@ -28,19 +28,38 @@ class OptionGaugeTimeoutForm extends BaseOptionGaugeTimeoutForm
 
     $this->widgets = array(
       '' => array(
-        'timeout' => 'Timeout',
+        'timeout' => array(
+          'label'   => 'Timeout',
+          'type'    => 'integer',
+          'helper'  => '(in minutes)',
+          'default' => '',
+        ),
       ),
     );
+    $this->convertConfiguration($this->widgets);
+  }
 
-    $this->widgetSchema['timeout'] = new sfWidgetFormInput(array(
-        'type' => 'text',
-        'label' => 'Timeout (in minutes)',
+  protected function convertConfiguration($widgets)
+  {
+    sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
+    
+    foreach ( $widgets as $fieldset )
+    foreach ( $fieldset as $name => $value )
+    {
+      $validator_class = 'sfValidator'.strtoupper(substr($value['type'],0,1)).strtolower(substr($value['type'],1));
+
+      $this->widgetSchema[$name]    = new sfWidgetFormInputText(array(
+          'label'                 => $value['label'],
+          'default'               => $value['default'],
+          'type'                  => 'number',
         ),
-      array(
-        'title' => 'Timeout',
-        'help' => '(in minutes)',
-    ));
-    $this->validatorSchema['timeout'] = new sfValidatorInteger();
+        array(
+          'title'                 => __('previous:').' '.$value['default'].' '.$value['helper'],
+      ));
+      $this->validatorSchema[$name] = new $validator_class(array(
+        'required' => false,
+      ));
+    }
   }
 
   public static function getDBOptions()
