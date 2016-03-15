@@ -128,18 +128,25 @@
         elseif ( $checkpoint->type == 'entrance' )
         {
           $q = Doctrine::getTable('Control')->createQuery('c')
-            ->select('c.*')
+            ->select('c.*, tc.*, p.*')
+            ->andWhere('c.checkpoint_id = ?', $params['checkpoint_id'])
             ->leftJoin('c.Checkpoint c2')
             ->leftJoin('c2.Event e')
             ->leftJoin('e.Manifestations m')
             ->leftJoin('m.Tickets t')
             ->leftJoin('c.Ticket tc')
-            ->leftJoin('c.User u')
+            ->leftJoin('tc.Price p')
             ->andWhereIn('tc.'.$field, $params['ticket_id'])
+            ->leftJoin('c.User u')
             ->andWhere("tc.$field = t.$field")
-            ->andWhere('c.checkpoint_id = ?', $params['checkpoint_id'])
             ->orderBy('c.id DESC');
-          $this->controls = $q->execute();
+          $this->controls = new Doctrine_Collection('Control');
+          foreach ( $q->execute() as $control )
+          if ( $control->Ticket->Price->x_days_valid > 0
+            && $control->created_at >= date('Y-m-d', strtotime(($control->Ticket->Price->x_days_valid-1).' days ago')) )
+            ; // nothing to do, just ignore this control
+          else
+            $this->controls[] = $control;
           $cancontrol = $this->controls->count() == 0;
           if ( !$cancontrol )
           {
@@ -149,7 +156,8 @@
               '%%user%%' => (string)$this->controls[0]->User,
             ));
             $this->tickets = Doctrine::getTable('Ticket')->createQuery('tck')
-              ->select('tck.*')
+              ->select('tck.*, p.*')
+              ->leftJoin('tck.Price p')
               ->andWhereIn("tck.$field", $params['ticket_id'])
               ->execute();
           }

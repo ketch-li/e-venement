@@ -56,6 +56,10 @@ Price:
       type: boolean
       notnull: true
       default: false
+    x_days_valid:
+      type: integer
+      default: 0
+      notnull: true
     rank:
       type: float
       notnull: true
