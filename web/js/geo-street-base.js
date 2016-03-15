@@ -83,4 +83,30 @@ $(document).ready(function(){
       });
     },300)); // the timeout
   });
+
+  // trick to show up errors in the address
+  var highlightLastLine = function (text)
+  {
+    var text = text.split("\n");
+    var addr = $('<div></div>');
+    for ( var i = 0 ; i < text.length ; i++ )
+      addr.append($('<span></span>').text(text[i]));
+    return addr;
+  }
+  $('#tdp-content #sf_admin_content .tdp-line.address .ui-state-error textarea, #contact-form .field.address.error textarea').each(function(){
+    var textarea = this;
+    var addr = highlightLastLine($(this).val())
+      .addClass('textarea')
+      .click(function(){ $(this).hide(); $(textarea).focus(); })
+      .width($(this).width())
+      .height($(this).height())
+      .css('top', $(this).position().top+7) //'-'+($(this).height()+8)+'px')
+      .css('left', $(this).position().left) //'-'+($(this).height()+8)+'px')
+     .insertAfter($(this))
+    ;
+    $(textarea).focusout(function(){
+      var tmp = highlightLastLine($(this).val());
+      $(addr).html($(tmp).html()).show();
+    });
+  });
 });

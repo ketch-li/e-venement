@@ -49,8 +49,12 @@ ul.no-bullet li.highlight { text-decoration: underline; }
 #contact-form .field select,
 .mod-cart.action-order #login p textarea, .mod-cart.action-register #login p textarea, #contact-form .field textarea { border: 1px solid black; border-radius: 3px; background-color: whitesmoke; width: 30em; }
 #contact-form .field.address select { border-radius: 5px; border-width: 1px; border-color: black; height: 5em; margin-left: 5px; width: 20em; }
-#contact-form .field.address textarea { transition: width 0.5s; }
+#contact-form .field.address textarea { transition: width 0.5s; resize: none; }
 #contact-form .field.address.autocompleting textarea { width: 20em; }
+#contact-form .field.address.error .textarea { position: absolute; padding: 3px; background-color: whitesmoke; margin-left: 2px; }
+#contact-form .field.address.error .textarea :not(:last-child) { color: black; }
+#contact-form .field.address.error .textarea :last-child { font-weight: bold; color: #cd0a0a; }
+#contact-form .field.address.error .textarea > * { display: block; padding-top: 2px; }
 
 .mod-cart.action-order #login label, .mod-cart.action-register #login label, #contact-form .field label { width: 140px; display: block; float: left; margin-top: 3px; font-weight: bold; }
 .mod-cart.action-order #login .submit, .mod-cart.action-register #login .submit, #contact-form .submit { margin-left: 142px; }
