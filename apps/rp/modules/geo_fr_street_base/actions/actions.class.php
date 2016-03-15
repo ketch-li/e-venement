@@ -71,6 +71,10 @@ class geo_fr_street_baseActions extends autoGeo_fr_street_baseActions
       ->limit($request->getParameter('limit', 10))
       ->select('db.id, db.name')
       ->andWhere('db.name ILIKE ?', '%'.$search.'%')
+      ->select('db.*')
+      
+      ->leftJoin('db.GeoFrStreetBase sb')
+      ->andWhere('sb.id IS NOT NULL')
     ;
     foreach ( $q->fetchArray() as $db )
       $this->districts[$db['id']] = $db['name'];
