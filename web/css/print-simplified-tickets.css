@@ -2,6 +2,7 @@ html { font-family: 'dejavu sans', Gotham, DejaVuSans, sans-serif; }
 
 /** basics **/
 .cmd-element { padding: 5px; border: 1px solid silver; margin: 2em 0; page-break-after: always; background-color: whitesmoke; }
+.merged { page-break-after: always; }
 .cmd-element:last-child { page-break-after: auto; }
 .cmd-element .bc { border: 1px solid silver; padding: 10px; }
 .cmd-element .desc { width: 350px; }
