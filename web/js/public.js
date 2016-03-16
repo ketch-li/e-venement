@@ -71,7 +71,7 @@ $(document).ready(function(){
       window.location = $('#ariane .event.with-store a.store').prop('href');
     
     // redirect into the only meta-event of the @homepage if no alternative
-    else if ( $('.mod-meta_event.action-index:not('.stay') .sf_admin_list .sf_admin_row').length == 1 )
+    else if ( $('.mod-meta_event.action-index .sf_admin_list .sf_admin_row').length == 1 && $('.mod-meta_event.action-index .sf_admin_list .sf_admin_row img').length == 0 )
       window.location = $('.mod-meta_event.action-index .sf_admin_list .sf_admin_row a').prop('href');
   }
   
