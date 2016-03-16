@@ -18,7 +18,7 @@
       [?php if ($help || $help = $widget->renderHelp()): ?]
         <div class="help">
           <span class="ui-icon ui-icon-help floatleft"></span>
-          [?php echo __(strip_tags($help), array(), '<?php echo $this->getI18nCatalogue() ?>') ?]
+          [?php echo __(strip_tags($sf_data->getRaw('help'), '<br>'), array(), '<?php echo $this->getI18nCatalogue() ?>') ?]
         </div>
       [?php endif; ?]
     </div>
