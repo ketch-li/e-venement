@@ -13,7 +13,6 @@
     <script type="text/javascript">
       $(document).ready(function(){
         $('.sf_admin_form_field_form_shipping_fees input[type=number]').click(function(){ return false; }).change(function(){
-          console.error('change', this);
           if ( $(this).val() === '' )
             return;
           
