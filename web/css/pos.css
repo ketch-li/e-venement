@@ -30,3 +30,6 @@
 .sf_admin_actions_form .sf_admin_action_back { position: absolute; left: 0.4em; }
 
 .hidden { display: none; }
+
+.mod-category .sf_admin_form_field_shipping_fees textarea { display: none; }
+.mod-category .sf_admin_form_field_form_shipping_fees input { width: 5em; text-align: center; }

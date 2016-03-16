@@ -40,6 +40,7 @@ ProductCategory:
       default: false
       notnull: true
     product_category_id: integer
+    shipping_fees: string
   relations:
     Vat:
       foreignAlias: ProductCategories
@@ -178,6 +179,10 @@ ProductDeclination:
     prioritary:
       type: boolean
       default: false
+    weight:
+      type: integer
+      notnull: true
+      default: 0
     use_stock:
       type: boolean
       notnull: true
