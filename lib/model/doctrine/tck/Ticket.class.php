@@ -208,7 +208,8 @@ EOF
     $seat = $this->seat_id
       ? 'seat $seat / '
       : '';
-    return sprintf('%s<br/>%s %s (%s%s %s)', //<div class="batch-event">%s</div><div class="batch-manifestation"><span class="batch-happens_at">%s</span> <span class="batch-location">%s</span></div><div class="batch-details">(%s%s %s)</div>',
+    //return sprintf('%s<br/>%s %s (%s%s %s)',
+    return sprintf('<div class="batch-event">%s</div><div class="batch-manifestation"><span class="batch-happens_at">%s</span> <span class="batch-location">%s</span></div><div class="batch-details">(<span class="seat">%s</span><span class="price">%s</span> <span class="amount">%s</span>)</div>',
       $this->Manifestation->Event->short_name ? $this->Manifestation->Event->short_name : $this->Manifestation->Event,
       $this->Manifestation->mini_date,
       $this->Manifestation->Location,
