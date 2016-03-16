@@ -621,3 +621,25 @@ LI.tdp_side_bar = function()
     return false;
   });
 }
+
+// the auto-city / zip postalcode
+setTimeout(function(){
+  var focusout = function(elt){
+    $(elt).closest('.sf_admin_form_row').fadeOut();
+    $('.tdp-city input').focus();
+    $('.tdp-postalcode input').focus();
+  }
+  LI.zipcitiesOnZipLoaded.push(function(json){
+    // choice of the only option available
+    if ( Object.keys(json).length == 1 )
+      return focusout($('.sf_admin_form_field_cities select option:first').click());
+    // focusin if length > 1
+    $('.sf_admin_form_field_cities select')
+      .prop('size', Object.keys(json).length < 6 ? Object.keys(json).length : 6)
+      .closest('.sf_admin_form_row').fadeIn();
+    // focusout
+    $('.sf_admin_form_field_cities select option').click(function(){ focusout(this) });
+    // the placeholder
+    $('.sf_admin_form_field_city .tdp-subtitle').css('z-index', -1);
+  });
+}, 750);
