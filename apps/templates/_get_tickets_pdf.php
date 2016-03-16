@@ -5,6 +5,11 @@
     <meta name="title" content="e-venement, Billet" />
     <title>e-venement, Billet</title>
     <link rel="shortcut icon" href="/images/logo-evenement.png" />
+    <script type="text/javascript" data-script-url="<?php echo $path = '/private/print-simplified-tickets.js'; $path = sfConfig::get('sf_web_dir').$path; ?>">
+      <?php if ( file_exists($path) ): ?>
+        <?php echo file_get_contents($path) ?>
+      <?php endif ?>
+    </script>
   </head>
   <body class="pdf app-<?php echo $sf_context->getConfiguration()->getApplication() ?>">
     <div id="content"><?php include_partial('global/get_tickets',array('tickets_html' => $tickets_html)) ?></div>
