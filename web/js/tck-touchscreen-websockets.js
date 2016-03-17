@@ -31,76 +31,76 @@ $(document).ready(function(){
         $.each(LI.usb.printers, function(type, devs){
             $.each(devs, function(i, ids) { devices.push(ids); });
         });
-        connector.areDevicesAvailable({ type: 'usb', params: devices}).then(
-            function(data){
-                // *T* here we are when the list of USB devices is received
-                if (!( data.params && data.params.length > 0 ))
+      connector.areDevicesAvailable({ type: 'usb', params: devices}).then(
+        function(data){
+          // *T* here we are when the list of USB devices is received
+          if (!( data.params && data.params.length > 0 ))
+          {
+             connector.log('info', 'No '+data.type+' device found within your search.');
+             return;
+          }
+          var myDevice = data.params.shift();
+
+          $('#li_transaction_museum .print, #li_transaction_manifestations .print')
+          .each(function(){
+              $(this)
+                .append($('<input type="hidden" />').prop('name', 'direct').val(JSON.stringify(myDevice)))
+                .prop('title', $('#li_transaction_field_close .print .direct-printing-info').text());
+          })
+          .attr('onsubmit', null)
+          .submit(function(){
+            // *T* here we are when the print form is submitted
+            connector.log('info', 'Submitting the form...');
+            if ( !LI.printTickets(this,false) )
+                return false;
+
+            $.ajax({
+              method: $(this).prop('method'),
+              url: $(this).prop('action'),
+              data: $(this).serialize(),
+              success: function(data){
+                // *T* here we are when we have got the base64 data representing tickets ready to be printed
+                if ( !data )
                 {
-                   connector.log('info', 'No '+data.type+' device found within your search.');
-                   return;
+                    connector.log('info', 'Empty data, nothing to send');
+                    return;
                 }
-                var myDevice = data.params.shift();
 
-                $('#li_transaction_museum .print, #li_transaction_manifestations .print')
-                .each(function(){
-                    $(this)
-                      .append($('<input type="hidden" />').prop('name', 'direct').val(JSON.stringify(myDevice)))
-                      .prop('title', $('#li_transaction_field_close .print .direct-printing-info').text());
-                })
-                .attr('onsubmit', null)
-                .submit(function(){
-                    // *T* here we are when the print form is submitted
-                    connector.log('info', 'Submitting the form...');
-                    if ( !LI.printTickets(this,false) )
-                        return false;
+                // sends data to the printer through the connector then reads the printer answer
+                connector.log('info', 'Sending data...');
+                connector.log('info', data);
+                var device = { type: 'usb', params: myDevice };
+                var Printer = LIPrinter(device, connector);
+                if ( !Printer ) {
+                  LI.alert('Printer not configured', 'error');
+                  return;
+                }
+                Printer.print(data).then(
+                  function(res){
+                    LI.alert(res);
+                  },
+                  function(err){
+                    connector.log('error', 'sendData / readData error', err);
+                    LI.alert(err, 'error');
+                  }
+                );
+              }
+            });
 
-                    $.ajax({
-                        method: $(this).prop('method'),
-                        url: $(this).prop('action'),
-                        data: $(this).serialize(),
-                        success: function(data){
-                            // *T* here we are when we have got the base64 data representing tickets ready to be printed
-                            if ( !data )
-                            {
-                                connector.log('info', 'Empty data, nothing to send');
-                                return;
-                            }
+            return false;
+          });
+        },
+        function(error) {
+          //areDevicesAvailable returned an error
+          connector.log('error', error);
+        }
+      );
 
-                            // sends data to the printer through the connector then reads the printer answer
-                            connector.log('info', 'Sending data...');
-                            connector.log('info', data);
-                            var device = { type: 'usb', params: myDevice };
-                            Printer = LIPrinter(device, connector);
-                            if ( !Printer ) {
-                              LI.alert('Printer not configured', 'error');
-                              return;
-                            }
-                            Printer.print(data).then(
-                              function(res){
-                                LI.alert(res);
-                              },
-                              function(err){
-                                connector.log('error', 'sendData / readData error', err);
-                                LI.alert(res, 'error');
-                              }
-                            );
-                        }
-                    });
-
-                    return false;
-                });
-            },
-            function(error) {
-                //areDevicesAvailable returned an error
-                connector.log('error', error);
-            }
-        );
-
-        connector.onError = function(){
-          $('#li_transaction_museum .print [name=direct], #li_transaction_manifestations .print [name=direct]')
-            .remove();
-          $('#li_transaction_museum .print').prop('title', null);
-        };
+      connector.onError = function(){
+        $('#li_transaction_museum .print [name=direct], #li_transaction_manifestations .print [name=direct]')
+          .remove();
+        $('#li_transaction_museum .print').prop('title', null);
+      };
     });
 
 });

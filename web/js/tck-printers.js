@@ -88,24 +88,34 @@ StarPrinter = function(device, connector){
     return err;
   };
 
-  this.print = function(data) {
+  var getPrintResult = function() {
     var printer = this;
     var connector = this.connector;
     var device = this.device;
     return new Promise(function(resolve, reject){
-      connector.sendData(device, data)
-      .then(connector.readData(device))
+      connector.readData(device)
       .then(function(res){
-        connector.log('printer returned:', res);
         if ( res !== undefined ) {
           var statuses = printer.getStatuses(atob(res));
-          if ( statuses.length )
-            reject(statuses);
-          else
-            resolve(statuses);
+          resolve(statuses);
         }
         else
-          resolve(res);
+          reject(new Error('Could not get print status'));
+      });
+    });
+  };
+
+  this.print = function(data) {
+    var connector = this.connector;
+    var device = this.device;
+    return new Promise(function(resolve, reject){
+      connector.sendData(device, data)
+      .then(getPrintResult)
+      .then(function(statuses){
+        if ( statuses.length > 0 )
+          reject(statuses);
+        else
+          resolve("OK");
       })
       .catch(function(err){
         reject(err);
@@ -170,25 +180,34 @@ BocaPrinter = function(device, connector) {
     return statuses;
   };
 
-  this.print = function(data) {
+  var getPrintResult = function() {
     var printer = this;
     var connector = this.connector;
     var device = this.device;
     return new Promise(function(resolve, reject){
-      console.info('here', printer, connector, device);
-      connector.sendData(device, data)
-      .then(connector.readData(device))
+      connector.readData(device)
       .then(function(res){
-        connector.log('printer returned:', res);
         if ( res !== undefined ) {
           var statuses = printer.getStatuses(atob(res));
-          if ( statuses.length )
-            reject(statuses);
-          else
-            resolve(statuses);
+          resolve(statuses);
         }
         else
-          resolve(res);
+          reject(new Error('Could not get print status'));
+      });
+    });
+  };
+
+  this.print = function(data) {
+    var connector = this.connector;
+    var device = this.device;
+    return new Promise(function(resolve, reject){
+      connector.sendData(device, data)
+      .then(getPrintResult)
+      .then(function(statuses){
+        if ( statuses.indexOf("TICKET ACK") != -1 )
+          resolve("OK");
+        else
+          reject(statuses);
       })
       .catch(function(err){
         reject(err);
