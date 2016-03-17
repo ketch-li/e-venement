@@ -21,7 +21,7 @@
 ***********************************************************************************/
 
 
-BocaStatus = function(){
+BocaPrinter = function(){
   this.statusCodes = {
     0x01: "REJECT BIN WARNING",
     0x02: "REJECT BIN ERROR",

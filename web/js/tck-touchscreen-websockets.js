@@ -70,23 +70,20 @@ $(document).ready(function(){
                             connector.log('info', 'Sending data...');
                             connector.log('info', data);
                             var device = { type: 'usb', params: myDevice };
-
-                            connector.sendData(device, data)
-                            .then(connector.readData(device))
-                            .then(function(res){
-                                connector.log('info', res);
-                                if ( res !== undefined ) {
-                                  var BS = new BocaStatus();
-                                  if ( BS.isBoca(myDevice) ) {
-                                      connector.log('info', 'BocaStutus.getStatuses():', BS.getStatuses(atob(res)));
-                                      LI.alert(BS.getStatuses(atob(res)));
-                                  }
-                                }
-                            })
-                            .catch(function(err){
+                            Printer = LIPrinter(device, connector);
+                            if ( !Printer ) {
+                              LI.alert('Printer not configured', 'error');
+                              return;
+                            }
+                            Printer.print(data).then(
+                              function(res){
+                                LI.alert(res);
+                              },
+                              function(err){
                                 connector.log('error', 'sendData / readData error', err);
-                                LI.alert(err, 'error');
-                            });
+                                LI.alert(res, 'error');
+                              }
+                            );
                         }
                     });
 
