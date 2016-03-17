@@ -1,2 +1,7 @@
 #content .sf_admin_form textarea { width: 100%; }
 .line { display: inline-block; }
+fieldset { display: inline-block; width: calc(50% - 10px); margin-right: 5px; overflow: hidden; }
+fieldset .ui-widget-content { padding: 2px; }
+fieldset .line { width: calc(100% - 20px); }
+#content .sf_admin_form fieldset textarea { width: calc(100% - 10px); resize: none; }
+fieldset h2 { font-size: 120%; }
