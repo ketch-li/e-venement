@@ -7,6 +7,9 @@ printSuccess:
 printDirect:
   javascripts: [-*, jquery, /private/print-tickets.js?<?php echo date('Ymd') ?>, print-tickets]
   stylesheets: [-*, print-tickets.default.css: {media: all}, print-tickets.<?php echo sfConfig::get('app_tickets_type', 'boca') ?>.css: { media: all }, /private/print-tickets.css?<?php echo date('Ymd') ?>: {media: all}]
+  has_layout: false
+printSimplified:
+  has_layout: false
 orderSuccess:
   javascripts: [-*, jquery, print-tickets]
   stylesheets: [-*, print-accounting: {media: all}, /private/print-accounting.css?<?php echo date('Ymd') ?>: {media: all}]

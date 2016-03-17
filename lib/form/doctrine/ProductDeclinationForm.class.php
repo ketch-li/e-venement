@@ -30,9 +30,11 @@ class ProductDeclinationForm extends BaseProductDeclinationForm
       ->setOption('type', 'number')->setAttribute('min', 0);
     $this->widgetSchema['use_stock']
       ->setAttribute('class', 'use-stock');
+    $this->widgetSchema['weight']
+      ->setAttribute('class', 'weight');
     
     $this->useFields(array_merge(array(
-      'id', 'product_id', 'prioritary', 'code',
+      'id', 'product_id', 'prioritary', 'code', 'weight',
     ),array_keys($this->embeddedForms),
     array(
       'use_stock', 'stock', 'stock_perfect', 'stock_critical',

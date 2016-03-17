@@ -7,8 +7,10 @@
   $dates = $users = array();
   foreach ( $ticket->Controls as $control )
   {
-    $dates[] = format_datetime($control->updated_at).' → '.__($control->Checkpoint->type);
-    $users[] = (string)$control->User;
+    $dates[$control->created_at.'-'.$control->id] = format_datetime($control->created_at).' → '.__($control->Checkpoint->type);
+    ksort($dates);
+    $users[$control->created_at.'-'.$control->id] = (string)$control->User;
+    ksort($users);
   }
 ?>
 <td><ol><li>

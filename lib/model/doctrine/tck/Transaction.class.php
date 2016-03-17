@@ -239,9 +239,9 @@ class Transaction extends PluginTransaction
     if (!( isset($with['css']) && !$with['css'] ))
     {
       $tickets_html .= '<div style="clear: both"></div>';
-      $tickets_html .= '<style type="text/css" media="all">'.file_get_contents(sfConfig::get('sf_web_dir').'/css/print-simplified-tickets.css').'</style>';
+      $tickets_html .= '<style type="text/css" media="all" data-url="/css/print-simplified-tickets.css">'.file_get_contents(sfConfig::get('sf_web_dir').'/css/print-simplified-tickets.css').'</style>';
       if ( file_exists(sfConfig::get('sf_web_dir').'/private/print-simplified-tickets.css') )
-        $tickets_html .= '<style type="text/css" media="all">'.file_get_contents(sfConfig::get('sf_web_dir').'/private/print-simplified-tickets.css').'</style>';
+        $tickets_html .= '<style type="text/css" media="all" data-url="/private/print-simplified-tickets.css">'.file_get_contents(sfConfig::get('sf_web_dir').'/private/print-simplified-tickets.css').'</style>';
     }
 
     if ( $with['only'] )
@@ -253,6 +253,7 @@ class Transaction extends PluginTransaction
     $content = array();
     if (!( isset($with['tickets']) && !$with['tickets'] ))
     foreach ( $this->Tickets as $ticket )
+    if ( $ticket->Duplicatas->count() == 0 && $ticket->Cancelling->count() == 0 )
     {
       if ( $with['only'] )
       {
@@ -299,7 +300,6 @@ class Transaction extends PluginTransaction
     // process tickets in batch mode
     if ( $batch )
     foreach ( $batch as $b )
-    if ( count($b) > 0 )
     {
       // if nothing has to be processed as a merged ticket
       if ( count($b['tickets']) == 0 )
@@ -349,9 +349,9 @@ class Transaction extends PluginTransaction
     if (!( isset($with['css']) && !$with['css'] ))
     {
       $products_html .= '<div style="clear: both"></div>';
-      $products_html .= '<style type="text/css" media="all">'.file_get_contents(sfConfig::get('sf_web_dir').'/css/print-simplified-tickets.css').'</style>';
+      $products_html .= '<style type="text/css" media="all" data-url="/css/print-simplified-tickets.css">'.file_get_contents(sfConfig::get('sf_web_dir').'/css/print-simplified-tickets.css').'</style>';
       if ( file_exists(sfConfig::get('sf_web_dir').'/private/print-simplified-tickets.css') )
-        $products_html .= '<style type="text/css" media="all">'.file_get_contents(sfConfig::get('sf_web_dir').'/private/print-simplified-tickets.css').'</style>';
+        $products_html .= '<style type="text/css" media="all" data-url="/private/print-simplified-tickets.css">'.file_get_contents(sfConfig::get('sf_web_dir').'/private/print-simplified-tickets.css').'</style>';
     }
 
     $content = array();

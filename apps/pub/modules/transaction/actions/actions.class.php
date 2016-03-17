@@ -54,13 +54,11 @@ class transactionActions extends sfActions
       // content type
       $this->getResponse()->setContentType('application/pdf');
       if ( !sfConfig::get('sf_web_debug', false) )
-      $this->getResponse()->setHttpHeader('Content-Disposition', 'attachment; filename="transaction-'.$transaction->id.'-'.$target.'.pdf"');
+        $this->getResponse()->setHttpHeader('Content-Disposition', 'attachment; filename="transaction-'.$transaction->id.'-'.$target.'.pdf"');
 
-      $this->pdf = new sfDomPDFPlugin();
-      $this->pdf->setInput($content = $this->getPartial('get_tickets_pdf', array('tickets_html' => $this->tickets_html)));
-      echo $this->pdf->render();
-      return sfView::NONE;
-      //return $this->renderText($this->pdf->render()); // cannot do that for some particular cases that I do not understand... anyway...
+      $this->content = $this->getPartial('global/get_tickets_pdf', array('tickets_html' => $this->tickets_html));
+      $this->setLayout(false);
+      return 'PDF';
     case 'html':
       $this->setLayout('nude');
       return 'Success';

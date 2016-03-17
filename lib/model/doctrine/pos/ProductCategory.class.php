@@ -12,4 +12,24 @@
  */
 class ProductCategory extends PluginProductCategory
 {
+  public function getStructuredShippingFees()
+  {
+    if ( !$this->shipping_fees )
+      return false;
+    
+    return json_decode($this->shipping_fees, true);
+  }
+  
+  public function getShippingFeesFor($weight)
+  {
+    if (!( $struct = $this->getStructuredShippingFees() ))
+      return false;
+    
+    foreach ( $struct as $range )
+    if ( $range['min'] !== null && $weight >= $range['min']
+      && $range['max'] !== null && $weight <  $range['max'] )
+      break;
+    
+    return $range['fees'];
+  }
 }

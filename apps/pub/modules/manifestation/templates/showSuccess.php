@@ -17,25 +17,19 @@
     <?php include_partial('show_named_tickets', array('manifestation' => $manifestation)) ?>
   </div>
   <div id="container">
-    <?php
-      $texts = pubConfiguration::getText('app_texts_synthetic', array());
-      foreach ( array('plans', 'categories') as $field )
-      if ( !isset($texts[$field]) )
-        $texts[$field] = '';
-    ?>
     <h4 data-tab="#plans"><?php echo __('Choice by the seating') ?></h4>
     <h4 class="hidden" data-tab="#categories"><?php echo __('Automatic choice by category') ?></h4>
     <div class="tab" id="plans">
       <div class="li-content">
         <?php include_partial('show_plans', array('manifestation' => $manifestation)) ?>
-        <div class="description"><?php echo $texts['plans'] ?></div>
+        <div class="description"><?php echo pubConfiguration::getText('app_texts_synthetic_plan', '') ?></div>
         <div class="clear"></div>
       </div>
     </div>
     <div class="tab hidden" id="categories">
       <div class="li-content">
         <?php include_partial('show_categories', array('manifestation' => $manifestation)) ?>
-        <div class="description"><?php echo $texts['categories'] ?></div>
+        <div class="description"><?php echo pubConfiguration::getText('app_texts_synthetic_categories','') ?></div>
         <div class="clear"></div>
       </div>
     </div>

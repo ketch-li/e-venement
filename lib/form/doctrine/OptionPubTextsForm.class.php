@@ -80,7 +80,7 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
     return array(
-      'payment_onsite_info'     => __("Content of the popup which appears after a 'on site' payment"),
+      'payment_onthespot_info'     => __("Content of the popup which appears after a 'on site' payment"),
       // TODO: complete, if necessary, with other params
     );
   }
@@ -97,11 +97,48 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
       );
       
       $terms[$lang] = array(
-        'payment_onsite_info'   => $i18n->__('Thank you in advance to send us your payment as soon as possible so that we can confirm your order'),
-        'manifestation_bottom'  => $i18n->__("Placement libre.\nPaiement par carte bancaire."),
+        'manifestation_bottom'    => $i18n->__("Placement libre.\nPaiement par carte bancaire."),
+        'payment_onthespot_info'  => $i18n->__('Thank you in advance to send us your payment as soon as possible so that we can confirm your order'),
+        'cart_bottom'             => '',
+        'cart_end'                => '',
+        'contact_new'             => '',
+        'email_confirmation'      => '',
+        'manifestation_closed'    => '',
+        'manifestation_bottom'    => '',
+        'manifestation_full'      => '',
+        'when_closed'             => '',
+        'event_bottom'            => '',
+        'store_nomore'            => '',
+        'meta_events_header'      => '',  // empty by default
+        'meta_events_title'       => '',  // empty by default
+        'meta_events_bottom'      => '',  // empty by default
+        'card_bottom'             => '',
+        'contact_bottom'          => '',  // empty by default
+        'seated_plan_loading'     => '',  // empty by default
+        'terms_conditions'        => '',  // empty by default
+        'email_footer'            => '',  // empty by default
+        'email_confirmation'      => '
+Voici le récapitulatif de votre commande en date du %%DATE%% :
+
+%%COMMAND%%
+
+Au plaisir de vous accueillir,
+
+%%NOTICES%%
+
+--
+Ma Structure
+27 avenue de la Libération
+99250 LIBERTALIA
++999 53 20 16 45
+
+<a href="mailto:contact@mastructure.tld">mailto:contact@mastructure.tld</a>
+<a href="http://www.mastructure.tld/">http://www.mastructure.tld</a>
+',
         // TODO: complete like the previous example with all the texts from online sales, foundable in apps/pub/config/app.yml.template
         // careful: the i18n of those terms have to be placed in the "ws" app, whereas their storage for production use will be located in the DB
       );
+      ksort($terms[$lang]);
     }
     $langs = array_keys($langs);
 

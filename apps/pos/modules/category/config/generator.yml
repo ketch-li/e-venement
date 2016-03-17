@@ -15,6 +15,9 @@ generator:
       actions: ~
       fields:
         product_category_id: { label: Parent }
+        shipping_fees:
+          help: This defines the shipping fees (including taxes, PIT) depending on the weight of bought products.<br/>The order is really important because, beginning from the first entry, the system will choose the first range that match the weight of a product</br>Note that the bigger value is "excluded" from the range.
+        form_shipping_fees: { label: Shipping fees }
       list:
         display: [Parent, name, Vat, online, updated_at]
         sort: ['parent_name, ppc.slug DESC, pct.name', ''] # slug is a trick to avoid a SQL Exception
@@ -25,7 +28,9 @@ generator:
       filter:
         display: [product_category_id, name, vat_id, online]
       form:
-        display: [product_category_id, name, vat_id, online]
+        display:
+          General: [product_category_id, name, vat_id, online]
+          Shipping fees: [shipping_fees, _form_shipping_fees]
       edit:
         title: Edit category %%name%%
       new:     ~

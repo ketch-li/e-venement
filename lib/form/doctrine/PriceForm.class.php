@@ -14,6 +14,8 @@ class PriceForm extends BasePriceForm
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
     
+    $this->widgetSchema['x_days_valid']->setOption('type', 'number');
+    
     $q = new Doctrine_Query();
     $q->from('Manifestation m')
       ->leftJoin("m.Event e")

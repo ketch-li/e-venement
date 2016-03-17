@@ -21,8 +21,11 @@ generator:
         products_list: { label: Products }
         linked_products_list: { label: Linked products }
         taxes_list: { label: Taxes }
+        list_validity: { label: Validity, help: days }
+        show_validity: { label: Validity, help: days }
+        x_days_valid:   { label: Validity, help: days }
       list:
-        display: [name, description, value, online, hide, member_card_linked, rank]
+        display: [name, description, value, online, hide, member_card_linked, <?php if ( sfConfig::get('project_museums_enable', false) ): ?>_list_validity,<?php endif ?> rank]
         sort: ['hide, pt.name', '']
         object_actions:
           _edit: ~
@@ -30,13 +33,13 @@ generator:
         max_per_page: 50
       filter:
         display:
-          Price: [name, description, value, online, hide, member_card_linked]
+          Price: [name, description, value, online, hide, member_card_linked, x_days_valid]
           Links: [manifestations_list, member_cards_list, products_list, linked_products_list, taxes_list]
           Permissions: [users_list, workspaces_list]
       form:
         display:
           General: [name, description, value]
-          Options: [online, hide, member_card_linked]
+          Options: [online, hide, member_card_linked, x_days_valid]
           Permissions: [workspaces_list, users_list]
       edit:    ~
       new:     ~

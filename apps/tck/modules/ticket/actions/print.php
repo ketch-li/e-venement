@@ -369,11 +369,10 @@
     $this->content = '';
     foreach ( $this->transactions as $transaction )
       $this->content .= $transaction->renderSimplifiedTickets(array('only' => $this->tickets));
-    if ( sfConfig::get('sf_web_debug', false) && $request->hasParameter('debug') )
-      $this->setLayout(false);
-    else
+    if (!( sfConfig::get('sf_web_debug', false) && $request->hasParameter('debug') ))
     {
       sfConfig::set('sf_web_debug', false);
       $this->getResponse()->setContentType('application/pdf');
     }
+    $this->setLayout(false);
     return 'Simplified';

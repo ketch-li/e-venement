@@ -201,7 +201,7 @@ EOF
         continue;
       
       // attachments, tickets/products in PDF
-      $generator = new liPDFPlugin($action->getPartial('transaction/get_tickets_pdf', array('tickets_html' => $content)));
+      $generator = new liPDFPlugin($action->getPartial('global/get_tickets_pdf', array('tickets_html' => $content)));
       $pdf = $generator->getPDF();
       
       file_put_contents(sfConfig::get('sf_upload_dir').'/'.($filename = $var.'-'.$transaction->id.'-'.date('YmdHis').'-'.rand(1000000000,9999999999).'.pdf'), $pdf);

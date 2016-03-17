@@ -69,8 +69,10 @@ abstract class PluginBoughtProduct extends BaseBoughtProduct
     }
     elseif ( $this->product_declination_id )
     {
-      $this->shipping_fees = $this->Declination->Product->shipping_fees;
       $this->shipping_fees_vat = $this->Declination->Product->ShippingFeesVat->value;
+      $this->shipping_fees = ($fees = $this->Declination->Product->Category->getShippingFeesFor($this->Declination->weight)) === false
+        ? $this->Declination->Product->shipping_fees
+        : $fees;
     }
     
     // VAT
