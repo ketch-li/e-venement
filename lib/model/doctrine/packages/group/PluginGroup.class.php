@@ -12,6 +12,17 @@
  */
 abstract class PluginGroup extends BaseGroup
 {
+/*
+  public function getUsers($load, $fieldName)
+  {
+    return $this->getForeignReferenceWithTable($fieldName, 'UserGroups.group_id', $this->id, 'sfGuardUser');
+  }
+  public function getAutoUsers($load, $fieldName)
+  {
+    return $this->getForeignReferenceWithTable($fieldName, 'UserAutoGroups.group_id', $this->id, 'sfGuardUser');
+  }
+*/
+  
   public function preSave($event)
   {
     parent::preSave($event);
@@ -45,5 +56,12 @@ abstract class PluginGroup extends BaseGroup
       ->andWhere('domain = ?', 'rp-index')
       ->delete()
       ->execute();
+    
+    return $this;
+  }
+  
+  public function getUsers($load)
+  {
+    return liDoctrineRelationAssociationUsers::removeUpperUsersFromCollection($this->_get('Users', $load));
   }
 }

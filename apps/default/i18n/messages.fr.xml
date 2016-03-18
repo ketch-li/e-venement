@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Domain</source>
+        <target>Domaine</target>
+      </trans-unit>
+      <trans-unit>
         <source>Debts</source>
         <target>Dettes</target>
       </trans-unit>

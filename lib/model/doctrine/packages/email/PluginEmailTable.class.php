@@ -23,4 +23,31 @@ class PluginEmailTable extends Doctrine_Table
       $this->getTemplate('Doctrine_Template_Searchable')->getPlugin()
         ->setOption('analyzer', new MySearchAnalyzer());
     }
+    
+    public function createQuery($alias = 'e')
+    {
+      return $q = parent::createQuery($alias)
+        ->leftJoin("$alias.User u")
+      ;
+      
+      // no filter on domains
+      if ( !sfConfig::get('project_internals_users_domain', '') || sfConfig::get('project_internals_users_domain', '') == '.' )
+        return $q;
+      
+      return $q->leftJoin('u.Domain domain')
+        ->andWhere("domain.name = ? OR domain.name LIKE ?", array( // every users in the domain or subdomains
+          sfConfig::get('project_internals_users_domain', ''),
+          '%.'.sfConfig::get('project_internals_users_domain', ''),
+        ))
+      ;
+    }
+    
+    // Optimization for domain restrictions
+    public function getRelation($alias, $recursive = true)
+    {
+      $rel = parent::getRelation($alias, $recursive);
+      try { $rel = liDoctrineRelationAssociationUsers::create($rel); }
+      catch ( liEvenementException $e ) { }
+      return $rel;
+    }
 }

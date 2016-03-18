@@ -25,13 +25,14 @@ generator:
         auth_for_groups_list: { label: List of authorized groups }
         auto_groups_list: { label: Auto groups, help: "List of groups to join automatically on a contact/organism creation (careful: to be active, the user needs the permission to access this group on top of here)" }
         rp_mandatory_fields_list: { label: Mandatory fields for public relations }
+        list_domain:    { label: Domain }
       
       filter:
         display: [username, is_active, is_super_admin, last_name, first_name, email_address, meta_events_list, workspaces_list, prices_list]
       
       list:
         title:   User list
-        display: [username, last_name, first_name, _list_contact, is_active, is_super_admin, last_login, last_name, first_name, email_address]
+        display: [username, last_name, first_name, _list_contact, is_active, is_super_admin, last_login, last_name, first_name, email_address, _list_domain]
         object_actions: { _edit: ~, _duplicate: { name: Duplicate, action: duplicate }, _delete: ~ }
 
       form:

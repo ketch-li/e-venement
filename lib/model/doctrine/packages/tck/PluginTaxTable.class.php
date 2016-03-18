@@ -16,4 +16,13 @@ class PluginTaxTable extends TraceableTable
     {
         return Doctrine_Core::getTable('PluginTax');
     }
+
+  // Optimization for domain restrictions
+  public function getRelation($alias, $recursive = true)
+  {
+    $rel = parent::getRelation($alias, $recursive);
+    try { $rel = liDoctrineRelationAssociationUsers::create($rel); }
+    catch ( liEvenementException $e ) { }
+    return $rel;
+  }
 }

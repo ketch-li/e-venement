@@ -7,24 +7,30 @@
  */
 class sfGuardUserTable extends PluginsfGuardUserTable
 {
-  public function createQuery($alias = 'u')
+  public function createQuery($alias = 'u', $full = true)
   {
     $p  = 'p'  == $alias ? 'p1'  : 'p';
     $me = 'me' == $alias ? 'me1' : 'me';
     $e  = 'e'  == $alias ? 'e1'  : 'e';
     $ws = 'ws' == $alias ? 'ws1' : 'ws';
     
-    $q = parent::createQuery($alias)
-      ->leftJoin("$alias.MetaEvents $me")
-      ->leftJoin("$alias.Workspaces $ws")
-    ;
+    $q = parent::createQuery($alias);
     
-    if ( sfConfig::get('project_internals_users_domain', '') )
+    if ( $full )
+      $q->leftJoin("$alias.MetaEvents $me")
+        ->leftJoin("$alias.Workspaces $ws")
+      ;
+    
+    if ( sfConfig::get('project_internals_users_domain', '') && sfConfig::get('project_internals_users_domain', '') != '.' )
     {
       $q->leftJoin("$alias.Domain domain")
-        ->andWhere('domain.name LIKE ?', '%.'.sfConfig::get('project_internals_users_domain', ''));
+        ->andWhere("domain.name = ? OR domain.name LIKE ?", array( // every users in the domain or subdomains
+          sfConfig::get('project_internals_users_domain', ''),
+          '%.'.sfConfig::get('project_internals_users_domain', ''),
+        ))
+      ;
     }
-    
+
     return $q;
   }
     /**
@@ -49,4 +55,26 @@ class sfGuardUserTable extends PluginsfGuardUserTable
         ->andWhere('u.username = ?', $username)
         ->fetchOne();
     }
+    
+    public function findLoggedUser($id)
+    {
+      $fieldName = $id.'' === ''.intval($id)
+        ? 'id'
+        : 'username';
+      if ( !sfConfig::get('project_internals_users_domain', '') )
+        $user = $fieldName == 'username' ? $this->retrieveByUsername($id) : $this->find($id);
+      else
+      {
+        $q = $this->createQuery('u')
+          ->where("domain.id IS NULL OR domain.name = '' OR domain.name = ? OR ? LIKE '%'||domain.name", array(
+            sfConfig::get('project_internals_users_domain', ''),
+            sfConfig::get('project_internals_users_domain', ''),
+          ))
+          ->andWhere(sprintf('u.%s = ?', $fieldName), $id)
+        ;
+        $user = $q->fetchOne();
+    }
+    
+    return $user;
+  }
 }

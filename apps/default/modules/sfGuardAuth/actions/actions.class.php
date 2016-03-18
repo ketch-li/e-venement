@@ -21,6 +21,7 @@ class sfGuardAuthActions extends BasesfGuardAuthActions
 {
   public function executeSignin($request)
   {
+    sfConfig::set('app_sf_guard_plugin_retrieve_by_username_callable', array(Doctrine::getTable('sfGuardUser'), 'findLoggedUser'));
     $this->ipv6 = array(
       'ready' => filter_var($request->getRemoteAddress(), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) || sfConfig::get('project_network_ipv6_ready',true),
       'on' => filter_var($request->getRemoteAddress(), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)

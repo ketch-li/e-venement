@@ -33,4 +33,9 @@ abstract class PluginPrice extends BasePrice
       $this->rank = $price->rank * 2;
     return parent::preInsert($event);
   }
+
+  public function getUsers($load)
+  {
+    return liDoctrineRelationAssociationUsers::removeUpperUsersFromCollection($this->_get('Users', $load));
+  }
 }
