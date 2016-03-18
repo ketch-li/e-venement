@@ -15,6 +15,9 @@
     <div id="content">
       <?php include_partial('global/oplog') ?>
       <?php echo $sf_content ?>
+      <?php if ( sfConfig::get('app_social_media_display', false) ): ?>
+        <?php include_partial('social_networks') ?>
+      <?php endif ?>
     </div>
     <ul id="menu" class="first">
       <?php include_partial('global/public_choices') ?>

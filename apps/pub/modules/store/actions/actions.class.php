@@ -23,7 +23,7 @@ class storeActions extends autoStoreActions
     $this->dispatcher->notify(new sfEvent($this, 'pub.pre_execute', array('configuration' => $this->configuration)));
     parent::preExecute();
   }
-  
+
   public function executeMod(sfWebRequest $request)
   {
     return require(__DIR__.'/mod.php');
@@ -48,7 +48,7 @@ class storeActions extends autoStoreActions
     }
     $this->redirect('cart/show');
   }
-  
+
   public function executeIndex(sfWebRequest $request)
   {
     $this->setFilters(array());
@@ -62,7 +62,7 @@ class storeActions extends autoStoreActions
     foreach ( $conditions = array_keys($this->getUser()->getMetaEventsCredentials()) as $null )
       $condition[] = '?';
     $condition = implode(',', $condition);
-    
+
     $conditions[] = $this->getUser()->getId();
     $q = Doctrine::getTable('Product')->createQuery('p')
       ->andWhere('p.id = ?', $request->getParameter('id'))
@@ -74,13 +74,13 @@ class storeActions extends autoStoreActions
       ->leftJoin('pp.Price price')
       ->orderBy('pp.value DESC')
     ;
-    
+
     if ( $condition )
       $q->leftJoin("p.LinkedProducts lp WITH (lp.meta_event_id IS NULL OR lp.meta_event_id IN ($condition)) AND (SELECT count(lpp.id) FROM Price lpp LEFT JOIN lpp.Users lppu WHERE lpp.id IN (SELECT lppp.price_id FROM PriceProduct lppp WHERE lppp.product_id = lp.id) AND lppu.id = ?) > 0", $conditions)
         ->leftJoin("p.LinkedManifestations lm WITH lm.id IN (SELECT lmm.id FROM Manifestation lmm LEFT JOIN lmm.Event lme WHERE lme.meta_event_id IN ($condition)) AND (SELECT count(lmp.id) FROM Price lmp LEFT JOIN lmp.Users lmpu WHERE lmp.id IN (SELECT lmpm.price_id FROM PriceManifestation lmpm WHERE lmpm.manifestation_id = lm.id) AND lmpu.id = ?) > 0", $conditions);
     else
       $q->leftJoin("p.LinkedProducts lp WITH lp.meta_event_id IS NULL");
-    
+
     $this->forward404If(!( $this->product = $q->fetchOne() ));
     if ( $this->product->meta_event_id )
       sfConfig::set('pub.meta_event.slug', $this->product->MetaEvent->slug);
@@ -89,7 +89,7 @@ class storeActions extends autoStoreActions
   {
     $this->forward('store', 'edit');
   }
-  
+
   /* disabled actions */
   public function executeBatchDelete(sfWebRequest $request)
   {
@@ -107,7 +107,7 @@ class storeActions extends autoStoreActions
   {
     $this->executeEdit($request);
   }
-  
+
   // FILTERS
   protected function getFilters()
   {
