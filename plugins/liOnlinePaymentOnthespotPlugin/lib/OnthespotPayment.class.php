@@ -59,10 +59,9 @@
       $attrs = '';
       foreach ( $attributes as $name => $value )
         $attrs .= " $name=\"$value\"";
-      $content = __('Payment by other means');
-      if ( pubConfiguration::getText('app_texts_payment_onthespot_info') )
-        $content .= '<span style="display:none;">'.pubConfiguration::getText('app_texts_payment_onthespot_info').'</span>';
-      return '<a href="'.url_for('cart/onthespot?id='.$this->transaction->id).'" '.$attrs.'>'.$content.'</a>';
+      if (!( $info = pubConfiguration::getText('app_payment_text_choice') ))
+        $info = __('Payment by other means');
+      return '<a href="'.url_for('cart/onthespot?id='.$this->transaction->id).'" '.$attrs.'>'.$info.'</a>';
     }
 
     public function __toString()
