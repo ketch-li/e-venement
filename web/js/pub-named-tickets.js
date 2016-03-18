@@ -8,7 +8,7 @@ $(document).ready(function(){
     $(this).closest('span').find('select, input').first().focus();
   });
   $('form.named-tickets input, form.named-tickets select')
-    .change(function(){
+    .focusout(function(){
       // do not submit the form if a complete contact is not given for $(this)
       if ( $(this).closest('.contact_title, .contact_name, .contact_firstname, .contact_email').length > 0 )
       {
@@ -176,12 +176,13 @@ LI.pubNamedTicketsData = function(json)
         })
         .focus(function(){
           $(this).closest('span').find('label').hide();
-        }).focus().focusout() // the delay is needed to let the asynchronous bind finish
+        }).focusout() // the delay is needed to let the asynchronous bind finish
       ;
       setTimeout(function(){
         elt.find('input, select').focusout();
       },500);
-      $('#actions .register a, #tickets .submit button').focus();
+      //$('#actions .register a, #tickets .submit button').focus();
+      $('.prices .submit input').focus();
     }
   });
 }

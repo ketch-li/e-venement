@@ -49,7 +49,7 @@ $(document).ready(function(){
     var val;
     $(this)
       .focusin(function(){ val = $(this).val(); })
-      .focusout(function(){
+      .change(function(){
         if ( val !== $(this).val() )
         {
           var seats = [];
@@ -87,7 +87,7 @@ $(document).ready(function(){
 });
 
 LI.pubInitTicketsData = function(json){
-  $('.prices .quantity select').val(0).change();
+  $('.prices .quantity select').val(0).focusout();
   $('.prices .seating.in-progress .quantity').text('-');
   $('.prices .seats *').remove();
   $('.prices .price .ticket').remove();
@@ -151,7 +151,7 @@ LI.pubInitTicketsData = function(json){
     if ( $(this).find('.quantity select').length > 0 )
       $(this).find('.quantity select')
         .val($(this).find('.price .ticket').length)
-        .change()
+        .focusout()
       ;
     else // WIPs
       $(this).find('.quantity')
