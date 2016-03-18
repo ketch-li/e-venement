@@ -45,7 +45,7 @@ all:
   store:
     #disabled: false
     max_per_product: 9
-    email_products: always    # never | e-products | always (recommanded)  
+    email_products: always    # never | e-products | always (recommanded)
   contact:
     capitalize: [name, firstname, city, country, address]
     #professional: true
@@ -75,7 +75,7 @@ all:
     invoice_prefix: FB
     software_url: http://www.e-venement.org/
   payment:
-    ## to be able to use properly a payment method,                    
+    ## to be able to use properly a payment method,
     ## install (if it is not included) the plugin in the sf_plugin_dir
     ## then read the README file
     ################################
@@ -145,7 +145,7 @@ all:
       Ce spectacle ou cet espace est complet. Merci de nous contacter au 04 70 03 86 18.
     manifestation_closed: |
       Nous fermons la vente en ligne 24 heures avant le spectacle.
-      Pour plus de renseignements, vous pouvez nous contacter par courriel (possibilité de mettre un lien qui permette d'envoyer un message sans communiquer les adresses mail à laquelles il est envoyé?) ou par téléphone au 04 70 03 86 18 du lundi au jeudi de 13h30 à 18h00 et le vendredi de 9h00 à 12h00. 
+      Pour plus de renseignements, vous pouvez nous contacter par courriel (possibilité de mettre un lien qui permette d'envoyer un message sans communiquer les adresses mail à laquelles il est envoyé?) ou par téléphone au 04 70 03 86 18 du lundi au jeudi de 13h30 à 18h00 et le vendredi de 9h00 à 12h00.
     store_nomore: |
       Le stock est épuisé. Veuillez nous contacter au 04 70 03 86 18 pour plus d'information.
     #meta_events_header: ''
@@ -163,27 +163,35 @@ all:
     #terms_conditions: CGV
     #email_footer: ""
     email_confirmation: |
-      
-      Voici le récapitulatif de votre commande en date du %%DATE%% : 
-      
+
+      Voici le récapitulatif de votre commande en date du %%DATE%% :
+
       %%COMMAND%%
-      
+
       Au plaisir de vous accueillir,
-      
+
       %%NOTICES%%
-      
-      -- 
+
+      --
       Le Fracas
       27 rue des Faucheroux
       03100 Montluçon
       04 70 03 86 18
-      
+
       <a href="mailto:contact@cdnlefracas.com">contact@cdnlefracas.com</a>
       <a href="http://www.cdnlefracas.com">http://www.cdnlefracas.com</a>
-      
+
 #      %%TICKETS%%
 #      %%PRODUCTS%%
-    
+
+#  social_media:
+#    display: false
+#    networks:
+#      facebook: ~
+#      twitter:
+#        text: this is the twitter default text
+#      googleplus: ~
+
 #dev:
 #  payment:
 #    autosubmit: false

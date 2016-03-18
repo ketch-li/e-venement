@@ -7,7 +7,7 @@ editSuccess:
     - "EveConnector/web/js/eve-connector.js"
     - "tck-touchscreen-websockets?<?php echo date('Ymd') ?>"
     - "socket.io.js?<?php echo date('Ymd') ?>"
-    - "tck-boca-status.js"
+    - "tck-printers.js"
 
     - "EveConnector/ept-emulator/web-prompt.class.js"
     - "EveConnector/ept-emulator/protocol-helpers.class.js"
