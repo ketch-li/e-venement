@@ -59,7 +59,7 @@
       $attrs = '';
       foreach ( $attributes as $name => $value )
         $attrs .= " $name=\"$value\"";
-      if (!( $info = pubConfiguration::getText('app_payment_text_choice') ))
+      if (!( $info = pubConfiguration::getText('app_payment_button_text') ))
         $info = __('Payment by other means');
       return '<a href="'.url_for('cart/onthespot?id='.$this->transaction->id).'" '.$attrs.'>'.$info.'</a>';
     }
