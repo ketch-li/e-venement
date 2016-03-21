@@ -475,12 +475,52 @@ tfoot, thead { font-weight: bold; }
 }
 #social-networks li.active { display: inline-block; }
 #social-networks li a {
-  display: inline-block;
+  display: block;
+  float: left;
   width: 32px;
   height: 32px;
-  margin: 0 3px 0 0;
+  margin: 0 15px 0 0;
+  padding: 0;
 }
+#social-networks li a.count { margin-right: 0; }
 #social-networks li[data-social=facebook] a { background-image: url('../images/vel/social/facebook.png'); }
 #social-networks li[data-social=twitter] a { background-image: url('../images/vel/social/twitter.png'); }
 #social-networks li[data-social=googleplus] a { background-image: url('../images/vel/social/google_plus.png'); }
-#social-networks li a span { display: none; }
+#social-networks span {
+  background-color: #fff;
+  border: 1px solid #aeaeae;
+  border-radius: 2px;
+  color: #555;
+  cursor: default;
+  display: none;
+  float: left;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  height: 24px;
+  line-height: 24px;
+  margin: 4px 15px 0 8px;
+  padding: 0 7px;
+  position: relative;
+}
+#social-networks li span::before, #social-networks li span::after {
+  content: "";
+  display: block;
+  height: 0;
+  position: absolute;
+  width: 0;
+}
+#social-networks li span::before {
+  border-bottom: 6px solid transparent;
+  border-right: 6px solid #aeaeae;
+  border-top: 6px solid transparent;
+  left: -6px;
+  top: 5px;
+}
+#social-networks li span::after {
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #fff;
+  border-top: 5px solid transparent;
+  left: -5px;
+  top: 6px;
+}

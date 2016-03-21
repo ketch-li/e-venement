@@ -1,15 +1,12 @@
 <ul id="social-networks">
-    <li data-social="facebook"><a href="#" title="share this on Facebook"><span>Facebook</span></a></li>
-  <li data-social="twitter"><a href="#" title="share this on Twitter"><span>Twitter/<span></a></li>
-  <li data-social="googleplus"><a href="#" title="share this on Google+"><span>Google+</span></a></li>
+  <li data-social="twitter"><a href="#" title="share this on Twitter"></a><span class="twitter-count"></span></li>
+  <li data-social="facebook"><a href="#" title="share this on Facebook"></a><span class="facebook-count"></span></li>
+  <li data-social="googleplus"><a href="#" title="share this on Google+"></a><span class="googleplus-count"></span></li>
 </li>
 
 <script>
 $(document).ready(function(){
   var social_networks = <?php echo json_encode(sfConfig::get('app_social_media_networks', array()))  ?>;
-  console.log(social_networks);
-
-
   var url = window.location.href;
   var twitter_text = social_networks.twitter && social_networks.twitter.text ? social_networks.twitter.text : '';
   var default_urls = {
@@ -32,6 +29,22 @@ $(document).ready(function(){
       window.open(url, name, opts);
       return false;
     });
+  });
+
+  var updateCounters = function(data) {
+    for(network in data)
+    if ( data[network] >= 0 ) {
+      $('#social-networks li[data-social='+network+'] a').addClass('count');
+      $('#social-networks .'+network+'-count').show().html(data[network]);
+    }
+
+  };
+
+  $.ajax({
+    url: "<?php echo url_for('social_networks/count') ?>",
+    data: {url: window.location.href},
+    success: updateCounters,
+    dataType: "json"
   });
 });
 </script>
