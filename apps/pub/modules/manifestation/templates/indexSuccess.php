@@ -1,5 +1,6 @@
 <?php use_helper('I18N', 'Date') ?>
 <?php include_partial('manifestation/assets') ?>
+<?php use_javascript('/sfAdminThemejRollerPlugin/js/jquery-ui.custom.min.js') ?>
 
 <div id="sf_admin_container">
   <h1><?php echo __('Dates', array(), 'messages') ?></h1>
