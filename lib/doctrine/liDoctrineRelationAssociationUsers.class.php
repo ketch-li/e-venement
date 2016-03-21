@@ -44,6 +44,7 @@ class liDoctrineRelationAssociationUsers extends Doctrine_Relation_Association
   public static function removeUpperUsersFromCollection($users)
   {
     foreach ( $users as $key => $user )
+    if ( $user->Domain->count() > 0 )
     if ( !liDoctrineRelationAssociationUsers::isSubDomain($user->Domain[0]->name) )
       unset($users[$key]);
     return $users;

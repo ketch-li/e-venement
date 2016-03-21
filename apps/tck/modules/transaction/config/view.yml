@@ -1,28 +1,28 @@
 all:
   javascripts:
-    - helper
-    - tck-touchscreen?<?php echo date('Ymd') ?>
-    - tck-touchscreen-forms?<?php echo date('Ymd') ?>
-    - tck-touchscreen-board?<?php echo date('Ymd') ?>
-    - vcard
-    - event-seated-plan?<?php echo date('Ymd') ?>
-    - /private/tck-touchscreen?<?php echo date('Ymd') ?>]
+    - "helper"
+    - "tck-touchscreen?<?php echo date('Ymd') ?>"
+    - "tck-touchscreen-forms?<?php echo date('Ymd') ?>"
+    - "tck-touchscreen-board?<?php echo date('Ymd') ?>"
+    - "vcard"
+    - "event-seated-plan?<?php echo date('Ymd') ?>"
+    - "/private/tck-touchscreen?<?php echo date('Ymd') ?>"
   stylesheets: [event-gauge?<?php echo date('Ymd') ?>, tck-touchscreen?<?php echo date('Ymd') ?>, event-seated-plan?<?php echo date('Ymd') ?>, /private/tck-touchscreen.css?<?php echo date('Ymd') ?>]
 editSuccess:
   javascripts:
     - "helper-cookies"
-    - "EveConnector/web/js/eve-connector.js"
+    - "EveConnector/web/js/eve-connector.js?<?php echo date('Ymd') ?>"
     - "tck-touchscreen-websockets?<?php echo date('Ymd') ?>"
     - "socket.io.js?<?php echo date('Ymd') ?>"
-    - "tck-printers.js"
-    - "EveConnector/ept-emulator/web-prompt.class.js"
-    - "EveConnector/ept-emulator/protocol-helpers.class.js"
-    - "EveConnector/ept-emulator/workflows.class.js"
-    - "EveConnector/ept-emulator/physical-layer.class.js"
-    - "EveConnector/ept-emulator/logical-layer.class.js"
-    - "EveConnector/ept-emulator/application-layer.class.js"
-    - "EveConnector/web/js/eve-connector-layer.class.js"
-    - "ept-client.js"
+    - "tck-printers.js?<?php echo date('Ymd') ?>"
+    - "EveConnector/ept-emulator/web-prompt.class.js?<?php echo date('Ymd') ?>"
+    - "EveConnector/ept-emulator/protocol-helpers.class.js?<?php echo date('Ymd') ?>"
+    - "EveConnector/ept-emulator/workflows.class.js?<?php echo date('Ymd') ?>"
+    - "EveConnector/ept-emulator/physical-layer.class.js?<?php echo date('Ymd') ?>"
+    - "EveConnector/ept-emulator/logical-layer.class.js?<?php echo date('Ymd') ?>"
+    - "EveConnector/ept-emulator/application-layer.class.js?<?php echo date('Ymd') ?>"
+    - "EveConnector/web/js/eve-connector-layer.class.js?<?php echo date('Ymd') ?>"
+    - "ept-client.js?<?php echo date('Ymd') ?>"
 respawnSuccess:
   stylesheets: [-tck-touchscreen]
 registeredSuccess:
