@@ -127,7 +127,7 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
 
       // Organism Category
       $cat = $line[$i++];
-      if ( trim($line[$i+1]) )
+      if ( trim($cat) )
       {
         if ( ($key = array_search($cat, $orgcats->toKeyValueArray('id', 'name'))) !== false )
           $organism->Category = $orgcats[$key];
