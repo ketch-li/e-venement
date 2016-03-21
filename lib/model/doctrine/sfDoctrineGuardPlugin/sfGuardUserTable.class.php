@@ -61,7 +61,7 @@ class sfGuardUserTable extends PluginsfGuardUserTable
       $fieldName = $id.'' === ''.intval($id)
         ? 'id'
         : 'username';
-      if ( !sfConfig::get('project_internals_users_domain', '') )
+      if (!( sfConfig::get('project_internals_users_domain', '') && sfConfig::get('project_internals_users_domain', '') != '.' ))
         $user = $fieldName == 'username' ? $this->retrieveByUsername($id) : $this->find($id);
       else
       {
