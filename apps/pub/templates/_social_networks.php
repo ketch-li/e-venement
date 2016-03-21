@@ -1,7 +1,16 @@
 <ul id="social-networks">
-  <li data-social="twitter"><a href="#" title="share this on Twitter"></a><span class="twitter-count"></span></li>
-  <li data-social="facebook"><a href="#" title="share this on Facebook"></a><span class="facebook-count"></span></li>
-  <li data-social="googleplus"><a href="#" title="share this on Google+"></a><span class="googleplus-count"></span></li>
+  <li data-social="twitter">
+    <a href="#" title="<?php echo __('Share this on %network%', array('%network%'=>'Twitter')) ?>"></a>
+    <span class="twitter-count"></span>
+  </li>
+  <li data-social="facebook">
+    <a href="#" title="<?php echo __('Share this on %network%', array('%network%'=>'Facebook')) ?>"></a>
+    <span class="facebook-count"></span>
+  </li>
+  <li data-social="googleplus">
+    <a href="#" title="<?php echo __('Share this on %network%', array('%network%'=>'Google+')) ?>"></a>
+    <span class="googleplus-count"></span>
+  </li>
 </li>
 
 <script>

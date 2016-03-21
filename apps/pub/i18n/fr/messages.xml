@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Share this on %network%</source>
+        <target>Partagez cette page sur %network%</target>
+      </trans-unit>
+      <trans-unit>
         <source>Invalid.</source>
         <target>Invalide</target>
       </trans-unit>
