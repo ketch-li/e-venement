@@ -52,8 +52,6 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
 
   protected function execute($arguments = array(), $options = array())
   {
-    //throw new liEvenementException('Work still in progress... contact@libre-informatique.fr for more information.');
-
     sfContext::createInstance($this->configuration, $options['env']);
     $databaseManager = new sfDatabaseManager($this->configuration);
 
@@ -70,9 +68,10 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
     foreach ( Doctrine::getTable('ProfessionalType')->createQuery('pt')->execute() as $pt )
       $protypes[$pt->id] = $pt;
 
-    if ( $options['no-headers'] )
+    if ( !$options['no-headers'] )
       fgetcsv($fp);
     for ( $l = 0 ; ($line = fgetcsv($fp)) ; $l++ )
+    try
     {
       $organism = $contact = NULL;
       $i = 0;
@@ -192,6 +191,10 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
           $pro->save();
         $this->logSection('Professional', 'A position has been added for contact '.$contact.' in organism '.$organism);
       }
+    }
+    catch ( Doctrine_Connection_Pgsql_Exception $e )
+    {
+      $this->logSection('ERROR', 'Line '.($l+1).': '.$line[0].' '.$e->getMessage(), 'ERROR');
     }
 
     fclose($fp);
