@@ -55,7 +55,7 @@
         }
         if ( e.which == 40 )
           $('.sf_admin_form_field_cities select').focus();
-      }).keyup();
+      });
     });
 
     if ( LI == undefined )
