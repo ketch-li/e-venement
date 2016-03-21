@@ -100,7 +100,7 @@ LI.urls['payments'] = '<?php echo url_for($options->getRaw('data_url').'?id='.$t
       $('#li_transaction_field_price_new .seats-first').fadeOut();
     <?php endif ?>
     $('#li_transaction_field_payments_list .accounting.order').submit(function(){
-      if ( !LI.printTickets(this) )
+      if ( !LI.checkGauge(this) )
         return false;
       $('#li_transaction_field_payments_list .accounting.order [name=cancel-order]')
         .css('visibility', 'visible');

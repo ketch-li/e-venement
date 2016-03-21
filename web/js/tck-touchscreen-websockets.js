@@ -29,30 +29,30 @@ $(document).ready(function(){
         connector.log('info', LI.usb.printers);
         var devices = [];
         $.each(LI.usb.printers, function(type, devs){
-            $.each(devs, function(i, ids) { devices.push(ids); });
+          $.each(devs, function(i, ids) { devices.push(ids); });
         });
       connector.areDevicesAvailable({ type: 'usb', params: devices}).then(
         function(data){
           // *T* here we are when the list of USB devices is received
           if (!( data.params && data.params.length > 0 ))
           {
-             connector.log('info', 'No '+data.type+' device found within your search.');
-             return;
+            connector.log('info', 'No '+data.type+' device found within your search.');
+            return;
           }
           var myDevice = data.params.shift();
 
           $('#li_transaction_museum .print, #li_transaction_manifestations .print')
           .each(function(){
-              $(this)
-                .append($('<input type="hidden" />').prop('name', 'direct').val(JSON.stringify(myDevice)))
-                .prop('title', $('#li_transaction_field_close .print .direct-printing-info').text());
+            $(this)
+              .append($('<input type="hidden" />').prop('name', 'direct').val(JSON.stringify(myDevice)))
+              .prop('title', $('#li_transaction_field_close .print .direct-printing-info').text());
           })
           .attr('onsubmit', null)
           .submit(function(){
             // *T* here we are when the print form is submitted
             connector.log('info', 'Submitting the form...');
             if ( !LI.printTickets(this,false) )
-                return false;
+              return false;
 
             $.ajax({
               method: $(this).prop('method'),
@@ -62,8 +62,8 @@ $(document).ready(function(){
                 // *T* here we are when we have got the base64 data representing tickets ready to be printed
                 if ( !data )
                 {
-                    connector.log('info', 'Empty data, nothing to send');
-                    return;
+                  connector.log('info', 'Empty data, nothing to send');
+                  return;
                 }
 
                 // sends data to the printer through the connector then reads the printer answer
