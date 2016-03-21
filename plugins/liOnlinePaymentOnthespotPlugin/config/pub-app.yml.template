@@ -5,6 +5,7 @@ all:
   payment:
     type: onthespot
     autofollow: true
+    #button_text: Payment by other means
   payments:
     list:
       onthespot: ~

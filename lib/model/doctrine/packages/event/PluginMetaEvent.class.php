@@ -12,4 +12,8 @@
  */
 abstract class PluginMetaEvent extends BaseMetaEvent
 {
+  public function getUsers($load)
+  {
+    return liDoctrineRelationAssociationUsers::removeUpperUsersFromCollection($this->_get('Users', $load));
+  }
 }

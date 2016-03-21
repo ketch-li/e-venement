@@ -16,4 +16,8 @@ abstract class PluginTax extends BaseTax
   {
     return strtolower(get_class($this));
   }
+  public function getUsers($load)
+  {
+    return liDoctrineRelationAssociationUsers::removeUpperUsersFromCollection($this->_get('Users', $load));
+  }
 }

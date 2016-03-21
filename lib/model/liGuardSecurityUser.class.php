@@ -37,6 +37,7 @@ class liGuardSecurityUser extends sfGuardSecurityUser
         $this->$key = $value;
       return;
     }
+    $user = $this;
     
     parent::__construct($dispatcher, $storage, $options);
     

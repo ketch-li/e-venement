@@ -25,8 +25,7 @@ class EmailTable extends PluginEmailTable
     $o  = 'o'  != $alias ? 'o'  : 'o1';
     
     $query = parent::createQuery($alias)
-      ->leftJoin("$alias.User $u")
-      ->where("$alias.deleted_at IS NULL");
+      ->andWhere("$alias.deleted_at IS NULL");
     return $query;
   }
 }

@@ -1,3 +1,5 @@
 editSuccess:
   javascripts: [autocomplete-setnull, default-check-all]
   stylesheets: [default-check-all]
+indexSuccess:
+  stylesheets: [default-users]

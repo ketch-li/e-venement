@@ -199,7 +199,7 @@ class sfGuardSecurityUser extends sfBasicSecurityUser
   {
     if (!$this->user && $id = $this->getAttribute('user_id', null, 'sfGuardSecurityUser'))
     {
-      $this->user = Doctrine_Core::getTable('sfGuardUser')->find($id);
+      $this->user = Doctrine_Core::getTable('sfGuardUser')->findLoggedUser($id);
 
       if (!$this->user)
       {

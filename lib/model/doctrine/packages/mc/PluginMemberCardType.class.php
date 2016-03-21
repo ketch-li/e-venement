@@ -12,4 +12,8 @@
  */
 abstract class PluginMemberCardType extends BaseMemberCardType
 {
+  public function getUsers($load)
+  {
+    return liDoctrineRelationAssociationUsers::removeUpperUsersFromCollection($this->_get('Users', $load));
+  }
 }

@@ -16,4 +16,13 @@ class PluginMemberCardTypeTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('PluginMemberCardType');
     }
+
+  // Optimization for domain restrictions
+  public function getRelation($alias, $recursive = true)
+  {
+    $rel = parent::getRelation($alias, $recursive);
+    try { $rel = liDoctrineRelationAssociationUsers::create($rel); }
+    catch ( liEvenementException $e ) { }
+    return $rel;
+  }
 }

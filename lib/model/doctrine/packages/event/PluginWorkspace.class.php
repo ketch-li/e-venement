@@ -12,4 +12,8 @@
  */
 abstract class PluginWorkspace extends BaseWorkspace
 {
+  public function getUsers($load)
+  {
+    return liDoctrineRelationAssociationUsers::removeUpperUsersFromCollection($this->_get('Users', $load));
+  }
 }

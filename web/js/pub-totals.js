@@ -4,7 +4,7 @@
     if ( location.hash == '#debug' )
       console.error(currency+' '+$('.prices .value:first').text()+' '+fr_style);
   
-    $('.prices .quantity select').change(function(){
+    $('.prices .quantity select').focusout(function(){
       // hiding options to limit the global qty to the max value
       selects = $(this).closest('.gauge').find('.quantity select');
       var max_qty = 0;
@@ -38,5 +38,5 @@
       });
       $(this).closest('.prices').find('tfoot .total').html(LI.format_currency(value, true, fr_style, currency))
       $(this).closest('.prices').find('tfoot .extra-taxes').html(taxes > 0 ? LI.format_currency(taxes, true, fr_style, currency) : '')
-    }).change();
+    }).focusout();
   });

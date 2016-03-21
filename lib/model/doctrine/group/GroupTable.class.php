@@ -20,7 +20,7 @@ class GroupTable extends PluginGroupTable
     $query = parent::createQuery($alias)
       ->leftJoin("$alias.User $u")
       //->leftJoin("$alias.Picture $p")
-      ;
+    ;
 /*
       ->leftJoin("$alias.Professionals $p")
       ->leftJoin("$p.Contact $pc")
@@ -33,7 +33,7 @@ class GroupTable extends PluginGroupTable
     
     $sf_user = sfContext::getInstance()->getUser();
     // especially usefull for app "ws"
-    if ( $sf_user->getId() === false )
+    if ( !$sf_user->getId() )
       return $query;
     
     // NOW the rest is considered as an authenticated environment

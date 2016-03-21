@@ -84,6 +84,10 @@ class sfGuardUserActions extends autoSfGuardUserActions
     $user->username .= 'XX';
     $user->email_address = '_'.$user->email_address;
     
+    // superstructure
+    foreach ( $this->getRoute()->getObject()->Domain as $domain )
+      $user->Domain[] = $domain->copy();
+    
     // groups
     foreach ( $this->getRoute()->getObject()->Groups as $group )
       $user->Groups[] = $group;
