@@ -26,9 +26,6 @@
     if (!( $mid = $request->getParameter('manifestation_id', false) ))
       throw new liEvenementException('The required parameter "manifestation_id" has not been found');
     
-    if ( !$this->getUser()->getTransaction()->contact_id )
-      return sfView::NONE;
-
     $tickets = new Doctrine_Collection('Ticket');
     $manifs = $contacts = array();
     foreach ( $this->getUser()->getTransaction()->Tickets as $ticket )

@@ -8,7 +8,7 @@ $(document).ready(function(){
     $(this).closest('span').find('select, input').first().focus();
   });
   $('form.named-tickets input, form.named-tickets select')
-    .focusout(function(){
+    .change(function(){
       // do not submit the form if a complete contact is not given for $(this)
       if ( $(this).closest('.contact_title, .contact_name, .contact_firstname, .contact_email').length > 0 )
       {
@@ -35,6 +35,12 @@ $(document).ready(function(){
   
   // complete the named tickets using an other manifestation
   $('#tickets .complete').click(function(){
+    if ( window.location.hash == '#debug' && confirm('Open a new tab?') )
+    {
+      window.open($(this).prop('href'));
+      return false;
+    }
+    
     $.ajax({
       method: 'get',
       url: $(this).prop('href'),
