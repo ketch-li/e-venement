@@ -6,7 +6,7 @@
 <?php if ( $manifestation->Event->picture_id ): ?>
   <?php $sf_response->addMeta('og.image', $manifestation->Event->Picture->getUrl()) ?>
 <?php endif ?>
-
+<?php $sf_response->addMeta('og.description', $manifestation->getSocialDescription()) ?>
 
 
 <?php if ( $use_synthetic_plans ): ?>
