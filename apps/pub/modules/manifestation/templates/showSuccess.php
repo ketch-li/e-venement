@@ -4,9 +4,9 @@
 <?php include_partial('event/show_picture', array('event' => $manifestation->Event)) ?>
 <?php include_partial('show_ical_qrcode', array('manifestation' => $manifestation)) ?>
 <?php if ( $manifestation->Event->picture_id ): ?>
-  <?php $sf_response->addMeta('og.image', $manifestation->Event->Picture->getUrl()) ?>
+  <?php $sf_response->addMeta('og:image', $manifestation->Event->Picture->getUrl()) ?>
 <?php endif ?>
-<?php $sf_response->addMeta('og.description', $manifestation->getSocialDescription()) ?>
+<?php $sf_response->addMeta('og:description', $manifestation->getSocialDescription()) ?>
 
 
 <?php if ( $use_synthetic_plans ): ?>
@@ -15,9 +15,9 @@
   <?php use_stylesheet('pub-manifestation-synthetic?'.date('Ymd')) ?>
   <?php use_javascript('pub-manifestation-synthetic?'.date('Ymd')) ?>
   <?php use_javascript('pub-seated-plan?'.date('Ymd')) ?>
-  
+
   <?php include_partial('show_synthetic_full', array('gauges' => $gauges)) ?>
-  
+
   <div id="tickets">
     <?php include_partial('show_named_tickets', array('manifestation' => $manifestation)) ?>
   </div>
@@ -44,10 +44,10 @@
     <?php echo nl2br(pubConfiguration::getText('app_texts_manifestation_bottom')) ?>
   </div>
   <?php include_partial('global/show_links', array('objects' => $manifestation)) ?>
-  
+
 </div>
 <?php else: ?>
-  
+
   <?php if ( sfConfig::get('app_options_synthetic_plans', false) ): ?>
     <?php use_stylesheet('pub-manifestation-synthetic?'.date('Ymd')) ?>
     <?php use_javascript('pub-manifestation-synthetic?'.date('Ymd')) ?>
@@ -59,5 +59,5 @@
   <?php include_partial('show_footer', array('manifestation' => $manifestation)) ?>
   <?php include_partial('show_ease') ?>
   <?php include_partial('global/show_links', array('objects' => $manifestation)) ?>
-  
+
 <?php endif ?>
