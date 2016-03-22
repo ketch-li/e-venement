@@ -28,7 +28,6 @@
  */
 class StreetBaseTask  extends sfBaseTask
 {
-  protected $zipCodes = array();
   protected $counter = array();
   protected $mem = 0;
   protected $verbosity = 0;
@@ -50,7 +49,6 @@ class StreetBaseTask  extends sfBaseTask
 
     $this->resetCounters();
     $this->emailContent = "";
-    $this->zipCodes = $this->loadZipCodes();
   }
 
   protected function execute($arguments = array(), $options = array())
@@ -221,12 +219,12 @@ class StreetBaseTask  extends sfBaseTask
       case 'locality':
         $sb_array['locality'] = true;
         $sb_array['city'] = $line[0];
-        $sb_array['zip'] = $this->findZipCode($line[0]);
+        $sb_array['zip'] = $line[4];
         $sb_array['address'] = $line[2];
         $sb_array['rivoli'] = $line[3];
-        $sb_array['iris2008'] = $line[4] ? $line[4] : null;
-        $sb_array['longitude'] = $line[5];
-        $sb_array['latitude'] = $line[6];
+        $sb_array['iris2008'] = $line[5] ? $line[5] : null;
+        $sb_array['longitude'] = $line[6];
+        $sb_array['latitude'] = $line[7];
         $sb_array['num'] = '';
         break;
       case 'street':
@@ -237,8 +235,8 @@ class StreetBaseTask  extends sfBaseTask
         $sb_array['rivoli'] = $line[4];
         $sb_array['zip'] = $line[5];
         $sb_array['iris2008'] = $line[6] ? $line[6] : null;
-        $sb_array['longitude'] = $line[7];
-        $sb_array['latitude'] = $line[8];
+        $sb_array['longitude'] = $line[9];
+        $sb_array['latitude'] = $line[10];
         break;
       default:
         throw new sfCommandException(sprintf("Invalid type parameter for parseCSVline(): %s", $type));
@@ -296,43 +294,6 @@ class StreetBaseTask  extends sfBaseTask
     }
     $this->counter['download_time'] += microtime(true) - $time_start;
     return $files ? $files[0] : false;
-  }
-
-  /**
-   * @todo THIS IS WRONG (a city can have many zip codes)
-   * @return array
-   */
-  protected function loadZipCodes() {
-    return array(
-      "NANTES" => "44000",
-      "REZE" => "44400",
-      "SAINT-AIGNAN-GRANDLIEU" => "44860",
-      "BOUGUENAIS" => "44340",
-      "CARQUEFOU" => "44470",
-      "ST-SEBASTIEN" => "44230",
-      "BOUAYE" => "44830",
-      "VERTOU" => "44120",
-      "LE-PELLERIN" => "44640",
-      "COUERON" => "44220",
-      "SAUTRON" => "44880",
-      "INDRE" => "44610",
-      "ST-HERBLAIN" => "44800",
-      "LA-CHAPELLE-SUR-ERDRE" => "44240",
-      "ORVAULT" => "44700",
-      "LES-SORINIERES" => "44840",
-      "SAINT-JEAN-DE-BOISEAU" => "44640",
-      "THOUARE-SUR-LOIRE" => "44470",
-      "SAINT-LEGER-LES-VIGNES" => "44710",
-      "BASSE-GOULAINE" => "44115",
-      "SAINTE-LUCE-SUR-LOIRE" => "44980",
-      "LA-MONTAGNE" => "44620",
-      "MAUVES-SUR-LOIRE" => "44470",
-      "BRAINS" => "44830",
-    );
-  }
-
-  protected function findZipCode($city) {
-    return isset($this->zipCodes[$city]) ? $this->zipCodes[$city] : "";
   }
 
   protected function resetCounters()
