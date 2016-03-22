@@ -81,7 +81,7 @@ class OrganismTable extends PluginOrganismTable
         $query->andWhere("$gcu.id = ? OR $gpu.id = ?", array($sf_user->getId(), $sf_user->getId()));
         break;
       case 'permissive':
-        $query->andWhere("$gcu.id = ? OR $gpu.id = ? OR $gc.id IS NULL AND $gp.id IS NULL", array($sf_user->getId(), $sf_user$
+        $query->andWhere("$gcu.id = ? OR $gpu.id = ? OR $gc.id IS NULL AND $gp.id IS NULL", array($sf_user->getId(), $sf_user->getId()));
         break;
       }
     }
