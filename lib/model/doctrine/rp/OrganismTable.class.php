@@ -66,6 +66,26 @@ class OrganismTable extends PluginOrganismTable
       ->leftJoin("$p.Contact $c")
       ->leftJoin("$alias.Phonenumbers $pn")
       ->leftJoin("$alias.Category $oc");
+
+    if ( sfContext::hasInstance() && ($sf_user = sfContext::getInstance()->getUser()) && $sf_user->getId() )
+    if ( in_array(sfConfig::get('project_internals_pr_scope', 'none'), array('permissive', 'restrictive')) )
+    {
+      $query
+        ->leftJoin("$p.Groups $gp")
+        ->leftJoin("$gp.User $gpu")
+        ->leftJoin("$alias.Groups $gc")
+        ->leftJoin("$gc.User $gcu")
+      ;
+      switch ( sfConfig::get('project_internals_pr_scope', 'none') ) {
+      case 'restrictive':
+        $query->andWhere("$gcu.id = ? OR $gpu.id = ?", array($sf_user->getId(), $sf_user->getId()));
+        break;
+      case 'permissive':
+        $query->andWhere("$gcu.id = ? OR $gpu.id = ? OR $gc.id IS NULL AND $gp.id IS NULL", array($sf_user->getId(), $sf_user$
+        break;
+      }
+    }
+
     return $query;
   }
   

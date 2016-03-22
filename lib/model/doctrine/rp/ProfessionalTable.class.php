@@ -18,6 +18,24 @@ class ProfessionalTable extends PluginProfessionalTable
         ->leftJoin("$alias.ProfessionalType $t")
         ->leftJoin("$alias.Contact $c")
         ->orderBy("$c.name, $c.firstname, $o.name, $alias.name, $t.name");
+
+    if ( sfContext::hasInstance() && ($sf_user = sfContext::getInstance()->getUser()) && $sf_user->getId() )
+    if ( in_array(sfConfig::get('project_internals_pr_scope', 'none'), array('permissive', 'restrictive')) )
+    {
+      $query
+        ->leftJoin("$alias.Groups $gp")
+        ->leftJoin("$gp.User $gpu")
+      ;
+      switch ( sfConfig::get('project_internals_pr_scope', 'none') ) {
+      case 'restrictive':
+        $query->andWhere("$gpu.id = ?", array($sf_user->getId(), $sf_user->getId()));
+        break;
+      case 'permissive':
+        $query->andWhere("$gpu.id = ? OR $gp.id IS NULL", array($sf_user->getId(), $sf_user->getId()));
+        break;
+      }
+    }
+
     return $query;
   }
   
