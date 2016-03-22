@@ -4,7 +4,7 @@
     $manifestations = array($sf_data->getRaw('manifestation'));
   else
     $manifestations = $sf_data->getRaw('manifestations');
-  
+
   foreach ( $manifestations as $manifestation )
   if ( !isset($ev[$manifestation->event_id]) )
     $ev[$manifestation->event_id] = $manifestation->Event;
@@ -18,3 +18,13 @@
 <?php endforeach ?>
 </div>
 <?php endif ?>
+
+  <div class="social-description" itemprop="description" style="display:none">
+    <?php if ( isset($manifestation) ): ?>
+      <?php echo $manifestation->getSocialDescription() ?>
+    <?php else: ?>
+      <?php echo $evt->description ?>
+    <?php endif; ?>
+  </div>
+
+
