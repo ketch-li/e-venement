@@ -4,7 +4,10 @@
 <?php include_partial('event/show_picture', array('event' => $manifestation->Event)) ?>
 <?php include_partial('show_ical_qrcode', array('manifestation' => $manifestation)) ?>
 <?php if ( $manifestation->Event->picture_id ): ?>
-  <?php $sf_response->addMeta('og:image', array('property'=>'og:image', 'content'=>$manifestation->Event->Picture->getUrl())); ?>
+  <?php $sf_response->addMeta('og:image', array(
+      'property'=>'og:image',
+      'content'=>$manifestation->Event->Picture->getUrl(array('app'=>'pub', 'absolute'=>true))
+    )); ?>
 <?php endif ?>
 <?php $sf_response->addMeta('og:description', array('property'=>'og:description', 'content'=>$manifestation->getSocialDescription())); ?>
 
