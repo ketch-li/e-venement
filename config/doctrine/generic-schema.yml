@@ -205,13 +205,17 @@ Option:
     value:
       type: string
       notnull: true
+    domain:
+      type: string
+      notnull: true
+      default: ''
   relations:
     sfGuardUser:
       foreignAlias: Options
       onDelete: CASCADE
   indexes:
     %CLASS%_name_user_value_type_idx:
-      fields: [name, sf_guard_user_id, value, type]
+      fields: [name, sf_guard_user_id, value, type, domain]
       type: unique
 
 Authentication:

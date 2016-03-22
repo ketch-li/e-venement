@@ -12,8 +12,14 @@
  */
 abstract class PluginOption extends BaseOption
 {
+  public function preSave($event)
+  {
+    parent::preSave($event);
+    $this->domain = sfConfig::get('project_internals_users_domain', '');
+  }
+
   // a major Doctrine hack to permit using indexes within inheritance
-  public function index($name, array $definition = array()) 
+  public function index($name, array $definition = array())
   {
     $name = str_replace('%CLASS%', method_exists($this, 'getIndexesPrefix') ? $this->getIndexesPrefix() : $this->getTable()->getInstance()->getTableName(), $name);
     return parent::index($name, $definition);
