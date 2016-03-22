@@ -1,6 +1,6 @@
 <?php use_helper('Date') ?>
 
-<?php $sf_response->addMeta('og:title', $manifestation->Event); ?>
+<?php $sf_response->addMeta('og:title', array('property'=>'og:title', 'content'=>$manifestation->Event->__toString())); ?>
 <h1><?php echo __('Choose tickets') ?></h1>
 
 <?php include_partial('global/promo_code') ?>
