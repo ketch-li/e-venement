@@ -38,6 +38,8 @@ class StreetBaseTask  extends sfBaseTask
     $this->addOptions(array(
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environement', 'task'),
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application', 'rp'),
+      new sfCommandOption('cities-url', null, sfCommandOption::PARAMETER_OPTIONAL, '', null),
+      new sfCommandOption('localities-url', null, sfCommandOption::PARAMETER_OPTIONAL, '', null),
       new sfCommandOption('verbosity', null, sfCommandOption::PARAMETER_OPTIONAL, '0: nothing / 1: summary at end of task / 2: summary + memory usage', 0),
       new sfCommandOption('email', null, sfCommandOption::PARAMETER_OPTIONAL, '0: no emails / 1: email on failure / 2: email on success or failure', 0),
       new sfCommandOption('max-iter', null, sfCommandOption::PARAMETER_OPTIONAL, 'max nb of lines to import from each CSV file (0 = no limit)', 0),
@@ -63,28 +65,32 @@ class StreetBaseTask  extends sfBaseTask
     $max_iter = $options['max-iter'];
 
     // Localities ("lieux-dits")
-    $localitiesUrl = 'http://data.nantes.fr/fileadmin/data/datastore/nm/urbanisme/24440040400129_NM_NM_00090/LIEUX_DITS_NM_csv.zip';
-    $localitiesFile = $this->downloadCSVFile($localitiesUrl, 'LIEUX_DITS_NM');
-    if (! $localitiesFile ) {
-      $this->logError('Failed downloading and extracting '.$localitiesUrl);
-      $this->emailContent .= "ERROR : Failed downloading and extracting $localitiesUrl \n";
-      $this->sendEmail('error');
-      return 1;
+    // $localitiesUrl = 'http://data.nantes.fr/fileadmin/data/datastore/nm/urbanisme/24440040400129_NM_NM_00090/LIEUX_DITS_NM_csv.zip';
+    if ( $localitiesUrl = $options['localities-url'] )
+    {
+      $localitiesFile = $this->downloadCSVFile($localitiesUrl, 'LIEUX_DITS_NM');
+      if (! $localitiesFile ) {
+        $this->logError('Failed downloading and extracting '.$localitiesUrl);
+        $this->emailContent .= "ERROR : Failed downloading and extracting $localitiesUrl \n";
+        $this->sendEmail('error');
+        return 1;
+      }
+      $this->importCSV($localitiesFile, 'locality', $max_iter);
     }
-//    $localitiesFile = '/tmp/LIEUX_DITS_NM/LIEUX_DITS_NM.csv';
-    $this->importCSV($localitiesFile, 'locality', $max_iter);
 
     // Streets
-    $streetsUrl = 'http://data.nantes.fr/fileadmin/data/datastore/nm/urbanisme/24440040400129_NM_NM_00001/ADRESSES_NM_csv.zip';
-    $streetsFile = $this->downloadCSVFile($streetsUrl, 'ADRESSES_NM');
-    if (! $streetsFile ) {
-      $this->logError('Failed downloading and extracting '.$streetsUrl);
-      $this->emailContent .= "ERROR : Failed downloading and extracting $streetsUrl \n";
-      $this->sendEmail('error');
-      return 2;
+    //$streetsUrl = 'http://data.nantes.fr/fileadmin/data/datastore/nm/urbanisme/24440040400129_NM_NM_00001/ADRESSES_NM_csv.zip';
+    if ( $streetsUrl = $options['streets-url'] )
+    {
+      $streetsFile = $this->downloadCSVFile($streetsUrl, 'ADRESSES_NM');
+      if (! $streetsFile ) {
+        $this->logError('Failed downloading and extracting '.$streetsUrl);
+        $this->emailContent .= "ERROR : Failed downloading and extracting $streetsUrl \n";
+        $this->sendEmail('error');
+        return 2;
+      }
+      $this->importCSV($streetsFile, 'street', $max_iter);
     }
-//    $streetsFile = '/tmp/ADRESSES_NM/ADRESSES_NM.csv';
-    $this->importCSV($streetsFile, 'street', $max_iter);
 
     $this->logInfo('Done', '');
 
