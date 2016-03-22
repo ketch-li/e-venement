@@ -6,9 +6,8 @@
     <?php include_http_metas() ?>
     <?php include_metas() ?>
     <?php include_title() ?>
-    <meta property="og.url" content="<?php echo $sf_request->getUri() ?>" />
-    <meta property="og.type" content="article" />
-<meta property="og.description" content="Ceci est un test pour tromper l'ennemi" />
+    <meta property="og:url" content="<?php echo $sf_request->getUri() ?>" />
+    <meta property="og:type" content="article" />
     <link rel="shortcut icon" href="<?php echo image_path('logo-evenement.png') ?>" />
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>

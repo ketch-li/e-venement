@@ -17,6 +17,6 @@
 
 <div id="manifestation">
   <?php echo __('on') ?> <?php echo $manifestation->getFormattedDate() ?>
-  <span itemprop="doorTime"><?php echo date('c', strtotime($manifestation->happens_at)) ?></span>
+  <span itemprop="doorTime" style="display: none"><?php echo date('c', strtotime($manifestation->happens_at)) ?></span>
 </div>
 <div id="location"><?php echo __('location') ?> : <span itemprop="location"><?php echo $manifestation->Location ?></span></div>
