@@ -44,7 +44,10 @@
     
     protected function __construct(Transaction $transaction)
     {
-      foreach ( array('autofollow' => true,) as $key => $value )
+      foreach ( array(
+        'button_text' => __('Payment by other means'),
+        'autofollow' => true,
+      ) as $key => $value )
         $this->options[$key] = sfConfig::get('app_payment_'.$key, $value);
       
       // the transaction and the amount
@@ -59,8 +62,7 @@
       $attrs = '';
       foreach ( $attributes as $name => $value )
         $attrs .= " $name=\"$value\"";
-      if (!( $info = pubConfiguration::getText('app_payment_button_text') ))
-        $info = __('Payment by other means');
+      $info = $this->options['button_text'];
       return '<a href="'.url_for('cart/onthespot?id='.$this->transaction->id).'" '.$attrs.'>'.$info.'</a>';
     }
 

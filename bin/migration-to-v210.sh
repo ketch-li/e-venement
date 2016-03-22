@@ -169,17 +169,17 @@ echo "... done."
 echo ""
 read -p "Do you want to update your french geographical data, with departements & regions? [Y/n] " geo
 if [ "$geo" != 'n' ]
+then
   echo 'DELETE FROM geo_fr_department' | psql $db
   echo 'DELETE FROM geo_fr_region' | psql $db
   ./symfony doctrine:data-load --append data/fixtures/50-geo-fr-dpt+regions.yml
-then
 fi
 echo ""
 read -p "Do you want to update your french geographical data, with districts (can take a while)? [Y/n] " geo
 if [ "$geo" != 'n' ]
+then
   echo 'DELETE FROM geo_fr_district_base' | psql $db
   ./symfony doctrine:data-load --append data/fixtures/50-geo-fr-district.yml
-then
 fi
 
 
@@ -203,6 +203,11 @@ i=0; for elt in `echo 'SELECT count(*) FROM ticket WHERE (printed_at IS NOT NULL
 do let "i++"; [ $i -eq 3 ] && NBPA=$elt; done
 i=0; for elt in `echo 'SELECT count(*) FROM transaction;' | psql 2> /dev/null`
 do let "i++";  [ $i -eq 3 ] && NBTRA=$elt; done
+
+echo ''
+echo ''
+echo "Ensuring that permissions on directories are correct."
+sudo chmod a+rwx web/uploads/
 
 # final informations
 echo ''
