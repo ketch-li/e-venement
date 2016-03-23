@@ -20,23 +20,36 @@
 *
 ***********************************************************************************/
 
-LIPrinter = function(device, connector) {
-  if ( device.params.vid == 1305 && device.params.pid == 1 )
-    return new StarPrinter(device, connector);
-  if ( device.params.vid == 2627 && device.params.pid == 514 )
-    return new BocaPrinter(device, connector);
-  return false;
+var LIPrinter = function(device, connector) {
+
+  var myType;
+  $.each(LI.usb.printers, function (type, devs) {
+    $.each(devs, function (i, ids) {
+      if( ids.pid === device.params.pid && ids.vid === device.params.vid )
+        myType = type;
+    });
+  });
+
+  switch(myType) {
+    case 'boca':
+      return new BocaPrinter(device, connector);
+    case 'star':
+      return new StarPrinter(device, connector);
+    default:
+      return false;
+  }
 };
 
 
 
-StarPrinter = function(device, connector){
+var StarPrinter = function(device, connector){
   this.device = device;
   this.connector = connector;
   this.vendor = 'Star';
   this.model = 'TSP700II';
 
   var validateStatus = function(status) {
+    if ( status.length === 0 ) return true;
     if ( status.length < 2 ) return false;
     for (var i=0; i<status.length; i++) {
       var byte = status.charCodeAt(i);
@@ -88,34 +101,23 @@ StarPrinter = function(device, connector){
     return err;
   };
 
-  var getPrintResult = function() {
+  this.print = function(data) {
     var printer = this;
     var connector = this.connector;
     var device = this.device;
     return new Promise(function(resolve, reject){
-      connector.readData(device)
-      .then(function(res){
-        if ( res !== undefined ) {
-          var statuses = printer.getStatuses(atob(res));
-          resolve(statuses);
-        }
-        else
-          reject(new Error('Could not get print status'));
-      });
-    });
-  };
-
-  this.print = function(data) {
-    var connector = this.connector;
-    var device = this.device;
-    return new Promise(function(resolve, reject){
-      connector.sendData(device, data)
-      .then(getPrintResult)
-      .then(function(statuses){
-        if ( statuses.length > 0 )
-          reject(statuses);
-        else
-          resolve("OK");
+      connector.sendData(device, data).then(function(res){
+        connector.readData(device).then(function(res){
+          if ( res !== undefined ) {
+            var statuses = printer.getStatuses(atob(res));
+            if ( statuses.length > 0 )
+              reject(statuses);
+            else
+              resolve("OK");
+          }
+          else
+            reject(new Error('Star direct print status is undefined'));
+        });
       })
       .catch(function(err){
         reject(err);
@@ -127,7 +129,7 @@ StarPrinter = function(device, connector){
 
 
 
-BocaPrinter = function(device, connector) {
+var BocaPrinter = function(device, connector) {
   this.device = device;
   this.connector = connector;
   this.vendor = 'Boca';
@@ -180,34 +182,26 @@ BocaPrinter = function(device, connector) {
     return statuses;
   };
 
-  var getPrintResult = function() {
+  this.print = function(data) {
     var printer = this;
     var connector = this.connector;
     var device = this.device;
     return new Promise(function(resolve, reject){
-      connector.readData(device)
-      .then(function(res){
-        if ( res !== undefined ) {
-          var statuses = printer.getStatuses(atob(res));
-          resolve(statuses);
-        }
-        else
-          reject(new Error('Could not get print status'));
-      });
-    });
-  };
-
-  this.print = function(data) {
-    var connector = this.connector;
-    var device = this.device;
-    return new Promise(function(resolve, reject){
-      connector.sendData(device, data)
-      .then(getPrintResult)
-      .then(function(statuses){
-        if ( statuses.indexOf("TICKET ACK") != -1 )
-          resolve("OK");
-        else
-          reject(statuses);
+      connector.sendData(device, data).then(function(){
+        connector.readData(device).then(function(res){
+          if ( res !== undefined ) {
+            var statuses = printer.getStatuses(atob(res));
+            if ( statuses.indexOf("TICKET ACK") != -1 )
+              resolve("OK");
+            else
+              reject(statuses);
+          }
+          else
+            reject(new Error('Boca direct print status is undefined'));
+        });
+        setTimeout(function(){
+          reject('Direct print timeout on Boca printer');
+        }, 3000);
       })
       .catch(function(err){
         reject(err);

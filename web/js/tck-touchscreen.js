@@ -366,7 +366,7 @@ $(document).ready(function(){
 });
 
 // check gauges for overbooking
-LI.checkGauges = function(form){
+LI.checkGauges = function(form, submitHandler){
   // if the current Transaction contains only products, go for the order
   if ( $('#li_transaction_field_content #li_transaction_manifestations .families:not(.sample) .item tbody .declination [name="qty"]').length == 0
     && $('#li_transaction_field_content #li_transaction_museum .families:not(.sample) .item tbody .declination [name="qty"]').length == 0
@@ -424,14 +424,14 @@ LI.checkGauges = function(form){
           else if ( go || confirm($('#li_transaction_field_close .overbooking .msg.warn').text()) )
           {
             // all gauges are ready to be filled... let's goooo
-            $(form).clone(true).removeAttr('onsubmit').appendTo('body').submit().remove();
+            $(form).clone(true).removeAttr('onsubmit').unbind('submit').appendTo('body')
+              .submit(submitHandler).submit().remove();
             setTimeout(function(){ LI.initContent(); }, 1000);
           }
         }
       });
     }
   });
-
   return go;
 }
 

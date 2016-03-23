@@ -27,7 +27,7 @@
       'print'     => 150,
       'duplicate' => 30,
     );
-    
+
     $q = Doctrine::getTable('Transaction')
       ->createQuery('t')
       ->andWhere('tck.id NOT IN (SELECT tck2.duplicating FROM Ticket tck2 WHERE tck2.duplicating IS NOT NULL)')
@@ -48,7 +48,7 @@
     foreach ( explode('-',$request->getParameter('ids')) as $id )
       $this->ids[] = $id;
     $q->andWhereIn('t.id',$this->ids);
-    
+
     // partial printing
     $this->toprint = array();
     if ( $tids = $request->getParameter('toprint',array()) )
@@ -56,37 +56,37 @@
       if ( !is_array($tids) ) $tickets = array($tids);
       foreach ( $tids as $key => $value )
         $tids[$key] = intval($value);
-      
+
       $q->andWhereIn('tck.id',$tids);
     }
-    
+
     // improving the speed reducing the fist set of tickets
     if ( $request->getParameter('price_name', false) )
       $q->andWhere('tck.price_name ILIKE ?', $request->getParameter('price_name'));
     if ( $request->getParameter('manifestation_id', false) )
       $q->andWhere('tck.manifestation_id = ?', $request->getParameter('manifestation_id'));
-    
+
     $this->transactions = $q->execute();
     $this->manifestation_id = $request->getParameter('manifestation_id');
-    
+
     // if any ticket needs a seat, do what's needed
     foreach ( $this->transactions as $this->transaction )
       $this->redirectToSeatsAllocationIfNeeded('print');
-    
+
     $fingerprint = NULL;
     $this->print_again = false;
     $this->grouped_tickets = false;
     $this->duplicate = $request->getParameter('duplicate') == 'true' && $this->getUser()->hasCredential('tck-duplicate-ticket');
     $this->tickets = array();
     $update = array('printed_at' => array(), 'integrated_at' => array());
-    
+
     // grouped tickets
     if ( sfConfig::get('app_tickets_authorize_grouped_tickets', false)
       && $request->hasParameter('grouped_tickets') )
     {
       $fingerprint = date('YmdHis').'-'.$this->getUser()->getId();
       $this->grouped_tickets = true;
-      
+
       foreach ( $this->transactions as $transaction )
       foreach ( $transaction->Tickets as $ticket )
       {
@@ -94,7 +94,7 @@
           // member cards (cf. PluginTicket::preUpdate())
           if ( $ticket->Price->member_card_linked )
             throw new liEvenementException('It is forbidden to group tickets linked with a member card');
-          
+
           // duplicates
           if ( $request->getParameter('duplicate') == 'true' )
           {
@@ -120,7 +120,7 @@
               $newticket->save();
               if ( $newticket->seat_id )
                 $ticket->save();
-              
+
               if ( isset($this->tickets[$id = $ticket->gauge_id.'-'.$ticket->price_id.'-'.$ticket->transaction_id]) )
               {
                 $this->tickets[$id]['ticket'] = $newticket;
@@ -130,7 +130,7 @@
                 $this->tickets[$id] = array('nb' => 1, 'ticket' => $newticket);
             }
           }
-          
+
           else // not duplicates
           if ( !$ticket->printed_at && !$ticket->integrated_at
             && !($request->getParameter('manifestation_id') && $ticket->manifestation_id != $request->getParameter('manifestation_id')) )
@@ -141,13 +141,13 @@
               break;
             }
             $cpt++;
-        
+
             if ( $ticket->Manifestation->no_print )
               $update['integrated_at'][$ticket->id] = $ticket->id;
             else
             {
               $update['printed_at'][$ticket->id] = $ticket->id;
-              
+
               if ( isset($this->tickets[$id = $ticket->gauge_id.'-'.$ticket->price_id.'-'.$ticket->transaction_id]) )
               {
                 $this->tickets[$id]['ticket'] = $ticket; // adding a new one not saved
@@ -161,12 +161,12 @@
         catch ( liEvenementException $e )
         { error_log('An error occurred during grouped tickets #'.$ticket->id.' printing: '.$e->getMessage()); }
       }
-      
+
       if ( $request->getParameter('duplicate') != 'true' )
       foreach ( $this->tickets as $ticket )
         $update['printed_at'][$ticket['ticket']->id] = $ticket['ticket']->id;
     }
-    
+
     // normal / not grouped tickets
     else
     {
@@ -200,11 +200,11 @@
               $newticket->save();
               if ( $newticket->seat_id )
                 $ticket->save();
-              
+
               $this->tickets[] = $newticket;
             }
           }
-          
+
           else // $this->duplicate == false
           {
             if ( $cpt >= $max['print'] ) // duplicating is MUCH longer than simple printing
@@ -212,7 +212,7 @@
               $this->print_again = true;
               break;
             }
-            
+
             if ( !$ticket->printed_at && !$ticket->integrated_at
               && !($request->getParameter('manifestation_id') && $ticket->manifestation_id != $request->getParameter('manifestation_id')) )
             {
@@ -246,7 +246,7 @@
                 }
                 else
                   $update['printed_at'][$ticket->id] = $ticket->id;
-                
+
                 $this->tickets[] = $ticket;
               }
             }
@@ -256,7 +256,7 @@
         { error_log('An error occurred during ticket #'.$ticket->id.' printing: '.$e->getMessage()); }
       }
     }
-    
+
     // bulk updates
     foreach ( $update as $type => $ids )
     if ( count($ids) > 0 )
@@ -271,7 +271,7 @@
         ->set('t.version','t.version + 1')
         ->set('t.barcode',"md5('#'||id||'-".sfConfig::get('project_eticketting_salt', '')."')") // cf. Ticket::getBarcodePng()
       ;
-      
+
       // bulk update for grouped tickets
       if ( sfConfig::has('app_tickets_authorize_grouped_tickets')
         && sfConfig::get('app_tickets_authorize_grouped_tickets')
@@ -279,19 +279,19 @@
       {
         if ( is_null($fingerprint) )
           throw new liEvenementException('Printing grouped tickets without a fingerprint is forbidden');
-        
+
         $q->set('t.grouping_fingerprint',"'".$fingerprint."'");
       }
-      
+
       $q->execute();
-      
+
       // ticket version
       $pdo = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
       $query = 'INSERT INTO ticket_version SELECT * FROM ticket WHERE id IN ('.implode(',',$ids).')';
       $stmt = $pdo->prepare($query);
       $stmt->execute();
     }
-    
+
     if ( count($this->tickets) <= 0 )
     {
       $this->setTemplate('close');
@@ -303,7 +303,7 @@
       else
       {
         $this->form = new BaseForm();
-        
+
         foreach ( $this->tickets as $ticket )
         {
           $w = new sfWidgetFormInputText();
@@ -311,7 +311,7 @@
           $this->form->setWidget('['.$ticket->id.'][othercode]',$w);
         }
         $this->form->getWidgetSchema()->setNameFormat('ticket%s');
-        
+
         $this->setTemplate('rfid');
       }
     }
@@ -323,12 +323,15 @@
       'duplicate'   => $this->duplicate,
       'user'        => $this->getUser(),
     )));
-    
+
     if ( $request->hasParameter('direct') )
     {
+      if ( count($this->tickets) <= 0 )
+        return sfView::NONE;
+
       $this->setLayout(false);
       $this->getResponse()->setContentType('application/octet-stream');
-      
+
       $usb = array_merge(sfConfig::get('software_internals_usb', array()), sfConfig::get('project_internals_usb', array()));
       $usbid = json_decode($request->getParameter('direct', false), true);
       $found = false;
@@ -342,7 +345,7 @@
       }
       if ( !$found && sfConfig::get('sf_web_debug', false) )
         error_log(sprintf('Printing tickets: ERROR the given USB device does not match our configuration (vid: %s, pid: %s).', $usbid['vid'], $usbid['pid']));
-      
+
       // we need to have /usr/sbin/cupsfilter & /usr/bin/base64 installed to be able to use direct printing
       $paths = sfConfig::get('project_internals_exec_path', sfConfig::get('software_internals_exec_path'));
       if (!( isset($paths['cupsfilter']) && is_executable($paths['cupsfilter']) && isset($paths['base64']) && is_executable($paths['base64']) ))
@@ -350,7 +353,7 @@
         error_log('Printing tickets: the workstation is ready for direct printing, but the server is not... Please correct this issue.');
         $found = false;
       }
-      
+
       if ( !$found )
       {
         sfConfig::set('sf_web_debug', false);
@@ -359,13 +362,13 @@
       }
       else
         $this->printer = $type;
-      
+
       return 'Direct';
     }
-    
+
     if (!( sfConfig::get('app_tickets_simplified_printing', false) && count($this->tickets) > 0 ))
       return 'Success';
-    
+
     $this->content = '';
     foreach ( $this->transactions as $transaction )
       $this->content .= $transaction->renderSimplifiedTickets(array('only' => $this->tickets));

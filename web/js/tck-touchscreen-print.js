@@ -3,21 +3,23 @@
       $(form).find('[name=duplicate]').prop('checked',false).show();
       $(form).find('[name=manifestation_id]').val('');
     }
-    
-    LI.printTickets = function(form, pay_before = false){
+
+    LI.printTickets = function(form, pay_before, submitHandler){
+      var pay_before = typeof pay_before !== 'undefined' ? pay_before : false;
+      var submitHandler = typeof submitHandler !== 'undefined' ? submitHandler : function(){ return true; };
       if ( pay_before && LI.parseFloat($('#li_transaction_field_payments_list .change .pit').html()) > 0 )
       {
         LI.alert($('#li_transaction_field_close .print .pay-before').html());
         return false;
       }
-      
+
       if ( $('#li_transaction_manifestations .item.ui-state-highlight').length == 0
         && $(form).find('[name=manifestation_id]').prop('checked') )
       {
         $(form).focusout();
-        return LI.checkGauges(form);
+        return LI.checkGauges(form, submitHandler);
       }
-      
+
       // work around Work In Progress tickets (w/o a given price, but a seat only)
       var go = true;
       $('#li_transaction_manifestations .families:not(.sample) .family:not(.total) .declination').each(function(){
@@ -29,14 +31,14 @@
         LI.alert($('#li_transaction_field_close .print .give-price-to-wip').text());
         return false;
       }
-      
+
       if ( $(form).find('[name=duplicate]').prop('checked') && $(form).find('[name=price_name]').val() )
         $(form).find('[name=manifestation_id]').val($('#li_transaction_manifestations .item.ui-state-highlight').closest('.family').attr('data-family-id'));
-      var r = LI.checkGauges(form);
+      var r = LI.checkGauges(form, submitHandler);
       setTimeout(function(){ $('#li_transaction_manifestations .footer .print [name=price_name]').val('').blur(); }, 2500);
       return r;
     }
-    
+
     $(document).ready(function(){
       // dealing w/ the text field that aims to define the price_name to duplicate
       $('#li_transaction_manifestations .footer .print [name=price_name]').focusin(function(){
@@ -51,7 +53,7 @@
           return;
         LI.resetDuplicates($(this).closest('form'));
       });
-      
+
       // partial printing
       $('#li_transaction_manifestations .footer .partial').submit(function(){
         if ( $('#li_transaction_manifestations .ui-state-highlight').length == 0 )
@@ -60,13 +62,13 @@
            $(this).find('[name=manifestation_id]').val('');
            return false;
         }
-        
+
         if ( $('#li_transaction_field_content .ui-state-highlight[data-gauge-id]').length > 0 )
         {
           $(this).find('[name=gauge_id]').val($('#li_transaction_field_content .ui-state-highlight').attr('data-gauge-id'));
           if ( !LI.checkGauges(this) )
             return false;
-          
+
           // refresh the gauge, as soon as the focus is back on the transaction
           $(window).focus(function(){
             LI.initContent();
