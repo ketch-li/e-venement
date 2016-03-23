@@ -1,0 +1,40 @@
+sfGuardGroup:
+  sfGuardGroup_64:
+    name: pr-group-mod
+    description: 'Ability to create/delete/change common groups (depending on pr-group-common to be usefull)'
+    created_at: '2016-03-23 10:15:00'
+    updated_at: '2016-03-23 10:15:00'
+
+sfGuardPermission:
+  sfGuardPermission_155:
+    name: pr-group-edit
+    description: 'Permission to modify an existing common group'
+    created_at: '2016-03-23 10:15:00'
+    updated_at: '2016-03-23 10:15:00'
+  sfGuardPermission_156:
+    name: pr-group-new
+    description: 'Permission to create common groups'
+    created_at: '2016-03-23 10:15:00'
+    updated_at: '2016-03-23 10:15:00'
+  sfGuardPermission_157:
+    name: pr-group-del
+    description: 'Permission to delete common groups'
+    created_at: '2016-03-23 10:15:00'
+    updated_at: '2016-03-23 10:15:00'
+
+sfGuardGroupPermission:
+  sfGuardGroupPermission_64_155:
+    Group: sfGuardGroup_64
+    Permission: sfGuardPermission_155
+    created_at: '2016-03-23 10:15:00'
+    updated_at: '2016-03-23 10:15:00'
+  sfGuardGroupPermission_64_156:
+    Group: sfGuardGroup_64
+    Permission: sfGuardPermission_156
+    created_at: '2016-03-23 10:15:00'
+    updated_at: '2016-03-23 10:15:00'
+  sfGuardGroupPermission_64_157:
+    Group: sfGuardGroup_64
+    Permission: sfGuardPermission_157
+    created_at: '2016-03-23 10:15:00'
+    updated_at: '2016-03-23 10:15:00'

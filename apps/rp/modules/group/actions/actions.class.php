@@ -285,6 +285,18 @@ class groupActions extends autoGroupActions
     $this->group = $this->getRoute()->getObject();
     $this->form = $this->configuration->getForm($this->group);
   }
+  public function executeCreate(sfWebRequest $request)
+  {
+    $this->form = $this->configuration->getForm();
+    $this->group = $this->form->getObject();
+    $this->form->bind($request->getParameter($form->getName()));
+    if ( $this->form->getValue('sf_guard_user_id') !== $this->getUser()->getId()
+      && !$this->getUser()->hasCredential('pr-group-common') && !$this->getUser()->hasCredential('pr-group-edit') )
+      $this->forward404('You cannot modify a common group, sorry.');
+    
+    $this->processForm($request, $this->form);
+    $this->setTemplate('new');
+  }
   public function executeEdit(sfWebRequest $request)
   {
     $this->group = Doctrine::getTable('Group')->createQuery('g')
@@ -304,7 +316,7 @@ class groupActions extends autoGroupActions
       *
       **/
     if ( !$this->getUser()->hasCredential('pr-group-perso') && !$this->getUser()->hasCredential('pr-group-common')
-      || is_null($this->group->sf_guard_user_id) && !$this->getUser()->hasCredential('pr-group-common')
+      || is_null($this->group->sf_guard_user_id) && !$this->getUser()->hasCredential('pr-group-common') && !$this->getUser()->hasCredential('pr-group-edit')
       || $this->group->sf_guard_user_id !== $this->getUser()->getId() && !is_null($this->group->sf_guard_user_id) )
     $this->setTemplate('show');
   }
@@ -313,6 +325,11 @@ class groupActions extends autoGroupActions
     $this->group = $this->getRoute()->getObject();
     $this->form = $this->configuration->getForm($this->group);
     
+    $this->form->bind($request->getParameter($form->getName()));
+    if ( $this->form->getValue('sf_guard_user_id') !== $this->getUser()->getId()
+      && !$this->getUser()->hasCredential('pr-group-common') && !$this->getUser()->hasCredential('pr-group-edit') )
+      $this->forward404('You cannot modify a common group, sorry.');
+    
     /**
       * if the user cannot modify anything
       * if the user cannot modify common groups and this group is common
@@ -320,12 +337,44 @@ class groupActions extends autoGroupActions
       *
       **/
     if ( !$this->getUser()->hasCredential('pr-group-perso') && !$this->getUser()->hasCredential('pr-group-common')
-      || is_null($this->group->sf_guard_user_id) && !$this->getUser()->hasCredential('pr-group-common')
+      || is_null($this->group->sf_guard_user_id) && !$this->getUser()->hasCredential('pr-group-common') && !$this->getUser()->hasCredential('pr-group-edit')
       || !is_null($this->group->sf_guard_user_id) && $this->group->sf_guard_user_id !== $this->getUser()->getId() )
-    $this->redirect('group/index');
+      $this->forward404('You cannot modify a common group, sorry.');
     
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
+    
+  }
+
+  public function executeBatchDelete(sfWebRequest $request)
+  {
+    // restricting deletable groups to accessible groups
+    $q = Doctrine::getTable('Group')->createQuery('g')
+      ->andWhereIn('g.id', $request->getParameter('ids'))
+    ;
+    $ids = array();
+    foreach ( $q->execute() as $group )
+      $ids[] = $group->id;
+    $request->setParameter('ids', $ids);
+    
+    parent::executeBatchDelete($request);
+  }
+  public function executeDelete(sfWebRequest $request)
+  {
+    $this->group = $this->getRoute()->getObject();
+    
+    /**
+      * if the user cannot modify anything
+      * if the user cannot modify common groups and this group is common
+      * if the group is not his own
+      *
+      **/
+    if ( !$this->getUser()->hasCredential('pr-group-perso') && !$this->getUser()->hasCredential('pr-group-common')
+      || is_null($this->group->sf_guard_user_id) && !$this->getUser()->hasCredential('pr-group-common') && !$this->getUser()->hasCredential('pr-group-del')
+      || !is_null($this->group->sf_guard_user_id) && $this->group->sf_guard_user_id !== $this->getUser()->getId() )
+    $this->forward404('You cannot delete a common group, sorry.');
+    
+    parent::executeDelete($request);
     
   }
 

@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Ability to create/delete/change common groups (depending on pr-group-common to be usefull)</source>
+        <target>Possibilité de créer/modifier/supprimer des groupes communs (inutile si l'utilisateur ne dispose pas non plus de pr-group-common)</target>
+      </trans-unit>
+      <trans-unit>
         <source>Ability to change the text of the online sales using a GUI</source>
         <target>Possibilité de changer les textes de la VeL via une interface</target>
       </trans-unit>

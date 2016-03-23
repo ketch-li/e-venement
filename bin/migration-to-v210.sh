@@ -194,7 +194,21 @@ then
   echo ""
   echo "Permissions & groups for promo codes"
   ./symfony doctrine:data-load --append data/fixtures/11-permissions-v210-promo.yml
+  echo ""
+  echo "Permissions & groups for common groups"
+  ./symfony doctrine:data-load --append data/fixtures/11-permissions-v210-groups.yml
+  # adding people from the pr-group-common into the pr-group-mod
+  echo "INSERT INTO sf_guard_user_group (user_id, group_id, created_at, updated_at)
+        (SELECT u.id, (SELECT gg.id FROM sf_guard_group gg WHERE gg.name = 'pr-group-mod'), now(), now()
+         FROM sf_guard_user u
+         WHERE u.id in (SELECT ug.user_id FROM sf_guard_user_group ug LEFT JOIN sf_guard_group g ON g.id = ug.group_id WHERE g.name = 'pr-group-common'))" \
+    | psql $db
 fi
+
+echo ''
+echo ''
+echo "Ensuring that permissions on directories are correct."
+sudo chmod a+rwx web/uploads/
 
 # Checking data...
 i=0; for elt in `echo 'SELECT count(*) FROM ticket WHERE (printed_at IS NOT NULL OR integrated_at IS NOT NULL);' | psql`
@@ -203,11 +217,6 @@ i=0; for elt in `echo 'SELECT count(*) FROM ticket WHERE (printed_at IS NOT NULL
 do let "i++"; [ $i -eq 3 ] && NBPA=$elt; done
 i=0; for elt in `echo 'SELECT count(*) FROM transaction;' | psql 2> /dev/null`
 do let "i++";  [ $i -eq 3 ] && NBTRA=$elt; done
-
-echo ''
-echo ''
-echo "Ensuring that permissions on directories are correct."
-sudo chmod a+rwx web/uploads/
 
 # final informations
 echo ''
