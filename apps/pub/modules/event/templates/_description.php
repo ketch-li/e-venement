@@ -19,12 +19,12 @@
 </div>
 <?php endif ?>
 
-  <div class="social-description" itemprop="description" style="display:none">
-    <?php if ( isset($manifestation) ): ?>
-      <?php echo $manifestation->getSocialDescription() ?>
-    <?php else: ?>
-      <?php echo $evt->description ?>
-    <?php endif; ?>
-  </div>
+<div class="social-description" itemprop="description">
+  <?php if ( isset($manifestation) ): ?>
+    <?php echo $manifestation->getSocialDescription() ?>
+  <?php else: ?>
+    <?php echo $evt->description ?>
+  <?php endif; ?>
+</div>
 
 

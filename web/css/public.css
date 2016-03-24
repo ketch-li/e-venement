@@ -524,3 +524,5 @@ tfoot, thead { font-weight: bold; }
   left: -5px;
   top: 6px;
 }
+
+.social-description { display: none; }
