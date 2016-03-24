@@ -18,5 +18,14 @@
 <div id="manifestation">
   <?php echo __('on') ?> <?php echo $manifestation->getFormattedDate() ?>
   <span itemprop="doorTime" style="display: none"><?php echo date('c', strtotime($manifestation->happens_at)) ?></span>
+  <span itemprop="startDate" style="display: none"><?php echo date('c', strtotime($manifestation->happens_at)) ?></span>
 </div>
-<div id="location"><?php echo __('location') ?> : <span itemprop="location"><?php echo $manifestation->Location ?></span></div>
+
+<div id="location" itemprop="location" itemscope itemtype="http://schema.org/Place">
+  <?php echo __('location') ?> : <span itemprop="name"><?php echo $manifestation->Location ?></span>
+  <span style="display:none" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+    <span itemprop="streetAddress"><?php echo $manifestation->Location->address ?></span>,
+    <span itemprop="postalCode"><?php echo $manifestation->Location->postalcode ?></span>,
+    <span itemprop="addressLocality"><?php echo $manifestation->Location->city ?></span>,
+  </span>
+</div>
