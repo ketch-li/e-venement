@@ -8,6 +8,10 @@
       'property'=>'og:image',
       'content'=>$manifestation->Event->Picture->getUrl(array('app'=>'pub', 'absolute'=>true))
     )); ?>
+  <?php $sf_response->addMeta('itemprop:image', array(
+      'itemprop'=>'image',
+      'content'=>$manifestation->Event->Picture->getUrl(array('app'=>'pub', 'absolute'=>true))
+    )); ?>
 <?php endif ?>
 <?php $sf_response->addMeta('og:description', array('property'=>'og:description', 'content'=>$manifestation->getSocialDescription())); ?>
 
