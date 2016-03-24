@@ -108,16 +108,20 @@ var StarPrinter = function(device, connector){
     return new Promise(function(resolve, reject){
       connector.sendData(device, data).then(function(res){
         connector.readData(device).then(function(res){
-          if ( res !== undefined ) {
-            var statuses = printer.getStatuses(atob(res));
+          if ( typeof res !== 'undefined' ) {
+            var raw_status = atob(res);
+            var statuses = printer.getStatuses(raw_status);
             if ( statuses.length > 0 )
-              reject(statuses);
+              reject({statuses: statuses, raw_status: raw_status});
             else
-              resolve("OK");
+              resolve({statuses: statuses, raw_status: raw_status});
           }
           else
-            reject(new Error('Star direct print status is undefined'));
+            reject({statuses: ['Star direct print status is undefined'], raw_status: ''});
         });
+        setTimeout(function(){
+          reject({statuses: ['Direct print timeout on Star printer'], raw_status: ''});
+        }, 2500);
       })
       .catch(function(err){
         reject(err);
@@ -189,22 +193,23 @@ var BocaPrinter = function(device, connector) {
     return new Promise(function(resolve, reject){
       connector.sendData(device, data).then(function(){
         connector.readData(device).then(function(res){
-          if ( res !== undefined ) {
-            var statuses = printer.getStatuses(atob(res));
+          if ( typeof res !== 'undefined' ) {
+            var raw_status = atob(res);
+            var statuses = printer.getStatuses(raw_status);
             if ( statuses.indexOf("TICKET ACK") != -1 )
-              resolve("OK");
+              resolve({statuses: statuses, raw_status: raw_status});
             else
-              reject(statuses);
+              reject({statuses: statuses, raw_status: raw_status});
           }
           else
-            reject(new Error('Boca direct print status is undefined'));
+            reject({statuses: ['Boca direct print status is undefined'], raw_status: ''});
         });
         setTimeout(function(){
-          reject('Direct print timeout on Boca printer');
-        }, 3000);
+          reject({statuses: ['Direct print timeout on Boca printer'], raw_status: ''});
+        }, 2500);
       })
       .catch(function(err){
-        reject(err);
+        reject({statuses: [err], raw_status: ''});
       });
     });
   };

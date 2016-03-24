@@ -19,6 +19,10 @@
  *    Copyright (c) 2006-2016 Libre Informatique [http://www.libre-informatique.fr/]
  *
  ***********************************************************************************/
+
+if ( LI === undefined )
+  var LI = {};
+
 $(document).ready(function () {
   // *T* here we are after the page is loaded
 
@@ -47,7 +51,7 @@ $(document).ready(function () {
             return;
           }
 
-          // sends data to the printer through the connector then reads the printer answer
+          // send data to the printer through the connector then reads the printer answer
           connector.log('info', 'Sending data...');
           connector.log('info', data);
           var Printer = LIPrinter(LI.activeDirectPrinter, connector);
@@ -55,15 +59,31 @@ $(document).ready(function () {
             LI.alert('Direct printer not configured', 'error');
             return;
           }
-          Printer.print(data).then(
-            function (res) {
-              LI.alert(res);
-            },
-            function (err) {
-              connector.log('error', 'sendData / readData error', err);
-              LI.alert(err, 'error');
-            }
-          );
+          var logData = {
+            transaction_id: LI.transactionId,
+            duplicate: $(form).find('[name=duplicate]').prop('checked'),
+            printer: JSON.stringify(LI.activeDirectPrinter)
+          };
+          Printer.print(data).then(function(res){
+            LI.alert('Print OK');
+            logData.error = false;
+            logData.status = res.statuses.join(' | ');
+            logData.raw_status = res.raw_status;
+          }).catch(function (err) {
+            connector.log('error', 'Print error:', err);
+            for ( var i in err.statuses ) LI.alert(err.statuses[i], 'error');
+            logData.error = true;
+            logData.status = err.statuses.join(' | ');
+            logData.raw_status = err.raw_status;
+          }).then(function(){
+            // log direct print result in DB
+            $.ajax({
+              type: "GET",
+              url: LI.directPrintLogUrl,
+              data: {directPrint: logData},
+              dataType: 'json'
+            });
+          });
         }
       });
       return false;
@@ -107,7 +127,6 @@ $(document).ready(function () {
         connector.log('error', error);
       }
     );
-
 
     connector.onError = function () {
       $('#li_transaction_museum .print [name=direct], #li_transaction_manifestations .print [name=direct]')

@@ -60,3 +60,7 @@
   target="_blank"
 ><span class="ui-icon ui-icon-gear"></span></a>
 </form>
+<script>
+  LI.directPrintLogUrl = "<?php echo url_for('transaction/directPrintLog?id='.$transaction->id, true) ?>";
+  LI.transactionId = <?php echo $transaction->id ?>;
+</script>

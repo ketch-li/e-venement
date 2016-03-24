@@ -603,4 +603,27 @@ class transactionActions extends autoTransactionActions
       $this->form->save();
     }
   }
+
+  public function executeDirectPrintLog(sfWebRequest $request)
+  {
+    $directPrint = $request->getParameter('directPrint', array());
+    $transaction = Doctrine::getTable('Transaction')->find($request->getParameter($directPrint['transaction_id'], 0));
+    $transaction = Doctrine::getTable('Transaction')->find(102427);
+	  $this->forward404Unless($transaction);
+
+    $form = new DirectPrintForm();
+    $form->bind($directPrint);
+    if ( !$form->isValid() ) {
+      $errors = array();
+      foreach ($form->getErrorSchema() as $key => $err) {
+        if ($key)
+          $errors[$key] = $err->getMessage();
+      }
+      throw new Exception ('Invalid DirectPrintForm: ' . print_r($errors, 1));
+    }
+    else
+      $form->save();
+
+    return sfView::NONE;
+  }
 }

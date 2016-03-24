@@ -503,8 +503,6 @@ DirectPrint:
       notnull: true
     status:
       type: string(255)
-      notblank: true
-      notnull: true
     raw_status:
       type: string(255)
   relations:

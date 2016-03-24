@@ -16,5 +16,6 @@ class DirectPrintForm extends BaseDirectPrintForm
   public function configure()
   {
     parent::configure();
+    $this->disableCSRFProtection();
   }
 }
