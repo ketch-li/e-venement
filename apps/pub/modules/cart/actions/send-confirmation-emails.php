@@ -214,6 +214,9 @@ EOF
         foreach ( $transaction->$sub as $stuff )
         if ( $stuff->isSold() )
           $only[] = $stuff;
+        
+        if ( !$only )
+          continue;
       }
       
       if (!( $content = $transaction->$fct(array('barcode' => 'png', 'only' => $only, 'only_strict' => true)) ))
