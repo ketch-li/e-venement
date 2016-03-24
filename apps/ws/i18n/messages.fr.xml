@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Your configuration has been updated with %i% option(s).</source>
+        <target>Votre configuration a été mise à jour avec %i% paramètre(s).</target>
+      </trans-unit>
+      <trans-unit>
         <source>Content of the popup which appears after a 'on site' payment</source>
         <target>Contenu de la popup qui apparaît après un paiement "sur place"</target>
       </trans-unit>

@@ -12,19 +12,19 @@ show:
   credentials: pr-group
 
 new:
-  credentials: [[pr-group-perso, pr-group-common]]
+  credentials: [[pr-group-perso, pr-group-new]]
 create:
-  credentials: [[pr-group-perso, pr-group-common]]
+  credentials: [[pr-group-perso, pr-group-new]]
 
 edit:
-  credentials: pr-group
+  credentials: [[pr-group-perso, pr-group-edit]]
 update:
-  credentials: [[pr-group-perso, pr-group-common]]
+  credentials: [[pr-group-perso, pr-group-edit]]
 
 delete:
-  credentials: [[pr-group-perso, pr-group-common]]
+  credentials: [[pr-group-perso, pr-group-del]]
 batchDelete:
-  credentials: [[pr-group-perso, pr-group-common]]
+  credentials: [[pr-group-perso, pr-group-del]]
 
 labels:
   credentials: pr-group-labels

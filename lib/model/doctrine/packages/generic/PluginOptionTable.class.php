@@ -7,6 +7,19 @@
  */
 class PluginOptionTable extends Doctrine_Table
 {
+  public function createQuery($alias = 'o')
+  {
+    return parent::createQuery($alias)
+      ->andWhere("$alias.domain = ? OR $alias.domain = ?", sfConfig::get('project_internals_users_domain', '') && sfConfig::get('project_internals_users_domain', '') != '.'
+        ? array(
+            $domain = preg_replace('/\.$/', '', sfConfig::get('project_internals_users_domain', '')),
+            $domain.'.',
+          )
+        : array('', '.')
+      )
+    ;
+  }
+  
     /**
      * Returns an instance of this class.
      *

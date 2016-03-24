@@ -59,6 +59,10 @@ class OrganismTable extends PluginOrganismTable
     $pt = 'pt' != $alias ? 'pt' : 'pt1';
     $pn = 'pn' != $alias ? 'pn' : 'pn1';
     $oc = 'oc' != $alias ? 'oc' : 'oc1';
+    $go = 'go' != $alias ? 'go' : 'go1';
+    $gou= 'gou'!= $alias ? 'gou': 'gou1';
+    $gp = 'gp' != $alias ? 'gp' : 'gp1';
+    $gpu= 'gpu'!= $alias ? 'gpu': 'gpu1';
     
     $query = parent::createQuery($alias)
       ->leftJoin("$alias.Professionals $p")
@@ -73,15 +77,15 @@ class OrganismTable extends PluginOrganismTable
       $query
         ->leftJoin("$p.Groups $gp")
         ->leftJoin("$gp.User $gpu")
-        ->leftJoin("$alias.Groups $gc")
-        ->leftJoin("$gc.User $gcu")
+        ->leftJoin("$alias.Groups $go")
+        ->leftJoin("$go.User $gou")
       ;
       switch ( sfConfig::get('project_internals_pr_scope', 'none') ) {
       case 'restrictive':
-        $query->andWhere("$gcu.id = ? OR $gpu.id = ?", array($sf_user->getId(), $sf_user->getId()));
+        $query->andWhere("$gou.id = ? OR $gpu.id = ?", array($sf_user->getId(), $sf_user->getId()));
         break;
       case 'permissive':
-        $query->andWhere("$gcu.id = ? OR $gpu.id = ? OR $gc.id IS NULL AND $gp.id IS NULL", array($sf_user->getId(), $sf_user->getId()));
+        $query->andWhere("$gou.id = ? OR $gpu.id = ? OR $go.id IS NULL AND $gp.id IS NULL", array($sf_user->getId(), $sf_user->getId()));
         break;
       }
     }

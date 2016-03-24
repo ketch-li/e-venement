@@ -385,7 +385,7 @@ SlavePing:
     created_at: timestamp
 
 OptionPubTexts:
-  package: rp
+  package: ws
   inheritance:
     extends: Option
     type: column_aggregation
