@@ -94,7 +94,11 @@ class Manifestation extends PluginManifestation implements liUserAccessInterface
     return $this->getName();
   }
   public function getSocialDescription() {
-    return sprintf("%s | %s | %s", $this->Location, $this->getFormattedDate(), $this->Event->description);
+    return sprintf("%s | %s | %s",
+      $this->Location,
+      $this->getFormattedDate(),
+      html_entity_decode($this->Event->description)
+    );
   }
 
   public function getBiggestTransactions()
