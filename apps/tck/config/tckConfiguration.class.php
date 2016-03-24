@@ -55,6 +55,9 @@ class tckConfiguration extends sfApplicationConfiguration
     if ( isset($conf['always_send_confirmation']) && $conf['always_send_confirmation'] )
       $this->dispatcher->connect('tck.before_transaction_creation', array($this, 'activateConfirmationEmails'));
     
+    if ( isset($conf['force_send_confirmation']) && $conf['force_send_confirmation'] )
+      $this->dispatcher->connect('tck.before_transaction_respawning', array($this, 'activateConfirmationEmails'));
+    
     if ( sfConfig::get('app_tickets_auto_integrate', false) )
       $this->dispatcher->connect('tck.before_trying_to_close_transaction', array($this, 'productsIntegration'));
     

@@ -195,6 +195,9 @@ class transactionActions extends autoTransactionActions
     $this->getContext()->getConfiguration()->loadHelpers(array('CrossAppLink','I18N'));
     parent::executeEdit($request);
 
+    $this->dispatcher->notify(new sfEvent($this, 'tck.before_transaction_respawning', array('transaction' => $this->transaction)));
+    $this->transaction->save();
+
     if ( $this->transaction->closed && $this->getUser()->hasCredential('tck-unblock') && sfConfig::get('app_transaction_auto_reopen', false) )
     {
       $this->transaction->closed = false;

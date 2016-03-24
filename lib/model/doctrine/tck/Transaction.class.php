@@ -228,7 +228,7 @@ class Transaction extends PluginTransaction
 
   public function renderSimplifiedTickets(array $with = array())
   {
-    foreach ( array('only' => array(), 'css' => true, 'tickets' => true, 'barcode' => 'html') as $field => $value )
+    foreach ( array('only' => array(), 'only_strict' => false, 'css' => true, 'tickets' => true, 'barcode' => 'html') as $field => $value )
     if ( !isset($with[$field]) )
       $with[$field] = $value;
 
@@ -255,7 +255,7 @@ class Transaction extends PluginTransaction
     foreach ( $this->Tickets as $ticket )
     if ( $ticket->Duplicatas->count() == 0 && $ticket->Cancelling->count() == 0 )
     {
-      if ( $with['only'] )
+      if ( $with['only'] || $with['only_strict'] && is_array($with['only']) )
       {
         if ( !in_array($ticket->id, $with['only']) )
           continue;

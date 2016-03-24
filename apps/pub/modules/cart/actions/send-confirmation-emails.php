@@ -44,6 +44,7 @@
     // tickets
     $tickets = array();
     foreach ( $transaction->Tickets as $ticket )
+    if ( !$ticket->hasBeenCancelled() && $ticket->Duplicatas->count() == 0 )
     {
       if ( !isset($tickets[$ticket->Manifestation->happens_at.' -- '.$ticket->Manifestation->event_id]) ) $tickets[$ticket->Manifestation->happens_at.' -- '.$ticket->Manifestation->event_id] = array();
       if ( !isset($tickets[$ticket->Manifestation->happens_at.' -- '.$ticket->Manifestation->event_id][$ticket->Manifestation->id]) ) $tickets[$ticket->Manifestation->happens_at.' -- '.$ticket->Manifestation->event_id][$ticket->Manifestation->id] = array();
@@ -161,8 +162,6 @@
       '%%TRANSACTION_ID%%' => $transaction->id,
       '%%SELLER%%' => sfConfig::get('app_informations_title'),
       '%%COMMAND%%' => $command,
-      '%%TICKETS%%' => $transaction->renderSimplifiedTickets(), // HTML tickets w/ barcode
-      '%%PRODUCTS%%' => $transaction->renderSimplifiedProducts(array('barcode' => 'png',)), // HTML products w/ barcode
       '%%NOTICES%%' => '* '.sfConfig::get('app_text_email_seated_tickets', __('All lines marked with an wildcard concern a seated venue. You will receive a new email as soon as a change is done in the seat allocation for your tickets.')),
     );
     
@@ -197,7 +196,27 @@ EOF
     foreach ( array('tickets' => 'renderSimplifiedTickets', 'products' => 'renderSimplifiedProducts') as $var => $fct )
     if ( is_array($$var) && count($$var) > 0 )
     {
-      if (!( $content = $transaction->$fct(array('barcode' => 'png')) ))
+      $only = array();
+      
+      // restricting the content of PDF to sold stuff
+      if ( sfConfig::get('app_tickets_pdf_attachments', true) === 'forValidatedStuff' )
+      {
+        $sub = null;
+        switch ( $var ) {
+        case 'tickets':
+          $sub = 'Tickets';
+          break;
+        case 'products':
+          $sub = 'BoughtProducts';
+          break;
+        }
+        if ( $sub )
+        foreach ( $transaction->$sub as $stuff )
+        if ( $stuff->isSold() )
+          $only[] = $stuff;
+      }
+      
+      if (!( $content = $transaction->$fct(array('barcode' => 'png', 'only' => $only, 'only_strict' => true)) ))
         continue;
       
       // attachments, tickets/products in PDF
