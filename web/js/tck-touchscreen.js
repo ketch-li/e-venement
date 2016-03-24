@@ -246,6 +246,11 @@ $(document).ready(function(){
     setTimeout(function(){ $(elt).insertAfter($('#li_transaction_field_payments_list input:last')); }, 250);
   });
 
+  // autosubmit direct postalcode
+  $('#li_transaction_field_postalcode input').change(function(){
+    $(this).closest('form').submit();
+  });
+  
   // vCard & co
   $('#li_transaction_field_professional_id, #li_transaction_field_postalcode, #li_transaction_field_contact_id, #li_transaction_field_more').click(function(){
     $('#li_transaction_field_professional_id, #li_transaction_field_postalcode, #li_transaction_field_contact_id, #li_transaction_field_more').addClass('ui-state-highlight');
@@ -575,7 +580,7 @@ LI.initTouchscreen = function(elt)
     else
     {
       $(elt+' .data a').prepend('<span class="ui-icon ui-icon-person"></span>');
-      $('#li_transaction_field_postalcode').fadeOut(function(){ $(this).find('input').val(''); });
+      $('#li_transaction_field_postalcode').fadeOut();
     }
     $(elt+' .li_touchscreen_new').toggle($(elt+' .data a').length == 0);
     $('#li_transaction_field_informations .vcard').remove();
