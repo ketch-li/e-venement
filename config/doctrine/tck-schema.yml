@@ -477,3 +477,39 @@ HoldTransaction:
       onDelete: CASCADE
       onUpdate: CASCADE
 
+DirectPrint:
+  package: tck
+  inheritance:
+    extends: Traceable
+    type: concrete
+  indexes:
+    direct_print_created_at_idx:
+      fields: [created_at]
+    direct_print_transaction_id_idx:
+      fields: [transaction_id]
+  columns:
+    transaction_id:
+      type: integer
+      notnull: true
+    printer:
+      type: string(255)
+      notblank: true
+      notnull: true
+    duplicate:
+      type: boolean
+      notnull: true
+    error:
+      type: boolean
+      notnull: true
+    status:
+      type: string(255)
+      notblank: true
+      notnull: true
+    raw_status:
+      type: string(255)
+  relations:
+    Transaction:
+      foreignAlias: DirectPrints
+      onDelete: SET NULL
+      onUpdate: CASCADE
+
