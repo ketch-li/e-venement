@@ -31,7 +31,7 @@ batchPrintSuccess:
   javascripts: [-*]
 directSurveysSuccess:
   stylesheets: [srv-direct-surveys]
-  javascripts: [-*, tck-direct-surveys]
+  javascripts: [-*, helper, tck-direct-surveys]
 
 json:
   has_layout: false
