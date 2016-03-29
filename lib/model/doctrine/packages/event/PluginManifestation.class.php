@@ -53,6 +53,9 @@ abstract class PluginManifestation extends BaseManifestation implements liMetaEv
     sfApplicationConfiguration::getActive()->loadHelpers(array('I18N'));
     parent::preSave($event);
     
+    if ( !$this->duration || intval($this->duration) < 0 )
+      $this->duration = $this->Event->duration;
+    
     // converting duration from "1:00" to 3600 (seconds)
     if ( intval($this->duration).'' != ''.$this->duration )
     {
