@@ -43,7 +43,7 @@ class ManifestationTemplatingForm extends BaseFormDoctrine
         'duration'      => 'Duration',
         'location'      => 'Location',
         'online_limit'  => 'Online limit',
-        'color'         => 'Color',
+        'color_id'      => 'Color',
       ),
       'multiple' => true,
     ));
@@ -65,7 +65,7 @@ class ManifestationTemplatingForm extends BaseFormDoctrine
       ->execute();
     
     // direct properties
-    foreach ( array('color', 'location_id', 'online_limit', 'duration', 'vat_id') as $prop )
+    foreach ( array('color_id', 'location_id', 'online_limit', 'duration', 'vat_id') as $prop )
     if ( in_array($prop, $values['apply_to']) )
     foreach ( $this->objects as $manif )
     {
@@ -78,10 +78,10 @@ class ManifestationTemplatingForm extends BaseFormDoctrine
     foreach ( $this->objects as $manif )
     {
       $gauges = array();
-      foreach ( $manif->Gauges as $gauge )
+      foreach ( $manif->Gauges as $key => $gauge )
       {
         if ( $gauge->Tickets->count() == 0 )
-          $gauge->delete();
+          unset($manif->Gauges[$key]);
         else
           $gauges[$gauge->workspace_id] = $gauge;
       }
@@ -90,12 +90,11 @@ class ManifestationTemplatingForm extends BaseFormDoctrine
       if ( !isset($gauges[$gauge->workspace_id]) )
       {
         $g = $gauge->copy();
-        //$g->id = NULL;
         $manif->Gauges[] = $g;
       }
       else
       {
-        foreach ( array_keys($gauge->getData()) as $field )
+        foreach ( $gauge->getTable()->getColumns() as $field => $def )
         if ( !in_array($field, array('id', 'manifestation_id')) )
           $gauges[$gauge->workspace_id]->$field = $gauge->$field;
         $gauges[$gauge->workspace_id]->save();
@@ -108,16 +107,27 @@ class ManifestationTemplatingForm extends BaseFormDoctrine
     if ( in_array('prices', $values['apply_to']) )
     {
       $q = Doctrine::getTable('PriceManifestation')->createQuery('mp')
-        ->andWhere('manifestation_id = ?',$values['manifestation_model']);
+        ->andWhere('mp.manifestation_id = ?',$values['manifestation_model']);
       $manifprices = $q->execute();
       
       $q = new Doctrine_Query();
       $q->from('PriceManifestation mp')
-        ->whereIn('mp.manifestation_id',$values['manifestations_list'])
+        ->andWhereIn('mp.manifestation_id',$values['manifestations_list'])
         ->delete()
         ->execute();
       
-      foreach ( $values['manifestations_list'] as $manifid )
+      $q = Doctrine::getTable('PriceGauge')->createQuery('gp')
+        ->andWhereIn('gp.gauge_id',$this->object->Gauges->getPrimaryKeys())
+        ->leftJoin('gp.Gauge g');
+      $gaugeprices = $q->execute();
+      
+      $q = new Doctrine_Query();
+      $q->from('PriceGauge gp')
+        ->andWhereIn('gp.gauge_id',$this->object->Gauges->getPrimaryKeys())
+        ->delete()
+        ->execute();
+      
+      foreach ( $this->objects as $manif )
       {
         foreach ( $manifprices as $manifprice )
         {
@@ -125,8 +135,19 @@ class ManifestationTemplatingForm extends BaseFormDoctrine
           $manifprice['id'] = null;
           $manifprice['created_at'] = date('Y-m-d H:i:s');
           $manifprice['updated_at'] = $manifprice['created_at'];
-          $manifprice['manifestation_id'] = $manifid;
+          $manifprice['manifestation_id'] = $manif->id;
           $manifprice->save();
+        }
+        
+        $gauges = $manif->Gauges->toKeyValueArray('workspace_id', 'id');
+        foreach ( $gaugeprices as $gaugeprice )
+        {
+          $gaugeprice = $gaugeprice->copy();
+          $gaugeprice['id'] = null;
+          $gaugeprice['created_at'] = date('Y-m-d H:i:s');
+          $gaugeprice['updated_at'] = $gaugeprice['created_at'];
+          $gaugeprice['gauge_id'] = $gauges[$gaugeprice->Gauge->workspace_id];
+          $gaugeprice->save();
         }
       }
     }
