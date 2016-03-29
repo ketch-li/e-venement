@@ -30,4 +30,4 @@
 	url = https://bitbucket.org/payplug/payplug_php
 [submodule "lib/vendor/externals/EveConnector"]
 	path = lib/vendor/externals/EveConnector
-	url = git@github.com:libre-informatique/EveConnector.git
+	url = https://github.com/libre-informatique/EveConnector.git
