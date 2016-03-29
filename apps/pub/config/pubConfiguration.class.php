@@ -67,11 +67,6 @@ class pubConfiguration extends sfApplicationConfiguration
   }
   public static function getText($var, $default = '')
   {
-    // DB loading
-    if ( !sfConfig::has($var) )
-    foreach ( OptionPubTextsForm::getStructuredDBOptions() as $name => $value )
-      sfConfig::set('app_texts_'.$name, $value);
-    
     $txt = sfConfig::get($var, $default);
     $culture = sfContext::hasInstance() && sfContext::getInstance()->getUser() instanceof sfUser
       ? sfContext::getInstance()->getUser()->getCulture()
