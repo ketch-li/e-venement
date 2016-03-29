@@ -69,7 +69,6 @@ class EventForm extends BaseEventForm
       $this->embedRelation('Manifestations');
       $order = array(
         'vat_id',
-        'duration',
         'location_id',
         'color_id',
         'vat_id',
@@ -81,7 +80,7 @@ class EventForm extends BaseEventForm
         foreach(array(
           'event_id', 'sf_guard_user_id', 'version',
           'workspaces_list', 'prices_list', 'organizers_list',
-          'description',
+          'description', 'duration',
           'depends_on', 'contact_id',
           'ends_at',
           'ExtraInformations',
