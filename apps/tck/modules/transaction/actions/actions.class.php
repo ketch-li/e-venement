@@ -609,11 +609,12 @@ class transactionActions extends autoTransactionActions
 
   public function executeDirectPrintLog(sfWebRequest $request)
   {
-    $directPrint = $request->getParameter('directPrint', array());
-    $transaction = Doctrine::getTable('Transaction')->find($request->getParameter($directPrint['transaction_id'], 0));
-    $transaction = Doctrine::getTable('Transaction')->find(102427);
+    $transaction_id = $request->getParameter('id', 0);
+    $transaction = Doctrine::getTable('Transaction')->find($transaction_id);
 	  $this->forward404Unless($transaction);
 
+    $directPrint = $request->getParameter('directPrint', array());
+    $directPrint['transaction_id'] = $transaction_id;
     $form = new DirectPrintForm();
     $form->bind($directPrint);
     if ( !$form->isValid() ) {
@@ -627,6 +628,9 @@ class transactionActions extends autoTransactionActions
     else
       $form->save();
 
-    return sfView::NONE;
+    $this->getResponse()->setHttpHeader('Content-type','application/json');
+    echo json_encode('Direct Print logged');
+    die();
+    
   }
 }

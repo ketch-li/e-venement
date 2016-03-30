@@ -1,5 +1,5 @@
 default:
-  javascripts: [jquery,menu]
+  javascripts: [jquery, menu]
 
 printSuccess:
   javascripts: [-*, jquery, /private/print-tickets.js?<?php echo date('Ymd') ?>, print-tickets]
@@ -16,6 +16,14 @@ orderSuccess:
 invoiceSuccess:
   javascripts: [-*, jquery, print-tickets]
   stylesheets: [-*, print-accounting: {media: all}, /private/print-accounting.css?<?php echo date('Ymd') ?>: {media: all}]
+
+partialSuccess:
+  javascripts:
+    - "helper.js??<?php echo date('Ymd') ?>"
+    - "socket.io.js?<?php echo date('Ymd') ?>"
+    - "EveConnector/web/js/eve-connector.js?<?php echo date('Ymd') ?>"
+    - "tck-printers.js?<?php echo date('Ymd') ?>"
+    - "tck-touchscreen-websockets?<?php echo date('Ymd') ?>"
 
 gaugeSuccess:
   stylesheets: [gauge]
@@ -36,7 +44,7 @@ checkpointAjaxJson:
   has_layout: false
   http_metas:
     content-type: application/json
-  
+
 duplicateSuccess:
   stylesheets: [ticket-cancel]
 cancelSuccess:
@@ -66,4 +74,4 @@ resetASeatSuccess:
   has_layout: false
   http_metas:
     content-type: application/json
-        
+
