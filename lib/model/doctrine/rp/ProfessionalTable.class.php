@@ -8,10 +8,12 @@
 class ProfessionalTable extends PluginProfessionalTable
 {
   public function createQuery($alias = 'p')
-  {
-    $o = $alias != 'o' ? 'o' : 'o1';
-    $c = $alias != 'c' ? 'c' : 'c1';
-    $t = $alias != 't' ? 't' : 't1';
+   {
+    $o  = $alias != 'o'  ? 'o'  : 'o1';
+    $c  = $alias != 'c'  ? 'c'  : 'c1';
+    $t  = $alias != 't'  ? 't'  : 't1';
+    $gp = $alias != 'gp' ? 'gp' : 'gp';
+    $gpu= $alias != 'gpu'? 'gpu': 'gpu';
     
     $query = parent::createQuery($alias)
         ->leftJoin("$alias.Organism $o")
@@ -28,7 +30,7 @@ class ProfessionalTable extends PluginProfessionalTable
       ;
       switch ( sfConfig::get('project_internals_pr_scope', 'none') ) {
       case 'restrictive':
-        $query->andWhere("$gpu.id = ?", array($sf_user->getId(), $sf_user->getId()));
+        $query->andWhere("$gpu.id = ?", $sf_user->getId());
         break;
       case 'permissive':
         $query->andWhere("$gpu.id = ? OR $gp.id IS NULL", array($sf_user->getId(), $sf_user->getId()));
