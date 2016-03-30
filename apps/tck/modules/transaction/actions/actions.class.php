@@ -631,5 +631,6 @@ class transactionActions extends autoTransactionActions
     $this->getResponse()->setHttpHeader('Content-type','application/json');
     echo json_encode('Direct Print logged');
     die();
+    
   }
 }
