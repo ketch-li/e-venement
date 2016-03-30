@@ -121,15 +121,17 @@
           break;
         }
         
-        // if one field is different from its predecessor
+        // if it is not a deletion case...
         if ( !$no_direct_contact )
         foreach ( array('title', 'name', 'firstname', 'email') as $field )
-        if (!( isset($data[$ticket->id]['contact'][$field]) && $ticket->contact_id
-            && $ticket->DirectContact->$field == $data[$ticket->id]['contact'][$field] ))
+        // if one field is different from its predecessor
+        if ( isset($data[$ticket->id]['contact'][$field]) && $data[$ticket->id]['contact'][$field] )
+        if (!( $ticket->contact_id && $ticket->DirectContact->$field == $data[$ticket->id]['contact'][$field] ))
         {
           // if no direct contact is defined yet
-          // if the last contact was already confirmed, cannot modify such a contact
-          if ( !$ticket->contact_id || $ticket->DirectContact->confirmed )
+          // or if the last contact was not confirmed yet
+          // we can modify such a contact getting back its homonyms
+          if (!( $ticket->contact_id && $ticket->DirectContact->confirmed ))
           {
             $get_keywords = function($search)
             {
@@ -147,6 +149,7 @@
             // Search for an existing contact
             $q = Doctrine_Query::create()->from('Contact c')
               ->orderBy('c.updated_at DESC')
+              ->limit(1) // minimize the result treatment
               ->andWhere('c.email = ?', strtolower(trim($data[$ticket->id]['contact']['email'])))
             ;
             
@@ -173,8 +176,9 @@
               if ( $ticket->Transaction->Order->count() == 0 )
                 $ticket->DirectContact->confirmed = false;
             }
-          }
+          } // we can modify such a contact getting back its homonyms
           
+          // modifying the fields
           foreach ( array('title', 'name', 'firstname', 'email') as $field )
             $ticket->DirectContact->$field = trim($data[$ticket->id]['contact'][$field]);
           $ticket->DirectContact->email = strtolower($ticket->DirectContact->email);
@@ -192,7 +196,7 @@
               unset($ticket->DirectContact);
           }
           
-          break; // only 1 loop is sufficient to process 1 ticket/contact
+          break; // only 1 loop is sufficient to process 1 ticket/contact, if at least 1 field differs
         }
       }
       
