@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Number of direct contacts</source>
+        <target>Nombre de contacts directs</target>
+      </trans-unit>
+      <trans-unit>
         <source>EPT</source>
         <target>TPE</target>
       </trans-unit>

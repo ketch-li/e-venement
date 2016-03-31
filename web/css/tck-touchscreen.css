@@ -61,6 +61,7 @@
 #li_transaction_field_content .new-family input[type=submit] { float: right; width: auto; }
 
 #li_transaction_manifestations .footer .price { width: 45px; }
+#li_transaction_manifestations h2 .direct-contacts { float: right; margin-right: 1em; }
 
 #sf_admin_content #li_transaction_field_content > div { display: block; }
 #li_transaction_field_content .family { position: relative; }
