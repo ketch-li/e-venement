@@ -23,6 +23,8 @@ class transactionActions extends sfActions
   }
   public function executeTickets(sfWebRequest $request)
   {
+    $this->forward404If(sfConfig::get('app_tickets_pdf_attachments', false) !== true);
+    
     $transaction = Doctrine::getTable('Transaction')->find(intval($request->getParameter('id')));
     $this->setTemplate('tickets');
     
