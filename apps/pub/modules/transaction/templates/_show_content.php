@@ -11,7 +11,7 @@
     $get_tickets = false;
 ?>
 <ul>
-  <?php if ( sfConfig::get('app_tickets_pdf_attachments', false) ): ?>
+  <?php if ( sfConfig::get('app_tickets_pdf_attachments', false) === true ): ?>
   <?php if ( $get_tickets ): ?>
   <?php if ( $transaction->Tickets->count() > 0 ): ?>
   <li class="tickets">
