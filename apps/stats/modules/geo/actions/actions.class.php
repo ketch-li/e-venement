@@ -251,7 +251,7 @@ class geoActions extends sfActions
       $q = isset($metro) ? $metro : $this->buildQuery();
       $q
         ->select('t.id, c.id AS contact_id')
-        ->addSelect('(CASE WHEN o.postalcode IS NOT NULL AND o.postalcode != '' THEN o.postalcode ELSE CASE WHEN c.postalcode IS NOT NULL AND c.postalcode != '' THEN c.postalcode ELSE t.postalcode END END) AS postalcode')
+        ->addSelect("(CASE WHEN o.postalcode IS NOT NULL AND o.postalcode != '' THEN o.postalcode ELSE CASE WHEN c.postalcode IS NOT NULL AND c.postalcode != '' THEN c.postalcode ELSE t.postalcode END END) AS postalcode")
         ->addSelect('count(DISTINCT tck.id) AS qty')
         ->addSelect('sum(tck.value) AS sum')
         ->groupBy('t.id, c.id, c.postalcode, pro.id, o.postalcode, t.postalcode')
@@ -357,7 +357,7 @@ class geoActions extends sfActions
       $contacts = array();
       foreach ( $this->buildQuery()
         ->select('t.id, c.id AS contact_id')
-        ->addSelect('substr(CASE WHEN o.postalcode IS NOT NULL AND o.postalcode != '' THEN o.postalcode ELSE CASE WHEN c.postalcode IS NOT NULL AND c.postalcode != '' THEN c.postalcode ELSE t.postalcode END END,1,2) AS dpt')
+        ->addSelect("substr(CASE WHEN o.postalcode IS NOT NULL AND o.postalcode != '' THEN o.postalcode ELSE CASE WHEN c.postalcode IS NOT NULL AND c.postalcode != '' THEN c.postalcode ELSE t.postalcode END END,1,2) AS dpt")
         ->addSelect('count(DISTINCT tck.id) AS qty')
         ->addSelect('sum(tck.value) AS sum')
         ->groupBy('t.id, c.id, c.postalcode, pro.id, o.postalcode, t.postalcode')
@@ -434,7 +434,7 @@ class geoActions extends sfActions
       $contacts = array();
       foreach ( $this->buildQuery()
         ->select('t.id, c.id AS contact_id')
-        ->addSelect('substr(CASE WHEN o.postalcode IS NOT NULL AND o.postalcode != '' THEN o.postalcode ELSE CASE WHEN c.postalcode IS NOT NULL AND c.postalcode != '' THEN c.postalcode ELSE t.postalcode END END,1,2) AS dpt')
+        ->addSelect("substr(CASE WHEN o.postalcode IS NOT NULL AND o.postalcode != '' THEN o.postalcode ELSE CASE WHEN c.postalcode IS NOT NULL AND c.postalcode != '' THEN c.postalcode ELSE t.postalcode END END,1,2) AS dpt")
         ->addSelect('count(DISTINCT tck.id) AS qty')
         ->addSelect('sum(tck.value) AS sum')
         ->groupBy('t.id, c.id, c.postalcode, pro.id, o.postalcode, t.postalcode')
@@ -652,7 +652,7 @@ class geoActions extends sfActions
         ->addSelect('count(DISTINCT tck.id) AS qty')
         ->addSelect('sum(tck.value) AS sum')
         ->groupBy('t.id, c.id')
-        ->andWhere('substring(CASE WHEN o.postalcode IS NOT NULL AND o.postalcode != '' THEN o.postalcode ELSE CASE WHEN c.postalcode IS NOT NULL AND c.postalcode != '' THEN c.postalcode ELSE t.postalcode END END, 1, 2) = substring(?, 1, 2)', $client['postalcode'][0])
+        ->andWhere("substring(CASE WHEN o.postalcode IS NOT NULL AND o.postalcode != '' THEN o.postalcode ELSE CASE WHEN c.postalcode IS NOT NULL AND c.postalcode != '' THEN c.postalcode ELSE t.postalcode END END, 1, 2) = substring(?, 1, 2)", $client['postalcode'][0])
         ->andWhere('(pro.id IS NULL AND (c.country ILIKE ? OR c.country IS NULL OR c.country = ?) OR pro.id IS NOT NULL AND (o.country ILIKE ? OR o.country IS NULL OR o.country = ?))', array(isset($client['country']) ? $client['country'] : 'France', '', isset($client['country']) ? $client['country'] : 'France', '',));
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
         $res[$approach]['department'] = -$res[$approach]['exact'];
@@ -680,7 +680,7 @@ class geoActions extends sfActions
         ->addSelect('count(DISTINCT tck.id) AS qty')
         ->addSelect('sum(tck.value) AS sum')
         ->groupBy('t.id, c.id')
-        ->andWhere('substring(CASE WHEN o.postalcode IS NOT NULL AND o.postalcode != '' THEN o.postalcode ELSE CASE WHEN c.postalcode IS NOT NULL AND c.postalcode != '' THEN c.postalcode ELSE t.postalcode END END, 1, 2) = substring(?, 1, 2)', $client['postalcode'][0])
+        ->andWhere("substring(CASE WHEN o.postalcode IS NOT NULL AND o.postalcode != '' THEN o.postalcode ELSE CASE WHEN c.postalcode IS NOT NULL AND c.postalcode != '' THEN c.postalcode ELSE t.postalcode END END, 1, 2) = substring(?, 1, 2)", $client['postalcode'][0])
         ->andWhere('(pro.id IS NULL AND (c.country ILIKE ? OR c.country IS NULL OR c.country = ?) OR pro.id IS NOT NULL AND (o.country ILIKE ? OR o.country IS NULL OR o.country = ?))', array(isset($client['country']) ? $client['country'] : 'France', '', isset($client['country']) ? $client['country'] : 'France', '',));
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
         $res[$approach]['region'] = -$res[$approach]['exact'] -$res[$approach]['department'];
