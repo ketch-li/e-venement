@@ -58,8 +58,10 @@
       $contacts[] = $this->transaction->Contact;
     foreach ( $this->transaction->Tickets as $ticket )
     if ( $ticket->contact_id && !$ticket->DirectContact->confirmed )
+    {
       $contacts[] = $ticket->DirectContact;
-    $ticket->DirectContact->confirmed = true;
+      $ticket->DirectContact->confirmed = true;
+    }
     $contacts->save();
     
     // starting a new transaction
