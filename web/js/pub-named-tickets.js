@@ -41,13 +41,21 @@ $(document).ready(function(){
       return false;
     }
     
+    var busy = LI.busyIndicator();
     $.ajax({
       method: 'get',
       url: $(this).prop('href'),
       success: function(data){
         if ( !data )
+        {
+          busy.stop();
           return;
-        LI.pubNamedTicketsData(data);
+        }
+        if ( window.location.hash == '#debug' )
+          console.error('Autocomplete named tickets', data);
+        LI.pubNamedTicketsData(data, function(){ 
+          busy.stop();
+        });
       }
     });
     return false;
@@ -61,11 +69,16 @@ $(document).ready(function(){
       return true;
     }
     
+    var busy = LI.busyIndicator();
     $.ajax({
       url: $(this).prop('action'),
       type: $(this).prop('method'),
       data: $(this).serialize(),
-      success: LI.pubNamedTicketsData,
+      success: function(json){
+        LI.pubNamedTicketsData(json, function(){
+          busy.stop();
+        });
+      }
     });
     $(this).find('.contact').find('.contact_title label, .contact_name label, .contact_firstname label, .contact_email label')
       .css('color', null);
@@ -77,14 +90,21 @@ $(document).ready(function(){
 LI.pubNamedTicketsInitialization = function()
 {
   $('form.named-tickets').each(function(){
-    $.get($(this).prop('action'), LI.pubNamedTicketsData);
+    var busy = LI.busyIndicator();
+    $.get($(this).prop('action'), function(json){
+      LI.pubNamedTicketsData(json, function(){ 
+        busy.stop();
+      });
+    });
   });
 }
-LI.pubNamedTicketsData = function(json)
+LI.pubNamedTicketsData = function(json, callback)
 {
   if (!( json.success && json.success.tickets ))
   {
     LI.alert('An error occurred with named tickets');
+    if ( typeof callback == 'function' )
+      callback();
     return;
   }
   
@@ -191,4 +211,7 @@ LI.pubNamedTicketsData = function(json)
       $('.prices .submit input').focus();
     }
   });
+  
+  if ( typeof callback == 'function' )
+    callback();
 }

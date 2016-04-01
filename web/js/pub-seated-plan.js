@@ -86,7 +86,7 @@ $(document).ready(function(){
   });
 });
 
-LI.pubInitTicketsData = function(json){
+LI.pubInitTicketsData = function(json, callback){
   $('.prices .quantity select').val(0).focusout();
   $('.prices .seating.in-progress .quantity').text('-');
   $('.prices .seats *').remove();
@@ -168,21 +168,28 @@ LI.pubInitTicketsData = function(json){
   
   if ( typeof(LI.pubNamedTicketsInitialization) == 'function' )
     LI.pubNamedTicketsInitialization();
+  
+  if ( typeof(callback) == 'function' )
+    callback();
 }
 
 LI.pubInitTicketsRequest = function(seats){
   if ( typeof(seats) != 'object' )
     seats = {};
   
+  var busy = LI.busyIndicator();
   $.get($('#ajax-init-data').prop('href'), seats, function(json){
     if (!( json.success && json.success.data && json.success.data.tickets ))
     {
       LI.alert('An error occurred', 'error');
+      busy.stop();
       return;
     }
     if ( json.success.message )
       LI.alert(json.success.message, 'success');
-    LI.pubInitTicketsData(json.success.data);
+    LI.pubInitTicketsData(json.success.data, function(){
+      busy.stop();
+    });
   });
   
 }
@@ -220,6 +227,7 @@ LI.pubAfterRenderingSeats['pubSeatedPlanInitMain'] = function(){
     var seat = this;
     if ( $(seat).is('.ordered.in-progress') )   // removing a seat
     {
+      var busy = LI.busyIndicator();
       $.get($('#ajax-init-data').prop('href'), { tickets: [{
         ticket_id: $(seat).attr('data-ticket-id'),
         action: 'del'
@@ -240,11 +248,14 @@ LI.pubAfterRenderingSeats['pubSeatedPlanInitMain'] = function(){
           LI.alert(json.success.message, 'success');
         
         // in the list
-        LI.pubInitTicketsData(json.success.data);
+        LI.pubInitTicketsData(json.success.data, function(){
+          busy.stop();
+        });
       });
     }
     else  // adding a seat
     {
+      var busy = LI.busyIndicator();
       $.get($('#ajax-init-data').prop('href'), { tickets: [{
         seat_id: $(seat).attr('data-id'),
         gauge_id: $(seat).closest('[data-gauge-id]').attr('data-gauge-id'),
@@ -273,7 +284,9 @@ LI.pubAfterRenderingSeats['pubSeatedPlanInitMain'] = function(){
           LI.alert(json.success.message, 'success');
         
         // in the list
-        LI.pubInitTicketsData(json.success.data);
+        LI.pubInitTicketsData(json.success.data, function(){
+          busy.stop();
+        });
       });
     }
   });

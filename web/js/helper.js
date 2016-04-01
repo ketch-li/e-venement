@@ -2,6 +2,19 @@
 if ( LI == undefined )
   var LI = {};
 
+// to stop the busy indicator, call stop() on the returned object
+LI.busyIndicator = function()
+{
+  var i = $('<iframe>');
+  i.appendTo('body');
+  i[0].contentDocument.open();
+  i.stop = function(){
+    i[0].contentDocument.close();
+    i.remove();
+  }
+  return i;
+}
+
 LI.array_keys = function(obj)
 {
   var r = [];
