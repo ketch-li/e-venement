@@ -21,8 +21,8 @@
   <h2 class="ui-widget-header ui-corner-all">
     <?php echo $detail['title'] ?>
     <a href="#" class="reload">&#x21bb;</a>
-    <?php if ( $id == 'manifestations' && $transaction->getDirectContacts()->count() > 0 ): ?>
-    <span class="direct-contacts" title="<?php echo __('Number of direct contacts') ?>"><?php echo $transaction->getDirectContacts()->count() ?></span>
+    <?php if ( $id == 'manifestations' && $transaction->getDirectContacts(true)->count() > 0 ): ?>
+    <span class="direct-contacts" title="<?php echo __('Number of direct contacts') ?>"><?php echo $transaction->getDirectContacts(true)->count() ?></span>
     <?php endif ?>
   </h2>
   <?php if ( isset($form[$id]) && $form->getRaw($id) instanceof sfForm ): ?>

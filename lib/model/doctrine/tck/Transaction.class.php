@@ -225,7 +225,7 @@ class Transaction extends PluginTransaction
       $paid += $payment->value;
     return $paid;
   }
-
+  
   public function renderSimplifiedTickets(array $with = array())
   {
     foreach ( array('only' => array(), 'only_strict' => false, 'css' => true, 'tickets' => true, 'barcode' => 'html') as $field => $value )
@@ -383,10 +383,11 @@ class Transaction extends PluginTransaction
   /**
    * @return array
    */
-  public function getDirectContacts()
+  public function getDirectContacts($strict = false)
   {
-    $contacts = array();
-    $contacts[$this->contact_id] = $this->Contact;
+    $contacts = new Doctrine_Collection('Contact');
+    if ( !$strict && $this->contact_id )
+      $contacts[$this->contact_id] = $this->Contact;
     foreach ( $this->Tickets as $ticket )
     if ( $ticket->contact_id && !isset($contacts[$ticket->contact_id]) )
         $contacts[$ticket->contact_id] = $ticket->DirectContact;
