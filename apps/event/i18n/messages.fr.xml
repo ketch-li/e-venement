@@ -37,6 +37,10 @@
         <target>Groupes</target>
       </trans-unit>
       <trans-unit>
+        <source>%row% for alphabetic row (safe), %rown% for numeric row, %rowm% for mixte row and %num% for numeric seats</source>
+        <target>%row% pour des rangs alphabétiques (sûr), %rown% pour des rangs numériques, %rowm% pour des rangs mixtes et %num% pour les numéros de place</target>
+      </trans-unit>
+      <trans-unit>
         <source>You cannot remove this seat, probably at least one ticket has been sold on it.</source>
         <target>Vous ne pouvez pas supprimer cette place, un billet a probablement déjà été vendu pour celle-ci.</target>
       </trans-unit>
@@ -481,8 +485,8 @@
         <target>Les liens entre les sièges ont été remis à zéro</target>
       </trans-unit>
       <trans-unit>
-        <source>Links between seats have been created</source>
-        <target>Les liens entre les sièges ont été créés</target>
+        <source>%%qty%% link(s) between seats have been created</source>
+        <target>%%qty%% lien(s) entre les sièges a/ont été créé(s)</target>
       </trans-unit>
       <trans-unit>
         <source>This form will allow you to define the rank of seats in bulk on your map. Using it will save you a lot of time, because you will only have to set the rank of particular seats. The venues are usually symetrical, you will probably make at least to passes. Take the left side, then the right side of instance.
