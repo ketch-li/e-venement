@@ -342,7 +342,7 @@ class seated_planActions extends autoSeated_planActions
     $q = Doctrine::getTable('Seat')->createQuery('s')
       ->andWhere('s.seated_plan_id = ?', $request->getParameter('id'))
       ->andWhere('s.id = ?', $data['id'])
-      ->andWhere('s.id NOT IN (SELECT tck.seat_id FROM Ticket tck)');
+      ->andWhere('s.id NOT IN (SELECT tck.seat_id FROM Ticket tck WHERE tck.seat_id IS NOT NULL)');
     
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
     $this->json = array('success' => false, 'message' => __('You cannot remove this seat, probably at least one ticket has been sold on it.'));
