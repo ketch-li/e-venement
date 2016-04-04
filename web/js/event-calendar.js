@@ -72,7 +72,7 @@ $(document).ready(function(){
 
 function load_calendar()
 {
-  window_transition();
+  LI.window_transition();
   $.get(relative_url_ics_content,function(post){
     // the ics/ical content has been generated in the "post" var
     $.ajax({

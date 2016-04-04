@@ -3,7 +3,7 @@ if ( LI == undefined )
   var LI = {};
 
 LI.seatedPlanRanksInBulk = function(){
-  $('#transition').show();
+  LI.window_transition();
   
   // the ajax request
   var data = {};
@@ -19,7 +19,7 @@ LI.seatedPlanRanksInBulk = function(){
 
 LI.seatedPlanLinksInBulk = function(elt){
   if ( $(elt).attr('data-no-msg') !== 'no-msg' )
-    $('#transition').show();
+    LI.window_transition();
   
   // the ajax request
   var data = {};

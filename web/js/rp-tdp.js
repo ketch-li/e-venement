@@ -26,7 +26,7 @@ $(document).ready(function(){
     var elt = $(this);
     if ( $(this).prop('href') == '#' )
     {
-      $('#transition .close').click();
+      LI.window_transition();
       return false;
     }
     

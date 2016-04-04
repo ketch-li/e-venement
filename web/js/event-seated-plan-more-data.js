@@ -18,7 +18,7 @@ LI.seatedPlanMoreDataInitialization = function(url, show, root)
     return;
   
   var container = $('<div></div>').addClass('more-data').appendTo($(root).find('.picture.seated-plan'));
-  $('#transition').show();
+  LI.window_transition();
   $.get(url, function(data){
     var color = Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255);
     $.each(data, function(key, obj){

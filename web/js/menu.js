@@ -16,9 +16,14 @@ $(document).ready(function(){
     $.getScript(src.replace('js/menu.js','')+'private/menu.js');
   
   // doing a short effect on page unload
-  $('a[href]:not([href^="#"]):not([target="_blank"]):not([href^="mailto:"])').click(window_transition);
-  $('form:not([target=_blank])').submit(window_transition);
-  $('#transition .close').click(function(){ $('#transition, #about').fadeOut('medium'); $('#menu li').removeClass('show'); });
+  $('a[href]:not([href^="#"]):not([target="_blank"]):not([href^="mailto:"])').click(LI.window_transition);
+  $('form:not([target=_blank])').submit(LI.window_transition);
+  $('#transition .close').click(function(){
+    $('#transition, #about').fadeOut('medium');
+    $('#menu li').removeClass('show');
+    if ( this.busyIndicator != undefined )
+      this.busyIndicator.stop();
+  });
   
   // changing menu
   $('#menu > li > span').mouseenter(function(){
@@ -81,7 +86,7 @@ $(document).ready(function(){
     $('#about').fadeIn('slow');
     return false;
   });
-  about_show_contributors();
+  LI.about_show_contributors();
   
   $(document).keypress(function(e){
     switch ( e.keyCode ) {
@@ -185,7 +190,10 @@ $(document).ready(function(){
   });
 });
 
-function about_show_contributors()
+if ( LI == undefined )
+  var LI = {};
+
+LI.about_show_contributors = function()
 {
   $('.ui-widget-about .show-contributors').unbind().click(function(){
     $(this).parent().parent().parent().parent().find('.contributors').fadeToggle('slow');
@@ -193,10 +201,12 @@ function about_show_contributors()
   });
 }
 
-function window_transition(speed)
+LI.window_transition = function(speed)
 {
   if ( speed == 'undefined' )
     speed = 'medium';
   
-  $('#transition').fadeIn(speed);
+  $('#transition')
+    .fadeIn(speed)
+    .get(0).busyIndicator = LI.busyIndicator();
 }

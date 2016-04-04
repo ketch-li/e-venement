@@ -789,7 +789,7 @@ LI.clickBoard = function(){
 
 // DISPLAYS A WARNING MESSAGE WHEN THE WINDOW ATTEMPS TO BE CLOSED
 LI.closeTransaction = function(event){
-  $('#transition').show();
+  LI.window_transition();
   var go = { ok: true, text: '' };
 
   $.ajax({

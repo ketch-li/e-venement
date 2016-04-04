@@ -21,7 +21,7 @@ $(document).ready(function(){
       .mouseleave(function(){ $(this).removeClass('ui-state-hover'); })
       .click(function(){
         var elt = this;
-        $('#transition').show();
+        LI.window_transition();
         $.get($(this).prop('href'), { promo_code_id: $(this).attr('data-id') }, function(){
           $('#transition .close').click();
           $(elt).closest('table').closest('tr').fadeOut(function(){ $(this).remove(); });

@@ -104,6 +104,6 @@ LI.list_edit = function()
     $('.specialized-form:not(.submitting) form').each(function(){
       $(this).submit();
     });
-    window_transition();
+    LI.window_transition();
   };
 }

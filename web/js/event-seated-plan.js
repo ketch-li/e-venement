@@ -174,7 +174,7 @@
         selector = $(extra_selector);
     }
     
-    $('#transition').show();
+    LI.window_transition();
     $(selector).find('.seat').remove();
     $.get(url,function(json){
       if ( !no_reset )
