@@ -213,11 +213,15 @@
               break;
             }
 
-            if ( !$ticket->printed_at && !$ticket->integrated_at
-              && !($request->getParameter('manifestation_id') && $ticket->manifestation_id != $request->getParameter('manifestation_id')) )
+            if ( sfConfig::get('app_tickets_simplified_printing', false) ||
+              (
+                !$ticket->printed_at && !$ticket->integrated_at
+                && !($request->getParameter('manifestation_id') && $ticket->manifestation_id != $request->getParameter('manifestation_id'))
+              )
+            )
             {
               $cpt++;
-              if ( $ticket->Manifestation->no_print )
+              if ( $ticket->Manifestation->no_print || sfConfig::get('app_tickets_simplified_printing', false) )
               {
                 // member cards (cf. PluginTicket::preUpdate()) OR auto controled tickets
                 if ( $ticket->Price->member_card_linked || $ticket->Manifestation->Location->auto_control )
@@ -231,6 +235,9 @@
                 }
                 else
                   $update['integrated_at'][$ticket->id] = $ticket->id;
+                
+                if ( sfConfig::get('app_tickets_simplified_printing', false) )
+                  $this->tickets[] = $ticket;
               }
               else
               {
@@ -263,7 +270,6 @@
     {
       $q = Doctrine_Query::create()->update('Ticket t')
         ->whereIn('t.id',$ids)
-        ->andWhere(sprintf('t.%s IS NULL',$type))
         ->set('t.'.$type,'NOW()')
         ->set('t.updated_at','NOW()')
         ->set('t.vat', '(SELECT v.value FROM Manifestation m LEFT JOIN Vat v ON v.id = m .vat_id WHERE m.id = manifestation_id)')
@@ -271,6 +277,8 @@
         ->set('t.version','t.version + 1')
         ->set('t.barcode',"md5('#'||id||'-".sfConfig::get('project_eticketting_salt', '')."')") // cf. Ticket::getBarcodePng()
       ;
+      if ( !sfConfig::get('app_tickets_simplified_printing', false) )
+        $q->andWhere(sprintf('t.%s IS NULL',$type));
 
       // bulk update for grouped tickets
       if ( sfConfig::has('app_tickets_authorize_grouped_tickets')
