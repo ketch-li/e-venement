@@ -34,9 +34,8 @@
 
       if ( $(form).find('[name=duplicate]').prop('checked') && $(form).find('[name=price_name]').val() )
         $(form).find('[name=manifestation_id]').val($('#li_transaction_manifestations .item.ui-state-highlight').closest('.family').attr('data-family-id'));
-      var r = LI.checkGauges(form, submitHandler);
       setTimeout(function(){ $('#li_transaction_manifestations .footer .print [name=price_name]').val('').blur(); }, 2500);
-      return r;
+      return LI.checkGauges(form, submitHandler);
     }
 
     $(document).ready(function(){
