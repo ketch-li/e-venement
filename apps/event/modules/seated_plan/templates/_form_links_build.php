@@ -18,5 +18,6 @@
     'size'  => '20',
     'with_submit' => true,
     'submit_label' => __('Build'),
+    'helper' => __('%row% for alphabetic row (safe), %rown% for numeric row, %rowm% for mixte row and %num% for numeric seats'),
   )
 ) ?>
