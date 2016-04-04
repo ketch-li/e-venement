@@ -344,6 +344,10 @@ $(document).ready(function(){
     $(this).find('input').prop('title',$(this).find('label').html());
   });
   
+  // hide culture if useless
+  if ( $('.tdp-culture select option').length < 2 )
+    $('.tdp-culture').hide();
+        
   // slide down objects
   var showupfct = function(){
     $('#tdp-content .sf_admin_list .sf_admin_action_showup a').unbind().click(function(){
