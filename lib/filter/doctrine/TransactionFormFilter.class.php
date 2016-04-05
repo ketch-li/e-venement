@@ -117,7 +117,7 @@ class TransactionFormFilter extends BaseTransactionFormFilter
       $values = array($values);
     
     $a = $q->getRootAlias();
-    $q->leftJoin("$a.Version v WITH version = 1")
+    $q->leftJoin("$a.Version v WITH v.version = 1")
       ->andWhereIn('v.sf_guard_user_id', $values);
     
     return $q;
