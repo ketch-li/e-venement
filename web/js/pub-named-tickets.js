@@ -7,7 +7,7 @@ $(document).ready(function(){
   $('form.named-tickets label').click(function(){
     $(this).closest('span').find('select, input').first().focus();
   });
-  $('form.named-tickets input, form.named-tickets select')
+  $('form.named-tickets input, form.named-tickets :not(.cherry-pick) > select')
     .change(function(){
       // do not submit the form if a complete contact is not given for $(this)
       if ( $(this).closest('.contact_title, .contact_name, .contact_firstname, .contact_email').length > 0 )
@@ -135,6 +135,8 @@ LI.pubNamedTicketsData = function(json, callback)
       .removeClass('sample')
       .appendTo(form)
     ;
+    if ( ticket.contact_id )
+      elt.find('.cherry-pick').remove();
     $.each(['gauge_id', 'seat_id', 'price_id', 'contact_id'], function(key, field){
       elt.attr('data-'+field.replace('_','-'), ticket[field]);
     });
@@ -214,4 +216,23 @@ LI.pubNamedTicketsData = function(json, callback)
   
   if ( typeof callback == 'function' )
     callback();
+}
+
+LI.pubNamedTicketsCherryPick = function(elt){
+  // fill in the contact
+  var ticket = $(elt).closest('.ticket');
+  $.each(['id', 'name', 'firstname', 'title', 'email'], function(i, field){
+    ticket.find('.contact_'+field).find('select, input').val(
+      $(elt).find('option:selected').attr('data-'+field)
+    ).change();
+  });
+  
+  // remove it from other lists
+  $(elt).closest('form').find('.cherry-pick option[value="'+$(elt).val()+'"]').remove();
+  $(elt).closest('form').find('.cherry-pick').each(function(){
+    if ( $(this).find('option').length == 1 )
+      $(elt).closest('form').find('.cherry-pick').remove();
+  });
+  
+  return false;
 }

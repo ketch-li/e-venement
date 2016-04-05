@@ -5,6 +5,14 @@
     <header/>
     <body>
       <trans-unit>
+        <source>You can take back a contact only once. In case of necessity, %%tagstart%%reload the page%%tagend%%...</source>
+        <target>Un contact ne peut être repris qu'une seule fois. En cas de besoin, %%tagstart%%rechargez la page%%tagend%%...</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Take back a previous contact</source>
+        <target>Reprendre un précédent contact</target>
+      </trans-unit>
+      <trans-unit>
         <source>Share this on %network%</source>
         <target>Partagez cette page sur %network%</target>
       </trans-unit>
@@ -42,7 +50,7 @@
       </trans-unit>
       <trans-unit>
         <source>Resume contacts</source>
-        <target>Reprendre des contacts</target>
+        <target>Réutiliser vos contacts</target>
       </trans-unit>
       <trans-unit>
         <source>No special offer found.</source>

@@ -15,3 +15,6 @@
 
 .submit { text-align: center; }
 #tickets .submit button { font-size: 120%; }
+
+.named-tickets .ticket .cherry-pick { display: block; }
+.named-tickets .ticket .cherry-pick select { width: 25em; }

@@ -25,6 +25,39 @@
       <?php endif ?>
     </div>
     <div class="contact">
+      <?php
+        $contacts = array();
+        $this_page = array();
+        foreach ( $sf_user->getTransaction()->getTickets() as $ticket )
+        if ( $ticket->manifestation_id == $manifestation->id )
+        {
+          if ( $ticket->contact_id && !isset($this_page[$ticket->contact_id]) )
+            $this_page[$ticket->contact_id] = $ticket->DirectContact;
+        }
+        else
+        {
+          if ( $ticket->contact_id && !isset($contacts[$ticket->contact_id]) )
+            $contacts[$ticket->contact_id] = $ticket->DirectContact;
+        }
+        foreach ( $this_page as $contact )
+        if ( isset($contacts[$contact->id]) )
+          unset($contacts[$contact->id]);
+      ?>
+      <?php if ( $contacts ): ?>
+      <span class="cherry-pick">
+        <select name="previous_id" onchange="javascript: return LI.pubNamedTicketsCherryPick(this);">
+          <option value=""><?php echo __('Take back a previous contact') ?></option>
+          <?php foreach ( $contacts as $contact ): ?>
+            <option
+              value="<?php echo $contact->id ?>"
+              <?php foreach ( array('title', 'name', 'firstname', 'email') as $field ): ?>
+                data-<?php echo $field ?>="<?php echo $contact->$field ?>"
+              <?php endforeach ?>
+            ><?php echo $contact ?> &lt;<?php echo $contact->email ?>&gt;</option>
+          <?php endforeach ?>
+        </select>
+      </span>
+      <?php endif ?>
       <span class="contact_id">
         <input class="id" type="hidden" value="" name="ticket[%%ticket_id%%][contact][id]" />
         <input class="force" type="hidden" value="" name="ticket[%%ticket_id%%][contact][force]" />
@@ -60,6 +93,11 @@
     </div>
   </div>
 </form>
+
+<p class="info">
+  <?php echo __('You can take back a contact only once. In case of necessity, %%tagstart%%reload the page%%tagend%%...', array('%%tagstart%%' => '<a href="">', '%%tagend%%' => '</a>')) ?>
+</p>
+
 <?php if (!( isset($display_continue) && !$display_continue )): ?>
 <p class="submit">
   <a class="complete" href="<?php echo url_for('ticket/completeNamedTickets?manifestation_id='.$manifestation->id) ?>"><button name="complete" value="">
