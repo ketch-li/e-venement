@@ -13,8 +13,7 @@ default:
     #robots:       index, follow
 
   stylesheets:    [main.css]
-
-  javascripts:    []
+  javascripts:    [helper]
 
   has_layout:     true
   layout:         layout

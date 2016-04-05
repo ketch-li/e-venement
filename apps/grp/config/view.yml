@@ -13,7 +13,7 @@ default:
     #robots:       index, follow
 
   stylesheets:    [/sfAdminThemejRollerPlugin/css/reset.css, main: { media: all }, menu, content]
-  javascripts:    [menu]
+  javascripts:    [menu, helper]
 
   has_layout:     true
   layout:         layout
