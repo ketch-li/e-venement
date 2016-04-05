@@ -5,7 +5,7 @@ if ( LI == undefined )
 // to stop the busy indicator, call stop() on the returned object
 LI.busyIndicator = function()
 {
-  var i = $('<iframe>');
+  var i = $('<iframe>').width(0).height(0);
   i.appendTo('body');
   i[0].contentDocument.open();
   i.stop = function(){
