@@ -206,7 +206,8 @@ LI.window_transition = function(speed)
   if ( speed == 'undefined' )
     speed = 'medium';
   
-  $('#transition')
-    .fadeIn(speed)
-    .get(0).busyIndicator = LI.busyIndicator();
+  var transition = $('#transition')
+    .fadeIn(speed);
+  if ( typeof LI.busyIndicator == 'function' )
+    transition.get(0).busyIndicator = LI.busyIndicator();
 }

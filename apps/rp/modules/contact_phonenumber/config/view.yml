@@ -1,5 +1,5 @@
 default:
-  javascripts: [jquery,menu]
+  javascripts: [jquery, menu, helper]
   layout: nude
 
 newSuccess:
