@@ -264,7 +264,10 @@
     );
   }
   
-  $event = new sfEvent($this, 'pub.after_adding_tickets', array('tickets' => $tickets));
+  $event = new sfEvent($this, 'pub.after_adding_tickets', array(
+    'tickets' => $tickets,
+    'direct_contact' => sfConfig::get('app_tickets_direct_contact', 'auto') == 'auto'
+  ));
   if ( sfConfig::get('app_tickets_direct_contact', 'auto') == 'auto' && isset($no_direct_contact) && $no_direct_contact )
     $event['direct_contact'] = false;
   $this->dispatcher->notify($event);
