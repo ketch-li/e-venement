@@ -38,7 +38,6 @@ class ProductTable extends PluginProductTable
       ->leftJoin('c.Translation ct')
       ->andWhere('c.online = ?', true)
       ->leftJoin('p.Prices price')
-      ->andWhere('price.online = ?', true)
       ->leftJoin('price.Users u')
     ;
     if ( sfContext::hasInstance() )
