@@ -224,8 +224,9 @@ LI.pubNamedTicketsCherryPick = function(elt){
   $.each(['id', 'name', 'firstname', 'title', 'email'], function(i, field){
     ticket.find('.contact_'+field).find('select, input').val(
       $(elt).find('option:selected').attr('data-'+field)
-    ).change();
+    );
   });
+  ticket.find('.contact_email input').change();
   
   // remove it from other lists
   $(elt).closest('form').find('.cherry-pick option[value="'+$(elt).val()+'"]').remove();
