@@ -18,7 +18,7 @@
       <td class="method"><?php echo $method ?></td>
       <td class="see-more"><a href="#<?php echo $method->id ?>">+</a></td>
       <td class="id-qty"><?php echo $qty = $method->Payments->count() ?></td>
-      <td class="value"><?php echo format_currency($value,'€'); $value += $payment->value ?></td>
+      <td class="value"><?php echo format_currency($value,$sf_context->getConfiguration()->getCurrency()); $value += $payment->value ?></td>
       <td class="ref">#<?php echo $method->account ?></td>
       <td class="date"></td>
       <td class="user"></td>
@@ -30,7 +30,7 @@
       <td class="id-qty">#<?php echo $sf_user->hasCredential('tck-transaction')
         ? link_to($payment->Transaction,'ticket/sell?id='.$payment->Transaction->id)
         : $payment->Transaction ?></td>
-      <td class="value"><?php echo format_currency($payment->value,'€'); $value += $payment->value ?></td>
+      <td class="value"><?php echo format_currency($payment->value,$sf_context->getConfiguration()->getCurrency()); $value += $payment->value ?></td>
       <td class="ref">
         <?php
           $transaction = $payment->getRaw('Transaction');
@@ -57,7 +57,7 @@
     <td class="method"><?php echo __('Total') ?></td>
     <td class="see-more"></td>
     <td class="id-qty"><?php echo $total['qty'] ?></td>
-    <td class="value"><?php echo format_currency($total['value'],'€'); ?></td>
+    <td class="value"><?php echo format_currency($total['value'],$sf_context->getConfiguration()->getCurrency()); ?></td>
     <td class="ref"></td>
     <td class="date"></td>
     <td class="user"></td>

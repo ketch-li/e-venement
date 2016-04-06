@@ -12,7 +12,7 @@
     <?php $ticks = array(); foreach ( $transaction->Tickets as $ticket ) if ( is_null($ticket->duplicating) ) $ticks[$transaction->type == 'cancelling' ? $ticket->cancelling : $ticket->id] = $ticket->value + $ticket->taxes; ?>
     <?php foreach ( $transaction->BoughtProducts as $bp ) $ticks['bp-'.$bp->id] = $bp->value ?>
     <strong class="translinked"  title="#<?php echo $transaction->transaction_id ?>"><?php echo __('Transaction #%%id%%:',array('%%id%%' => $transaction->id)) ?></strong>
-    <span id="to_pay"><?php echo format_currency(array_sum($ticks),'€') ?></span>
+    <span id="to_pay"><?php echo format_currency(array_sum($ticks),$sf_context->getConfiguration()->getCurrency()) ?></span>
     <span id="original_transaction">(#<a href="<?php echo url_for('transaction/edit?id='.$transaction->transaction_id) ?>"><?php echo $transaction->transaction_id ?></a>)</span>
   </div>
   <div class="ui-corner-all ui-widget-content action" id="tickets">

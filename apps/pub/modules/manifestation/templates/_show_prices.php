@@ -158,9 +158,9 @@
       <?php echo $pm->Price->description ? $pm->Price->description : $pm->Price ?>
       <?php echo $form->renderHiddenFields() ?>
     </td>
-    <td class="value"><?php echo format_currency($value,'€') ?></td>
+    <td class="value"><?php echo format_currency($value,$sf_context->getConfiguration()->getCurrency()) ?></td>
     <td class="quantity"><?php echo $form['quantity'] ?></td>
-    <td class="total"><?php echo format_currency(0,'€') ?></td>
+    <td class="total"><?php echo format_currency(0,$sf_context->getConfiguration()->getCurrency()) ?></td>
     <td class="extra-taxes"></td>
   </tr>
 <?php endif ?>
@@ -173,7 +173,7 @@
     <td class="price"></td>
     <td class="value"></td>
     <td class="quantity"></td>
-    <td class="total"><?php echo format_currency(0,'€') ?></td>
+    <td class="total"><?php echo format_currency(0,$sf_context->getConfiguration()->getCurrency()) ?></td>
     <td class="extra-taxes"></td>
   </tr>
   <tr>

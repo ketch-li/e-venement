@@ -1,4 +1,5 @@
 <?php use_helper('Date','Number') ?>
+<?php use_javascript('helper?'.date('Ymd')) ?>
 <script type="text/javascript" language="javascript">
   //print();
   //close();
@@ -12,6 +13,9 @@
 <?php if ( isset($modifiable) && $modifiable ): ?>
 <script type="text/javascript">
 $(document).ready(function(){
+  var currency = LI.get_currency($('#totals .pit .float').text());
+  var fr_style = LI.currency_style($('#totals .pit .float').text()) == 'fr';
+  
   $('form.inline-modifications').submit(function() {
     return false;
   });
@@ -35,39 +39,28 @@ $(document).ready(function(){
     
     // on the current line
     $('#lines tbody .qty input').change(function(){
-      $(this).closest('tr').find('.pit').html(
-        (parseFloat($(this).closest('tr').find('.up').html()) * parseInt($(this).val())).toFixed(2)
-        + '&nbsp;€'
-      );
-      $(this).closest('tr').find('.tep').html(
-        (parseFloat($(this).closest('tr').find('.pit').html()) / (1 + parseFloat($(this).closest('tr').find('.vat .percent').html()) / 100)).toFixed(2)
-        + '&nbsp;€'
-      );
-      $(this).closest('tr').find('.vat .value').html(
-        (parseFloat($(this).closest('tr').find('.pit').html()) - parseFloat($(this).closest('tr').find('.tep').html())).toFixed(2)
-        + '&nbsp;€'
-      );
+      $(this).closest('tr').find('.pit').html(LI.format_currency(
+        LI.clear_currency($(this).closest('tr').find('.up').html()) * parseInt($(this).val()),
+        true, fr_style, currency));
+      $(this).closest('tr').find('.tep').html(LI.format_currency(
+        LI.clear_currency($(this).closest('tr').find('.pit').html()) / (1 + parseFloat($(this).closest('tr').find('.vat .percent').html()) / 100),
+        true, fr_style, currency));
+      $(this).closest('tr').find('.vat .value').html(LI.format_currency(
+        LI.clear_currency($(this).closest('tr').find('.pit').html()) - LI.clear_currency($(this).closest('tr').find('.tep').html()),
+        true, fr_style, currency));
       
       // on totals
       $('#totals .vat:not(:first)').remove();
       $('#totals .vat span:first').html($('#lines thead .vat span').html()+':');
-      $('#totals .vat .float').html('0&nbsp;€');
-      $('#lines tbody .vat .value').each(function(){
-        $('#totals .vat .float').html(
-          (parseFloat($('#totals .vat .float').html()) + parseFloat($(this).html())).toFixed(2) + '&nbsp;€'
-        );
-      });
-      $('#totals .tep .float').html('0&nbsp;€');
-      $('#lines tbody .tep').each(function(){
-        $('#totals .tep .float').html(
-          (parseFloat($('#totals .tep .float').html()) + parseFloat($(this).html())).toFixed(2) + '&nbsp;€'
-        );
-      });
-      $('#totals .pit .float').html('0&nbsp;€');
-      $('#lines tbody .pit').each(function(){
-        $('#totals .pit .float').html(
-          (parseFloat($('#totals .pit .float').html()) + parseFloat($(this).html())).toFixed(2) + '&nbsp;€'
-        );
+      var elt = this;
+      $.each(['vat', 'tep', 'pit'], function(i, sel){
+        $('#totals .'+sel+' .float').html(LI.format_currency(0, true, fr_style, currency));
+        $('#lines tbody .'+sel+' .value').each(function(){
+          $('#totals .'+sel+' .float').html(LI.format_currency(
+            LI.clear_currency($('#totals .'+sel+' .float').html()) + LI.clear_currency($(elt).html()),
+            true, fr_style, currency
+          ));
+        });
       });
     });
     return false;

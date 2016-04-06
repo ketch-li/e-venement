@@ -538,9 +538,9 @@
               'id'  => $pp->price_id,
               'name'  => (string)$pp->Price,
               'description'  => $pp->Price->description,
-              'value' => format_currency($pp->value,'€'),
+              'value' => format_currency($pp->value,$this->getContext()->getConfiguration()->getCurrency()),
               'raw_value' => floatval($pp->value),
-              'currency' => '€',
+              'currency' => $this->getContext()->getConfiguration()->getCurrency(),
             );
           }
           ksort($this->json[$product->id][$this->json[$product->id]['declinations_name']][$declination->id]['available_prices']);

@@ -40,7 +40,7 @@
           class="declination"
           name="link[declination_id]"
           onchange="javascript: $(this).closest('form').submit();"
-          title="<?php echo format_currency($max_price['value'],'€') ?>"
+          title="<?php echo format_currency($max_price['value'],$sf_context->getConfiguration()->getCurrency()) ?>"
         >
           <option></option>
           <?php foreach ( $link->Declinations as $declination ): ?>

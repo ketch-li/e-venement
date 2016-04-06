@@ -51,7 +51,7 @@
         <span><?php echo __('%%nb%% ticket(s)',array('%%nb%%' => $printed)) ?></span>
         <?php if ( $printed < $manif->Tickets->count() ): ?><span><?php echo __('%%nb%% booked',array('%%nb%%' => $manif->Tickets->count() - $printed )) ?></span><?php endif ?>
       </td>
-      <td class="tickets_value"><span><?php $value = 0; foreach ( $manif->Tickets as $ticket ) $value += $ticket->value; echo format_currency($value,'€'); ?></span></td>
+      <td class="tickets_value"><span><?php $value = 0; foreach ( $manif->Tickets as $ticket ) $value += $ticket->value; echo format_currency($value,$sf_context->getConfiguration()->getCurrency()); ?></span></td>
       <td class="transactions"><?php $arr = array(); foreach ( $manif->Tickets as $ticket ) $arr[$ticket->transaction_id] = '#'.cross_app_link_to($ticket->transaction_id,'tck','ticket/sell?id='.$ticket->transaction_id); echo implode(', ',$arr) ?></span></td>
     </tr>
     <?php endforeach ?>

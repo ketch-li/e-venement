@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.1">
+  <file source-language="EN" target-language="BR" datatype="plaintext" original="messages" date="2016/01/18 09:37:18" product-name="messages">
+    <body>
+      <trans-unit xml:space="preserve" id="2" approved="yes">
+        <source>Short name</source>
+        <target state="translated">Anv berr</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="3" approved="yes">
+        <source>Prioritary</source>
+        <target state="translated">Priorek</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="4" approved="yes">
+        <source>Synthetic view</source>
+        <target state="translated">Gwel sintetek</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="5" approved="yes">
+        <source>See everything</source>
+        <target state="translated">Gwelet pep tra</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="6" approved="yes">
+        <source>New Product</source>
+        <target state="translated">Produ nevez</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="7" approved="yes">
+        <source>Product List</source>
+        <target state="translated">Roll ar produioù</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="8" approved="yes">
+        <source>New Category</source>
+        <target state="translated">Rummad nevez</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="9" approved="yes">
+        <source>List of products' categories</source>
+        <target state="translated">Roll ar rummadoù produioù</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="10" approved="yes">
+        <source>Edit category %%name%%</source>
+        <target state="translated">Aozañ ar rummad %%name%%</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="11" approved="yes">
+        <source>New Price</source>
+        <target state="translated">Priz nevez</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="12" approved="yes">
+        <source>List of associated prices</source>
+        <target state="translated">Roll ar prizioù kevelet</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="13" approved="yes">
+        <source>Edit price %%name%%</source>
+        <target state="translated">Aozañ ar priz %%name%%</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="14" approved="yes">
+        <source>Filters</source>
+        <target state="translated">Siloù</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="15" approved="yes">
+        <source>Actions</source>
+        <target state="translated">Oberoù</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="16" approved="yes">
+        <source>Updated at</source>
+        <target state="translated">Hizivaet d'an</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="17" approved="yes">
+        <source>Price</source>
+        <target state="translated">Priz</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="18" approved="yes">
+        <source>Workspaces</source>
+        <target state="translated">Lec'hioù labour</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="19" approved="yes">
+        <source>Meta events</source>
+        <target state="translated">Meta-abadennoù</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="20" approved="yes">
+        <source>Products</source>
+        <target state="translated">Produioù</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="21" approved="yes">
+        <source>Prices</source>
+        <target state="translated">Prizioù</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="22" approved="yes">
+        <source>Manifestations</source>
+        <target state="translated">Abadennoù</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="23" approved="yes">
+        <source>Meta event</source>
+        <target state="translated">Meta-abadenn</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="24" approved="yes">
+        <source>Links</source>
+        <target state="translated">Liammoù</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="25" approved="yes">
+        <source>Add declination&lt;span class="ui-icon ui-icon-circle-plus"&gt;&lt;/span&gt;</source>
+        <target state="translated">Ouzhpennañ un deklinadur&lt;span class="ui-icon ui-icon-circle-plus"&gt;&lt;/span&gt;</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="26" approved="yes">
+        <source>Declinations</source>
+        <target state="translated">Deklinadurioù</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="27" approved="yes">
+        <source>Prices list</source>
+        <target state="translated">Roll ar prizioù</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="28" approved="yes">
+        <source>Vat</source>
+        <target state="translated">TGO</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="29" approved="yes">
+        <source>Online</source>
+        <target state="translated">Enlinenn</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="30" approved="yes">
+        <source>Code</source>
+        <target state="translated">Kod</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="31" approved="yes">
+        <source>Description for buyers</source>
+        <target state="translated">Deskrivadur evit ar brenerien</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="32" approved="yes">
+        <source>Description</source>
+        <target state="translated">Deskrivadur</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="33" approved="yes">
+        <source>Name</source>
+        <target state="translated">Anv</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="34" approved="yes">
+        <source>Picture</source>
+        <target state="translated">Skeudenn</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="35" approved="yes">
+        <source>Edit product %%name%%</source>
+        <target state="translated">Aozañ ar produ %%name%%</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="36" approved="yes">
+        <source>Category</source>
+        <target state="translated">Rummad</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="37" approved="yes">
+        <source>Choose what price will be displaid</source>
+        <target state="translated">Choazit peseurt prizioù a vo diskwelet</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="38" approved="yes">
+        <source>then set up their values</source>
+        <target state="translated">ha neuze lakait o zalvoudegezh</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="39" approved="yes">
+        <source>Account</source>
+        <target state="translated">Kont</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="40" approved="yes">
+        <source>A facilitator for accounting</source>
+        <target state="translated">Ur skoazell evit ar gontouriezh</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="41" approved="yes">
+        <source>Associating a product to a meta-event insures that it will not be sold again after this meta-event or if your users do not have access to this meta-event.</source>
+        <target state="translated">Pa geveler ur produ gant ur meta-abadenn e vezer sur ne vo ket gwerzhet goude honnezh pe ma ne c'hall ket ho implijerien mont dezhi</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="42" approved="yes">
+        <source>If it remains unset, it means 0%.</source>
+        <target state="translated">Ma n'eo ket diferet e talvez 0%.</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="43" approved="yes">
+        <source>Especially useful for online sales.</source>
+        <target state="translated">Talvoudus-kenañ evit ar gwerzhioù enlinenn</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="44" approved="yes">
+        <source>Codes</source>
+        <target state="translated">Kodoù</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="45" approved="yes">
+        <source>Shipping fees</source>
+        <target state="translated">Espediañ frezioù</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="46" approved="yes">
+        <source>VAT on shipping fees</source>
+        <target state="translated">TGO evit espediañ frezioù</target>
+      </trans-unit>
+      <trans-unit xml:space="preserve" id="47" approved="yes">
+        <source>Content File</source>
+        <target state="translated"></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

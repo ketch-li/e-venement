@@ -1,2 +1,2 @@
 <?php use_helper('Number') ?>
-<?php echo format_currency($member_card_type->value,'€') ?>
+<?php echo format_currency($member_card_type->value,$sf_context->getConfiguration()->getCurrency()) ?>

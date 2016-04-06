@@ -27,7 +27,7 @@
     </td>
     <td class="value">
       <?php if ( !is_null($pp->value) ): ?>
-        <?php echo format_currency($pp->value,'€') ?>
+        <?php echo format_currency($pp->value,$sf_context->getConfiguration()->getCurrency()) ?>
       <?php else: ?>
         <input
           type="text"
@@ -36,7 +36,7 @@
           name="store[free-price]"
           value="<?php echo isset($values[$pp->price_id]) ? floatval($values[$pp->price_id]) : sfConfig::get('project_tickets_free_price_default',1) ?>"
           <?php if ( isset($values[$pp->price_id]) ): ?>readonly="readonly"<?php endif ?>
-        />&nbsp;€
+        />&nbsp;<?php echo $sf_context->getConfiguration()->getCurrency() ?>
       <?php endif ?>
     </td>
     <td class="quantity">
@@ -58,7 +58,7 @@
         </select>
       </form>
     </td>
-    <td class="total"><?php echo format_currency(0,'€') ?></td>
+    <td class="total"><?php echo format_currency(0,$sf_context->getConfiguration()->getCurrency()) ?></td>
   </tr>
 <?php endif ?>
 <?php endforeach ?>
@@ -69,7 +69,7 @@
     <td class="price"></td>
     <td class="value"></td>
     <td class="quantity"></td>
-    <td class="total"><?php echo format_currency(0,'€') ?></td>
+    <td class="total"><?php echo format_currency(0,$sf_context->getConfiguration()->getCurrency()) ?></td>
   </tr>
 </tfoot>
 <thead>

@@ -1,3 +1,4 @@
+<?php use_javascript('helper') ?>
 <script type="text/javascript">
   function ticket_payment_form(data)
   {
@@ -41,7 +42,7 @@
     shortcuts.find('button').click(function(){
       $('#payment #payment_payment_method_id').val($(this).val());
       if ( !$('#payment #payment_value').val() )
-        $('#payment #payment_value').val(parseFloat($('#payment .sf_admin_list .change .sf_admin_list_td_list_value').html().replace(',','.').replace('&nbsp;','')));
+        $('#payment #payment_value').val(LI.clear_currency($('#payment .sf_admin_list .change .sf_admin_list_td_list_value').html()));
       $('#payment form').submit();
       return false;
     });
@@ -69,19 +70,20 @@
       echo url_for('payment/index').'?transaction_id[]='.implode('&transaction_id[]=',$ids);
     ?>',function(data){
       data = $.parseHTML(data);
-      var currency = '&nbsp;€'; //$('#prices .total .total').html().replace("\n",'').replace(/^\s*\d+[,\.]\d+/g,'');
+      var currency = LI.get_currency($('#topay #to_pay').html());
+      var fr_style = LI.currency_style($('#topay #to_pay').html()) == 'fr';
       
-      total = parseFloat($('#payment .total .sf_admin_list_td_list_value').html());
+      total = LI.clear_currency($('#payment .total .sf_admin_list_td_list_value').html());
       related = 0;
       $(data).find('.sf_admin_list >> tbody .sf_admin_list_td_list_value').each(function(){
-        related += parseFloat($(this).html().replace(',','.'));
+        related += LI.clear_currency($(this).html());
       });
       
       if ( !related )
         return ;
       
       $(data).find('.sf_admin_list >> tbody')
-        .append('<tr class="sf_admin_row total ui-widget-content"><td></td><td colspan="2" class="sf_admin_text"><?php echo __('Really paid total') ?></td><td class="sf_admin_text sf_admin_list_td_list_value">'+(total+related).toFixed(2)+currency+'</td><td></td></tr>')
+        .append('<tr class="sf_admin_row total ui-widget-content"><td></td><td colspan="2" class="sf_admin_text"><?php echo __('Really paid total') ?></td><td class="sf_admin_text sf_admin_list_td_list_value">'+LI.format_currency(total+related, true, fr_style, currency)'</td><td></td></tr>')
         .prepend('<tr class="sf_admin_row label ui-widget-content"><td></td><td colspan="3" class="sf_admin_text"><?php echo __('Paybacks') ?></td><td></td></tr>');
       lines = $(data).find('.sf_admin_list >> tbody > tr').addClass('related');
       lines.find('td:first-child').hide();
@@ -125,12 +127,13 @@
     });
     
     var pay_total = 0;
-    var currency = '&nbsp;€'; //$('#prices .total .total').html().replace("\n",'').replace(/^\s*\d+[,\.]\d+/g,'');
+    var currency = LI.get_currency($('#topay #to_pay').html());
+    var fr_style = LI.currency_style($('#topay #to_pay').html()) == 'fr';
     $('#payment tbody .sf_admin_list_td_list_value').each(function(){
-      pay_total += parseFloat($(this).html().replace(',','.').replace('&nbsp;',''));
+      pay_total += LI.clear_currency($(this).html());
     });
     $('#payment tbody')
-      .append('<tr class="sf_admin_row ui-widget-content odd total"><td colspan="2" class="sf_admin_text"><?php echo __('Total') ?></td><td class="sf_admin_text sf_admin_list_td_list_value">'+pay_total.toFixed(2)+currency+'</td><td></td></tr>')
+      .append('<tr class="sf_admin_row ui-widget-content odd total"><td colspan="2" class="sf_admin_text"><?php echo __('Total') ?></td><td class="sf_admin_text sf_admin_list_td_list_value">'+LI.format_currency(pay_total, true, fr_style, currency)+'</td><td></td></tr>')
       .append('<tr class="sf_admin_row ui-widget-content odd topay"><td colspan="2" class="sf_admin_text"><?php echo __('To pay') ?></td><td class="sf_admin_text sf_admin_list_td_list_value"></td><td></td></tr>')
       .append('<tr class="sf_admin_row ui-widget-content odd change"><td colspan="2" class="sf_admin_text"><?php echo __('Still missing') ?></td><td class="sf_admin_text sf_admin_list_td_list_value"></td><td></td></tr>');
     ticket_process_amount(add);

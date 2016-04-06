@@ -29,6 +29,9 @@ class rpConfiguration extends sfApplicationConfiguration
     $this->dispatcher->connect('admin.save_object', array($this, 'setSpecialFlash'));
     $this->dispatcher->connect('admin.save_object', array($this, 'addPhoneNumber'));
     $this->dispatcher->connect('user.change_authentication', array($this, 'logAuthentication'));
+    
+    if ( !sfConfig::has('app_options_design') )
+      sfConfig::set('app_options_design', 'tdp');
   }
   public function initialize()
   {

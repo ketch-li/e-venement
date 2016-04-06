@@ -23,13 +23,36 @@
 ?>
 <?php
     $this->preLinks($request);
+    $ids = $request->getParameter('gauges_list', false);
     
-    $q = Doctrine::getTable('Seat')->createQuery('s')
-      ->andWhere('s.seated_plan_id = ?', $request->getParameter('id'))
-    ;
+    if ( is_array($ids) )
+    {
+      $q = Doctrine::getTable('SeatedPlan')->createQuery('sp')
+        ->leftJoin('sp.Seats s')
+        ->leftJoin('sp.Workspaces ws')
+        ->leftJoin('ws.Gauges g')
+        ->andWhereIn('g.id', $ids)
+        ->leftJoin('g.Manifestation m')
+        ->leftJoin('m.Event e')
+        ->leftJoin('e.MetaEvent me')
+        ->leftJoin('m.Location l')
+        ->andWhere('l.id = sp.location_id')
+
+        ->select('sp.*, s.*')
+      ;
+      $this->seated_plans = $q->execute();
+      $this->forward404Unless($this->seated_plans->count() > 0);
+    }
+    elseif ( $id = $request->getParameter('id') )
+    {
+      $this->executeEdit($request);
+      $this->seated_plans = new Doctrine_Collection('SeatedPlan');
+      $this->seated_plans[] = $this->seated_plan;
+    }
     
     $this->data = array();
-    foreach ( $q->execute() as $seat )
+    foreach ( $this->seated_plans as $sp )
+    foreach ( $sp->Seats as $seat )
     {
       if ( !$seat->rank )
         continue;

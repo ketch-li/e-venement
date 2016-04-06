@@ -466,7 +466,7 @@ class Manifestation extends PluginManifestation implements liUserAccessInterface
       elseif ( $buf/60/60/24/90 <= 1 ) // between 1 month & 3 month ago
         $interval = ($buf/60/60/90+7).' days ago';
       else // more than 3 month ago
-        $interval = '17 days '.$rand.' minutesago';
+        $interval = '17 days '.$rand.' minutes ago';
     }
     elseif ( strtotime($this->ends_at) > time() ) // in the future
     {
@@ -478,7 +478,7 @@ class Manifestation extends PluginManifestation implements liUserAccessInterface
       elseif ( $buf/60/60/24/90 <= 1 ) // between 1 month & 3 month ago
         $interval = ($buf/60/60/90+7).' days ago';
       else // more than 3 month ago
-        $interval = '17 days '.$rand.' minutesago';
+        $interval = '17 days '.$rand.' minutes ago';
     }
 
     return $interval;

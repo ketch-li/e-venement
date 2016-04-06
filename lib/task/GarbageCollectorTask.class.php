@@ -31,14 +31,14 @@ class GarbageCollectorTask extends sfBaseTask{
       new sfCommandArgument('id', sfCommandArgument::OPTIONAL, 'The identifier to process'),
     ));
     $this->addOptions(array(
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'prod'),
+      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'task'),
     ));
     $this->namespace = 'e-venement';
     $this->name = 'garbage-collector';
     $this->briefDescription = 'Executes garbage collectors for an application';
     $this->detailedDescription = <<<EOF
       The [gc:garbage-collector|INFO] Executes garbage collectors for an application:
-      [./symfony e-venement:garbage-collector --env=prod tck [wip] [id]|INFO]
+      [./symfony e-venement:garbage-collector --env=task tck [wip] [id]|INFO]
 EOF;
   }
 

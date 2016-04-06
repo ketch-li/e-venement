@@ -32,7 +32,7 @@ class member_cardActions extends autoMember_cardActions
         'contact' => (string)$mc->Contact,
         'created_at' => format_date($mc->created_at),
         'expire_at' => format_date($mc->expire_at),
-        'value' => format_currency($mc->getValue(),'€'),
+        'value' => format_currency($mc->getValue(),$this->getContext()->getConfiguration()->getCurrency()),
       );
     
     $params = OptionCsvForm::getDBOptions();

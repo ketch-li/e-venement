@@ -75,8 +75,8 @@
         unset($manif['manif']);
         foreach ( $manif as $tickets )
         {
-          $command .= "&nbsp;&nbsp;&nbsp;&nbsp;".($tickets['price']->description ? $tickets['price']->description : $tickets['price'])." x ".$tickets['qty']." = ".format_currency($tickets['value'],'€');
-          $command .= $tickets['taxes'] ? '    + '.format_currency($tickets['taxes'],'€').' ('.__('Ticketting fees').')' : '';
+          $command .= "&nbsp;&nbsp;&nbsp;&nbsp;".($tickets['price']->description ? $tickets['price']->description : $tickets['price'])." x ".$tickets['qty']." = ".format_currency($tickets['value'],sfContext::getInstance()->getConfiguration()->getCurrency());
+          $command .= $tickets['taxes'] ? '    + '.format_currency($tickets['taxes'],sfContext::getInstance()->getConfiguration()->getCurrency()).' ('.__('Ticketting fees').')' : '';
           $command .= "\n";
         }
       }
@@ -111,8 +111,8 @@
         unset($declination['declination']);
         foreach ( $declination as $bps )
         {
-          $command .= "&nbsp;&nbsp;&nbsp;&nbsp;".($bps['price'] ? $bps['price'] : $bps['price'])." x ".$bps['qty']." = ".format_currency($bps['value'],'€');
-          $command .= $bps['taxes'] ? '    + '.format_currency($bps['taxes'],'€').' ('.__('Shipping fees').')' : '';
+          $command .= "&nbsp;&nbsp;&nbsp;&nbsp;".($bps['price'] ? $bps['price'] : $bps['price'])." x ".$bps['qty']." = ".format_currency($bps['value'],sfContext::getInstance()->getConfiguration()->getCurrency());
+          $command .= $bps['taxes'] ? '    + '.format_currency($bps['taxes'],sfContext::getInstance()->getConfiguration()->getCurrency()).' ('.__('Shipping fees').')' : '';
           $command .= "\n";
         }
       }
@@ -131,11 +131,11 @@
     $command .= "\n";
     $command .= __('Total')."\n";
     if ( ($amount = $transaction->getTicketsPrice(true)) || $transaction->Tickets->count() > 0 )
-    $command .= "&nbsp;&nbsp;".__('Tickets').": ".format_currency($amount,'€')."\n";
+    $command .= "&nbsp;&nbsp;".__('Tickets').": ".format_currency($amount,sfContext::getInstance()->getConfiguration()->getCurrency())."\n";
     if ( $amount = $transaction->getProductsPrice(true) )
-    $command .= "&nbsp;&nbsp;".__('Store').": ".format_currency($amount,'€')."\n";
+    $command .= "&nbsp;&nbsp;".__('Store').": ".format_currency($amount,sfContext::getInstance()->getConfiguration()->getCurrency())."\n";
     if ( $amount = $transaction->getMemberCardPrice(true) )
-    $command .= "&nbsp;&nbsp;".__('Member cards').": ".format_currency($amount,'€')."\n";
+    $command .= "&nbsp;&nbsp;".__('Member cards').": ".format_currency($amount,sfContext::getInstance()->getConfiguration()->getCurrency())."\n";
     if ( sfConfig::get('app_payment_type', 'paybox') != 'onthespot' )
     {
       $payments = '';
@@ -143,12 +143,12 @@
       $cpt = 0;
       foreach ( $transaction->Payments as $payment )
       {
-        $payments .= "&nbsp;&nbsp;".$payment->Method.": ".format_currency($payment->value,'€')."\n";
+        $payments .= "&nbsp;&nbsp;".$payment->Method.": ".format_currency($payment->value,sfContext::getInstance()->getConfiguration()->getCurrency())."\n";
         $amount += $payment->value;
         $cpt++;
       }
       if ( $cpt > 1 )
-        $payments .= "&nbsp;&nbsp;Total: ".format_currency($amount,'€')."\n";
+        $payments .= "&nbsp;&nbsp;".$payment->Method.": ".format_currency($transaction->getPrice(true,true),sfContext::getInstance()->getConfiguration()->getCurrency())."\n";
       if ( $payments )
       {
         $command .= "\n";
@@ -161,7 +161,7 @@
       '%%DATE%%' => format_date(date('Y-m-d')),
       '%%CONTACT%%' => (string)$transaction->Contact,
       '%%EMAIL%%'   => $transaction->Contact->email,
-      '%%PRICE%%'   => format_currency($transaction->getPrice(true,true),'€'),
+      '%%PRICE%%'   => format_currency($transaction->getPrice(true,true),sfContext::getInstance()->getConfiguration()->getCurrency()),
       '%%ADDRESS%%' => $transaction->Contact->address."\n".$transaction->Contact->postalcode.' '.$transaction->Contact->city."\n".$transaction->Contact->country,
       '%%TRANSACTION_ID%%' => $transaction->id,
       '%%SELLER%%' => sfConfig::get('app_informations_title'),

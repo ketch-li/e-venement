@@ -12,16 +12,16 @@
         <?php echo __('@') ?>
         <?php echo cross_app_link_to($tr['o_name'],'rp','organism/show?id='.$tr['o_id']) ?> (<?php echo $tr['o_city'] ?>)
       </td>
-      <td class="nb topay"><?php echo format_currency($tr['topay'],'€') ?></td>
-      <td class="nb paid"><?php echo format_currency($tr['paid'],'€') ?></td>
-      <td class="nb total"><?php echo format_currency($tr['topay'] - $tr['paid'],'€'); $diff += $tr['topay'] - $tr['paid']; ?></td>
+      <td class="nb topay"><?php echo format_currency($tr['topay'],$sf_context->getConfiguration()->getCurrency()) ?></td>
+      <td class="nb paid"><?php echo format_currency($tr['paid'],$sf_context->getConfiguration()->getCurrency()) ?></td>
+      <td class="nb total"><?php echo format_currency($tr['topay'] - $tr['paid'],$sf_context->getConfiguration()->getCurrency()); $diff += $tr['topay'] - $tr['paid']; ?></td>
     </tr>
     <?php endforeach ?>
   </tbody>
   <tfoot>
     <tr>
       <td colspan="4" class="total"><?php echo __('Total debt') ?></td>
-      <td class="nb"><?php echo format_currency($diff,'€') ?></td>
+      <td class="nb"><?php echo format_currency($diff,$sf_context->getConfiguration()->getCurrency()) ?></td>
     </tr>
   </tfoot>
   <thead>

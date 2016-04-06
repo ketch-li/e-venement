@@ -28,7 +28,7 @@
     <td class="postalcode inline-modifiable"><?php echo $ticket->Manifestation->Location->postalcode ?></td>
     <td class="city inline-modifiable"><?php echo $ticket->Manifestation->Location->city ?></td>
     <td class="price"><?php echo $ticket->Price->description ?></td>
-    <td class="up"><?php echo format_currency($ticket->value,'€') ?></td>
+    <td class="up"><?php echo format_currency($ticket->value,$sf_context->getConfiguration()->getCurrency()) ?></td>
     <?php
       $qty = 0;
       $nums = array();
@@ -60,13 +60,13 @@
     ?>
     <td class="qty inline-modifiable"><?php echo $qty; ?></td>
     <td class="seats"><span><?php echo count($nums) > 20 ? '' : implode('<span>, </span>', $nums) ?></span></td>
-    <td class="extra-taxes"><?php echo $total['taxes'] ? format_currency($total['taxes'],'€') : '-'; $totals['taxes'] += $total['taxes']; ?></td>
-    <td class="pit"><?php echo format_currency($total['tip'],'€'); $totals['tip'] += $total['tip']; ?></td>
+    <td class="extra-taxes"><?php echo $total['taxes'] ? format_currency($total['taxes'],$sf_context->getConfiguration()->getCurrency()) : '-'; $totals['taxes'] += $total['taxes']; ?></td>
+    <td class="pit"><?php echo format_currency($total['tip'],$sf_context->getConfiguration()->getCurrency()); $totals['tip'] += $total['tip']; ?></td>
     <td class="vat">
-      <span class="value"><?php echo $total['vat'] > 0 ? format_currency($total['vat'],'€') : '-' ?></span>
+      <span class="value"><?php echo $total['vat'] > 0 ? format_currency($total['vat'],$sf_context->getConfiguration()->getCurrency()) : '-' ?></span>
       <span class="percent"><?php echo $local_vat * 100 ?></span>
     </td>
-    <td class="tep"><?php echo format_currency($total['pet'],'€'); $totals['pet'] += $total['pet'] ?></td>
+    <td class="tep"><?php echo format_currency($total['pet'],$sf_context->getConfiguration()->getCurrency()); $totals['pet'] += $total['pet'] ?></td>
   </tr>
 <?php endif ?>
 <?php endfor ?>
@@ -78,7 +78,7 @@
     <td class="time inline-modifiable" colspan="2"><?php echo $product->code ?></td>
     <td class="location inline-modifiable" colspan="2"><?php echo $product->declination ?></td>
     <td class="price"><?php echo $product->price_id ? $product->Price->description : $product->price_name ?></td>
-    <td class="up"><?php echo format_currency($product->value,'€') ?></td>
+    <td class="up"><?php echo format_currency($product->value,$sf_context->getConfiguration()->getCurrency()) ?></td>
     <?php
       $qty = 0;
       $total = array('tip' => 0, 'taxes' => 0, 'vat' => 0, 'pet' => 0,);
@@ -101,13 +101,13 @@
     ?>
     <td class="qty inline-modifiable"><?php echo $qty; ?></td>
     <td class="seats"></td>
-    <td class="extra-taxes"><?php echo $total['taxes'] ? format_currency($total['taxes'],'€') : '-'; $totals['taxes'] += $total['taxes']; ?></td>
-    <td class="pit"><?php echo format_currency($total['tip'],'€'); $totals['tip'] += $total['tip']; ?></td>
+    <td class="extra-taxes"><?php echo $total['taxes'] ? format_currency($total['taxes'],$sf_context->getConfiguration()->getCurrency()) : '-'; $totals['taxes'] += $total['taxes']; ?></td>
+    <td class="pit"><?php echo format_currency($total['tip'],$sf_context->getConfiguration()->getCurrency()); $totals['tip'] += $total['tip']; ?></td>
     <td class="vat">
-      <span class="value"><?php echo format_currency($total['vat'],'€') ?></span>
+      <span class="value"><?php echo format_currency($total['vat'],$sf_context->getConfiguration()->getCurrency()) ?></span>
       <span class="percent"><?php echo $product->vat * 100 ?></span>
     </td>
-    <td class="tep"><?php echo format_currency($total['pet'],'€'); $totals['pet'] += $total['pet'] ?></td>
+    <td class="tep"><?php echo format_currency($total['pet'],$sf_context->getConfiguration()->getCurrency()); $totals['pet'] += $total['pet'] ?></td>
   </tr>
 <?php endif ?>
 <?php endfor ?>

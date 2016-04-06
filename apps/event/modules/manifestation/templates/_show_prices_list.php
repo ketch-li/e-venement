@@ -16,7 +16,7 @@
     <tr>
       <td class="name"><?php echo $price->Price ?></td>
       <td class="description"><?php echo $price->Price->description ?></td>
-      <td class="value"><?php echo format_currency($price->value,'€') ?></td>
+      <td class="value"><?php echo format_currency($price->value,$sf_context->getConfiguration()->getCurrency()) ?></td>
     </tr>
     <?php endforeach ?>
     <?php endif ?>

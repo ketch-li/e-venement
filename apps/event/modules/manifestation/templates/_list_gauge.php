@@ -103,18 +103,18 @@
 ?>
 <?php if ( sfConfig::get('project_tickets_count_demands',false) ): ?>
 <?php echo __('<strong class="booked">%%b%%</strong>/<strong class="total">%%t%%</strong> (<span title="sold" class="sold">%%p%%</span>-<span title="ordered" class="ordered">%%o%%</span>-<span title="asked" class="asked">%%a%%</span>)', array(
-    '%%p%%' => $full === 'with_value' ? format_currency($tickets['printed'],'€') : $tickets['printed'],
-    '%%o%%' => $full === 'with_value' ? format_currency($tickets['ordered'],'€') : $tickets['ordered'],
-    '%%a%%' => $full === 'with_value' ? format_currency($tickets['asked'],'€') : $tickets['asked'],
-    '%%b%%' => $full === 'with_value' ? format_currency($tickets['booked'],'€') : $tickets['booked'],
-    '%%t%%' => $full === 'with_value' ? format_currency($tickets['total'],'€') : $tickets['total'],
+    '%%p%%' => $full === 'with_value' ? format_currency($tickets['printed'],$sf_context->getConfiguration()->getCurrency()) : $tickets['printed'],
+    '%%o%%' => $full === 'with_value' ? format_currency($tickets['ordered'],$sf_context->getConfiguration()->getCurrency()) : $tickets['ordered'],
+    '%%a%%' => $full === 'with_value' ? format_currency($tickets['asked'],$sf_context->getConfiguration()->getCurrency()) : $tickets['asked'],
+    '%%b%%' => $full === 'with_value' ? format_currency($tickets['booked'],$sf_context->getConfiguration()->getCurrency()) : $tickets['booked'],
+    '%%t%%' => $full === 'with_value' ? format_currency($tickets['total'],$sf_context->getConfiguration()->getCurrency()) : $tickets['total'],
   )) ?>
 <?php else: ?>
 <?php echo __('<strong class="booked">%%b%%</strong>/<strong class="total">%%t%%</strong> (<span title="sold" class="sold">%%p%%</span>-<span title="ordered" class="ordered">%%o%%</span>)', array(
-    '%%p%%' => $full === 'with_value' ? format_currency($tickets['printed'],'€') : $tickets['printed'],
-    '%%o%%' => $full === 'with_value' ? format_currency($tickets['ordered'],'€') : $tickets['ordered'],
-    '%%b%%' => $full === 'with_value' ? format_currency($tickets['booked'],'€') : $tickets['booked'],
-    '%%t%%' => $full === 'with_value' ? format_currency($tickets['total'],'€') : $tickets['total'],
+    '%%p%%' => $full === 'with_value' ? format_currency($tickets['printed'],$sf_context->getConfiguration()->getCurrency()) : $tickets['printed'],
+    '%%o%%' => $full === 'with_value' ? format_currency($tickets['ordered'],$sf_context->getConfiguration()->getCurrency()) : $tickets['ordered'],
+    '%%b%%' => $full === 'with_value' ? format_currency($tickets['booked'],$sf_context->getConfiguration()->getCurrency()) : $tickets['booked'],
+    '%%t%%' => $full === 'with_value' ? format_currency($tickets['total'],$sf_context->getConfiguration()->getCurrency()) : $tickets['total'],
   )) ?>
 <?php endif ?>
 <?php else: ?>
