@@ -431,10 +431,18 @@ LI.checkGauges = function(form, submitHandler){
             // all gauges are ready to be filled... let's goooo
             $(form).clone(true).removeAttr('onsubmit').unbind('submit').appendTo('body')
               .submit(submitHandler).submit().remove();
-            setTimeout(function(){ LI.initContent(); }, 1000);
+            setTimeout(function(){ LI.initContent(); }, 1500);
           }
         }
       });
+    }
+    // for simplified printing, which allows more than one print
+    else
+    if ( $(this).find('tbody .declination:not(.printed) [name="qty"]').length > 0 )
+    {
+      $(form).clone(true).removeAttr('onsubmit').unbind('submit').appendTo('body')
+        .submit(submitHandler).submit().remove();
+      setTimeout(function(){ LI.initContent(); }, 1500);
     }
   });
   return go;
