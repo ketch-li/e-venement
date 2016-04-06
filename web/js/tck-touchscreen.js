@@ -377,18 +377,27 @@ LI.checkGauges = function(form, submitHandler){
     && $('#li_transaction_field_content #li_transaction_museum .families:not(.sample) .item tbody .declination [name="qty"]').length == 0
     && $('#li_transaction_field_content #li_transaction_store .families:not(.sample) .item tbody .declination [name="qty"]').length > 0 )
   {
+    console.error('checkGauges 2');
     $(form).clone(true).removeAttr('onsubmit').appendTo('body').submit().remove();
     return;
   }
+  
+  // function that valids the form
+  var submitForm = function(){
+    $(form).clone(true).removeAttr('onsubmit').unbind('submit').appendTo('body')
+      .submit(submitHandler).submit().remove();
+    setTimeout(function(){ LI.initContent(); }, 1500);
+  }
+  if ( submitHandler == undefined )
+    submitHandler = function(){ };
 
   // if there is only tickets for museums
   if ( $('#li_transaction_field_content #li_transaction_manifestations .families:not(.sample) .item tbody .declination [name="qty"]').length == 0
     && $('#li_transaction_field_content #li_transaction_museum .families:not(.sample) .item tbody .declination [name="qty"]').length > 0 )
-    return true;
+    submitForm();
 
-  var qty = 0;
   var go = true;
-
+  var loops = $('#li_transaction_field_content #li_transaction_manifestations .families:not(.sample) .item').length;
   $('#li_transaction_field_content #li_transaction_manifestations .families:not(.sample) .item').each(function(){
     if ( go == false )
       return;
@@ -396,8 +405,8 @@ LI.checkGauges = function(form, submitHandler){
     if ( $(this).find('tbody .declination:not(.printed):not(.integrated) [name="qty"]').length > 0 )
     {
       var gauge = this;
-      qty++;
       $.get($(this).find('.data .gauge.raw').prop('href'), function(data){
+        loops--;
         var elts = $(gauge).find('tbody .declination:not(.active) [name="qty"]');
         $(gauge).find('.data .gauge.raw').html(JSON.stringify(data));
         LI.renderGauge(gauge, true);
@@ -417,22 +426,20 @@ LI.checkGauges = function(form, submitHandler){
           LI.blinkQuantities(elts, true);
         }
 
-        qty--;
-        if ( qty == 0 )
+        // triggered when all loops/items have been processed
+        if ( loops == 0 )
         {
           var type = $('#li_transaction_field_close .overbooking .type').attr('data-type');
           if ( go == false && type == 'block' )
           {
             // if the user cannot overbook, give him an alert
             LI.alert($('#li_transaction_field_close .overbooking .msg.'+type).html());
+            return;
           }
-          else if ( go || confirm($('#li_transaction_field_close .overbooking .msg.warn').text()) )
-          {
-            // all gauges are ready to be filled... let's goooo
-            $(form).clone(true).removeAttr('onsubmit').unbind('submit').appendTo('body')
-              .submit(submitHandler).submit().remove();
-            setTimeout(function(){ LI.initContent(); }, 1500);
-          }
+          
+          // if we can go or we force overbooking, valid the loop 
+          if ( go || confirm($('#li_transaction_field_close .overbooking .msg.warn').text()) )
+            submitForm();
         }
       });
     }
@@ -440,9 +447,8 @@ LI.checkGauges = function(form, submitHandler){
     else
     if ( $(this).find('tbody .declination:not(.printed) [name="qty"]').length > 0 )
     {
-      $(form).clone(true).removeAttr('onsubmit').unbind('submit').appendTo('body')
-        .submit(submitHandler).submit().remove();
-      setTimeout(function(){ LI.initContent(); }, 1500);
+      submitForm();
+      go = false; // avoids many loops and many forms submissions
     }
   });
   return go;
