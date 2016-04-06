@@ -135,11 +135,14 @@ class organismActions extends autoOrganismActions
     $filters = $request->getParameter($this->getModuleName().'_filters');
     
     try {
+      error_log(print_r($_POST,true));
       $validator = new sfValidatorDoctrineChoice(array('model' => 'Organism', 'multiple' => true, 'required' => false));
       $ids = $validator->clean($request->getParameter('ids'));
       $validator = new sfValidatorDoctrineChoice(array('model' => 'Group', 'multiple' => true));
-      $groups = $request->getParameter('groups');
-      $groups = $validator->clean($groups);
+      $groups = $validator->clean(isset($groups['groups_list'])
+        ? $groups['groups_list']
+        : $filters['groups_list']
+      );
     }
     catch (sfValidatorError $e)
     {
