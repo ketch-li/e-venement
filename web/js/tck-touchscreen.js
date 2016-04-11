@@ -387,9 +387,7 @@ LI.checkGauges = function(form, submitHandler){
     $(form).clone(true).removeAttr('onsubmit').unbind('submit').appendTo('body')
       .submit(submitHandler).submit().remove();
     setTimeout(function(){ LI.initContent(); }, 1500);
-  }
-  if ( submitHandler == undefined )
-    submitHandler = function(){ };
+  };
 
   // if there is only tickets for museums
   if ( $('#li_transaction_field_content #li_transaction_manifestations .families:not(.sample) .item tbody .declination [name="qty"]').length == 0
@@ -397,8 +395,8 @@ LI.checkGauges = function(form, submitHandler){
     submitForm();
 
   var go = true;
-  var loops = $('#li_transaction_field_content #li_transaction_manifestations .families:not(.sample) .item').length;
-  $('#li_transaction_field_content #li_transaction_manifestations .families:not(.sample) .item').each(function(){
+  var loops = $('#li_transaction_field_content #li_transaction_manifestations .families:not(.sample) .item:not(.total)').length;
+  $('#li_transaction_field_content #li_transaction_manifestations .families:not(.sample) .item:not(.total)').each(function(){
     if ( go == false )
       return;
 
@@ -446,13 +444,13 @@ LI.checkGauges = function(form, submitHandler){
     // for simplified printing, which allows more than one print
     else
     if ( $(this).find('tbody .declination:not(.printed) [name="qty"]').length > 0 )
-    {
-      submitForm();
-      go = false; // avoids many loops and many forms submissions
-    }
+      {
+        submitForm();
+        go = false; // avoids many loops and many forms submissions
+      }
   });
   return go;
-}
+};
 
 LI.renderStocks = function(item)
 {
