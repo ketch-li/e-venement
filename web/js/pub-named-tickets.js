@@ -229,11 +229,14 @@ LI.pubNamedTicketsCherryPick = function(elt){
   ticket.find('.contact_email input').change();
   
   // remove it from other lists
-  $(elt).closest('form').find('.cherry-pick option[value="'+$(elt).val()+'"]').remove();
-  $(elt).closest('form').find('.cherry-pick').each(function(){
-    if ( $(this).find('option').length == 1 )
-      $(elt).closest('form').find('.cherry-pick').remove();
-  });
+  if ( $(elt).val() ) {
+    $(elt).closest('form').find('.cherry-pick option[value="'+$(elt).val()+'"]').remove();
+    $(elt).closest('form').find('.cherry-pick').each(function(){
+       console.info(this, $(this).find('option').length);
+      if ( $(this).find('option').length == 1 )
+        $(elt).closest('form').find('.cherry-pick').remove();
+    });
+  }
   
   return false;
 }
