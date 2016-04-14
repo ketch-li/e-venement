@@ -152,6 +152,11 @@ class transactionActions extends autoTransactionActions
     foreach ( $tickets as $ticket )
     {
       $form = new TicketRegisteredForm($ticket);
+
+      // include unconfirmed contacts in autocomplete results
+      $url = $form->getWidget('contact_id')->getOption('url');
+      $form->getWidget('contact_id')->setOption('url', $url . '?unconfirmed=1');
+
       $this->forms[] = $form;
     }
   }
@@ -631,6 +636,6 @@ class transactionActions extends autoTransactionActions
     $this->getResponse()->setHttpHeader('Content-type','application/json');
     echo json_encode('Direct Print logged');
     die();
-    
+
   }
 }

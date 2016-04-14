@@ -38,7 +38,7 @@ require_once dirname(__FILE__).'/../lib/contactGeneratorHelper.class.php';
 class contactActions extends autoContactActions
 {
   private $force_classic_template_dir = false;
-  
+
   public function executePrepareImport(sfWebRequest $request)
   {
     $this->useClassicTemplateDir(true);
@@ -47,7 +47,7 @@ class contactActions extends autoContactActions
   {
     return require(__DIR__.'/import.php');
   }
-  
+
   public function executeDelPicture(sfWebRequest $request)
   {
     $this->executeShow($request);
@@ -60,9 +60,9 @@ class contactActions extends autoContactActions
       throw new liEvenementException('Needs more informations to retrieve the expected data');
     if ( !$this->contact = Doctrine::getTable('Contact')->find($request->getParameter('id')) )
       throw new liEvenementException('No contact found for picture update with the id '.$request->getParameter('id'));
-    
+
     file_put_contents(sfConfig::get('sf_app_cache_dir').'/fb-test.html', file_get_contents($url));
-    
+
     return sfView::NONE;
   }
   public function executeNewPicture(sfWebRequest $request)
@@ -73,7 +73,7 @@ class contactActions extends autoContactActions
       if ( !$this->contact->Picture->isNew() )
         $this->contact->Picture->delete();
       $this->contact->Picture = new Picture;
-      
+
       $this->contact->Picture->content = $request->getParameter('image');
       $this->contact->Picture->name = 'contact-'.$this->contact->id.'-'.date('YmdHis').'.img';
       $this->contact->Picture->type = $request->getParameter('type');
@@ -81,7 +81,7 @@ class contactActions extends autoContactActions
     }
     return sfView::NONE;
   }
-  
+
   public function executeError404(sfWebRequest $request)
   {
     $this->useClassicTemplateDir(true);
@@ -97,7 +97,7 @@ class contactActions extends autoContactActions
   {
     if ( is_null($bool) )
       return $this->force_classic_template_dir;
-    
+
     $this->force_classic_template_dir = $bool;
     return $this;
   }
@@ -115,16 +115,16 @@ class contactActions extends autoContactActions
         $this->setTemplate('index');
     }
   }
-  
+
   public function executeSendPasswords(sfWebRequest $request)
   {
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
-    
+
     $limit = 500;
     $q = $this->buildQuery()
       ->limit($limit)
       ->offset($offset = $request->getParameter('offset',0));
-    
+
     $a = $q->getRootAlias();
     foreach ( $q->execute() as $contact )
     {
@@ -135,7 +135,7 @@ class contactActions extends autoContactActions
         $contact->password = substr(str_shuffle($letters), 0, sfConfig::get('app_contact_auto_password_size', 6));
         $contact->save();
       }
-      
+
       $errors = array();
       $params = OptionCsvForm::getDBOptions();
       if ( in_array('tunnel',$params['option']) ) // prefer professionals
@@ -151,12 +151,12 @@ class contactActions extends autoContactActions
       elseif ( $contact->email )
         $this->sendPassword($contact);
     }
-    
+
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
     $this->getUser()->setFlash('notice', __('Your email have been sent correctly.'));
     if ( count($errors) > 0 )
       $this->getUser()->setFlash('error', implode(', ', $errors));
-    
+
     if ( $this->buildQuery()->count() > $offset+$limit )
       $this->redirect('contact/sendPasswords?offset='.($offset+$limit));
     else
@@ -169,7 +169,7 @@ class contactActions extends autoContactActions
   {
     if (!( $obj instanceof Contact ? $contact->email : $obj->contact_email ))
       return false;
-    
+
     // format content
     $url = sfConfig::get('app_contact_password_reminder_url', str_replace('https', 'http', public_path('/pub.php',true)));
     $content  = '';
@@ -188,28 +188,28 @@ class contactActions extends autoContactActions
     $content .= "<br/>";
     $about = sfConfig::get('project_about_client');
     $content .= $about['name'];
-    
+
     // send password
     $email = new Email;
     $email->not_a_test = true;
     $email->content = $content;
     $email->field_from = $this->getUser()->getGuardUser()->email_address;
     $email->field_subject = __('Password reminder for your private space at %%name%%', array('%%name%%' => $about['name']));
-    
+
     if ( $obj instanceof Contact)
       $email->Contacts[] = $obj;
     else
       $email->Professionals[] = $obj;
     return $email->save();
   }
-  
+
   public function executeBatch(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
 
     $ids = $request->getParameter('ids',array());
     $pro_ids = $request->getParameter('professional_ids',array());
-    
+
     if (!( $ids || $pro_ids ))
     {
       $this->getUser()->setFlash('error', 'You must at least select one item.');
@@ -254,14 +254,14 @@ class contactActions extends autoContactActions
 
     $this->redirect('@contact');
   }
-  
+
   public function executeBatchAddToGroup(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-    
+
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
     $filters = $request->getParameter($this->getModuleName().'_filters');
-    
+
     try {
       $validator = new sfValidatorDoctrineChoice(array('model' => 'Contact', 'multiple' => true, 'required' => false));
       $ids = $validator->clean($request->getParameter('ids'));
@@ -280,7 +280,7 @@ class contactActions extends autoContactActions
       $this->getUser()->setFlash('error', 'A problem occurs when adding the selected items as some items do not exist anymore.');
       return $this->redirect('@contact');
     }
-    
+
     // contacts
     if ( count($ids) > 0 )
     foreach ( $ids as $contact_id )
@@ -289,11 +289,11 @@ class contactActions extends autoContactActions
       $gc = new GroupContact;
       $gc->contact_id = $contact_id;
       $gc->group_id = $group_id;
-      
+
       try { $gc->save(); }
       catch(Doctrine_Exception $e) { error_log('contact/batchAddToGroup: '.$e->getMessage()); }
     }
-    
+
     // professionals
     if ( count($pro_ids) > 0 )
     foreach ( $pro_ids as $pro_id )
@@ -303,11 +303,11 @@ class contactActions extends autoContactActions
       $gc = new GroupProfessional();
       $gc->professional_id = $pro_id;
       $gc->group_id = $group_id;
-      
+
       try { $gc->save(); }
       catch(Doctrine_Exception $e) {}
     }
-    
+
     $this->getUser()->setFlash('notice',__('The chosen contacts and professionals have been added to the selected groups.'));
     $this->redirect('@contact');
   }
@@ -321,7 +321,7 @@ class contactActions extends autoContactActions
     )));
     return parent::executeBatchDelete($request);
   }
-  
+
   public function executeArchives(sfWebRequest $request)
   {
     $this->executeEdit($request);
@@ -331,22 +331,22 @@ class contactActions extends autoContactActions
   public function executeVersion(sfWebRequest $request)
   {
     $this->executeShow($request);
-    
+
     if ( !($v = $request->getParameter('v',false)) )
       $v = $this->contact->version > 1 ? $this->contact->version - 1 : 1;
-    
+
     if ( $v < 1 )
       $v = 1;
-    
+
     $request->setParameter('v',$v);
-    
+
     if (!( intval($v).'' == ''.$v && $this->contact->getSearchedVersion($v) ))
     {
       $this->getContext()->getConfiguration()->loadHelpers('I18N');
       $this->getUser()->setFlash('error', __('You have requested the version #%%v%% that does not exist.', array('%%v%%' => $v)));
       $this->redirect('contact/show?id='.$this->contact->id);
     }
-    
+
     $this->object = $this->contact;
   }
   public function executeShow(sfWebRequest $request)
@@ -358,7 +358,7 @@ class contactActions extends autoContactActions
   public function executeEdit(sfWebRequest $request)
   {
     $this->executeShow($request);
-    
+
     if ( (sfConfig::get('app_options_design',false) != 'tdp' || sfConfig::get('app_options_design',false) && !sfConfig::get(sfConfig::get('app_options_design').'_active',false) )
       && !$this->getUser()->hasCredential('pr-contact-edit') )
       $this->setTemplate('show');
@@ -367,7 +367,7 @@ class contactActions extends autoContactActions
   {
     return require(__DIR__.'/events.php');
   }
-  
+
   public function executeNew(sfWebRequest $request)
   {
     parent::executeNew($request);
@@ -381,9 +381,9 @@ class contactActions extends autoContactActions
     if ( !isset($params['title']) && $autocomplete = $request->getParameter('autocomplete_contact') )
       $params['title'] = $autocomplete['title'];
     $request->setParameter('contact',$params);
-    
+
     parent::executeCreate($request);
-    
+
     if ( $this->form->isValid() && $params['phone_number'] )
     {
       $pn = new ContactPhonenumber();
@@ -393,21 +393,21 @@ class contactActions extends autoContactActions
       $pn->save();
     }
   }
-  
+
   public function executeSearchIndexing(sfWebRequest $request)
   {
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
-    
+
     $table = Doctrine_Core::getTable('Contact');
     $table->getTemplate('Doctrine_Template_Searchable')->getPlugin()
       ->setOption('analyzer', new MySearchAnalyzer());
     $table->batchUpdateIndex($nb = 1500);
-    
+
     $this->getUser()->setFlash('notice',__('%nb% records have been indexed',array('%nb%' => $nb)));
     $this->executeIndex($request);
     $this->setTemplate('index');
   }
-  
+
   public function executeLabels(sfWebRequest $request)
   {
     require(dirname(__FILE__).'/labels.php');
@@ -415,7 +415,7 @@ class contactActions extends autoContactActions
   public function executeDuplicates(sfWebRequest $request)
   {
     self::executeIndex($request);
-    
+
     $this->pager->setPage($request->getParameter('page') ? $request->getParameter('page') : 1);
     $q = new Doctrine_RawSql();
     $q->from('Contact c')
@@ -426,7 +426,7 @@ class contactActions extends autoContactActions
       ->addComponent('c','Contact')
       ->addComponent('c2','Contact');
     $this->pager->setQuery($q);
-    
+
     $this->pager->init();
   }
   public function executeBatchMerge(sfWebRequest $request)
@@ -437,33 +437,33 @@ class contactActions extends autoContactActions
   {
     require(dirname(__FILE__).'/batch-remove-from-filters.php');
   }
-  
+
   public function executeSearch(sfWebRequest $request)
   {
     self::executeIndex($request);
     $this->quickest = true;
     $table = Doctrine_Core::getTable('Contact');
-    
+
     if ( intval($request->getParameter('s')) > 0 )
     {
       $value = $request->getParameter('s');
       try { $value = liBarcode::decode_ean($value); }
       catch ( sfException $e )
       { $value = intval($value); }
-      
+
       $this->pager->setQuery($table->createQuery('c')->leftJoin('c.MemberCards mc')->andWhere('c.id = ?',$value));
     }
     else
     {
       $search = $this->sanitizeSearch($request->getParameter('s'));
       $transliterate = sfConfig::get('software_internals_transliterate',array());
-      
+
       $this->pager->setQuery($table->search($search.'*',$this->pager->getQuery())->orWhere('o.name ILIKE ?',$search.'%'));
     }
-    
+
     $this->pager->setPage($request->getParameter('page') ? $request->getParameter('page') : 1);
     $this->pager->init();
-    
+
     $this->setTemplate('index');
   }
   public function executeGroupList(sfWebRequest $request)
@@ -474,17 +474,17 @@ class contactActions extends autoContactActions
   {
     if ( !$request->getParameter('id') )
       $this->forward('contact','index');
-    
+
     $this->group_id = $this->email_id = $request->getParameter('id');
     $q = Doctrine::getTable('Contact')->createQueryByEmailId($this->email_id);
-    
+
     $this->pager = $this->configuration->getPager('Contact');
     $this->pager->setMaxPerPage(15);
     $this->pager->setQuery($q);
     $this->pager->setPage($request->getParameter('page') ? $request->getParameter('page') : 1);
     $this->pager->init();
   }
-  
+
   public function executeFilters(sfWebRequest $request)
   {
     $this->executeIndex($request);
@@ -501,13 +501,13 @@ class contactActions extends autoContactActions
     if ( !$cacher->requiresRefresh($request) )
     if ( ($this->cache = $cacher->useCache()) !== false )
       return 'Success';
-    
+
     unset($this->filters);  // trick #2/2
     $this->executeIndex($request);
     $this->cache = $this->getPartial('global/tdp/side_widget', array(
       'filters' => $this->filters,
     ));
-    
+
     $cacher
       ->setData($this->cache)
       ->writeData();
@@ -548,12 +548,13 @@ class contactActions extends autoContactActions
       sfConfig::set('sf_debug',false);
       sfConfig::set('sf_escaping_strategy', false);
     }
-    
+
     $charset = sfConfig::get('software_internals_charset');
     $search  = iconv($charset['db'],$charset['ascii'],$request->getParameter('q'));
-    
+
+    $unconfirmed = (int) $request->getParameter('unconfirmed', 0);
     $q = Doctrine::getTable('Contact')
-      ->createQuery('c')
+      ->createQuery('c', $unconfirmed)
       ->orderBy('c.name, c.firstname')
       ->limit($request->getParameter('limit'));
     if ( $request->getParameter('email') == 'true' )
@@ -561,25 +562,25 @@ class contactActions extends autoContactActions
     $q = Doctrine_Core::getTable('Contact')
       ->search($search.'*',$q);
     $request = $q->execute()->getData();
-    
+
     $contacts = array();
     foreach ( $request as $contact )
       $contacts[$contact->id] = (string) $contact;
-    
+
     $this->contacts = $contacts;
   }
-  
+
   public function executeCsv(sfWebRequest $request, $labels = false)
   {
     require(dirname(__FILE__).'/csv.php');
   }
-  
+
   // creates a group from filter criterias
   public function executeGroup(sfWebRequest $request)
   {
     require(dirname(__FILE__).'/group.php');
   }
-  
+
   public function executeMap(sfWebRequest $request)
   {
     $q = $this->buildQuery();
@@ -596,7 +597,7 @@ class contactActions extends autoContactActions
   {
     $this->redirect('email/new');
   }
-  
+
   public function executeGetSpecializedForm(sfWebRequest $request)
   {
     $this->executeEdit($request);
@@ -612,23 +613,23 @@ class contactActions extends autoContactActions
     $this->form = $this->configuration->getForm($this->contact);
     if ( $request->getParameter('specialized-form',false) )
       $this->form->displayOnly();
-    
+
     $this->processForm($request, $this->form);
-    
+
     $this->setTemplate('edit');
   }
-  
+
   public function executeVcf(sfWebRequest $request)
   {
     $this->executeShow($request);
     $this->useClassicTemplateDir(true);
   }
-  
+
   public function executeCard(sfWebRequest $request)
   {
     return require(dirname(__FILE__).'/card.php');
   }
-  
+
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
@@ -667,7 +668,7 @@ class contactActions extends autoContactActions
       $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
     }
   }
-  
+
   public function executeFilter(sfWebRequest $request)
   {
     // remove cached data
@@ -688,7 +689,7 @@ class contactActions extends autoContactActions
   {
     if ( sfConfig::get('app_options_design') != 'tdp' || !sfConfig::get(sfConfig::get('app_options_design').'_active',false) )
       return parent::getFilters();
-    
+
     $filters = parent::getFilters();
     $other_filters = $this->getUser()->getAttribute('organism.filters',null,'admin_module');
     if ( !(isset($filters['organism_category_id']) && is_array($filters['organism_category_id'])) )
@@ -709,7 +710,7 @@ class contactActions extends autoContactActions
     $nb = mb_strlen($search);
     $charset = sfConfig::get('software_internals_charset');
     $transliterate = sfConfig::get('software_internals_transliterate',array());
-    
+
     $search = str_replace(preg_split('//u', $transliterate['from'], -1), preg_split('//u', $transliterate['to'], -1), $search);
     $search = str_replace(MySearchAnalyzer::$cutchars,' ',$search);
     $search = mb_strtolower(iconv($charset['db'],$charset['ascii'], mb_substr($search,$nb-1,$nb) == '*' ? mb_substr($search,0,$nb-1) : $search));
