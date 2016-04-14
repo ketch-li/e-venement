@@ -1,4 +1,14 @@
 $(document).ready(function(){
+  
+  // Display submit buttons only if some fields have been changed
+  $('form input[type=submit]').hide();
+  $('form input[type=text], form textarea').on('input', function(){
+    $(this).closest('form').find('input[type=submit]').show();
+  });
+  $('form select').on('change', function(){
+    $(this).closest('form').find('input[type=submit]').show();
+  });  
+  
   $('form input[type=text], form textarea').focusin(function(){
     $(this).parent().addClass('nolabel');
   }).focusout(function(){
