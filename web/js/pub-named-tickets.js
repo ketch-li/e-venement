@@ -177,7 +177,15 @@ LI.pubNamedTicketsData = function(json, callback)
       
       // delete a ticket
       elt.find('.delete').unbind('click').click(function(){
+        // set ticket price to null (triggers form submission)
         $(this).closest('.ticket').find('.price_name select').val('');
+
+        // update the totals
+        var gauge_id = $(this).closest('.ticket').data('gauge-id');
+        var price_id = $(this).closest('.ticket').data('price-id');
+        var $select = $('.prices .quantity select#price_'+gauge_id + '_' + price_id + '_quantity');
+        $select.val( parseInt($select.val()) > 0 ? $select.val() - 1 : 0);
+        $select.focusout(); // triggers totals computation
       });
       
       // put %%ME%% on a ticket, and no one on previous tickets that belonged to me
@@ -229,11 +237,13 @@ LI.pubNamedTicketsCherryPick = function(elt){
   ticket.find('.contact_email input').change();
   
   // remove it from other lists
-  $(elt).closest('form').find('.cherry-pick option[value="'+$(elt).val()+'"]').remove();
-  $(elt).closest('form').find('.cherry-pick').each(function(){
-    if ( $(this).find('option').length == 1 )
-      $(elt).closest('form').find('.cherry-pick').remove();
-  });
+  if ( $(elt).val() ) {
+    $(elt).closest('form').find('.cherry-pick option[value="'+$(elt).val()+'"]').remove();
+    $(elt).closest('form').find('.cherry-pick').each(function(){
+      if ( $(this).find('option').length == 1 )
+        $(elt).closest('form').find('.cherry-pick').remove();
+    });
+  }
   
   return false;
 }
