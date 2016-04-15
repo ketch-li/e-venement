@@ -106,6 +106,7 @@ all:
     pem:
       remote: http://www1.paybox.com/wp-content/uploads/2014/03/pubkey.pem
       local: paybox.pem
+    disable3ds: false
     ################################
     #type: payplug
     #id: macompagnie@theatreuniversel.com
