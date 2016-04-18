@@ -34,14 +34,14 @@
     <div class="tab" id="plans">
       <div class="li-content">
         <?php include_partial('show_plans', array('manifestation' => $manifestation)) ?>
-        <div class="description"><?php pubConfiguration::getText('app_texts_synthetic_plans', ''); ?></div>
+        <div class="description"><?php echo nl2br(pubConfiguration::getText('app_texts_synthetic_plans', '')); ?></div>
         <div class="clear"></div>
       </div>
     </div>
     <div class="tab hidden" id="categories">
       <div class="li-content">
         <?php include_partial('show_categories', array('manifestation' => $manifestation)) ?>
-        <div class="description"><?php echo pubConfiguration::getText('app_texts_synthetic_categories', ''); ?></div>
+        <div class="description"><?php echo nl2br(pubConfiguration::getText('app_texts_synthetic_categories', '')); ?></div>
         <div class="clear"></div>
       </div>
     </div>
