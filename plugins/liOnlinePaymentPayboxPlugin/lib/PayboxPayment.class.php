@@ -170,7 +170,7 @@
       $arr['PBX_REFUSE']   = url_for($this->url['cancel'],true);
       $arr['PBX_REPONDRE_A'] = url_for($this->url['automatic'],true);
       if ( $this->disable3ds )
-        $arr['PBX_3DS'] = 1;
+        $arr['PBX_3DS'] = 'N';
 
       return $arr;
     }
