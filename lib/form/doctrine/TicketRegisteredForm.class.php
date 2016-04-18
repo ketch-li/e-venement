@@ -10,7 +10,7 @@
  */
 class TicketRegisteredForm extends TicketForm
 {
-  public function configure()
+  public function configure($options=array())
   {
     parent::configure();
     foreach ( $this->widgetSchema->getFields() as $name => $widget )
@@ -19,7 +19,7 @@ class TicketRegisteredForm extends TicketForm
     foreach ( $this->validatorSchema->getFields() as $name => $validator )
     if ( !in_array($name, $fields) )
       unset($this->validatorSchema[$name]);
-    
+
     if ( $this->object->isSold() )
       unset($this->widgetSchema['price_id'], $this->validatorSchema['price_id']);
     elseif ( $this->object->gauge_id && $this->object->manifestation_id )
@@ -41,19 +41,33 @@ class TicketRegisteredForm extends TicketForm
       ;
       $this->validatorSchema['price_id']->setOption('query', $q);
     }
-    
+
     $this->widgetSchema   ['reduc'] = new sfWidgetFormInput(array(), array('pattern' => $pattern = '^-{0,1}\d+([\.,]\d{0,2}){0,1}%{0,1}'));
     $this->validatorSchema['reduc'] = new sfValidatorRegex(array('pattern' => '/'.$pattern.'/', 'required' => false));
-    
+
     $this->validatorSchema['transaction_id']->setOption('query',
       Doctrine::getTable('Transaction')->createQuery('t')
         ->andWhere('t.closed = ?', false)
     );
-    
+
+    if ( $this->getOption('unconfirmed', false) ) {
+      $this->widgetSchema['contact_id'] = new liWidgetFormDoctrineJQueryAutocompleter(array(
+        'model' => 'Contact',
+        'url'   => cross_app_url_for('rp','contact/ajax') . '?unconfirmed=1',
+        'method_for_query' => 'fetchOneUnconfirmedById'
+      ));
+      $this->validatorSchema['contact_id'] = new sfValidatorDoctrineChoice(array(
+        'required' => false,
+        'model' => 'Contact',
+        'column' => 'id',
+        'query' => Doctrine_Core::getTable('Contact')->createQueryUnconfirmed()
+      ));
+    }
+
     if ( !$this->object->isNew() )
       $this->widgetSchema->setNameFormat('ticket['.$this->object->id.'][%s]');
   }
-  
+
   protected function doBind(array $values)
   {
     $this->validatorSchema['id'] = new sfValidatorDoctrineChoice(array(
@@ -64,14 +78,14 @@ class TicketRegisteredForm extends TicketForm
     ));
     return parent::doBind($values);
   }
-  
+
   public function save($con = NULL)
   {
     if (!( $this->object = Doctrine::getTable('Ticket')->find($this->values['id']) ))
       throw new liEvenementException('To register a ticket, it needs to exist first');
     if ( $this->object->transaction_id != $this->values['transaction_id'] )
       throw new liEvenementException("You must register a ticket on your current transaction (#{$this->values['transaction_id']}), not #{$this->object->transaction_id}");
-    
+
     if ( $this->values['reduc'] )
     {
       $reduc = $this->values['reduc'];
@@ -82,7 +96,7 @@ class TicketRegisteredForm extends TicketForm
       if ( $this->object->value < 0 )
         $this->object->value = 0;
     }
-    
+
     // changing the price
     if ( isset($this->values['price_id']) && !$this->object->isSold()
       && $this->object->price_id != $this->values['price_id'] )
@@ -90,16 +104,16 @@ class TicketRegisteredForm extends TicketForm
       $this->object->price_id = $this->values['price_id'];
       $this->object->value = NULL;
     }
-    
+
     // changing the comment
     if ( isset($this->values['comment']) )
       $this->object->comment = $this->values['comment'] ? $this->values['comment'] : NULL;
-    
+
     $this->object->contact_id = $this->values['contact_id'];
     $this->object->save();
     return $this->object;
   }
-  
+
   public function getStylesheets()
   {
     return parent::getStylesheets() + array(

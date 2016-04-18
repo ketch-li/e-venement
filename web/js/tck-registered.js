@@ -22,7 +22,7 @@ $(document).ready(function(){
   });
   
   $('form').submit(function(){
-    if ( window.location.hash == '#debug' )
+    if ( window.location.hash === '#debug' )
     {
       $(this)
         .prop('method', 'get')

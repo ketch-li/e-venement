@@ -167,7 +167,8 @@ class transactionActions extends autoTransactionActions
     if ( !isset($data[$id]) )
       return 'Error';
 
-    $this->form = new TicketRegisteredForm;
+    $this->form = new TicketRegisteredForm(null,  array('unconfirmed' => true));
+
     if ( !$this->getUser()->hasCredential('tck-transaction-reduc') && isset($data[$id]['reduc']) )
       unset($data[$id]['reduc']);
     $this->form->bind($data[$id]);
@@ -180,8 +181,16 @@ class transactionActions extends autoTransactionActions
       $this->setLayout('layout');
     }
 
-    if ( !$this->form->isValid() )
+    if ( !$this->form->isValid() ) {
+
+    $errors = array();
+    foreach ($this->form->getErrorSchema() as $key => $err) {
+      if ($key) $errors[$key] = $err->getMessage();
+      }
+      print_r($errors);
+      die('not valid');
       return 'Error';
+    }
 
     $this->getContext()->getConfiguration()->loadHelpers(array('Url', 'I18N'));
 
