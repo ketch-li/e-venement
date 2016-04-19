@@ -292,25 +292,17 @@ class Transaction extends PluginTransaction
           continue;
         }
       }
-      
       // normal processing
       $content[] = $ticket->renderSimplified($with['barcode']);
     }
     
     // process tickets in batch mode
     if ( $batch )
-    foreach ( $batch as $b )
+    foreach ( $batch as $id => $b )
     {
       // if nothing has to be processed as a merged ticket
       if ( count($b['tickets']) == 0 )
         continue;
-      
-      // if there is only one ticket in the batch
-      if ( count($b['tickets']) == 1 )
-      {
-        $content[] = $b['tickets'][0]->renderSimplified($with['barcode']);
-        continue;
-      }
       
       $tck = new Ticket;
       $tck->id = ' ';
@@ -328,9 +320,9 @@ class Transaction extends PluginTransaction
       $tck->barcode = json_encode($b['barcodes']);
       $content[] = '<div class="merged">'.$tck->renderSimplified($with['barcode']).'</div>';
     }
-    
     return $tickets_html."\n".implode("\n", $content);
   }
+
   public function renderSimplifiedProducts(array $with = array())
   {
     $conf = sfConfig::get('app_transaction_email', array());
