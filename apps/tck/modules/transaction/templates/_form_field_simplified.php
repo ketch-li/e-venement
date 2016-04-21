@@ -6,9 +6,9 @@
 <form action="#" method="get">
   <div class="header simplified-top-block">
     <ul class="products-types ui-widget-content ui-corner-all">
-       <li data-bunch-id="manifestations"><?php echo __('Manifestations') ?></li
-      ><li data-bunch-id="museum"><?php echo __('Museum') ?></li
-      ><li data-bunch-id="store"><?php echo __('Store', null, 'menu') ?></li>
+      <li data-bunch-id="manifestations"><?php echo __('Manifestations') ?></li><?php
+      if ( $sf_user->hasCredential('tck-museum') ): ?><li data-bunch-id="museum"><?php echo __('Museum') ?></li><?php endif
+      ?><?php if ( $sf_user->hasCredential('tck-pos') ): ?><li data-bunch-id="store"><?php echo __('Store', null, 'menu') ?></li><?php endif ?>
     </ul>
     <div class="contact ui-widget-content ui-corner-all"></div>
   </div>
