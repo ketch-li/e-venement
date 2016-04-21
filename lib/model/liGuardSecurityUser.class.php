@@ -42,7 +42,8 @@ class liGuardSecurityUser extends sfGuardSecurityUser
     parent::__construct($dispatcher, $storage, $options);
     
     // lang
-    if ( isset($_COOKIE['lang']) )
+    $pub = sfContext::hasInstance() && 'pub' == sfContext::getInstance()->getConfiguration()->getApplication();
+    if ( isset($_COOKIE['lang']) && !$pub )
     {
       $cultures = sfConfig::get('project_internals_cultures', array('fr' => 'Français'));
       if ( isset($cultures[$_COOKIE['lang']]) )
