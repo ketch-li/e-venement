@@ -157,7 +157,9 @@
       
       // retrictive parameters
       $pid = array();
-      if ( !$request->getParameter('manifestation_id',false) && !$request->getParameter('gauge_id', false) && $request->hasParameter('simplified') )
+      if ( !$request->getParameter('manifestation_id',false)
+        && !$request->getParameter('gauge_id', false)
+        && $request->hasParameter('simplified') )
       {
         // here we add the next manifestations if nothing is asked and the GUI is "simplified"
         $conf = sfConfig::get('app_transaction_manifestations', array());
@@ -180,9 +182,12 @@
         $pid = is_array($request->getParameter('manifestation_id'))
           ? $request->getParameter('manifestation_id')
           : array($request->getParameter('manifestation_id'));
+        $expl = array();
+        foreach ( $pid as $i => $n )
+          $expl[] = '?';
         $q->andWhere('(TRUE')
             ->andWhereIn('m.id',$pid)
-            ->orWhere('m.id IN (SELECT mm.depends_on FROM Manifestation mm WHERE mm.id = ?)',$pid)
+            ->orWhere('m.depends_on IN ('.implode(',',$expl).')',$pid)
           ->andWhere('TRUE)')
         ;
       }
