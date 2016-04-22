@@ -50,7 +50,7 @@ $(document).ready(function(){
         .prop('id', 'invoice')
         .prop('target', '_blank')
         .append('<span class="ui-icon ui-icon-clipboard"></span>')
-        .insertBefore($('#sf_admin_container h1 #simplified-gui'))
+        .insertAfter($('#direct-surveys'))
       ;
       
       // click on the last (or the first) tab...
