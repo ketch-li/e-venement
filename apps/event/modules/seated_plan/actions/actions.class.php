@@ -157,7 +157,7 @@ class seated_planActions extends autoSeated_planActions
     if ( !isset($params['format']) )
       throw new liSeatedException('The provided informations for this action are not correct.');
     
-    $format = '/'.str_replace(array('%row%', '%num%'), array('([a-zA-Z]+)', '([0-9]+)'), $params['format']).'/';
+    $format = '/'.str_replace(array('%row%', '%rowm%', '%rown%', '%num%'), array('([a-zA-Z]+)', '(\w+)', '(\d+)', '([0-9]+)'), $params['format']).'/';
     $hop = isset($params['contiguous']) ? 1 : 2;
     
     $this->getRoute()->getObject()->clearLinks();
@@ -175,20 +175,26 @@ class seated_planActions extends autoSeated_planActions
       preg_match($format, $num, $parts);
       if ( !isset($parts[1]) && !isset($parts[2]) )
         continue;
-      $i = intval($parts[2])+$hop;
+      $replace = array(
+        '%row%'  => $parts[1],
+        '%rown%' => $parts[1],
+        '%rowm%' => $parts[1],
+        '%num%'  => $parts[2]+$hop,
+      );
+      $next = str_replace(array_keys($replace), array_values($replace), $params['format']);
       
-      if ( isset($seats[$parts[1].$i]) )
+      if ( isset($seats[$next]) )
       {
         // if there is a match, create the link
         $link = new SeatLink;
         $link->seat1 = $seat->id;
-        $link->seat2 = $seats[$parts[1].$i]->id;
+        $link->seat2 = $seats[$next]->id;
         $link->save();
         
         if ( sfConfig::get('sf_web_debug') )
           error_log(
             'Creating a link for plan '.$request->getParameter('id').' between seats '.
-            $num.' & '.$parts[1].$i.
+            $num.' & '.$next.
             ' ('.$link->seat1.' & '.$link->seat2.')'.
             ''
           );
@@ -244,13 +250,14 @@ class seated_planActions extends autoSeated_planActions
       // find back the seats
       $fieldname = $seats[2];
       unset($seats[2]);
-      $seats = Doctrine::getTable('Seat')->createQuery('s')
+      $q = Doctrine::getTable('Seat')->createQuery('s')
         ->andWhereIn("s.$fieldname", $seats)
         ->andWhere('s.seated_plan_id = ?', $pid)
-        ->execute();
+      ;
+      $seats = $q->execute();
       
       if ( $seats->count() != 2 )
-        throw new liSeatedException('To create a link between seats, two seats are excepted, '.$seats->count().' found.');
+        throw new liSeatedException('To create a link between seats, two seats are expected, '.$seats->count().' found.');
       
       // creates the link
       $sl = new SeatLink;
@@ -271,7 +278,7 @@ class seated_planActions extends autoSeated_planActions
   protected function linksParseSeatsString($string)
   {
     $r = array();
-    foreach ( explode(',', str_replace(' ','',$string)) as $link )
+    foreach ( explode(',', str_replace(', ',',',$string)) as $link )
     {
       $fieldname = 'name';
       if ( substr($link, 0, 8) === 'eve-ids-' )
@@ -342,7 +349,7 @@ class seated_planActions extends autoSeated_planActions
     $q = Doctrine::getTable('Seat')->createQuery('s')
       ->andWhere('s.seated_plan_id = ?', $request->getParameter('id'))
       ->andWhere('s.id = ?', $data['id'])
-      ->andWhere('s.id NOT IN (SELECT tck.seat_id FROM Ticket tck)');
+      ->andWhere('s.id NOT IN (SELECT tck.seat_id FROM Ticket tck WHERE tck.seat_id IS NOT NULL)');
     
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
     $this->json = array('success' => false, 'message' => __('You cannot remove this seat, probably at least one ticket has been sold on it.'));

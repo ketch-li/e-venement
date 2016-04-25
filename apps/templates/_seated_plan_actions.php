@@ -74,7 +74,7 @@
             <?php echo __('Spectators') ?>
           </a>
           <a class="ranks"
-             href="<?php echo url_for('seated_plan/getRanks?id='.$seated_plan->id) ?>"
+             href="<?php echo url_for('seated_plan/getRanks?id='.$seated_plan->id) ?>?<?php echo $param ?>"
              onclick="javascript: var plan = $(this).closest('.seated-plan-parent'); LI.seatedPlanMoreDataInitialization($(this).prop('href'), true, plan); return false;"
              title="<?php echo __('Ranks') ?>"
           >

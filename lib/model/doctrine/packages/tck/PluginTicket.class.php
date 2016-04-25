@@ -235,11 +235,20 @@ abstract class PluginTicket extends BaseTicket
     }
     
     // cancelling a seated ticket
-    if ( !is_null($this->cancelling) && $this->seat_id )
+    if ( !is_null($this->cancelling) )
     {
       $this->seat_id = NULL;
-      $this->Cancelled->seat_id = NULL;
-      $this->Cancelled->save();
+      if ( $this->Cancelled->seat_id )
+      {
+        $this->Cancelled->seat_id = NULL;
+        $this->Cancelled->save();
+      }
+      foreach ( $this->Cancelled->Duplicatas as $duplicata )
+      if ( $duplicata->seat_id )
+      {
+        $duplicata->seat_id = NULL;
+        $duplicata->save();
+      }
     }
     
     // if the ticket's manifestation depends on an other one (and the ticket is not a cancellation nor a duplication
