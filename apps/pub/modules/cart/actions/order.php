@@ -25,6 +25,11 @@
     if ( !($this->getUser()->getTransaction() instanceof Transaction) )
       return $this->redirect('@homepage');
     
+    $this->dispatcher->notify(new sfEvent($this, 'pub.transaction_before_ordering', array(
+      'transaction' => $this->getUser()->getTransaction(),
+      'user' => $this->getUser(),
+    )));
+    
     // if it is a pay-only process
     $tid = intval($request->getParameter('transaction_id')).'' === ''.$request->getParameter('transaction_id','')
       ? $request->getParameter('transaction_id')
