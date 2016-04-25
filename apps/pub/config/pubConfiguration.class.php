@@ -36,8 +36,11 @@ class pubConfiguration extends sfApplicationConfiguration
   public function configure()
   {
     $this->dispatcher->connect('pub.transaction_before_creation', array($this, 'triggerTransactionBeforeCreation'));
+    $this->dispatcher->connect('pub.transaction_before_creation', array($this, 'autoAddOneTicketForAManifestation'));
     $this->dispatcher->connect('pub.transaction_before_creation', array($this, 'recordWebOrigin'));
     $this->dispatcher->connect('pub.transaction_respawning', array($this, 'recordWebOrigin'));
+    $this->dispatcher->connect('pub.transaction_before_ordering', array($this, 'autoAddOneTicketForAManifestation'));
+    $this->dispatcher->connect('pub.transaction_show', array($this, 'autoAddOneTicketForAManifestation'));
   }
   public function initialize()
   {
@@ -185,6 +188,34 @@ class pubConfiguration extends sfApplicationConfiguration
       $wo->next_id = $origin->id;
       $wo->save();
     }
+  }
+  
+  public function autoAddOneTicketForAManifestation(sfEvent $event)
+  {
+    if (!( ($config = sfConfig::get('app_tickets_vel', array()))
+      && isset($config['auto_add_one_ticket_for_manifid'])
+      && intval($config['auto_add_one_ticket_for_manifid']) > 0 ))
+      return;
+    
+    $manif = Doctrine::getTable('Manifestation')->createQuery('m')
+      ->andWhere('m.id = ?', intval($config['auto_add_one_ticket_for_manifid']))
+      ->fetchOne();
+    
+    if ( $manif->Prices->count() == 0 )
+      return;
+    if ( $manif->Gauges->count() == 0 )
+      return;
+    
+    if ( in_array($manif->id, $event['transaction']->Tickets->toKeyValueArray('id', 'manifestation_id')) )
+      return;
+    
+    $ticket = new Ticket;
+    $ticket->Transaction = $event['transaction'];
+    $ticket->manifestation_id = $manif->id;
+    $ticket->gauge_id = $manif->Gauges[0]->id;
+    $ticket->price_id = $manif->PriceManifestations[0]->price_id;
+    $ticket->value = $manif->PriceManifestations[0]->value;
+    $ticket->save();
   }
   
   public function triggerTransactionBeforeCreation(sfEvent $event)
