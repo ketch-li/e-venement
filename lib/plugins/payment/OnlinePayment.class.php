@@ -34,6 +34,6 @@
     protected function __construct(Transaction $transaction)
     {
       $this->transaction = $transaction;
-      $this->value = $this->transaction->getPrice(true, true);
+      $this->value = $this->transaction->getPrice(true, true) - array_sum($this->transaction->Payments->toKeyValueArray('id', 'value'));
     }
   }

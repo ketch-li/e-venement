@@ -164,9 +164,10 @@ class cartActions extends sfActions
         $this->specific_transaction = false;
       elseif ( $this->specific_transaction->id != $this->getUser()->getTransaction()->id )
       {
-        $event = new sfEvent($this->getUser(), 'pub.transaction_respawning', array('configuration' => $this->configuration));
-        $event['transaction'] = $this->specific_transaction;
-        $this->dispatcher->notify($event);
+        $this->dispatcher->notify(new sfEvent($this, 'pub.transaction_respawning', array(
+          'configuration' => $this->configuration,
+          'transaction'   => $this->specific_transaction,
+        )));
       }
     }
 

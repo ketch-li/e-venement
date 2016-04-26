@@ -291,7 +291,16 @@
     // setting up the vars to commit to the bank
     $redirect = false;
     $this->online_payments = array();
-    if ( ($topay = $this->transaction->getPrice(true,true)) == 0 )
+    if ( ($topay = $this->transaction->getPrice(true,true)) - array_sum($this->transaction->Payments->toKeyValueArray('id', 'value')) == 0 )
+    {
+      if (!(
+         class_exists($class = ucfirst($plugin = sfConfig::get('app_payment_type','paybox')).'Payment')
+      && is_a($class, 'OnlinePaymentInterface', true)
+      ))
+        throw new liOnlineSaleException('You asked for a payment plugin ('.$plugin.') that does not exist or is not compatible.');
+      $this->online_payment = $class::create($this->transaction);
+    }
+    else // no payment to be done
     {
       $this->getContext()->getConfiguration()->loadHelpers('I18N');
       
