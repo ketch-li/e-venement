@@ -290,7 +290,8 @@
     
     // setting up the vars to commit to the bank
     $redirect = false;
-    if ( ($topay = $this->transaction->getPrice(true,true)) > 0 && sfConfig::get('app_payment_type','paybox') != 'onthespot' )
+    if ( ($topay = $this->transaction->getPrice(true,true)) - array_sum($this->transaction->Payments->toKeyValueArray('id', 'value')) > 0
+      && sfConfig::get('app_payment_type','paybox') != 'onthespot' )
     {
       if (!(
          class_exists($class = ucfirst($plugin = sfConfig::get('app_payment_type','paybox')).'Payment')
