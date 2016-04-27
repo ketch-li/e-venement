@@ -16,10 +16,14 @@ generator:
       fields:
         member_card_linked: { label: "Linked w/ MC?", credentials: [tck-admin-member-cards] }
         ept: { label: "EPT" }
-      list:    ~
+        Picture: { label: Pictogram, help: 32 x 32px }
+        list_picture: { label: Pictogram }
+      list:
+        display: [name, account, display, member_card_linked, ept, _list_picture]
       filter:  ~
       form:
         fields:
           ept: { label: "Electronic payment terminal" }
+        display: [name, account, display, member_card_linked, ept, Picture, _show_picture, _form_picture_del]
       edit:    ~
       new:     ~

@@ -321,6 +321,12 @@ PaymentMethod:
       type: boolean
       notnull: true
       default: false
+    picture_id: integer
+  relations:
+    Picture:
+      foreignAlias: MetaEvent
+      onDelete: SET NULL
+      onUpdate: CASCADE
 Payment:
   package: tck
   inheritance:

@@ -1,3 +1,4 @@
 .sf_admin_form_field_Picture th label { display: none; }
 .sf_admin_form_field_show_picture { text-align: center; }
+.mod-payment_method .sf_admin_form_field_show_picture { text-align: left; }
 #sf_admin_container .sf_admin_form_field_picture_del { height: 16px; display: block; width: 16px; font-size: 0; float: right; margin-top: -25px; }
