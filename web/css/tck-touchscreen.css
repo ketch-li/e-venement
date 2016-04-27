@@ -159,6 +159,7 @@
 #li_transaction_field_payment_new .ui-datepicker-trigger { padding: 0; margin-left: 1px; }
 #li_transaction_field_payment_new label { width: 60px; display: inline-block; }
 #li_transaction_field_payment_new ul label { width: auto; }
+#li_transaction_field_payment_new .field_payment_method_pictures { display: none; }
 #li_transaction_field_payment_new .field_value, #li_transaction_field_payment_new .field_created_at { margin-bottom: 0.5em; }
 #li_transaction_field_payment_new .field_value input { width: 60px; }
 #li_transaction_field_payment_new .field_detail input { width: 120px; }

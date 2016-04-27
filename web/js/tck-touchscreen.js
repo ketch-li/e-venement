@@ -245,6 +245,16 @@ $(document).ready(function(){
     elt = this;
     setTimeout(function(){ $(elt).insertAfter($('#li_transaction_field_payments_list input:last')); }, 250);
   });
+  
+  // payment pictograms
+  setTimeout(function(){
+    $('#li_transaction_field_payment_new .field_payment_method_pictures li').each(function(){
+      console.error($('#li_transaction_field_payment_new [name="transaction[payment_new][payment_method_id]"][value="'+$(this).attr('data-payment-method-id')+'"]').parent().html());
+      $('#li_transaction_field_payment_new [name="transaction[payment_new][payment_method_id]"][value="'+$(this).attr('data-payment-method-id')+'"]')
+        .parent().find('button')
+        .prepend($(this).find('img'));
+    });
+  }, 1000);
 
   // autosubmit direct postalcode
   $('#li_transaction_field_postalcode input').change(function(){
