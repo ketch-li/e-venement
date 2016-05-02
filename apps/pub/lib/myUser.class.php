@@ -407,7 +407,10 @@ class myUser extends pubUser
   public function logout()
   {
     if ( $this->getTransaction()->Order->count() == 0 )
-      $this->transaction->Tickets->delete();
+    foreach ( $this->transaction->Tickets as $i => $ticket )
+    if ( is_null($ticket->printed_at) && is_null($ticket->integrated_at) )
+      $this->transaction->Tickets[$i]->delete();
+    
     $this->setOriginId();
     $this->getAttributeHolder()->remove('transaction_id');
     $this->transaction = NULL;
