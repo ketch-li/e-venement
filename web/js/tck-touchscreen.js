@@ -249,8 +249,7 @@ $(document).ready(function(){
   // payment pictograms
   setTimeout(function(){
     $('#li_transaction_field_payment_new .field_payment_method_pictures li').each(function(){
-      console.error($('#li_transaction_field_payment_new [name="transaction[payment_new][payment_method_id]"][value="'+$(this).attr('data-payment-method-id')+'"]').parent().html());
-      $('#li_transaction_field_payment_new [name="transaction[payment_new][payment_method_id]"][value="'+$(this).attr('data-payment-method-id')+'"]')
+    $('#li_transaction_field_simplified [name="simplified[payment_method_id]"][value="'+$(this).attr('data-payment-method-id')+'"], #li_transaction_field_payment_new [name="transaction[payment_new][payment_method_id]"][value="'+$(this).attr('data-payment-method-id')+'"]')
         .parent().find('button')
         .prepend($(this).find('img'));
     });
