@@ -418,3 +418,7 @@ tfoot, thead { font-weight: bold; }
 
 /* Member Cards */
 .mc_pending { text-align: center; }
+
+/* Ordering specific forms */
+.currency-choice { display: inline-block; }
+.currency-choice input { font-size: 200%; }
