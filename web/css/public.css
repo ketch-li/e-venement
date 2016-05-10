@@ -526,3 +526,7 @@ tfoot, thead { font-weight: bold; }
 }
 
 .social-description { display: none; }
+
+/* Ordering specific forms */
+.currency-choice { display: inline-block; }
+.currency-choice input { font-size: 200%; }

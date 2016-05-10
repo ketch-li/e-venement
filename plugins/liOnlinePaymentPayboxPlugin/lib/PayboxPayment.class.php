@@ -84,7 +84,6 @@
       $this->id       = sfConfig::get('app_payment_id');
       $this->rank     = sfConfig::get('app_payment_rank');
       $this->site     = sfConfig::get('app_payment_site');
-      $this->currency = sfConfig::get('app_payment_currency','978');
       $this->return   = sfConfig::get('app_payment_return','amount:M;transaction_id:R;card_type:C;ip_country:I;paybox_id:S;authorisation:A;error:E;signature:K');
       $this->hash     = sfConfig::get('app_payment_hash','SHA512');
       $this->key      = sfConfig::get('app_payment_key');
@@ -168,7 +167,7 @@
       $arr['PBX_EFFECTUE'] = url_for($this->url['normal'],true);
       $arr['PBX_ANNULE']   = url_for($this->url['cancel'],true);
       $arr['PBX_REFUSE']   = url_for($this->url['cancel'],true);
-      $arr['PBX_REPONDRE_A'] = url_for($this->url['automatic'],true);
+      $arr['PBX_REPONDRE_A'] = url_for($this->url['automatic'].'?currency='.$this->currency,true);
       if ( $this->disable3ds )
         $arr['PBX_3DS'] = 'N';
 
