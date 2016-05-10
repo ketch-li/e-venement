@@ -220,6 +220,8 @@
       $bank->capture_mode = $request->getParameter('card_type');
       $bank->transaction_id = $request->getParameter('transaction_id');
       $bank->amount = $request->getParameter('amount');
+      $cur = sfConfig::get('project_internals_currency', array('iso' => 978));
+      $bank->currency_code = $request->getParameter('currency', $cur['iso']);
       $bank->raw = $_SERVER['QUERY_STRING'];
 
       return $this->BankPayment = $bank;
