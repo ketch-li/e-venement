@@ -69,6 +69,14 @@
         <target>Code avantage</target>
       </trans-unit>
       <trans-unit>
+        <source>Choose your currency</source>
+        <target>choisissez votre monnaie</target>
+      </trans-unit>
+      <trans-unit>
+        <source>before proceeding to payment</source>
+        <target>avant de procéder au paiement</target>
+      </trans-unit>
+      <trans-unit>
         <source>Add</source>
         <target>Ajouter</target>
       </trans-unit>

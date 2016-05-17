@@ -46,7 +46,7 @@ case 'gauge':
     ->andWhere('a.gauge_id = ?',$params[$field]['declination_id'])
     ->andWhere('a.printed_at IS NULL AND a.cancelling IS NULL AND a.duplicating IS NULL')
     ->andWhere('a.transaction_id = ?', $request->getParameter('id'))
-    ->orderBy('a.integrated_at IS NULL DESC, a.integrated_at, a.seat_id IS NULL DESC, a.value ASC, a.id DESC')
+    ->orderBy('a.integrated_at IS NULL DESC, a.seat_id IS NULL DESC, a.contact_id IS NULL DESC, a.value ASC, a.integrated_at, a.id DESC')
   ;
   $wips = $q->copy();
   break;

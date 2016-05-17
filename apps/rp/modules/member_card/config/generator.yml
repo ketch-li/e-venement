@@ -34,7 +34,7 @@ generator:
         table_method: retreiveListOfActivatedCards
         max_per_page: 50
       filter:
-        display: [member_card_type_id, contact_id, expire_at, has_email_address]
+        display: [member_card_type_id, contact_id, created_at, expire_at, has_email_address]
       form:    ~
       edit:    ~
       new:     ~

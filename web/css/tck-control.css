@@ -56,3 +56,14 @@
   #checkpoint input[type=submit] { position: absolute; top: 70px; left: 300px; }
   #checkpoint .ticket_id input { max-width: 100%; }
 }
+
+@media screen and (max-width: 550px) {
+  #jappix_mini div.jm_position,
+  #jappix_mini div.jm_starter,
+  ul#menu,
+  div#banner,
+  form#checkpoint input[type=submit] { 
+    display: none; 
+  }
+  #checkpoint .ticket_id input { max-width: 50%; }  
+}

@@ -35,5 +35,16 @@
     {
       $this->transaction = $transaction;
       $this->value = $this->transaction->getPrice(true, true) - array_sum($this->transaction->Payments->toKeyValueArray('id', 'value'));
+
+      // the currency
+      $currency = sfConfig::get('project_internals_currency', array());
+      $cur = sfConfig::get('app_payment_currency','978');
+      if ( isset($_POST['currency']) && isset($currency['conversions'])
+        && isset($currency['conversions'][$_POST['currency']]) && isset($currency['conversions'][$_POST['currency']]['rate']) )
+      {
+        $cur = $_POST['currency'];
+        $this->value = $this->value * $currency['conversions'][$_POST['currency']]['rate'];
+      }
+      $this->currency = $cur;
     }
   }
