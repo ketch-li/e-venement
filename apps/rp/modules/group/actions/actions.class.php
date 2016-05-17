@@ -325,7 +325,10 @@ class groupActions extends autoGroupActions
     $this->group = $this->getRoute()->getObject();
     $this->form = $this->configuration->getForm($this->group);
     
-    $this->form->bind($request->getParameter($this->form->getName()));
+    $this->form->bind(
+      $request->getParameter($this->form->getName()),
+      $request->getFiles($this->form->getName())
+    );
     if ( $this->form->getValue('sf_guard_user_id') !== $this->getUser()->getId()
       && !$this->getUser()->hasCredential('pr-group-common') && !$this->getUser()->hasCredential('pr-group-edit') )
       $this->forward404('You cannot modify a common group, sorry.');
