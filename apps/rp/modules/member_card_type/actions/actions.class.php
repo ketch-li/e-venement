@@ -55,7 +55,7 @@ class member_card_typeActions extends autoMember_card_typeActions
           unset($tickets[$key]);
           break;
         }
-        if ( $stop )
+        if ( !$stop )
         {
           $mcp = new MemberCardPrice;
           $mcp->price_id = $mcpm->price_id;
