@@ -20,7 +20,7 @@ class ContactRelationshipForm extends BaseContactRelationshipForm
     $this->widgetSchema['from_contact_id'] = new sfWidgetFormInputHidden;
     $this->widgetSchema['contact_relationship_type_id']->setLabel('Relationship');
     
-    $fields = array('to_contact_id', 'contact_relationship_type_id',);
+    $fields = array('contact_relationship_type_id', 'to_contact_id',);
     $this->useFields($fields);
   }
 }
