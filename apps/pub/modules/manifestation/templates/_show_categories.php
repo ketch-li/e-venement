@@ -2,7 +2,7 @@
 <?php
   $groups = array();
   foreach ( $manifestation->Gauges as $gauge )
-  if ( $gauge->online && $gauge->getFree() > 0 )
+  if ( $gauge->online && $gauge->getFree() > $gauge->getHeldFreeSeats()->count() )
   {
     if ( !isset($groups[$gauge->group_name]) )
       $groups[$gauge->group_name] = array();
