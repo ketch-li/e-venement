@@ -27,7 +27,7 @@ generator:
         organism_category_id: { label: Category }
         created_at: { label: Created at }
         updated_at: { label: Updated at }
-        description: { label: Description }
+        description: { label: Correspondence }
         url:        { label: URL }
         not_groups_list: { label: Not member of groups }
         email_no_newsletter: { label: No newsletter }

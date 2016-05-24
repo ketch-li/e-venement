@@ -32,6 +32,8 @@
   echo link_to(__('Archives'), $sf_context->getModuleName().'/archives?id='.$object->id);
   if ( $sf_user->hasCredential('pr-contact-csv') )
     echo link_to(__('vCard'), $sf_context->getModuleName().'/vcf?id='.$object->id, array('target' => '_blank'));
+  if ( $sf_user->hasCredential('pr-contact-new') )
+    echo link_to(__('Duplicate'), $sf_context->getModuleName().'/duplicate?id='.$object->id);
 ?>
 </div><a onclick="javascript: return false;" target="_blank" class="action actions group" href="<?php echo url_for('@'.$sf_context->getModuleName()) ?>">Actions</a>
 <?php elseif ( $active_filters ): ?>
