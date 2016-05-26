@@ -1,5 +1,5 @@
 <?php if ( !isset($contact) ) $contact = $form->getObject() ?>
-<?php if ( sfConfig::has('app_cards_enable') ): ?>
+<?php if ( sfConfig::get('project_cards_enable', false) ): ?>
 <?php if ( $contact->MemberCards->count() > 0 ): ?>
 <div class="sf_admin_form_row">
   <label><?php echo link_to(__('Member cards'),'contact/card?id='.$contact->id) ?>:</label>

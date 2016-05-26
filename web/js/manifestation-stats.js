@@ -91,9 +91,9 @@ if ( LI == undefined )
   var LI = {};
 LI.statsCompleteFillingData = function(json)
 {
-  var currency = LI.get_currency($('.sf_admin_form_field_prices_list tbody .value').html());
-  var fr_style = LI.currency_style($('.sf_admin_form_field_prices_list tbody .value').html()) == 'fr';
-      
+  var currency = LI.get_currency($('#sf_fieldset_unbalanced tfoot .nb').html());
+  var fr_style = LI.currency_style($('#sf_fieldset_unbalanced tfoot .nb').html()) == 'fr';
+
   // showing optional data by default
   $('#sf_fieldset_statistics .filling-complete .sf_admin_row.held').show();
   $('#sf_fieldset_statistics .filling-complete').find('td').show();
