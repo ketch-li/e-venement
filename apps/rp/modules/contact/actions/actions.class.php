@@ -39,6 +39,23 @@ class contactActions extends autoContactActions
 {
   private $force_classic_template_dir = false;
 
+  public function executeDuplicate(sfWebRequest $request)
+  {
+    $this->executeShow($request);
+    
+    $contact = new Contact;
+    $contact->name = $this->contact->name;
+    $contact->address = $this->contact->address;
+    $contact->postalcode = $this->contact->postalcode;
+    $contact->city = $this->contact->city;
+    $contact->country = $this->contact->country;
+    foreach ( $this->contact->Phonenumbers as $pn )
+      $contact->Phonenumbers[] = $pn->copy();
+    
+    $contact->save();
+    $this->getUser()->setFlash('notice', 'The item was created successfully.');
+    $this->redirect('contact/edit?id='.$contact->id);
+  }
   public function executePrepareImport(sfWebRequest $request)
   {
     $this->useClassicTemplateDir(true);

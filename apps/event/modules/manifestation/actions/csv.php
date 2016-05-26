@@ -107,7 +107,7 @@
       // tickets infos
       $total = array('qty' => 0, 'value' => 0);
       foreach ( $spectator->Tickets as $ticket )
-      if ( !$ticket->contact_id )
+      if ( !$ticket->contact_id || $ticket->contact_id == $spectator->contact_id )
       {
         $this->lines[count($this->lines)-1]['price_'.$ticket->price_id]++;
         $this->lines[count($this->lines)-1]['price_'.$ticket->price_id.'_value'] += $ticket->value;

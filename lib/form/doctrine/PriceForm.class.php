@@ -38,8 +38,7 @@ class PriceForm extends BasePriceForm
     $this->widgetSchema['users_list']
       ->setOption('expanded',true)
       ->setOption('order_by',array('username',''))
-      ->setOption('query', $q = Doctrine_Query::create()
-        ->from('sfGuardUser u')
+      ->setOption('query', $q = Doctrine::getTable('sfGuardUser')->createQuery('u')
         ->leftJoin('u.UserPrices pu WITH pu.price_id = ?', $this->object->isNew() ? 0 : $this->object->id)
         ->andWhere('u.is_active = ? OR pu.price_id IS NOT NULL', true)
       )

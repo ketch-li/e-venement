@@ -27,7 +27,7 @@ class liDoctrineRelationAssociationUsers extends Doctrine_Relation_Association
   public static function create(Doctrine_Relation $rel)
   {
     if ( ! $rel instanceof Doctrine_Relation_Association )
-      throw new liEvenementException(sprintf('%s is usable only with a Doctrine_Relation_Association template.', 'liDoctrineRelationAssociationUsers'));
+      throw new liEvenementException(sprintf('%s is usable only with a Doctrine_Relation_Association template, %s given.', 'liDoctrineRelationAssociationUsers', get_class($rel)));
     if ( ! $rel->getTable() instanceof sfGuardUserTable )
       throw new liEvenementException(sprintf('You cannot use %s for something else that sfGuardUserTable relations whereas %s is used here.', 'liDoctrineRelationAssociationUsers', get_class($rel->getTable())));
     return new self($rel->getDefinition());

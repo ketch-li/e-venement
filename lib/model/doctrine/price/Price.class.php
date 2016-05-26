@@ -54,7 +54,7 @@ class Price extends PluginPrice implements liUserAccessInterface
       return false;
     if ( isset($mcp[$this->id]['']) && $mcp[$this->id][''] > 0 )
       return true;
-    if ( $manifestation && isset($mcp[$this->id][$manifestation->id]) && $mcp[$this->id][$manifestation->id] > 0 )
+    if ( $manifestation && isset($mcp[$this->id][$manifestation->event_id]) && $mcp[$this->id][$manifestation->event_id] > 0 )
       return true;
     return false;
   }

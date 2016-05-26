@@ -300,31 +300,6 @@
         throw new liOnlineSaleException('You asked for a payment plugin ('.$plugin.') that does not exist or is not compatible.');
       $this->online_payment = $class::create($this->transaction);
     }
-    else // no payment to be done
-    {
-      $this->getContext()->getConfiguration()->loadHelpers('I18N');
-      
-      $transaction = $this->transaction;
-      if ( $transaction->BoughtProducts->count() == 0 && $transaction->Tickets->count() == 0 && $transaction->MemberCards->count() == 0 )
-      {
-        $this->getUser()->setFlash('notice', $str = __('Please control your order...'));
-        error_log('Transaction #'.$this->getUser()->getTransactionId().': '.$str);
-        $this->redirect('@homepage');
-      }
-      
-      $transaction->Order[] = new Order;
-      $this->createPaymentsDoneByMemberCards();
-      $transaction->save();
-      
-      $this->sendConfirmationEmails($transaction, $this);
-      $this->getUser()->resetTransaction();
-      if ( $transaction->Payments->count() > 0 )
-        $this->getUser()->setFlash('notice',__("Your command has been passed on your member cards, you don't have to pay anything."));
-      elseif ( sfConfig::get('app_payment_type', 'paybox') == 'onthespot' )
-        $this->getUser()->setFlash('notice',__("Your command has been booked, you will have to pay for it directly with us."));
-      
-      $redirect = 'transaction/show?id='.$transaction->id;
-    }
     else
     {
       // simple configuration
