@@ -43,33 +43,33 @@ class manifestationActions extends autoManifestationActions
   public function executePossibleIncomes(sfWebRequest $request)
   {
     $this->json = array('min' => array('value' => 0, 'currency' => NULL), 'max' => array('value' => 0, 'currency' => NULL),);
-    
+
     $q = Doctrine::getTable('Gauge')->createQuery('g',true,true)
       ->andWhere('g.manifestation_id = ?', $request->getParameter('id'))
-      
+
       ->leftJoin('g.PriceGauges pg')
       ->leftJoin('pg.Price pgp')
       ->leftJoin('pgp.Users pgpu WITH pgpu.id = ?', $this->getUser()->getId())
-      
+
       ->leftJoin('g.Manifestation m')
       ->leftJoin('m.PriceManifestations pm WITH pm.price_id != pg.price_id')
       ->leftJoin('pm.Price pmp')
       ->leftJoin('pmp.Users pmpu WITH pmpu.id = ?', $this->getUser()->getId())
-      
+
       ->addSelect('(CASE WHEN COUNT(pm.id) = 0 OR MAX(pg.value) > MAX(pm.value) THEN MAX(pg.value) ELSE MAX(pm.value) END) AS max')
       ->addSelect('(CASE WHEN COUNT(pm.id) = 0 OR MIN(pg.value) > MIN(pm.value) THEN MIN(pg.value) ELSE MIN(pm.value) END) AS min')
       //->addSelect('(CASE WHEN COUNT(pm.id)+COUNT(pg.id) > 0 THEN ((SUM(pm.value)+SUM(pg.value))/(COUNT(pm.id)+COUNT(pg.id)) ELSE 0 END) AS avg')
       ->addSelect('g.value')
       ->groupBy('g.id, g.value')
     ;
-    
+
     foreach ( $q->fetchArray() as $gauge )
     foreach ( array('max', 'min') as $field )
       $this->json[$field]['value'] += $gauge[$field]*$gauge['value'];
     $this->getContext()->getConfiguration()->loadHelpers('Number');
     foreach ( array('max', 'min') as $field )
       $this->json[$field]['currency'] = format_currency($this->json[$field]['value'], $this->getContext()->getConfiguration()->getCurrency());
-    
+
     if (!( sfConfig::get('sf_web_debug', true) && $request->hasParameter('debug') ))
       return 'Json';
   }
@@ -88,7 +88,7 @@ class manifestationActions extends autoManifestationActions
   public function executeAddGaugePrice(sfWebRequest $request)
   {
     $this->json = array('success' => array(), 'error' => array());
-    
+
     if ( sfConfig::get('sf_web_debug', false) && $request->hasParameter('debug') )
     {
       $this->getResponse()->setContentType('text/html');
@@ -98,13 +98,13 @@ class manifestationActions extends autoManifestationActions
       sfConfig::set('sf_web_debug', false);
     $this->json = array();
     $error = 'A problem occurred during the price creation / update (you should better reload your screen)';
-    
+
     if (!( $pg = $request->getParameter('price_gauge') ))
     {
       $this->json['error']['message'] = $error;
       return 'Success';
     }
-    
+
     $form = new PriceGaugeForm(intval($pg['id']) > 0 ? Doctrine::getTable('PriceGauge')->find($pg['id']) : NULL);
     $form->bind($pg);
     if ( !$form->isValid() )
@@ -113,7 +113,7 @@ class manifestationActions extends autoManifestationActions
       $this->json['error']['message'] = $error;
       return 'Success';
     }
-    
+
     $form->save();
     $this->json['success']['id'] = $form->getObject()->id;
     $this->json['success']['message'] = 'Price created or updated for this gauge';
@@ -123,18 +123,18 @@ class manifestationActions extends autoManifestationActions
     require(dirname(__FILE__).'/slide-happens-at.php');
     return sfView::NONE;
   }
-  
+
   public function executeSlideDuration(sfWebRequest $request)
   {
     require(dirname(__FILE__).'/slide-duration.php');
     return sfView::NONE;
   }
-  
+
   // needs previously cleaned $request->getParameter('ids'), usually it's done by executeBatch()
   public function executeBestFreeSeat(sfWebRequest $request)
   {
     $this->getContext()->getConfiguration()->loadHelpers('Url');
-    
+
     $q = Doctrine::getTable('Manifestation')->createQuery('m');
     if ( $request->getParameter('ids') )
       $q->andWhereIn('e.id', $request->getParameter('ids'));
@@ -142,7 +142,7 @@ class manifestationActions extends autoManifestationActions
       $q->andWhere('m.happens_at > NOW()')
         ->limit(20);
     $manifs = $q->execute();
-    
+
     $this->seats = array();
     $seated_plans = array();
     foreach ( $manifs as $manif )
@@ -153,8 +153,8 @@ class manifestationActions extends autoManifestationActions
       $workspaces = array();
       foreach ( $seated_plans[$seat->seated_plan_id]->Workspaces as $ws )
         $workspaces[] = (string)$ws;
-      
-      
+
+
       $this->seats[$seat->rank.'--'.$manif->id.'-'.$seat->id] = array(
         'rank'              => $seat->rank,
         'name'              => (string)$seat,
@@ -171,15 +171,15 @@ class manifestationActions extends autoManifestationActions
   }
   public function executeBatchBestFreeSeat(sfWebRequest $request)
   { $this->forward('manifestation', 'bestFreeSeat'); }
-  
+
   public function executeSell(sfWebRequest $request)
   {
     $this->getContext()->getConfiguration()->loadHelpers('CrossAppLink');
-    
+
     $this->forward404Unless($request->hasParameter('id'));
     $this->redirect(cross_app_url_for('tck', 'transaction/new#manifestations-'.$request->getParameter('id')));
   }
-  
+
   public function executeExport(sfWebRequest $request)
   {
     require(dirname(__FILE__).'/export.php');
@@ -192,7 +192,7 @@ class manifestationActions extends autoManifestationActions
   public function executeDuplicate(sfWebRequest $request)
   {
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
-    
+
     $manif = Doctrine_Query::create()->from('Manifestation m')
       ->leftJoin('m.PriceManifestations p')
       ->leftJoin('m.Gauges g')
@@ -200,7 +200,7 @@ class manifestationActions extends autoManifestationActions
       ->andWhere('m.id = ?',$request->getParameter('id',0))
       ->fetchOne()
       ->duplicate();
-    
+
     $this->getUser()->setFlash('notice',__('The manifestation has been duplicated successfully.'));
     $this->redirect('manifestation/edit?id='.$manif->id);
   }
@@ -216,13 +216,13 @@ class manifestationActions extends autoManifestationActions
         $event_id = $request->hasParameter('event')
           ? Doctrine::getTable('Event')->findOneBySlug($request->getParameter('event'))->id
           : $event_id = 0;
-      
+
       $this->getUser()->setFlash('error','You cannot access this object, you do not have the required credentials.');
       $this->redirect($event_id ? 'event/show?id='.$event_id : 'event/index');
     }
-    
+
     parent::executeNew($request);
-    
+
     if ( $request->getParameter('event') )
     {
       $event = Doctrine::getTable('Event')->findOneBySlug($request->getParameter('event'));
@@ -235,19 +235,19 @@ class manifestationActions extends autoManifestationActions
       if ( $location->id )
       $this->form->setDefault('location_id', $location->id);
     }
-    
+
     // booking_list
     if ( ($list = $request->getParameter('booking_list', $this->getUser()->getFlash('booking_list',array())))
       && is_array($list) )
       $this->form->setDefault('booking_list', $list);
   }
-  
+
   public function executeAjax(sfWebRequest $request)
   {
     $charset = sfConfig::get('software_internals_charset');
     $search  = iconv($charset['db'],$charset['ascii'],strtolower($request->getParameter('q')));
     $museum  = $this->getContext()->getConfiguration()->getApplication() == 'museum';
-    
+
     $eids = array();
     if ( $search )
     {
@@ -259,13 +259,13 @@ class manifestationActions extends autoManifestationActions
       foreach ( $e->execute() as $event )
         $eids[] = $event['id'];
     }
-    
+
     if (!( $max = $request->getParameter('max',sfConfig::get('app_manifestations_max_ajax')) ))
     {
       $conf = sfConfig::get('app_transaction_manifs', array());
       $max = isset($conf['max_display']) && $conf['max_display'] ? $conf['max_display'] : 10;
     }
-    
+
     $q = Doctrine::getTable('Manifestation')->createQuery('m')
       ->andWhere('e.museum = ?', $museum)
       ->leftJoin('m.Color c')
@@ -275,29 +275,30 @@ class manifestationActions extends autoManifestationActions
       $q->andWhereIn('m.event_id',$eids);
     elseif ( $search )
       $q->andWhere('m.event_id IS NULL');
-    
+
     if ( $e = $request->getParameter('except',false) )
       $q->andWhereNotIn('m.id', is_array($e) ? $e : array($e));
-    
+
     if ( $request->hasParameter('display_by_default') )
       $q->andWhere('e.display_by_default = ?',true);
-    
+
     $q = EventFormFilter::addCredentialsQueryPart($q);
-    
+
     if ( !$search
+      || sfConfig::get('app_ticketting_later_only')
       || $request->hasParameter('later')
       || $request->getParameter('except_transaction',false) && !$this->getUser()->hasCredential('tck-unblock') )
       $q->andWhere("manifestation_ends_at(m.happens_at, m.duration) > NOW()");
-    
+
     // specific criterias
     switch ( $request->getParameter('for') ) {
     case 'grp':
       $q->andWhere('g.workspace_id IN (SELECT gws.workspace_id FROM GroupWorkspace gws)');
       break;
     }
-    
+
     $manifestations = $q->select('m.*, e.*, c.*')->execute();
-    
+
     $this->getContext()->getConfiguration()->loadHelpers('Url');
     $manifs = array();
     foreach ( $manifestations as $manif )
@@ -311,7 +312,7 @@ class manifestationActions extends autoManifestationActions
           ->andWhere('tck.transaction_id = ?', intval($request->getParameter('except_transaction')))
           ->count() == 0;
       }
-      
+
       if ( $go )
       {
         $short = sfConfig::get('app_manifestation_prefer_short_name', true);
@@ -320,7 +321,7 @@ class manifestationActions extends autoManifestationActions
           'color' => (string)$manif->Color,
           'gauge_url' => url_for('gauge/state?json=true&manifestation_id='.$manif->id, true),
         );
-        
+
         if ( $request->hasParameter('keep-order') )
           $manifs[] = $arr + array('id'    => $manif->id);
         else
@@ -331,7 +332,7 @@ class manifestationActions extends autoManifestationActions
         }
       }
     }
-    
+
     if ( $request->hasParameter('debug') && $this->getContext()->getConfiguration()->getEnvironment() == 'dev' )
     {
       $this->getResponse()->setContentType('text/html');
@@ -343,7 +344,7 @@ class manifestationActions extends autoManifestationActions
       sfConfig::set('sf_debug',false);
       sfConfig::set('sf_escaping_strategy', false);
     }
-    
+
     $this->json = $manifs;
   }
 
@@ -355,9 +356,9 @@ class manifestationActions extends autoManifestationActions
   {
     if ( !$request->getParameter('id') )
       $this->forward('manifestation','index');
-    
+
     $this->event_id = $request->getParameter('id');
-    
+
     $this->pager = $this->configuration->getPager('Contact');
     $this->pager->setMaxPerPage(10);
     $this->pager->setQuery(
@@ -379,11 +380,11 @@ class manifestationActions extends autoManifestationActions
   {
     if ( !$request->getParameter('id') )
       $this->forward('manifestation','index');
-    
+
     $place = !$request->hasParameter('resource');
-    
+
     $this->location_id = $request->getParameter('id');
-    
+
     $this->pager = $this->configuration->getPager('Manifestation');
     $this->pager->setMaxPerPage(10);
     $this->pager->setQuery(
@@ -400,29 +401,29 @@ class manifestationActions extends autoManifestationActions
     $this->pager->setPage($request->getParameter('page') ? $request->getParameter('page') : 1);
     $this->pager->init();
   }
-  
+
   public function executeTemplating(sfWebRequest $request)
   {
     require(dirname(__FILE__).'/templating.php');
   }
-  
+
   public function executeBatchChangeEvent(sfWebRequest $request)
   {
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
-    
+
     if (!( intval($request->getParameter('batch_event_id')).'' === ''.$request->getParameter('batch_event_id')
       && $event = Doctrine::getTable('Event')->find($request->getParameter('batch_event_id')) ))
     {
       $this->getUser()->setFlash('error', __('You must provide a valid event in order to apply the selected manifestations to.'));
       $this->redirect('manifestation/index');
     }
-    
+
     foreach ( $manifs = Doctrine::getTable('Manifestation')->createQuery('m', true)
       ->andWhereIn('m.id', $request->getParameter('ids'))
       ->execute() as $manif )
       $manif->Event = $event;
     $manifs->save();
-    
+
     $this->getUser()->setFlash('success', __('The provided manifestations have been applied to "%%event%%".', array('%%event%%' => $event)));
     $this->redirect('manifestation/index');
   }
@@ -434,12 +435,12 @@ class manifestationActions extends autoManifestationActions
       $args[] = str_replace('%%i%%', $i, $arg).$id;
     $this->redirect('manifestation/periodicity?'.implode('&', $args));
   }
-  
+
   protected function securityAccessFiltering(sfWebRequest $request, $deep = true)
   {
     if ( intval($request->getParameter('id')).'' !== ''.$request->getParameter('id') )
       return;
-    
+
     $sf_user = $this->getUser();
     $manifestation = $this->getRoute()->getObject();
     if ( !$sf_user->isSuperAdmin() && !in_array($manifestation->Event->meta_event_id,array_keys($sf_user->getMetaEventsCredentials())) )
@@ -447,7 +448,7 @@ class manifestationActions extends autoManifestationActions
       $this->getUser()->setFlash('error', $error = "You cannot access this object, you do not have the required credentials.");
       $this->redirect('@event');
     }
-    
+
     $config = sfConfig::get('app_manifestation_reservations',array('enable' => false));
     if ( !$sf_user->hasCredential('event-manif-edit-confirmed') && !(isset($config['let_restricted_users_confirm']) && $config['let_restricted_users_confirm']) )
       error_log('The user #'.$sf_user->id.' has no credential for edition on manifestation #'.$manifestation->id);
@@ -460,12 +461,12 @@ class manifestationActions extends autoManifestationActions
       $this->redirect('manifestation/show?id='.$manifestation->id);
     }
   }
-  
+
   public function executeDelete(sfWebRequest $request)
   {
     try {
       $this->securityAccessFiltering($request);
-      
+
       $request->checkCSRFProtection();
       $this->dispatcher->notify(new sfEvent($this, 'admin.delete_object', array('object' => $this->getRoute()->getObject())));
       $this->manifestation = $this->getRoute()->getObject();
@@ -485,14 +486,14 @@ class manifestationActions extends autoManifestationActions
   {
     $this->securityAccessFiltering($request);
     parent::executeEdit($request);
-    
+
     $this->getContext()->getConfiguration()->loadHelpers('CrossAppLink');
     $museum = $this->getContext()->getConfiguration()->getApplication() == 'museum';
     if ( $this->manifestation->Event->museum && !$museum )
       $this->redirect(cross_app_url_for('museum', 'manifestation/edit?id='.$this->manifestation->id));
     elseif ( !$this->manifestation->Event->museum && $museum )
       $this->redirect(cross_app_url_for('event', 'manifestation/edit?id='.$this->manifestation->id));
-    
+
     //$this->form->prices = $this->getPrices();
     //$this->form->spectators = $this->getSpectators();
     //$this->form->unbalanced = $this->getUnbalancedTransactions();
@@ -510,14 +511,14 @@ class manifestationActions extends autoManifestationActions
     $this->securityAccessFiltering($request, false);
     $this->manifestation = $this->getRoute()->getObject();
     $this->forward404Unless($this->manifestation);
-    
+
     $this->getContext()->getConfiguration()->loadHelpers('CrossAppLink');
     $museum  = $this->getContext()->getConfiguration()->getApplication() == 'museum';
     if ( $this->manifestation->Event->museum && !$museum )
       $this->redirect(cross_app_url_for('museum', 'manifestation/show?id='.$this->manifestation->id));
     elseif ( !$this->manifestation->Event->museum && $museum )
       $this->redirect(cross_app_url_for('event', 'manifestation/show?id='.$this->manifestation->id));
-    
+
     $this->form = $this->configuration->getForm($this->manifestation);
     //$this->form->prices = $this->getPrices();
     //$this->form->spectators = $this->getSpectators();
@@ -526,10 +527,10 @@ class manifestationActions extends autoManifestationActions
   public function executeVersions(sfWebRequest $request)
   {
     $this->executeShow($request);
-    
+
     if ( !($v = $request->getParameter('version',false)) )
       $v = $this->manifestation->version > 1 ? $this->manifestation->version - 1 : 1;
-    
+
     if ( intval($v).'' == ''.$v )
     foreach ( $this->manifestation->Version as $version )
     if ( $version->version == $v )
@@ -537,7 +538,7 @@ class manifestationActions extends autoManifestationActions
       $this->manifestation->current_version = $version;
       break;
     }
-    
+
     if ( !$this->manifestation->current_version )
     {
       $this->getContext()->getConfiguration()->loadHelpers('I18N');
@@ -545,17 +546,17 @@ class manifestationActions extends autoManifestationActions
       $this->redirect('manifestation/show?id='.$this->manifestation->id);
     }
   }
-  
+
   public function executeShowSpectators(sfWebRequest $request)
   {
     $this->setLayout('nude');
     $this->securityAccessFiltering($request, false);
-    
+
     $cacher = liCacher::create('manifestation/showSpectators?id='.$request->getParameter('id'), true);
     if ( !$cacher->requiresRefresh($request) )
     if ( ($this->cache = $cacher->useCache($this->getRoute()->getObject()->getCacheTimeout())) !== false )
       return 'Success';
-    
+
     $this->manifestation_id = $request->getParameter('id');
     $this->spectators = $this->getSpectators($request->getParameter('id'));
     $this->show_workspaces = Doctrine_Query::create()
@@ -565,26 +566,26 @@ class manifestationActions extends autoManifestationActions
       ->execute()
       ->count() > 1;
     $this->cache = $this->getPartial('show_spectators_list');
-    
+
     $cacher->setData($this->cache)->writeData();
   }
   public function executeShowTickets(sfWebRequest $request)
   {
     $this->setLayout('nude');
     $this->securityAccessFiltering($request, false);
-    
+
     $cacher = liCacher::create('manifestation/showTickets?id='.$request->getParameter('id'), true);
     if ( !$cacher->requiresRefresh($request) )
     if ( ($this->cache = $cacher->useCache($this->getRoute()->getObject()->getCacheTimeout())) !== false )
       return 'Success';
-    
+
     $this->manifestation_id = $request->getParameter('id');
     $this->prices = $this->getPrices($request->getParameter('id'));
     $this->cache = $this->getPartial('show_tickets_list');
-    
+
     $cacher->setData($this->cache)->writeData();
   }
-  
+
   protected function countTickets($manifestation_id)
   {
     $q = '
@@ -598,16 +599,16 @@ class manifestationActions extends autoManifestationActions
     $stmt = $pdo->prepare($q);
     $stmt->execute(array('manifestation_id' => $manifestation_id));
     $tmp = $stmt->fetchAll();
-    
+
     return $tmp[0]['nb'];
   }
-  
+
   protected function getPrices($manifestation_id = NULL)
   {
     $mid = $manifestation_id ? $manifestation_id : $this->manifestation->id;
     $nb = $this->countTickets($mid);
     $q = Doctrine::getTable('Price')->createQuery('p');
-    
+
     if ( $nb < 7500 )
     $q->leftJoin('p.Tickets t')
       ->leftJoin('t.Duplicatas duplicatas')
@@ -653,7 +654,7 @@ class manifestationActions extends autoManifestationActions
     $e = $q->execute();
     return $e;
   }
-  
+
   protected function getSpectators($manifestation_id = NULL, $only_printed_tck = false)
   {
     $mid = $manifestation_id ? $manifestation_id : $this->manifestation->id;
@@ -669,7 +670,7 @@ class manifestationActions extends autoManifestationActions
       ->leftJoin('tr.User u')
       ->leftJoin('pro.Organism o')
     ;
-    
+
     $q->leftJoin('tr.Tickets tck'.($only_printed_tck ? ' ON tck.transaction_id = tr.id AND (tck.printed_at IS NOT NULL OR tck.integrated_at IS NOT NULL OR tck.cancelling IS NOT NULL)' : ''))
       ->leftJoin('tck.Duplicatas duplicatas')
       ->leftJoin('duplicatas.Cancelling cancelling2')
@@ -691,7 +692,7 @@ class manifestationActions extends autoManifestationActions
       ->andWhereIn('g.workspace_id',array_keys($this->getUser()->getWorkspacesCredentials()))
       ->orderBy('c.name, c.firstname, o.name, pt.name, g.workspace_id, w.name, tr.id')
     ;
-    
+
     $spectators = $q->execute();
     return $spectators;
   }
@@ -734,25 +735,25 @@ class manifestationActions extends autoManifestationActions
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
-    
+
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     if ($form->isValid())
     {
       // "credentials"
       $form->updateObject($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-      
+
       // a workaround to avoid Manifestation::event_id set and a Manifesation::Event still unset, for credential checks
       if ( $form->getObject()->event_id && $form->getObject()->Event->isNew() )
         $form->getObject()->Event = Doctrine::getTable('Event')->find($form->getObject()->event_id);
-      
+
       if ( !in_array($form->getObject()->Event->meta_event_id, array_keys($this->getUser()->getMetaEventsCredentials())) )
       {
         $this->getUser()->setFlash('error', "You don't have permissions to modify this event.");
         $this->redirect('@manifestation_new');
       }
-      
+
       $notice = __($form->getObject()->isNew() ? "The item was created successfully. Don't forget to update prices if necessary." : 'The item was updated successfully.');
-      
+
       $manifestation = $form->save();
 
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $manifestation)));
@@ -766,7 +767,7 @@ class manifestationActions extends autoManifestationActions
       else
       {
         $this->getUser()->setFlash('success', $notice);
-        
+
         $this->redirect(array('sf_route' => 'manifestation_edit', 'sf_subject' => $manifestation));
       }
     }
