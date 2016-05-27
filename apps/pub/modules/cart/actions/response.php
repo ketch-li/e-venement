@@ -52,7 +52,15 @@
   $payment = new Payment;
   $payment->sf_guard_user_id = $this->getUser()->getId();
   $payment->payment_method_id = sfConfig::get('app_tickets_payment_method_id');
+  
+  // if the current currency is not the main one
+  $cur = sfConfig::get('project_internals_currency', array());
+  $iso = $request->getParameter('currency', false);
+  if ( $iso && isset($cur['conversions'][$iso]) && isset($cur['conversions'][$iso]['rate']) )
+    $r['amount'] = $r['amount']/$cur['conversions'][$iso]['rate']; // conversion of currencies
+  
   $payment->value = $r['amount'];
+  
   if ( method_exists($this->online_payment, 'getProviderTransactionId')
     && $this->online_payment->getProviderTransactionId() )
     $payment->detail = $this->online_payment->getProviderTransactionId();

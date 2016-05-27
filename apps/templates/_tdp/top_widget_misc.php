@@ -1,6 +1,6 @@
 <?php
   // member cards
-  if ( sfConfig::get('app_cards_enable') )
+  if ( sfConfig::get('project_cards_enable', false) )
   if ( $sf_user->hasCredential('pr-card-view') )
   echo link_to(__('Cards'),isset($object) && $sf_context->getModuleName() == 'contact' ? 'contact/card?id='.$object->id : 'member_card/check',array(
     'title' => isset($object) && $sf_context->getModuleName() == 'contact'

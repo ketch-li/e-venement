@@ -32,6 +32,7 @@ all:
       full_seating_by_customer: true
       #display_tickets_in_manifestations_list: true
       #one_shot: true # the password is empty'ed after the first order
+      #auto_add_one_ticket_for_manifid: 125
     payment_method_id: 1
     close_before: 24 hours
     wip_price: ...

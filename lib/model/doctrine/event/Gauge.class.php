@@ -32,6 +32,16 @@ class Gauge extends PluginGauge
       - ($count_demands ? $this->asked : 0);
   }
   
+  public function getHeldFreeSeats()
+  {
+    $seats = new Doctrine_Collection('Seat');
+    foreach ( $this->getSeatedPlan()->Seats as $seat )
+    if ( !in_array($this->manifestation_id, $seat->Tickets->toKeyValueArray('id', 'manifestation_id'))
+      && in_array($this->manifestation_id, $seat->Holds->toKeyValueArray('id', 'manifestation_id')) )
+      $seats[] = $seat;
+    return $seats;
+  }
+  
   public function preSave($event)
   {
     if ( is_null($this->value) )

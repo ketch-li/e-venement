@@ -179,8 +179,13 @@
               }
               else
               {
-                unset($params['ticket_id']);
-                $this->form->bind($params);
+                $tck = Doctrine::getTable('Ticket')->createQuery('tck')
+                  ->andWhereIn("tck.$field", $params['ticket_id'])
+                  ->fetchOne();
+                $this->errors[] = __('An error occurred controlling your ticket.')
+                  .($tck instanceof Ticket && !$tck->printed_at && !$tck->integrated_at ? ' '.__('This ticket is not sold yet.') : '');
+                $this->success = false;
+                return 'Result';
               }
             }
             else
@@ -243,7 +248,9 @@
       }
       else
       {
-        $this->getUser()->setFlash('error',__("Don't forget to specify a checkpoint and a ticket id"));
+        $this->success = false;
+        $this->errors[] = __("Don't forget to specify a checkpoint and a ticket id");
+        return 'Result';
       }
     }
     
