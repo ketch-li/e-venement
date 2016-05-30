@@ -32,9 +32,14 @@
         return false;
       }
 
-      if ( $(form).find('[name=duplicate]').prop('checked') && $(form).find('[name=price_name]').val() )
-        $(form).find('[name=manifestation_id]').val($('#li_transaction_manifestations .item.ui-state-highlight').closest('.family').attr('data-family-id'));
       setTimeout(function(){ $('#li_transaction_manifestations .footer .print [name=price_name]').val('').blur(); }, 2500);
+      if ( $(form).find('[name=duplicate]').prop('checked') && $(form).find('[name=price_name]').val() )
+      {
+        console.error('duplicate');
+        $(form).find('[name=manifestation_id]').val($('#li_transaction_manifestations .item.ui-state-highlight').closest('.family').attr('data-family-id'));
+        $(form).submit();
+        return true;
+      }
       return LI.checkGauges(form, submitHandler);
     }
 
