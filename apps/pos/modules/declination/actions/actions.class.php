@@ -49,7 +49,6 @@ class declinationActions extends autoDeclinationActions
   
   public function executeAjax(sfWebRequest $request)
   {
-    //$this->getResponse()->setContentType('application/json');
     if ( $request->hasParameter('debug') && $this->getContext()->getConfiguration()->getEnvironment() == 'dev' )
     {
       $this->getResponse()->setContentType('text/html');
@@ -76,7 +75,7 @@ class declinationActions extends autoDeclinationActions
       $q->andWhere('pdt.id NOT IN (SELECT bpd.product_id FROM BoughtProduct bp LEFT JOIN bp.Declination bpd WHERE bp.transaction_id = ?)',$tid);
     
     // huge hack to look for declinations' codes AND product_index
-    $pdtq = Doctrine::getTable('Product')->search($search.'*', Doctrine_Query::create()->from('Product'))->select('id');
+    $pdtq = Doctrine::getTable('Product')->search($search.'*', Doctrine_Query::create()->from('Product pp1'))->select('pp1.id');
     $q->andWhere('(TRUE')
       ->andWhere('d.code ILIKE ?', $request->getParameter('q').'%')
       ->orWhere('TRUE');
