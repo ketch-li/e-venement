@@ -55,6 +55,15 @@ all:
       phone_number: true
     #picture: true
     #newsletter: true
+
+  # OpenID Connect / OAuth2
+  openidconnect:
+    wellknownurl: https://auth.example.com/.well-known/openid-configuration # mandatory
+    client_id: eve-id
+    client_secret: eve-pass
+    redirect_uri: http://localhost/pub_dev.php/login
+    verify_ssl: false
+
   #member_cards: # this feature allows auto-creation of passes if some prerequisites match or deletion of passes if conditions are not matched
   #  trigger_after_manifestations: 3 # does not count tickets whose price are linked to member cards
   #  type_id: 1 # goes w/ the previous option
@@ -97,7 +106,7 @@ all:
     rank: "32"
     site: "1999888"
     key: "0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF"
-    currency: '<?php $cur = sfConfig::get('project_internals_currency', array('id' => 978, 'symbol' => '€')); echo $cur['id'] ?>'
+    currency: '<?php $cur = sfConfig::get('project_internals_currency', array('iso' => 978, 'symbol' => '€')); echo $cur['iso'] ?>'
     url:
       payment: [https://preprod-tpeweb.paybox.com/, https://preprod-tpeweb1.paybox.com/]
       uri: cgi/MYchoix_pagepaiement.cgi
