@@ -64,20 +64,18 @@ $(document).ready(function () {
             printer: JSON.stringify(LI.activeDirectPrinter)
           };
           Printer.print(data).then(function(res){
-            console.info('OK', res);
+            connector.log('info', 'Print OK', res);
             LI.alert('Print OK');
             logData.error = false;
             logData.status = res.statuses.join(' | ');
             logData.raw_status = res.raw_status;
           }).catch(function (err) {
-            console.info('ERR', err);
             connector.log('error', 'Print error:', err);
             for ( var i in err.statuses ) LI.alert(err.statuses[i], 'error');
             logData.error = true;
             logData.status = err.statuses.join(' | ');
             logData.raw_status = err.raw_status;
           }).then(function(){
-            console.info('then...', LI.directPrintLogUrl);
             // log direct print result in DB
             $.ajax({
               type: "GET",
@@ -85,12 +83,12 @@ $(document).ready(function () {
               data: {directPrint: logData},
               dataType: 'json',
               success: function () {
-                console.info('directPrintLog success', LI.closePrintWindow);
+                connector.log('info', 'directPrintLog success', LI.closePrintWindow);
                 typeof LI.closePrintWindow === "function" && LI.closePrintWindow();
               },
               error: function (err) {
                 console.error(err);
-              },              
+              }            
             });
           });
         }
@@ -98,57 +96,136 @@ $(document).ready(function () {
       return false;
     };
 
-    connector.log('info', 'Scanning devices (direct call) ...');
-    connector.log('info', LI.usb.printers);
+    // event handler that outputs totals on USB display when totals change
+    var displayTotals = function(event) {
+      var Display = LIDisplay(LI.activeDisplay, connector);
+      if (!Display) 
+        return;      
+      
+      var total = $('#li_transaction_field_payments_list .topay .pit').data('value');
+      total = LI.format_currency(total, false).replace('€', 'E');
+      var left = $('#li_transaction_field_payments_list .change .pit').data('value');
+      left = LI.format_currency(left, false).replace('€', 'E');
+      var lines = [
+        $('.displays .display-total').text() + ' ' + total, 
+        $('.displays .display-left').text() + ' ' + left
+      ];
+      Display.write(lines);
+    };
+
+    // configure the form for direct printing (if there is an available direct printer)
+    var configureDirectPrint = function()
+    {
+      if ( LI.activeDirectPrinter === undefined ) 
+        return;
+
+      var usbParams = LI.activeDirectPrinter.params;
+
+      var dp_title = $('#li_transaction_field_close .print .direct-printing-info').length > 0 ?
+        $('#li_transaction_field_close .print .direct-printing-info').text() :
+        ( LI.directPrintTitle ? LI.directPrintTitle : "Direct Print" );
+
+      $('#li_transaction_museum .print, #li_transaction_manifestations .print')
+        .each(function () {
+          $(this)
+            .append($('<input type="hidden" />').prop('name', 'direct').val(JSON.stringify(usbParams)))
+            .prop('title', dp_title);
+        })
+        .attr('onsubmit', null)
+        .unbind('submit')
+        .submit(function () {
+          // *T* here we are when the print form is submitted
+          connector.log('info', 'Submitting direct print form...');
+          LI.printTickets(this, false, directPrint);
+          return false;
+        });
+
+      // Partial print
+      $('form.print.partial-print')
+        .append($('<input type="hidden" />').prop('name', 'direct').val(JSON.stringify(usbParams)))
+        .prop('title', dp_title)
+        .unbind('submit')
+        .submit(directPrint);      
+    };
+    
+    // configure the form for direct printing (if there is an available direct printer)
+    var configureDisplay = function()
+    {
+      if ( LI.activeDisplay === undefined ) 
+        return;
+      $('#li_transaction_field_payments_list .topay .pit').on("changeData", displayTotals);      
+      $('#li_transaction_field_payments_list .change .pit').on("changeData", displayTotals);      
+    };    
+
+    // Get all the configured devices USB ids
+    connector.log('info', 'Configured USB devices: ', LI.usb);
+    if (LI.usb === undefined)
+      return;
     var devices = [];
-    $.each(LI.usb.printers, function (type, devs) {
-      $.each(devs, function (i, ids) {
-        devices.push(ids);
-      });
+    ['printers', 'displays', 'epts'].forEach(function(family){
+      if (LI.usb[family] !== undefined)
+        for (var name in LI.usb[family])
+          devices.push(LI.usb[family][name][0]);
     });
+    
     connector.areDevicesAvailable({type: 'usb', params: devices}).then(
       function (data) {
-        // *T* here we are when the list of USB devices is received
-        if (!(data.params && data.params.length > 0))
-        {
-          connector.log('info', 'No ' + data.type + ' device found within your search.');
-          return;
-        }
-        var usbParams = data.params.shift();
-        LI.activeDirectPrinter = {type:'usb', params: usbParams}; // global var
-
-        var dp_title = $('#li_transaction_field_close .print .direct-printing-info').length > 0 ?
-          $('#li_transaction_field_close .print .direct-printing-info').text() :
-          ( LI.directPrintTitle ? LI.directPrintTitle : "Direct Print" );
-
-        $('#li_transaction_museum .print, #li_transaction_manifestations .print')
-          .each(function () {
-            $(this)
-              .append($('<input type="hidden" />').prop('name', 'direct').val(JSON.stringify(usbParams)))
-              .prop('title', dp_title);
-          })
-          .attr('onsubmit', null)
-          .unbind('submit')
-          .submit(function () {
-            // *T* here we are when the print form is submitted
-            connector.log('info', 'Submitting direct print form...');
-            LI.printTickets(this, false, directPrint);
+        // data contains the list of the available devices
+        connector.log('info', 'Available USB devices:', data.params);
+        
+        // Check if we have an available USB printer device and store it in LI.activeDirectPrinter global variable
+        var foundPrinter = false;
+        if ( LI.usb.printers !== undefined ) {
+          foundPrinter = data.params.some(function(device){
+            for ( var name in LI.usb.printers )
+              if ( LI.usb.printers[name][0].vid === device.vid && LI.usb.printers[name][0].pid === device.pid ) {
+                LI.activeDirectPrinter = {type:'usb', params: device}; // global var
+                connector.log('info', 'LI.activeDirectPrinter:', LI.activeDirectPrinter);
+                return true;
+              }
             return false;
           });
-          
-        // Partial print
-        $('form.print.partial-print')
-          .append($('<input type="hidden" />').prop('name', 'direct').val(JSON.stringify(usbParams)))
-          .prop('title', dp_title)
-          .unbind('submit')
-          .submit(directPrint);
+        }
+        foundPrinter && configureDirectPrint();
+        
+        // Check if we have an available USB display device and store it in LI.activeDisplay global variable
+        var foundDisplay = false;
+        if ( LI.usb.displays !== undefined ) {
+          foundDisplay = data.params.some(function(device){
+            for ( var name in LI.usb.displays )
+              if ( LI.usb.displays[name][0].vid === device.vid && LI.usb.displays[name][0].pid === device.pid ) {
+                LI.activeDisplay = {type:'usb', params: device}; // global var
+                connector.log('info', 'LI.activeDisplay:', LI.activeDisplay);
+                return true;
+              }
+            return false;
+          });
+        }
+        if (foundDisplay) {
+          configureDisplay();
+          displayTotals();
+        }
+        
+        // Check if we have an available USB EPT device and store it in LI.activeEPT global variable
+        if ( LI.usb.epts !== undefined ) {
+          data.params.some(function(device){
+            for ( var name in LI.usb.epts )
+              if ( LI.usb.epts[name][0].vid === device.vid && LI.usb.epts[name][0].pid === device.pid ) {
+                LI.activeEPT = {type:'usb', params: device}; // global var
+                connector.log('info', 'LI.activeEPT:', LI.activeEPT);
+                return true;
+              }
+            return false;
+          });
+        }
+        
       },
       function (error) {
         //areDevicesAvailable returned an error
         connector.log('error', error);
       }
-    );
-
+    ); // END connector.areDevicesAvailable()
+  
     connector.onError = function () {
       $('#li_transaction_museum .print [name=direct], #li_transaction_manifestations .print [name=direct]')
         .remove();

@@ -706,17 +706,31 @@ LI.calculateTotals = function()
     });
   });
 
+  var changeData = false;
   $.each(total, function(index, value){
-    $('#li_transaction_field_payments_list .topay .'+index).html(LI.tckFormatCurrency(value));
+    var $elem = $('#li_transaction_field_payments_list .topay .'+index);
+    var oldval = $elem.data('value');
+    $elem
+      .html(LI.tckFormatCurrency(value))
+      .data('value', value);
+    if ( value !== oldval)
+      changeData = true;
 
     var tmp = LI.parseFloat($('#li_transaction_field_payments_list tfoot .total .sf_admin_list_td_list_value').html());
     tmp = isNaN(tmp) ? 0 : tmp;
     tmp = total[index] - tmp * total[index]/total.pit;
     tmp = isNaN(tmp) ? 0 : tmp;
-    $('#li_transaction_field_payments_list .change .'+index)
-      .html(LI.tckFormatCurrency(tmp));
+    $elem = $('#li_transaction_field_payments_list .change .'+index);
+    oldval = $elem.data('value');    
+    $elem
+      .html(LI.tckFormatCurrency(tmp))
+      .data('value', tmp);
+    if ( tmp !== oldval)
+      changeData = true;  
   });
-}
+  if ( changeData )
+    $('#li_transaction_field_payments_list .topay .pit').trigger('changeData');
+};
 
 // function to go back to the ticketting transaction from the contact window
 LI.goBackToTransaction = function(){

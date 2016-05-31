@@ -5,6 +5,14 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Total:</source>
+        <target>Total:</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Left to pay:</source>
+        <target>A payer:</target>
+      </trans-unit>
+      <trans-unit>
         <source>Pictogram</source>
         <target>Pictogramme</target>
       </trans-unit>
