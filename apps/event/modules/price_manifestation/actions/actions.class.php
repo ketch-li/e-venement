@@ -17,19 +17,34 @@ class price_manifestationActions extends autoPrice_manifestationActions
   {
     if ( intval($mid = $request->getParameter('id')).'' != $request->getParameter('id') )
       throw new sfError404Exception();
-    
+
     $q = Doctrine::getTable('PriceManifestation')->createQuery('pm')
       ->leftJoin('pm.Price p')
       ->leftJoin("p.Translation pt WITH pt.lang = '".$this->getUser()->getCulture()."'")
       ->where('manifestation_id = ?',$mid)
       ->orderBy('pm.value DESC, pt.name');
     $this->sort = array('value','desc');
-    
+
     $this->pager = $this->configuration->getPager('PriceManifestation');
     $this->pager->setQuery($q);
     $this->pager->setPage($request->getParameter('page'));
     $this->pager->init();
-    
+
     $this->hasFilters = $this->getUser()->getAttribute('price_manifestation.list_filters', $this->configuration->getFilterDefaults(), 'admin_module');
+  }
+
+  public function executeDelete(sfWebRequest $request)
+  {
+    $request->checkCSRFProtection();
+
+    $this->dispatcher->notify(new sfEvent($this, 'admin.delete_object', array('object' => $this->getRoute()->getObject())));
+
+    $this->getRoute()->getObject()->delete();
+
+    //$this->getUser()->setFlash('notice', 'The item was deleted successfully.');
+
+    //$this->redirect('@price_manifestation?blank=1');
+
+    return sfView::NONE;
   }
 }
