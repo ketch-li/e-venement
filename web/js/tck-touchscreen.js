@@ -450,13 +450,16 @@ LI.checkGauges = function(form, submitHandler){
         }
       });
     }
-    // for simplified printing, which allows more than one print
     else
-    if ( $(this).find('tbody .declination:not(.printed) [name="qty"]').length > 0 )
+    {
+      loops--;
+      // for simplified printing, which allows more than one print
+      if ( $(this).find('tbody .declination:not(.printed) [name="qty"]').length > 0 )
       {
         submitForm();
         go = false; // avoids many loops and many forms submissions
       }
+    }
   });
   return go;
 };
