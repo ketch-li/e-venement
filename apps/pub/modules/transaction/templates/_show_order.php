@@ -10,7 +10,7 @@
 <?php echo link_to(__('Continue shopping'),'@homepage') ?>
 </div>
 <div class="actions register">
-<?php echo link_to(__('Checkout'),'cart/register') ?>
+<?php echo link_to(__('Checkout'),'cart/register', array('title' => __('You must accept the terms & conditions before validating your order.'))) ?>
 </div>
 <div class="actions empty">
 <?php echo link_to(__('Empty your cart'),'cart/empty') ?>
@@ -21,3 +21,10 @@
 </div>
 <?php endif ?>
 </div>
+<?php if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $sf_data->getRaw('sf_context')->getConfiguration()->getPlugins())
+        && pubConfiguration::getText('app_texts_terms_conditions') ): ?>
+<p id="terms_and_conditions">
+  <input type="checkbox" name="cgv" value="ok" id="terms_conditions" />
+  <label for="terms_conditions"><?php echo pubConfiguration::getText('app_texts_terms_conditions') ?></label>
+</p>
+<?php endif ?>

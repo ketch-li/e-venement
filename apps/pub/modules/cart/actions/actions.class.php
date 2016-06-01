@@ -170,6 +170,12 @@ class cartActions extends sfActions
         )));
       }
     }
+    
+    if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $this->getContext()->getConfiguration()->getPlugins()) )
+    {
+      // The sales conditions have been accepted before coming here
+      $this->redirect('cart/order');
+    }
 
     // already done first
     if ( sfConfig::get('app_contact_modify_coordinates_first', false) && $this->getUser()->getContact() )

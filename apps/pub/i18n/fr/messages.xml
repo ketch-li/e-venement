@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>You must accept the terms &amp; conditions before validating your order.</source>
+        <target>Vous devez accepter les CGV avant de valider votre commande.</target>
+      </trans-unit>
+      <trans-unit>
         <source>You can take back a contact only once. In case of necessity, %%tagstart%%reload the page%%tagend%%...</source>
         <target>Un contact ne peut être repris qu'une seule fois. En cas de besoin, %%tagstart%%rechargez la page%%tagend%%...</target>
       </trans-unit>
