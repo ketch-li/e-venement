@@ -27,6 +27,7 @@
 <ul class="displays">
   <li class="display-total"><?php echo __('Total:') ?></li>
   <li class="display-left"><?php echo __('Left to pay:') ?></li>
+  <li class="display-default"><?php echo __('Hello !') ?></li>
 </ul>
 <ul class="prices">
   <li class="free-price"><?php echo __('Pay what you want') ?></li>

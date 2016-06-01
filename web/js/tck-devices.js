@@ -262,17 +262,14 @@ var StarDisplay = function(device, connector){
   this.write = function(lines) {
     var cr = String.fromCharCode(13);
     var lf = String.fromCharCode(10);
-    var data = btoa(lines.join(cr + lf));
-    var display = this;
+    var data = btoa(String.fromCharCode(12) + lines.join(cr + lf)); // 0x0C = <CLR> = clear device
     return new Promise(function(resolve, reject){
-      display.clear().then(function(){
-        connector.sendData(device, data).then(function(){
-          resolve(true);
-        });        
+      connector.sendData(device, data).then(function(){
+        resolve(true);
       })
       .catch(function(err){
         reject(err);
       });
-    });
+    });  
   };
 }; // END StarDisplay

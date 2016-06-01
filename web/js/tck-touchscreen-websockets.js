@@ -96,7 +96,7 @@ $(document).ready(function () {
       return false;
     };
 
-    // event handler that outputs totals on USB display when totals change
+    // outputs totals on USB display
     var displayTotals = function(event) {
       var Display = LIDisplay(LI.activeDisplay, connector);
       if (!Display) 
@@ -111,6 +111,18 @@ $(document).ready(function () {
         $('.displays .display-left').text() + ' ' + left
       ];
       Display.write(lines);
+    };
+
+    // outputs default message on USB display
+    var displayDefaultMsg = function(event) {
+      alert('toto');
+      var Display = LIDisplay(LI.activeDisplay, connector);
+      if (!Display) 
+        return;      
+      
+      var msg = $('.displays .display-default').text();
+      msg = msg || "...";
+      Display.write([msg]);
     };
 
     // configure the form for direct printing (if there is an available direct printer)
@@ -148,14 +160,32 @@ $(document).ready(function () {
         .submit(directPrint);      
     };
     
-    // configure the form for direct printing (if there is an available direct printer)
+    // configure the form for handling USB display (if there is an available USB display)
     var configureDisplay = function()
     {
       if ( LI.activeDisplay === undefined ) 
         return;
+      
+      // Refresh Display when totals change
       $('#li_transaction_field_payments_list .topay .pit').on("changeData", displayTotals);      
-      $('#li_transaction_field_payments_list .change .pit').on("changeData", displayTotals);      
-    };    
+      $('#li_transaction_field_payments_list .change .pit').on("changeData", displayTotals);
+      
+      // Display totals when page (or tab) is selected
+      document.addEventListener("visibilitychange", function(evt){
+        var evtMap = {focus: true, focusin: true, pageshow: true, blur: false, focusout: false, pagehide: false};
+        var visible = false;
+        evt = evt || window.event;
+        if (evt.type in evtMap)
+          visible = evtMap[evt.type];
+        else if ('hidden' in document)
+          visible = !this.hidden;  
+        if (visible) 
+          displayTotals();
+      });      
+      
+      // Display default message when leaving the page (or tab closed...)
+      $(window).on("beforeunload", displayDefaultMsg);    
+    };
 
     // Get all the configured devices USB ids
     connector.log('info', 'Configured USB devices: ', LI.usb);

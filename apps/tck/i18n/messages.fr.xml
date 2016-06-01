@@ -13,6 +13,10 @@
         <target>A payer:</target>
       </trans-unit>
       <trans-unit>
+        <source>Hello !</source>
+        <target>Bonjour !</target>
+      </trans-unit>
+      <trans-unit>
         <source>Pictogram</source>
         <target>Pictogramme</target>
       </trans-unit>
