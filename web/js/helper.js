@@ -61,12 +61,11 @@ LI.clear_currency = function(value, stayStringed)
 // THE CURRENCY
 LI.format_currency = function(value, nbsp, fr_style, currency)
 {
-  if ( nbsp  == undefined ) nbsp  = true;
-  if ( fr_style == undefined ) fr_style = true;
-  if ( currency == undefined ) currency = '€';
-  if ( typeof(value) == 'string' ) value = parseFloat(value);
+  if ( nbsp  === undefined ) nbsp  = true;
+  if ( fr_style === undefined ) fr_style = true;
+  if ( currency === undefined ) currency = '€';
+  if ( typeof(value) === 'string' ) value = parseFloat(value);
   if ( !value ) value = 0;
-
   
   var r = $('.currency:first').length > 0
     ? $('.currency:first').html().replace(/[\d,\.]+/,'%d')
@@ -74,10 +73,11 @@ LI.format_currency = function(value, nbsp, fr_style, currency)
   value = r.replace('%d',value.toFixed(2));
 
   if ( nbsp  ) value = value.replace(' ','&nbsp;');
+  else value = value.replace('&nbsp;', ' ');
   if ( fr_style ) value = value.replace('.',',');
 
   return value;
-}
+};
 
 // display a flash for a limited time
 LI.alert = function(msg, type, time)

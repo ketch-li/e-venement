@@ -14,7 +14,7 @@ editSuccess:
     - "EveConnector/web/js/eve-connector.js?<?php echo date('Ymd') ?>"
     - "tck-touchscreen-websockets?<?php echo date('Ymd') ?>"
     - "socket.io.js?<?php echo date('Ymd') ?>"
-    - "tck-printers.js?<?php echo date('Ymd') ?>"
+    - "tck-devices.js?<?php echo date('Ymd') ?>"
     - "EveConnector/ept-emulator/web-prompt.class.js?<?php echo date('Ymd') ?>"
     - "EveConnector/ept-emulator/protocol-helpers.class.js?<?php echo date('Ymd') ?>"
     - "EveConnector/ept-emulator/workflows.class.js?<?php echo date('Ymd') ?>"
