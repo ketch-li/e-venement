@@ -49,6 +49,11 @@
 	  <?php $email = sfConfig::get('app_contact_professional', false) ? $sf_user->getTransaction()->Professional->contact_email : $contact->email ?>
 	  <a href="mailto:<?php echo $email ?>"><?php echo $email ?></a>
 	</p>
-  <p><a class="actions edit" href="<?php echo url_for('contact/edit') ?>"><?php echo __('Update your contact information') ?></a></p>
+  <p><a
+    class="actions edit"
+    <?php if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $sf_data->getRaw('sf_context')->getConfiguration()->getPlugins()) ): ?>
+      target="_blank"
+    <?php endif ?>
+    href="<?php echo url_for('contact/edit') ?>"><?php echo __('Update your contact information') ?></a></p>
 </div>
 <div class="clear"></div>

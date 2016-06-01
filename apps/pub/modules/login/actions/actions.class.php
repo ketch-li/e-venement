@@ -160,7 +160,10 @@ EOF
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
     $this->getUser()->logout();
     $this->getUser()->setFlash('notice',__('You have been logged out.'));
-    $this->redirect('login/index');
+    if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $this->getContext()->getConfiguration()->getPlugins()) )
+      $this->redirect('homepage');
+    else
+      $this->redirect('login/index');
   }
   
   public function executeValidate(sfWebRequest $request)

@@ -10,7 +10,12 @@
 <?php echo link_to(__('Continue shopping'),'@homepage') ?>
 </div>
 <div class="actions register">
-<?php echo link_to(__('Checkout'),'cart/register', array('title' => __('You must accept the terms & conditions before validating your order.'))) ?>
+<?php if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $sf_data->getRaw('sf_context')->getConfiguration()->getPlugins())
+        && pubConfiguration::getText('app_texts_terms_conditions') ): ?>
+  <?php echo link_to(__('Checkout'),'cart/register', array('title' => __('You must accept the terms & conditions before validating your order.'))) ?>
+<?php else: ?>
+  <?php echo link_to(__('Checkout'),'cart/register') ?>
+<?php endif ?>
 </div>
 <div class="actions empty">
 <?php echo link_to(__('Empty your cart'),'cart/empty') ?>
