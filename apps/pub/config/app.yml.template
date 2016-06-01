@@ -63,6 +63,14 @@ all:
     client_secret: eve-pass
     redirect_uri: http://localhost/pub_dev.php/login
     verify_ssl: false
+    data_matching: # data given by OAuth: data stored by e-venement in the contact schema
+      name: name
+      email: email
+      country: country
+      street_address: address
+      postal_code: postalcode
+      locality: city
+      locale: culture
 
   #member_cards: # this feature allows auto-creation of passes if some prerequisites match or deletion of passes if conditions are not matched
   #  trigger_after_manifestations: 3 # does not count tickets whose price are linked to member cards

@@ -27,6 +27,13 @@ class liOnlineExternalAuthOpenIDConnect extends OpenIdConnectProvider
 {
   protected $config, $redirectUri, $scopes = [], $scopeSeparator = ' ', $provider, $accessToken;
   
+  public function getConfig($key = NULL)
+  {
+    if ( $key === NULL )
+      return $this->config;
+    return $this->config[$key];
+  }
+  
   /**
    * @inheritdoc
    **/

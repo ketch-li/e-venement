@@ -73,10 +73,6 @@ class liOnlineExternalAuthOpenIDConnectActions
       || !( $this->action->getUser()->getAttribute('li_online_external_auth_state') && $this->action->getUser()->getAttribute('li_online_external_auth_state') === $this->request->getParameter('state', false) )
     )
     {
-      echo $this->action->getUser()->getAttribute('li_online_external_auth_state');
-      echo ' -- ';
-      echo $this->request->getParameter('state', false);
-      die();
       $this->action->getUser()->getAttributeHolder()->remove('li_online_external_auth_state');
       throw new liOnlineSaleException('liOnlineExternalAuthOpenIDConnectPlugin: Invalid state.');
       return self::ERROR;
@@ -96,18 +92,18 @@ class liOnlineExternalAuthOpenIDConnectActions
   {
     $data = $this->getUserData();
     $q = Doctrine::getTable('Contact')->createQuery('c')
-      ->leftJoin('OpenId oid')
+      ->leftJoin('c.OpenId oid')
       ->andWhere('oid.id = ?', $data['sub'])
     ;
     
     if (!( $contact = $q->fetchOne() ))
     {
       $contact = new Contact;
-      $contact->name = $data['name'];
       $contact->OpenId = new ContactOpenIdConnect;
       $contact->OpenId->id = $data['sub'];
-      $contact->email = $data['email'];
-      // ...
+      foreach ( sfConfig::get('app_openidconnect_data_matching', array('email' => 'email', 'name' => 'name')) as $openid => $field )
+      if ( isset($data[$openid]) )
+        $contact->$field = $data[$openid];
       $contact->save();
     }
     
