@@ -1,0 +1,20 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/11-App
+
+# default values
+all:
+  # OpenID Connect / OAuth2
+  openidconnect:
+    wellknownurl: https://my.url/.well-known/openid-configuration # mandatory
+    client_id: ID
+    client_secret: PASS
+    redirect_uri: http://my.eve/pub.php/login
+    #verify_ssl: false
+    data_matching: # data given by OAuth: data stored by e-venement in the contact schema
+      name: name
+      email: email
+      country: country
+      street_address: address
+      postal_code: postalcode
+      locality: city
+      locale: culture
