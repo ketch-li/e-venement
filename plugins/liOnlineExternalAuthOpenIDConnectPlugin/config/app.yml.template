@@ -18,3 +18,5 @@ all:
       postal_code: postalcode
       locality: city
       locale: culture
+
+# ADD THIS IN EVERY APP WHERE THE OpenID Connect FEATURES ARE REQUIRED

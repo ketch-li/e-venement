@@ -1,0 +1,5 @@
+# the plugin will be enabled within the config/project.yml
+
+all:
+  internals:
+    plugins: [liOnlineExternalAuthOpenIDConnectPlugin]    
