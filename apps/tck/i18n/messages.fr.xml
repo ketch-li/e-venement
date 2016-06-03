@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Please restart your application or reload your screen...</source>
+        <target>Redémarrer votre application ou rechargez votre écran SVP...</target>
+      </trans-unit>
+      <trans-unit>
         <source>Do you want to force the delivery?</source>
         <target>Voulez-vous forcer la livraison ?</target>
       </trans-unit>
