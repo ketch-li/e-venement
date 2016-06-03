@@ -91,6 +91,8 @@
             { $value = intval($value); }
             $params['ticket_id'][$key] = $value;
           }
+          else
+            $params['ticket_id'][$key] = intval($value);
         }
       }
       else

@@ -35,5 +35,6 @@
     data-cancel-confirmation="<?php echo __('Are you sure?', null, 'sf_admin') ?>"
     data-cancel-success="<?php echo __('Control deleted.') ?>"
     data-cancel-error="<?php echo __('You cannot remove this control, sorry.') ?>"
+    data-error="<?php echo __('Please restart your application or reload your screen...') ?>"
   ></div>
 </form>

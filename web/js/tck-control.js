@@ -29,7 +29,7 @@ $(document).ready(function(){
     else
       $('#checkpoint #control_checkpoint_id').focus();
   }
-  
+    
   // this is what happens when the user submits a control
   $('#checkpoint').submit(function(){
     var data = $(this).serialize();
