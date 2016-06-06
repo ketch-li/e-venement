@@ -386,7 +386,6 @@ LI.checkGauges = function(form, submitHandler){
     && $('#li_transaction_field_content #li_transaction_museum .families:not(.sample) .item tbody .declination [name="qty"]').length == 0
     && $('#li_transaction_field_content #li_transaction_store .families:not(.sample) .item tbody .declination [name="qty"]').length > 0 )
   {
-    console.error('checkGauges 2');
     $(form).clone(true).removeAttr('onsubmit').appendTo('body').submit().remove();
     return;
   }
