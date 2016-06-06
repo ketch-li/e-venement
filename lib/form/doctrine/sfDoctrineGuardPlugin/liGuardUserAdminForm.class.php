@@ -50,7 +50,7 @@ class liGuardUserAdminForm extends sfGuardUserAdminForm
     ));
     
     $this->widgetSchema   ['domain'] = new sfWidgetFormInputText(array(
-      'default' => !$this->object->Domain[0]->isNew() ? preg_replace('/\.'.sfConfig::get('project_internals_users_domain', '').'$/', '', $this->object->Domain[0]->name) : '',
+      'default' => !$this->object->Domain[0]->isNew() ? preg_replace('/\.?'.sfConfig::get('project_internals_users_domain', '').'$/', '', $this->object->Domain[0]->name) : '',
     ));
     $this->validatorSchema['domain'] = new sfValidatorString(array(
       'required' => false,
@@ -119,12 +119,16 @@ class liGuardUserAdminForm extends sfGuardUserAdminForm
     unset($this->values['contact_id']);
     
     // domain embedded form
-    if ( !$this->values['domain'] )
+    if ( !$this->values['domain'] && !sfConfig::get('project_internals_users_domain', '') )
+    {
       unset($this->object->Domain[0]);
-    elseif (!( isset($this->object->Domain[0]) && (string)$this->object->Domain[0] == $this->values['domain'] ))
+    }
+    elseif (!( isset($this->object->Domain[0])
+      && (string)$this->object->Domain[0] == ($dname = $this->values['domain'].(sfConfig::get('project_internals_users_domain', '') && $this->values['domain'] ? '.'.sfConfig::get('project_internals_users_domain', '') : sfConfig::get('project_internals_users_domain', '')))
+    ))
     {
       $domain = new Domain;
-      $domain->name = $this->values['domain'].(sfConfig::get('project_internals_users_domain', '') ? '.'.sfConfig::get('project_internals_users_domain', '') : '');
+      $domain->name = $this->values['domain'].(sfConfig::get('project_internals_users_domain', '') && $this->values['domain'] ? '.'.sfConfig::get('project_internals_users_domain', '') : sfConfig::get('project_internals_users_domain', ''));
       $this->object->Domain[0] = $domain;
     }
     unset($this->values['contact_id']);
