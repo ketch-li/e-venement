@@ -40,6 +40,7 @@ ul.no-bullet li.highlight { text-decoration: underline; }
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
 }
+.mod-transaction.action-show #terms_and_conditions { text-align: center; }
 
 .mod-cart.action-order #login, .mod-cart.action-register #login, #contact-form { border-radius: 4px; border: 1px dashed silver; margin: 10px 0 10px 45px; padding: 5px; }
 .mod-cart.action-order #login.active, .mod-cart.action-register #login.active, #contact-form.active { border-style: solid; }

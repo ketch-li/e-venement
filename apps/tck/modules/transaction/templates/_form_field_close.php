@@ -24,6 +24,11 @@
   <li class="translinked"><?php echo __('This payment is linked to the cancelling transaction #%%id%%') ?></li>
   <li class="currency"><?php echo format_currency(0, $sf_context->getConfiguration()->getCurrency()) ?></li>
 </ul>
+<ul class="displays">
+  <li class="display-total"><?php echo __('Total:') ?></li>
+  <li class="display-left"><?php echo __('Left to pay:') ?></li>
+  <li class="display-default"><?php echo __('Hello !') ?></li>
+</ul>
 <ul class="prices">
   <li class="free-price"><?php echo __('Pay what you want') ?></li>
   <li class="free-price-default"><?php echo sfConfig::get('project_tickets_free_price_default', 1) ?></li>

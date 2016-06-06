@@ -261,6 +261,26 @@ $(document).ready(function(){
     else
       $(this).closest('p').addClass('error');
   });
+  
+  // accepting the terms & conditions before ordering
+  $('#actions .register a').click(function(){
+    if ( $(this).hasClass('disabled') )
+    {
+      if ( $(this).prop('title') )
+        alert($(this).prop('title'));
+      return false;
+    }
+    return true;
+  });
+  if ( $('.mod-transaction.action-show #terms_and_conditions').length > 0 )
+    $('#actions .register a').addClass('disabled');
+  $('.mod-transaction.action-show #terms_and_conditions input').change(function(){
+    if ( $(this).is(':checked') )
+      $('#actions .register a').removeClass('disabled');
+    else
+      $('#actions .register a').addClass('disabled');
+    return true;
+  });
 });
 
 LI.manifCalculateTotal = function(elt){

@@ -27,6 +27,22 @@ class loginActions extends sfActions
   {
     $this->getUser()->setDefaultCulture($request->getLanguages());
     
+    if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $this->getContext()->getConfiguration()->getPlugins()) )
+    {
+      $openid = new liOnlineExternalAuthOpenIDConnectActions($this, $request);
+      if ( $openid->routing() != liOnlineExternalAuthOpenIDConnectActions::READY )
+      {
+        $this->getUser()->setFlash('An error occurred processing your remote authentication, please try again or contact us...');
+        $this->redirect('homepage');
+      }
+      $contact = $openid->getContact();
+      $this->getUser()->setContact($contact);
+      return $this->redirect($request->hasParameter('register')
+        ? 'cart/register'
+        : 'contact/index'
+      );
+    }
+    
     $this->register = $request->hasParameter('register');
     $this->form = new LoginForm;
     
@@ -144,7 +160,10 @@ EOF
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
     $this->getUser()->logout();
     $this->getUser()->setFlash('notice',__('You have been logged out.'));
-    $this->redirect('login/index');
+    if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $this->getContext()->getConfiguration()->getPlugins()) )
+      $this->redirect('homepage');
+    else
+      $this->redirect('login/index');
   }
   
   public function executeValidate(sfWebRequest $request)

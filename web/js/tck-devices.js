@@ -20,8 +20,11 @@
 *
 ***********************************************************************************/
 
-var LIPrinter = function(device, connector) {
+if ( LI === undefined )
+  var LI = {};
 
+var LIPrinter = function(device, connector) {
+  if ( LI.usb === undefined ) return false;
   var myType;
   $.each(LI.usb.printers, function (type, devs) {
     $.each(devs, function (i, ids) {
@@ -35,6 +38,25 @@ var LIPrinter = function(device, connector) {
       return new BocaPrinter(device, connector);
     case 'star':
       return new StarPrinter(device, connector);
+    default:
+      return false;
+  }
+};
+
+
+var LIDisplay = function(device, connector) {
+  if ( LI.usb === undefined ) return false;
+  var myType;
+  $.each(LI.usb.displays, function (type, devs) {
+    $.each(devs, function (i, ids) {
+      if( ids.pid === device.params.pid && ids.vid === device.params.vid )
+        myType = type;
+    });
+  });
+
+  switch(myType) {
+    case 'star':
+      return new StarDisplay(device, connector);
     default:
       return false;
   }
@@ -215,3 +237,39 @@ var BocaPrinter = function(device, connector) {
   };
 
 }; // END BocaPrinter
+
+
+var StarDisplay = function(device, connector){
+  this.device = device;
+  this.connector = connector;
+  this.vendor = 'Star';
+  this.model = 'SCD122U';
+  
+  this.clear = function() {
+    var connector = this.connector;
+    var device = this.device;
+    return new Promise(function(resolve, reject){
+      var data = btoa(String.fromCharCode(12)); // 0x0C = <CLR>
+      connector.sendData(device, data).then(function(){
+        resolve(true);
+      })
+      .catch(function(err){
+        reject(err);
+      });
+    });    
+  };
+  
+  this.write = function(lines) {
+    var cr = String.fromCharCode(13);
+    var lf = String.fromCharCode(10);
+    var data = btoa(String.fromCharCode(12) + lines.join(cr + lf)); // 0x0C = <CLR> = clear device
+    return new Promise(function(resolve, reject){
+      connector.sendData(device, data).then(function(){
+        resolve(true);
+      })
+      .catch(function(err){
+        reject(err);
+      });
+    });  
+  };
+}; // END StarDisplay

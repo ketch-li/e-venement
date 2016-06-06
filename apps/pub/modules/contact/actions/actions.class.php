@@ -76,6 +76,13 @@ class contactActions extends sfActions
   }
   public function executeEdit(sfWebRequest $request)
   {
+    // redirect to the identification provider
+    if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $this->getContext()->getConfiguration()->getPlugins()) )
+    {
+      $provider = new liOnlineExternalAuthOpenIDConnect;
+      $this->redirect($provider->getConfig('issuer'));
+    }
+    
     try {
       $this->form = new ContactPublicForm($this->getUser()->getContact());
       

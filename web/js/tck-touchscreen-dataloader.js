@@ -289,10 +289,12 @@ LI.sumPayments = function()
     ratio = 0;
   
   // difference
-  $('#li_transaction_field_payments_list tfoot .change .sf_admin_list_td_list_value.pit').html(LI.format_currency(
-    LI.parseFloat($('#li_transaction_field_payments_list tfoot .topay .sf_admin_list_td_list_value.pit').html())
-    - val
-  ));
+  var topay = LI.parseFloat($('#li_transaction_field_payments_list tfoot .topay .sf_admin_list_td_list_value.pit').html());
+  var $elem = $('#li_transaction_field_payments_list tfoot .change .sf_admin_list_td_list_value.pit');
+  var oldval = $elem.data('value');
+  $elem.html(LI.format_currency(topay - val)).data('value', topay - val);
+  if ( oldval !== (topay - val))
+    $elem.trigger('changeData');
   
   // VAT & co.
   var topay = LI.parseFloat($('#li_transaction_field_payments_list tfoot .topay .sf_admin_list_td_list_value.pit').html());
