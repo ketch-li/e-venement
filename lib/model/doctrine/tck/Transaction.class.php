@@ -164,6 +164,7 @@ class Transaction extends PluginTransaction
   public function getTicketsLinkedToMemberCardPrice($including_not_activated = false)
   {
     $price = 0;
+    $paid = $this->getPaid();
     
     // all member cards that counts
     $mcs = new Doctrine_Collection('MemberCard');
@@ -188,9 +189,12 @@ class Transaction extends PluginTransaction
     foreach ( $tickets as $ticket )
     if ( $ticket->member_card_id )
     {
-      if ( isset($mcs[$ticket->member_card_id]) )
-        $price += $ticket->value;
-        //$mcs[$ticket->member_card_id]->value -= $ticket->value;
+      if ( isset($mcs[$ticket->member_card_id])
+        && $paid < $ticket->value )
+      {
+        $price += $ticket->value - $paid;
+        $paid = 0;
+      }
     }
     else
     {
