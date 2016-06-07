@@ -129,6 +129,11 @@ class transactionActions extends sfActions
       $this->redirect('@homepage');
     }
     
+    $this->dispatcher->notify(new sfEvent($this, 'pub.transaction_show', array(
+      'transaction' => $this->transaction,
+      'user' => $this->getUser(),
+    )));
+    
     $this->current_transaction = $this->transaction->id === $this->getUser()->getTransaction()->id;
     if ( !$this->current_transaction && $this->transaction->closed )
     {

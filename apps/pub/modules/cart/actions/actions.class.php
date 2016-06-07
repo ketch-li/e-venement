@@ -146,9 +146,10 @@ class cartActions extends sfActions
         $this->specific_transaction = false;
       elseif ( $this->specific_transaction->id != $this->getUser()->getTransaction()->id )
       {
-        $event = new sfEvent($this, 'pub.transaction_respawning', array('configuration' => $this->configuration));
-        $event['transaction'] = $this->specific_transaction;
-        $this->dispatcher->notify($event);
+        $this->dispatcher->notify(new sfEvent($this, 'pub.transaction_respawning', array(
+          'configuration' => $this->configuration,
+          'transaction'   => $this->specific_transaction,
+        )));
       }
     }
     
@@ -188,6 +189,11 @@ class cartActions extends sfActions
   
   public function executeShow(sfWebRequest $request)
   {
+    $this->dispatcher->notify(new sfEvent($this, 'pub.transaction_show', array(
+      'transaction' => $this->getUser()->getTransaction(),
+      'user' => $this->getUser(),
+    )));
+    
     // harden data
     $this->getContext()->getConfiguration()->hardenIntegrity();
     

@@ -349,6 +349,10 @@
         <target>Une erreur est survenue lors du contrôle de votre billet #%%id%%.</target>
       </trans-unit> 
       <trans-unit>
+        <source>An error occurred controlling your ticket.</source>
+        <target>Une erreur est survenue lors du contrôle de votre billet.</target>
+      </trans-unit>
+      <trans-unit>
         <source>This ticket is not sold yet.</source>
         <target>Ce billet est encore invendu.</target>
       </trans-unit> 

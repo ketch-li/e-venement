@@ -32,4 +32,18 @@ class price_manifestationActions extends autoPrice_manifestationActions
     
     $this->hasFilters = $this->getUser()->getAttribute('price_manifestation.list_filters', $this->configuration->getFilterDefaults(), 'admin_module');
   }
-}
+
+  public function executeDelete(sfWebRequest $request)
+  {
+    $request->checkCSRFProtection();
+ 
+    $this->dispatcher->notify(new sfEvent($this, 'admin.delete_object', array('object' => $this->getRoute()->getObject())));
+
+    $this->getRoute()->getObject()->delete();
+
+    //$this->getUser()->setFlash('notice', 'The item was deleted successfully.');
+
+    //$this->redirect('@price_manifestation?blank=1');
+
+    return sfView::NONE; }
+  }
