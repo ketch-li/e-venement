@@ -2,12 +2,12 @@
 <?php
   $mentions = sfConfig::get('app_tickets_mentions', array());
   $all_infos = isset($mentions['all_infos']) && $mentions['all_infos'];
-  
- 	$maxsize = sfConfig::get('app_tickets_max_size');
+  $maxsize = sfConfig::get('app_tickets_max_size');
   $maxsize['event_name'] = isset($maxsize['event_name']) && intval($maxsize['event_name']) != 0 ? intval($maxsize['event_name']) : 30;
   $maxsize['event_shortname'] = isset($maxsize['event_shortname']) && intval($maxsize['event_shortname']) != 0 ? intval($maxsize['event_shortname']) : 40;
   $maxsize['event_name_right'] = isset($maxsize['event_name_right']) && intval($maxsize['event_name_right']) != 0 ? intval($maxsize['event_name_right']) : 21;
   $maxsize['place'] = isset($maxsize['place']) && intval($maxsize['place']) != 0 ? intval($maxsize['place']) : 30;
+  $maxsize['event_subtitle'] = isset($maxsize['event_subtitle']) && intval($maxsize['event_subtitle']) != 0 ? intval($maxsize['event_subtitle']) : 40;
 ?>
 <div class="ticket">
   <div class="logo"><?php //echo image_tag(sfConfig::get('app_tickets_logo')) ?></div>
@@ -33,6 +33,10 @@
     <p class="price_vat"><span class="description"><?php echo $ticket->Manifestation->Vat->value*100 ?>&nbsp;%</span> - <span class="value"><?php echo format_normal_currency($ticket->value*$ticket->Manifestation->Vat->value,$sf_context->getConfiguration()->getCurrency()) ?></span></p>
     <p class="event"><?php echo mb_strlen($buf = (string)$ticket->Manifestation->Event) > $maxsize['event_name'] ? mb_substr(nl2br($buf),0,$maxsize['event_name']).'...' : nl2br($buf) ?></p>
     <p class="event-short"><?php echo mb_strlen($buf = $ticket->Manifestation->Event->short_name) > $maxsize['event_shortname'] ? mb_substr($buf,0,$maxsize['event_shortname']).'...' : $buf ?></p>
+    <p class="subtitle">
+    <?php if ( sfConfig::get('app_tickets_subtitle_display', false) ): ?>
+    <?php echo mb_strlen($buf = $ticket->Manifestation->Event->subtitle) > $maxsize['event_shortname'] ? mb_substr($buf,0,$maxsize['event_shortname']).'...' : $buf ?>
+    <?php endif ?>
     <p class="cie"><?php $creators = array(); $cpt = 0; foreach ( $ticket->Manifestation->Event->Companies as $company ) { if ( $cpt++ > 1 ) break; $creators[] .= $company->name; } echo implode(', ',$creators); ?></p>
     <p class="org"><span class="orgas"><?php $orgas = array(sfConfig::get('app_seller_name')); $cpt = 0; foreach ( $ticket->Manifestation->Organizers as $orga ) { if ( $cpt++ > 2 ) break; if ( strpos($orgas[0],$orga->name) !== false ) $orgas[] = $orga->name; else $cpt--; } echo implode('</span>, <span class="orgas">',$orgas); ?></span></p>
     <p class="seat"><?php echo $ticket->numerotation ? __('Seat n°%%s%%',array('%%s%%' => $ticket->numerotation)) : '' ?></p>
@@ -109,6 +113,9 @@
     <p class="spectator">
       <?php if ( $ticket->contact_id ): ?>
         <?php echo $ticket->DirectContact ?>
+      <?php elseif ( sfConfig::get('app_tickets_spectator_display_all', false) ): ?>
+        <span class="organism"><?php echo $ticket->Transaction->Professional->Organism ?></span>
+        <span class="contact"><?php echo $ticket->Transaction->Contact ?></span>
       <?php else: ?>
         <?php echo $ticket->Transaction->professional_id > 0 ? $ticket->Transaction->Professional->Organism : $ticket->Transaction->Contact ?>
       <?php endif ?>

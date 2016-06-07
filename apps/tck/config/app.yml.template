@@ -40,6 +40,8 @@ all:
       products: e-product     # always | e-products (recommanded) | never
     #with_shipment: true      # the default value for Transactions "with_shipment" property
   tickets:
+    #spectator_display_all: false
+    #subtitle_display: false
     mentions:
       optional: licences: 350970 / 350971 / 350972
       #all_infos: false
@@ -54,6 +56,7 @@ all:
       event_name: 30
       event_shortname: 40
       #event_name_right: 20
+      #event_subtitle: 35
     wip_price: WIP
     timeout:
       wip: 2 hours # for the garbage collector to remove useless WIPs
