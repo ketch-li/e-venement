@@ -6,6 +6,7 @@
 <?php endif ?>
 
 <div id="event"><?php echo $manifestation->Event ?></div>
+<div id="subtitle"><?php echo $manifestation->Event->subtitle ?></div>
 
 <?php if ( $manifestation->depends_on ): ?>
   <div id="depends_on">+ <?php echo $manifestation->DependsOn->Event ?></div>
