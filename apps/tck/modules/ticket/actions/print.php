@@ -358,7 +358,7 @@
       $paths = sfConfig::get('project_internals_exec_path', sfConfig::get('software_internals_exec_path'));
       if (!( isset($paths['cupsfilter']) && is_executable($paths['cupsfilter']) && isset($paths['base64']) && is_executable($paths['base64']) ))
       {
-        error_log('Printing tickets: the workstation is ready for direct printing, but the server is not... Please correct this issue.');
+        error_log('Printing tickets: the workstation is ready for direct printing, but the server is not... Please correct this issue checking cupsfilter & base64 executables.');
         $found = false;
       }
 
