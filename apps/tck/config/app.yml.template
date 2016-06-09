@@ -39,8 +39,6 @@ all:
       products: e-product     # always | e-products (recommanded) | never
     #with_shipment: true      # the default value for Transactions "with_shipment" property
   tickets:
-    #spectator_display_all: false
-    #subtitle_display: false
     mentions:
       optional: licences: 350970 / 350971 / 350972
       #all_infos: false
