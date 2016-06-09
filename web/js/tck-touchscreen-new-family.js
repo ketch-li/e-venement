@@ -88,6 +88,7 @@
             // if only one option is available w/o looking for something special
             // or if we are in a "direct" mode
             // then select this only option
+            /*
             if ( (direct || $(elt).val() == '') && select.find('option').length == 1
               && location.hash != '#debug'
               && (direct || $(elt).closest('.bunch').find('.families:not(.sample) .family:not(.total)').length == 0)
@@ -99,6 +100,7 @@
                 $('#li_transaction_field_price_new [name="price_new[id]"]:first').click();
               }, 2000);
             }
+            */
             
             // reset the search words
             if ( direct )
