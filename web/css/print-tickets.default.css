@@ -17,6 +17,7 @@ body {
   top: 9mm;
   margin: 0 2mm;
 }
+.spectator * { display: none; }
 .all-infos, .comment { display: none; }
 .all-infos { white-space: normal; font-weight: normal; overflow: hidden; }
 .spectator span + span { display: none; }
@@ -90,7 +91,7 @@ float: left;
 .price_name .name { display: none; }
 .right .price_name { display: none; }
 .event { font-size: 26px; margin-top: 1mm; height: 30px; text-overflow: ellipsis; }
-.event-short { display: none; }
+.event-subtitle, .event-short { display: none; }
 .cie { font-size: 12pt; margin-top: 1mm; height: 14pt; }
 .seat, .mentions, .org { font-size: 8pt; height: 10pt; }
 .placement, .mentions, .operation { font-weight: normal; }

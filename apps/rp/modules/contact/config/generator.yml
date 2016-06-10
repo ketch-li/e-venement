@@ -16,7 +16,6 @@ generator:
       actions: ~
       fields:
         event_archives: { label: Ticketting archives }
-        description: { label: Keywords }
         YOBs_list:  { label: "Birthdays (x[, x [,..]])" }
         YOB:        { label: Birthdays }
         YOBs:       { label: Birthdays }
