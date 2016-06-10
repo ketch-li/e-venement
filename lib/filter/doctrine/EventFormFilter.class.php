@@ -63,6 +63,9 @@ class EventFormFilter extends BaseEventFormFilter
       'model'     => 'Contact',
     ));
     
+    $this->widgetSchema   ['age'] = $this->widgetSchema   ['age_min'];
+    $this->validatorSchema['age'] = $this->validatorSchema['age_min'];
+    
     $this->widgetSchema   ['manif_confirmed'] =
     $this->widgetSchema   ['manif_optional'] =
     $this->widgetSchema   ['manif_conflict'] =
@@ -320,6 +323,13 @@ class EventFormFilter extends BaseEventFormFilter
     $a = $q->getRootAlias();
     if ( isset($value['text']) && $value['text'] )
       $q->andWhere("$a.$field >= ?",$value['text']);
+  }
+  public function addAgeColumnQuery(Doctrine_Query $q, $field, $value)
+  {
+    $a = $q->getRootAlias();
+    if ( isset($value['text']) && $value['text'] )
+      $q->andWhere("$a.age_min <= ?",$value['text'])
+        ->andWhere("$a.age_max >= ?",$value['text']);
   }
   
   public function addParticipantsListColumnQuery(Doctrine_Query $q, $field, $value)
