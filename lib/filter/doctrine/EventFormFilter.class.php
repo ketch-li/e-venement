@@ -42,6 +42,21 @@ class EventFormFilter extends BaseEventFormFilter
     
     $this->widgetSchema['event_category_id']->setOption('order_by',array('name',''));
     
+    $this->widgetSchema   ['day_of_the_week'] = new sfWidgetFormChoice(array(
+      'choices' => $choices = array(
+        '' => '',
+        1  => __('Monday', null, 'generic'),
+        2  => __('Tuesday', null, 'generic'),
+        3  => __('Wednesday', null, 'generic'),
+        4  => __('Thrusday', null, 'generic'),
+        5  => __('Friday', null, 'generic'),
+        6  => __('Saturday', null, 'generic'),
+        0  => __('Sunday', null, 'generic'),
+      )
+    ));
+    $this->validatorSchema['day_of_the_week'] = new sfValidatorChoice(array(
+      'choices' => array_keys($choices),
+    ));
     $this->widgetSchema   ['location_id'] = new sfWidgetFormDoctrineChoice(array(
       'add_empty' => true,
       'model'     => 'Location',
@@ -185,6 +200,18 @@ class EventFormFilter extends BaseEventFormFilter
   public function addExtraspecColumnQuery(Doctrine_Query $q, $field, $values)
   { return $this->addI18nTextQuery($q, $field, $values, 'translation'); }
   
+  public function addDayOfTheWeekColumnQuery(Doctrine_Query $q, $field, $values)
+  {
+    if ( $values === '' )
+      return;
+    
+    $a = $q->getRootAlias();
+    if ( !$q->contains("LEFT JOIN $a.Manifestations m") )
+      $q->leftJoin("$a.Manifestations m");
+    
+    $q->andWhere('extract(dow from m.happens_at) = ?', $values);
+    return $q;
+  }
   public function addDatesRangeColumnQuery(Doctrine_Query $q, $field, $values)
   {
     if ( !$values )
