@@ -101,11 +101,12 @@ class liOnlineExternalAuthOpenIDConnectActions
       $contact = new Contact;
       $contact->OpenId = new ContactOpenIdConnect;
       $contact->OpenId->id = $data['sub'];
-      foreach ( sfConfig::get('app_openidconnect_data_matching', array('email' => 'email', 'name' => 'name')) as $openid => $field )
-      if ( isset($data[$openid]) )
-        $contact->$field = $data[$openid];
-      $contact->save();
     }
+    
+    foreach ( sfConfig::get('app_openidconnect_data_matching', array('email' => 'email', 'name' => 'name')) as $openid => $field )
+    if ( isset($data[$openid]) )
+      $contact->$field = $data[$openid];
+    $contact->save();
     
     return $contact;
   }
