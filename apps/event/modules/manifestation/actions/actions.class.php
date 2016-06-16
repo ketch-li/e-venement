@@ -252,8 +252,17 @@ class manifestationActions extends autoManifestationActions
 
   public function executeAjax(sfWebRequest $request)
   {
+    $format = new sfDateFormat($this->getUser()->getCulture());
+    $pattern = str_replace(array('dd', 'MM', 'yy'), array('d', 'm', 'Y'), $format->getPattern('d'));
+    
     $charset = sfConfig::get('software_internals_charset');
-    $search  = iconv($charset['db'],$charset['ascii'],strtolower($request->getParameter('q')));
+    $pre_search = iconv($charset['db'],$charset['ascii'],strtolower($request->getParameter('q')));
+    
+    $search  = trim(preg_replace('!('.($regexp = str_replace(array('d', 'm', 'Y'), array('\d\d', '\d\d', '\d\d\d\d'), $pattern)).')!', '', $pre_search));
+    
+    $date = preg_replace('!.*('.$regexp.').*!', '\1', $pre_search);
+    $date = preg_match('!'.$regexp.'!', $date) ? $date : null;
+
     $museum  = $this->getContext()->getConfiguration()->getApplication() == 'museum';
 
     $eids = array();
@@ -279,6 +288,14 @@ class manifestationActions extends autoManifestationActions
       ->leftJoin('m.Color c')
       ->orderBy('m.happens_at')
       ->limit($request->getParameter('limit',$max));
+    
+    if ( $date && $date = DateTime::createFromFormat($pattern, $date) )
+    {
+      $q->andWhere('m.happens_at >= ? AND m.happens_at < ?', array(
+        $date->format('Y').'-'.$date->format('m').'-'.$date->format('d'),
+        $date->format('Y').'-'.$date->format('m').'-'.($date->format('d')+1),
+      ));
+    }
     if ( $eids )
       $q->andWhereIn('m.event_id',$eids);
     elseif ( $search )
