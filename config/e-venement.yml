@@ -22,7 +22,7 @@
 all:
   about:
     name: e-venement
-    contributors: [Baptiste SIMON, Bevlhay FERRAND, Ludovic SOULIÉ, Ayoub HIDRI, Mick LOEFFEL, Très Tôt Théâtre, Le 3ème étage de l'Opéra de Paris, Libre Informatique, Symfony Team, #symfony-fr]
+    contributors: [Baptiste SIMON, Bevlhay FERRAND, Ludovic SOULIÉ, Ayoub HIDRI, Mick LOEFFEL, Très Tôt Théâtre, "Le 3ème étage de l'Opéra de Paris", Libre Informatique, Symfony Team, "#symfony-fr"]
     version: 2.10-RC1
   internals:
     charset:
@@ -40,8 +40,9 @@ all:
       printers:
         boca: [{ vid: 2627, pid: 514 }]
         star: [{ vid: 1305, pid: 1 }]
+    serial:
       displays:
-        star: [{ vid: 1305, pid: 7 }]
+        star: [{ pnpId: "VID_0519+PID_0007+FTYK3H9IA" }]
     exec_path:
       cupsfilter: /usr/sbin/cupsfilter
       base64: /usr/bin/base64

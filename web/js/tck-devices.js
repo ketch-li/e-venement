@@ -45,11 +45,11 @@ var LIPrinter = function(device, connector) {
 
 
 var LIDisplay = function(device, connector) {
-  if ( LI.usb === undefined ) return false;
+  if ( LI.serial === undefined ) return false;
   var myType;
-  $.each(LI.usb.displays, function (type, devs) {
-    $.each(devs, function (i, ids) {
-      if( ids.pid === device.params.pid && ids.vid === device.params.vid )
+  $.each(LI.serial.displays, function (type, devs) {
+    $.each(devs, function (i, params) {
+      if( device.params.pnpId.includes(params.pnpId) )
         myType = type;
     });
   });
@@ -239,8 +239,11 @@ var BocaPrinter = function(device, connector) {
 }; // END BocaPrinter
 
 
+
 var StarDisplay = function(device, connector){
   this.device = device;
+  this.device.params.baudrate = 19200;
+  this.width = 20;
   this.connector = connector;
   this.vendor = 'Star';
   this.model = 'SCD122U';
@@ -259,17 +262,43 @@ var StarDisplay = function(device, connector){
     });    
   };
   
+  function pad(n, width, z) {
+    z = z || ' ';
+    n = n + '';
+    return n.length >= width ? n : n + new Array(width - n.length + 1).join(z);
+  }  
+  
   this.write = function(lines) {
-    var cr = String.fromCharCode(13);
-    var lf = String.fromCharCode(10);
-    var data = btoa(String.fromCharCode(12) + lines.join(cr + lf)); // 0x0C = <CLR> = clear device
+    var clr = String.fromCharCode(12); // 0x0C = <CLR> = clears device
+    var hom = String.fromCharCode(11); // 0x0B = <HOM> = moves cursor to home position (upper left) 
+    var cr = String.fromCharCode(13);  // 0x0D = <CR>  = moves cursor to left edge of same line 
+    var lf = String.fromCharCode(10);  // 0x0A = <LF>  = moves cursor down 
+    //var data = btoa(clr + hom + lines.join(lf + cr)); 
+    
+    // pad lines with spaces
+    var width = this.width;
+    var full_lines = lines.map(function(str){
+      return str.length >= width ? str : str + ' '.repeat(width - str.length);
+    });
+    
+    var data = btoa(clr + hom + full_lines.join(''));
     return new Promise(function(resolve, reject){
       connector.sendData(device, data).then(function(){
         resolve(true);
       })
       .catch(function(err){
         reject(err);
-      });
-    });  
-  };
-}; // END StarDisplay
+      })
+    }) 
+  }
+  
+} // END StarDisplay
+
+
+
+var IngenicoEPT = function(device, connector)
+{
+  this.write = function(data){
+    
+  }
+} // END IngenicoEPT

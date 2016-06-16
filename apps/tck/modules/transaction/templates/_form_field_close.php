@@ -17,6 +17,7 @@
   <li class="direct-printing-info"><?php echo __('e-venement will print the tickets directly on your printer') ?></li>
   <script type="text/javascript"><!--
     LI.usb = <?php echo json_encode(array_merge(sfConfig::get('software_internals_usb', array()), sfConfig::get('project_internals_usb', array()))) ?>;
+    LI.serial = <?php echo json_encode(array_merge(sfConfig::get('software_internals_serial', array()), sfConfig::get('project_internals_serial', array()))) ?>;
   --></script>
   <li class="usb-printers" data-json="<?php echo json_encode(sfConfig::get('project_internals_usb', sfConfig::get('software_internals_usb'))) ?>"></li>
 </ul>

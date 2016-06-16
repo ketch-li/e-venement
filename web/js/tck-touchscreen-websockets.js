@@ -96,7 +96,9 @@ $(document).ready(function () {
       return false;
     };
 
-    // outputs totals on USB display
+    var lastDisplay = {date: Date.now(), lines: []};
+
+    // outputs totals on USB/serial display
     var displayTotals = function(event) {
       var Display = LIDisplay(LI.activeDisplay, connector);
       if (!Display) 
@@ -104,18 +106,34 @@ $(document).ready(function () {
       
       var total = $('#li_transaction_field_payments_list .topay .pit').data('value');
       total = LI.format_currency(total, false).replace('€', 'E');
+      var total_label = $('.displays .display-total').text().trim();
+      var total_spaces = ' '.repeat(Display.width - total.length - total_label.length);
+      
       var left = $('#li_transaction_field_payments_list .change .pit').data('value');
       left = LI.format_currency(left, false).replace('€', 'E');
+      var left_label = $('.displays .display-left').text().trim();
+      var left_spaces = ' '.repeat(Display.width - left.length - left_label.length);      
+      
       var lines = [
-        $('.displays .display-total').text() + ' ' + total, 
-        $('.displays .display-left').text() + ' ' + left
+        total_label + total_spaces + total, 
+        left_label + left_spaces + left
       ];
-      Display.write(lines);
+      
+      if ( lines.join('||') === lastDisplay.lines.join('||') )
+        return;
+      
+      var now = Date.now();
+      var delay = (now - lastDisplay.date < 500) ? 500 : 0;
+      setTimeout(function(){
+        lastDisplay.date = now;
+        lastDisplay.lines = lines;
+        Display.write(lines);
+      }, delay);
+
     };
 
     // outputs default message on USB display
     var displayDefaultMsg = function(event) {
-      alert('toto');
       var Display = LIDisplay(LI.activeDisplay, connector);
       if (!Display) 
         return;      
@@ -160,7 +178,7 @@ $(document).ready(function () {
         .submit(directPrint);      
     };
     
-    // configure the form for handling USB display (if there is an available USB display)
+    // configure the form for handling USB/serial display (if there is an available USB display)
     var configureDisplay = function()
     {
       if ( LI.activeDisplay === undefined ) 
@@ -187,81 +205,100 @@ $(document).ready(function () {
       $(window).on("beforeunload", displayDefaultMsg);    
     };
 
-    // Get all the configured devices USB ids
-    connector.log('info', 'Configured USB devices: ', LI.usb);
-    if (LI.usb === undefined)
-      return;
-    var devices = [];
-    ['printers', 'displays', 'epts'].forEach(function(family){
-      if (LI.usb[family] !== undefined)
-        for (var name in LI.usb[family])
-          devices.push(LI.usb[family][name][0]);
-    });
+    var getAvailableDevices = function(type)
+    {
+      if (['usb', 'serial'].indexOf(type) === -1)
+        return Promise.reject('Wrong device type: ' + type);
+        
+      // Get all the configured devices ids
+      connector.log('info', 'Configured ' + type + ' devices: ', LI[type]);
+      if (LI[type] === undefined)
+        return;
+      var devices = [];
+      ['printers', 'displays', 'epts'].forEach(function(family){
+        if (LI[type][family] !== undefined)
+          for (var name in LI[type][family])
+            devices.push(LI[type][family][name][0]);
+      });  
+
+      return connector.areDevicesAvailable({type: type, params: devices}).then(
+        function(data){
+          // data contains the list of the available devices
+          connector.log('info', 'Available USB devices:', data.params);
+
+          // Check if we have an available USB printer device and store it in LI.activeDirectPrinter global variable
+          var foundPrinter = false;
+          if ( type === "usb" && LI.usb.printers !== undefined ) {
+            foundPrinter = data.params.some(function(device){
+              for ( var name in LI.usb.printers )
+                if ( LI.usb.printers[name][0].vid === device.vid && LI.usb.printers[name][0].pid === device.pid ) {
+                  LI.activeDirectPrinter = {type: type, params: device}; // global var
+                  connector.log('info', 'LI.activeDirectPrinter:', LI.activeDirectPrinter);
+                  return true;
+                }
+              return false;
+            });
+          }
+          foundPrinter && configureDirectPrint();
+
+          // Check if we have an available SERIAL display device and store it in LI.activeDisplay global variable
+          var foundDisplay = false;
+          if ( type === "serial" && LI.serial.displays !== undefined ) {
+            foundDisplay = data.params.some(function(device){
+              for ( var name in LI.serial.displays )
+                if ( device.pnpId.includes(LI.serial.displays[name][0].pnpId) ) {
+                  LI.activeDisplay = {type: type, params: device}; // global var
+                  connector.log('info', 'LI.activeDisplay:', LI.activeDisplay);
+                  return true;
+                }
+              return false;
+            });
+          }
+          if (foundDisplay) {
+            configureDisplay();
+            displayTotals();
+          }
+
+          // Check if we have an available USB EPT device and store it in LI.activeEPT global variable
+          if ( type === "usb" && LI.usb.epts !== undefined ) {
+            data.params.some(function(device){
+              for ( var name in LI.usb.epts )
+                if ( LI.usb.epts[name][0].vid === device.vid && LI.usb.epts[name][0].pid === device.pid ) {
+                  LI.activeEPT = {type: type, params: device}; // global var
+                  connector.log('info', 'LI.activeEPT:', LI.activeEPT);
+                  return true;
+                }
+              return false;
+            });
+          }          
+        },
+        function(error){
+          //areDevicesAvailable returned an error
+          connector.log('error', error);          
+        }
+      );
+
+    }; // END getAvailableDevices()
     
-    connector.areDevicesAvailable({type: 'usb', params: devices}).then(
-      function (data) {
-        // data contains the list of the available devices
-        connector.log('info', 'Available USB devices:', data.params);
-        
-        // Check if we have an available USB printer device and store it in LI.activeDirectPrinter global variable
-        var foundPrinter = false;
-        if ( LI.usb.printers !== undefined ) {
-          foundPrinter = data.params.some(function(device){
-            for ( var name in LI.usb.printers )
-              if ( LI.usb.printers[name][0].vid === device.vid && LI.usb.printers[name][0].pid === device.pid ) {
-                LI.activeDirectPrinter = {type:'usb', params: device}; // global var
-                connector.log('info', 'LI.activeDirectPrinter:', LI.activeDirectPrinter);
-                return true;
-              }
-            return false;
-          });
-        }
-        foundPrinter && configureDirectPrint();
-        
-        // Check if we have an available USB display device and store it in LI.activeDisplay global variable
-        var foundDisplay = false;
-        if ( LI.usb.displays !== undefined ) {
-          foundDisplay = data.params.some(function(device){
-            for ( var name in LI.usb.displays )
-              if ( LI.usb.displays[name][0].vid === device.vid && LI.usb.displays[name][0].pid === device.pid ) {
-                LI.activeDisplay = {type:'usb', params: device}; // global var
-                connector.log('info', 'LI.activeDisplay:', LI.activeDisplay);
-                return true;
-              }
-            return false;
-          });
-        }
-        if (foundDisplay) {
-          configureDisplay();
-          displayTotals();
-        }
-        
-        // Check if we have an available USB EPT device and store it in LI.activeEPT global variable
-        if ( LI.usb.epts !== undefined ) {
-          data.params.some(function(device){
-            for ( var name in LI.usb.epts )
-              if ( LI.usb.epts[name][0].vid === device.vid && LI.usb.epts[name][0].pid === device.pid ) {
-                LI.activeEPT = {type:'usb', params: device}; // global var
-                connector.log('info', 'LI.activeEPT:', LI.activeEPT);
-                return true;
-              }
-            return false;
-          });
-        }
-        
-      },
-      function (error) {
-        //areDevicesAvailable returned an error
-        connector.log('error', error);
-      }
-    ); // END connector.areDevicesAvailable()
-  
+    var getAvailableUsbDevices = function()
+    { 
+      return getAvailableDevices('usb'); 
+    };
+    
+    var getAvailableSerialDevices = function()
+    { 
+      return getAvailableDevices('serial'); 
+    };    
+    
+    getAvailableUsbDevices().then(getAvailableSerialDevices);
+ 
     connector.onError = function () {
       $('#li_transaction_museum .print [name=direct], #li_transaction_manifestations .print [name=direct]')
         .remove();
       $('#li_transaction_museum .print').prop('title', null);
     };
-  });
+    
+  }); // END new EveConnector() callback
 
 });
 
