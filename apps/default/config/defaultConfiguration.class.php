@@ -19,7 +19,8 @@ class defaultConfiguration extends sfApplicationConfiguration
     
     if (( sfConfig::get('project_login_alert_beginning_at', false) && sfConfig::get('project_login_alert_beginning_at') < time() || !sfConfig::get('project_login_alert_beginning_at', false) )
       &&( sfConfig::get('project_login_alert_ending_at', false) && sfConfig::get('project_login_alert_ending_at') > time() || !sfConfig::get('project_login_alert_ending_at', false) )
-      && sfConfig::get('project_login_alert_message', false) )
+      && sfConfig::get('project_login_alert_message', false)
+      && $user )
       $user->setFlash('error', sfConfig::get('project_login_alert_message'));
     
     if ( !is_object($user) )

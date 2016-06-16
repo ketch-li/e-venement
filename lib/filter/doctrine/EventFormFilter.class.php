@@ -40,7 +40,12 @@ class EventFormFilter extends BaseEventFormFilter
       'multiple' => true,
     ));
     
-    $this->widgetSchema['event_category_id']->setOption('order_by',array('name',''));
+    $this->widgetSchema['event_category_id']
+      ->setOption('order_by',array('name',''))
+      ->setOption('multiple', true)
+      ->setOption('add_empty', false);
+    $this->validatorSchema['event_category_id']
+      ->setOption('multiple', true);
     
     $this->widgetSchema   ['day_of_the_week'] = new sfWidgetFormChoice(array(
       'choices' => $choices = array(
@@ -56,6 +61,7 @@ class EventFormFilter extends BaseEventFormFilter
     ));
     $this->validatorSchema['day_of_the_week'] = new sfValidatorChoice(array(
       'choices' => array_keys($choices),
+      'required' => false,
     ));
     $this->widgetSchema   ['location_id'] = new sfWidgetFormDoctrineChoice(array(
       'add_empty' => true,

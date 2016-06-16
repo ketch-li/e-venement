@@ -16,7 +16,7 @@ class OrderFormFilter extends BaseOrderFormFilter
   public function configure()
   {
     parent::configure();
-    sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N', 'CrossAppLink'));
     
     $this->widgetSchema['created_at'] = new sfWidgetFormDateRange(array(
       'from_date' => new liWidgetFormDateText(array('culture' => 'fr')),
@@ -37,6 +37,13 @@ class OrderFormFilter extends BaseOrderFormFilter
       'required'  => false,
     ));
     
+    $this->widgetSchema   ['manifestations_list'] = new cxWidgetFormDoctrineJQuerySelectMany(array(
+      'model' => 'Manifestation',
+      'url'   => cross_app_url_for('event', 'manifestation/ajax'),
+    ));
+    $this->validatorSchema['manifestations_list'] = new sfValidatorDoctrineChoice(array(
+      'model' => 'Manifestation',
+    ));
     
     $this->widgetSchema   ['has_confirmed_ticket'] = new sfWidgetFormChoice(array(
       'choices' => $choices = array('' => __('yes or no',null,'sf_admin'), 'yes' => __('yes',null,'sf_admin'), 'no' => __('no',null,'sf_admin')),
