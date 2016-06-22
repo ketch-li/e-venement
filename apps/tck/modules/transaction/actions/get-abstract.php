@@ -217,7 +217,7 @@
         ;
         $ids = array();
         foreach ( $q2->execute() as $pd )
-          $ids[] = $pd->id;
+          $ids[] = $pd->product_id;
         $request->setParameter('product_id', $ids);
       }
       if ( $request->getParameter('id',false) )
