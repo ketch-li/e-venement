@@ -175,7 +175,6 @@ LI.touchscreenSimplifiedLoadData = function(){
           break;
         }
         
-        console.error('pouet');
         var gauges = $('<ul></ul>');
         $('<li></li>')
           .append('<span><span class="category">'+manif.category+'</span> <span class="product">'+pdt+'</span></span>')
