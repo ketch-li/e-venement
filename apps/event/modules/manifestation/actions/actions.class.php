@@ -256,7 +256,7 @@ class manifestationActions extends autoManifestationActions
     $pattern = str_replace(array('dd', 'MM', 'yy'), array('d', 'm', 'Y'), $format->getPattern('d'));
     
     $charset = sfConfig::get('software_internals_charset');
-    $pre_search = iconv($charset['db'],$charset['ascii'],strtolower($request->getParameter('q')));
+    $pre_search = self::sanitizeSearch(iconv($charset['db'],$charset['ascii'],strtolower($request->getParameter('q'))));
     
     $search  = trim(preg_replace('!('.($regexp = str_replace(array('d', 'm', 'Y'), array('\d\d', '\d\d', '\d\d\d\d'), $pattern)).')!', '', $pre_search));
     
@@ -800,5 +800,18 @@ class manifestationActions extends autoManifestationActions
     {
       $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
     }
+  }
+
+  public static function sanitizeSearch($search)
+  {
+    $nb = mb_strlen($search);
+    $charset = sfConfig::get('software_internals_charset');
+    $transliterate = sfConfig::get('software_internals_transliterate',array());
+    
+    $search = str_replace(preg_split('//u', $transliterate['from'], -1), preg_split('//u', $transliterate['to'], -1), $search);
+    $search = str_replace(MySearchAnalyzer::$cutchars,' ',$search);
+    $search = preg_replace(array('!^[\d\w] !', '! [\d\w] !'), ' ', $search);
+    $search = mb_strtolower(iconv($charset['db'],$charset['ascii'], mb_substr($search,$nb-1,$nb) == '*' ? mb_substr($search,0,$nb-1) : $search));
+    return $search;
   }
 }
