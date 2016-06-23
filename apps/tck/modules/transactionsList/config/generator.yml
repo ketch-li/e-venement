@@ -37,7 +37,7 @@ generator:
             action: show
             label: Show up
         title: Transactions
-        display: [id, _list_id, closed, _list_payments_list, _list_price, _list_contact, _list_professional, transaction_id, _list_transaction_id, _list_order, _list_invoice, created_at, _list_first_user, updated_at, User, _list_details]
+        display: [id, _list_id, closed, _list_payments_list, _list_price, _list_contact, _list_professional, transaction_id, _list_transaction_id, _list_order, _list_invoice, description, created_at, _list_first_user, updated_at, User, _list_details]
         sort: [id, desc]
         max_per_page: 50
       filter:

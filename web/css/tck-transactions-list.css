@@ -20,3 +20,7 @@
 .sf_admin_list_td_list_details .id { font-size: 60%; width: 6em; }
 .sf_admin_list_td_list_details .tickets tbody .id:before, .sf_admin_list_td_list_details .member_cards tbody .id:before { content: '#'; }
 .sf_admin_list_td_list_details .products tbody .value_txt, .sf_admin_list_td_list_details .products tbody .taxes_txt, .sf_admin_list_td_list_details .products tbody .vat_txt { color: silver; }
+
+@media screen and (max-width: 1500px) {
+  .sf_admin_list .sf_admin_list_td_description, .sf_admin_list .sf_admin_list_th_description { display: none; }
+}
