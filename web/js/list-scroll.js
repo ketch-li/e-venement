@@ -6,6 +6,8 @@ $(document).ready(function(){
   LI.list_add_actions_titles();
   LI.list_scroll();
   LI.list_edit();
+  
+  if ( $('#noautoscroll').length == 0 )
   $(window).scroll(function(event){
     if ( event.view.scrollY >= event.view.scrollMaxY )
       $('.sf_admin_pagination .ui-icon-seek-next').parent().click();
