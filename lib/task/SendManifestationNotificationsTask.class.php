@@ -112,6 +112,8 @@ EOF;
         $email = $manif->Location->${ucfirst($entity)}->email;
         $emails[$email] = $email;
       }
+      if ( $manif->Location->email )
+        $emails[$manif->Location->email] = $manif->Location->email;
       // the global admins
       if ( in_array('admins', $who) )
       {
