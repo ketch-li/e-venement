@@ -116,13 +116,21 @@ iframe#about {
   .mod-sfGuardAuth .login input[type=submit] { position: static; margin-top: 5px; font-size: 100%; }
   
   .about-home { position: static; }
-  .ui-widget-last-version, .welcome { display: none; }
+  .ui-widget-last-version, .mod-default.action-index .welcome { display: none; }
+  .mod-default.action-error #sf_admin_content { margin-left: 0; }
   .li-direct-access { display: block; }
   .ui-widget-customer { float: left; }
   .ui-widget-search, .li-direct-access { width: calc(100% - 260px - 50px); margin-left: 290px; }
   .ui-widget-search input, .li-direct-access input { font-size: 250%; }
   .ui-widget-customer { position: absolute; }
 }
+
+#goback, #home {
+
+  font-size: 2em;
+  text-decoration: none;
+}
+
 @media screen and (max-width: 800px) {
   .mod-sfGuardAuth .login input { font-size: 120%; }
 }
