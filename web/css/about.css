@@ -56,7 +56,7 @@
   text-align: center;
   display: none;
 }
-.ui-widget-about .contributors ul { margin-top: 20px; }
+.ui-widget-about .contributors ul { margin-top: 20px; max-height: 16em; overflow: auto; background-color: white; }
 .ui-widget-about .contributors li { list-style: none; }
 
 .ui-widget-about .ui-widget-header {

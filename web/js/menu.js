@@ -196,7 +196,7 @@ if ( LI == undefined )
 LI.about_show_contributors = function()
 {
   $('.ui-widget-about .show-contributors').unbind().click(function(){
-    $(this).parent().parent().parent().parent().find('.contributors').fadeToggle('slow');
+    $(this).closest('.ui-widget-about').find('.contributors').fadeToggle('slow');
     return false;
   });
 }
