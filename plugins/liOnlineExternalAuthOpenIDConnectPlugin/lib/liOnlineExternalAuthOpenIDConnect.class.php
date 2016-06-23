@@ -43,10 +43,20 @@ class liOnlineExternalAuthOpenIDConnect extends OpenIdConnectProvider
       'ssl' => array('verify_peer' => false)
     ))), true);
     
+    $sf_context = sfContext::getInstance();
+    $sf_context->getConfiguration()->loadHelpers(array('CrossAppLink', 'Url'));
+    
+    if ( is_array($urls = sfConfig::get('app_openidconnect_redirect_urls', array()) )
+      $url = $sf_context->getModuleName() == 'cart' && $sf_context->getActionName() == 'order'
+        ? $urls['order']
+        : $urls['login'];
+    else
+      $url = $urls;
+    
     parent::__construct([
       'clientId'                => sfConfig::get('app_openidconnect_client_id', null),
       'clientSecret'            => sfConfig::get('app_openidconnect_client_secret', null),
-      'redirectUri'             => sfConfig::get('app_openidconnect_redirect_uri', null),
+      'redirectUri'             => public_path($url,true),
       'urlAuthorize'            => $this->config['authorization_endpoint'],
       'urlAccessToken'          => $this->config['token_endpoint'],
       'urlResourceOwnerDetails' => $this->config['userinfo_endpoint'],

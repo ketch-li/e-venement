@@ -147,7 +147,7 @@ LI.touchscreenSimplifiedLoadData = function(){
       console.error('Simplified GUI: loading basic products ('+type+')');
       if (!( data.success != undefined && data.success.success_fields[type] != undefined ))
       {
-        console.error('Simplified GUI: No data found for '+type);
+        console.error('Simplified GUI: No data found for '+type, data);
         return;
       }
       if ( window.location.hash == '#debug' )
