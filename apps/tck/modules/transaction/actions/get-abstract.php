@@ -166,10 +166,11 @@
         if (!( isset($conf['max_display']) && is_int($conf['max_display']) ))
           $conf['max_display'] = 20;
         
+        
         $q2 = Doctrine::getTable('Manifestation')->createQuery('m')
           ->select('m.id')
-          ->andWhere("m.happens_at + (m.duration||' seconds')::interval > NOW()")
-          ->andWhere('e.museum = ?', $type == 'museum') // differenciate museums & manifestations
+          ->andWhere('extract(epoch from NOW()) - m.duration < extract(epoch from m.happens_at)')
+          ->andWhere('e.museum = ?', $type == 'museum') // differenciate museums & manifestations 
           ->orderBy('m.happens_at ASC, m.id')
           ->limit($conf['max_display']);
         $ids = array();
