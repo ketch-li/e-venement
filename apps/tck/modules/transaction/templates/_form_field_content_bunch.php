@@ -7,10 +7,16 @@
         <a target="_blank" class="event"></a>
         <a target="_blank" class="happens_at" title=""></a>
         <a target="_blank" class="location"></a>
-        <a target="_blank" class="fg-button-mini fg-button ui-state-default fg-button-icon-left ui-priority-secondary" href="#">
+        <a target="_blank" class="fg-button-mini fg-button ui-state-default fg-button-icon-left ui-priority-secondary delete" href="#">
           <span class="ui-icon ui-icon-trash"></span>
           <?php echo __('Delete', null, 'sf_admin') ?>
         </a>
+        <?php if ( in_array(strtolower($detail['model']), array('manifestation', 'museum')) ): ?>
+        <a target="_blank" class="fg-button-mini fg-button ui-state-default fg-button-icon-left ui-priority-secondary gauge" href="#" target="_blank">
+          <span class="ui-icon ui-icon-help"></span>
+          <?php echo __('Gauge', null, 'sf_admin') ?>
+        </a>
+        <?php endif ?>
       </h3>
       <div class="items">
         <div class="item ui-corner-all highlight" id="li_transaction_item_">
