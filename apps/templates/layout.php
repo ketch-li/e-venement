@@ -44,5 +44,9 @@
     <?php if ( sfConfig::get('project_experimentations',false) ): ?>
     <div id="experimentations"><?php echo sfConfig::get('project_experimentations') ?></div>
     <?php endif ?>
+    
+    <?php if ( !sfConfig::get('project_internals_scroll_lists', sfConfig::get('app_internals_scroll_lists', true)) ): ?>
+      <div id="noautoscroll"></div>
+    <?php endif ?>
   </body>
 </html>

@@ -1,1 +1,2 @@
 .sf_admin_list .sf_admin_list_th_rank, .sf_admin_list .sf_admin_list_td_rank { display: none; }
+.sf_admin_list thead a span { display: none; }

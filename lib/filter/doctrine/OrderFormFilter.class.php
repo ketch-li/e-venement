@@ -43,6 +43,7 @@ class OrderFormFilter extends BaseOrderFormFilter
     ));
     $this->validatorSchema['manifestations_list'] = new sfValidatorDoctrineChoice(array(
       'model' => 'Manifestation',
+      'required' => false,
     ));
     
     $this->widgetSchema   ['has_confirmed_ticket'] = new sfWidgetFormChoice(array(

@@ -571,7 +571,7 @@ LI.responsiveDesign = function(){
 LI.initContent = function(){
   $.each(LI.urls, function(id, url){
     $.get(url,function(data){
-      if ( data.error[0] )
+      if ( data.error && data.error[0] )
       {
         LI.alert(data.error[1],'error');
         return;
