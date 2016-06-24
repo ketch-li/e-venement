@@ -91,7 +91,7 @@ function cancelEPT() {
 
 $(document).ready(function(){
   // "Carte Bancaire" click handler
-  $('#transaction_payment_new_payment_method_id_3').siblings('button[data-ept=1]').click(startEPT);
+  $('#li_transaction_field_payment_new button[data-ept=1]').click(startEPT);
 
   $('#cancel-ept-transaction').click(cancelEPT);
 });
