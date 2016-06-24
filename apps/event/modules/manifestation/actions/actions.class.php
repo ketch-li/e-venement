@@ -36,6 +36,13 @@ require_once dirname(__FILE__).'/../lib/manifestationGeneratorHelper.class.php';
  */
 class manifestationActions extends autoManifestationActions
 {
+  public function executeClearPrices(sfWebRequest $request)
+  {
+    $this->forward404Unless($manifestation = $this->getRoute()->getObject());
+    $manifestation->PriceManifestations->delete();
+    $manifestation->Gauge->PriceManifestations->delete();
+    $this->redirect('manifestation/edit?id='.$manifestation->id);
+  }
   public function executeGaugesAll(sfWebRequest $request)
   {
     $this->redirect('manifestation/show?id='.$request->getParameter('id').'#sf_fieldset_workspaces');

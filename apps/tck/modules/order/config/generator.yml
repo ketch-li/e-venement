@@ -17,7 +17,7 @@ generator:
         sf_guard_user_id: { label: User }
         cancel: { label: Del. }
         event_name: { label: Name }
-        manifestation_happens_at: { label: Date }
+        manifestation_happens_at: { label: Date, type: date }
         manifestations_list: { label: Manifestations }
       list:
         display: [_id,_transaction_id,_closed,_cancel,_contact,_manifestations,_comment,created_at,User]

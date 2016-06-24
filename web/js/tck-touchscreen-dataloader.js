@@ -91,6 +91,7 @@ LI.completeContent = function(data, type, replaceAll = true)
         wpdt.prop('id', wpdt.prop('id')+pdt.id);
         wpdt.attr('data-family-id', pdt.id);
         wpdt.find('.item:not(.total)').remove();
+        wpdt.find('h3 .fg-button.gauge').prop('href',pdt.gauge_url);
       }
       
       // keep the same manifestations for the next transaction
