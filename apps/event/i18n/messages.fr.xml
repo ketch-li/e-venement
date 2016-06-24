@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Clear all prices</source>
+        <target>Nettoyer tous les tarifs</target>
+      </trans-unit>
+      <trans-unit>
         <source>[0]Only once|[1]%%days%% day|(1,+Inf]%%days%% days</source>
         <target>[0]Une fois|[1]%%days%% jour|(1,+Inf]%%days%% jours</target>
       </trans-unit>
