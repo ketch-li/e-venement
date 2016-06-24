@@ -52,6 +52,7 @@
 #li_fieldset_simplified .cart .print button { width: 100%; min-height: 3em; font-size: 85%; }
 #li_fieldset_simplified .bunch .gauge-gfx, #li_fieldset_simplified .bunch .gauge-gfx > * { display: inline-block; height: 1em; border-radius: 3px; }
 #li_fieldset_simplified .bunch .gauge-gfx { float: right; width: 50px; }
+#li_fieldset_simplified .bunch .product .gauge-gfx { margin-right: 6px; text-align: left; }
 #li_fieldset_simplified .bunch .gauge-gfx.manifestations, #li_fieldset_simplified .bunch .gauge-gfx.museum { background-color: green; }
 #li_fieldset_simplified .bunch .gauge-gfx.store { border: 1px solid #A6C9E2; }
 #li_fieldset_simplified .bunch .gauge-gfx .perfect { background-color: green; }
