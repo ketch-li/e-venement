@@ -41,7 +41,7 @@ var LIPrinter = function(device, connector) {
     default:
       return false;
   }
-};
+}
 
 
 var LIDisplay = function(device, connector) {
@@ -60,8 +60,26 @@ var LIDisplay = function(device, connector) {
     default:
       return false;
   }
-};
+}
 
+
+var LIEPT = function(device, connector) {
+  if ( LI.serial === undefined ) return false;
+  var myType;
+  $.each(LI.serial.epts, function (type, devs) {
+    $.each(devs, function (i, params) {
+      if( device.params.pnpId.includes(params.pnpId) )
+        myType = type;
+    });
+  });
+
+  switch(myType) {
+    case 'ingenico':
+      return new IngenicoEPT(device, connector);
+    default:
+      return false;
+  }  
+}
 
 
 var StarPrinter = function(device, connector){
@@ -298,7 +316,33 @@ var StarDisplay = function(device, connector){
 
 var IngenicoEPT = function(device, connector)
 {
-  this.write = function(data){
-    
+  this.device = device;
+  this.device.params.baudrate = 1200;
+  this.device.params.databits = 7;
+  this.device.params.parity = 'even';
+  
+  this.connector = connector;
+  this.vendor = 'Ingenico';
+  this.model = 'iCT250';
+  
+  this.sendAmount = function(amount, options){
+    connector.log('info', 'IngenicoEPT.sendAmount: ' + amount, options);
+    options = options || {wait: true};
+    return new Promise(function(resolve, reject){  
+      // TODO pass delay and version as options to sendAmount()
+      var msg_opts = {
+        amount: amount,
+        delay: options.wait ? 'A010' : 'A011', // A010 = wait for end of transaction, A011 = returns immediately
+        version: 'E+'
+      };
+      var msg = new ConcertProtocolMessage(msg_opts);
+      connector.log('info', 'Sending message ' + msg.encode());
+      var cp_device = new ConcertProtocolDevice(device, connector);
+      cp_device.doTransaction(msg).then(function(res) {
+        resolve({status: res.getStatusText(), data: res});
+      }).catch(function(err) {
+        reject(err);
+      });      
+    });
   }
 } // END IngenicoEPT
