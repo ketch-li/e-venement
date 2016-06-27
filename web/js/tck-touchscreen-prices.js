@@ -1,3 +1,4 @@
+
   $(document).ready(function(){
     var form = $('#li_transaction_field_price_new form.prices');
     $('#li_transaction_field_price_new').click(function(){
@@ -47,13 +48,12 @@
         form.append($(this).clone());
       });
     });
-    
+   
     $('#li_transaction_field_content .highlight:not(.new-family)').focusin(function(){
       form.find('button').remove();
       var item = this;
       var available_prices = JSON.parse($.trim($(this).find('.data .available_prices').text()));
       $.each(available_prices, function(i, price){
-        var price = price;
         $('<button name="price_new[id]"></button>')
           .val(price.id)
           .html(price.name)
@@ -63,7 +63,7 @@
           .attr('data-bunch-id', $(item).closest('.bunch').attr('data-bunch-id'))
           .appendTo(form.find('p'))
           .click(function(){
-            var qty = $(this).closest('form').find('[name="transaction[price_new][qty]"]').val();
+           var qty = $(this).closest('form').find('[name="transaction[price_new][qty]"]').val();
             if ( price.value === null && (parseInt(qty,10) > 0 || qty === '') )
             {
               var amount = prompt($('#li_transaction_field_close .prices .free-price').text(), parseFloat($('#li_transaction_field_close .prices .free-price-default').text()))
@@ -81,8 +81,7 @@
               .val($(this).attr('data-bunch-id'));
           })
         ;
-      });
-      
+      }); 
       // direct seating
       if ( $(this).is('[data-gauge-id]') )
       {
@@ -94,13 +93,21 @@
       }
       
       $('#li_transaction_field_price_new').fadeIn('slow');
+    
+      var max = 0
+      $('#sf_admin_content #li_transaction_field_price_new button').each(function(i){
+        if (($(this).height() >  max) && (i+1))
+        {
+          max = $(this).height();
+        }
+      }).height(max);
     }).focusout(function(){
       var elt = this;
       setTimeout(function(){
         if ( $('#li_transaction_field_content [data-gauge-id].ui-state-highlight, #li_transaction_field_content [data-declination-id].ui-state-highlight').length == 0 )
         {
           $('#li_transaction_field_price_new').fadeOut('slow');
-          $('#li_transaction_field_price_new .dispatch input').toggle();
+          $('#li_transaction_field_price_new .dispatchinput').toggle();
           $('#li_transaction_field_content .item.highlight .ids input').remove();
         }
         if ( !$('#li_transaction_field_content .ui-state-highlight').is(elt) )
