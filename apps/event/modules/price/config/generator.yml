@@ -24,6 +24,8 @@ generator:
         list_validity: { label: Validity, help: days }
         show_validity: { label: Validity, help: days }
         x_days_valid:   { label: Validity, help: days }
+        workspaces_list: { help: Related to... }
+        not_workspaces_list: { label: Workspaces list, help: Not related to... }
       list:
         display: [name, description, value, online, hide, member_card_linked, <?php if ( sfConfig::get('project_museums_enable', false) ): ?>_list_validity,<?php endif ?> rank]
         sort: ['hide, pt.name', '']
@@ -35,7 +37,7 @@ generator:
         display:
           Price: [name, description, value, online, hide, member_card_linked, x_days_valid]
           Links: [manifestations_list, member_cards_list, products_list, linked_products_list, taxes_list]
-          Permissions: [users_list, workspaces_list]
+          Permissions: [users_list, workspaces_list, not_workspaces_list]
       form:
         display:
           General: [name, description, value]

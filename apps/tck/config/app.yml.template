@@ -39,6 +39,7 @@ all:
       send_bcc_to: email@domain.tld
       products: e-product     # always | e-products (recommanded) | never
     #with_shipment: true      # the default value for Transactions "with_shipment" property
+    ept_wait_transaction_end: false
   tickets:
     mentions:
       optional: licences: 350970 / 350971 / 350972
@@ -79,7 +80,7 @@ all:
     postalcode: 75002
     city: PARIS
     country: France
-    other: 
+    other:
     invoice_prefix: FB
     salt: sqnao@é 98Fdnquèç&
     #invoice_footer: A footer...      # parameters: %%transaction_id%%, %%order_id%%, %%invoice_id%%

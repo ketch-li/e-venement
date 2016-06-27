@@ -256,9 +256,6 @@ LI.touchscreenSimplifiedBehavior = function(type){
     
     // graphical gauge triggering...
     var success = function(json, declination){
-      console.error(json);
-      console.error(declination);
-      
       var stock = {
         total: 0,
         current: 0,
@@ -280,8 +277,8 @@ LI.touchscreenSimplifiedBehavior = function(type){
       
       case 'museum':
       case 'manifestations':
-        if ( json.total == 0 )
-          return;
+        //if ( json.total == 0 )
+        //  return;
         stock.total = json.total;
         stock.free = json.free;
         
@@ -298,32 +295,53 @@ LI.touchscreenSimplifiedBehavior = function(type){
       $('<span></span>').addClass('gauge-gfx').addClass(type)
         .append($('<span></span>')
           .addClass(stock.state)
-          .css('width', (stock.current/stock.total*100)+'%')
+          .css('width', stock.total == 0 ? '100%' : (stock.current/stock.total*100)+'%')
           .prop('title', stock.current+' / '+stock.total)
         )
         .prop('title', stock.free+' / '+stock.total)
-        .appendTo(declination)
+        .appendTo($(declination).is('[data-family-id]') ? $(declination).find('.product') : declination)
       ;
     }
     var pdt = LI.touchscreenSimplifiedData[type][$(this).closest('[data-family-id]').attr('data-family-id')];
     var stock_cache = {};
+    console.error(pdt);
     if ( $(this).closest('[data-family-id]').find('.gauge-gfx').length == 0 )
-    $(this).closest('[data-family-id]').find('li').each(function(){
-      var gauge = pdt[pdt.declinations_name][$(this).attr('data-'+pdt.declinations_name.slice(0,-1)+'-id')];
-      var declination = this;
-      if ( stock_cache[gauge.url] !== undefined )
-        success(stock_cache[gauge.url], declination);
-      else
-      $.ajax({
-        url: gauge.url,
-        method: 'get',
-        success: function(json){
-          console.error('get');
-          stock_cache[gauge.url] = json;
-          success(json, declination);
-        }
+    {
+      // global gauge
+      if ( pdt.gauge_url )
+      {
+        var family = $(this).closest('[data-family-id]');
+        var gauge = pdt.gauge_url;
+        if ( stock_cache[gauge] !== undefined )
+          success(stock_cache[gauge], family);
+        else
+        $.ajax({
+          url: gauge,
+          method: 'get',
+          success: function(json){
+            stock_cache[gauge] = json;
+            success(json, family);
+          }
+        });
+      }
+      
+      // specific gauge
+      $(this).closest('[data-family-id]').find('li').each(function(){
+        var gauge = pdt[pdt.declinations_name][$(this).attr('data-'+pdt.declinations_name.slice(0,-1)+'-id')];
+        var declination = this;
+        if ( stock_cache[gauge.url] !== undefined )
+          success(stock_cache[gauge.url], declination);
+        else
+        $.ajax({
+          url: gauge.url,
+          method: 'get',
+          success: function(json){
+            stock_cache[gauge.url] = json;
+            success(json, declination);
+          }
+        });
       });
-    });
+    }
   });
   
   // activating a particular gauge or equivalent

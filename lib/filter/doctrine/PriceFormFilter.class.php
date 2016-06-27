@@ -21,5 +21,19 @@ class PriceFormFilter extends BasePriceFormFilter
     
     $this->widgetSchema['users_list']->setOption('query', $q = Doctrine_Query::create()->from('SfGuardUser u'));
     $this->validatorSchema['users_list']->setOption('query', $q);
+    
+    $this->widgetSchema   ['not_workspaces_list'] = $this->widgetSchema   ['workspaces_list'];
+    $this->validatorSchema['not_workspaces_list'] = $this->validatorSchema['workspaces_list'];
+  }
+  
+  public function addNotWorkspacesListColumnQuery(Doctrine_Query $q, $field, $value)
+  {
+    $a = $q->getRootAlias();
+    if ( !$q->contains("LEFT JOIN $a.Workspaces ws") )
+      $q->leftJoin("$a.Workspaces ws");
+    
+    if ( !$value )
+      return $q;
+    return $q->andWhereNotIn('ws.id', $value);
   }
 }

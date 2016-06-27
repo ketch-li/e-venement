@@ -42,7 +42,9 @@ all:
         star: [{ vid: 1305, pid: 1 }]
     serial:
       displays:
-        star: [{ pnpId: "VID_0519+PID_0007+FTYK3H9IA" }]
+        star: [{ pnpId: "VID_0519+PID_0007" }]
+      epts:
+        ingenico: [{ pnpId: "VID_079B&PID_0028" }]
     exec_path:
       cupsfilter: /usr/sbin/cupsfilter
       base64: /usr/bin/base64

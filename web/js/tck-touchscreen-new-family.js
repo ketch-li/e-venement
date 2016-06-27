@@ -85,10 +85,10 @@
                 .appendTo(select);
             });
             
+            /*
             // if only one option is available w/o looking for something special
             // or if we are in a "direct" mode
             // then select this only option
-            /*
             if ( (direct || $(elt).val() == '') && select.find('option').length == 1
               && location.hash != '#debug'
               && (direct || $(elt).closest('.bunch').find('.families:not(.sample) .family:not(.total)').length == 0)
@@ -132,8 +132,18 @@
       return false;
     }).keyup();
     
+    // PRINTS OUT THE GLOBAL GAUGE OF A FAMILY
+    $('#li_transaction_field_content .family h3 .fg-button.gauge').click(function(){
+      $.get($(this).prop('href'), function(data){
+        $('#li_transaction_field_product_infos *').remove(); // cleaning products infos
+        LI.renderGauge(JSON.stringify(data), true);
+      });
+      console.error($(this).prop('href'));
+      return false;
+    });
+    
     // REMOVE A FAMILY FROM THE LIST IF THERE IS NO ITEM INSIDE
-    $('#li_transaction_field_content .family h3 .fg-button').click(function(){
+    $('#li_transaction_field_content .family h3 .fg-button.delete').click(function(){
       var can_be_deleted = true;
       $(this).closest('.family').find('.qty input').each(function(){
         if ( $(this).val() && !isNaN(parseInt($(this).val())) && parseInt($(this).val()) > 0 )
@@ -226,7 +236,7 @@ LI.addFamilies = function(elt){
   
   $(elt).each(function(){
     if ( !$(this).val() )
-      return
+      return;
       
     var nf = $(this).closest('.new-family');
     var bunch = nf.closest('.bunch');

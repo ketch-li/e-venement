@@ -35,6 +35,19 @@ class Contact extends PluginContact
   {
     return $this->title.' '.$this->formatted_name;
   }
+  public function getFullAddress()
+  {
+    $addr = array();
+    $addr[] = $this->address;
+    $addr[] = $this->postalcode.' '.$this->city;
+    $addr[] = $this->country;
+    
+    foreach ( $addr as $key => $line )
+    if ( !trim($line) )
+      unset($addr[$key]);
+    
+    return implode("\n", $addr);
+  }
   
   public function getDepartment()
   {

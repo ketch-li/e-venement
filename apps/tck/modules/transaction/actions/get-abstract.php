@@ -282,6 +282,7 @@
       'tep' => 0,
       'extra-taxes' => 0,
       'name' => '',
+      'gauge_url' => null,
       'description' => '',
       'id' => '',
       'ids' => array(),
@@ -392,6 +393,7 @@
             'name'          => NULL,
             'category'      => (string)$product->Event,
             'description'   => $product->Event->description,
+            'gauge_url'     => cross_app_url_for('event', 'gauge/state?json=true&manifestation_id='.$product->id, true),
             'happens_at'    => (string)$product->happens_at,
             'ends_at'       => (string)$product->ends_at,
             'category_url'  => cross_app_url_for('event', 'event/show?id='.$product->event_id, true),
@@ -674,6 +676,7 @@
               'state' => $state,
               'name' => !$item->price_id ? $item->price_name : $item->Price->name,
               'description' => !$item->price_id ? '' : $item->Price->description,
+              'gauge_url' => cross_app_url_for('event', 'gauge/state?json=true&manifestation_id='.$product->id, true),
               'item-details' => false,
               'id' => $item->price_id ? $item->price_id : slugify($item->price_name),
             ) + $items_model;

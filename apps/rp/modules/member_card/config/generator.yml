@@ -22,9 +22,11 @@ generator:
         list_contact: { label: Contact }
         checks_count: { label: Checks }
         has_email_address: { label: Has an email address }
+        list_email: { label: Email }
+        list_address: { label: Address }
       list:
         title: List of active member cards on the period (cf. filters)
-        display: [_id, _name, _list_contact, created_at, expire_at, _value, checks_count]
+        display: [_id, _name, _list_contact, _list_email, _list_address, created_at, expire_at, _value, checks_count]
         sort: [created_at, desc]
         object_actions:
           _show: ~

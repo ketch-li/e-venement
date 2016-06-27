@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Filters</source>
+        <target>Filtres</target>
+      </trans-unit>
+      <trans-unit>
         <source>Total:</source>
         <target>Total:</target>
       </trans-unit>
@@ -846,7 +850,7 @@
       </trans-unit>
       <trans-unit>
         <source>New Member card price model</source>
-        <target>Nouveau model de carte d'abonnement</target>
+        <target>Nouveau modèle de carte d'abonnement</target>
       </trans-unit>
       <trans-unit>
         <source>Prices association for member cards</source>

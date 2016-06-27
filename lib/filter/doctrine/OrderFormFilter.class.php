@@ -19,17 +19,18 @@ class OrderFormFilter extends BaseOrderFormFilter
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N', 'CrossAppLink'));
     
     $this->widgetSchema['created_at'] = new sfWidgetFormDateRange(array(
-      'from_date' => new liWidgetFormDateText(array('culture' => 'fr')),
-      'to_date'   => new liWidgetFormDateText(array('culture' => 'fr')),
+      'from_date' => new liWidgetFormJQueryDateText(array('culture' => 'fr')),
+      'to_date'   => new liWidgetFormJQueryDateText(array('culture' => 'fr')),
       'template'  => __('<span class="dates"><span>from %from_date%</span> <span>to %to_date%</span>', null, 'sf_admin'),
     ));
     
     $this->widgetSchema['transaction_id'] = new sfWidgetFormInputText();
     
     $this->widgetSchema   ['manifestation_happens_at'] = new sfWidgetFormFilterDate(array(
-      'from_date' => new liWidgetFormDateText(array('culture' => 'fr')),
-      'to_date'   => new liWidgetFormDateText(array('culture' => 'fr')),
+      'from_date' => new liWidgetFormJQueryDateText(array('culture' => 'fr')),
+      'to_date'   => new liWidgetFormJQueryDateText(array('culture' => 'fr')),
       'template'  => __('<span class="dates"><span>from %from_date%</span> <span>to %to_date%</span>', null, 'sf_admin'),
+      'with_empty' => false,
     ));
     $this->validatorSchema['manifestation_happens_at'] = new sfValidatorDateRange(array(
       'from_date' => new sfValidatorDate(array('required' => false)),
