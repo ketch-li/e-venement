@@ -5,6 +5,18 @@
     <header/>
     <body>
       <trans-unit>
+        <source>New Member card</source>
+        <target>Nouvelle carte d'abonnement</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Sf guard user</source>
+        <target>Utilisateur</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Automatic</source>
+        <target>Automatique</target>
+      </trans-unit>
+      <trans-unit>
         <source>District</source>
         <target>Quartier</target>
       </trans-unit>

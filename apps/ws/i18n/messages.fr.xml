@@ -5,6 +5,106 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Remote authentication List</source>
+        <target>Liste des authentifications distantes</target>
+      </trans-unit>
+      <trans-unit>
+        <source>New Remote authentication</source>
+        <target>Nouvelle authentification distante</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Sf guard user</source>
+        <target>Utilisateur</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Ipaddress</source>
+        <target>Adresse IP</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Active</source>
+        <target>Actif</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Salt</source>
+        <target>Jeton d'authentifation</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Card Bottom</source>
+        <target>Sous carte d'abonnement</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Cart Bottom</source>
+        <target>Sous le panier</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Cart End</source>
+        <target>A la validation de la commande</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Contact Bottom</source>
+        <target>Sous formulaire de contact</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Contact New</source>
+        <target>login / nouveau contact</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Email Confirmation</source>
+        <target>Mail recapitulatif commande</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Email Footer</source>
+        <target>Pied de page mail</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Event Bottom</source>
+        <target>Sous la liste des manifestations</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Manifestation Bottom</source>
+        <target>Sous la manifestation</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Manifestation Closed</source>
+        <target>Plus de vente sur la manifestation</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Manifestation Full</source>
+        <target>Plus de place sur la manifestation</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Meta Events Bottom</source>
+        <target>Sous la liste méta-evenement</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Meta Events Header</source>
+        <target>Entete des méta-evenement</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Meta Events Title</source>
+        <target>Titre de la page méta-evenement</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Payment Onthespot Info</source>
+        <target>Bouton de paiement differé</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Seated Plan Loading</source>
+        <target>Chargement du plan</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Store Nomore</source>
+        <target>Si plus de produit disponible</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Terms Conditions</source>
+        <target>Acceptation des conditions de ventes</target>
+      </trans-unit>
+      <trans-unit>
+        <source>When Closed</source>
+        <target>Vente en ligne fermée</target>
+      </trans-unit>
+      <trans-unit>
         <source>Your configuration has been updated with %i% option(s).</source>
         <target>Votre configuration a été mise à jour avec %i% paramètre(s).</target>
       </trans-unit>
