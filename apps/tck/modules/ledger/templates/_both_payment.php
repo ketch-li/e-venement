@@ -3,8 +3,6 @@
     <?php include_partial('both_extract') ?>
     <h2><?php echo __("Payment modes") ?></h2>
   </div>
-  <?php if ( is_array($form->getValue('manifestations')) && count($form->getValue('manifestations')) > 0 ): ?>
-  <?php endif ?>
 <table>
 <tbody>
 <?php $total = array('nb' => 0, 'value+' => 0, 'value-' => 0); $class = false; ?>

@@ -9,6 +9,7 @@
       <?php if ( $manifestations || $workspaces ): ?>
         <?php
           $museum = true;
+          if ( is_array($manifestations) )
           foreach ( $manifestations as $manifestation )
           if ( !$manifestation->Event->museum )
             $museum = false;
