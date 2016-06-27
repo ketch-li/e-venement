@@ -27,7 +27,6 @@ all:
       manifs_max_display: 12
     #persistent_manifestations: false
     #force_contact: true
-    #member_cards: [payment, price]
     #force_payment_before_printing: true
     #seated_plan:
     #  auto_next: false
@@ -50,7 +49,6 @@ all:
     control_left: false
     #type: boca  # can be boca, tsp700
     foreign_price: PART
-    foreign_max_items: 4
     max_size:
       event_name: 30
       event_shortname: 40
