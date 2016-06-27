@@ -18,6 +18,7 @@
   <script type="text/javascript"><!--
     LI.usb = <?php echo json_encode(array_merge(sfConfig::get('software_internals_usb', array()), sfConfig::get('project_internals_usb', array()))) ?>;
     LI.serial = <?php echo json_encode(array_merge(sfConfig::get('software_internals_serial', array()), sfConfig::get('project_internals_serial', array()))) ?>;
+    LI.ept_wait_transaction_end = <?php echo sfConfig::get('app_transaction_ept_wait_transaction_end', false) ? 'true' : 'false' ?>;
   --></script>
   <li class="usb-printers" data-json="<?php echo json_encode(sfConfig::get('project_internals_usb', sfConfig::get('software_internals_usb'))) ?>"></li>
 </ul>

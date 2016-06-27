@@ -351,9 +351,10 @@ $(document).ready(function () {
     // replace new payment form by EPT transaction message
     toggleEPTtransaction();
     
-    // Send the amount to the EPT (DON'T wait for the transaction response)
-    // TODO: switch to wait:true after we have some real transaction tests
-    EPT.sendAmount(amount, {wait: false}).then(function(res){
+    // Find out if we need to wait for the EPT transaction end 
+    var wait = ( LI.ept_wait_transaction_end !== undefined ) ? LI.ept_wait_transaction_end : false;
+    // Send the amount to the EPT
+    EPT.sendAmount(amount, {wait: wait}).then(function(res){
       connector.log('info', res);
       if ( res.status === 'accepted' || res.status === 'handled')
         $('#li_transaction_field_payment_new form').submit();
