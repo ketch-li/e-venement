@@ -160,10 +160,21 @@ LI.touchscreenSimplifiedLoadData = function(){
           console.error('Simplified GUI: Loading an item (#'+id+') from the '+type);
         
         var pdt;
+        var next24Hrs = new Date().getTime() + 1000 * 60 * 60 * 24;
+        var widget = $('<li></li>');        
+        var gauges = $('<ul></ul>');
+    
         switch ( type ) {
         case 'museum':
         case 'manifestations':
-          pdt = new Date(manif.happens_at.replace(' ','T')).toLocaleString().replace(/:\d\d( \w+){0,1}$/,'');
+          manifDate = new Date(manif.happens_at.replace(' ', 'T'));
+          pdt = manifDate.toLocaleString().replace(/:\d\d( \w+){0,1}$/,'');
+          
+          if(manifDate.getTime() > next24Hrs)
+          {
+            widget.addClass('after-24');
+          }
+                    
           break;
         
         case 'store':
@@ -175,8 +186,7 @@ LI.touchscreenSimplifiedLoadData = function(){
           break;
         }
         
-        var gauges = $('<ul></ul>');
-        $('<li></li>')
+        widget
           .append('<span><span class="category">'+manif.category+'</span> <span class="product">'+pdt+'</span></span>')
           .append(gauges)
           .attr('data-family-id', manif.id)
@@ -205,11 +215,32 @@ LI.touchscreenSimplifiedLoadData = function(){
       LI.touchscreenSimplifiedData[type] = obj;
       
       LI.touchscreenSimplifiedBehavior(type);
+
+      // adding show more button
+      $('<li></li>')
+        .prop('id', 'show-more')
+        .appendTo($('#li_transaction_field_simplified ul[data-bunch-id="manifestations"]'))
+        .click(function(){
+                         
+          $('.after-24').fadeIn();
+          $(this).remove();
+                                         
+          return false;
+       });
+                                                     
+      $('<button></button>')
+        .attr('class', 'ui-widget-content ui-state-default ui-corner-all ui-widget fg-button')
+        .appendTo('#li_transaction_field_simplified #show-more');
+                                                                     
+      $('<span></span>')
+        .attr('class', 'ui-icon ui-icon-circle-plus')
+        .appendTo($('#li_transaction_field_simplified #show-more').find('button'));
+
     },
     error: function(){
       console.error('An error occurred when loading the simplified GUI...');
-      $('#li_fieldset_simplified').fadeOut();
-    }
+      $('#li_transaction_field_simplified').fadeOut();
+    }                                                            
   });
 }
 
