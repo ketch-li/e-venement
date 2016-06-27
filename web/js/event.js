@@ -42,6 +42,7 @@ LI.manifestation_new_clicked = function()
   if ( form.length > 0 )
   {
     var anchor = $(this);
+    form.find('.open_list_selected option').prop('selected', true);
     $.post(form.prop('action'),form.serialize(),function(data){
       data = $.parseHTML(data);
       
