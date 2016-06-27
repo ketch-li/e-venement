@@ -63,3 +63,7 @@
 #sf_admin_content .li_fieldset #li_transaction_field_new_transaction.simplified a { width: 10px; height: 30px; }
 #sf_admin_content .li_fieldset #li_transaction_field_contact_id.simplified { left: 493px; top: 1px; width: 365px; height: 44px; border-bottom: 1px solid rgb(166, 201, 226); border-radius: 5px; font-size: 150%; padding-top: 12px; }
 #li_fieldset_simplified .header .contact { display: none; }
+
+li.after-24{ display: none; }
+
+#show-more button { width: 100%; font-size: 3em; }
