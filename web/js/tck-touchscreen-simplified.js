@@ -174,6 +174,7 @@ LI.touchscreenSimplifiedLoadData = function(){
           {
             widget.addClass('after-24');
           }
+                    
           break;
         
         case 'store':
@@ -214,29 +215,31 @@ LI.touchscreenSimplifiedLoadData = function(){
       LI.touchscreenSimplifiedData[type] = obj;
       
       LI.touchscreenSimplifiedBehavior(type);
-      
-       $('<li></li>')
-         .prop('id', 'show-more')
-         .appendTo($('.manifestations'))
-         .click(function(){
+
+      // adding show more button
+      $('<li></li>')
+        .prop('id', 'show-more')
+        .appendTo($('#li_transaction_field_simplified ul[data-bunch-id="manifestations"]'))
+        .click(function(){
                          
-           $('.after-24').fadeIn();
-           $(this).remove();
+          $('.after-24').fadeIn();
+          $(this).remove();
                                          
-           return false;
-         });
+          return false;
+       });
                                                      
-       $('<button></button>')
-         .attr('class', 'ui-widget-content ui-state-default ui-corner-all ui-widget fg-button')
-         .appendTo('#show-more');
+      $('<button></button>')
+        .attr('class', 'ui-widget-content ui-state-default ui-corner-all ui-widget fg-button')
+        .appendTo('#li_transaction_field_simplified #show-more');
                                                                      
-       $('<span></span>')
-         .attr('class', 'ui-icon ui-icon-circle-plus')
-         .appendTo($('#show-more').find('button'));
+      $('<span></span>')
+        .attr('class', 'ui-icon ui-icon-circle-plus')
+        .appendTo($('#li_transaction_field_simplified #show-more').find('button'));
+
     },
     error: function(){
       console.error('An error occurred when loading the simplified GUI...');
-      $('#li_fieldset_simplified').fadeOut();
+      $('#li_transaction_field_simplified').fadeOut();
     }                                                            
   });
 }
