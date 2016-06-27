@@ -1324,9 +1324,9 @@
         <source>Updated at</source>
         <target>Modifié le</target>
       </trans-unit>
-      <trans-unit>
-        <source>Personal description</source>
-        <target>Description personnelle</target>
+      <trans-unit id="71">
+        <source>Futher information</source>
+        <target>Informations complémentaires</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Description</source>
@@ -1344,7 +1344,7 @@
         <source>Groups list</source>
         <target>Membre des groupes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id ="70">
         <source>Not member of groups</source>
         <target>Non membre des groupes</target>
       </trans-unit>

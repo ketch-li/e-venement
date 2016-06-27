@@ -70,7 +70,7 @@ all:
             show_labels: true
             extra_class: tdp-vertical
             fields: [_familial_situation_id, _type_of_resources_id, _familial_quotient_id]
-          Personal description:
+          Futher information:
             show_title: true
             fields: [description, flash_on_control]
           Groups:
