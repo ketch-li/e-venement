@@ -5,6 +5,14 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Related to</source>
+        <target>En relation avec</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Not related to</source>
+        <target>Sans relation avec</target>
+      </trans-unit>
+      <trans-unit>
         <source>Clear all prices</source>
         <target>Nettoyer tous les tarifs</target>
       </trans-unit>
