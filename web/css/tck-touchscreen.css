@@ -128,7 +128,7 @@
 #li_fieldset_payments { clear: both; }
 #li_fieldset_payments #li_transaction_field_payment_new { width: 44%; }
 #li_fieldset_payments #li_transaction_field_payments_list { width: 50.5%; overflow-y: scroll; height: 120px; }
-#sf_admin_content #li_transaction_field_price_new { position: absolute; display: none; z-index: 1; overflow-y: auto; right: 11px; top: 320px; width: 35%; height: 205px; background: url("images/ui-bg_flat_55_fbec88_40x100.png") repeat-x scroll 50% 50% #FBEC88; }
+#sf_admin_content #li_transaction_field_price_new { position: absolute; display: none; z-index: 1; overflow-y: auto; right: 11px; top: 320px; width: 35%; height: 170px; background: url("images/ui-bg_flat_55_fbec88_40x100.png") repeat-x scroll 50% 50% #FBEC88; }
 #sf_admin_content #li_transaction_field_price_new button {vertical-align: top; width: 83px; text-overflow: ellipsis; }
 #li_transaction_field_price_new, #li_transaction_field_payment_new { width: 440px; }
 #li_transaction_field_price_new .ui-icon-left { font-size: 0; }
