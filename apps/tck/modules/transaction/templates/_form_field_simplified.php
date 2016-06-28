@@ -15,7 +15,7 @@
   <div class="content simplified-top-block">
     <ul class="bunch manifestations ui-widget-content ui-corner-all" data-bunch-id="manifestations">
     </ul>
-    <input type="hidden" id="manifestations-display-interval" value="<?php $conf = sfConfig::get('app_transaction_manifestations'); echo date('Y-m-d H:i:s', strtotime($conf['display_time_interval'])); ?>"/>
+    <input type="hidden" id="manifestations-display-interval" value="<?php $conf = sfConfig::get('app_transaction_manifestations', array('display_time_limit' => '1 month')); echo date('Y-m-d H:i:s', strtotime(!isset($conf['display_time_interval']) ? '1 month': $conf['display_time_interval'] )); ?>"/>
 
     <ul class="prices ui-widget-content ui-corner-all">
     </ul>

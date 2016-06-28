@@ -155,6 +155,8 @@ LI.touchscreenSimplifiedLoadData = function(){
       
       LI.touchscreenSimplifiedData[type] = data.success.success_fields[type].data.content; // storing data in the global var
       var events = {};
+      var manifsAfterLimit = 0;
+
       $.each(LI.touchscreenSimplifiedData[type], function(id, manif){
         if ( window.location.hash == '#debug' )
           console.error('Simplified GUI: Loading an item (#'+id+') from the '+type);
@@ -162,7 +164,7 @@ LI.touchscreenSimplifiedLoadData = function(){
         var pdt;
         var widget = $('<li></li>');        
         var gauges = $('<ul></ul>');
-    
+            
         switch ( type ) {
         case 'museum':
         case 'manifestations':
@@ -172,7 +174,8 @@ LI.touchscreenSimplifiedLoadData = function(){
 
           if(manifDate.getTime() > timeLimit.getTime())
           {
-            widget.addClass('after-24');
+            widget.addClass('after-limit');
+            manifsAfterLimit++;
           }
           break;
         
@@ -216,25 +219,28 @@ LI.touchscreenSimplifiedLoadData = function(){
       LI.touchscreenSimplifiedBehavior(type);
 
       // adding show more button
-      $('<li></li>')
-        .prop('id', 'show-more')
-        .appendTo($('#li_transaction_field_simplified ul[data-bunch-id="manifestations"]'))
-        .click(function(){
+      if(manifsAfterLimit > 0)
+      {
+        $('<li></li>')
+          .prop('id', 'show-more')
+          .appendTo($('#li_transaction_field_simplified ul[data-bunch-id="manifestations"]'))
+          .click(function(){
                          
-          $('.after-24').fadeIn();
-          $(this).remove();
+            $('.after-limit').fadeIn();
+            $(this).remove();
                                          
-          return false;
-       });
+            return false;
+         });
+       
                                                      
-      $('<button></button>')
-        .attr('class', 'ui-widget-content ui-state-default ui-corner-all ui-widget fg-button')
-        .appendTo('#li_transaction_field_simplified #show-more');
+        $('<button></button>')
+          .attr('class', 'ui-widget-content ui-state-default ui-corner-all ui-widget fg-button')
+          .appendTo('#li_transaction_field_simplified #show-more');
                                                                      
-      $('<span></span>')
-        .attr('class', 'ui-icon ui-icon-circle-plus')
-        .appendTo($('#li_transaction_field_simplified #show-more').find('button'));
-
+        $('<span></span>')
+          .attr('class', 'ui-icon ui-icon-circle-plus')
+          .appendTo($('#li_transaction_field_simplified #show-more').find('button'));
+      }
     },
     error: function(){
       console.error('An error occurred when loading the simplified GUI...');
