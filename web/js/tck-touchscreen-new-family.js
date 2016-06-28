@@ -28,7 +28,6 @@
       LI.addFamilies(this);
     });
     LI.autoAddFamilies();
-    
     // the autocompleter & the manifestation's selector
     $('#li_transaction_field_content .new-family [name=autocompleter]').keyup(function(e){
       // do not take into account the \n chars
@@ -128,10 +127,22 @@
           }
         });
       }, direct ? 50 : 330);
-      
+   
       return false;
     }).keyup();
     
+    // adding the date of the day with a simple click
+    $('#li_transaction_field_content .new-family [name=date]').click(function(){
+      var button = this;
+      $(this).closest('form').find('[name=autocompleter]').each(function(){
+        if ( $(this).val().indexOf($(button).val()) >= 0 )
+          return;
+        $(this).val($(this).val()+' '+$(button).val())
+          .keyup();
+      });
+      return false;
+    });
+
     // PRINTS OUT THE GLOBAL GAUGE OF A FAMILY
     $('#li_transaction_field_content .family h3 .fg-button.gauge').click(function(){
       $.get($(this).prop('href'), function(data){
@@ -228,12 +239,13 @@ LI.autoAddFamilies = function(form){
   });
 }
 
-LI.addFamilies = function(elt){
+
+  LI.addFamilies = function(elt){
   elt == undefined
     ? $('#li_transaction_field_content .new-family select')
     : $(elt).closest('.new-family').find('select')
   ;
-  
+
   $(elt).each(function(){
     if ( !$(this).val() )
       return;
