@@ -5,12 +5,12 @@
     <header/>
     <body>
       <trans-unit>
-        <source>Related to</source>
-        <target>En relation avec</target>
+        <source>Related to...</source>
+        <target>En relation avec...</target>
       </trans-unit>
       <trans-unit>
-        <source>Not related to</source>
-        <target>Sans relation avec</target>
+        <source>Not related to...</source>
+        <target>Sans relation avec...</target>
       </trans-unit>
       <trans-unit>
         <source>Clear all prices</source>

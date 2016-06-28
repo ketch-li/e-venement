@@ -27,12 +27,12 @@
     $q->from('Transaction t')
       ->leftJoin('t.Payments p')
       ->leftJoin('p.Method pm')
-      ->leftJoin('t.Tickets tck ON tck.transaction_id = t.id AND tck.duplicating IS NULL AND (tck.printed_at IS NOT NULL OR tck.integrated_at IS NOT NULL OR tck.cancelling IS NOT NULL)')
+      ->leftJoin('t.Tickets tck WITH tck.duplicating IS NULL AND (tck.printed_at IS NOT NULL OR tck.integrated_at IS NOT NULL OR tck.cancelling IS NOT NULL)')
       ->leftJoin('p.User u')
       ->leftJoin('tck.Gauge g')
       ->orderBy('pm.name');
     if ( isset($criterias['manifestations']) && is_array($criterias['manifestations']) && count($criterias['manifestations']) > 0 )
-      $q->andWhere('t.id IN (SELECT tck2.transaction_id FROM ticket tck2 WHERE tck2.manifestation_id IN ('.implode(',',$criterias['manifestations']).'))');
+      $q->andWhere('t.id IN (SELECT tck2.transaction_id FROM Ticket tck2 WHERE tck2.manifestation_id IN ('.implode(',',$criterias['manifestations']).'))');
     else
     {
       if ( isset($criterias['workspaces']) && is_array($criterias['workspaces']) && count($criterias['workspaces']) > 0 )
@@ -51,7 +51,7 @@
       $q->andWhereIn('u.id',$criterias['users']);
     
     // optimizing stuff
-    $q->select('t.id, p.id, p.value, pm.id, pm.name, u.id, sum(tck.value) AS value_tck_total')
+    $q->select('t.id, p.id, p.value, pm.id, pm.name, u.id, sum(tck.value + tck.taxes) AS value_tck_total, (SELECT sum(bp.value + bp.shipping_fees) FROM BoughtProduct bp WHERE bp.transaction_id = t.id) AS value_pos_total')
       ->groupBy('t.id, p.id, p.value, pm.id, pm.name, u.id');
     if ( isset($criterias['manifestations']) && is_array($criterias['manifestations']) && count($criterias['manifestations']) > 0 )
       $q->addSelect('(sum(CASE WHEN tck.manifestation_id IN ('.implode(',',$criterias['manifestations']).') THEN tck.value ELSE 0 END)) AS value_tck_in_manifs');
@@ -64,13 +64,15 @@
     $pm = array();
     foreach ( $transactions as $transaction )
     {
-      // if ( $transaction->value_tck_total != 0 && $transaction->value_tck_manifs != 0 )
+      // if ( $transaction->value_tck_total + $transaction->value_pos_total != 0 && $transaction->value_tck_manifs != 0 )
       foreach ( $transaction->Payments as $p )
       {
         if ( !isset($pm[$key = (string)$p->Method.' '.$p->payment_method_id]) )
           $pm[$key] = array('value+' => 0, 'value-' => 0, 'name' => (string)$p->Method, 'nb' => 0);
         $pm[$key][$p->value > 0 ? 'value+' : 'value-']
-          += $p->value * abs($transaction->value_tck_total == 0 ? 1 : $transaction->value_tck_in_manifs/$transaction->value_tck_total); // abs() to avoid "-10 * -30/+10" which, normally, won't happens but anyway...
+          += $test = $p->value * abs($transaction->value_tck_total + $transaction->value_pos_total == 0 ? 1 : $transaction->value_tck_in_manifs/($total = $transaction->value_tck_total + $transaction->value_pos_total)); // abs() to avoid "-10 * -30/+10" which, normally, won't happens but anyway...
+          //+= $test = $p->value * abs($transaction->value_tck_total == 0 ? 1 : $transaction->value_tck_in_manifs/($transaction->value_tck_total)); // abs() to avoid "-10 * -30/+10" which, normally, won't happens but anyway...
+        error_log('glop: '.$p->value.' '.$test.' '.$total.' '.$transaction->value_tck_in_manifs);
         $pm[$key]['nb']++;
       }
     }

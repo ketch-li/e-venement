@@ -202,7 +202,7 @@
     case 'store':
       $subobj = 'BoughtProduct';
       $product_id  = 'Declination->product_id';
-      $product_key = 'Declination->ordering_key';
+      $product_key = 'Declination->Product->ordering_key';
       
       if ( !$request->getParameter('id',false) && $request->hasParameter('simplified') )
       {
@@ -272,7 +272,7 @@
       $this->transaction = $q->fetchOne();
     elseif ( $q->count() == 0 )
       return;
-
+    
     // model for ticket's data
     $items_model = array(
       'state' => '',

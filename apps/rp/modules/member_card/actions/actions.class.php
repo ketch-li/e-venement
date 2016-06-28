@@ -30,6 +30,8 @@ class member_cardActions extends autoMember_cardActions
         'num' => $mc->id,
         'name' => $mc->name,
         'contact' => (string)$mc->Contact,
+        'address' => $mc->Contact->full_address,
+        'email'   => $mc->Contact->email,
         'created_at' => format_date($mc->created_at),
         'expire_at' => format_date($mc->expire_at),
         'value' => format_currency($mc->getValue(),$this->getContext()->getConfiguration()->getCurrency()),
@@ -40,7 +42,7 @@ class member_cardActions extends autoMember_cardActions
       'ms' => in_array('microsoft',$params['option']),
       'tunnel' => false,
       'noheader' => false,
-      'fields'   => array('num','name','contact','created_at','expire_at','value'),
+      'fields'   => array('num','name','contact','address','email','created_at','expire_at','value'),
     );
     
     $this->outstream = 'php://output';

@@ -36,12 +36,14 @@
     unset($vars[$key]);
   }
   $vars['options']['header'] = array(
-    'num'    => __('Id'),
-    'name' => __('Nom'),
-    'contact'  => __('Contact'),
-    'created_at' => __('Created at'),
-    'expire_at' => __('Expire at'),
-    'value' => __('Value'),
+    'num'         => __('Id'),
+    'name'        => __('Nom'),
+    'contact'     => __('Contact'),
+    'address'     => __('Address'),
+    'email'       => __('Email'),
+    'created_at'  => __('Created at'),
+    'expire_at'   => __('Expire at'),
+    'value'       => __('Value'),
   );
   
   //if ( sfConfig::get('app_ticketting_hide_demands') )

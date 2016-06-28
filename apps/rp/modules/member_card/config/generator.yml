@@ -14,7 +14,7 @@ generator:
     config:
       actions:
         _new:
-          credentials: [pr-card-mod]
+          credentials: [super-admin]
         _edit:
           credentials: [pr-card-mod]
       fields:
