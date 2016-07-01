@@ -47,10 +47,10 @@
     <p class="ticket-bc"><?php
     switch ( sfConfig::get('app_tickets_id') ) {
     case 'barcode':
-      //echo '<img src="'.url_for('ticket/barcode?id='.$ticket->id).'" />';
+      echo '<img src="'.url_for('ticket/barcode?id='.$ticket->id).'" />';
       break;
     default:
-      //echo image_tag('/liBarcodePlugin/php-barcode/barcode.php?scale=1&code='.$ticket->getIdBarcoded());
+      echo image_tag('/liBarcodePlugin/php-barcode/barcode.php?scale=1&code='.$ticket->getIdBarcoded());
       break;
     }
     ?></p>
