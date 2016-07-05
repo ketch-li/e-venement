@@ -710,11 +710,8 @@ LI.calculateTotals = function()
 
   var changeData = false;
   $.each(total, function(index, value){
-if (index=='pit')  console.warn('========================index', index);
-if (index=='pit') console.warn('value', value);
     var $elem = $('#li_transaction_field_payments_list .topay .'+index);
     var oldval = $elem.data('value');
-if (index=='pit') console.warn('oldval', oldval);
     $elem
       .html(LI.tckFormatCurrency(value))
       .data('value', value);
@@ -725,17 +722,14 @@ if (index=='pit') console.warn('oldval', oldval);
     tmp = isNaN(tmp) ? 0 : tmp;
     tmp = total[index] - tmp * total[index]/total.pit;
     tmp = isNaN(tmp) ? 0 : tmp;
-if (index=='pit') console.warn('tmp', tmp);    
     $elem = $('#li_transaction_field_payments_list .change .'+index);    
     oldval = $elem.data('value');    
-if (index=='pit') console.warn('oldval', oldval);    
     $elem
       .html(LI.tckFormatCurrency(tmp))
       .data('value', tmp);
     if ( index == 'pit' && tmp !== oldval)
       changeData = true;  
   });
-if (changeData) console.info('changeData');  
   if ( changeData )
     $('#li_transaction_field_payments_list .topay .pit').trigger('changeData');
 };

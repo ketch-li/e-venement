@@ -138,21 +138,17 @@ $(document).ready(function () {
     $('#li_transaction_field_payments_list .topay .pit').on("changeData", function(event, total, left){ 
       displayTotals(total, left);
     });      
-    $('#li_transaction_field_payments_list .change .pit').on("changeData", function(event, total, left){
-      displayTotals(total, left)
+    $('#li_transaction_field_payments_list .change .pit').on("changeData", function(event, total, left){ 
+      displayTotals(total, left);
     });
 
     // Display totals when page (or tab) is selected
     document.addEventListener("visibilitychange", function(evt){
-      var evtMap = {focus: true, focusin: true, pageshow: true, blur: false, focusout: false, pagehide: false};
-      var visible = false;
-      evt = evt || window.event;
-      if (evt.type in evtMap)
-        visible = evtMap[evt.type];
-      else if ('hidden' in document)
-        visible = !this.hidden;  
-      if (visible) 
-        displayTotals();
+      visible = !this.hidden;  
+      if ( visible )
+        displayTotals(500, true);
+      else
+        displayDefaultMsg();
     });      
 
     // Display default message when leaving the page (or tab closed...)
@@ -160,19 +156,16 @@ $(document).ready(function () {
   };
 
   // outputs totals on LCD display
-  function displayTotals(total, left) {
+  function displayTotals(delay, force) {
     var Display = LIDisplay(LI.activeDisplay, connector);
     if (!Display) 
       return;      
 
-    if ( total === undefined )
-      total = $('#li_transaction_field_payments_list .topay .pit').data('value');
+    var total = $('#li_transaction_field_payments_list .topay .pit').data('value');
     total = LI.format_currency(total, false).replace('€', 'E');
     var total_label = $('.displays .display-total').text().trim();
     var total_spaces = ' '.repeat(Display.width - total.length - total_label.length);
-
-    if ( left === undefined )
-      left = $('#li_transaction_field_payments_list .change .pit').data('value');
+    var left = $('#li_transaction_field_payments_list .change .pit').data('value');
     left = LI.format_currency(left, false).replace('€', 'E');
     var left_label = $('.displays .display-left').text().trim();
     var left_spaces = ' '.repeat(Display.width - left.length - left_label.length);      
@@ -183,12 +176,13 @@ $(document).ready(function () {
     ];
 
     clearTimeout(displayTotalsTimeoutId);
-    if ( lines.join('||') === lastDisplay.lines.join('||') ) {
+    if ( !force && lines.join('||') === lastDisplay.lines.join('||') ) {
       return;
     }
 
     var now = Date.now();
-    var delay = (now - lastDisplay.date < 500) ? 500 : 0;
+    if ( delay === undefined )
+      delay = (now - lastDisplay.date < 500) ? 500 : 0;
     displayTotalsTimeoutId = setTimeout(function(){
       lastDisplay.date = now;
       lastDisplay.lines = lines;
@@ -205,7 +199,20 @@ $(document).ready(function () {
 
     var msg = $('.displays .display-default').text();
     msg = msg || "...";
-    Display.write([msg]);
+    var lines = [msg, ''];
+
+    clearTimeout(displayTotalsTimeoutId);
+    if ( lines.join('||') === lastDisplay.lines.join('||') ) {
+      return;
+    }
+
+    var now = Date.now();
+    var delay = (now - lastDisplay.date < 500) ? 500 : 0;
+    displayTotalsTimeoutId = setTimeout(function(){
+      lastDisplay.date = now;
+      lastDisplay.lines = lines;
+      Display.write(lines);
+    }, delay);
   };
 
   // DIRECT PRINTING ******************
