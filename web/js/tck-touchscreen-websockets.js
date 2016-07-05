@@ -126,6 +126,7 @@ $(document).ready(function () {
   // LCD DISPLAY ******************
 
   var lastDisplay = {date: Date.now(), lines: []};
+  var displayTotalsTimeoutId;
 
   // configure the form for handling LCD display (if there is an available LCD display)
   function configureDisplay()
@@ -134,8 +135,12 @@ $(document).ready(function () {
       return;
 
     // Refresh Display when totals change
-    $('#li_transaction_field_payments_list .topay .pit').on("changeData", displayTotals);      
-    $('#li_transaction_field_payments_list .change .pit').on("changeData", displayTotals);
+    $('#li_transaction_field_payments_list .topay .pit').on("changeData", function(event, total, left){ 
+      displayTotals(total, left);
+    });      
+    $('#li_transaction_field_payments_list .change .pit').on("changeData", function(event, total, left){
+      displayTotals(total, left)
+    });
 
     // Display totals when page (or tab) is selected
     document.addEventListener("visibilitychange", function(evt){
@@ -155,17 +160,19 @@ $(document).ready(function () {
   };
 
   // outputs totals on LCD display
-  function displayTotals() {
+  function displayTotals(total, left) {
     var Display = LIDisplay(LI.activeDisplay, connector);
     if (!Display) 
       return;      
 
-    var total = $('#li_transaction_field_payments_list .topay .pit').data('value');
+    if ( total === undefined )
+      total = $('#li_transaction_field_payments_list .topay .pit').data('value');
     total = LI.format_currency(total, false).replace('€', 'E');
     var total_label = $('.displays .display-total').text().trim();
     var total_spaces = ' '.repeat(Display.width - total.length - total_label.length);
 
-    var left = $('#li_transaction_field_payments_list .change .pit').data('value');
+    if ( left === undefined )
+      left = $('#li_transaction_field_payments_list .change .pit').data('value');
     left = LI.format_currency(left, false).replace('€', 'E');
     var left_label = $('.displays .display-left').text().trim();
     var left_spaces = ' '.repeat(Display.width - left.length - left_label.length);      
@@ -175,12 +182,14 @@ $(document).ready(function () {
       left_label + left_spaces + left
     ];
 
-    if ( lines.join('||') === lastDisplay.lines.join('||') )
+    clearTimeout(displayTotalsTimeoutId);
+    if ( lines.join('||') === lastDisplay.lines.join('||') ) {
       return;
+    }
 
     var now = Date.now();
     var delay = (now - lastDisplay.date < 500) ? 500 : 0;
-    setTimeout(function(){
+    displayTotalsTimeoutId = setTimeout(function(){
       lastDisplay.date = now;
       lastDisplay.lines = lines;
       Display.write(lines);

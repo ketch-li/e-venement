@@ -710,26 +710,32 @@ LI.calculateTotals = function()
 
   var changeData = false;
   $.each(total, function(index, value){
+if (index=='pit')  console.warn('========================index', index);
+if (index=='pit') console.warn('value', value);
     var $elem = $('#li_transaction_field_payments_list .topay .'+index);
     var oldval = $elem.data('value');
+if (index=='pit') console.warn('oldval', oldval);
     $elem
       .html(LI.tckFormatCurrency(value))
       .data('value', value);
-    if ( value !== oldval)
+    if ( index == 'pit' && value !== oldval)
       changeData = true;
 
     var tmp = LI.parseFloat($('#li_transaction_field_payments_list tfoot .total .sf_admin_list_td_list_value').html());
     tmp = isNaN(tmp) ? 0 : tmp;
     tmp = total[index] - tmp * total[index]/total.pit;
     tmp = isNaN(tmp) ? 0 : tmp;
-    $elem = $('#li_transaction_field_payments_list .change .'+index);
+if (index=='pit') console.warn('tmp', tmp);    
+    $elem = $('#li_transaction_field_payments_list .change .'+index);    
     oldval = $elem.data('value');    
+if (index=='pit') console.warn('oldval', oldval);    
     $elem
       .html(LI.tckFormatCurrency(tmp))
       .data('value', tmp);
-    if ( tmp !== oldval)
+    if ( index == 'pit' && tmp !== oldval)
       changeData = true;  
   });
+if (changeData) console.info('changeData');  
   if ( changeData )
     $('#li_transaction_field_payments_list .topay .pit').trigger('changeData');
 };
