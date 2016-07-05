@@ -135,12 +135,8 @@ $(document).ready(function () {
       return;
 
     // Refresh Display when totals change
-    $('#li_transaction_field_payments_list .topay .pit').on("changeData", function(event, total, left){ 
-      displayTotals(total, left);
-    });      
-    $('#li_transaction_field_payments_list .change .pit').on("changeData", function(event, total, left){ 
-      displayTotals(total, left);
-    });
+    $('#li_transaction_field_payments_list .topay .pit').on("changeData", displayTotals);      
+    $('#li_transaction_field_payments_list .change .pit').on("changeData", displayTotals);
 
     // Display totals when page (or tab) is selected
     document.addEventListener("visibilitychange", function(evt){
@@ -152,7 +148,11 @@ $(document).ready(function () {
     });      
 
     // Display default message when leaving the page (or tab closed...)
-    $(window).on("beforeunload", displayDefaultMsg);    
+    $(window).on("beforeunload", function(){
+      $('#li_transaction_field_payments_list .topay .pit').unbind("changeData", displayTotals);
+      $('#li_transaction_field_payments_list .change .pit').unbind("changeData", displayTotals);
+      displayDefaultMsg(true);    
+    });
   };
 
   // outputs totals on LCD display
@@ -192,7 +192,7 @@ $(document).ready(function () {
   };
 
   // outputs default message on USB display
-  function displayDefaultMsg() {
+  function displayDefaultMsg(force) {
     var Display = LIDisplay(LI.activeDisplay, connector);
     if (!Display) 
       return;      
@@ -208,7 +208,12 @@ $(document).ready(function () {
 
     var now = Date.now();
     var delay = (now - lastDisplay.date < 500) ? 500 : 0;
-    displayTotalsTimeoutId = setTimeout(function(){
+    if ( force ) {
+      lastDisplay.date = now;
+      lastDisplay.lines = lines;
+      Display.write(lines);
+    }
+    else displayTotalsTimeoutId = setTimeout(function(){
       lastDisplay.date = now;
       lastDisplay.lines = lines;
       Display.write(lines);
