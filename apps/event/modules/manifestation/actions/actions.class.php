@@ -260,12 +260,12 @@ class manifestationActions extends autoManifestationActions
   public function executeAjax(sfWebRequest $request)
   {
     $format = new sfDateFormat($this->getUser()->getCulture());
-    $pattern = str_replace(array('dd', 'MM', 'yy'), array('d', 'm', 'Y'), $format->getPattern('d'));
+    $pattern = str_replace(array('dd', 'MM', 'yy'), array('d', 'm', 'y'), $format->getPattern('d'));
     
     $charset = sfConfig::get('software_internals_charset');
     $pre_search = self::sanitizeSearch(iconv($charset['db'],$charset['ascii'],strtolower($request->getParameter('q'))));
     
-    $search  = trim(preg_replace('!('.($regexp = str_replace(array('d', 'm', 'Y'), array('\d\d', '\d\d', '\d\d\d\d'), $pattern)).')!', '', $pre_search));
+    $search  = trim(preg_replace('!('.($regexp = str_replace(array('d', 'm', 'Y', 'y'), array('\d\d', '\d\d', '\d\d\d\d', '\d\d'), $pattern)).')!', '', $pre_search));
     
     $date = preg_replace('!.*('.$regexp.').*!', '\1', $pre_search);
     $date = preg_match('!'.$regexp.'!', $date) ? $date : null;

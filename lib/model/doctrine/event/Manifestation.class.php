@@ -168,7 +168,7 @@ class Manifestation extends PluginManifestation implements liUserAccessInterface
     if ( !$this->blocking )
       return false;
 
-    try { $this->getFromCache('has-any-conflict'); }
+    try { return $this->getFromCache('has-any-conflict'); }
     catch ( liEvenementException $e )
     {
 

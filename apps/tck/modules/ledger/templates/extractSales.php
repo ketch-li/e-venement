@@ -42,6 +42,7 @@
     'location'        => __('Location'),
     'price'           => __('Price'),
     'user'            => __('User'),
+    'transaction'     => __('Transaction'),
     'qty'             => __('Quantity'),
     'pit'             => __('PIT'),
     'extra-taxes'     => __('Extra taxes'),

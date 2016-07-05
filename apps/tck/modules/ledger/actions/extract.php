@@ -58,7 +58,7 @@
       $this->lines = array();
       $this->options['fields'] = array(
         'event', 'manifestation', 'location',
-        'price', 'user', 'qty',
+        'price', 'user', 'transaction', 'qty',
         'pit', 'extra-taxes', 'vat', 'tep',
         'account',
       );
@@ -68,13 +68,14 @@
       if ( $nb_tickets <= sfConfig::get('app_ledger_max_tickets',5000) )
       foreach ( $manif->Tickets as $ticket )
       {
-        if ( !isset($this->lines[$key = 'e'.$event->id.'m'.$manif->id.'p'.$ticket->price_id.'u'.$ticket->sf_guard_user_id.($ticket->cancelling ? 'a' : '')]) )
+        if ( !isset($this->lines[$key = 'e'.$event->id.'m'.$manif->id.'p'.$ticket->price_id.'u'.$ticket->sf_guard_user_id.'t'.$ticket->transaction_id.($ticket->cancelling ? 'a' : '')]) )
           $this->lines[$key] = array(
             'event'         => (string)$event,
             'manifestation' => (string)$manif,
             'location'      => (string)$manif->Location,
             'price'         => (string)$ticket->Price,
             'user'          => (string)$ticket->User,
+            'transaction'   => '#'.$ticket->transaction_id,
             'qty'           => 0,
             'pit'           => 0,
             'extra-taxes'   => 0,
@@ -98,6 +99,7 @@
             'location'      => (string)$manif->Location,
             'price'         => '',
             'user'          => '',
+            'transaction'   => '',
             'qty'           => $infos[$manif->id]['qty'],
             'pit'           => $infos[$manif->id]['value'],
             'vat'           => 0,
@@ -116,13 +118,14 @@
       
       foreach ( $this->products as $pdt )
       {
-        if ( !isset($this->lines[$key = 'PDT || '.$pdt->code.' || '.$pdt->name.' || '.$pdt->declination.' || '.$pdt->price_name]) )
+        if ( !isset($this->lines[$key = 'PDT '.$pdt->code.' . '.$pdt->name.' . '.$pdt->declination.' . '.$pdt->price_name.' || '.$pdt->sf_guard_user_id.' . '.$ticket->transaction_id]) )
           $this->lines[$key] = array(
             'event'         => (string)$pdt->name,
             'manifestation' => (string)$pdt->declination,
             'location'      => '',
             'price'         => (string)$pdt->price_name,
             'user'          => (string)$pdt->User,
+            'transaction'   => '#'.$pdt->transaction_id,
             'qty'           => 0,
             'pit'           => 0,
             'extra-taxes'   => 0,

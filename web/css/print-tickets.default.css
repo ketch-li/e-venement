@@ -128,12 +128,13 @@ span.eur { font-weight: normal; }
 .ticket .ticket-bc .id { display: none; }
 .ticket .ticket-bc {
   position: absolute;
-  width: 150mm;
-  height: 58mm;
+  width: 20mm;
+  height: 20mm;
   text-align: left;
   margin-top: -20mm;
   padding-left: 2mm;
 }
+.ticket .ticket-bc img { width: 100%; }
 
 @page {
   marks: none;
