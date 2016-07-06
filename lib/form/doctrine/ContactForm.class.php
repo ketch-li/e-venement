@@ -93,6 +93,7 @@ class ContactForm extends BaseContactForm
         $this->validatorSchema[$field]->setOption('required', true);
     }
     
+    unset($this->widgetSchema['back_relations_list']);
     parent::configure();
   }
   
@@ -161,7 +162,6 @@ class ContactForm extends BaseContactForm
     // do not delete the Picture link
     if ( $this->object->picture_id && !$this->values['picture_id'] )
       $this->values['picture_id'] = $this->object->picture_id;
-    
     
     return parent::doSave($con);
   }
