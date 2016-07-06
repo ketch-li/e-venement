@@ -101,6 +101,7 @@ a, a:active, a:visited { color: #000; }
   height: 16px;
   display: block;
 }
+#transition .alert { position: absolute; bottom: 20mm; text-align: center; width: 90%; font-size: 250%; background-color: rgba(255, 255, 255, 0.5); padding: 10px; margin: 5%; }
 #footer .datetime { display: none; }
 
 /* generic print section */
