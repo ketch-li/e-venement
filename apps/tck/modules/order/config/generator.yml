@@ -20,9 +20,15 @@ generator:
         manifestation_happens_at: { label: Date, type: date }
         manifestations_list: { label: Manifestations }
       list:
-        display: [_id,_transaction_id,_closed,_cancel,_contact,_manifestations,_comment,created_at,User]
+        display: [_id,_transaction_id,_closed,_contact,_manifestations,_comment,created_at,User]
         table_method: doSelectIndex
         sort: [id, DESC]
+        object_actions:
+          _cancel:
+            label: Delete
+            ui-icon: trash
+            action: cancel 
+        batch_actions: {}
       filter:
         display:
           Transaction: [transaction_id, closed, created_at, has_confirmed_ticket, contact_id, organism_id, sf_guard_user_id]
