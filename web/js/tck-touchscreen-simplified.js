@@ -114,8 +114,9 @@ $(document).ready(function(){
       .addClass('in-progress');
     var form = $('#li_transaction_field_content [data-bunch-id="'+$('#li_fieldset_simplified .products-types .selected').attr('data-bunch-id')+'"] .new-family');
     
+    var search = $(this).val();
     $.ajax({
-      url: $(this).attr('data-url').replace('SEARCH_VAL', $(this).val()),
+      url: $(this).attr('data-url').replace('SEARCH_VAL', search),
       method: 'get',
       dataType: 'json',
       success: function(json){
@@ -123,21 +124,34 @@ $(document).ready(function(){
         
         // auto-select a declination if possible
         var type = $(form).closest('[data-bunch-id]').attr('data-bunch-id');
-        if ( $(json.success.success_fields[type].data.content).length == 1 ) // only one product
+        console.error('pouet', json.success.success_fields[type].data.content, search);
         $.each(json.success.success_fields[type].data.content, function(i, pdt){
-          if ( $(pdt[pdt.declinations_name]).length == 1 )
-          {
-            $.each(pdt[pdt.declinations_name], function(i, decl){
+          $.each(pdt[pdt.declinations_name], function(i, decl){
+              console.error('zou', Object.keys(pdt[pdt.declinations_name]).length);
+            if ( Object.keys(json.success.success_fields[type].data.content).length == 1 && Object.keys(pdt[pdt.declinations_name]).length == 1
+              || decl.code.toLowerCase() == search.toLowerCase() )
+            {
+              console.error('yeah');
+              // click on the first price of the first declination availables
+              $('#li_fieldset_simplified .bunch[data-bunch-id=store] [data-family-id="'+pdt.id+'"] > span')
+                .click();
+              
+              // must have only one price to be added automatically
               if ( $(decl.available_prices).length != 1 )
-                return false;
-              $('#li_fieldset_simplified .bunch[data-bunch-id=store] [data-family-id="'+pdt.id+'"]')
-                .click()
-                .find('> :first-child')
-                .click()
-              setTimeout(function(){ $('#li_fieldset_simplified .bunch .search input').focus() }, 200);
+                return;
+              
+              // continue...
+              $(str = '#li_fieldset_simplified .bunch[data-bunch-id=store] [data-family-id="'+pdt.id+'"] [data-declination-id='+decl.id+']')
+                .click();
+              console.error(str);
               $('#li_fieldset_simplified .prices button:first').click();
-            });
-          }
+              
+              // clears the search string
+              setTimeout(function(){ $('#li_fieldset_simplified .bunch .search input').focus() }, 200);
+              
+              return;
+            }
+          });
         });
       },
       error: function(){

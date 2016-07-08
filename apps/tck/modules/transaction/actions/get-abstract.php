@@ -489,6 +489,7 @@
             'name' => (string)$declination,
             'url' => $url,
             'type' => strtolower($subobj),
+            'code' => $declination->code,
             'description' => NULL,
             'available_prices' => array(),
             'prices' => array('-' => $items_model),
