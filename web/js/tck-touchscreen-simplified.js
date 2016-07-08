@@ -124,14 +124,10 @@ $(document).ready(function(){
         
         // auto-select a declination if possible
         var type = $(form).closest('[data-bunch-id]').attr('data-bunch-id');
-        console.error('pouet', json.success.success_fields[type].data.content, search);
         $.each(json.success.success_fields[type].data.content, function(i, pdt){
           $.each(pdt[pdt.declinations_name], function(i, decl){
-              console.error('zou', Object.keys(pdt[pdt.declinations_name]).length);
-            if ( Object.keys(json.success.success_fields[type].data.content).length == 1 && Object.keys(pdt[pdt.declinations_name]).length == 1
-              || decl.code.toLowerCase() == search.toLowerCase() )
+            if ( decl.code.toLowerCase() == search.toLowerCase() )
             {
-              console.error('yeah');
               // click on the first price of the first declination availables
               $('#li_fieldset_simplified .bunch[data-bunch-id=store] [data-family-id="'+pdt.id+'"] > span')
                 .click();
@@ -143,7 +139,6 @@ $(document).ready(function(){
               // continue...
               $(str = '#li_fieldset_simplified .bunch[data-bunch-id=store] [data-family-id="'+pdt.id+'"] [data-declination-id='+decl.id+']')
                 .click();
-              console.error(str);
               $('#li_fieldset_simplified .prices button:first').click();
               
               // clears the search string
