@@ -60,7 +60,8 @@ all:
       asked: 40 minutes # for the garbage collector to remove elder asked tickets
     #logo: /private/logo-xxx.png
     authorize_grouped_tickets: false
-    simplified_printing: true     # for dematerialized ticketting only, cf. web/css/print-simplified-tickets.css & web/private/print-simplified-tickets.css
+    #simplified_printing: false     # for dematerialized ticketting only, cf. web/css/print-simplified-tickets.css & web/private/print-simplified-tickets.css
+                                    # incompatible with RFID
     #merge: vertical # horizontal: merge tickets by manifestations | vertical: merge tickets by DirectContact, depends on 'simplified_printing: true'
     #alert_on_notprinted: true
     #auto_integrate: true

@@ -116,7 +116,10 @@
           ->leftJoin('c.Event e')
           ->leftJoin('e.Manifestations m')
           ->leftJoin('m.Tickets t')
-          ->andWhereIn('t.'.$field, $params['ticket_id'])
+          ->andWhere('(TRUE')
+          ->andWhereIn('t.othercode IS NULL AND t.barcode', $params['ticket_id'])
+          ->orWhereIn ('t.barcode IS NULL AND t.othercode', $params['ticket_id'])
+          ->andWhere('TRUE)')
           ->andWhere('c.id = ?', $params['checkpoint_id']);
         $checkpoint = $q->fetchOne();
         
