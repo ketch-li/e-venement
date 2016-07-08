@@ -120,8 +120,9 @@ $(document).ready(function(){
       dataType: 'json',
       success: function(json){
         LI.touchscreenSimplified_LoadData(json, form, true);
-        var type = $(form).closest('[data-bunch-id]').attr('data-bunch-id');
         
+        // auto-select a declination if possible
+        var type = $(form).closest('[data-bunch-id]').attr('data-bunch-id');
         if ( $(json.success.success_fields[type].data.content).length == 1 ) // only one product
         $.each(json.success.success_fields[type].data.content, function(i, pdt){
           if ( $(pdt[pdt.declinations_name]).length == 1 )
@@ -223,7 +224,7 @@ LI.touchscreenSimplified_LoadData = function(data, form, append){
       var events = {};
       var manifsAfterLimit = 0;
 
-      $.each(LI.touchscreenSimplifiedData[type], function(id, manif){
+      $.each(data.success.success_fields[type].data.content, function(id, manif){
         if ( window.location.hash == '#debug' )
           console.error('Simplified GUI: Loading an item (#'+id+') from the '+type);
         
@@ -260,7 +261,10 @@ LI.touchscreenSimplified_LoadData = function(data, form, append){
           .attr('data-family-id', manif.id)
         ;
         if ( append )
+        {
+          $('#li_fieldset_simplified .bunch[data-bunch-id="'+type+'"] [data-family-id='+manif.id+']').remove();
           widget.insertAfter($('#li_fieldset_simplified .bunch[data-bunch-id="'+type+'"] .search'));
+        }
         else
           widget.appendTo($('#li_fieldset_simplified .bunch[data-bunch-id="'+type+'"]'));
         
@@ -313,6 +317,7 @@ LI.touchscreenSimplified_LoadData = function(data, form, append){
       }
 }
 
+LI.touchscreenSimplifiedStockCache = {};
 LI.touchscreenSimplifiedBehavior = function(type){
   // opens gauges for manifestation or equivalent
   $('#li_fieldset_simplified .bunch[data-bunch-id="'+type+'"] > li:not(.search) > :not(ul)').unbind('click').click(function(){
@@ -374,8 +379,8 @@ LI.touchscreenSimplifiedBehavior = function(type){
         .appendTo($(declination).is('[data-family-id]') ? $(declination).find('.product') : declination)
       ;
     }
+    
     var pdt = LI.touchscreenSimplifiedData[type][$(this).closest('[data-family-id]').attr('data-family-id')];
-    var stock_cache = {};
     if ( $(this).closest('[data-family-id]').find('.gauge-gfx').length == 0 )
     {
       // global gauge
@@ -383,14 +388,14 @@ LI.touchscreenSimplifiedBehavior = function(type){
       {
         var family = $(this).closest('[data-family-id]');
         var gauge = pdt.gauge_url;
-        if ( stock_cache[gauge] !== undefined )
-          success(stock_cache[gauge], family);
+        if ( LI.touchscreenSimplifiedStockCache[gauge] !== undefined )
+          success(LI.touchscreenSimplifiedStockCache[gauge], family);
         else
         $.ajax({
           url: gauge,
           method: 'get',
           success: function(json){
-            stock_cache[gauge] = json;
+            LI.touchscreenSimplifiedStockCache[gauge] = json;
             success(json, family);
           }
         });
@@ -400,14 +405,14 @@ LI.touchscreenSimplifiedBehavior = function(type){
       $(this).closest('[data-family-id]').find('li').each(function(){
         var gauge = pdt[pdt.declinations_name][$(this).attr('data-'+pdt.declinations_name.slice(0,-1)+'-id')];
         var declination = this;
-        if ( stock_cache[gauge.url] !== undefined )
-          success(stock_cache[gauge.url], declination);
+        if ( LI.touchscreenSimplifiedStockCache[gauge.url] !== undefined )
+          success(LI.touchscreenSimplifiedStockCache[gauge.url], declination);
         else
         $.ajax({
           url: gauge.url,
           method: 'get',
           success: function(json){
-            stock_cache[gauge.url] = json;
+            LI.touchscreenSimplifiedStockCache[gauge.url] = json;
             success(json, declination);
           }
         });
