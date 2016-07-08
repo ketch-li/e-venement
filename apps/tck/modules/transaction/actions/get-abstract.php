@@ -213,9 +213,17 @@
         
         $q2 = Doctrine::getTable('ProductDeclination')->createQuery('pd')
           ->select('pd.id')
+          ->leftJoin('pd.Product p')
+          ->andWhere('p.vat_id IS NOT NULL')
           ->orderBy("(SELECT count(bp.id) FROM BoughtProduct bp WHERE bp.product_declination_id = pd.id AND bp.integrated_at > NOW() - '2 weeks'::interval) DESC, pd.created_at DESC")
           ->limit($conf['max_display'])
         ;
+        
+        if ( $request->hasParameter('q') )
+        {
+          $q2->andWhere('pd.code ILIKE ?', $request->getParameter('q').'%');
+        }
+        
         $ids = array();
         foreach ( $q2->execute() as $pd )
           $ids[] = $pd->product_id;
