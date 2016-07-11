@@ -10,6 +10,8 @@
  */
 class ControlForm extends BaseControlForm
 {
+  protected $force_field = NULL;
+  
   /**
    * @see TraceableForm
    */
@@ -29,23 +31,51 @@ class ControlForm extends BaseControlForm
     $this->widgetSchema['ticket_id'] = new sfWidgetFormInput();
     $this->widgetSchema['comment'] = new sfWidgetFormTextArea();
     
-    if ( sfConfig::get('app_tickets_id') != 'id' )
+    $validators = array();
+    foreach ( $this->getFieldsConfig() as $field )
     {
-      $this->validatorSchema['ticket_id'] = new sfValidatorDoctrineChoice(array(
+      $validators[] = new sfValidatorDoctrineChoice(array(
         'model' => 'Ticket',
-        'column' => sfConfig::get('app_tickets_id', 'id'),
+        'column' => $field,
         'query' => Doctrine::getTable('Ticket')->createQuery('t')->select('t.*')
           ->andWhere('t.printed_at IS NOT NULL OR t.integrated_at IS NOT NULL'),
       ));
     }
+    $this->validatorSchema['ticket_id'] = new sfValidatorOr($validators);
   }
   
   public function doBind(array $values)
   {
-    if ( sfConfig::get('app_tickets_id', 'id') != 'id'
+    if ( !in_array('othercode', $this->getFieldsConfig()) // because othercode can be also an integer
       && intval($values['ticket_id']).'' === ''.$values['ticket_id'] )
-      $this->validatorSchema['ticket_id']->setOption('column', 'id');
+      $this->validatorSchema['ticket_id'][0]->setOption('column', 'id');
+    
+    if ( $this->forceField() )
+    {
+      $this->validatorSchema['ticket_id'] = new sfValidatorDoctrineChoice(array(
+        'model' => 'Ticket',
+        'column' => $this->forceField(),
+        'query' => Doctrine::getTable('Ticket')->createQuery('t')->select('t.*')
+          ->andWhere('t.printed_at IS NOT NULL OR t.integrated_at IS NOT NULL'),
+      ));
+    }
     
     return parent::doBind($values);
+  }
+  
+  public function forceField($field = NULL)
+  {
+    if ( $field )
+    {
+      $this->force_field = $field;
+      if ( $field == 'id' )
+        $this->object->setTicketIdForced();
+    }
+    return $this->force_field;
+  }
+  public static function getFieldsConfig()
+  {
+    $field = sfConfig::get('app_tickets_id', 'id');
+    return is_array($field) ? $field : array($field);
   }
 }
