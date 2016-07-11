@@ -489,7 +489,6 @@
             'name' => (string)$declination,
             'url' => $url,
             'type' => strtolower($subobj),
-            'code' => $declination->code,
             'description' => NULL,
             'available_prices' => array(),
             'prices' => array('-' => $items_model),
@@ -509,6 +508,10 @@
               $this->json[$product->ordering_key][$this->json[$product->ordering_key]['declinations_name']][$declination->id]['seated_plan_width']
                 = $seated_plan->ideal_width;
             }
+            break;
+          case 'Declination':
+            $this->json[$product->ordering_key][$this->json[$product->ordering_key]['declinations_name']][$declination->id]['code']
+              = $declination->code;
             break;
           }
           
