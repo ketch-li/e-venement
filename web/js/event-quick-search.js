@@ -1,16 +1,15 @@
   $(document).ready(function(){
     $('#li-direct-access a.fg-button').click(function(){
       // current day by default
-      var start = new Date;
-      var stop = new Date(str = start.getFullYear()+'/'+(start.getMonth()+1)+'/'+(start.getDate()+1));
+      var start = new Date();
+      start = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+      var stop = new Date(start.valueOf()+(24*60*60*1000));
       switch ( $(this).attr('href') ) {
       case '#month':
-        start = new Date(start.getFullYear()+'/'+(start.getMonth()+1)+'/'+'01');
-        stop = new Date(start.getFullYear()+'/'+(start.getMonth()+1)+'/'+'31');
+        stop = new Date(start.valueOf()+(31*24*60*60*1000));
         break;
       case '#week':
-        start = new Date(start.getFullYear()+'/'+(start.getMonth()+1)+'/'+(start.getDate()-start.getDay()+1));
-        stop = new Date(start.getFullYear()+'/'+(start.getMonth()+1)+'/'+(start.getDate()-start.getDay()+8));
+        stop = new Date(start.valueOf()+(7*24*60*60*1000));
         break;
       }
       $('#sf_admin_filter [name="manifestation_filters[happens_at][from][day]"],   #sf_admin_filter [name="event_filters[dates_range][from][day]"]').val(start.getDate());

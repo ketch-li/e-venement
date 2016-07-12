@@ -1,9 +1,3 @@
-#sf_admin_list_batch_actions, #sf_admin_list_th_actions,
-.sf_admin_actions,
-.sf_admin_row td:first-child,
-.sf_admin_row td:last-child,
-.sf_admin_actions_block { display: none; }
-
 .sf_admin_list table tbody tr.sf_admin_row td.sf_admin_list_td_id,
 .sf_admin_list_th_id,
 .sf_admin_list table tbody tr.sf_admin_row td.sf_admin_list_td_transaction_id,

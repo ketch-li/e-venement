@@ -64,6 +64,6 @@ generator:
         display:
           General: [name, _show_email, _show_contact, _show_organism, _show_reservation_price]
           Address: [name, address, postalcode, city, country, npai]
-          More:    [_show_<?php echo $auto_control ? 'auto_control, ' : '' ?>_show_description, gauge_min, gauge_max]
+          More:    [<?php echo $auto_control ? 'auto_control, ' : '' ?>_show_description, gauge_min, gauge_max]
           #Geolocalization: [_gmap]
 

@@ -46,7 +46,7 @@ class liOnlineExternalAuthOpenIDConnect extends OpenIdConnectProvider
     $sf_context = sfContext::getInstance();
     $sf_context->getConfiguration()->loadHelpers(array('CrossAppLink', 'Url'));
     
-    if ( is_array($urls = sfConfig::get('app_openidconnect_redirect_urls', array()) )
+    if ( is_array($urls = sfConfig::get('app_openidconnect_redirect_urls', array())) )
       $url = $sf_context->getModuleName() == 'cart' && $sf_context->getActionName() == 'order'
         ? $urls['order']
         : $urls['login'];

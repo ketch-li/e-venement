@@ -4,6 +4,30 @@
   <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2014-09-09T17:16:42Z" product-name="messages">
     <header/>
     <body>
+      <trans-unit id="185">
+        <source>Details</source>
+        <target>Détails</target>
+      </trans-unit>
+      <trans-unit id="184">
+        <source>General</source>
+        <target>Général</target>
+      </trans-unit>
+      <trans-unit id="183">
+        <source>Associated</source>
+        <target>Associé</target>
+      </trans-unit>
+      <trans-unit id="182">
+        <source>Unassociated</source>
+        <target>Non associé</target>
+      </trans-unit>
+      <trans-unit id="181">
+        <source>Content file</source>
+        <target>Fichier de contenu</target>
+      </trans-unit>
+      <trans-unit id="180">
+        <source>Weight</source>
+        <target>Poids</target>
+      </trans-unit>
       <trans-unit id="179">
         <source>This defines the shipping fees (including taxes, PIT) depending on the weight of bought products.&lt;br/&gt;The order is really important because, beginning from the first entry, the system will choose the first range that match the weight of a product&lt;/br&gt;Note that the bigger value is "excluded" from the range.</source>
         <target>Ceci définit les frais d'expédition (incluant les taxes, TTC) relativement au poids des produits achetés&lt;br/&gt;L'ordre est très important parceque le système va choisir le premier montant correspondant en démarrant par la première entrée&lt;br/&gt;Notez que le poids le plus grand est exclu de l'intervale.</target>

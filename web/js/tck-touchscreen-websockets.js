@@ -126,6 +126,7 @@ $(document).ready(function () {
   // LCD DISPLAY ******************
 
   var lastDisplay = {date: Date.now(), lines: []};
+  var displayTotalsTimeoutId;
 
   // configure the form for handling LCD display (if there is an available LCD display)
   function configureDisplay()
@@ -139,23 +140,23 @@ $(document).ready(function () {
 
     // Display totals when page (or tab) is selected
     document.addEventListener("visibilitychange", function(evt){
-      var evtMap = {focus: true, focusin: true, pageshow: true, blur: false, focusout: false, pagehide: false};
-      var visible = false;
-      evt = evt || window.event;
-      if (evt.type in evtMap)
-        visible = evtMap[evt.type];
-      else if ('hidden' in document)
-        visible = !this.hidden;  
-      if (visible) 
-        displayTotals();
+      visible = !this.hidden;  
+      if ( visible )
+        displayTotals(500, true);
+      else
+        displayDefaultMsg();
     });      
 
     // Display default message when leaving the page (or tab closed...)
-    $(window).on("beforeunload", displayDefaultMsg);    
+    $(window).on("beforeunload", function(){
+      $('#li_transaction_field_payments_list .topay .pit').unbind("changeData", displayTotals);
+      $('#li_transaction_field_payments_list .change .pit').unbind("changeData", displayTotals);
+      displayDefaultMsg(true);    
+    });
   };
 
   // outputs totals on LCD display
-  function displayTotals() {
+  function displayTotals(delay, force) {
     var Display = LIDisplay(LI.activeDisplay, connector);
     if (!Display) 
       return;      
@@ -164,7 +165,6 @@ $(document).ready(function () {
     total = LI.format_currency(total, false).replace('€', 'E');
     var total_label = $('.displays .display-total').text().trim();
     var total_spaces = ' '.repeat(Display.width - total.length - total_label.length);
-
     var left = $('#li_transaction_field_payments_list .change .pit').data('value');
     left = LI.format_currency(left, false).replace('€', 'E');
     var left_label = $('.displays .display-left').text().trim();
@@ -175,12 +175,15 @@ $(document).ready(function () {
       left_label + left_spaces + left
     ];
 
-    if ( lines.join('||') === lastDisplay.lines.join('||') )
+    clearTimeout(displayTotalsTimeoutId);
+    if ( !force && lines.join('||') === lastDisplay.lines.join('||') ) {
       return;
+    }
 
     var now = Date.now();
-    var delay = (now - lastDisplay.date < 500) ? 500 : 0;
-    setTimeout(function(){
+    if ( delay === undefined )
+      delay = (now - lastDisplay.date < 500) ? 500 : 0;
+    displayTotalsTimeoutId = setTimeout(function(){
       lastDisplay.date = now;
       lastDisplay.lines = lines;
       Display.write(lines);
@@ -189,14 +192,32 @@ $(document).ready(function () {
   };
 
   // outputs default message on USB display
-  function displayDefaultMsg() {
+  function displayDefaultMsg(force) {
     var Display = LIDisplay(LI.activeDisplay, connector);
     if (!Display) 
       return;      
 
     var msg = $('.displays .display-default').text();
     msg = msg || "...";
-    Display.write([msg]);
+    var lines = [msg, ''];
+
+    clearTimeout(displayTotalsTimeoutId);
+    if ( lines.join('||') === lastDisplay.lines.join('||') ) {
+      return;
+    }
+
+    var now = Date.now();
+    var delay = (now - lastDisplay.date < 500) ? 500 : 0;
+    if ( force ) {
+      lastDisplay.date = now;
+      lastDisplay.lines = lines;
+      Display.write(lines);
+    }
+    else displayTotalsTimeoutId = setTimeout(function(){
+      lastDisplay.date = now;
+      lastDisplay.lines = lines;
+      Display.write(lines);
+    }, delay);
   };
 
   // DIRECT PRINTING ******************

@@ -5,6 +5,22 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Search for a declination</source>
+        <target>Chercher une déclinaison</target>
+      </trans-unit>
+      <trans-unit>
+        <source>yes</source>
+        <target>oui</target>
+      </trans-unit>
+      <trans-unit>
+        <source>no</source>
+        <target>non</target>
+      </trans-unit>
+      <trans-unit>
+        <source>yes or no</source>
+        <target>oui ou non</target>
+      </trans-unit>
+      <trans-unit>
         <source>Filters</source>
         <target>Filtres</target>
       </trans-unit>

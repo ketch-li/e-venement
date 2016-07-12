@@ -715,19 +715,19 @@ LI.calculateTotals = function()
     $elem
       .html(LI.tckFormatCurrency(value))
       .data('value', value);
-    if ( value !== oldval)
+    if ( index == 'pit' && value !== oldval)
       changeData = true;
 
     var tmp = LI.parseFloat($('#li_transaction_field_payments_list tfoot .total .sf_admin_list_td_list_value').html());
     tmp = isNaN(tmp) ? 0 : tmp;
     tmp = total[index] - tmp * total[index]/total.pit;
     tmp = isNaN(tmp) ? 0 : tmp;
-    $elem = $('#li_transaction_field_payments_list .change .'+index);
+    $elem = $('#li_transaction_field_payments_list .change .'+index);    
     oldval = $elem.data('value');    
     $elem
       .html(LI.tckFormatCurrency(tmp))
       .data('value', tmp);
-    if ( tmp !== oldval)
+    if ( index == 'pit' && tmp !== oldval)
       changeData = true;  
   });
   if ( changeData )

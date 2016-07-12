@@ -6,6 +6,9 @@ function gauge_small()
   if ( $('.sf_admin_list_td_list_gauge').length > 0 )
   {
     $('.sf_admin_list_td_list_gauge').each(function(){
+      if ( $(this).find('.gauge').length > 0 )
+        return;
+      
       var div = $('<div></div>').addClass('gauge')
         .html($(this).html());
       $(this).html('');
@@ -30,18 +33,10 @@ function gauge_small()
     
     var total;
     var booked;
-    $(this).find('> *').each(function(){
-      // every children except for total
-      if ( $(this).hasClass('total') )
-        return true;
-      
-      // ... and except booked which is useless graphically
-      if ( $(this).hasClass('booked') )
-        return true;
-      
+    $(this).find('> *:not(.total):not(.booked)').each(function(){ // every children except for total and booked which is useless graphically
       // get back local data
-      count = parseInt(count_html = $(this).html().replace('&nbsp;',' '),10);
-      total = parseInt(total_html = $(this).closest('.gauge, .sf_admin_list_td_list_gauge').find('.total').html().replace('&nbsp;',' '),10);
+      count = parseInt(count_html = $(this).text(),10);
+      total = parseInt(total_html = $(this).closest('.gauge, .sf_admin_list_td_list_gauge').find('.total').text(),10);
       
       // set properties
       $(this)
@@ -49,11 +44,14 @@ function gauge_small()
         .css('width',(count/total*100)+'px');
     });
     
-    $(this).prop('title', (total=parseInt($(this).find('.total').html(),10)) - (booked=parseInt($(this).find('.booked').html(),10))+' / '+total_html);
+    $(this).prop('title', (total=parseInt($(this).find('.total').text(),10)) - (booked=parseInt($(this).find('.booked').text(),10))+' / '+total_html);
     if ( booked > total )
       $(this).addClass('overbooked');
     $(this).addClass('done');
-    $('<span class="txt">'+total_html+'</span>').insertAfter($(this));
+    $('<span></span>')
+      .addClass('txt')
+      .html(total_html)
+      .insertAfter($(this));
   });
 }
 
