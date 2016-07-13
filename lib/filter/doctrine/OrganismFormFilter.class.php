@@ -114,8 +114,14 @@ class OrganismFormFilter extends BaseOrganismFormFilter
     
     $this->widgetSchema   ['duplicates'] = new sfWidgetFormInputCheckbox;
     $this->validatorSchema['duplicates'] = new sfValidatorBoolean(array('required' => false));
-    
+        
     parent::configure();
+  }
+  
+  public function setup()
+  {
+    $this->noTimestampableUnset = true;
+    parent::setup();
   }
   
   public function getFields()
@@ -300,5 +306,5 @@ class OrganismFormFilter extends BaseOrganismFormFilter
       $this->addTextQuery($q, $field, array('text' => $str));
     
     return $q;
-  }
+  }  
 }

@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Search for a declination</source>
+        <target>Chercher une déclinaison</target>
+      </trans-unit>
+      <trans-unit>
         <source>yes</source>
         <target>oui</target>
       </trans-unit>

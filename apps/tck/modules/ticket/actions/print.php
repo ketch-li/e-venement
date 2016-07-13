@@ -306,7 +306,7 @@
     }
     else
     {
-      if ( sfConfig::get('app_tickets_id') != 'othercode' )
+      if ( sfConfig::get('app_tickets_id') != 'othercode' && !$request->hasParameter('rfid') )
         $this->setLayout('empty');
       else
       {

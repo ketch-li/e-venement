@@ -58,6 +58,9 @@
 #li_fieldset_simplified .bunch .gauge-gfx .perfect { background-color: green; }
 #li_fieldset_simplified .bunch .gauge-gfx .warning { background-color: orange; }
 #li_fieldset_simplified .bunch .gauge-gfx .critical { background-color: red; }
+#li_fieldset_simplified .bunch .search { display: none; }
+#li_fieldset_simplified .bunch[data-bunch-id=store]:not(.in-progress) .search { display: list-item; }
+#li_fieldset_simplified .bunch .search input { width: 96%; }
 
 #sf_admin_content .li_fieldset #li_transaction_field_new_transaction.simplified, #sf_admin_content .li_fieldset #li_transaction_field_contact_id.simplified { position: absolute; z-index: 11; }
 #sf_admin_content .li_fieldset #li_transaction_field_new_transaction.simplified { right: 11px; width: 90px; }
@@ -68,3 +71,4 @@
 #li_transaction_field_simplified .after-limit { display: none; }
 #li_transaction_field_simplified #show-more { background: white; }
 #li_transaction_field_simplified #show-more button { width: 100%; min-height: 3em; }
+
