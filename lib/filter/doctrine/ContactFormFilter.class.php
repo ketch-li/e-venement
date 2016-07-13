@@ -392,6 +392,13 @@ EOF;
     parent::configure();
   }
   
+  public function setup()
+  {
+    $this->noTimestampableUnset = true;
+    parent::setup();
+  }
+                
+  
   public function getFields()
   {
     $fields = parent::getFields();
@@ -431,7 +438,7 @@ EOF;
     $fields['region']               = 'RegionId';
     $fields['survey_id']            = 'SurveyId';
     $fields['survey_query_id']      = 'SurveyQueryId';
-    $fields['survey_answer']        = 'SurveyAnswer';
+    $fields['survey_answer']        = 'SurveyAnswer';    
     
     // must be the last ones, because of a having() part which needs to be added lately
     $fields['tickets_amount_min']   = 'TicketsAmountMin';
@@ -1226,7 +1233,7 @@ EOF;
     
     return $q;
   }
-
+  
   public function setProfessionalData($bool)
   {
     return $this->showProfessionalData = $bool;
