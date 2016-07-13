@@ -2,7 +2,7 @@ $(document).ready(function(){
   if ( $('.check input').length == $('.check input:checked').length )
     $('#select-all').click();
   
-  $('#select-all').click(function(){
+  $('#select_all').click(function(){
     if ( $(this).prop('checked') )
       $('.check input').prop('checked','checked');
     else

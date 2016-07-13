@@ -12,6 +12,64 @@
  */
 abstract class PluginControl extends BaseControl
 {
+  protected $force_ticket_id = false;
+  
+  public function setTicketIdForced($force = true)
+  {
+    $this->force_ticket_id = $force;
+    return $this;
+  }
+  public function isTicketIdForced()
+  {
+    return $this->force_ticket_id;
+  }
+  
+  public function preSave($event)
+  {
+    $field = ControlForm::getFieldsConfig();
+    if ( !in_array('id', $field) && !$this->force_ticket_id )
+    {
+      if ( !in_array('othercode', $field) && intval($this->ticket_id).'' === ''.$this->ticket_id )
+        $field = 'id';
+      
+      $past = sfConfig::get('app_control_past') ? sfConfig::get('app_control_past') : '6 hours';
+      $future = sfConfig::get('app_control_future') ? sfConfig::get('app_control_future') : '1 day';
+
+      $q = Doctrine::getTable('Ticket')->createQuery('t')
+        ->leftJoin('t.Manifestation m')
+        ->andWhere('t.manifestation_id IN (SELECT mm.id FROM checkpoint c LEFT JOIN c.Event e LEFT JOIN e.Manifestations mm WHERE c.id = ?)',$this->checkpoint_id)
+        ->andWhere('m.happens_at < ?',date('Y-m-d H:i',strtotime('now + '.$future)))
+        ->andWhere('m.happens_at >= ?',date('Y-m-d H:i',strtotime('now - '.$past)))
+        ->andWhere('t.integrated_at IS NOT NULL OR t.printed_at IS NOT NULL')
+        ->orderBy('m.happens_at');
+      
+      $tmp = $field;
+      $q->andWhere('(TRUE')
+        ->andWhereIn('t.'.($f = array_shift($tmp)).' IS NOT NULL AND t.'.$f, $this->ticket_id);
+      foreach ( $tmp as $f )
+        $q->orWhereIn("t.$f IS NOT NULL AND t.$f", $this->ticket_id);
+      $q->andWhere('TRUE)');
+      
+      $tickets = $q->execute();
+      
+      if ( $tickets->count() == 0 )
+        throw new liEvenementException('No ticket found for this Control...');
+      
+      foreach ( $tickets as $i => $ticket )
+      if ( $i == 0 )
+        $this->ticket_id = $ticket->id;
+      else
+      {
+        $control = $this->copy();
+        $control->setTicketIdForced(true);
+        $control->ticket_id = $ticket->id;
+        $control->save();
+      }
+    }
+    
+    return parent::preSave($event);
+  }
+  
   public function getIndexesPrefix()
   {
     return strtolower(get_class($this));

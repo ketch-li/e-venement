@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>New User</source>
+        <target>Nouvel utilisateur</target>
+      </trans-unit>
+      <trans-unit>
         <source>Domain</source>
         <target>Domaine</target>
       </trans-unit>

@@ -20,7 +20,7 @@
           // no meta event
           if ( !$(this).val() )
           {
-            $('.sf_admin_form_field_event_id select option:not(.orig)').remove();
+            $('.sf_admin_form_field_event_id select option:not(.orig), .sf_admin_form_field_event_id select option.last').remove();
             $('.sf_admin_form_field_event_id select option.orig').show();
             return;
           }
@@ -33,10 +33,10 @@
             url: url,
             data: { limit: $('.sf_admin_form_meta_event_id a').attr('data-max') },
             success: function(data){
-              $('.sf_admin_form_field_event_id select option.orig:not(:first-child)')
+              $('.sf_admin_form_field_event_id select option.orig, .sf_admin_form_field_event_id select option.last')
                 .hide();
               $.each(data, function(id, name){
-                $('<option></option>').val(id).text(name)
+                $('<option></option>').val(id).text(name).addClass('last')
                   .appendTo($('.sf_admin_form_field_event_id select'));
               });
             }

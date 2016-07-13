@@ -4,3 +4,4 @@
 .sf_admin_form_field_event_id { margin-left: 3em; }
 .sf_admin_form_field_event_id:before { content: "→"; display: block; position: absolute; margin-left: -2.5em; margin-top: 2em; }
 .action-new .sf_admin_form_meta_event_id { position: relative; top: -4em; }
+#member_card_price_model_event_id { min-height: 80px; }
