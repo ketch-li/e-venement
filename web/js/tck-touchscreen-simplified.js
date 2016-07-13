@@ -129,7 +129,7 @@ LI.touchscreenSimplifiedLoadData = function(){
   LI.touchscreenSimplifiedData = {};
   
   // init:
-  $('#li_fieldset_simplified .bunch > *').remove();
+  $('#li_fieldset_simplified .bunch > :not(.search)').remove();
   $('#li_fieldset_simplified .bunch')
     .attr('data-bunch-id', $('#li_fieldset_simplified .products-types .selected').attr('data-bunch-id'))
     .addClass('in-progress');
