@@ -1,3 +1,6 @@
+
+<?php use_stylesheet('default-dashboard?'.date('Ymd')) ?>
+
 <?php include_partial('attendance/filters',array('form' => $form)) ?>
 <?php use_helper('Date') ?>
 <div class="ui-widget ui-corner-all ui-widget-content">
@@ -8,17 +11,58 @@
   </div>
 <?php include_partial('show_criterias') ?>
 <?php include_partial('show_header') ?>
-<?php include_partial('chart', array('title' => __('From your localization'), 'type' => 'ego')) ?>
+<?php include_partial('global/chart_jqplot', array(
+        'id'    => 'ego',
+        'data'  => cross_app_url_for('stats', 'geo/json'),
+        'label' => __('From your localization')
+       )) 
+?>
 <?php $client = sfConfig::get('app_about_client', array()) ?>
+
 <?php if ( isset($client['postalcode']) && is_array($client['postalcode']) ): ?>
-<?php include_partial('chart', array('title' => __('Your metropolis'), 'type' => 'metropolis-in')) ?>
+  <?php include_partial('global/chart_jqplot', array(
+          'id'    => 'metropolis-in',
+          'data'  => cross_app_url_for('stats', 'geo/json'),
+          'label' => __('Your metropolis')
+         )) 
+  ?>
 <?php endif ?>
 <?php if ( Doctrine::getTable('GeoFrStreetBase')->createQuery('sb')->count() > 0 ): ?>
-<?php include_partial('chart', array('title' => __('By district'), 'type' => 'districts')) ?>
+  <?php include_partial('global/chart_jqplot', array(
+          'id'    => 'districts',
+          'data'  => cross_app_url_for('stats', 'geo/json'),
+          'label' => __('By district')          
+         )) 
+  ?>
 <?php endif ?>
-<?php include_partial('chart', array('title' => __('By postalcode'), 'type' => 'postalcodes')) ?>
-<?php include_partial('chart', array('title' => __('By department'), 'type' => 'departments')) ?>
-<?php include_partial('chart', array('title' => __('By region'), 'type' => 'regions')) ?>
-<?php include_partial('chart', array('title' => __('By country'), 'type' => 'countries')) ?>
+<?php include_partial('global/chart_jqplot', array(
+        'id'    => 'postalcodes',
+        'data'  => cross_app_url_for('stats', 'geo/json'),
+        'label' => __('By postalcode')       
+       )) 
+?>
+<?php include_partial('global/chart_jqplot', array(
+        'id'    => 'departments',
+        'data'  => cross_app_url_for('stats', 'geo/json'),
+        'label' => __('By department')
+       )) 
+?>
+<?php include_partial('global/chart_jqplot', array(
+        'id'    => 'regions',
+        'data'  => cross_app_url_for('stats', 'geo/json'),
+        'label' => __('By region')
+       ))
+?>
+<?php include_partial('global/chart_jqplot', array(
+        'id'    => 'countries',
+        'data'  => cross_app_url_for('stats', 'geo/json'),
+        'label' => __('By country')
+        )
+      ) 
+?>
 <div class="clear"></div>
 </div>
+<?php use_javascript('/js/jqplot/plugins/jqplot.pieRenderer.js') ?>
+<?php use_javascript('/js/jqplot/plugins/jqplot.dateAxisRenderer.js') ?>
+<?php use_javascript('/js/jqplot/plugins/jqplot.cursor.js') ?>
+<?php use_javascript('stats-geo?'.date('Ymd')) ?>
