@@ -90,6 +90,9 @@ class liMemberCardPluginConfiguration extends sfPluginConfiguration
       if ( !$gauge )
         continue;
       
+      if ( !$event['member_card']->transaction_id && !$event['member_card']->Transaction->isNew() )
+        $event['member_card']->transaction_id = $event['member_card']->Transaction->id;
+      
       $ticket = new Ticket;
       $ticket->price_id = $mcp->price_id;
       $ticket->gauge_id = $gauge->id;
