@@ -163,7 +163,7 @@ $(document).ready(function(){
 LI.touchscreenSimplifiedLoadPaymentMethods = function(){
   $('#li_transaction_field_payment_new .field_payment_method_id li').each(function(){
     var payment = $('<button></button>')
-      .text($(this).find('label').text())
+      .text($(this).find('label').text().replace('_EPT_', ''))
       .prop('name', 'simplified[payment_method_id]')
       .val($(this).find('input').val());
     $('<li></li>')
