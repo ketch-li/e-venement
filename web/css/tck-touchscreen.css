@@ -59,7 +59,8 @@
 #li_transaction_field_content .new-family select { height: 10em; margin-top: 0; width: 75%; max-width: 500px;}
 #li_transaction_field_content .new-family select option { font-size: 1.3em; }
 #li_transaction_field_content .new-family input[type=submit] { float: right; width: auto; }
-#li_transaction_field_content .new-family button[name=date] {bottom: 30px; position: relative; }
+#li_transaction_field_content .new-family button[name=date] { bottom: 30px; position: relative; }
+#li_transaction_field_content > #li_transaction_store .new-family button[name=date] { display: none; }
 
 #li_transaction_manifestations .footer .price { width: 45px; }
 #li_transaction_manifestations h2 .direct-contacts { float: right; margin-right: 1em; }
