@@ -29,7 +29,7 @@ class liPDFPlugin
   protected $composer_dir, $wkhtmltopdf;
   protected $options = array();
 
-  public function __construct($html = TRUE, $verbose_in_error_log = true)
+  public function __construct($html = false, $verbose_in_error_log = true)
   {
     $this->content = $html;
     $this->verbose_in_error_log = $verbose_in_error_log;
@@ -55,7 +55,7 @@ class liPDFPlugin
       $snappy = new Knp\Snappy\Pdf($this->wkhtmltopdf);
       foreach ( $this->options as $option => $value )
         $snappy->setOption($option, $value);
-      $this->pdf = $snappy->getOutputFromHtml(get_partial('global/get_tickets_pdf', array('tickets_html' => $this->html)));
+      $this->pdf = $snappy->getOutputFromHtml($this->html);
       return;
     } catch ( RuntimeException $e ) {
       $this
@@ -66,7 +66,7 @@ class liPDFPlugin
 
     // without wkhtmltopdf, using DomPDF
     $pdf = new sfDomPDFPlugin();
-    $pdf->setInput(get_partial('global/get_tickets_pdf', array('tickets_html' => $html)));
+    $pdf->setInput($html);
     $this->pdf = $pdf->render();
   }
   
