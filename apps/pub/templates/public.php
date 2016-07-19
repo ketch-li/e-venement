@@ -21,6 +21,8 @@
         <?php include_partial('global/social_networks') ?>
       <?php endif ?>
     </div>
+    <div id="client-footer"></div>
+    <div id="client-infos"></div>
     <ul id="menu" class="first">
       <?php include_partial('global/public_choices') ?>
     </ul>
