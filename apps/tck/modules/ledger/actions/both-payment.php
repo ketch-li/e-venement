@@ -51,7 +51,8 @@
       $q->andWhereIn('u.id',$criterias['users']);
     
     // optimizing stuff
-    $q->select('t.id, p.id, p.value, pm.id, pm.name, u.id, sum(tck.value + tck.taxes) AS value_tck_total, (SELECT sum(bp.value + bp.shipping_fees) FROM BoughtProduct bp WHERE bp.transaction_id = t.id) AS value_pos_total')
+    $q->select('t.id, p.id, p.value, pm.id, pm.name, u.id, sum(tck.value + tck.taxes) AS value_tck_total')
+      ->addSelect('(SELECT sum(bp.value + bp.shipping_fees) FROM BoughtProduct bp WHERE (bp.integrated_at IS NOT NULL) AND bp.transaction_id = t.id) AS value_pos_total')
       ->groupBy('t.id, p.id, p.value, pm.id, pm.name, u.id');
     if ( isset($criterias['manifestations']) && is_array($criterias['manifestations']) && count($criterias['manifestations']) > 0 )
       $q->addSelect('(sum(CASE WHEN tck.manifestation_id IN ('.implode(',',$criterias['manifestations']).') THEN tck.value ELSE 0 END)) AS value_tck_in_manifs');
@@ -70,9 +71,15 @@
         if ( !isset($pm[$key = (string)$p->Method.' '.$p->payment_method_id]) )
           $pm[$key] = array('value+' => 0, 'value-' => 0, 'name' => (string)$p->Method, 'nb' => 0);
         $pm[$key][$p->value > 0 ? 'value+' : 'value-']
-          += $test = $p->value * abs($transaction->value_tck_total + $transaction->value_pos_total == 0 ? 1 : $transaction->value_tck_in_manifs/($total = $transaction->value_tck_total + $transaction->value_pos_total)); // abs() to avoid "-10 * -30/+10" which, normally, won't happens but anyway...
-          //+= $test = $p->value * abs($transaction->value_tck_total == 0 ? 1 : $transaction->value_tck_in_manifs/($transaction->value_tck_total)); // abs() to avoid "-10 * -30/+10" which, normally, won't happens but anyway...
-        error_log('glop: '.$p->value.' '.$test.' '.$total.' '.$transaction->value_tck_in_manifs);
+          += $test = $p->value * abs(
+            $transaction->value_tck_total + $transaction->value_pos_total == 0
+            || ($ratio = $transaction->value_tck_in_manifs/($total = $transaction->value_tck_total + $transaction->value_pos_total)) > 1
+            || !(isset($criterias['manifestations']) && is_array($criterias['manifestations']) && count($criterias['manifestations']) > 0)
+            && !(isset($criterias['workspaces']) && is_array($criterias['workspaces']) && count($criterias['workspaces']) > 0)
+              ? 1
+              : $ratio
+          ) // abs() to avoid "-10 * -30/+10" which, normally, won't happens but anyway...
+        ;
         $pm[$key]['nb']++;
       }
     }

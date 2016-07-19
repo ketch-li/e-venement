@@ -56,7 +56,7 @@ class ledgerActions extends sfActions
     $this->methods = $this->buildCashQuery($criterias)->execute();
     
     $ratios = array();
-    if ( isset($criterias['manifestations']) && is_array($criterias['manifestations']) && count($criterias['manifestations']) > 0 
+    if ( isset($criterias['manifestations']) && is_array($criterias['manifestations']) && count($criterias['manifestations']) > 0
       || isset($criterias['workspaces']) && is_array($criterias['workspaces']) && count($criterias['workspaces']) > 0 )
     {
       $this->not_a_ledger = true;
@@ -67,14 +67,15 @@ class ledgerActions extends sfActions
         {
           $q = Doctrine_Query::create()->from('Transaction t')
             ->select('t.id')
-            ->addSelect('(SELECT SUM(tck1.value) FROM Ticket tck1 WHERE (tck1.printed_at IS NOT NULL OR tck1.integrated_at IS NOT NULL OR tck1.cancelling IS NOT NULL) AND tck1.duplicating IS NULL AND tck1.transaction_id = t.id) AS total')
+            ->addSelect('(SELECT SUM(tck1.value + tck1.taxes) FROM Ticket tck1 WHERE (tck1.printed_at IS NOT NULL OR tck1.integrated_at IS NOT NULL OR tck1.cancelling IS NOT NULL) AND tck1.duplicating IS NULL AND tck1.transaction_id = t.id) AS tck_total')
+            ->addSelect('(SELECT SUM(bp1.value + bp1.shipping_fees) FROM BoughtProduct bp1 WHERE (bp1.integrated_at IS NOT NULL) AND bp1.transaction_id = t.id) AS pos_total')
             ->andWhere('t.id = ?',$payment->transaction_id);
           if ( isset($criterias['manifestations']) && is_array($criterias['manifestations']) && count($criterias['manifestations']) > 0 )
             $q->addSelect('(SELECT SUM(tck2.value) FROM Ticket tck2 WHERE (tck2.printed_at IS NOT NULL OR tck2.integrated_at IS NOT NULL OR tck2.cancelling IS NOT NULL) AND tck2.duplicating IS NULL AND tck2.transaction_id = t.id AND tck2.manifestation_id IN ('.implode(',', $criterias['manifestations']).')) AS subtotal');
           if ( isset($criterias['workspaces']) && is_array($criterias['workspaces']) && count($criterias['workspaces']) > 0 )
             $q->addSelect('(SELECT SUM(tck2.value) FROM Ticket tck2 LEFT JOIN tck2.Gauge tckg WHERE (tck2.printed_at IS NOT NULL OR tck2.integrated_at IS NOT NULL OR tck2.cancelling IS NOT NULL) AND tck2.duplicating IS NULL AND tck2.transaction_id = t.id AND tckg.workspace_id IN ('.implode(',', $criterias['workspaces']).')) AS subtotal');
           $tr = $q->fetchArray();
-          $ratios[$payment->transaction_id] = floatval($tr[0]['total']) > 0 ? $tr[0]['subtotal']/$tr[0]['total'] : 0;
+          $ratios[$payment->transaction_id] = floatval($tr[0]['tck_total']+$tr[0]['pos_total']) > 0 ? $tr[0]['subtotal']/($tr[0]['tck_total']+$tr[0]['pos_total']) : 0;
         }
         $payment->ratio = $ratios[$payment->transaction_id];
         if ( $ratios[$payment->transaction_id] == 0 )
