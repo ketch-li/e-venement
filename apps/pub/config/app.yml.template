@@ -63,6 +63,7 @@ all:
     client_secret: eve-pass
     redirect_uri: http://localhost/pub.php/login
     verify_ssl: false
+    #scope_separator: ' '
     data_matching: # data given by OAuth: data stored by e-venement in the contact schema
       name: name
       email: email

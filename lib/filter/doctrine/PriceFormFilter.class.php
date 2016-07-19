@@ -36,4 +36,19 @@ class PriceFormFilter extends BasePriceFormFilter
       return $q;
     return $q->andWhereNotIn('ws.id', $value);
   }
+  
+  public function addNameColumnQuery(Doctrine_Query $q, $field, $value)
+  {
+    if (!( $value && is_array($value) && isset($value['text']) && $value['text'] ))
+      return $q;
+    $q->andWhere('pt.name ILIKE ?', $value['text'].'%');
+    return $q;
+  }
+  public function addDescriptionColumnQuery(Doctrine_Query $q, $field, $value)
+  {
+    if (!( $value && is_array($value) && isset($value['text']) && $value['text'] ))
+      return $q;
+    $q->andWhere('pt.description ILIKE ?', $value['text'].'%');
+    return $q;
+  }
 }
