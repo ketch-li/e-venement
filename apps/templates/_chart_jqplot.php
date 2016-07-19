@@ -1,7 +1,7 @@
 <?php
 /**********************************************************************************
 *
-*	    This file is part of e-venement.
+*     This file is part of e-venement.
 *
 *    e-venement is free software; you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -50,7 +50,7 @@ optional:
 <script type="text/javascript"><!--
   LI.series['<?php echo $id ?>'] = <?php echo is_array($data) ? json_encode($data) : '"'+$data+'"' ?>;
 --></script>
-<div class="<?php echo $id ?> jqplot ui-widget ui-corner-all ui-widget-content">
+<div class="<?php echo $id ?> jqplot ui-widget ui-corner-all ui-widget-content geo charts-4">
   <a name="<?php echo $id ?>_chart"></a>
   <div class="ui-widget-header ui-corner-all fg-toolbar">
     <h2 title="<?php echo $name ?>"><?php echo $label ?></h2>

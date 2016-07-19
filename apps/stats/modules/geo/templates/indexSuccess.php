@@ -1,4 +1,3 @@
-
 <?php use_stylesheet('default-dashboard?'.date('Ymd')) ?>
 
 <?php include_partial('attendance/filters',array('form' => $form)) ?>
@@ -14,7 +13,8 @@
 <?php include_partial('global/chart_jqplot', array(
         'id'    => 'ego',
         'data'  => cross_app_url_for('stats', 'geo/json'),
-        'label' => __('From your localization')
+        'label' => __('From your localization'),
+        'width' => '100%'
        )) 
 ?>
 <?php $client = sfConfig::get('app_about_client', array()) ?>
@@ -23,7 +23,8 @@
   <?php include_partial('global/chart_jqplot', array(
           'id'    => 'metropolis-in',
           'data'  => cross_app_url_for('stats', 'geo/json'),
-          'label' => __('Your metropolis')
+          'label' => __('Your metropolis'),
+          'width' => '100%'
          )) 
   ?>
 <?php endif ?>
@@ -31,32 +32,37 @@
   <?php include_partial('global/chart_jqplot', array(
           'id'    => 'districts',
           'data'  => cross_app_url_for('stats', 'geo/json'),
-          'label' => __('By district')          
+          'label' => __('By district'),
+          'width' => '100%'          
          )) 
   ?>
 <?php endif ?>
 <?php include_partial('global/chart_jqplot', array(
         'id'    => 'postalcodes',
         'data'  => cross_app_url_for('stats', 'geo/json'),
-        'label' => __('By postalcode')       
+        'label' => __('By postalcode'),
+        'width' => '100%'       
        )) 
 ?>
 <?php include_partial('global/chart_jqplot', array(
         'id'    => 'departments',
         'data'  => cross_app_url_for('stats', 'geo/json'),
-        'label' => __('By department')
+        'label' => __('By department'),
+        'width' => '100%'
        )) 
 ?>
 <?php include_partial('global/chart_jqplot', array(
         'id'    => 'regions',
         'data'  => cross_app_url_for('stats', 'geo/json'),
-        'label' => __('By region')
+        'label' => __('By region'),
+        'width' => '100%'
        ))
 ?>
 <?php include_partial('global/chart_jqplot', array(
         'id'    => 'countries',
         'data'  => cross_app_url_for('stats', 'geo/json'),
-        'label' => __('By country')
+        'label' => __('By country'),
+        'width' => '100%'
         )
       ) 
 ?>
