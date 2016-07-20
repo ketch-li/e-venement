@@ -11,14 +11,16 @@
 	  	    'id'    => 'printed',
 	  	    'data'  => cross_app_url_for('stats', 'prices/json'),
 	  	    'label' => __('Printed tickets'),
-	  	    'width' => '100%'
+	  	    'width' => '100%',
+	  	    'class' => 'charts-4'
 	  	  )) 
 	?>
 	<?php include_partial('global/chart_jqplot', array(
 	  	    'id'    => 'ordered',
 	  	    'data'  => cross_app_url_for('stats', 'prices/json'),
 	  	    'label' => __('Ordered tickets'),
-	  	    'width' => '100%'
+	  	    'width' => '100%',
+	  	    'class' => 'charts-4'
 	  	  )) 
 	?>
 	<div class="clear"></div>
@@ -27,7 +29,8 @@
 	  	    'id'    => 'asked',
 	  	    'data'  => cross_app_url_for('stats', 'prices/json'),
 	  	    'label' => __('Asked tickets'),
-	  	    'width' => '100%'
+	  	    'width' => '100%',
+	  	    'class' => 'charts-4'
 	  	  )) 
 	?>
 	<?php endif ?>
@@ -35,7 +38,8 @@
 	  	    'id'    => 'all',
 	  	    'data'  => cross_app_url_for('stats', 'prices/json'),
 	  	    'label' => __('Global repartition'),
-	  	    'width' => '100%'
+	  	    'width' => '100%',
+	  	    'class' => 'charts-4'
 	  	  )) 
 	?>
 	<div class="clear"></div>

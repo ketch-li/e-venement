@@ -13,7 +13,8 @@
         'id'    => 'ego',
         'data'  => cross_app_url_for('stats', 'geo/json'),
         'label' => __('From your localization'),
-        'width' => '100%'
+        'width' => '100%',
+        'class' => 'geo charts-4'
        )) 
 ?>
 <?php $client = sfConfig::get('app_about_client', array()) ?>
@@ -23,7 +24,8 @@
           'id'    => 'metropolis-in',
           'data'  => cross_app_url_for('stats', 'geo/json'),
           'label' => __('Your metropolis'),
-          'width' => '100%'
+          'width' => '100%',
+          'class' => 'geo charts-4'
          )) 
   ?>
 <?php endif ?>
@@ -32,7 +34,8 @@
           'id'    => 'districts',
           'data'  => cross_app_url_for('stats', 'geo/json'),
           'label' => __('By district'),
-          'width' => '100%'          
+          'width' => '100%',
+          'class' => 'geo charts-4'        
          )) 
   ?>
 <?php endif ?>
@@ -40,28 +43,32 @@
         'id'    => 'postalcodes',
         'data'  => cross_app_url_for('stats', 'geo/json'),
         'label' => __('By postalcode'),
-        'width' => '100%'       
+        'width' => '100%',
+        'class' => 'geo charts-4'       
        )) 
 ?>
 <?php include_partial('global/chart_jqplot', array(
         'id'    => 'departments',
         'data'  => cross_app_url_for('stats', 'geo/json'),
         'label' => __('By department'),
-        'width' => '100%'
+        'width' => '100%',
+        'class' => 'geo charts-4'
        )) 
 ?>
 <?php include_partial('global/chart_jqplot', array(
         'id'    => 'regions',
         'data'  => cross_app_url_for('stats', 'geo/json'),
         'label' => __('By region'),
-        'width' => '100%'
+        'width' => '100%',
+        'class' => 'geo charts-4'
        ))
 ?>
 <?php include_partial('global/chart_jqplot', array(
         'id'    => 'countries',
         'data'  => cross_app_url_for('stats', 'geo/json'),
         'label' => __('By country'),
-        'width' => '100%'
+        'width' => '100%',
+        'class' => 'geo charts-4'
         )
       ) 
 ?>
