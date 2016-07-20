@@ -9,7 +9,7 @@ $(document).ready(function(){
     $transactions = array($transaction->id => $transaction->id);
     foreach ( $transaction->MemberCards as $mc )
     {
-      $nb += $mc->BoughtProducts->count();
+      $nb += $mc->BoughtProducts->count() + $mc->Tickets->count();
       foreach ( $mc->Tickets as $ticket )
         $transactions[$ticket->transaction_id] = $ticket->transaction_id;
     }

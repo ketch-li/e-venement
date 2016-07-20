@@ -45,6 +45,26 @@ abstract class PluginMemberCard extends BaseMemberCard
     parent::preSave($event);
   }
   
+  public function postInsert($event)
+  {
+    // prices
+    $q = Doctrine::getTable('MemberCardPriceModel')->createQuery('pm')
+      ->andWhere('pm.member_card_type_id = ?',$this->member_card_type_id);
+    $models = $q->execute();
+    
+    foreach ( $models as $model )
+    for ( $i = 0 ; $i < $model->quantity ; $i++ )
+    {
+      $mc_price = new MemberCardPrice;
+      $mc_price->price_id = $model->price_id;
+      $mc_price->event_id = $model->event_id;
+      $mc_price->member_card_id = $this->id;
+      $mc_price->save();
+    }
+    
+    parent::postInsert($event);
+  }
+  
   public function getIndexesPrefix()
   {
     return strtolower(get_class($this));
