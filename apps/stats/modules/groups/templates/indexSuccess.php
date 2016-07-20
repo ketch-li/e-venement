@@ -1,14 +1,18 @@
-<?php include_partial('attendance/filters',array('form' => $form)) ?>
-<?php use_helper('Date') ?>
+<?php use_helper('CrossAppLink') ?>
 <div class="ui-widget ui-corner-all ui-widget-content">
-  <a name="chart-title"></a>
   <div class="ui-widget-header ui-corner-all fg-toolbar">
-    <?php include_partial('attendance/filters_buttons') ?>
-    <h1><?php echo __('Evolution of groups',null,'menu') ?></h1>
+    <h1><?php echo __('Evolution of groups',array(),'menu') ?></h1>
   </div>
-  <?php //include_partial('show_criterias') ?>
-  <div class="chart">
-    <?php echo liWidgetOfc::createChart(900,700,'groups/data',true); ?>
+  <?php if ( $sf_user->hasCredential('stats-activity') ): ?>
+    <?php include_partial('global/chart_jqplot', array(
+            'id'    => 'groups',
+            'data'  => cross_app_url_for('stats', 'groups/json'),
+            'label' => '',
+            'width' => '900'
+           )) ?>
+    <?php endif ?>
   </div>
-  <div class="actions"><?php include_partial('global/chart_actions') ?></div>
 </div>
+<?php use_javascript('/js/jqplot/plugins/jqplot.dateAxisRenderer.js') ?>
+<?php use_javascript('/js/jqplot/plugins/jqplot.cursor.js') ?>
+<?php use_javascript('stats-groups?'.date('Ymd')) ?>
