@@ -37,6 +37,11 @@ class groupsActions extends sfActions
     if ( is_array($this->getUser()->getAttribute('stats.criterias',array(),'admin_module')) )
       $this->form->bind($this->getUser()->getAttribute('stats.criterias',array(),'admin_module'));
   }
+
+  public function executeJson(sfWebRequest $request)
+  {
+    $this->lines = $this->getRawData();
+  }
   
   public function executeData(sfWebRequest $request)
   {
