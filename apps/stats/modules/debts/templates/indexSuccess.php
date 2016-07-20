@@ -1,11 +1,18 @@
-<?php //include_partial('attendance/filters',array('form' => $form)) ?>
 <div class="ui-widget ui-corner-all ui-widget-content">
   <div class="ui-widget-header ui-corner-all fg-toolbar">
-    <?php //include_partial('attendance/filters_buttons') ?>
     <h1><?php echo __('Debts evolution',array(),'menu') ?></h1>
   </div>
-  <div class="chart">
-    <?php echo liWidgetOfc::createChart(900, 530, $sf_context->getModuleName().'/data',true); ?>
+  <?php use_helper('CrossAppLink') ?>
+  <?php if ( $sf_user->hasCredential('stats-activity') ): ?>
+	  <?php include_partial('global/chart_jqplot', array(
+	          'id'    => 'debts',
+	          'data'  => cross_app_url_for('stats', 'debts/json'),
+	          'label' => '',
+	          'width' => '900'
+	         )) ?>
+  <?php endif ?>
   </div>
-  <div class="actions"><?php include_partial('global/chart_actions') ?></div>
 </div>
+<?php use_javascript('/js/jqplot/plugins/jqplot.dateAxisRenderer.js') ?>
+  <?php use_javascript('/js/jqplot/plugins/jqplot.cursor.js') ?>
+  <?php use_javascript('stats-debts?'.date('Ymd')) ?>
