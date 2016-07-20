@@ -1,4 +1,3 @@
-<?php use_stylesheet('default-dashboard?'.date('Ymd')) ?>
 
 <?php include_partial('attendance/filters',array('form' => $form)) ?>
 <?php use_helper('Date') ?>
@@ -69,6 +68,5 @@
 <div class="clear"></div>
 </div>
 <?php use_javascript('/js/jqplot/plugins/jqplot.pieRenderer.js') ?>
-<?php use_javascript('/js/jqplot/plugins/jqplot.dateAxisRenderer.js') ?>
 <?php use_javascript('/js/jqplot/plugins/jqplot.cursor.js') ?>
 <?php use_javascript('stats-geo?'.date('Ymd')) ?>
