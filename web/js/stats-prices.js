@@ -29,7 +29,6 @@ LI.stats.prices = function(){
       var series = [];
 
       $.each(json, function(key, value) {
-
         array.push([value.name, value.nb]);
         LI.csvData[name].push([value.name, value.nb]);
       });
@@ -58,4 +57,3 @@ LI.stats.prices = function(){
     });
   });
 };
-
