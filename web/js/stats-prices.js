@@ -22,14 +22,14 @@ LI.stats.prices = function(){
         $(this).find('h2').text()
       ],
     ]; 
-    console.log(name);
+    
     //retrieve stats
     $.get(chart.attr('data-json-url') + '?id=' + name, function(json){
       var array = [];
       var series = [];
 
       $.each(json, function(key, value) {
-      	console.log(value);
+
         array.push([value.name, value.nb]);
         LI.csvData[name].push([value.name, value.nb]);
       });
