@@ -162,10 +162,12 @@ $(document).ready(function(){
 
 LI.touchscreenSimplifiedLoadPaymentMethods = function(){
   $('#li_transaction_field_payment_new .field_payment_method_id li').each(function(){
+    var label = $(this).find('label').text();
     var payment = $('<button></button>')
-      .text($(this).find('label').text().replace('_EPT_', ''))
+      .text(label.replace('_EPT_', ''))
       .prop('name', 'simplified[payment_method_id]')
-      .val($(this).find('input').val());
+      .val($(this).find('input').val())
+      .attr('data-ept', label.indexOf('_EPT_') === 0 ? 1 : 0);
     $('<li></li>')
       .attr('data-payment-id', $(this).find('input').val())
       .append(payment)
@@ -175,11 +177,11 @@ LI.touchscreenSimplifiedLoadPaymentMethods = function(){
   
   // click on a payment method
   $('#li_fieldset_simplified .payments button').click(function(){
-    $('#li_transaction_field_payment_new [name="transaction[payment_new][payment_method_id]"][value="'+$(this).val()+'"]')
-      .prop('checked', true);
     $('#li_transaction_field_payment_new [name="transaction[payment_new][value]"]').val($('#li_fieldset_simplified .payments [name="simplified[payment_value]"]').val());
     $('#li_fieldset_simplified .payments [name="simplified[payment_value]"]').val('')
-    $('#li_transaction_field_payment_new form').submit();
+    $('#li_transaction_field_payment_new [name="transaction[payment_new][payment_method_id]"][value="'+$(this).val()+'"]')
+      .prop('checked', true)
+      .siblings('button').eq(0).trigger('click');
     return false;
   });
 }

@@ -50,7 +50,7 @@ optional:
 <script type="text/javascript"><!--
   LI.series['<?php echo $id ?>'] = <?php echo is_array($data) ? json_encode($data) : '"'+$data+'"' ?>;
 --></script>
-<div class="<?php echo $id ?> jqplot ui-widget ui-corner-all ui-widget-content geo charts-4">
+<div class="<?php echo $id ?> jqplot ui-widget ui-corner-all ui-widget-content <?php echo $class ?>">
   <a name="<?php echo $id ?>_chart"></a>
   <div class="ui-widget-header ui-corner-all fg-toolbar">
     <h2 title="<?php echo $name ?>"><?php echo $label ?></h2>
