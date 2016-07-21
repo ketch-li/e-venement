@@ -136,6 +136,20 @@ class ManifestationFormFilter extends BaseManifestationFormFilter
     $q->andWhereIn("EXTRACT(DOW FROM $a.happens_at)", $values);
     return $q;
   }
+  
+  // improving how happens_at values are used to be consistent w/ other filters of the software
+  public function addHappensAtColumnQuery(Doctrine_Query $q, $field, $value)
+  {
+    if (!( isset($value) && is_array($value) && (isset($value['from']) && $value['from'] || isset($value['to']) && $value['to']) ))
+      return $q;
+    
+    if ( isset($value['from']) && $value['from'] )
+      $q->andWhere("$a.happens_at >= ?", date('Y-m-d', strtotime($value['from'])));
+    if ( isset($value['to']) && $value['to'] )
+      $q->andWhere("$a.happens_at < ?", date('Y-m-d', strtotime($value['to'])));
+    
+    return $q;
+  }
   public function addLocationIdColumnQuery(Doctrine_Query $q, $field, $value)
   {
     if ( !$value || $field != 'location_id' )
