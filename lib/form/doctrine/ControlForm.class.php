@@ -48,7 +48,10 @@ class ControlForm extends BaseControlForm
   {
     if ( !in_array('othercode', $this->getFieldsConfig()) // because othercode can be also an integer
       && intval($values['ticket_id']).'' === ''.$values['ticket_id'] )
-      $this->validatorSchema['ticket_id'][0]->setOption('column', 'id');
+    {
+      $validators = $this->validatorSchema['ticket_id']->getValidators();
+      $validators[0]->setOption('column', 'id');
+    }
     
     if ( $this->forceField() )
     {
