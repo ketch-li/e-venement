@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>An object with the same "%column%" already exist.</source>
+        <target>Un objet comprenant la même valeur ("%column%") existe déjà.</target>
+      </trans-unit>
+      <trans-unit>
         <source>New User</source>
         <target>Nouvel utilisateur</target>
       </trans-unit>
