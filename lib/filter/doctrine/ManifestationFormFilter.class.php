@@ -19,7 +19,7 @@ class ManifestationFormFilter extends BaseManifestationFormFilter
     ));
     $this->widgetSchema['event_id'] = new liWidgetFormDoctrineJQueryAutocompleter(array(
       'model' => 'Event',
-      'url'   => url_for('event/ajax'),
+      'url'   => url_for('event/ajax?with_meta_event=1'),
     ));
     
     $this->widgetSchema['happens_at']->setOption('template', '<span class="from">'.__('From %from_date%').'</span> <span class="to">'.__('to %to_date%').'</span>');
