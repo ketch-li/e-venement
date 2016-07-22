@@ -13,12 +13,4 @@ require_once dirname(__FILE__).'/../lib/meta_eventGeneratorHelper.class.php';
  */
 class meta_eventActions extends autoMeta_eventActions
 {
-  public function executeDelPicture(sfWebRequest $request)
-  {
-    $q = Doctrine_Query::create()->from('Picture p')
-      ->where('p.id IN (SELECT me.picture_id FROM MetaEvent me WHERE me.id = ?)',$request->getParameter('id'))
-      ->delete()
-      ->execute();
-    return sfView::NONE;
-  }
 }
