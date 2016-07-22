@@ -330,14 +330,16 @@ $(document).ready(function () {
     if ( LI.activeEPT === undefined ) 
       return;
     $('#li_transaction_field_payment_new button[data-ept=1]').click(startEPT);
-    $('#cancel-ept-transaction').click(cancelEPT);    
+    $('.cancel-ept-transaction').click(cancelEPT);    
   }
   
   // toggle between the payment form and the EPT screen
   function toggleEPTtransaction()
   {
     $('#li_transaction_field_payment_new form').toggle();
+    $('#li_transaction_field_simplified .payments button[name="simplified[payment_method_id]"], #li_transaction_field_simplified .payments input').toggle()
     $('#ept-transaction').toggle();
+    $('#ept-transaction-simplified').toggle();
   }
 
   function getCentsAmount(value) {
@@ -349,7 +351,7 @@ $(document).ready(function () {
   };
 
   // Initiate a transaction with the EPT
-  function startEPT(button) {
+  function startEPT(event) {
     var EPT = LIEPT(LI.activeEPT, connector);
     if ( !EPT )
       return true; // submits the payment form

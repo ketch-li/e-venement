@@ -22,6 +22,10 @@
     </ul>
     <ul class="payments ui-widget-content ui-corner-all">
       <li class="value"><input type="number" name="simplified[payment_value]" value="" placeholder="<?php echo __('Value') ?>" /></li>
+      <li id="ept-transaction-simplified" style="display: none">
+        <p><?php echo __('EPT transaction...') ?></p>
+        <button class="cancel-ept-transaction"><?php echo __('Cancel') ?></button>
+      </li>
     </ul>
     <ul class="cart ui-widget-content ui-corner-all">
       <li class="print end">
