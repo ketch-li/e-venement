@@ -62,5 +62,8 @@
 <div class="clear"></div>
 <?php include_partial('both_gauges',array('gauges' => $gauges)) ?>
 <?php endif ?>
+<div class="clear"></div>
+<?php include_partial('both_footer') ?>
+<div class="clear"></div>
 </div>
 

@@ -25,6 +25,7 @@
 #li_fieldset_simplified .simplified-top-block > .bunch input[type=radio] { display: none; }
 #li_fieldset_simplified .simplified-top-block > .bunch > li { -moz-user-select: none; user-select: none; cursor: default; }
 #li_fieldset_simplified .simplified-top-block > .bunch.in-progress { background-color: rgba(114, 159, 207, 0.7); background-image: url("../images/wait.png"); background-repeat: no-repeat; background-position: center center; }
+#li_fieldset_simplified .simplified-top-block > .bunch > li > ul > li .declination-name { display: inline-block; max-width: 230px; }
 
 #li_fieldset_simplified .prices button, #li_fieldset_simplified .payments button { width: 100%; min-height: 2.5em; }
 #li_fieldset_simplified .prices li:not(:last-child) button, #li_fieldset_simplified .payments li:not(:last-child) button { margin-bottom: 5px; }
