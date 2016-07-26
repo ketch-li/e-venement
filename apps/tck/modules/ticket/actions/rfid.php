@@ -22,8 +22,8 @@
 ***********************************************************************************/
 ?>
 <?php
-    $form = new BaseForm();
-    $form->setValidator('othercode',new sfValidatorString(array('max_length' => 255, 'min_length' => 4)));
+    $form = new BaseForm;
+    $form->setValidator('othercode', new sfValidatorString(array('max_length' => 255, 'min_length' => 4)));
     
     foreach ( $request->getParameter('ticket') as $id => $ticket )
     {
@@ -36,7 +36,7 @@
         {
           $errors = $form->getGlobalErrors();
           foreach ( $errors as $key => $error )
-            echo $key.' => '.$error;
+            error_log('Tickets RFID: '.$key.' => '.$error);
           
           if ( $form->isValid() )
             $t->othercode = $ticket['othercode'];

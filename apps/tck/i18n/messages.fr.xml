@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Apply to all</source>
+        <target>Appliquer à tous</target>
+      </trans-unit>
+      <trans-unit>
         <source>Search for a declination</source>
         <target>Chercher une déclinaison</target>
       </trans-unit>
