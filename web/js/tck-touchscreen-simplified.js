@@ -290,7 +290,7 @@ LI.touchscreenSimplified_LoadData = function(data, form, append){
             .appendTo(li)
           ;
           li.append(' ');
-          $('<span></span>').text(gauge.name).appendTo(li);
+          $('<span></span>').text(gauge.name).addClass('declination-name').appendTo(li);
         });
       });
       
@@ -310,14 +310,12 @@ LI.touchscreenSimplified_LoadData = function(data, form, append){
           .prop('id', 'show-more')
           .appendTo($('#li_transaction_field_simplified ul[data-bunch-id="manifestations"]'))
           .click(function(){
-                         
             $('.after-limit').fadeIn();
             $(this).remove();
-                                         
             return false;
-         });
-       
-                                                     
+          })
+        ;
+        
         $('<button></button>')
           .attr('class', 'ui-widget-content ui-state-default ui-corner-all ui-widget fg-button')
           .appendTo('#li_transaction_field_simplified #show-more');
