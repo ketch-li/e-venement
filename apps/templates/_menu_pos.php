@@ -28,7 +28,7 @@
           <li><a href="<?php echo cross_app_url_for('pos','product') ?>"><?php echo __('Products',array(),'menu') ?></a></li>
           <?php endif ?>
           <?php if ( $sf_user->hasCredential('tck-transaction') ): ?>
-          <li class="spaced"><a href="<?php echo cross_app_url_for('tck','transaction/new') ?>"><?php echo __('New transaction (touchscreens)',array(),'menu') ?></a></li>
+          <li class="spaced"><a href="<?php echo cross_app_url_for('tck','transaction/new') ?>"><?php echo __('New transaction',array(),'menu') ?></a></li>
           <li><a href="<?php echo cross_app_url_for('tck','transaction/respawn') ?>"><?php echo __('Respawn a transaction',array(),'menu') ?></a></li>
           <?php endif ?>
           <?php include_partial('global/menu_extra', array('name' => 'pos')) ?>
