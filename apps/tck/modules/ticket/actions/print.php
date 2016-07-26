@@ -310,7 +310,7 @@
         $this->setLayout('empty');
       else
       {
-        $this->form = new BaseForm();
+        $this->form = new BaseForm;
 
         foreach ( $this->tickets as $ticket )
         {
