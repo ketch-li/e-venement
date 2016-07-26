@@ -27,7 +27,7 @@ LI.stats.groups = function(){
     $.get(chart.attr('data-json-url') + '?id=' + name, function(json){
       var array = [];
       var series = [];
-      console.log(json);
+      
       $.each(JSON.parse(json), function(i, data) {
         var nb = data.nb === null ? 0 : data.nb;
         array.push([data.date, nb]);
