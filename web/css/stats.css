@@ -1,4 +1,4 @@
-.chart { text-align: center; margin-top: 5px; }
+.jqplot > div.chart { margin: auto; }
 .charts-4 { margin: 5px;  width: 420px; float: left; }
 .geo { margin: 5px; }
 .actions {
