@@ -82,6 +82,8 @@ generator:
           _periodicity: ~
           _changeEvent:
             label: Change event
+          _toggleOnlineGauges:
+            label: Toggle online gauges
       filter:
         display:
           Manifestation: [happens_at, day_of_the_week, participants_list, event_id, location_id, workspace_id, meta_event_id, event_categories_list, no_print, voucherized]
