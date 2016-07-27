@@ -22,7 +22,7 @@ LI.stats.social = function(){
         $(this).find('h2').text()
       ],
     ]; 
-    console.log(name);
+    
     //retrieve stats
     $.get(chart.attr('data-json-url') + '?id=' + name, function(json){
       var array = [];
