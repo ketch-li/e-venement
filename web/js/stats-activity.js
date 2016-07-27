@@ -74,16 +74,14 @@ LI.stats.activity = function () {
                             }
                         }
                     ],
-                axesDefaults: {
-                    tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-                    tickOptions: {
-                        angle: 30
-                    }
-                },
                 axes: {
                     xaxis: {
                         renderer: $.jqplot.CategoryAxisRenderer,
-                        ticks: labels
+                        ticks: labels,
+                        tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+                        tickOptions: {
+                            angle: 50
+                        }
                     },
                     yaxis: {
                         autoscale: true,
