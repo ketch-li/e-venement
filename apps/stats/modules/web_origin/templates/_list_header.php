@@ -1,4 +1,35 @@
-<?php include_partial('chart', array('target' => 'referers',  'title' => __('Referers'))) ?>
-<?php include_partial('chart', array('target' => 'campaigns', 'title' => __('Campaigns'))) ?>
-<?php include_partial('chart', array('target' => 'deal_done', 'title' => __('Done deals'))) ?>
-<?php include_partial('chart', array('target' => 'evolution', 'title' => __('Activity'))) ?>
+<?php if ( $sf_user->hasCredential('stats-pub') ): ?>
+      <?php include_partial('global/chart_jqplot', array(
+        'id'    => 'referers',
+        'data'  => cross_app_url_for('stats', 'web_origin/json?which=referers'),
+        'label' => __('Referers'),
+        'class' => 'charts-4',
+        'width' => '100%'
+       )) ?>
+       <?php include_partial('global/chart_jqplot', array(
+        'id'    => 'campaigns',
+        'data'  => cross_app_url_for('stats', 'web_origin/json?which=campaigns'),
+        'label' => __('Campaigns'),
+        'class' => 'charts-4',
+        'width' => '100%'
+       )) ?>
+       <?php include_partial('global/chart_jqplot', array(
+        'id'    => 'deal_done',
+        'data'  => cross_app_url_for('stats', 'web_origin/json?which=deal_done'),
+        'label' => __('Done deals'),
+        'class' => 'charts-4',
+        'width' => '100%'
+       )) ?>
+       <?php include_partial('global/chart_jqplot', array(
+        'id'    => 'evolution',
+        'data'  => cross_app_url_for('stats', 'web_origin/json?which=evolution'),
+        'label' => __('Activity'),
+        'class' => 'charts-4',
+        'width' => '100%'
+       )) ?>
+    <?php endif ?>
+    
+<?php use_javascript('/js/jqplot/plugins/jqplot.pieRenderer.js') ?>
+<?php use_javascript('/js/jqplot/plugins/jqplot.dateAxisRenderer.js') ?>
+<?php use_javascript('/js/jqplot/plugins/jqplot.cursor.js') ?>
+<?php use_javascript('stats-web-origin?'.date('Ymd')) ?>

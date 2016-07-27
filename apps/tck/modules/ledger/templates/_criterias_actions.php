@@ -35,6 +35,7 @@
       --></script>
       <select name="move" id="ledger_move">
         <option value=""><?php echo __('Actions') ?></option>
+        <option value="<?php echo url_for('ledger/reset?ledger='.$ledger) ?>"><?php echo __('Reset', null, 'sf_admin') ?></option>
       <?php if ( $sf_user->hasCredential('tck-ledger-'.($ledger == 'cash' ? 'sales' : 'cash')) ): ?>
         <?php if ( in_array($ledger, array('cash', 'both')) ): ?>
         <option value="<?php echo url_for('ledger/sales') ?>">

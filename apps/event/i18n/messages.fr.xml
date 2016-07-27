@@ -110,7 +110,7 @@
       </trans-unit>
       <trans-unit>
         <source>Main location</source>
-        <target>Salle principale</target>
+        <target>Lieu principal</target>
       </trans-unit>
       <trans-unit>
         <source>Book all</source>
@@ -138,7 +138,7 @@
       </trans-unit>
       <trans-unit>
         <source>A checkpoint is a logical point of control. If you have one venue and five doors, you only have one checkpoint. If you have five venues, and one can be only in one venue at the same time, then you have five checkpoints.</source>
-        <target>Si vous avez une salle avec cinq portes, vous n'avez qu'un seul point de contrôle. Si vous avez cinq salles et qu'une personne ne peut être que dans une salle à la fois, alors vous avez cinq points de contrôle.</target>
+        <target>Si vous avez un lieu avec cinq portes, vous n'avez qu'un seul point de contrôle. Si vous avez cinq lieux et qu'une personne ne peut être que dans un lieu à la fois, alors vous avez cinq points de contrôle.</target>
       </trans-unit>
       <trans-unit>
         <source>If you choose an "info" checkpoint, one can pass through the checkpoint more than once.</source>
@@ -503,7 +503,7 @@
       <trans-unit>
         <source>This form will allow you to define the rank of seats in bulk on your map. Using it will save you a lot of time, because you will only have to set the rank of particular seats. The venues are usually symetrical, you will probably make at least to passes. Take the left side, then the right side of instance.
 Careful: this tool has its limits. It works good only with batches of seats named for instance from A-1 to H-74. Test it carefully before to conclude on its utility level.</source>
-        <target>Ce formulaire va vous permettre de définir en lot des notes à des places numérotées sur votre plan. Grâce à cela vous gagnerez énormément de temps, car vous n'aurez plus qu'à préciser les notes des places particulières. Souvent les salles sont symétriques, vous aurez ainsi sans doute au moins deux passages à faire. Prenez la moitié gauche, puis la moitié droite.
+        <target>Ce formulaire va vous permettre de définir en lot des notes à des places numérotées sur votre plan. Grâce à cela vous gagnerez énormément de temps, car vous n'aurez plus qu'à préciser les notes des places particulières. Souvent les lieux sont symétriques, vous aurez ainsi sans doute au moins deux passages à faire. Prenez la moitié gauche, puis la moitié droite.
 Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de places nommées par exemple de A-1 à H-74. Faîtes des essais consciencieux avant de conclure sur son utilité.</target>
       </trans-unit>
       <trans-unit>

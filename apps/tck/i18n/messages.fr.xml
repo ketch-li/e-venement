@@ -5,6 +5,18 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Warnings</source>
+        <target>Rappels</target>
+      </trans-unit>
+      <trans-unit>
+        <source>As soon as you filter this ledger on a workspace or a manifestation criteria, data related to products will not be used anymore.</source>
+        <target>Aussitôt que vous filtrez ce journal sur un espace de travail ou une manifestation, les données liées à des produits ne seront plus comptabilisées.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Apply to all</source>
+        <target>Appliquer à tous</target>
+      </trans-unit>
+      <trans-unit>
         <source>Search for a declination</source>
         <target>Chercher une déclinaison</target>
       </trans-unit>

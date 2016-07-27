@@ -53,7 +53,7 @@ generator:
         display:
           General: [name, rank, email, contact_id, organism_id, reservation_price]
           Address: [address, postalcode, _cities, city, country, npai]
-          More: [<?php echo $auto_control ? 'auto_control, ' : '' ?>description, licenses]
+          More: [licenses, <?php echo $auto_control ? 'auto_control, ' : '' ?>description]
           #Geolocalization: [_gmap]
       new:
         display:
