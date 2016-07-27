@@ -31,7 +31,6 @@
   <p class="ui-widget-content ui-corner-all warning">
     <?php echo __('This chart is calculated on the full selected period. If a member card expires or has been created within it, the total quantity will be impacted with a fraction of this member card and not a full one.') ?>
   </p>
-  <div class="actions"><?php include_partial('global/chart_actions') ?></div>
 </div>
 
 <?php use_javascript('/js/jqplot/plugins/jqplot.pieRenderer.js') ?>
