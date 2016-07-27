@@ -10,26 +10,27 @@
             'id'    => 'fs',
             'data'  => cross_app_url_for('stats', 'social/json'),
             'width' => '100%',
-            'class' => 'charts-4'
+            'class' => 'charts-4',
+            'label' => __('Familial situations')
           )) 
     ?>
   <?php include_partial('global/chart_jqplot', array(
             'id'    => 'fq',
             'data'  => cross_app_url_for('stats', 'social/json'),
             'width' => '100%',
-            'class' => 'charts-4'
+            'class' => 'charts-4',
+            'label' => __('Familial quotients')
+
           )) 
     ?>
   <?php include_partial('global/chart_jqplot', array(
             'id'    => 'tor',
             'data'  => cross_app_url_for('stats', 'social/json'),
             'width' => '100%',
-            'class' => 'charts-4'
+            'class' => 'charts-4',
+            'label' => __('Types of resources')
           )) 
     ?>
-<?php include_partial('chart_fs') ?>
-<?php include_partial('chart_fq') ?>
-<?php include_partial('chart_tor') ?>
 	<div class="clear"></div>
 </div>
 
