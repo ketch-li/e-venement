@@ -1443,8 +1443,20 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <target>Nouvelle visite</target>
       </trans-unit>
       <trans-unit>
+        <source>New opening</source>
+        <target>Nouvelle ouverture</target>
+      </trans-unit>
+      <trans-unit>
         <source>Visit</source>
         <target>Visite</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Opening</source>
+        <target>Ouverture</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Meta opening</source>
+        <target>Méta-ouverture</target>
       </trans-unit>
       <trans-unit>
         <source>Meta visit</source>
@@ -1699,6 +1711,10 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <target>Liste des visites</target>
       </trans-unit>
       <trans-unit>
+        <source>List of openings</source>
+        <target>Liste des ouvertures</target>
+      </trans-unit>
+      <trans-unit>
         <source>List of events</source>
         <target>Liste des événements</target>
       </trans-unit>
@@ -1764,7 +1780,11 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
       </trans-unit>
       <trans-unit id="92">
         <source>View Visit %%name%%</source>
-        <target>Fiche de la Visite %%name%%</target>
+        <target>Fiche de la visite %%name%%</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>View Opening %%name%%</source>
+        <target>Fiche de l'ouverture %%name%%</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Companies list</source>
@@ -1806,6 +1826,10 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>Records your visit before it opens a new period screen</source>
         <target>Enregistre votre visite avant d'ouvrir une nouvelle période</target>
       </trans-unit>
+      <trans-unit>
+        <source>Records your opening before it opens a new period screen</source>
+        <target>Enregistre votre ouverture avant d'ouvrir une nouvelle période</target>
+      </trans-unit>
       <trans-unit id="102">
         <source>New manifestation</source>
         <target>Nouvelle manifestation</target>
@@ -1825,6 +1849,10 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
       <trans-unit>
         <source>Edit Visit %%name%%</source>
         <target>Modifier la visite %%name%%</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Edit Opening %%name%%</source>
+        <target>Modifier l'ouverture %%name%%</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Detailed category</source>
@@ -1901,6 +1929,10 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
       <trans-unit>
         <source>Visit's Periods List</source>
         <target>Liste des périodes de visite</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Opening's Periods List</source>
+        <target>Liste des périodes d'ouverture</target>
       </trans-unit>
       <trans-unit id="124">
         <source>Event's Manifestations List</source>
