@@ -377,6 +377,19 @@ $(document).ready(function(){
 
   // reset the current transaction + resend the confirmation email + access to the simplified gui
   $('#abandon, #resend-email, #simplified-gui, #direct-surveys').appendTo($('#sf_admin_container .ui-widget-header h1'));
+  $('#resend-email').click(function(){
+    $('#autocomplete_transaction_contact_id').click();
+    var anchor = this;
+    setTimeout(function(){
+      if ( !$.trim($('#li_transaction_field_informations .email a').text()) )
+      {
+        LI.alert($(anchor).attr('data-text-error'), 'error');
+        return false;
+      }
+      window.open($(anchor).prop('href'));
+    },1500);
+    return false;
+  });
 });
 
 // check gauges for overbooking

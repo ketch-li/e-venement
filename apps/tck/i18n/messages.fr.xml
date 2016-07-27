@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Unable to send an email: no email address available.</source>
+        <target>Impossible d'envoyer un email: pas d'adresse disponible.</target>
+      </trans-unit>
+      <trans-unit>
         <source>Warnings</source>
         <target>Rappels</target>
       </trans-unit>
