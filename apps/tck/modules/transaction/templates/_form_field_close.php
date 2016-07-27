@@ -58,6 +58,7 @@
   title="<?php echo __('Resend confirmation email') ?>"
   id="resend-email"
   target="_blank"
+  data-text-error="<?php echo __('Unable to send an email: no email address available.') ?>"
 ><span class="ui-icon ui-icon-mail-closed"></span></a>
 <a
   class="ui-widget-content ui-state-default ui-corner-all ui-widget fg-button"
