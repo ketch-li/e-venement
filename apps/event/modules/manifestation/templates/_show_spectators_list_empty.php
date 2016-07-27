@@ -1,9 +1,10 @@
 <?php use_javascript('helper') ?>
 <h2 class="loading"><?php echo __('Loading...') ?></h2>
 <script type="text/javascript">
-  if ( LI == undefined )
-    var LI = {};
-  
+if ( LI == undefined )
+  var LI = {};
+
+$(document).ready(function(){
   $.get('<?php echo url_for('manifestation/showSpectators?id='.$manifestation->id) ?>', LI.manifShowSpectators = function(data){
     data = $.parseHTML(data);
     $('#sf_fieldset_spectators > *').remove();
@@ -74,6 +75,7 @@
     LI.fixCacherLinks();
     <?php include_partial('show_print_part_js',array('tab' => 'spectators', 'jsFunction' => 'LI.manifShowSpectators')) ?>
   });
+});
 </script>
 
 <?php if ( sfConfig::get('app_ticketting_dematerialized') ): ?>

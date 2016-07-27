@@ -178,30 +178,24 @@
       else
         $this->redirect('event/edit?id[]='.$periodicity['manifestation_id'][0]);
     }
-    else
+    else try
     {
-      try {
-        $periodicity = $request->getParameter('periodicity', array());
-        if (!( isset($periodicity['manifestation_id']) && is_array($periodicity['manifestation_id']) ))
-          $periodicity['manifestation_id'] = array();
-        
-        if ( !$periodicity['manifestation_id'] )
-        {
-          $this->manifestations = new Doctrine_Collection('Manifestation');
-          $this->manifestations[] = $this->getRoute() instanceof sfObjectRoute
-            ? $this->getRoute()->getObject()
-            : Doctrine::getTable('Manifestation')->findOneById($request->getParameter('id'));
-        }
-        else
-          $this->manifestations = Doctrine::getTable('Manifestation')->createQuery('m')->andWhereIn('m.id', $periodicity['manifestation_id'])->execute();
-      }
-      catch ( Doctrine_Table_Exception $e )
+      if (!( $ids = $request->getParameter('ids', array()) ))
       {
-        if ( sfConfig::get('sf_web_debug', false) )
-          throw $e;
-        
-        error_log($e);
-        $this->getUser()->setFlash('error',__('Unknown manifestation.'));
-        $this->redirect('@event');
+        $this->manifestations = new Doctrine_Collection('Manifestation');
+        $this->manifestations[] = $this->getRoute() instanceof sfObjectRoute
+          ? $this->getRoute()->getObject()
+          : Doctrine::getTable('Manifestation')->findOneById($request->getParameter('id'));
       }
+      else
+        $this->manifestations = Doctrine::getTable('Manifestation')->createQuery('m')->andWhereIn('m.id', $ids)->execute();
+    }
+    catch ( Doctrine_Table_Exception $e )
+    {
+      if ( sfConfig::get('sf_web_debug', false) )
+        throw $e;
+      
+      error_log($e);
+      $this->getUser()->setFlash('error',__('Unknown manifestation.'));
+      $this->redirect('@event');
     }

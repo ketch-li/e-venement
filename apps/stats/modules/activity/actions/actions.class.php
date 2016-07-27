@@ -33,6 +33,12 @@ class activityActions extends sfActions
     if ( is_array($this->getUser()->getAttribute('stats.criterias',array(),'admin_module')) )
       $this->form->bind($this->getUser()->getAttribute('stats.criterias',array(),'admin_module'));
   }
+
+  public function executeJson(sfWebRequest $request)
+  {
+    $this->getResponse()->setContentType('application/json');
+    $this->lines = $this->getRawData();
+  }
   
   public function executeCsv(sfWebRequest $request)
   {
