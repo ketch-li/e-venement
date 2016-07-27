@@ -4,9 +4,9 @@
 <span class="arrow"></span>
 <a
   href="#<?php echo isset($anchor) ? $anchor : '' ?>"
+  id="img-export"
   title="<?php echo __('Chart') ?>"
-  class="chart ui-corner-all"
-  <?php if ( $ofc ): ?>onclick="javascript: LI.OFC.init($(this).closest('.ui-widget-content').find('embed')).popup(); return false;"<?php endif ?>
+  class="chart ui-corner-all img-export"  
 >
   <span><?php echo __('Chart') ?></span>
 </a>
@@ -23,3 +23,5 @@
   class="record ui-corner-all"
 ><span><?php echo __('Record') ?></span></a>
 <?php endif ?>
+
+<?php use_javascript('chart-actions?'.date('Ymd')) ?>
