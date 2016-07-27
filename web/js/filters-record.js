@@ -3,7 +3,7 @@ if ( LI == undefined )
 
 LI.filters_record_init = function()
 {
-  $('#sf_admin_filter_save').submit(function(){
+  $('#sf_admin_filter_save').unbind('submit').submit(function(){
     if (!( name = prompt($(this).find('[name=s]').attr('alt')) ))
       return false;
     
@@ -19,10 +19,11 @@ LI.filters_record_init = function()
   }).appendTo($('.sf_admin_filter').closest('.ui-dialog').find('.ui-dialog-buttonset'));
   
   $('.ui-dialog-buttonset #sf_admin_filter_save a, .ui-dialog-buttonset #sf_admin_filter_save button')
+    .unbind('mouseenter').unbind('mouseleave')
     .mouseenter(function(){ $(this).addClass('ui-state-hover'); })
     .mouseleave(function(){ $(this).removeClass('ui-state-hover'); });
   
-  $('#sf_admin_filter_save .filters-list').click(function(){
+  $('#sf_admin_filter_save .filters-list').unbind('click').click(function(){
     $.get($(this).prop('href'), function(data){
       data = $.parseHTML(data);
       $(data).find('th:first-child input, td:first-child input').remove();
