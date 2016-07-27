@@ -1,4 +1,5 @@
 <?php $museum = sfContext::getInstance()->getConfiguration()->getApplication() == 'museum' ?>
+<?php $type = sfConfig::get('project_museums_type', 'museum') ?>
 generator:
   class: sfDoctrineGenerator
   param:
@@ -15,13 +16,13 @@ generator:
     config:
       actions: ~
       fields:
-        list_event: { label: <?php echo $museum ? 'Visit' : 'Event' ?> }
+        list_event: { label: <?php echo $museum ? ($type == 'museum' ? 'Visit' : 'Opening') : 'Event' ?> }
         list_location: { label: Location }
         list_description: { label: Memo }
         list_dates: { label: Date }
         happens_at: { label: Date }
         ends_at: { type: Date }
-        id: { label: <?php echo $museum ? 'ID Visit' : 'ID Manif' ?> }
+        id: { label: <?php echo $museum ? ($type == 'museum' ? 'ID Visit' : 'ID Opening') : 'ID Manif' ?> }
         online_limit: { label: Online limit }
         description: { label: Memo }
         no_print: { label: Preprinted ticketting }
@@ -33,7 +34,7 @@ generator:
         reservation_description: { label: Comment }
         contact_id: { label: Applicant, credentials: event-reservation-change-contact }
         list_contact: { label: Applicant }
-        event_id: { label: <?php echo $museum ? 'Visit' : 'Event' ?> }
+        event_id: { label: <?php echo $museum ? ($type == 'museum' ? 'Visit' : 'Opening') : 'Event' ?> }
         event_categories_list: { label: Event categories }
         organism_id: { label: Applied by organism }
         booking_list: { label: Extra locations }
@@ -82,6 +83,8 @@ generator:
           _periodicity: ~
           _changeEvent:
             label: Change event
+          _toggleOnlineGauges:
+            label: Toggle online gauges
       filter:
         display:
           Manifestation: [happens_at, day_of_the_week, participants_list, event_id, location_id, workspace_id, meta_event_id, event_categories_list, no_print, voucherized]

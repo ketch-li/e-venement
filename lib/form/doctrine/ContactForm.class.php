@@ -88,10 +88,8 @@ class ContactForm extends BaseContactForm
     // adding artificial mandatory fields
     if ( is_array($force = sfConfig::get('app_contact_force_fields', array())) )
     foreach ( $force as $field )
-    {
-      if ( isset($this->validatorSchema[$field]) )
-        $this->validatorSchema[$field]->setOption('required', true);
-    }
+    if ( isset($this->validatorSchema[$field]) )
+      $this->validatorSchema[$field]->setOption('required', true);
     
     unset($this->widgetSchema['back_relations_list']);
     parent::configure();
@@ -151,7 +149,7 @@ class ContactForm extends BaseContactForm
     if ( is_array($upper = sfConfig::get('app_contact_force_uppercase', array())) )
     foreach ( $upper as $field )
     if ( isset($this->values[$field]) )
-      $this->values[$field] = strtoupper($this->values[$field]);
+      $this->values[$field] = mb_strtoupper($this->values[$field]);
     
     // force uppercase first letter
     if ( is_array($upper = sfConfig::get('app_contact_force_ucfirst', array())) )

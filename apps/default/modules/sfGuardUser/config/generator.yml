@@ -40,8 +40,9 @@ generator:
           "User":                   [username, password, password_again, first_name, last_name, email_address]
           "Permissions and groups": [is_active, is_super_admin, groups_list]
           "Public relations":       [auth_for_groups_list, auto_groups_list, rp_mandatory_fields_list]
-          "Ticketting items":       [meta_events_list, workspaces_list, prices_list]
-          "Misc":                   [_form_domain, contact_id, <?php echo sfConfig::get('project_messaging_enable',false) ? '_show_jabber, ' : '' ?>member_cards_list]
+          "Events":                 [meta_events_list, workspaces_list]
+          "Ticketing":              [prices_list, member_cards_list]
+          "Misc":                   [_form_domain, contact_id, <?php echo sfConfig::get('project_messaging_enable',false) ? '_show_jabber ' : '' ?>]
         class: liGuardUserAdminForm
 
       edit:

@@ -19,6 +19,10 @@ delete:
   credentials: [event-manif-del]
 batchDelete:
   credentials: [event-manif-del]
+batchToggleOnlineGauges:
+  credentials: [event-manif-edit]
+batchPeriodicity:
+  credentials: [event-manif-new]
 
 showSpectators:
   credentials: [[tck-ledger-sales, tck-reports]]

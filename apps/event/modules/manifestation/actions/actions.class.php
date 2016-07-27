@@ -459,9 +459,19 @@ class manifestationActions extends autoManifestationActions
     $this->getUser()->setFlash('success', __('The provided manifestations have been applied to "%%event%%".', array('%%event%%' => $event)));
     $this->redirect('manifestation/index');
   }
+  public function executeBatchToggleOnlineGauges(sfWebRequest $request)
+  {
+    $q = Doctrine::getTable('Gauge')->createQuery('g')
+      ->andWhereIn('g.manifestation_id', $request->getParameter('ids'));
+    foreach ( $q->execute() as $gauge )
+    {
+      $gauge->online = !$gauge->online;
+      $gauge->save();
+    }
+  }
   public function executeBatchPeriodicity(sfWebRequest $request)
   {
-    $arg = 'periodicity[manifestation_id][%%i%%]=';
+    $arg = 'ids[%%i%%]=';
     $args = array();
     foreach ( $request->getParameter('ids') as $i => $id )
       $args[] = str_replace('%%i%%', $i, $arg).$id;

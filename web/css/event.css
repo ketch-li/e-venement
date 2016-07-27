@@ -1,5 +1,6 @@
-#sf_fieldset_details .mce-tinymce,
-#sf_fieldset_web_content .mce-tinymce { margin-top: 10px; margin-left: -130px; }
+#sf_fieldset_details .mce-tinymce, #sf_fieldset_web_content .mce-tinymce { margin-top: 10px; margin-left: -130px; }
+.mod-event.action-new #sf_fieldset_web_content { padding-top: 9em; }
+#content #sf_fieldset_manifestations .sf_admin_form_field_Manifestations :not(.date):not(.time) > input { width: 15em; }
 
 #content .sf_admin_field_companies_list ul { padding: 5px 10px; margin-bottom: 10px; }
 .sf_admin_field_companies_list ul li { margin-left: 10px; }
@@ -23,9 +24,9 @@
 .sf_admin_form_field_Manifestations > table > tbody > tr > th { display: none; }
 .sf_admin_form_field_Manifestations th { padding-right: 5px; }
 #content .sf_admin_form_field_Manifestations select,
-#content .sf_admin_form_field_Manifestations input[type=text] { width: 200px; }
-#content .sf_admin_form_field_Manifestations input[type=text][size="2"] { width: 15px; }
-#content .sf_admin_form_field_Manifestations input[type=text][size="4"] { width: 30px; }
+#content .sf_admin_form_field_Manifestations input[type=text] { width: 200px; padding: 3px; }
+#content .sf_admin_form_field_Manifestations input[type=text][size="2"] { width: 14px; }
+#content .sf_admin_form_field_Manifestations input[type=text][size="4"] { width: 27px; }
 .ui-widget-content .sf_admin_form_field_Manifestations.ui-state-error { border: 0; background: none; }
 .ui-widget-content .sf_admin_form_field_Manifestations table.ui-state-error { padding: 3px; }
 

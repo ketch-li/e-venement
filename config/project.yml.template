@@ -30,6 +30,7 @@ all:
       url: http://www.e-venement.org/
   #museums:
   #  enable: false
+  #  type: museum # can be: pool, museum
   #events:
   #  enable: true
   #  auto_add_price_manifestation: true

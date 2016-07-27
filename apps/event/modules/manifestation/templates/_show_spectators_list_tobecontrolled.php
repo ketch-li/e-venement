@@ -1,4 +1,5 @@
-<h2><?php echo __('Spectators to be controlled') ?></h2>
+<?php $museum = $sf_context->getConfiguration()->getApplication() == 'museum' ?>
+<h2><?php echo $museum ? __('Visitors to be controlled') : __('Spectators to be controlled') ?></h2>
 <table class="tobecontrolled">
   <tbody>
   <?php $workspaces = array(); $total = array('qty' => array(), 'value' => 0, 'perso' => 0, 'pro' => 0,) ?>
