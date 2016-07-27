@@ -407,7 +407,7 @@ LI.checkGauges = function(form, submitHandler){
   $('#li_transaction_field_content #li_transaction_manifestations .families:not(.sample) .item:not(.total)').each(function(){
     if ( go == false )
       return;
-
+    
     if ( $(this).find('tbody .declination:not(.printed):not(.integrated) [name="qty"]').length > 0 )
     {
       var gauge = this;
@@ -429,6 +429,10 @@ LI.checkGauges = function(form, submitHandler){
         {
           go = false;
           elts.addClass('blink');
+          elts.each(function(){
+            // simplified GUI
+            $('#li_transaction_field_simplified [data-declination-id="'+$(this).closest('data-gauge-id').attr('data-gauge-id')+'"][data-price-id="'+$(this).closest('[data-price-id]').attr('data-price-id')+'"]').addClass('blink');
+          });
           LI.blinkQuantities(elts, true);
         }
 
