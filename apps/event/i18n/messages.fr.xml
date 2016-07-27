@@ -1307,6 +1307,14 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <target>ID Manif</target>
       </trans-unit>
       <trans-unit>
+        <source>ID Visit</source>
+        <target>ID Visite</target>
+      </trans-unit>
+      <trans-unit>
+        <source>ID Opening</source>
+        <target>ID Ouverture</target>
+      </trans-unit>
+      <trans-unit>
         <source>Transaction</source>
         <target>Opération</target>
       </trans-unit>
@@ -1399,6 +1407,26 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <target>Spectateurs avec billet</target>
       </trans-unit>
       <trans-unit>
+        <source>Visitors to be controlled</source>
+        <target>Visiteurs à contrôler</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Controlled visitors</source>
+        <target>Visiteurs contrôlés</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Ordered visitors</source>
+        <target>Visiteurs en réservation</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Asked visitors</source>
+        <target>Visiteurs en demande</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Confirmed visitors</source>
+        <target>Visiteurs avec billet</target>
+      </trans-unit>
+      <trans-unit>
         <source>Ticket ids</source>
         <target>Billets</target>
       </trans-unit>
@@ -1489,6 +1517,10 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
       <trans-unit>
         <source>Spectators</source>
         <target>Spectateurs</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Visitors</source>
+        <target>Visiteurs</target>
       </trans-unit>
       <trans-unit>
         <source>Qty</source>

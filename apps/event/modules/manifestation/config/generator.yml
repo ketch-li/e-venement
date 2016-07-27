@@ -122,7 +122,7 @@ generator:
           Resources:  [_show_booking_list, _show_applicant_id, _show_applicant_organism_id, _show_reservation_begins_at, _show_reservation_ends_at, _show_blocking, _show_confirmed, _show_optional, _show_reservation_description]
           <?php endif; echo PHP_EOL; ?>
           Tickets:    [_show_tickets_list_empty]
-          <?php echo $museum ? 'Visitors' : 'Spectators' ?>: [_show_spectators_list_empty]
+          Spectators: [_show_spectators_list_empty]
           Unbalanced: [_show_unbalanced_list]
           Extra informations:  [_show_description<?php if ( sfConfig::get('app_manifestation_extra_informations_enable',true) ): ?>, _show_extra_informations<?php endif ?>]
           Surveys:    [_show_surveys]

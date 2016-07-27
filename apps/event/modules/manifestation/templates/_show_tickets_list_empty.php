@@ -8,6 +8,10 @@
     $('#sf_fieldset_tickets > *').remove();
     $('#sf_fieldset_tickets').prepend($(data).find('#sf_fieldset_tickets > *'));
     
+    // correcting the name of the "Spectators" tab... using data from this tab
+    $('#sf_admin_form_tab_menu [href="#sf_fieldset_spectators"]')
+      .text($('#sf_fieldset_tickets thead td.contact:first').text());
+    
     LI.fixCacherLinks();
     <?php include_partial('show_print_part_js',array('tab' => 'tickets', 'jsFunction' => 'LI.manifShowTickets')) ?>
   });
