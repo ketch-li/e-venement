@@ -461,7 +461,7 @@ class manifestationActions extends autoManifestationActions
   }
   public function executeBatchPeriodicity(sfWebRequest $request)
   {
-    $arg = 'periodicity[manifestation_id][%%i%%]=';
+    $arg = 'ids[%%i%%]=';
     $args = array();
     foreach ( $request->getParameter('ids') as $i => $id )
       $args[] = str_replace('%%i%%', $i, $arg).$id;
