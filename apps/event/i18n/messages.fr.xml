@@ -5,10 +5,6 @@
     <header/>
     <body>
       <trans-unit>
-        <source>Toggle online gauges</source>
-        <target>Inverser l'état "en ligne"</target>
-      </trans-unit>
-      <trans-unit>
         <source>Related to...</source>
         <target>En relation avec...</target>
       </trans-unit>
