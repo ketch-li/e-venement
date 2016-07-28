@@ -38,7 +38,7 @@ LI.stats.attendance = function () {
                 printed.push(printedAmount);
                 labels.push(eventName);
 
-                LI.csvData[name].push([eventName, value.gauge]);
+                LI.csvData[name].push([eventName, value.happens_at, value.location_name, value.location_city, value.gauge, value.printed, value.printed_with_payments, value.printed_gifts, value.printed_deposits, value.ordered, freeAmount]);
             });
             $(this).dblclick(function () {
                 $(this).resetZoom();

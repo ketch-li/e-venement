@@ -38,7 +38,7 @@ LI.stats.activity = function () {
                 printed.push(value.printed);
                 labels.push(formattedDate);
 
-                LI.csvData[name].push([value.date, value.passing]);
+                LI.csvData[name].push([formattedDate, value.passing, value.printed, value.ordered, value.asked]);
             });
             $(this).dblclick(function () {
                 $(this).resetZoom();
