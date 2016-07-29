@@ -713,6 +713,10 @@
         <target>Extraire (%%format%%)</target>
       </trans-unit>
       <trans-unit>
+        <source>with totals</source>
+        <target>avec tot.</target>
+      </trans-unit>
+      <trans-unit>
         <source>Cannot duplicate the ticket #%%i%% because its transaction has been closed already. Trick: open its transaction in an other tab when you try to duplicate it.</source>
         <target>Impossible de dupliquer le billet #%%i%% car son opération est verrouillée. Astuce: ouvez son opération dans un autre onglet quand vous cherchez à le dupliquer.</target>
       </trans-unit>
