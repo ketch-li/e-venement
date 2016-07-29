@@ -1,5 +1,5 @@
     <td class="event"><?php echo __('Product') ?></td>
-    <td class="see-more"></td>
+    <td class="see-more"><a href="#">±</a></td>
     <td class="id-qty"><?php echo __('Qty') ?></td>
     <td class="value"><?php echo __('PIT') ?></td>
     <td class="value"><?php echo __('Taxes', null, 'li_accounting') ?></td>

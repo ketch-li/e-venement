@@ -39,7 +39,7 @@ tbody .product td, tbody .method td, tbody .event td { font-weight: bold; }
 tr.product td, thead td, tr.method td, tr.event td { padding-bottom: 5px; }
 tr.product td, tr.method td, tr.event td { padding-top: 5px; }
 
-table tbody a { text-decoration: none; }
+table tbody a, table thead .see-more a { text-decoration: none; }
 table tbody a:hover { text-decoration: underline; }
 
 .criterias { min-height: 0; margin: 10px 245px 10px 5px; }
