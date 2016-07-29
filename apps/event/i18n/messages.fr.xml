@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Get list</source>
+        <target>Voir la liste</target>
+      </trans-unit>
+      <trans-unit>
         <source>Related to...</source>
         <target>En relation avec...</target>
       </trans-unit>

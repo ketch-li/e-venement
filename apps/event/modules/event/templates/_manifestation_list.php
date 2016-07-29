@@ -26,7 +26,12 @@
 <?php $type = isset($type) ? $type : 'event' ?>
 
 <div class="sf_admin_edit ui-widget ui-widget-content ui-corner-all">
+  <a class="fg-button ui-state-default fg-button-icon-left list" href="<?php echo $url = url_for('manifestation/goToListWith'.ucfirst($type).'?id='.$form->getObject()->id) ?>">
+    <span class="ui-icon ui-icon-disk"></span>
+    <?php echo __('Get list') ?>
+  </a>
   <div class="manifestation_list">
   </div>
-  <script type="text/javascript">var manifestation_list_url = '<?php echo url_for('manifestation/'.$type.'List?id='.$form->getObject()->id) ?>';</script>
+  <?php echo $url = url_for('manifestation/'.$type.'List?id='.$form->getObject()->id) ?>
+  <script type="text/javascript">var manifestation_list_url = '<?php echo $url ?>';</script>
 </div>

@@ -27,7 +27,7 @@ class ManifestationTemplatingForm extends BaseFormDoctrine
     // where to applicate it
     $this->widgetSchema   ['manifestations_list'] = new cxWidgetFormDoctrineJQuerySelectMany(array(
       'model' => 'Manifestation',
-      'url' => url_for('manifestation/ajax'), //?later=1'),
+      'url' => url_for('manifestation/ajax?max=20'), //?later=1'),
       'config' => '{ max: '.sfConfig::get('app_manifestation_depends_on_limit',10).' }',
     ));
     $this->validatorSchema['manifestations_list'] = new sfValidatorDoctrineChoice(array(

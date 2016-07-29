@@ -408,6 +408,19 @@ class manifestationActions extends autoManifestationActions
     $this->pager->setPage($request->getParameter('page') ? $request->getParameter('page') : 1);
     $this->pager->init();
   }
+  
+  public function executeGoToListWithLocation(sfWebRequest $request)
+  {
+    $this->setPage(1);
+    $this->setFilters(array('location_id' => $request->getParameter('id',0)));
+    $this->redirect('manifestation/index');
+  }
+  public function executeGoToListWithEvent(sfWebRequest $request)
+  {
+    $this->setPage(1);
+    $this->setFilters(array('event_id' => $request->getParameter('id',0)));
+    $this->redirect('manifestation/index');
+  }
   public function executeLocationList(sfWebRequest $request)
   {
     if ( !$request->getParameter('id') )
