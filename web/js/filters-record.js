@@ -8,6 +8,9 @@ LI.filters_record_init = function()
       return false;
     
     $(this).find('[name="filter[name]"]').val(name);
+    if ( window.location.hash == '#debug' )
+      $(this).prop('target','_blank').unbind('submit').submit();
+    else
     $.ajax({
       url: $(this).prop('action'),
       data: $(this).serialize(),
