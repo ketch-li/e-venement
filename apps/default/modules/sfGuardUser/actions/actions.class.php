@@ -69,6 +69,11 @@ class sfGuardUserActions extends autoSfGuardUserActions
   {
     $this->restrictDirectAccess($request);
     $this->restrictGiveSuperAdminFlag($request);
+    Doctrine::getTable('Cache')->createQuery('c')
+      ->andWhere('c.domain = ?', 'cache_files')
+      ->andWhere('c.identifier ILIKE ?', 'global/menu%')
+      ->delete()
+      ->execute();
     parent::executeUpdate($request);
     $this->restrictVisualPermissions();
   }
