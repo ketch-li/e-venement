@@ -155,7 +155,7 @@
           //.prop('title',$(this).closest('.family').find('h3').text().replace("\n",''))
           .css('background-color', $(this).closest('.family').find('h3').css('background-color'))
           .appendTo($(this).closest('.bunch').find('.new-family select'));
-        if ( $('#li_transaction_field_new_transaction a.persistant').length > 0 )
+        if ( $('#li_transaction_field_new_transaction a.persistant').length == 1 )
         $('#li_transaction_field_new_transaction a.persistant').prop('href', $('#li_transaction_field_new_transaction a.persistant').prop('href').replace(
           '#'+$(this).closest('.bunch').prop('id').replace('li_transaction_','')+'-'+$(this).closest('.family').attr('data-family-id'),
           ''
