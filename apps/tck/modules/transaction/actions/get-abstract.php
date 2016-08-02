@@ -178,11 +178,14 @@
         $pid = is_array($request->getParameter('manifestation_id'))
           ? $request->getParameter('manifestation_id')
           : array($request->getParameter('manifestation_id'));
-        $q->andWhere('(TRUE')
-          ->andWhereIn('n.id',$pid)
-          ->orWhereIn('m.id',$pid)
-          ->andWhere('TRUE)')
-        ;
+        if ( isset($conf['optimize_without_necessary_to']) && $conf['optimize_without_necessary_to'] )
+          $q->andWhereIn('m.id', $pid);
+        else
+          $q->andWhere('(TRUE')
+            ->andWhereIn('m.id',$pid)
+            ->orWhereIn('n.id',$pid)
+            ->andWhere('TRUE)')
+          ;
       }
       if ( $gid = $request->getParameter('gauge_id', false) )
         $q->andWhere('(g.id = ? OR (ng.id = ? AND g.workspace_id = ng.workspace_id))',array($gid, $gid));

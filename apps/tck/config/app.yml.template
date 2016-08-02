@@ -18,6 +18,7 @@ all:
     #gauge_block: true
     manifestations:
       max_display: 20
+      #optimize_without_necessary_to: false # this will accelerate adding manifestations in a transaction, but will not take into account requirements between manifestations
     #store:
     #  max_display: 20
     #museum:
