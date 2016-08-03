@@ -1,3 +1,6 @@
+if ( LI == undefined )
+  var LI = {};
+
 $(document).ready(function(){
   var select = $('<select></select>')
     .prop('size', 2)
@@ -12,6 +15,8 @@ $(document).ready(function(){
   $('.field.postalcode input').prop('autocomplete', 'off');
   
   // handler
+  if ( LI.zipcitiesOnZipLoaded == undefined )
+    LI.zipcitiesOnZipLoaded = [];
   LI.zipcitiesOnZipLoaded.push(function(json){
     if ( Object.keys(json).length == 1 )
     {

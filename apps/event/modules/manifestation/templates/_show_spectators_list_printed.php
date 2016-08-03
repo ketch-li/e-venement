@@ -1,4 +1,5 @@
-<h2><?php echo __('Confirmed spectators') ?></h2>
+<?php $museum = $sf_context->getConfiguration()->getApplication() == 'museum' ?>
+<h2><?php echo $museum ? __('Confirmed visitors') : __('Confirmed spectators') ?></h2>
 <table class="printed">
   <tbody>
   <?php $workspaces = array(); $total = array('qty' => array(), 'value' => 0, 'perso' => 0, 'pro' => 0,) ?>

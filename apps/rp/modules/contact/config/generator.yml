@@ -71,6 +71,7 @@ generator:
         list_transactions: { label: Transactions }
         meta_events_list: { label: Meta events }
         manifestations_list: { label: Manifestations }
+        member_cards_detail: { label: Promo code }
       list:
         display: [=name, _list_firstname, firstname, postalcode, city, _groups_picto, _list_emails, _list_phones, <?php if ( sfConfig::get('app_options_design',false) ): ?>_list_nb, _list_transactions, <?php endif ?>_organisms_list <?php if ( sfConfig::get('app_options_design',false) ): ?>, description, _list_see_orgs, _list_contact, _list_professional_id, _list_organism, _list_professional, _list_organism_postalcode, _list_organism_city, _list_professional_emails, _list_organism_phones_list, _list_professional_groups_picto, _list_professional_description<?php endif ?>]
         max_per_page: <?php if ( sfConfig::get('app_options_design',false) ): ?>50<?php else: ?>20<?php endif; echo PHP_EOL; ?>
@@ -94,7 +95,7 @@ generator:
           <?php endif ?><?php echo PHP_EOL ?>
           Relations: [groups_intersection, not_groups_list, groups_list, organism_id, organism_category_id, professional_type_id, has_professional_type_id, organism_professional_id]
           <?php if ( sfConfig::get('app_cards_enable',false) ): ?><?php echo PHP_EOL ?>
-          Member cards: [member_cards, member_cards_valid_at, member_cards_not_valid_at, member_cards_only_last]
+          Member cards: [member_cards, member_cards_detail, member_cards_valid_at, member_cards_not_valid_at, member_cards_only_last]
           <?php endif ?><?php echo PHP_EOL ?>
           Events: [event_categories_list, meta_events_list, events_list, manifestations_list, workspaces_list, prices_list, <?php if ( sfConfig::get('app_no_event_archives',true) ): ?>event_archives,<?php endif ?> tickets_amount_min, tickets_amount_max, tickets_best_rank, tickets_avg_rank, tickets_rank_operand]
           <?php if ( sfConfig::get('app_controls_enabled',false) ): ?><?php echo PHP_EOL ?>

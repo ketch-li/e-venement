@@ -115,6 +115,13 @@ class cardsActions extends sfActions
       sfConfig::set('sf_web_debug', false);
   }
   
+  public function executeJson(sfWebRequest $request)
+  {
+    $this->getResponse()->setContentType('application/json');
+    $dates = $this->getDatesCriteria();
+    $this->lines = $this->getMembersCards($dates['from'],$dates['to']);
+  }
+
   public function executeData(sfWebRequest $request)
   {
     $this->accounting = $this->getUser()->getAttribute('stats.accounting',array(),'admin_module');

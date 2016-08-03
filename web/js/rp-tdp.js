@@ -633,6 +633,9 @@ setTimeout(function(){
     $('.tdp-city input').focus();
     $('.tdp-postalcode input').focus();
   }
+  
+  if ( LI.zipcitiesOnZipLoaded == undefined )
+    LI.zipcitiesOnZipLoaded = [];
   LI.zipcitiesOnZipLoaded.push(function(json){
     // choice of the only option available
     if ( Object.keys(json).length == 1 )

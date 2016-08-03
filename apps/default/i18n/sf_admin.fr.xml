@@ -5,6 +5,10 @@
     <header />
     <body>
       <trans-unit>
+        <source>Toggle online gauges</source>
+        <target>Inverser l'état "en ligne"</target>
+      </trans-unit>
+      <trans-unit>
         <source>Load</source>
         <target>Charger</target>
       </trans-unit>

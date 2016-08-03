@@ -43,6 +43,19 @@ class socialActions extends sfActions
     $this->getUser()->setAttribute('stats.criterias',$values,'admin_module');
     return $this;
   }
+
+  public function executeJson(sfWebRequest $request)
+  {
+    $this->data = $this->getData($request->getParameter('id'), 'array');
+    
+    if ( !$request->hasParameter('debug') )
+    {
+      $this->setLayout('raw');
+      sfConfig::set('sf_debug',false);
+      $this->getResponse()->setContentType('application/json');
+    }
+  }
+
   
   public function executeCsv(sfWebRequest $request)
   {
@@ -107,7 +120,7 @@ class socialActions extends sfActions
     }
   }
   
-  protected function getData($id)
+  protected function getData($id, $type = NULL)
   {
     switch ( $id ) {
     case 'fs':
@@ -140,6 +153,6 @@ class socialActions extends sfActions
       $q->leftJoin('c.YOBs y')
         ->addSelect('count(DISTINCT (c.id, y.id)) AS nb');
     
-    return $q->execute();
+    return $type == 'array' ? $q->fetchArray() : $q->execute();
   }
 }

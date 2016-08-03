@@ -261,6 +261,14 @@
         <target>Événementiel</target>
       </trans-unit>
       <trans-unit>
+        <source>Openings</source>
+        <target>Ouvertures</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Pool</source>
+        <target>Piscine</target>
+      </trans-unit>
+      <trans-unit>
         <source>Museum</source>
         <target>Musée</target>
       </trans-unit>
@@ -270,7 +278,7 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Locations</source>
-        <target>Salles</target>
+        <target>Lieux</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Tickets</source>

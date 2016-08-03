@@ -5,13 +5,11 @@ if ( LI.stats === undefined )
 
 $(document).ready(function(){
 
-  LI.stats.groups();
+  LI.stats.webOrigin();
 });
 
-LI.stats.groups = function(){
-
-	$('#content .jqplot').each(function(){
-
+LI.stats.webOrigin = function(){
+  $('#content .jqplot').each(function(){
     var chart = $(this).find('.chart')
     var name = chart.attr('data-series-name');
     var id = chart.prop('id');
@@ -22,23 +20,31 @@ LI.stats.groups = function(){
         $(this).find('h2').text()
       ],
     ]; 
-    
-    //retrieve stats
-    $.get(chart.attr('data-json-url') + '?id=' + name, function(json){
+
+    $.get($(this).find('.chart').attr('data-json-url'), function(json){
       var array = [];
       var series = [];
+ 
+      switch ( name ) {
+      case 'evolution':
+       $.each(json, function(date, value){
+          array.push([date, value]);
+          LI.csvData[name].push([date, value]);
+        });
+        $(this).dblclick(function(){
+          $(this).resetZoom();
+        });
+        break;
+      default:
+        $.each(json, function(key, value){
+          array.push([key, value]);
+          LI.csvData[name].push([key, value]);
+        });
+      }
       
-      $.each(JSON.parse(json), function(i, data) {
-        var nb = data.nb === null ? 0 : data.nb;
-        array.push([data.date, nb]);
-        LI.csvData[name].push([data.date, nb]);
-      });
-      $(this).dblclick(function(){
-        $(this).resetZoom();
-      });
-      
-      //init jqplot with data array
-      $.jqplot(id, [array], {
+      switch ( name ) {
+      case 'evolution':
+        $.jqplot(id, [array], {
           seriesDefaults: {
             showMarker: false
           },
@@ -72,6 +78,30 @@ LI.stats.groups = function(){
           },
           captureRightClick: true
         });
+        break;
+      default:
+        $.jqplot(id, [array], {
+          seriesDefaults: {
+            rendererOptions: {
+              fill: true,
+              showDataLabels: true,
+              slideMargin: 4,
+              lineWidth: 5
+            },
+            renderer: $.jqplot.PieRenderer
+          },
+          cursor: {
+            showTooltip: false,
+            show: true
+          },
+          legend: {
+            show: true,
+            location: 'e'
+         },
+          captureRightClick: true
+        });
+        break;
+      }
     });
   });
 };

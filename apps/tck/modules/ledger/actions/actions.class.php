@@ -20,6 +20,12 @@ class ledgerActions extends sfActions
     $this->redirect('ledger/cash');
   }
   
+  public function executeReset(sfWebRequest $request)
+  {
+    $this->getUser()->getAttributeHolder()->remove('ledger.criterias', null, 'tck_module');
+    $this->redirect('ledger/'.$request->getParameter('ledger', 'sales'));
+  }
+  
   public function executeSales(sfWebRequest $request)
   {
     // because loading this page with a lot of data is really long

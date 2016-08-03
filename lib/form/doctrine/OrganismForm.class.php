@@ -66,7 +66,7 @@ class OrganismForm extends BaseOrganismForm
     if ( is_array($upper = sfConfig::get('app_organism_force_uppercase', array())) )
     foreach ( $upper as $field )
     if ( isset($this->values[$field]) )
-      $this->values[$field] = strtoupper($this->values[$field]);
+      $this->values[$field] = mb_strtoupper($this->values[$field]);
     
     // force uppercase first letter
     if ( is_array($upper = sfConfig::get('app_organism_force_ucfirst', array())) )

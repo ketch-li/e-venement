@@ -86,7 +86,7 @@
           <?php endif ?>
         </td>
         <td class="sf_admin_date sf_admin_list_td_list_expire_at"><?php echo sfConfig::get('app_member_cards_show_expire_at', true) ? format_date($mc->expire_at) : '' ?></td>
-        <td class="sf_admin_date sf_admin_list_td_list_transaction_id">#<?php echo link_to($mc->transaction_id, 'transaction/show?id='.$mc->transaction_id) ?></td>
+        <td class="sf_admin_date sf_admin_list_td_list_transaction_id"><?php if ( $mc->transaction_id ): ?>#<?php echo link_to($mc->transaction_id, 'transaction/show?id='.$mc->transaction_id) ?><?php endif ?></td>
       </tr>
       <?php $cpt++ ?>
       <?php endif ?>

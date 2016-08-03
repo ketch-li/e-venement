@@ -1,6 +1,6 @@
 <?php echo $form->renderFormTag('',array('class'=>'ui-widget-content ui-corner-all','id'=>'criterias')) ?>
   <div class="fg-toolbar ui-widget-header ui-corner-all">
-    <h2><?php echo __('Criterias') ?></h2>
+    <h2><?php echo __('Filters', null, 'sf_admin') ?></h2>
     <?php echo $form->renderHiddenFields() ?>
   </div>
   <ul>

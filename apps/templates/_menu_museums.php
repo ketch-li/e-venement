@@ -22,6 +22,7 @@
 ***********************************************************************************/
 ?>
 <?php if ( sfConfig::get('project_museums_enable', false) ): ?>
+    <?php $type = sfConfig::get('project_museums_type', 'museum') ?>
     <?php
       if ( $sf_user->hasCredential('event-event')
         || $sf_user->hasCredential('event-seated-plan')
@@ -30,29 +31,29 @@
       <li class="menu-museum">
         <ul class="second">
           <?php if ( $sf_user->hasCredential('event-event') ): ?>
-          <li><a href="<?php echo cross_app_url_for('museum','event') ?>"><?php echo __('Visits',array(),'menu') ?></a></li>
+          <li><a href="<?php echo cross_app_url_for('museum','event') ?>"><?php echo $type == 'museum' ? __('Visits',null,'menu') : __('Openings',null,'menu') ?></a></li>
           <?php endif ?>
           <?php /*
           <?php if ( $sf_user->hasCredential('event-calendar-gui') ): ?>
-          <li><a href="<?php echo cross_app_url_for('museum','calendar') ?>"><?php echo __('Agenda',array(),'menu') ?></a></li>
+          <li><a href="<?php echo cross_app_url_for('museum','calendar') ?>"><?php echo __('Agenda',null,'menu') ?></a></li>
           <?php endif ?>
           */ ?>
           <?php if ( $sf_user->hasCredential('event-location') ): ?>
           <li class="spaced"></li>
-          <li><a href="<?php echo cross_app_url_for('museum','location') ?>"><?php echo __('Locations',array(),'menu') ?></a></li>
-          <li><a href="<?php echo cross_app_url_for('museum','resource') ?>"><?php echo __('Resources',array(),'menu') ?></a></li>
+          <li><a href="<?php echo cross_app_url_for('museum','location') ?>"><?php echo __('Locations',null,'menu') ?></a></li>
+          <li><a href="<?php echo cross_app_url_for('museum','resource') ?>"><?php echo __('Resources',null,'menu') ?></a></li>
           <?php endif ?>
           <li class="spaced"></li>
           <?php if ( $sf_user->hasCredential('event-manif') ): ?>
-          <li><a href="<?php echo cross_app_url_for('museum','manifestation') ?>"><?php echo __('Periods',array(),'menu') ?></a></li>
+          <li><a href="<?php echo cross_app_url_for('museum','manifestation') ?>"><?php echo __('Periods',null,'menu') ?></a></li>
           <?php if ( $sf_user->hasCredential(array('event-location')) ): ?>
-          <li class="menu-event-use-conflicts"><a href="<?php echo cross_app_url_for('museum','conflict/index') ?>"><?php echo __('Use conflicts',array(),'menu') ?></a></li>
+          <li class="menu-event-use-conflicts"><a href="<?php echo cross_app_url_for('museum','conflict/index') ?>"><?php echo __('Use conflicts',null,'menu') ?></a></li>
           <li><a class="menu-event-booking-to-confirm" href="<?php echo cross_app_url_for('museum','pending/index') ?>"><?php echo __('Bookings to confirm', null, 'menu') ?></a></li>
           <?php endif ?>
           <?php endif ?>
           <?php include_partial('global/menu_extra', array('name' => 'events')) ?>
        </ul>
-        <span class="title"><?php echo __('Museum',array(),'menu') ?></span>
+        <span class="title"><?php echo $type == 'museum' ? __('Museum',null,'menu') : __('Pool',null,'menu') ?></span>
       </li>
     <?php endif ?>
 <?php endif ?>
