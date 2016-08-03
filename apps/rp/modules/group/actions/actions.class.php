@@ -329,9 +329,6 @@ class groupActions extends autoGroupActions
       $request->getParameter($this->form->getName()),
       $request->getFiles($this->form->getName())
     );
-    if ( $this->form->getValue('sf_guard_user_id') !== $this->getUser()->getId()
-      && !$this->getUser()->hasCredential('pr-group-common') && !$this->getUser()->hasCredential('pr-group-edit') )
-      $this->forward404('You cannot modify a common group, sorry.');
     
     /**
       * if the user cannot modify anything
@@ -340,9 +337,9 @@ class groupActions extends autoGroupActions
       *
       **/
     if ( !$this->getUser()->hasCredential('pr-group-perso') && !$this->getUser()->hasCredential('pr-group-common')
-      || is_null($this->group->sf_guard_user_id) && !$this->getUser()->hasCredential('pr-group-common') && !$this->getUser()->hasCredential('pr-group-edit')
+      || is_null($this->group->sf_guard_user_id) && !( $this->getUser()->hasCredential('pr-group-common') && $this->getUser()->hasCredential('pr-group-edit') )
       || !is_null($this->group->sf_guard_user_id) && $this->group->sf_guard_user_id !== $this->getUser()->getId() )
-      $this->forward404('You cannot modify a common group, sorry.');
+      $this->forward404('You cannot modify this (common?) group, sorry.');
     
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
