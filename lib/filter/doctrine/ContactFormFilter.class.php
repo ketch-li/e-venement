@@ -292,6 +292,10 @@ EOF;
       'multiple' => true,
       'model' => 'MemberCardType',
     ));
+    $this->widgetSchema   ['member_cards_detail'] = new sfWidgetFormInputText;
+    $this->validatorSchema['member_cards_detail'] = new sfValidatorString(array(
+      'required' => false,
+    ));
     $this->widgetSchema   ['member_cards_valid_at'] = new liWidgetFormJQueryDateText(array(
       'culture' => sfContext::getInstance()->getUser()->getCulture(),
     ));
@@ -1018,6 +1022,18 @@ EOF;
         ->andWhere('mc.active = ?',true);
    }
     
+    return $q;
+  }
+  // member cards
+  public function addMemberCardsDetailColumnQuery(Doctrine_Query $q, $field, $value)
+  {
+    $c = $q->getRootAlias();
+    if ( count($value) > 0 )
+    {
+      if ( !$q->contains("LEFT JOIN $c.MemberCards mc") )
+        $q->leftJoin("$c.MemberCards mc");
+      $q->andWhere("mc.detail = ?",$value);
+    }
     return $q;
   }
   public function addMemberCardsValidAtColumnQuery(Doctrine_Query $q, $field, $value)

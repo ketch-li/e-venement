@@ -13,6 +13,10 @@
         <target>Codes promo.</target>
       </trans-unit>
       <trans-unit>
+        <source>Promo Code</source>
+        <target>Code promo.</target>
+      </trans-unit>
+      <trans-unit>
         <source>New Promo Code</source>
         <target>Nouveau code promo.</target>
       </trans-unit>
