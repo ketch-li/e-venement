@@ -38,7 +38,7 @@ class StreetBaseTask  extends sfBaseTask
     $this->addOptions(array(
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environement', 'task'),
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application', 'rp'),
-      new sfCommandOption('cities-url', null, sfCommandOption::PARAMETER_OPTIONAL, '', null),
+      new sfCommandOption('streets-url', null, sfCommandOption::PARAMETER_OPTIONAL, '', null),
       new sfCommandOption('localities-url', null, sfCommandOption::PARAMETER_OPTIONAL, '', null),
       new sfCommandOption('verbosity', null, sfCommandOption::PARAMETER_OPTIONAL, '0: nothing / 1: summary at end of task / 2: summary + memory usage', 0),
       new sfCommandOption('email', null, sfCommandOption::PARAMETER_OPTIONAL, '0: no emails / 1: email on failure / 2: email on success or failure', 0),
