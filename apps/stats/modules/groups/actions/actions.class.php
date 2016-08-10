@@ -40,6 +40,12 @@ class groupsActions extends sfActions
 
   public function executeJson(sfWebRequest $request)
   {
+    if ( !$request->hasParameter('debug') )
+    {
+      $this->setLayout('raw');
+      sfConfig::set('sf_debug',false);
+      $this->getResponse()->setContentType('application/json');
+    }
     $this->lines = $this->getRawData();
   }
   

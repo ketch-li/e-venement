@@ -8,6 +8,7 @@
             'id'    => 'groups',
             'data'  => cross_app_url_for('stats', 'groups/json'),
             'label' => '',
+            'name'  => __('Evolution of groups', null, 'menu'),
             'width' => '900'
            )) ?>
     <?php endif ?>
