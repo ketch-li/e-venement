@@ -4,6 +4,7 @@
         'data'  => cross_app_url_for('stats', 'web_origin/json?which=referers'),
         'label' => __('Referers'),
         'class' => 'charts-4',
+        'name'  => __('Online sales', null, 'menu'),
         'width' => '100%'
        )) ?>
        <?php include_partial('global/chart_jqplot', array(
@@ -11,6 +12,7 @@
         'data'  => cross_app_url_for('stats', 'web_origin/json?which=campaigns'),
         'label' => __('Campaigns'),
         'class' => 'charts-4',
+        'name'  => __('Online sales', null, 'menu'),
         'width' => '100%'
        )) ?>
        <?php include_partial('global/chart_jqplot', array(
@@ -18,6 +20,7 @@
         'data'  => cross_app_url_for('stats', 'web_origin/json?which=deal_done'),
         'label' => __('Done deals'),
         'class' => 'charts-4',
+        'name'  => __('Online sales', null, 'menu'),
         'width' => '100%'
        )) ?>
        <?php include_partial('global/chart_jqplot', array(
@@ -25,6 +28,7 @@
         'data'  => cross_app_url_for('stats', 'web_origin/json?which=evolution'),
         'label' => __('Activity'),
         'class' => 'charts-4',
+        'name'  => __('Online sales', null, 'menu'),
         'width' => '100%'
        )) ?>
     <?php endif ?>

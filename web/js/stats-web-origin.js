@@ -25,22 +25,14 @@ LI.stats.webOrigin = function(){
       var array = [];
       var series = [];
  
-      switch ( name ) {
-      case 'evolution':
-       $.each(json, function(date, value){
-          array.push([date, value]);
-          LI.csvData[name].push([date, value]);
+      LI.csvData[name].push(json.csvHeaders);
+
+      $.each(json, function(key, value){
+        if(key !== 'csvHeaders'){
+            array.push([key, value.value]);
+            LI.csvData[name].push([key, value.value, value.percent]);
+          }
         });
-        $(this).dblclick(function(){
-          $(this).resetZoom();
-        });
-        break;
-      default:
-        $.each(json, function(key, value){
-          array.push([key, value]);
-          LI.csvData[name].push([key, value]);
-        });
-      }
       
       switch ( name ) {
       case 'evolution':
