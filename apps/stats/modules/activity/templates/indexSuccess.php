@@ -6,6 +6,7 @@
   </div>
   <?php include_partial('global/chart_jqplot', array(
 		  	    'id'    => 'activity',
+		  	    'name'  => __('Ticketting activity', null, 'menu'),
 		  	    'data'  => cross_app_url_for('stats', 'activity/json'),
 		  	    'width' => '900'
 		  	  )) 
