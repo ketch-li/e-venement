@@ -28,24 +28,27 @@ LI.stats.geo = function(){
     $.get(chart.attr('data-json-url') + '?type=' + name, function(json){
       var array = [];
       var series = [];
+
+      LI.csvData[name].push(json.csvHeaders);
+
       //build data array depending on approach filter
       switch ( approach ) {
         case 'by-tickets':
           $.each(json.tickets, function(key, value) {
-            array.push([json.translations[key], value]);
-            LI.csvData[name].push([json.translations[key], value]);
+            array.push([json.translations[key], value.value]);
+            LI.csvData[name].push([json.translations[key], json.nb[key].value, json.nb[key].percent, value.value, value.percent, json.value[key].value + ' €', json.value[key].percent]);
           });
           break;
         case 'financial':
           $.each(json.value, function(key, value) {
-            array.push([json.translations[key], value]);
-            LI.csvData[name].push([json.translations[key], value]);
+            array.push([json.translations[key], value.value]);
+            LI.csvData[name].push([json.translations[key], json.nb[key].value, json.nb[key].percent, json.tickets[key].value, json.tickets[key].percent, value.value + ' €', value.percent]);
           });
           break;
         default:
          $.each(json.nb, function(key, value) {
-            array.push([json.translations[key], value]);
-            LI.csvData[name].push([json.translations[key], value]);
+            array.push([json.translations[key], value.value]);
+            LI.csvData[name].push([json.translations[key], value.value, value.percent, json.tickets[key].value, json.tickets[key].percent, json.value[key].value + ' €', json.value[key].percent]);
           });
       }
       
