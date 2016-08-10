@@ -54,7 +54,7 @@ LI.chartActions.exportCsv = function(){
       ? URL.createObjectURL(new Blob([data.join("\n")], { type: "text/csv" }))
       : URL.createObjectURL(new Blob([LI.arrayToTable(data)], { type: "application/vnd.ms-excel" }))
     ;
-    $(this).prop('download', LI.slugify(data[0][1]+' '+data[0][0])+'.'+$(this).attr('data-type'))
+    $(this).prop('download', LI.slugify(data[0][0]+' '+data[0][1])+'.'+$(this).attr('data-type'))
       .prop('href', url)
     ;
   });
