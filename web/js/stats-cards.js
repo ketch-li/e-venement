@@ -26,10 +26,15 @@ LI.stats.cards = function(){
     //retrieve stats
     $.get(chart.attr('data-json-url') + '?type=' + name, function(json){
       var array = [];
+
+      LI.csvData[name].push(json.csvHeaders);
+
       //build data array depending on approach filter
       $.each(json, function(key, value) {
+         if(key != 'csvHeaders'){      
             array.push([value.name, value.nb]);
             LI.csvData[name].push([value.name, value.nb]);
+         }
       });
       
       //init jqplot with data array
