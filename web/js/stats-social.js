@@ -26,11 +26,16 @@ LI.stats.social = function(){
     //retrieve stats
     $.get(chart.attr('data-json-url') + '?id=' + name, function(json){
       var array = [];
+
+      LI.csvData[name].push(json.csvHeaders);
+
       //build data array depending on approach filter
       $.each(json, function(key, value) {
-            array.push([value.name, value.nb]);
-            LI.csvData[name].push([value.name, value.nb]);
-          });
+        if(key !== 'csvHeaders'){
+          array.push([value.name, value.nb]);
+          LI.csvData[name].push([value.name, value.nb, value.percent]);
+        }
+      });
       
       //init jqplot with data array
       $.jqplot(id, [array], {
