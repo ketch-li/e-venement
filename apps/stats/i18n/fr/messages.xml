@@ -648,6 +648,18 @@
         <source>Free</source>
         <target>Libre</target>
       </trans-unit>
+      <trans-unit>
+        <source>Passing</source>
+        <target>Entrées</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Debt</source>
+        <target>Dette</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Member cards</source>
+        <target>Cartes d'abonnement</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
