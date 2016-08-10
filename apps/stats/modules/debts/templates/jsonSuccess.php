@@ -1,10 +1,5 @@
-<?php $json = $sf_data->getRaw('lines') ?>
-<?php
-  /*
-  $json['translations'] = array();
-  foreach ( $json['nb'] as $key => $value )
-    $json['translations'][$key] = __($key);
-  */
+<?php 
+	$json = $sf_data->getRaw('lines'); 
+	$json['csvHeaders'] = [__('Date'),__('Outcome'),__('Income'),__('Debt')];
+	echo json_encode($json);
 ?>
-
-<?php echo json_encode($json) ?>

@@ -7,7 +7,7 @@
 	  <?php include_partial('global/chart_jqplot', array(
 	          'id'    => 'debts',
 	          'data'  => cross_app_url_for('stats', 'debts/json'),
-	          'label' => '',
+	          'name' => __('Debts'),
 	          'width' => '900'
 	         )) ?>
   <?php endif ?>
