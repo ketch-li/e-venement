@@ -20,21 +20,42 @@
 *
 ***********************************************************************************/
 
-if ( LI == undefined )
+if ( LI === undefined )
   var LI = {};
+if ( LI.chartActions === undefined )
+  LI.chartActions = [];
 if ( LI.series == undefined )
   LI.series = {};
 if ( LI.csvData == undefined )
   LI.csvData = {};
 
 $(document).ready(function(){
-  // record to CSV
+
+  LI.chartActions.exportImg();
+  LI.chartActions.exportCsv();
+});
+
+LI.chartActions.exportImg = function(){
+  
+  $('.img-export').click(function(){
+    
+    var imgData = $(this).parent().siblings('.chart').jqplotToImageStr({});
+    var img = $('<img/>').attr('src',imgData);
+    window.open(img.attr('src'));
+  });
+};
+
+LI.chartActions.exportCsv = function(){
+
   $('.jqplot .actions .record').click(function(){
+
     var data = LI.clone(LI.csvData[$(this).closest('.jqplot').find('[data-series-name]').attr('data-series-name')]);
     var url = $(this).attr('data-type') == 'csv'
       ? URL.createObjectURL(new Blob([data.join("\n")], { type: "text/csv" }))
-      : URL.createObjectURL(new Blob([LI.arrayToTable(data)], { type: "application/vnd.ms-excel" }));
+      : URL.createObjectURL(new Blob([LI.arrayToTable(data)], { type: "application/vnd.ms-excel" }))
+    ;
     $(this).prop('download', LI.slugify(data[0][1]+' '+data[0][0])+'.'+$(this).attr('data-type'))
-      .prop('href', url);
+      .prop('href', url)
+    ;
   });
-});
+};

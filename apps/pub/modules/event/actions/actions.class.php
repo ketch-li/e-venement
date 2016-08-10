@@ -22,17 +22,6 @@ class eventActions extends autoEventActions
   public function executeIndex(sfWebRequest $request)
   {
     $this->getUser()->setDefaultCulture($request->getLanguages());
-    
-    /*
-    // inline tickets in manifestation
-    $vel = sfConfig::get('app_tickets_vel', array());
-    if ( isset($vel['display_tickets_in_manifestations_list']) && $vel['display_tickets_in_manifestations_list'] )
-    {
-      $this->getUser()->getAttributeHolder()->remove('manifestation.filters');
-      $this->redirect('manifestation/index');
-    }
-    */
-    
     parent::executeIndex($request);
     
     // focusing on one meta event
@@ -48,12 +37,14 @@ class eventActions extends autoEventActions
     }
     
     // if there is only one event...
-    if ( $this->pager->getResults()->count() == 1 )
+    if ( $this->pager->getQuery()->count() == 1 )
     {
       foreach ( array('success', 'notice', 'error') as $type )
       if ( $this->getUser()->getFlash($type) )
         $this->getUser()->setFlash($type, $this->getUser()->getFlash($type));
-      $this->redirect('event/edit?id='.$this->pager->getCurrent()->id);
+      $this->getUser()->getAttributeHolder()->remove('manifestation.filters');
+      $this->getUser()->setAttribute('manifestation.filters', array('event_id' => $this->pager->getCurrent()->id), 'admin_module');
+      $this->redirect('manifestation/index?id='.$this->pager->getCurrent()->id);
     }
   }
   public function executeEdit(sfWebRequest $request)
