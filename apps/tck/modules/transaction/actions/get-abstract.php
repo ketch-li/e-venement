@@ -178,9 +178,12 @@
         $pid = is_array($request->getParameter('manifestation_id'))
           ? $request->getParameter('manifestation_id')
           : array($request->getParameter('manifestation_id'));
+        $expl = array();
+        foreach ( $pid as $i => $n )
+          $expl[] = '?';
         $q->andWhere('(TRUE')
-          ->andWhereIn('n.id',$pid)
-          ->orWhereIn('m.id',$pid)
+          ->andWhereIn('m.id',$pid)
+          ->orWhere('m.depends_on IN ('.implode(',',$expl).')',$pid)
           ->andWhere('TRUE)')
         ;
       }

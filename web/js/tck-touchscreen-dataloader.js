@@ -94,9 +94,11 @@ LI.completeContent = function(data, type, replaceAll = true)
       }
       
       // keep the same manifestations for the next transaction
+      var hashtag = '#'+type+'-'+pdt.id;
+      if ( $('#li_transaction_field_new_transaction a.persistant').prop('href').indexOf(hashtag) == -1 )
       $('#li_transaction_field_new_transaction a.persistant').prop('href',
         $('#li_transaction_field_new_transaction a.persistant').prop('href')+
-        '#'+type+'-'+pdt.id
+        hashtag
       );
                                           
       // in progress: pdt

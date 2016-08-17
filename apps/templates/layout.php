@@ -24,7 +24,14 @@
       <?php echo $sf_content ?>
     </div>
     <ul id="menu" class="first">
-      <?php include_partial('global/menu') ?>
+      <?php
+        $cacher = liCacher::create('global/menu?user_id='.$sf_user->getId());
+        if (!( $cache = $cacher->useCache() ))
+          $cache = $cacher->setData(get_partial('global/menu'))
+            ->writeData()
+            ->getData();
+        echo $cache;
+      ?>
     </ul>
     <div id="banner">
       <a href="<?php echo cross_app_url_for('default','sf_guard_signout') ?>" onclick="javascript: window.close()"><?php echo image_tag("close.png",array('alt' => 'close')) ?></a>
