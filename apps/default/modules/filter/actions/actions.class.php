@@ -18,7 +18,7 @@ class filterActions extends autoFilterActions
     if ( $request->getParameter('type',false) )
     {
       $this->setFilters(array_merge($this->configuration->getFilterDefaults(), array(
-        'type' => array('text' => strtolower($request->getParameter('type'))),
+        'type' => array('text' => $request->getParameter('type')),
       )));
     }
     
