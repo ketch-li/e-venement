@@ -1,0 +1,3 @@
+If you are in the case of an unaccessible "wellknownurl" (e.g. https://my.openidconnect.tld/.well-known/openid-configuration)
+you can create a "data/openidconnect/openid-configuration" file filled with the data
+you are waiting for...
