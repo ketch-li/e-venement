@@ -46,7 +46,7 @@ class socialActions extends sfActions
 
   public function executeJson(sfWebRequest $request)
   {
-    $this->data = $this->getData($request->getParameter('id'), 'array');
+    $this->lines = $this->getData($request->getParameter('id'), 'array');
     
     if ( !$request->hasParameter('debug') )
     {

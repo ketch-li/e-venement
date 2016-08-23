@@ -48,7 +48,23 @@ class geoActions extends sfActions
   public function executeJson(sfWebRequest $request)
   {
     $criterias = $this->getCriterias();
-    $this->data = $this->getData($request->getParameter('type','ego'), !(isset($criterias['approach']) && $criterias['approach'] === ''));
+    $this->lines = $this->getData($request->getParameter('type','ego'), !(isset($criterias['approach']) && $criterias['approach'] === ''));
+    foreach($this->lines as $i => $line)
+    {
+      $total = 0;
+      
+      foreach($line as $key => $value)
+      {
+        $total += $value;
+      }
+      foreach($line as $key => $value)
+      {
+        $this->lines[$i][$key] = array(
+          'value' => $value,
+          'percent' => number_format(round($value*100/$total,2))
+        );
+      }
+    }
   }
   public function executeCsv(sfWebRequest $request)
   {

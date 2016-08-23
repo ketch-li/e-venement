@@ -23,8 +23,8 @@ class FilterForm extends BaseFilterForm
   public function setAutoDefaults(sfUser $user, $model)
   {
     $this->setDefaults(array(
-      'filter'  => serialize($user->getAttribute(strtolower($model).'.filters', '', 'admin_module')),
-      'type'    => strtolower($model),
+      'filter'  => serialize($user->getAttribute($model.'.filters', '', 'admin_module')),
+      'type'    => $model,
     ));
     
     if ( sfContext::hasInstance() )

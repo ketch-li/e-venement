@@ -26,19 +26,24 @@ LI.stats.activity = function () {
             var printed = [];
             var labels = [];
 
+            LI.csvData[name].push(json.csvHeaders);
+
             $.each(json, function (key, value) {
-                var date = new Date(value.date);
-                var formattedDate = date.getDate() + '/' + 
-                                    (date.getMonth() + 1) + '/' + 
-                                    date.getFullYear().toString().slice(-2)
-                                ;
 
-                passing.push(value.passing);
-                ordered.push(value.ordered);
-                printed.push(value.printed);
-                labels.push(formattedDate);
+                if(key !== 'csvHeaders' && key !== 'legends'){
+                    var date = new Date(value.date);
+                    var formattedDate = date.getDate() + '/' + 
+                                        (date.getMonth() + 1) + '/' + 
+                                        date.getFullYear().toString().slice(-2)
+                                    ;
 
-                LI.csvData[name].push([formattedDate, value.passing, value.printed, value.ordered, value.asked]);
+                    passing.push(value.passing);
+                    ordered.push(value.ordered);
+                    printed.push(value.printed);
+                    labels.push(formattedDate);
+
+                    LI.csvData[name].push([formattedDate, value.passing, value.printed, value.ordered, value.asked]);
+                }
             });
             $(this).dblclick(function () {
                 $(this).resetZoom();
@@ -55,10 +60,10 @@ LI.stats.activity = function () {
                 },
                 series: [
                         {
-                        label: 'Imprimé', color: "#FF0000"
+                        label: json.legends.printed, color: "#FF0000"
                         },
                         {
-                        label: "Réservé", color: "#FFA500" 
+                        label: json.legends.ordered, color: "#FFA500" 
                         },
                         { 
                         showLabel: false,

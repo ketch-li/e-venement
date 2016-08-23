@@ -11,7 +11,8 @@
             'data'  => cross_app_url_for('stats', 'social/json'),
             'width' => '100%',
             'class' => 'charts-4',
-            'label' => __('Familial situations')
+            'label' => __('Familial situations'),
+            'name'  => __('Social statistics',null,'menu')
           )) 
     ?>
   <?php include_partial('global/chart_jqplot', array(
@@ -19,7 +20,8 @@
             'data'  => cross_app_url_for('stats', 'social/json'),
             'width' => '100%',
             'class' => 'charts-4',
-            'label' => __('Familial quotients')
+            'label' => __('Familial quotients'),
+            'name'  => __('Social statistics',null,'menu')
 
           )) 
     ?>
@@ -28,7 +30,8 @@
             'data'  => cross_app_url_for('stats', 'social/json'),
             'width' => '100%',
             'class' => 'charts-4',
-            'label' => __('Types of resources')
+            'label' => __('Types of resources'),
+            'name'  => __('Social statistics',null,'menu')
           )) 
     ?>
 	<div class="clear"></div>

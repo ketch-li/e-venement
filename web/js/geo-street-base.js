@@ -33,7 +33,7 @@ $(document).ready(function(){
       
       $(elt).addClass('waiting-wheel');
       
-      var url = '/rp_dev.php/geo_fr_street_base/ajax';
+      var url = window.location.toString().replace(/^(.+\/).+\.php\/.*/,'$1')+'rp.php/geo_fr_street_base/ajax'; // this is a trick to avoid writing this URL in the HTML code, so making this script more consistant / self-sufficient
       if ( window.location.hash == '#debug' )
         console.error('Maybe some autocomplete would be relevant...', url);
       
@@ -76,6 +76,7 @@ $(document).ready(function(){
               });
             })
           ;
+          console.error(json);
           while ( (address = json.shift()) )
             $('<option></option>').val(address).html(address)
               .appendTo(addresses);

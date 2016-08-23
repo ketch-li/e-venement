@@ -27,8 +27,10 @@ class web_originActions extends autoWeb_originActions
   public function executeJson(sfWebRequest $request)
   {
     $this->debug($request);
-    $data = $this->getData($request->getParameter('which', 'referers'), true);
-    $this->data = array();
+    $wich = $request->getParameter('which', 'referers');
+    $data = $this->getData($wich, true);
+    $this->lines = array();
+    $total = 0;
     
     $previous = NULL;
     foreach ( $data as $date => $value )
@@ -37,12 +39,22 @@ class web_originActions extends autoWeb_originActions
       {
         $tmp = strtotime($previous);
         while ( ($tmp = strtotime('+1 day', $tmp)) < strtotime($date) )
-          $this->data[date('Y-m-d H:i:s', $tmp)] = 0;
+          $this->lines[date('Y-m-d H:i:s', $tmp)] = 0;
       }
-      $this->data[$date] = $value;
+      $this->lines[$date] = $value;
       $previous = $date;
     }
+
+    foreach ( $this->lines as $line )
+        $total += $line;
+      
+    foreach ( $this->lines as $key => $line )
+      $this->lines[$key] = array(
+        'value'   => $line,
+        'percent' => number_format(round($line*100/$total,2))
+      );
   }
+
   public function executeCsv(sfWebRequest $request)
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N','Date','CrossAppLink','Number'));

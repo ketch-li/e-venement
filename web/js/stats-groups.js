@@ -28,13 +28,15 @@ LI.stats.groups = function(){
       var array = [];
       var series = [];
       
-      $.each(JSON.parse(json), function(i, data) {
-        var nb = data.nb === null ? 0 : data.nb;
-        array.push([data.date, nb]);
-        LI.csvData[name].push([data.date, nb]);
-      });
-      $(this).dblclick(function(){
-        $(this).resetZoom();
+      LI.csvData[name].push(json.csvHeaders);
+
+      $.each(json, function(key, data) {
+
+        if(key !== 'csvHeaders'){
+          var nb = data.nb === null ? 0 : data.nb;
+          array.push([data.date, nb]);
+          LI.csvData[name].push([data.date, nb]);
+        }
       });
       
       //init jqplot with data array

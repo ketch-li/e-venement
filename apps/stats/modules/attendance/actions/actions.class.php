@@ -33,8 +33,42 @@ class attendanceActions extends sfActions
 
   public function executeJson(sfWebRequest $request)
   {
-    $this->getResponse()->setContentType('application/json');
-    $this->lines = $this->getManifs('array', false);
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Number', 'Date'));
+    $this->lines = $this->getManifs('array', true);
+
+    foreach ( $this->lines as $key => $line )
+    {
+      // free seats
+      $this->lines[$key]['free'] = $line['gauge']-$line['printed']-(sfConfig::get('project_tickets_count_demands',false) ? $line['asked'] : 0)-$line['ordered'];
+      
+      // percentages
+      $this->lines[$key]['printed_percentage'] = $line['gauge'] > 0 ? format_number(round($line['printed']*100/$line['gauge'],0)) : 'N/A';
+      $this->lines[$key]['ordered_percentage'] = $line['gauge'] > 0 ? format_number(round($line['ordered']*100/$line['gauge'],0)) : 'N/A';
+      if ( sfConfig::get('project_tickets_count_demands',false) )
+        $this->lines[$key]['asked_percentage']   = $line['gauge'] > 0 ? format_number(round($line['asked']  *100/$line['gauge'],0)) : 'N/A';
+      else
+        $this->lines[$key]['asked'] = 'false';
+      $this->lines[$key]['printed_gifts_percentage'] = $line['printed'] > 0 ? format_number(round($line['printed_gifts']*100/$line['printed'],0)) : 'N/A';
+      $this->lines[$key]['printed_with_payment_percentage'] = $line['printed'] > 0 ? format_number(round($line['printed_with_payment']*100/$line['printed'],0)) : 'N/A';
+      $this->lines[$key]['printed_deposits_percentage'] = $line['printed'] > 0 ? format_number(round($line['printed_deposits']*100/$line['printed'],0)) : 'N/A';
+      $this->lines[$key]['free_percentage']    = $line['gauge'] > 0 ? format_number(round(($line['gauge']-$line['printed']-(sfConfig::get('project_tickets_count_demands',false) ? $line['asked'] : 0)-$line['ordered'])*100/$line['gauge'],0)) : 'N/A';
+      
+      // cashflow
+      $this->lines[$key]['cashflow']    = format_number(round($line['cashflow'],2));
+      
+      // datetime
+      $this->lines[$key]['dotw'] = format_datetime($this->lines[$key]['happens_at'],'EEEE');
+      $this->lines[$key]['date'] = format_date($this->lines[$key]['happens_at'],'d');
+      $this->lines[$key]['time'] = format_date($this->lines[$key]['happens_at'],'HH:mm');
+      unset($this->lines[$key]['happens_at']);
+    }
+
+    if ( !$request->hasParameter('debug') )
+    {
+      $this->setLayout('raw');
+      sfConfig::set('sf_web_debug', false);
+      $this->getResponse()->setContentType('application/json');
+    }
   }
   
   public function executeCsv(sfWebRequest $request)

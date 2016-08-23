@@ -17,11 +17,9 @@
   data-type="<?php echo $sf_user->getExtractionType() ?>"
   <?php else: ?>
   target="_blank"
-  href="<?php echo $dl ?>"
+  href="<?php echo $dl ;var_dump($dl);?>"
   <?php endif ?>
   title="<?php echo __('Record') ?>"
   class="record ui-corner-all"
 ><span><?php echo __('Record') ?></span></a>
 <?php endif ?>
-
-<?php use_javascript('chart-actions?'.date('Ymd')) ?>

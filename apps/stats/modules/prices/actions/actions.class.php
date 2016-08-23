@@ -38,6 +38,13 @@ class pricesActions extends sfActions
   {
     $param = $request->getParameter('id');
     $this->lines = $this->getPrices($param == 'asked', $param == 'ordered', $param == 'all', 'array');
+    $total = 0;
+
+    foreach ( $this->lines as $line )
+      $total += $line['nb'];
+    
+    foreach ( $this->lines as $key => $line )
+      $this->lines[$key]['percent'] = number_format(round($line['nb']*100/$total,2));
   }
   
   public function executeCsv(sfWebRequest $request)

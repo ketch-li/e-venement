@@ -9,7 +9,8 @@
    <?php include_partial('global/chart_jqplot', array(
             'id'    => 'cards',
             'data'  => cross_app_url_for('stats', 'cards/json'),
-            'width' => '900'
+            'width' => '900',
+            'name'  => __('Member cards')
           )) 
     ?>
   <!-- <div class="chart">
