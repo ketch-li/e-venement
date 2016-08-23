@@ -24,8 +24,8 @@
     var LI = {};
   
   $(document).ready(function(){
-    $('#li_transaction_field_content .new-family select').focusout(function(){
-      LI.addFamilies(this);
+    $('#li_transaction_field_content .new-family input[type=submit]').click(function(){
+      LI.addFamilies($(this).closest('.new-family').find('select'));
     });
     LI.autoAddFamilies();
     // the autocompleter & the manifestation's selector
