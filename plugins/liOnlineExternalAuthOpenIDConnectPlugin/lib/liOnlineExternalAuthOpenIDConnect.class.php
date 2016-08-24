@@ -43,6 +43,10 @@ class liOnlineExternalAuthOpenIDConnect extends OpenIdConnectProvider
       'ssl' => array('verify_peer' => false)
     ))), true);
     
+    // a fallback, to bypass some lazy sysadmin from upstream in the case of...
+    if ( is_null($this->config) && is_readable($path = sfConfig::get('sf_data_dir').'/openidconnect/openid-configuration') )
+      $this->config = json_decode(file_get_contents($path),true);
+    
     $sf_context = sfContext::getInstance();
     $sf_context->getConfiguration()->loadHelpers(array('CrossAppLink', 'Url'));
     

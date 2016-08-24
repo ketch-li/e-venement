@@ -11,6 +11,7 @@
 /web/private/*
 /web/uploads/*
 /data/sql/*
+/data/openidconnect
 
 /apps/email/config/app.yml
 /apps/email/config/factories.yml

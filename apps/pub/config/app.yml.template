@@ -10,6 +10,7 @@ all:
     plugins: []       # add your plugins here, especially OnlinePayment plugins...
     #synthetic_plans: false   # for online seating for real
     #home: meta_event
+    #manifestations_lists_as_select: false
   user:
     templating: vel
     #other_templates: [] # usefull if more than one "pub" app is working on this instance
