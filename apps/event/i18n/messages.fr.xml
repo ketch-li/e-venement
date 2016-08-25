@@ -1987,6 +1987,18 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <target>Sur lieu</target>
       </trans-unit>
       <trans-unit>
+        <source>Offline</source>
+        <target>Non vendu en ligne</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Offsite</source>
+        <target>Non vendu sur lieu</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Gauge state</source>
+        <target>État des jauges</target>
+      </trans-unit>
+      <trans-unit>
         <source>Closed on site</source>
         <target>Fermé sur lieu</target>
       </trans-unit>
