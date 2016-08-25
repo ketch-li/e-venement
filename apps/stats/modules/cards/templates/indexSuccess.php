@@ -6,6 +6,7 @@
     <h1><?php echo __('Memberships-like from %%from%% to %%to%%',array('%%from%%' => format_date($dates['from']), '%%to%%' => format_date($dates['to']))) ?></h1>
     <?php include_partial('attendance/filters_buttons') ?>
   </div>
+  <?php if ( $sf_user->hasCredential('stats-pr-cards') ): ?>
    <?php include_partial('global/chart_jqplot', array(
             'id'    => 'cards',
             'data'  => cross_app_url_for('stats', 'cards/json'),
@@ -13,10 +14,6 @@
             'name'  => __('Member cards')
           )) 
     ?>
-  <!-- <div class="chart">
-    <?php //echo liWidgetOfc::createChart(800, 450, $sf_context->getModuleName().'/data',true); ?>
-    <p class="title"><?php //$acc = $sf_user->getAttribute('stats.accounting',array(),'admin_module'); if ( is_array($acc) ) foreach ( $acc['price'] as $price ) if ( $price ) { echo __('By value'); break; } ?></p>
-  </div> -->
   <div class="ui-widget-content ui-corner-all accounting">
   <form action="" method="get">
     <p><span><?php echo __('VAT:') ?></span><span><input type="text" name="accounting[vat]" value="<?php echo isset($accounting['vat']) ? $accounting['vat'] : 0 ?>" />%</span></p>
@@ -32,6 +29,7 @@
   <p class="ui-widget-content ui-corner-all warning">
     <?php echo __('This chart is calculated on the full selected period. If a member card expires or has been created within it, the total quantity will be impacted with a fraction of this member card and not a full one.') ?>
   </p>
+<?php endif ?>
 </div>
 
 <?php use_javascript('/js/jqplot/plugins/jqplot.pieRenderer.js') ?>

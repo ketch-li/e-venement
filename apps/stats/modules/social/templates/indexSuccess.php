@@ -6,6 +6,7 @@
     <?php include_partial('attendance/filters_buttons') ?>
     <h1><?php echo __('Social statistics',null,'menu') ?></h1>
   </div>
+  <?php if ( $sf_user->hasCredential('stats-pr-social') ): ?>
   <?php include_partial('global/chart_jqplot', array(
             'id'    => 'fs',
             'data'  => cross_app_url_for('stats', 'social/json'),
@@ -34,6 +35,7 @@
             'name'  => __('Social statistics',null,'menu')
           )) 
     ?>
+  <?php endif ?>
 	<div class="clear"></div>
 </div>
 

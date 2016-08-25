@@ -34,17 +34,7 @@ class geoActions extends sfActions
     if ( is_array($this->getCriterias()) )
       $this->form->bind($this->getCriterias());
   }
-  
-  protected function getCriterias()
-  {
-    return $this->getUser()->getAttribute('stats.criterias',array(),'admin_module');
-  }
-  protected function setCriterias($values)
-  {
-    $this->getUser()->setAttribute('stats.criterias',$values,'admin_module');
-    return $this;
-  }
-  
+
   public function executeJson(sfWebRequest $request)
   {
     $criterias = $this->getCriterias();
@@ -66,105 +56,15 @@ class geoActions extends sfActions
       }
     }
   }
-  public function executeCsv(sfWebRequest $request)
-  {
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N','Date','CrossAppLink','Number'));
-    
-    $criterias = $this->getCriterias();
-    $this->data = $this->getData($request->getParameter('type','ego'), !(isset($criterias['approach']) && $criterias['approach'] === ''), 'csv');
-    
-    $total = array('nb' => 0, 'value' => 0, 'tickets' => 0);
-    foreach ( $total as $approach => $val )
-    foreach ( $this->data[$approach] as $data )
-      $total[$approach] += $data;
-    
-    $this->lines = array();
-    foreach ( $this->data['nb'] as $name => $data )
-    {
-      $this->lines[$name] = array(
-        'name' => __($name),
-        'qty' => $data,
-        'percent' => format_number(round($data*100/($total['nb'] ? $total['nb'] : 0),2)),
-      );
-    }
-    foreach ( $this->data['tickets'] as $name => $data )
-    {
-      $this->lines[$name]['tickets'] = $data;
-      $this->lines[$name]['tickets%'] = format_number(round($data*100/($total['tickets'] ? $total['tickets'] : 1), 2));
-    }
-    foreach ( $this->data['value'] as $name => $data )
-    {
-      $this->lines[$name]['value'] = format_currency($data, $this->getContext()->getConfiguration()->getCurrency());
-      $this->lines[$name]['value%'] = format_number(round($data*100/($total['value'] ? $total['value'] : 1), 2));
-    }
-    
-    $this->lines['total'] = array(
-      'name'          => __('Total'),
-      'qty'           => $total['nb'],
-      'percent'       => 100,
-      'tickets'       => $total['tickets'],
-      'tickets%'      => 100,
-      'value'         => format_currency($total['value'],$this->getContext()->getConfiguration()->getCurrency()),
-      'value%'        => 100,
-    );
-    
-    $params = OptionCsvForm::getDBOptions();
-    $this->options = array(
-      'ms'        => in_array('microsoft',$params['option']),
-      'fields'    => array('name','qty','percent','tickets', 'tickets%', 'value','value%'),
-      'tunnel'    => false,
-      'noheader'  => false,
-    );
-    
-    // for data coming from GeoFrStreetBase
-    if ( isset($this->data['iris2008']) )
-    {
-      foreach ( $this->data['iris2008'] as $name => $iris )
-        $this->lines[$name]['iris2008'] = $iris;
-      $this->lines['total']['iris2008'] = '';
-      array_unshift($this->options['fields'], 'iris2008');
-    }
-    
-    $this->outstream = 'php://output';
-    $this->delimiter = $this->options['ms'] ? ';' : ',';
-    $this->enclosure = '"';
-    $this->charset   = sfConfig::get('software_internals_charset');
-    
-    sfConfig::set('sf_escaping_strategy', false);
-    $confcsv = sfConfig::get('software_internals_csv');
-    if ( isset($confcsv['set_charset']) && $confcsv['set_charset'] ) sfConfig::set('sf_charset', $this->options['ms'] ? $this->charset['ms'] : $this->charset['db']);
-    
-    if ( $request->hasParameter('debug') )
-    {
-      $this->setLayout('layout');
-      $this->getResponse()->sendHttpHeaders();
-    }
-    else
-      sfConfig::set('sf_web_debug', false);
-  }
   
-  public function executeData(sfWebRequest $request)
+  protected function getCriterias()
   {
-    $criterias = $this->getCriterias();
-    $data = $this->getData($request->getParameter('type','ego'), !(isset($criterias['approach']) && $criterias['approach'] === ''));
-    
-    $this->data = $data['nb'];
-    if ( isset($criterias['approach']) )
-    switch ( $criterias['approach'] ) {
-    case 'financial':
-      $this->data = $data['value'];
-      break;
-    case 'by-tickets':
-      $this->data = $data['tickets'];
-      break;
-    }
-    
-    if ( !$request->hasParameter('debug') )
-    {
-      $this->setLayout('raw');
-      sfConfig::set('sf_debug',false);
-      $this->getResponse()->setContentType('application/json');
-    }
+    return $this->getUser()->getAttribute('stats.criterias',array(),'admin_module');
+  }
+  protected function setCriterias($values)
+  {
+    $this->getUser()->setAttribute('stats.criterias',$values,'admin_module');
+    return $this;
   }
   
   protected function buildQuery()
