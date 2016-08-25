@@ -31,3 +31,7 @@
 
 .clear { clear: both; }
 
+.jqplot .help {
+  font-size: 0.8em;
+  line-height: 1.7em;
+}

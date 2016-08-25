@@ -27,14 +27,13 @@ PARAMETERS :
 mandatory:
 * id: the id of the chart, used for the parent div & the chart itself (appended by "_chart")
 * data: URL or Array usable directly by jqplot
-* label: the string to display as a label
 
 optional:
 * width: in px, by default 450px
 * name: the name of the current object
 */
 ?>
-
+<?php use_helper('I18N') ?>
 <?php include_partial('global/assets_jqplot') ?>
 
 <?php
@@ -47,13 +46,18 @@ optional:
   if ( !isset($name) ) $name = '';
 ?>
 
-<script type="text/javascript"><!--
-  LI.series['<?php echo $id ?>'] = <?php echo is_array($data) ? json_encode($data) : '"'+$data+'"' ?>;
---></script>
 <div class="<?php echo $id ?> jqplot ui-widget ui-corner-all ui-widget-content <?php echo $class ?>">
   <a name="<?php echo $id ?>_chart"></a>
-  <div class="ui-widget-header ui-corner-all fg-toolbar">
-    <h2 title="<?php echo $name ?>"><?php echo $label ?></h2>
+  <?php if (isset($label)): ?>
+    <div class="ui-widget-header ui-corner-all fg-toolbar">
+      <h2 title="<?php echo $name ?>"><?php echo $label ?></h2>
+    </div>
+  <?php endif; ?> 
+  <div class="label ui-helper-clearfix">
+    <div class="help">
+      <span class="ui-icon ui-icon-help floatleft"></span>
+      <?php echo __('If contextual details are not appearing on hover, please try and use the filters to narrow the results down') ?>
+    </div>
   </div>
   <div
     data-series-name="<?php echo $id ?>"
