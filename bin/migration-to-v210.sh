@@ -119,7 +119,7 @@ last=$?
 [ $last -eq 0 ] && ./symfony doctrine:build --sql
 last=$?
 ./symfony cc
-[ $last -eq 0 ] && ./symfony doctrine:insert --sql
+[ $last -eq 0 ] && ./symfony doctrine:insert-sql
 if [ ! $? -eq 0 ]
 then
   echo "";
