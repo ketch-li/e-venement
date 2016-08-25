@@ -37,6 +37,7 @@ LI.stats.prices = function(){
     var name = chart.attr('data-series-name');
     var id = chart.prop('id');
     var title = $(this).find('h2').prop('title') ? $(this).find('h2').prop('title')+': ' : '';
+    
     LI.csvData[name] = [
       [
         title,
@@ -69,6 +70,13 @@ LI.stats.prices = function(){
             lineWidth: 5
           },
           renderer: $.jqplot.PieRenderer
+        },
+        highlighter: {
+          sizeAdjust: 2,
+          show: true,
+          useAxesFormatters: false,
+          tooltipFormatString: '%s',
+          tooltipContentEditor: LI.stats.pieTooltips
         },
         cursor: {
           showTooltip: false,

@@ -51,8 +51,7 @@ LI.stats.groups = function(){
               tickOptions: { formatString:'%d/%m/%Y' }
             },
            yaxis: {
-              min: name == 'web-origin' ? 0 : null,
-              //tickInterval: 1,
+              min: 0,
               tickOptions: {
                 formatString: '%d'
               }

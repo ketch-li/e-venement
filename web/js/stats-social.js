@@ -48,6 +48,13 @@ LI.stats.social = function(){
           },
           renderer: $.jqplot.PieRenderer
         },
+        highlighter: {
+          sizeAdjust: 2,
+          show: true,
+          useAxesFormatters: false,
+          tooltipFormatString: '%s',
+          tooltipContentEditor: LI.stats.pieTooltips
+        },
         cursor: {
           showTooltip: false,
           show: true

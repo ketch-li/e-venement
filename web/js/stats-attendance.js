@@ -29,12 +29,15 @@ $(document).ready(function () {
     LI.stats.attendance();
 });
 
+LI.stats.attendanceLegends = [];
+
 LI.stats.attendance = function () {
     $('#content .jqplot').each(function () {
         var chart = $(this).find('.chart')
         var name = chart.attr('data-series-name');
         var id = chart.prop('id');
         var title = $(this).find('h2').prop('title') ? $(this).find('h2').prop('title') + ': ' : '';
+        
         LI.csvData[name] = [
             [
                 title,
@@ -47,7 +50,7 @@ LI.stats.attendance = function () {
             var ordered = [];
             var printed = [];
             var labels = [];
-
+            LI.stats.attendanceLegends = json.legends;
             LI.csvData[name].push(json.csvHeaders);
 
             $.each(json, function (key, value) {
@@ -97,7 +100,7 @@ LI.stats.attendance = function () {
                 } 
             });
 
-            var seriesLegend = [{label: json.legends.printed, color: "#FF0000"}, {label: json.legends.ordered, color: "#FFA500"}, {label: json.legends.total, color: "#00FF00"}];
+            var seriesLegend = [{label: json.legends.printed, color: "#FF0000"}, {label: json.legends.ordered, color: "#FFA500"}, {label: json.legends.available, color: "#00FF00"}];
 
             $.jqplot(id, [printed, ordered, array], {
                 height: 800,
@@ -121,12 +124,13 @@ LI.stats.attendance = function () {
                 },
                 highlighter: {
                     sizeAdjust: 2,
-                    show: true
+                    show: true,
+                    tooltipContentEditor: LI.stats.attendanceTooltips
                 },
                 legend: {
                     show: true,
-                    location: 'e',
-                    placement: 'outside'
+                    location: 'n',
+                    placement: 'inside'
                 },
                 cursor: {
                     show: true,
@@ -139,3 +143,22 @@ LI.stats.attendance = function () {
     });
 };
 
+LI.stats.attendanceTooltips = function (str, seriesIndex, pointIndex, plot){
+    
+    var label;
+    var total = plot.data[0][pointIndex] + plot.data[1][pointIndex] + plot.data[2][pointIndex];
+
+    switch(seriesIndex){
+        case 0:
+            label = LI.stats.attendanceLegends.printed;
+            break;
+        case 1:
+            label = LI.stats.attendanceLegends.ordered;
+            break;
+        default:
+            label = LI.stats.attendanceLegends.available;
+    }
+
+    return label + ': ' + plot.data[seriesIndex][pointIndex] + ', '
+         + LI.stats.attendanceLegends.total + ': ' + total;
+};
