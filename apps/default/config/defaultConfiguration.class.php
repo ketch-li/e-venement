@@ -36,4 +36,9 @@ class defaultConfiguration extends sfApplicationConfiguration
     
     $auth->save();
   }
+  
+  public function initialize()
+  {
+    ProjectConfiguration::initialize();
+  }
 }
