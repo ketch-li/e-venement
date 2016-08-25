@@ -52,7 +52,6 @@ class liOnlineExternalAuthOpenIDConnectActions
   
   public function routing()
   {
-    error_log($this->provider->getAuthorizationUrl());
     // If we don't have an authorization code then get one
     if ( !$this->request->getParameter('code', false) && !$this->request->getParameter('error', false) )
     {
