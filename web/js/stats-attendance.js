@@ -36,14 +36,13 @@ LI.stats.attendance = function () {
         var chart = $(this).find('.chart')
         var name = chart.attr('data-series-name');
         var id = chart.prop('id');
-        var title = $(this).find('h2').prop('title') ? $(this).find('h2').prop('title') + ': ' : '';
-        
+        var title = $(this).find('h2') ? $(this).find('h2').text() : '';
         LI.csvData[name] = [
-            [
-                title,
-                $(this).find('h2').text()
-            ]
-        ];
+          [
+            $(this).find('#csvTitle').text(),
+            title
+          ],
+        ]; 
         
         $.get(chart.attr('data-json-url'), function (json) {
             var array = [];
