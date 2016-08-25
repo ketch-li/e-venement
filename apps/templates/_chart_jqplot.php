@@ -53,6 +53,7 @@ optional:
       <h2 title="<?php echo $name ?>"><?php echo $label ?></h2>
     </div>
   <?php endif; ?> 
+  <span id="csvTitle" style="display:none"><?php echo $name ?></span>
   <div class="label ui-helper-clearfix">
     <div class="help">
       <span class="ui-icon ui-icon-help floatleft"></span>
