@@ -107,19 +107,19 @@ last=$?
 [ $last -eq 0 ] && ./symfony doctrine:drop-db --no-confirmation && ./symfony doctrine:build-db
 last=$?
 ./symfony cc
-[ $last -eq 0 ] && ./symfony doctrine:build-model
+[ $last -eq 0 ] && ./symfony doctrine:build --model
 last=$?
 ./symfony cc
-[ $last -eq 0 ] && ./symfony doctrine:build-forms
+[ $last -eq 0 ] && ./symfony doctrine:build --forms
 last=$?
 ./symfony cc
-[ $last -eq 0 ] && ./symfony doctrine:build-filters
+[ $last -eq 0 ] && ./symfony doctrine:build --filters
 last=$?
 ./symfony cc
-[ $last -eq 0 ] && ./symfony doctrine:build-sql
+[ $last -eq 0 ] && ./symfony doctrine:build --sql
 last=$?
 ./symfony cc
-[ $last -eq 0 ] && ./symfony doctrine:insert-sql
+[ $last -eq 0 ] && ./symfony doctrine:insert --sql
 if [ ! $? -eq 0 ]
 then
   echo "";
