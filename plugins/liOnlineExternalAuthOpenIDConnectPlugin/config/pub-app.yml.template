@@ -9,11 +9,12 @@ all:
     client_id: ID
     client_secret: PASS
     redirect_urls:
-      login: http://my.eve/pub.php/login
-      order: http://my.eve/pub.php/cart/order
+      login: /pub.php/login
+      order: /pub.php/cart/order
     #verify_ssl: false
     data_matching: # data given by OAuth: data stored by e-venement in the contact schema
-      name: name
+      given_name: firstname
+      family_name: name
       email: email
       country: country
       street_address: address

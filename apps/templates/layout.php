@@ -1,3 +1,4 @@
+<?php use_helper('CrossAppLink') ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
@@ -34,6 +35,7 @@
       ?>
     </ul>
     <div id="banner">
+      <?php use_helper('CrossAppLink') ?>
       <a href="<?php echo cross_app_url_for('default','sf_guard_signout') ?>" onclick="javascript: window.close()"><?php echo image_tag("close.png",array('alt' => 'close')) ?></a>
       <h1>
         <?php echo image_tag(sfConfig::get('project_museum',false) ? 'logo-emusee.png' : 'logo-evenement.png', array('alt' => '')); ?>

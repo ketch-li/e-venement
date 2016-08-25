@@ -21,7 +21,6 @@
 #**********************************************************************************/
 
 ContactOpenIdConnect:
-  package: rp
   columns:
     id:
       type: string(255)

@@ -1,4 +1,3 @@
-
 <?php include_partial('attendance/filters',array('form' => $form)) ?>
 <?php use_helper('Date') ?>
 <div class="ui-widget ui-corner-all ui-widget-content">

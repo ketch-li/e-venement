@@ -1,0 +1,4 @@
+<?php if ( sfConfig::get('app_options_manifestations_lists_as_select', false) ): ?>
+all:
+  javascripts: [pub-events]
+<?php endif ?>

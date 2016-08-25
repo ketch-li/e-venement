@@ -89,6 +89,24 @@ class StatsCriteriasForm extends BaseForm
     return $this;
   }
   
+  public function addLocationsCriteria()
+  {
+    $this->widgetSchema['locations_list'] = new sfWidgetFormDoctrineChoice(array(
+      'model' => 'Location',
+      'query' => Doctrine::getTable('Location')->createQuery('l')
+        ->andWhere('l.place = ?', true),
+      'order_by' => array('name',''),
+      'multiple' => true,
+      'label' => 'Locations',
+    ));
+    $this->validatorSchema['locations_list'] = new sfValidatorDoctrineChoice(array(
+      'model' => 'Location',
+      'multiple' => true,
+      'required' => false,
+    ));
+    return $this;
+  }
+  
   public function addUsersCriteria()
   {
     $this->widgetSchema['users'] = new sfWidgetFormDoctrineChoice(array(
