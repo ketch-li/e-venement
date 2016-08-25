@@ -29,6 +29,7 @@ class geoActions extends sfActions
       ->addOnlyWhatCriteria()
       ->addApproachCriteria()
       ->addEventCriterias()
+      ->addLocationsCriteria()
       ->addManifestationCriteria()
       ->addGroupsCriteria();
     if ( is_array($this->getCriterias()) )
@@ -224,6 +225,8 @@ class geoActions extends sfActions
       $q->andWhereIn('tck.sf_guard_user_id', $criterias['sf_guard_users_list']);
     if ( isset($criterias['events_list']) && is_array($criterias['events_list']) )
       $q->andWhereIn('m.event_id', $criterias['events_list']);
+    if ( isset($criterias['locations_list']) && is_array($criterias['locations_list']) )
+      $q->andWhereIn('m.location_id', $criterias['locations_list']);
     if ( isset($criterias['manifestations_list']) && is_array($criterias['manifestations_list']) )
       $q->andWhereIn('m.id', $criterias['manifestations_list']);
     
