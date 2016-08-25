@@ -55,9 +55,10 @@ if ( !sfConfig::get('project_tickets_count_demands',false) )
 }
 
 $json['legends'] = array(
-    'total'   => __('Total'), 
-    'ordered' => __('Ordered'),
-    'printed' => __('Printed')
+    'total'     => __('Total'), 
+    'ordered'   => __('Ordered'),
+    'printed'   => __('Printed'),
+    'available' => __('Free')
 );
 
 echo json_encode($json);
