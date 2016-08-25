@@ -58,7 +58,7 @@ $json['legends'] = array(
     'total'     => __('Total'), 
     'ordered'   => __('Ordered'),
     'printed'   => __('Printed'),
-    'available' => __('Free')
+    'available' => __('Available')
 );
 
 echo json_encode($json);
