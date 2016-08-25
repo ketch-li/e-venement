@@ -61,7 +61,9 @@ all:
     wellknownurl: https://auth.example.com/.well-known/openid-configuration # mandatory
     client_id: eve-id
     client_secret: eve-pass
-    redirect_uri: http://localhost/pub.php/login
+    redirect_urls:
+      login: http://localhost/pub.php/login
+      order: http://localhost/pub.php/cart/order
     verify_ssl: false
     #scope_separator: ' '
     data_matching: # data given by OAuth: data stored by e-venement in the contact schema
