@@ -13,7 +13,8 @@ all:
       order: /pub.php/cart/order
     #verify_ssl: false
     data_matching: # data given by OAuth: data stored by e-venement in the contact schema
-      name: name
+      given_name: firstname
+      family_name: name
       email: email
       country: country
       street_address: address
