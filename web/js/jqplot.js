@@ -28,6 +28,8 @@ if ( LI.series == undefined )
   LI.series = {};
 if ( LI.csvData == undefined )
   LI.csvData = {};
+if ( LI.stats === undefined )
+  LI.stats = [];
 
 $(document).ready(function(){
 
@@ -58,4 +60,20 @@ LI.chartActions.exportCsv = function(){
       .prop('href', url)
     ;
   });
+};
+
+LI.stats.pieTooltips = function (str, seriesIndex, pointIndex, plot){
+
+     var total = 0;
+     var data = plot.data[seriesIndex];
+     var label = data[pointIndex][0];
+     var value = data[pointIndex][1];
+     
+     $(data).each(function(key, value){
+        total +=  value[1];     
+     });
+
+     var percentage = Math.round(100*value/total);
+
+     return label + ': ' + value + ' (' + percentage + '%) , ' + 'Total: ' + total;
 };
