@@ -33,7 +33,7 @@ optional:
 * name: the name of the current object
 */
 ?>
-<?php use_helper('I18N') ?>
+
 <?php include_partial('global/assets_jqplot') ?>
 
 <?php
@@ -54,12 +54,7 @@ optional:
     </div>
   <?php endif; ?> 
   <span id="csvTitle" style="display:none"><?php echo $name ?></span>
-  <div class="label ui-helper-clearfix">
-    <div class="help">
-      <span class="ui-icon ui-icon-help floatleft"></span>
-      <?php echo __('If contextual details are not appearing on hover, please try and use the filters to narrow the results down') ?>
-    </div>
-  </div>
+  <?php include_partial('global/chart_help'); ?>
   <div
     data-series-name="<?php echo $id ?>"
     id="<?php echo $id ?>_chart"
