@@ -558,7 +558,7 @@ class geoActions extends sfActions
         ->addSelect('sum(tck.value) AS sum')
         ->groupBy('c.id');
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
-        $res[$approach]['others'] = -$res[$approach]['exact'] -$res[$approach]['metropolis'] -$res[$approach]['department'] -$res[$approach]['region'] -$res['nb']['country'];
+        $res[$approach]['others'] = -$res[$approach]['exact'] -$res[$approach]['metropolis'] -$res[$approach]['department'] -$res[$approach]['region'] -$res[$approach]['country'];
       $arr = $q->fetchArray();
       foreach ( $arr as $c )
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
