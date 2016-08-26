@@ -54,7 +54,6 @@ optional:
     </div>
   <?php endif; ?> 
   <span id="csvTitle" style="display:none"><?php echo $name ?></span>
-  <?php include_partial('global/chart_help'); ?>
   <div
     data-series-name="<?php echo $id ?>"
     id="<?php echo $id ?>_chart"
