@@ -16,7 +16,13 @@
     <ul class="bunch manifestations ui-widget-content ui-corner-all" data-bunch-id="manifestations">
       <li class="search"><input type="text" name="search" value="" placeholder="<?php echo __('Search for a declination') ?>" data-url="<?php echo url_for('transaction/getStore?simplified=true&q=SEARCH_VAL') ?>" autocomplete="off" /></li>
     </ul>
-    <input type="hidden" id="manifestations-display-interval" value="<?php $conf = sfConfig::get('app_transaction_manifestations', array('display_time_limit' => '1 month')); echo date('Y-m-d H:i:s', strtotime(!isset($conf['display_time_interval']) ? '1 month': $conf['display_time_interval'] )); ?>"/>
+    <?php $conf = sfConfig::get('app_transaction_manifestations', array('display_time_interval' => '+1 month')) ?>
+    <input
+      type="hidden"
+      name="manifestations-display-interval"
+      value="<?php echo date('Y-m-d H:i:s', strtotime(!isset($conf['display_time_limit']) ? '+1 month' : $conf['display_time_limit'])); ?>"
+      data-conf="<?php echo $conf['display_time_limit'] ?>"
+    />
 
     <ul class="prices ui-widget-content ui-corner-all">
     </ul>
