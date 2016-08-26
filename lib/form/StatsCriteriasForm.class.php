@@ -134,6 +134,7 @@ class StatsCriteriasForm extends BaseForm
     ));
     $this->validatorSchema['with_contact'] = new sfValidatorChoice(array(
       'choices' => array_keys($choices),
+      'required' => false,
     ));
     return $this;
   }
