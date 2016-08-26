@@ -249,7 +249,6 @@ LI.touchscreenSimplified_LoadData = function(data, form, append){
         case 'manifestations':
           var manifDate = new Date(manif.happens_at.replace(' ', 'T'));
           pdt = manifDate.toLocaleString().replace(/:\d\d( \w+){0,1}$/,'');
-          console.error(manifDate,' > ',timeLimit, manifDate.getTime() > timeLimit.getTime());
 
           if ( manifDate.getTime() > timeLimit.getTime() )
           {
