@@ -228,8 +228,6 @@ class geoActions extends sfActions
     case 'districts':
       $q = $this->buildQuery()
         ->select('t.id, c.id AS contact_id')
-        ->addSelect('(SELECT db.name FROM GeoFrStreetBase sb LEFT JOIN sb.GeoFrDistrictBase db WHERE c.address = sb.address AND c.postalcode = sb.zip AND c.city = sb.city) AS iris')
-        ->addSelect('(SELECT sb2.iris2008 FROM GeoFrStreetBase sb2 WHERE c.address = sb2.address AND c.postalcode = sb2.zip AND c.city = sb2.city) AS iris2008')
         ->addSelect('count(DISTINCT tck.id) AS qty')
         ->addSelect('sum(tck.value) AS sum')
         ->groupBy('t.id, c.id, c.postalcode, pro.id, o.postalcode, t.postalcode')
@@ -248,6 +246,7 @@ class geoActions extends sfActions
         if ( !isset($res[$approach][$pc['iris']]) )
           $res[$approach][$pc['iris']] = 0;
         $res[$approach][$pc['iris']] += is_int($field) ? $field : $pc[$field];
+        $total[$approach] += is_int($field) ? $field : $pc[$field];
       }
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
         arsort($res[$approach]);
@@ -528,7 +527,6 @@ class geoActions extends sfActions
         $res[$approach]['exact'] += is_int($field) ? $field : $c[$field];
       }
       
-      
       // metropolis
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
         $res[$approach]['metropolis'] = 0;
@@ -653,7 +651,7 @@ class geoActions extends sfActions
         ->addSelect('sum(tck.value) AS sum')
         ->groupBy('t.id, c.id');
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
-        $res[$approach]['others'] = -$res[$approach]['exact'] -$res[$approach]['metropolis'] -$res[$approach]['department'] -$res[$approach]['region'] -$res['nb']['country'];
+        $res[$approach]['others'] = -$res[$approach]['exact'] -$res[$approach]['metropolis'] -$res[$approach]['department'] -$res[$approach]['region'] -$res[$approach]['country'];
       $arr = $q->fetchArray();
       $contacts = array();
       foreach ( $arr as $c )
@@ -669,7 +667,7 @@ class geoActions extends sfActions
         }
         
         $res[$approach]['others'] += is_int($field) ? $field : $c[$field];
-        $total[$approach] += is_int($field) ? $field : $c[$field]
+        $total[$approach] += is_int($field) ? $field : $c[$field];
       }
 
       // removes metropolis if not needed
