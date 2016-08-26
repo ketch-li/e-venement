@@ -6,6 +6,7 @@
     <h1><?php echo __('Memberships-like from %%from%% to %%to%%',array('%%from%%' => format_date($dates['from']), '%%to%%' => format_date($dates['to']))) ?></h1>
     <?php include_partial('attendance/filters_buttons') ?>
   </div>
+  <?php include_partial('global/chart_help'); ?>
   <?php if ( $sf_user->hasCredential('stats-pr-cards') ): ?>
    <?php include_partial('global/chart_jqplot', array(
             'id'    => 'cards',

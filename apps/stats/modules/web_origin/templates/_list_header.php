@@ -1,3 +1,4 @@
+<?php include_partial('global/chart_help'); ?>
 <?php if ( $sf_user->hasCredential('stats-pub') ): ?>
       <?php include_partial('global/chart_jqplot', array(
         'id'    => 'referers',

@@ -3,6 +3,7 @@
   <div class="ui-widget-header ui-corner-all fg-toolbar">
     <h1><?php echo __('Evolution of groups',array(),'menu') ?></h1>
   </div>
+  <?php include_partial('global/chart_help'); ?>
   <?php if ( $sf_user->hasCredential('stats-pr-groups') ): ?>
     <?php include_partial('global/chart_jqplot', array(
             'id'    => 'groups',

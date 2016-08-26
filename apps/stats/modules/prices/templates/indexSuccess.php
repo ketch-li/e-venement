@@ -6,6 +6,7 @@
     	<?php include_partial('attendance/filters_buttons') ?>
     	<h1><?php echo __('Tickets by price',null,'menu') ?></h1>
   	</div>
+  	<?php include_partial('global/chart_help'); ?>
   	<?php if ( $sf_user->hasCredential('stats-prices') ): ?>
 		<?php include_partial('show_criterias') ?>
 		<?php include_partial('global/chart_jqplot', array(

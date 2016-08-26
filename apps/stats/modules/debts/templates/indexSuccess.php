@@ -1,8 +1,9 @@
+<?php use_helper('CrossAppLink') ?>
 <div class="ui-widget ui-corner-all ui-widget-content">
   <div class="ui-widget-header ui-corner-all fg-toolbar">
     <h1><?php echo __('Debts evolution',array(),'menu') ?></h1>
   </div>
-  <?php use_helper('CrossAppLink') ?>
+  <?php include_partial('global/chart_help'); ?>
   <?php if ( $sf_user->hasCredential('stats-activity') ): ?>
 	  <?php include_partial('global/chart_jqplot', array(
 	          'id'    => 'debts',

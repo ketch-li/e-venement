@@ -6,6 +6,7 @@
     <?php include_partial('attendance/filters_buttons') ?>
     <h1><?php echo __('Social statistics',null,'menu') ?></h1>
   </div>
+  <?php include_partial('global/chart_help'); ?>
   <?php if ( $sf_user->hasCredential('stats-pr-social') ): ?>
   <?php include_partial('global/chart_jqplot', array(
             'id'    => 'fs',

@@ -4,6 +4,7 @@
     <?php include_partial('filters_buttons') ?>
     <h1><?php echo __('Gauge filling') ?></h1>
   </div>
+  <?php include_partial('global/chart_help'); ?>
   <?php if ( $sf_user->hasCredential('stats-attendance') ): ?>
   <?php include_partial('global/chart_jqplot', array(
 		  	    'id'    => 'attendance',
