@@ -58,6 +58,8 @@ $(document).ready(function(){
     <p class="date"><span class="title"><?php echo __('Expiration date') ?></span> <?php echo format_date($card->expire_at) ?></p>
     <p class="extra-date"><?php echo nl2br(sfConfig::get('app_cards_date_extra')) ?></p>
     <p class="extra-card"><?php echo nl2br(sfConfig::get('app_cards_extra')) ?></p>
+    <p class="barcode"><?php echo image_tag('/liBarcodePlugin/php-barcode/barcode.php?scale=1&code='.$contact->getIdBarcoded()); ?></p>
+    <p class="logo"></p>
   </div>
 </div>
 </div>

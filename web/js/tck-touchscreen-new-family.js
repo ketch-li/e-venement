@@ -88,6 +88,7 @@
             // if only one option is available w/o looking for something special
             // or if we are in a "direct" mode
             // then select this only option
+            /*
             if ( (direct || $(elt).val() == '') && select.find('option').length == 1
               && location.hash != '#debug'
               && (direct || $(elt).closest('.bunch').find('.families:not(.sample) .family:not(.total)').length == 0)
@@ -99,6 +100,7 @@
                 $('#li_transaction_field_price_new [name="price_new[id]"]:first').click();
               }, 2000);
             }
+            */
             
             // reset the search words
             if ( direct )
@@ -149,7 +151,7 @@
           //.prop('title',$(this).closest('.family').find('h3').text().replace("\n",''))
           .css('background-color', $(this).closest('.family').find('h3').css('background-color'))
           .appendTo($(this).closest('.bunch').find('.new-family select'));
-        if ( $('#li_transaction_field_new_transaction a.persistant').length > 0 )
+        if ( $('#li_transaction_field_new_transaction a.persistant').length == 1 )
         $('#li_transaction_field_new_transaction a.persistant').prop('href', $('#li_transaction_field_new_transaction a.persistant').prop('href').replace(
           '#'+$(this).closest('.bunch').prop('id').replace('li_transaction_','')+'-'+$(this).closest('.family').attr('data-family-id'),
           ''

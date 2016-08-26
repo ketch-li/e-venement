@@ -33,10 +33,9 @@
     <p class="price_vat"><span class="description"><?php echo $ticket->Manifestation->Vat->value*100 ?>&nbsp;%</span> - <span class="value"><?php echo format_normal_currency($ticket->value*$ticket->Manifestation->Vat->value,$sf_context->getConfiguration()->getCurrency()) ?></span></p>
     <p class="event"><?php echo mb_strlen($buf = (string)$ticket->Manifestation->Event) > $maxsize['event_name'] ? mb_substr(nl2br($buf),0,$maxsize['event_name']).'...' : nl2br($buf) ?></p>
     <p class="event-short"><?php echo mb_strlen($buf = $ticket->Manifestation->Event->short_name) > $maxsize['event_shortname'] ? mb_substr($buf,0,$maxsize['event_shortname']).'...' : $buf ?></p>
-    <p class="subtitle">
-    <?php if ( sfConfig::get('app_tickets_subtitle_display', false) ): ?>
-    <?php echo mb_strlen($buf = $ticket->Manifestation->Event->subtitle) > $maxsize['event_shortname'] ? mb_substr($buf,0,$maxsize['event_shortname']).'...' : $buf ?>
-    <?php endif ?>
+    <p class="event-subtitle">
+      <?php echo mb_strlen($buf = $ticket->Manifestation->Event->subtitle) > $maxsize['event_shortname'] ? mb_substr($buf,0,$maxsize['event_shortname']).'...' : $buf ?>
+    </p>
     <p class="cie"><?php $creators = array(); $cpt = 0; foreach ( $ticket->Manifestation->Event->Companies as $company ) { if ( $cpt++ > 1 ) break; $creators[] .= $company->name; } echo implode(', ',$creators); ?></p>
     <p class="org"><span class="orgas"><?php $orgas = array(sfConfig::get('app_seller_name')); $cpt = 0; foreach ( $ticket->Manifestation->Organizers as $orga ) { if ( $cpt++ > 2 ) break; if ( strpos($orgas[0],$orga->name) !== false ) $orgas[] = $orga->name; else $cpt--; } echo implode('</span>, <span class="orgas">',$orgas); ?></span></p>
     <p class="seat"><?php echo $ticket->numerotation ? __('Seat n°%%s%%',array('%%s%%' => $ticket->numerotation)) : '' ?></p>
@@ -113,7 +112,6 @@
     <p class="spectator">
       <?php if ( $ticket->contact_id ): ?>
         <?php echo $ticket->DirectContact ?>
-      <?php elseif ( sfConfig::get('app_tickets_spectator_display_all', false) ): ?>
         <span class="organism"><?php echo $ticket->Transaction->Professional->Organism ?></span>
         <span class="contact"><?php echo $ticket->Transaction->Contact ?></span>
       <?php else: ?>
