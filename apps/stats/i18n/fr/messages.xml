@@ -665,7 +665,7 @@
         <target>Libres</target>
       </trans-unit>
       <trans-unit>
-        <source>If contextual details are not appearing on hover, please try and use the filters to narrow the results down</source>
+        <source>If contextual details do not appear on hover, please try and use the filters to narrow the results down</source>
         <target>Si les informations contextuelles n'apparaissent pas au survol d'un point, veuillez utiliser les filtres afin de réduire le nombre de résultats</target>
       </trans-unit>
     </body>

@@ -25,6 +25,6 @@
 <div class="label ui-helper-clearfix">
   <div class="help" id="chart-help">
     <span class="ui-icon ui-icon-help floatleft"></span>
-    <?php echo __('If contextual details are not appearing on hover, please try and use the filters to narrow the results down') ?>
+    <?php echo __('If contextual details do not appear on hover, please try and use the filters to narrow the results down') ?>
   </div>
 </div>
