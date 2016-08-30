@@ -2,9 +2,7 @@
 <?php use_javascript('default-dashboard?'.date('Ymd')) ?>
 <?php use_javascript('helper') ?>
 <?php use_helper('CrossAppLink') ?>
-
-  <div id="dashboard">
-    <?php include_partial('global/chart_help'); ?>
+<div id="dashboard">
     <?php if ( $sf_user->hasCredential('stats-pub') ): ?>
       <?php include_partial('global/chart_jqplot', array(
         'id'    => 'web-origin',
