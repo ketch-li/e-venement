@@ -234,7 +234,8 @@ LI.touchscreenSimplified_LoadData = function(data, form, append){
       
       var events = {};
       var manifsAfterLimit = 0;
-
+      var timeLimit = new Date($('#li_transaction_field_simplified [name=manifestations-display-interval]').val().replace(' ', 'T')); // retrieves the time limit after which we want to hide the manifestations
+      
       $.each(data.success.success_fields[type].data.content, function(id, manif){
         if ( window.location.hash == '#debug' )
           console.error('Simplified GUI: Loading an item (#'+id+') from the '+type);
@@ -247,10 +248,9 @@ LI.touchscreenSimplified_LoadData = function(data, form, append){
         case 'museum':
         case 'manifestations':
           var manifDate = new Date(manif.happens_at.replace(' ', 'T'));
-          var timeLimit = new Date($('#li_transaction_field_simplified #manifestations-display-interval').val().replace(' ', 'T'));
           pdt = manifDate.toLocaleString().replace(/:\d\d( \w+){0,1}$/,'');
 
-          if(manifDate.getTime() > timeLimit.getTime())
+          if ( manifDate.getTime() > timeLimit.getTime() )
           {
             widget.addClass('after-limit');
             manifsAfterLimit++;

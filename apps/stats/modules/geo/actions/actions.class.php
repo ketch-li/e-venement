@@ -228,8 +228,6 @@ class geoActions extends sfActions
     case 'districts':
       $q = $this->buildQuery()
         ->select('t.id, c.id AS contact_id')
-        ->addSelect('(SELECT db.name FROM GeoFrStreetBase sb LEFT JOIN sb.GeoFrDistrictBase db WHERE c.address = sb.address AND c.postalcode = sb.zip AND c.city = sb.city) AS iris')
-        ->addSelect('(SELECT sb2.iris2008 FROM GeoFrStreetBase sb2 WHERE c.address = sb2.address AND c.postalcode = sb2.zip AND c.city = sb2.city) AS iris2008')
         ->addSelect('count(DISTINCT tck.id) AS qty')
         ->addSelect('sum(tck.value) AS sum')
         ->groupBy('t.id, c.id, c.postalcode, pro.id, o.postalcode, t.postalcode')
@@ -248,6 +246,7 @@ class geoActions extends sfActions
         if ( !isset($res[$approach][$pc['iris']]) )
           $res[$approach][$pc['iris']] = 0;
         $res[$approach][$pc['iris']] += is_int($field) ? $field : $pc[$field];
+        $total[$approach] += is_int($field) ? $field : $pc[$field];
       }
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
         arsort($res[$approach]);
@@ -526,10 +525,11 @@ class geoActions extends sfActions
         }
         
         $res[$approach]['exact'] += is_int($field) ? $field : $c[$field];
-        $total[$approach] += is_int($field) ? $field : $c[$field];
       }
       
       // metropolis
+      foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
+        $res[$approach]['metropolis'] = 0;
       if ( count($client['postalcode']) > 1 )
       {
         $buf = $client['postalcode'][0];
@@ -543,7 +543,7 @@ class geoActions extends sfActions
           ->andWhere('(pro.id IS NULL AND (c.country ILIKE ? OR c.country IS NULL OR c.country = ?) OR pro.id IS NOT NULL AND (o.country ILIKE ? OR o.country IS NULL OR o.country = ?))', array(isset($client['country']) ? $client['country'] : 'France', '', isset($client['country']) ? $client['country'] : 'France', '',))
         ;
         foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
-          $res[$approach]['metropolis'] = 0;
+          $res[$approach]['metropolis'] = -$res[$approach]['exact'];
         $contacts = array();
         $arr = $q->fetchArray();
         foreach ( $arr as $c )
@@ -559,7 +559,6 @@ class geoActions extends sfActions
           }
           
           $res[$approach]['metropolis'] += is_int($field) ? $field : $c[$field];
-          $total[$approach] += is_int($field) ? $field : $c[$field];
         }
         $client['postalcode'][0] = $buf;
         $qs[0] = '?';
@@ -574,7 +573,7 @@ class geoActions extends sfActions
         ->andWhere("substring(CASE WHEN o.postalcode IS NOT NULL AND o.postalcode != '' THEN o.postalcode ELSE CASE WHEN c.postalcode IS NOT NULL AND c.postalcode != '' THEN c.postalcode ELSE t.postalcode END END, 1, 2) = substring(?, 1, 2)", $client['postalcode'][0])
         ->andWhere('(pro.id IS NULL AND (c.country ILIKE ? OR c.country IS NULL OR c.country = ?) OR pro.id IS NOT NULL AND (o.country ILIKE ? OR o.country IS NULL OR o.country = ?))', array(isset($client['country']) ? $client['country'] : 'France', '', isset($client['country']) ? $client['country'] : 'France', '',));
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
-        $res[$approach]['department'] = -$res[$approach]['exact'];
+        $res[$approach]['department'] = -$res[$approach]['exact'] -$res[$approach]['metropolis'];
       $contacts = array();
       $arr = $q->fetchArray();
       foreach ( $arr as $c )
@@ -590,7 +589,6 @@ class geoActions extends sfActions
         }
         
         $res[$approach]['department'] += is_int($field) ? $field : $c[$field];
-        $total[$approach] += is_int($field) ? $field : $c[$field];
       }
       
       // region
@@ -602,7 +600,7 @@ class geoActions extends sfActions
         ->andWhere("substring(CASE WHEN o.postalcode IS NOT NULL AND o.postalcode != '' THEN o.postalcode ELSE CASE WHEN c.postalcode IS NOT NULL AND c.postalcode != '' THEN c.postalcode ELSE t.postalcode END END, 1, 2) = substring(?, 1, 2)", $client['postalcode'][0])
         ->andWhere('(pro.id IS NULL AND (c.country ILIKE ? OR c.country IS NULL OR c.country = ?) OR pro.id IS NOT NULL AND (o.country ILIKE ? OR o.country IS NULL OR o.country = ?))', array(isset($client['country']) ? $client['country'] : 'France', '', isset($client['country']) ? $client['country'] : 'France', '',));
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
-        $res[$approach]['region'] = -$res[$approach]['exact'] -$res[$approach]['department'];
+        $res[$approach]['region'] = -$res[$approach]['exact'] -$res[$approach]['metropolis'] -$res[$approach]['department'];
       $contacts = array();
       $arr = $q->fetchArray();
       foreach ( $arr as $c )
@@ -618,7 +616,6 @@ class geoActions extends sfActions
         }
         
         $res[$approach]['region'] += is_int($field) ? $field : $c[$field];
-        $total[$approach] += is_int($field) ? $field : $c[$field];
       }
       
       // country
@@ -629,7 +626,7 @@ class geoActions extends sfActions
         ->groupBy('t.id, c.id')
         ->andWhere('(pro.id IS NULL AND (c.country ILIKE ? OR c.country IS NULL OR c.country = ?) OR pro.id IS NOT NULL AND (o.country ILIKE ? OR o.country IS NULL OR o.country = ?))', array(isset($client['country']) ? $client['country'] : 'France', '', isset($client['country']) ? $client['country'] : 'France', '',));
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
-        $res[$approach]['country'] = -$res[$approach]['exact'] -$res[$approach]['department'] -$res[$approach]['region'];
+        $res[$approach]['country'] = -$res[$approach]['exact'] -$res[$approach]['metropolis'] -$res[$approach]['department'] -$res[$approach]['region'];
       $arr = $q->fetchArray();
       $contacts = array();
       foreach ( $arr as $c )
@@ -645,7 +642,6 @@ class geoActions extends sfActions
         }
         
         $res[$approach]['country'] += is_int($field) ? $field : $c[$field];
-        $total[$approach] += is_int($field) ? $field : $c[$field];
       }
       
       // others
@@ -655,7 +651,7 @@ class geoActions extends sfActions
         ->addSelect('sum(tck.value) AS sum')
         ->groupBy('t.id, c.id');
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
-        $res[$approach]['others'] = -$res[$approach]['exact'] -$res[$approach]['department'] -$res[$approach]['region'] -$res['nb']['country'];
+        $res[$approach]['others'] = -$res[$approach]['exact'] -$res[$approach]['metropolis'] -$res[$approach]['department'] -$res[$approach]['region'] -$res[$approach]['country'];
       $arr = $q->fetchArray();
       $contacts = array();
       foreach ( $arr as $c )
@@ -673,6 +669,11 @@ class geoActions extends sfActions
         $res[$approach]['others'] += is_int($field) ? $field : $c[$field];
         $total[$approach] += is_int($field) ? $field : $c[$field];
       }
+
+      // removes metropolis if not needed
+      if ( count($client['postalcode']) <= 1 )
+      foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
+        unset($res[$approach]['metropolis']);
       
       break;
     }
