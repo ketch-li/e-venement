@@ -219,7 +219,7 @@ EOF
           continue;
       }
       
-      if (!( $content = $transaction->$fct(array('barcode' => 'png', 'only' => $only, 'only_strict' => true)) ))
+      if (!( $content = $transaction->$fct(array('barcode' => 'png', 'only' => $only, 'only_strict' => sfConfig::get('app_tickets_pdf_attachments', true) === 'forValidatedStuff')) ))
         continue;
       
       // attachments, tickets/products in PDF
