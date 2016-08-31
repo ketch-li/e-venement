@@ -278,8 +278,7 @@ class Transaction extends PluginTransaction
             $id = 'm'.$ticket->manifestation_id;
             break;
           case 'vertical': // every tickets of a single DirectContact for a single MetaEvent
-            if ( $ticket->contact_id )
-              $id = 'c'.$ticket->contact_id.'me'.$ticket->Manifestation->Event->meta_event_id;
+            $id = 'c'.($ticket->contact_id ? $ticket->contact_id : 0).'me'.$ticket->Manifestation->Event->meta_event_id;
             break;
         }
         
