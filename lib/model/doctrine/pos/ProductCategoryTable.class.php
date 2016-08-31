@@ -38,7 +38,7 @@ class ProductCategoryTable extends PluginProductCategoryTable
     
     $q->andWhere('pc.online = ?', true)
       ->leftJoin('p.Prices price')
-      ->leftJoin('price.Users u WITH u.id = ?',$user->id)
+      ->leftJoin('price.Users u WITH u.id = '.$user->getId()) // cannot use '?' to avoid bugs
       ->andWhere('u.id IS NOT NULL OR children.id IS NOT NULL')
     ;
     if ( $user )
