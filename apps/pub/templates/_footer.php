@@ -13,6 +13,7 @@
 <a href="http://www.postgresql.org/">PostgreSQL</a>
 
 <?php // auto adding tickets linked to member cards ?>
+<?php echo get_class($sf_user->getAttribute('pub.mc.autoadd_tickets',false)); ?>
 <script type="text/javascript"><!--
   var url = '<?php echo url_for('ticket/autoAdd') ?>';
   var tickets = [];
@@ -24,7 +25,12 @@
     quantity: <?php echo $mcp->quantity ?>
   });
 <?php endforeach ?>
-  $.get(url, { tickets: tickets }, function(){ location.reload(); });
+  $.ajax({
+    url: url,
+    data: { tickets: tickets },
+    success: function(){ location.reload(); },
+    error: function(){ location.reload(); }
+  });
   $('body').html('Loading...');
 <?php $sf_user->setAttribute('pub.mc.autoadd_tickets', false) ?>
 <?php endif ?>
