@@ -515,8 +515,6 @@ class myUser extends pubUser
         $mcp[$ticket->price_id][$ticket->event_id]--;
       elseif ( isset($mpc[$ticket->price_id]['']) )
         $mcp[$ticket->price_id]['']--;
-      else
-        throw new liOnlineSalesException('Online sales: Impossible to link a ticket to the member card...');
     }
     
     return $mcp;
