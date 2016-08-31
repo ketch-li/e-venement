@@ -13,7 +13,6 @@
 <a href="http://www.postgresql.org/">PostgreSQL</a>
 
 <?php // auto adding tickets linked to member cards ?>
-<?php echo get_class($sf_user->getAttribute('pub.mc.autoadd_tickets',false)); ?>
 <script type="text/javascript"><!--
   var url = '<?php echo url_for('ticket/autoAdd') ?>';
   var tickets = [];
