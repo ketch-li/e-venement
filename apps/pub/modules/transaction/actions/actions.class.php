@@ -62,7 +62,7 @@ class transactionActions extends sfActions
       $this->setLayout(false);
       return 'PDF';
     case 'html':
-      $this->setLayout('nude');
+      $this->setLayout(false);
       return 'Success';
     default:
       $this->dispatcher->notify($event = new sfEvent($this, 'pub.transaction_generate_other_format', array(
