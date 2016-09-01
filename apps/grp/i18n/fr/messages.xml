@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Dates range</source>
+        <target>Intervalle de dates</target>
+      </trans-unit>
+      <trans-unit>
         <source>Impossible</source>
         <target>Impossible</target>
       </trans-unit>

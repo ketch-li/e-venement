@@ -108,8 +108,7 @@ class eventActions extends autoEventActions
   {
     parent::executeEdit($request);
     
-    $q = new Doctrine_Query();
-    $this->entry = $q->from('Entry e')
+    $q = Doctrine_Query::create()->from('Entry e')
       ->leftJoin('e.ContactEntries ce')
       ->leftJoin('ce.Transaction t')
       ->leftJoin('t.Translinked t2')
@@ -120,7 +119,19 @@ class eventActions extends autoEventActions
       ->leftJoin('me.Manifestation m')
       ->andWhere('e.event_id = ?',$request->getParameter('id'))
       ->orderBy("ce.comment1 IS NULL OR TRIM(ce.comment1) = '', ce.comment1, c.name, c.firstname, m.happens_at ASC")
-      ->fetchOne();
+    ;
+    
+    // using date_range filter to focus on some manifestations only
+    $filters = $this->getFilters();
+    if ( isset($filters['dates_range']) )
+    {
+      if ( isset($filters['dates_range']['from']) )
+        $q->andWhere('m.happens_at > ?', $filters['dates_range']['from']);
+      if ( isset($filters['dates_range']['to']) )
+        $q->andWhere('m.happens_at < ?', $filters['dates_range']['to']);
+    }
+    
+    $this->entry = $q->fetchOne();
     
     if ( !$this->entry )
     {

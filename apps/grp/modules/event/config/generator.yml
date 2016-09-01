@@ -41,7 +41,7 @@ generator:
           _from_date_to_date:
             action: fromDateToDate
       filter:
-        display: [meta_event_id,name]
+        display: [meta_event_id, dates_range, name]
       form: ~
       edit:
         title: Entry %%name%%
