@@ -290,8 +290,8 @@ class groupActions extends autoGroupActions
     $this->form = $this->configuration->getForm();
     $this->group = $this->form->getObject();
     $this->form->bind($request->getParameter($this->form->getName()), $request->getFiles($this->form->getName()));
-    if ( $this->form->getValue('sf_guard_user_id') !== $this->getUser()->getId()
-      && !$this->getUser()->hasCredential('pr-group-common') && !$this->getUser()->hasCredential('pr-group-edit') )
+    if ( $this->form->getValue('sf_guard_user_id') && $this->form->getValue('sf_guard_user_id') !== $this->getUser()->getId()
+      || !$this->form->getValue('sf_guard_user_id') && !$this->getUser()->hasCredential('pr-group-common') && !$this->getUser()->hasCredential('pr-group-edit') )
       $this->forward404('You cannot modify a common group, sorry.');
     
     $this->processForm($request, $this->form);
@@ -339,7 +339,7 @@ class groupActions extends autoGroupActions
     if ( !$this->getUser()->hasCredential('pr-group-perso') && !$this->getUser()->hasCredential('pr-group-common')
       || is_null($this->group->sf_guard_user_id) && !( $this->getUser()->hasCredential('pr-group-common') && $this->getUser()->hasCredential('pr-group-edit') )
       || !is_null($this->group->sf_guard_user_id) && $this->group->sf_guard_user_id !== $this->getUser()->getId() )
-      $this->forward404('You cannot modify this (common?) group, sorry.');
+    $this->forward404('You cannot modify this (common?) group, sorry.');
     
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
@@ -351,8 +351,9 @@ class groupActions extends autoGroupActions
     // restricting deletable groups to accessible groups
     $q = Doctrine::getTable('Group')->createQuery('g')
       ->andWhereIn('g.id', $request->getParameter('ids'))
+      ->andWhere('g.sf_guard_user_id = ? OR g.sf_guard_user_id IS NULL AND TRUE = ?', array($this->getUser()->getId(), $this->getUser()->hasCredential('pr-group-edit')))
     ;
-    $ids = array();
+    $ids = array(0);
     foreach ( $q->execute() as $group )
       $ids[] = $group->id;
     $request->setParameter('ids', $ids);
@@ -370,12 +371,11 @@ class groupActions extends autoGroupActions
       *
       **/
     if ( !$this->getUser()->hasCredential('pr-group-perso') && !$this->getUser()->hasCredential('pr-group-common')
-      || is_null($this->group->sf_guard_user_id) && !$this->getUser()->hasCredential('pr-group-common') && !$this->getUser()->hasCredential('pr-group-del')
+      || is_null($this->group->sf_guard_user_id) && !( $this->getUser()->hasCredential('pr-group-common') && $this->getUser()->hasCredential('pr-group-edit') )
       || !is_null($this->group->sf_guard_user_id) && $this->group->sf_guard_user_id !== $this->getUser()->getId() )
     $this->forward404('You cannot delete a common group, sorry.');
     
     parent::executeDelete($request);
-    
   }
 
   public function executeIndex(sfWebRequest $request)
