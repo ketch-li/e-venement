@@ -42,7 +42,7 @@ class Price extends PluginPrice implements liUserAccessInterface
     // continue after this comment if we are in an online sales context
     
     // not linked to any member card
-    if ( !$this->member_card_linked )
+    if ( !$this->member_card_linked || !$this->isNew() )
       return true;
     
     $manifestation = NULL;
