@@ -14,7 +14,8 @@ ul.no-bullet li.highlight { text-decoration: underline; }
 .sf_admin_list .sf_admin_list_th_list_locations, .sf_admin_list .sf_admin_list_td_list_locations,
 .sf_admin_list .sf_admin_list_th_list_depends_on_dates, .sf_admin_list .sf_admin_list_td_list_depends_on_dates,
 .sf_admin_list .sf_admin_list_th_list_depends_on, .sf_admin_list .sf_admin_list_td_list_depends_on,
-.sf_admin_list .sf_admin_list_th_month, .sf_admin_list .sf_admin_list_td_month { display: none; }
+.sf_admin_list .sf_admin_list_th_month, .sf_admin_list .sf_admin_list_td_month,
+.sf_admin_list .sf_admin_list_th_list_description, .sf_admin_list .sf_admin_list_td_list_description { display: none; }
 .sf_admin_list_td_list_companies ul { margin: 0; padding: 0; }
 #sf_admin_container .sf_admin_list tbody td { vertical-align: middle; }
 .sf_admin_list table thead a { padding: 0; }
