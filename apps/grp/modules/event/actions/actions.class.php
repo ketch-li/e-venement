@@ -36,6 +36,47 @@ require_once dirname(__FILE__).'/../lib/eventGeneratorHelper.class.php';
  */
 class eventActions extends autoEventActions
 {
+  public function executeAddContactToEvent(sfWebRequest $request)
+  {
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('CrossAppLink'));
+    
+    $this->form = new sfForm;
+    $ws = $this->form->getWidgetSchema();
+    $vs = $this->form->getValidatorSchema();
+    $ws['professional_id'] = new liWidgetFormDoctrineJQueryAutocompleter(array(
+      'model' => 'Professional',
+      'url'   => cross_app_url_for('rp', 'professional/ajax'),
+      'default' => $request->getParameter('professional_id')
+    ));
+    $ws['event_id'] = new liWidgetFormDoctrineJQueryAutocompleter(array(
+      'model' => 'Event',
+      'url'   => cross_app_url_for('event', 'event/ajax'),
+      'default' => $request->getParameter('event_id')
+    ));
+    
+    // if some data is given
+    if ( $request->hasParameter('professional_id') && $request->hasParameter('event_id') )
+    {
+      // prerequisite
+      if ( !($entry = Doctrine::getTable('Entry')->createQuery('e')
+        ->andWhere('e.event_id = ?', $request->getParameter('event_id'))
+        ->fetchOne())
+      || !($professional = Doctrine::getTable('Professional')->createQuery('p')
+        ->andWhere('p.id = ?', $request->getParameter('professional_id'))
+        ->fetchOne()) )
+      {
+        $this->getUser()->setFlash('error', __('The submitted event or contact is invalid.'));
+        $this->redirect('event/addContactToEvent?professional_id='.$request->getParameter('professional_id').'&event_id='.$request->getParameter('event_id'));
+      }
+      
+      $ce = new ContactEntry;
+      $ce->entry_id = $entry->id;
+      $ce->professional_id = $professional->id;
+      $ce->save();
+      
+      $this->redirect('event/addContactToEvent?event_id='.$request->getParameter('event_id'));
+    }
+  }
   public function executeFromDateToDate(sfWebRequest $request)
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N'));
