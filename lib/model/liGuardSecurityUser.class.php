@@ -52,7 +52,7 @@ class liGuardSecurityUser extends sfGuardSecurityUser
   }
   public function __toString()
   {
-    return is_object($this->getGuardUser()) ? $this->getGuardUser()->__toString() : '__unknown__';
+    return is_object($this->getGuardUser()) ? $this->getGuardUser()->__toString() : '__Logout__';
   }
   public function getCredentials()
   {
