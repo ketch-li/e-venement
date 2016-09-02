@@ -40,6 +40,8 @@ generator:
         actions:
           _from_date_to_date:
             action: fromDateToDate
+          _add_a_contact_to_an_event:
+            action: addContactToEvent
       filter:
         display: [meta_event_id, dates_range, name]
       form: ~

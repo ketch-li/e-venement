@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Add a contact to an event</source>
+        <target>Ajouter un contact à un événement</target>
+      </trans-unit>
+      <trans-unit>
         <source>Dates range</source>
         <target>Intervalle de dates</target>
       </trans-unit>

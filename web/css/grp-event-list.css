@@ -10,3 +10,5 @@
 .from-date-to-date .ui-button { margin-top: 5px; }
 .from-date-to-date input[type=text]:not(.sfWFDTyear) { width: 2em; }
 .from-date-to-date input[type=text].sfWFDTyear { width: 4em; }
+
+#sf_admin_filter .sf_admin_filter_field_dates_range span { display: block; }
