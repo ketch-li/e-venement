@@ -15,6 +15,10 @@ class ProductCategoryForm extends BaseProductCategoryForm
     $this->widgetSchema['vat_id']->setOption('order_by', array('value',''));
     $this->widgetSchema['product_category_id']->setOption('order_by', array('pct.name', ''));
     
+    $this->widgetSchema['color_id']
+      ->setOption('order_by',array('name',''))
+      ->setOption('method', 'getName');
+
     if ( $this->object->isNew() )
       return;
     // Now everything is done for updates, not for creations

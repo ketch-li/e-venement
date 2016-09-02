@@ -52,7 +52,7 @@
    *     (location: string)
    *     (location_url: xxx (absolute) link)
    *     description: string, description
-   *     color: string CSS color of the manifestation
+   *     color: string CSS color of the manifestation or the product category
    *     (declination_url: xxx (absolute) data to display the global gauge)
    *     declinations_name: string, "gauges"
    *     gauges:
@@ -457,7 +457,7 @@
             'description'   => $product->description,
             'category_url'  => cross_app_url_for('pos', 'category/show?id='.$product->product_category_id,true),
             'product_url'   => cross_app_url_for('pos', 'product/show?id='.$product->id, true),
-            'color'         => NULL,
+            'color'         => (string)$product->Category->Color,
             'declinations_url'  => NULL,
             'declinations_name' => $declinations_name,
           );

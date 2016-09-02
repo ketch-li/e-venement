@@ -229,7 +229,7 @@ class productActions extends autoProductActions
     {
       $this->products[] = array(
         'id'    => $product->id,
-        'color' => NULL,
+        'color' => (string)$product->Category->Color,
         'name'  => (string)$product,
         'gauge_url' => url_for('product/state?id='.$product->id),
       );
