@@ -120,7 +120,8 @@ class attendanceActions extends sfActions
     // tickets with or without contact
     $criteria_tt_contact = isset($criterias['with_contact']) && $criterias['with_contact']
       ? ' AND ttr%%d%%.contact_id IS '.($criterias['with_contact'] == 'yes' ? 'NOT' : '').' NULL'
-      : '';
+      : ''
+    ;
 
     $q = Doctrine::getTable('Manifestation')->createQuery('m')
       ->leftJoin('e.EventCategory ec')
@@ -138,7 +139,6 @@ class attendanceActions extends sfActions
       ->orderBy('m.happens_at, et.name')
       ->groupBy('m.id, m.happens_at, e.id, et.lang, et.id, et.name, l.id, l.name, l.city, ec.id, me.id, met.id, met.lang');
     
-    if ( true || $extra_data )
     $q->addSelect('(SELECT sum((tt5.printed_at IS NOT NULL OR tt5.integrated_at IS NOT NULL) AND tt5.duplicating IS NULL AND tt5.cancelling IS NULL) FROM ticket tt5 LEFT JOIN tt5.Transaction ttr5 WHERE m.id = tt5.manifestation_id AND tt5.id NOT IN (SELECT ttt5.cancelling FROM ticket ttt5 WHERE ttt5.cancelling IS NOT NULL AND ttt5.manifestation_id = m.id) '.str_replace('%%d%%','5',$criteria_tt_gauge).' '.str_replace('%%d%%','5',$criteria_tt_contact).' AND (SELECT count(ttp5.id) FROM Payment ttp5 WHERE ttp5.transaction_id = ttr5.id) > 0) AS printed_with_payment')
       ->addSelect('(SELECT sum((tt6.printed_at IS NOT NULL OR tt6.integrated_at IS NOT NULL) AND tt6.duplicating IS NULL AND tt6.cancelling IS NULL) FROM ticket tt6 LEFT JOIN tt6.Transaction ttr6 WHERE m.id = tt6.manifestation_id AND tt6.id NOT IN (SELECT ttt6.cancelling FROM ticket ttt6 WHERE ttt6.cancelling IS NOT NULL AND ttt6.manifestation_id = m.id) '.str_replace('%%d%%','6',$criteria_tt_gauge).' '.str_replace('%%d%%','6',$criteria_tt_contact).'  AND tt6.value = 0) AS printed_gifts')
       ->addSelect('(SELECT sum((tt7.printed_at IS NOT NULL OR tt7.integrated_at IS NOT NULL) AND tt7.duplicating IS NULL AND tt7.cancelling IS NULL) FROM ticket tt7 LEFT JOIN tt7.Transaction ttr7 LEFT JOIN ttr7.Payments ttp WHERE m.id = tt7.manifestation_id AND tt7.id NOT IN (SELECT ttt7.cancelling FROM ticket ttt7 WHERE ttt7.cancelling IS NOT NULL AND ttt7.manifestation_id = m.id) '.str_replace('%%d%%','7',$criteria_tt_gauge).' '.str_replace('%%d%%','7',$criteria_tt_contact).' AND ttr7.deposit = TRUE) AS printed_deposits')
