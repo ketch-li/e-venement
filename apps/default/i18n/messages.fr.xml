@@ -436,6 +436,14 @@
         <source>Password (again)</source>
         <target>Mot de passe (encore)</target>
       </trans-unit>
+      <trans-unit>
+        <source>Last attempt !</source>
+        <target>Dernier essai !</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Please contact your administrator</source>
+        <target>Veuillez contacter votre administrateur</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
