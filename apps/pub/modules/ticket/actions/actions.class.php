@@ -83,7 +83,7 @@ class ticketActions extends sfActions
       $nb = intval($ticket['quantity']);
       $tickets = array();
       for ( $i = 0 ; $i < $nb ; $i++ )
-      $tickets[] = array(
+      $tickets[] = array( // this is a workaround to avoid multiple adds of the same kind of ticket
         'gauge_id' => $gauge->id,
         'price_id' => $ticket['price_id'],
         'action'   => 'add',
@@ -92,8 +92,8 @@ class ticketActions extends sfActions
       $request->setParameter('tickets', $tickets);
       $request->setParameter('manifestation_id', $gauge->manifestation_id);
       $this->executeModTickets($request);
-      $this->getUser()->getTransaction(true);
     }
+    $this->getUser()->getTransaction(true);
     return sfView::NONE;
   }
   

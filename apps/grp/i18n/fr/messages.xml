@@ -5,6 +5,26 @@
     <header/>
     <body>
       <trans-unit>
+        <source>The submitted contact or event is invalid.</source>
+        <target>Le contact ou l'événement est invalide.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>The submitted manifestation is invalid.</source>
+        <target>La manifestation est invalide.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Add a contact to an event</source>
+        <target>Ajouter un contact à un événement</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Add a manifestation to an event</source>
+        <target>Ajouter une manifestation à un événement</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Dates range</source>
+        <target>Intervalle de dates</target>
+      </trans-unit>
+      <trans-unit>
         <source>Impossible</source>
         <target>Impossible</target>
       </trans-unit>

@@ -30,6 +30,7 @@
     success: function(){ location.reload(); },
     error: function(){ location.reload(); }
   });
+  
   $('body').html('Loading...');
   LI.busyIndicator();
 <?php $sf_user->setAttribute('pub.mc.autoadd_tickets', false) ?>
