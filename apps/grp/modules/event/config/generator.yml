@@ -40,8 +40,12 @@ generator:
         actions:
           _from_date_to_date:
             action: fromDateToDate
+          _add_a_contact_to_an_event:
+            action: addContactToEvent
+          _add_a_manifestation_to_an_event:
+            action: addManifestationToEvent
       filter:
-        display: [meta_event_id,name]
+        display: [meta_event_id, dates_range, name]
       form: ~
       edit:
         title: Entry %%name%%
