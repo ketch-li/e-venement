@@ -236,7 +236,7 @@ class productActions extends autoProductActions
     }
     else
       $this->products[$product->id] = $request->hasParameter('with_colors')
-        ? array('name' => (string)$product, 'color' => NULL)
+        ? array('name' => (string)$product, 'color' => (string)$product->Category->Color,)
         : (string) $product;
   }
   

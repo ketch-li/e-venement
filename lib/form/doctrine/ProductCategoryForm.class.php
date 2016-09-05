@@ -19,14 +19,18 @@ class ProductCategoryForm extends BaseProductCategoryForm
       ->setOption('order_by',array('name',''))
       ->setOption('method', 'getName');
 
-    if ( $this->object->isNew() )
-      return;
-    // Now everything is done for updates, not for creations
-    
+    // accepts only one level of ancestry
     $this->widgetSchema   ['product_category_id']->setOption('query', $q = Doctrine::getTable('ProductCategory')->createQuery('pc')
-      ->andWhere('pc.id != ?', $this->object->id));
+      ->andWhere('pc.product_category_id IS NULL'));
     $this->validatorSchema['product_category_id']->setOption('query', $q);
     if ( sfContext::hasInstance() )
       $q->andWhere('pct.lang = ?', sfContext::getInstance()->getUser()->getCulture());
+    
+    if ( $this->object->isNew() )
+      return;
+    
+    // Now everything is done for updates, not for creations
+    $this->widgetSchema['product_category_id']->getOption('query')
+      ->andWhere('pc.id != ?', $this->object->id);
   }
 }

@@ -15,6 +15,9 @@
   <div class="content simplified-top-block">
     <ul class="bunch manifestations ui-widget-content ui-corner-all" data-bunch-id="manifestations">
       <li class="search"><input type="text" name="search" value="" placeholder="<?php echo __('Search for a declination') ?>" data-url="<?php echo url_for('transaction/getStore?simplified=true&q=SEARCH_VAL') ?>" autocomplete="off" /></li>
+      <li class="categories" data-text-categories="<?php echo $cats = __('Categories') ?>" data-text-best-sales="<?php echo __('Best sales') ?>" data-categories-url="<?php echo cross_app_url_for('pos', 'category/ajax?keep-order=true') ?>" data-products-url="<?php echo url_for('transaction/getStore?simplified=1&category_id=CATID') ?>">
+        <span class="category"><?php echo $cats ?></span>
+      </li>
     </ul>
     <?php $conf = sfConfig::get('app_transaction_manifestations', array('display_time_interval' => '+1 month')) ?>
     <input
