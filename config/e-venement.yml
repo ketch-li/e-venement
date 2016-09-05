@@ -22,8 +22,8 @@
 all:
   about:
     name: e-venement
-    contributors: [Baptiste SIMON, Marcos BEZERRA DE M., Romain SANCHEZ, Julien LE PRUNENEC, Bevlhay FERRAND, Ludovic SOULIÉ, Ayoub HIDRI, Mick LOEFFEL, Très Tôt Théâtre, "Le 3ème étage de l'Opéra de Paris", Libre Informatique, Symfony Team, "#symfony-fr"]
-    version: 2.10-RC7
+    contributors: [Baptiste SIMON, Marcos BEZERRA DE M., Romain SANCHEZ, Bevlhay FERRAND, Ludovic SOULIÉ, Ayoub HIDRI, Mick LOEFFEL, Très Tôt Théâtre, "Le 3ème étage de l'Opéra de Paris", Libre Informatique, Symfony Team, "#symfony-fr"]
+    version: 2.10.0
   internals:
     charset:
       old:    ISO-8859-1
