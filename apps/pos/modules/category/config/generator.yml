@@ -26,10 +26,10 @@ generator:
           _delete: ~
         title: List of products' categories
       filter:
-        display: [product_category_id, name, vat_id, online]
+        display: [product_category_id, name, vat_id, online, color_id]
       form:
         display:
-          General: [product_category_id, name, vat_id, online]
+          General: [product_category_id, name, vat_id, online, color_id]
           Shipping fees: [shipping_fees, _form_shipping_fees]
       edit:
         title: Edit category %%name%%

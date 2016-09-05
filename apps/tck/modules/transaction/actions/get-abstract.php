@@ -51,8 +51,10 @@
    *     product_url:  xxx (absolute) link
    *     (location: string)
    *     (location_url: xxx (absolute) link)
+   *     category: string, name of the category
+   *     category_id: integer, the id of the category
    *     description: string, description
-   *     color: string CSS color of the manifestation
+   *     color: string CSS color of the manifestation or the product category
    *     (declination_url: xxx (absolute) data to display the global gauge)
    *     declinations_name: string, "gauges"
    *     gauges:
@@ -155,7 +157,7 @@
           ->leftJoin('n.Gauges ng WITH ng.onsite = TRUE')
         ;
       
-      // retrictive parameters
+      // retrictive parameters (for the simplified GUI)
       $pid = array();
       if ( !$request->getParameter('manifestation_id',false)
         && !$request->getParameter('gauge_id', false)
@@ -165,7 +167,6 @@
         $conf = sfConfig::get('app_transaction_manifestations', array());
         if (!( isset($conf['max_display']) && is_int($conf['max_display']) ))
           $conf['max_display'] = 20;
-        
         
         $q2 = Doctrine::getTable('Manifestation')->createQuery('m')
           ->select('m.id')
@@ -204,9 +205,10 @@
       $product_id  = 'Declination->product_id';
       $product_key = 'Declination->Product->ordering_key';
       
+      // retrictive parameters (for the simplified GUI)
       if ( !$request->getParameter('id',false) && $request->hasParameter('simplified') )
       {
-        // here we add the next manifestations if nothing is asked and the GUI is "simplified"
+        // here we add the best products if nothing is asked and the GUI is "simplified"
         $conf = sfConfig::get('app_transaction_store', array());
         if (!( isset($conf['max_display']) && is_int($conf['max_display']) ))
           $conf['max_display'] = 20;
@@ -215,14 +217,18 @@
           ->select('pd.id')
           ->leftJoin('pd.Product p')
           ->andWhere('p.vat_id IS NOT NULL')
-          ->orderBy("(SELECT count(bp.id) FROM BoughtProduct bp WHERE bp.product_declination_id = pd.id AND bp.integrated_at > NOW() - '2 weeks'::interval) DESC, pd.created_at DESC")
-          ->limit($conf['max_display'])
         ;
-        
+        if ( $request->getParameter('category_id', false) )
+          $q2
+            ->leftJoin('p.Category pc')
+            ->andWhere('pc.id = ? OR pc.product_category_id = ?', array(intval($request->getParameter('category_id')), intval($request->getParameter('category_id'))));
+        else
+          $q2->limit($conf['max_display'])
+            ->orderBy("(SELECT count(bp.id) FROM BoughtProduct bp WHERE bp.product_declination_id = pd.id AND bp.integrated_at > NOW() - '2 weeks'::interval) DESC, pd.created_at DESC")
+          ;
+         
         if ( $request->hasParameter('q') )
-        {
           $q2->andWhere('pd.code ILIKE ?', $request->getParameter('q').'%');
-        }
         
         $ids = array();
         foreach ( $q2->execute() as $pd )
@@ -400,6 +406,7 @@
             'id'            => $product->id,
             'name'          => NULL,
             'category'      => (string)$product->Event,
+            'category_id'   => $product->event_id,
             'description'   => $product->Event->description,
             'gauge_url'     => cross_app_url_for('event', 'gauge/state?json=true&manifestation_id='.$product->id, true),
             'happens_at'    => (string)$product->happens_at,
@@ -421,7 +428,7 @@
             ->leftJoin('p.PriceProducts pp')
             ->leftJoin('pp.Price price WITH price.hide = ? AND price.id IN (SELECT up.price_id FROM UserPrice up WHERE up.sf_guard_user_id = ?)', array(false, $this->getUser()->getId()))
             ->leftJoin('price.Translation prt WITH prt.lang = ?', $this->getUser()->getCulture())
-            ->orderBy('pt.name, dt.name, prt.name')
+            ->orderBy("(SELECT count(bp.id) FROM BoughtProduct bp LEFT JOIN bp.Declination pd WHERE pd.product_id = p.id AND bp.integrated_at > NOW() - '2 weeks'::interval) DESC, pt.name, dt.name, prt.name")
             ->leftJoin('price.UserPrices pup WITH pup.sf_guard_user_id = ?',$this->getUser()->getId())
             ->leftJoin('p.MetaEvent pme')
             ->andWhereIn('pme.id IS NULL OR pme.id', array_keys($this->getUser()->getMetaEventsCredentials()))
@@ -454,10 +461,11 @@
             'id'            => $product->id,
             'name'          => (string)$product,
             'category'      => (string)$product->Category,
+            'category_id'   => $product->product_category_id,
             'description'   => $product->description,
             'category_url'  => cross_app_url_for('pos', 'category/show?id='.$product->product_category_id,true),
             'product_url'   => cross_app_url_for('pos', 'product/show?id='.$product->id, true),
-            'color'         => NULL,
+            'color'         => (string)$product->Category->Color,
             'declinations_url'  => NULL,
             'declinations_name' => $declinations_name,
           );

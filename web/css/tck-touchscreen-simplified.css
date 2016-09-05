@@ -17,6 +17,7 @@
 #li_fieldset_simplified .simplified-top-block > .bunch > li:hover { background-color: rgba(255,237,189,0.6); }
 #li_fieldset_simplified .simplified-top-block > .bunch > li .happens_at { white-space: nowrap; }
 #li_fieldset_simplified .simplified-top-block > .bunch > li .category { font-weight: bold; display: block; }
+#li_fieldset_simplified .simplified-top-block > .bunch > li > span { border-left: 5px solid transparent; }
 #li_fieldset_simplified .simplified-top-block > .bunch > li > ul { display: none; text-align: left; margin-top: 4px; }
 #li_fieldset_simplified .simplified-top-block > .bunch > li > :not(ul) { cursor: pointer; display: block; text-align: center; }
 #li_fieldset_simplified .simplified-top-block > .bunch > li > ul > li { border-radius: 3px; padding: 6px; }
@@ -59,8 +60,9 @@
 #li_fieldset_simplified .bunch .gauge-gfx .perfect { background-color: green; }
 #li_fieldset_simplified .bunch .gauge-gfx .warning { background-color: orange; }
 #li_fieldset_simplified .bunch .gauge-gfx .critical { background-color: red; }
-#li_fieldset_simplified .bunch .search { display: none; }
-#li_fieldset_simplified .bunch[data-bunch-id=store]:not(.in-progress) .search { display: list-item; }
+#li_fieldset_simplified .bunch .categories, #li_fieldset_simplified .bunch .search { display: none; }
+#li_fieldset_simplified .bunch[data-bunch-id=store]:not(.in-progress) .search, #li_fieldset_simplified .bunch[data-bunch-id=store]:not(.in-progress) .categories { display: list-item; }
+#li_fieldset_simplified .bunch .categories { font-style: italic; }
 #li_fieldset_simplified .bunch .search input { width: 96%; }
 
 #sf_admin_content .li_fieldset #li_transaction_field_new_transaction.simplified, #sf_admin_content .li_fieldset #li_transaction_field_contact_id.simplified { position: absolute; z-index: 11; }

@@ -5,6 +5,14 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Best sales</source>
+        <target>Meilleures ventes</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Categories</source>
+        <target>Catégories</target>
+      </trans-unit>
+      <trans-unit>
         <source>Unable to send an email: no email address available.</source>
         <target>Impossible d'envoyer un email: pas d'adresse disponible.</target>
       </trans-unit>
