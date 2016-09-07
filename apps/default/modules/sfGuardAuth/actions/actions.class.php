@@ -52,6 +52,8 @@ class sfGuardAuthActions extends BasesfGuardAuthActions
       $this->form->getErrorSchema()->addError(new sfValidatorError(new sfValidatorSchema(), __('The username and/or password is invalid.')), 'username');
       $this->form->setDefault('username', $userName);
       $this->dispatcher->notify(new sfEvent($this, 'user.auth_failed'));
+
+      return 'Success';
     }
 
     // log in attempt 
