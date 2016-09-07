@@ -82,118 +82,119 @@ EOF;
           $date = date('Y-m-d H:i:s', $time),
         ));
       }
-    }
-    
-    $manifs = $q->execute();
-    if ( $manifs->count() == 0 )
-      $this->logSection('notification', sprintf('Nothing to notify.'));
-    else foreach ( $manifs as $manif )
-    {
-      $who = isset($alarms['who']) ? $alarms['who'] : array('organizers', 'applicant');
-      $emails = array();
-      // related to the manifestation itself
-      if ( in_array('organizers', $who) )
-      foreach ( $manif->Organizers as $org )
-      if ( $org->email )
-        $emails[$org->email] = $org->email;
-      // related to the applicants
-      if ( in_array('applicant', $who) && $manif->contact_id && ($manif->Applicant->sf_guard_user_id || $manif->Applicant->email) )
-      {
-        $email = $manif->Applicant->sf_guard_user_id ? $manif->Applicant->User->email_address : $manif->Applicant->email;
-        $emails[$email] = $email;
-      }
-      if ( in_array('applicant', $who) && $manif->organism_id && ($manif->ApplicantOrganism->email) )
-        $emails[$manif->ApplicantOrganism->email] = $manif->ApplicantOrganism->email;
-      // related to the Location
-      if ( in_array('location', $who) )
-      foreach ( array('contact', 'organism') as $entity )
-      if ( $manif->Location->{$entity.'_id'} && $manif->Location->${ucfirst($entity)}->email )
-      {
-        $email = $manif->Location->${ucfirst($entity)}->email;
-        $emails[$email] = $email;
-      }
-      if ( $manif->Location->email )
-        $emails[$manif->Location->email] = $manif->Location->email;
-      // the global admins
-      if ( in_array('admins', $who) )
-      {
-        $q = Doctrine::getTable('sfGuardUser')->createQuery('u')
-          ->leftJoin('u.Groups g')
-          ->andWhereIn('g.name', array('event-reservation-admin', 'event-reservation-super-admin'))
-          ->leftJoin('u.Contact c')
-        ;
-        foreach ( $q->execute() as $user )
-        {
-          $emails[$user->Contact->email] = $user->Contact->email;
-          $emails[$user->email_address] = $user->email_address;
-        }
-      }
       
-      foreach ( $emails as $emailaddr )
+      $manifs = $q->execute();
+      if ( $manifs->count() == 0 )
+        $this->logSection('notification', sprintf('Nothing to notify.'));
+      else foreach ( $manifs as $manif )
       {
-        $email = new Email;
-        $email->setMailer($this->getMailer());
-        $email->isATest(false);
-        $email->setNoSpool(true);
-        
-        $email->field_from = $from;
-        $email->to = $emailaddr;
-        $email->field_subject = $manif->reservation_confirmed
-          ? __('Notification for %%manif%%', array('%%manif%%' => (string)$manif))
-          : __('Notification of a pending manifestation on the %%date%%', array('%%date%%' => format_date($manif->happens_at)))
-        ;
-        
-        // preparing the content
-        $orgs = array();
+        $who = isset($alarms['who']) ? $alarms['who'] : array('organizers', 'applicant');
+        $emails = array();
+        // related to the manifestation itself
+        if ( in_array('organizers', $who) )
         foreach ( $manif->Organizers as $org )
-          $orgs[] = $org;
-        $state = array();
-        foreach ( array(
-          '!reservation_confirmed' => __('To be confirmed'),
-          'reservation_confirmed' => __('Confirmed'),
-          '!blocking'              => __('Not blocking'),
-        ) as $prop => $msg )
+        if ( $org->email )
+          $emails[$org->email] = $org->email;
+        // related to the applicants
+        if ( in_array('applicant', $who) && $manif->contact_id && ($manif->Applicant->sf_guard_user_id || $manif->Applicant->email) )
         {
-          $bool = true;
-          $field = $prop;
-          if ( substr($prop,0,1) == '!' )
+          $email = $manif->Applicant->sf_guard_user_id ? $manif->Applicant->User->email_address : $manif->Applicant->email;
+          $emails[$email] = $email;
+        }
+        if ( in_array('applicant', $who) && $manif->organism_id && ($manif->ApplicantOrganism->email) )
+          $emails[$manif->ApplicantOrganism->email] = $manif->ApplicantOrganism->email;
+        // related to the Location
+        if ( in_array('location', $who) )
+        foreach ( array('contact', 'organism') as $entity )
+        if ( $manif->Location->{$entity.'_id'} && $manif->Location->${ucfirst($entity)}->email )
+        {
+          $email = $manif->Location->${ucfirst($entity)}->email;
+          $emails[$email] = $email;
+        }
+        if ( $manif->Location->email )
+          $emails[$manif->Location->email] = $manif->Location->email;
+        // the global admins
+        if ( in_array('admins', $who) )
+        {
+          $q = Doctrine::getTable('sfGuardUser')->createQuery('u')
+            ->leftJoin('u.Groups g')
+            ->andWhereIn('g.name', array('event-reservation-admin', 'event-reservation-super-admin'))
+            ->leftJoin('u.Contact c')
+          ;
+          foreach ( $q->execute() as $user )
           {
-            $bool = false;
-            $field = substr($prop,1);
+            if ( !$user->Contact[0]->isNew() )
+              $emails[$user->Contact[0]->email] = $user->Contact[0]->email;
+            $emails[$user->email_address] = $user->email_address;
+          }
+        }
+        
+        foreach ( $emails as $emailaddr )
+        {
+          $email = new Email;
+          $email->setMailer($this->getMailer());
+          $email->isATest(false);
+          $email->setNoSpool(true);
+          
+          $email->field_from = $from;
+          $email->to = $emailaddr;
+          $email->field_subject = $manif->reservation_confirmed
+            ? __('Notification for %%manif%%', array('%%manif%%' => (string)$manif))
+            : __('Notification of a pending manifestation on the %%date%%', array('%%date%%' => format_date($manif->happens_at)))
+          ;
+          
+          // preparing the content
+          $orgs = array();
+          foreach ( $manif->Organizers as $org )
+            $orgs[] = $org;
+          $state = array();
+          foreach ( array(
+            '!reservation_confirmed' => __('To be confirmed'),
+            'reservation_confirmed' => __('Confirmed'),
+            '!blocking'              => __('Not blocking'),
+          ) as $prop => $msg )
+          {
+            $bool = true;
+            $field = $prop;
+            if ( substr($prop,0,1) == '!' )
+            {
+              $bool = false;
+              $field = substr($prop,1);
+            }
+            
+            if ( $manif->$field === $bool )
+              $state[] = $msg;
           }
           
-          if ( $manif->$field === $bool )
-            $state[] = $msg;
+          // content
+          $email->content = sprintf(<<<EOF
+            %s<br/><br/>
+            %s: %s<br/><br/><br/>
+            %s: %s - %s<br/><br/>
+            %s: %s<br/><br/>
+            %s: %s<br/><br/>
+            %s: %s<br/><br/>
+            %s: %s<br/><br/>
+            %s: %s<br/><br/>
+EOF
+            , (string)$manif
+            , __('State'), implode(', ',$state)
+            , __('When'), $manif->mini_date, $manif->mini_end_date
+            , __('Where'), (string)$manif->Location
+            , __('Applicant'), (string)$manif->Applicant
+            , __('Applied by organism'), (string)$manif->ApplicantOrganism
+            , __('Organizers'), implode(', ',$orgs)
+            , __('Memo'), $manif->description
+          );
+          
+          $email->deleted_at = date('Y-m-d H:i:s');
+          $email->save();
+          //$email->delete();
+          $this->logSection('Notification', sprintf('for manifestation %s sent to %s', (string)$manif, $emailaddr));
         }
         
-        // content
-        $email->content = sprintf(<<<EOF
-          %s<br/><br/>
-          %s: %s<br/><br/><br/>
-          %s: %s - %s<br/><br/>
-          %s: %s<br/><br/>
-          %s: %s<br/><br/>
-          %s: %s<br/><br/>
-          %s: %s<br/><br/>
-          %s: %s<br/><br/>
-EOF
-          , (string)$manif
-          , __('State'), implode(', ',$state)
-          , __('When'), $manif->mini_date, $manif->mini_end_date
-          , __('Where'), (string)$manif->Location
-          , __('Applicant'), (string)$manif->Applicant
-          , __('Applied by organism'), (string)$manif->ApplicantOrganism
-          , __('Organizers'), implode(', ',$orgs)
-          , __('Memo'), $manif->description
-        );
-        
-        $email->deleted_at = date('Y-m-d H:i:s');
-        $email->save();
-        //$email->delete();
-        $this->logSection('Notification', sprintf('for manifestation %s sent to %s', (string)$manif, $emailaddr));
+        $this->logSection('Manifestation', sprintf('%s done.', str_replace("\n"," ",(string)$manif)));
       }
-      
-      $this->logSection('Manifestation', sprintf('%s done.', (string)$manif));
     }
   }
 }
