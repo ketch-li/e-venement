@@ -31,8 +31,7 @@ generator:
         table_method: retrievePublicList
         sort: ['min_date, m.happens_at', '']
         title: <?php echo is_array(sfConfig::get('app_informations_index')) ? 'Events list' : sfConfig::get('app_informations_index', 'Events list') ?><?php echo PHP_EOL ?>
-        #max_per_page: <?php echo sfConfig::get('app_tickets_nb_manifestations_per_default',100).PHP_EOL ?>
-        max_per_page: 20
+        max_per_page: <?php echo sfConfig::get('app_tickets_nb_manifestations_per_default',100).PHP_EOL ?>
       
       filter:
         display: [name, meta_event_id, event_category_id]
