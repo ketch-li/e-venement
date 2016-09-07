@@ -384,6 +384,8 @@ Manifestation:
       class: Organism
       refClass: ManifestationOrganizer
       foreignAlias: Manifestations
+      onDelete: SET NULL
+      onUpdate: CASCADE
     Applicant:
       local: contact_id
       class: Contact
@@ -419,6 +421,8 @@ Manifestation:
       class: Contact
       refClass: ManifestationContact
       foreignAlias: InvolvedIn
+      onDelete: SET NULL
+      onUpdate: CASCADE
 ManifestationContact:
   package: event
   columns:
