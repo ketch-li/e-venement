@@ -44,8 +44,7 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
-    sfContext::createInstance($this->configuration, $options['env']);
-    $databaseManager = new sfDatabaseManager($this->configuration);
+    sfContext::createInstance($this->configuration, $arguments['application']);
     
     if (! $this->configuration instanceof liGarbageCollectorInterface )
       throw new sfCommandException('The application configuration does not permit garbage collection');
