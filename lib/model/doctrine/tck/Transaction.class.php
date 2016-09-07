@@ -278,8 +278,7 @@ class Transaction extends PluginTransaction
             $id = 'm'.$ticket->manifestation_id;
             break;
           case 'vertical': // every tickets of a single DirectContact for a single MetaEvent
-            if ( $ticket->contact_id )
-              $id = 'c'.$ticket->contact_id.'me'.$ticket->Manifestation->Event->meta_event_id;
+            $id = 'c'.$ticket->contact_id.'me'.$ticket->Manifestation->Event->meta_event_id;
             break;
         }
         
@@ -308,10 +307,18 @@ class Transaction extends PluginTransaction
       if ( count($b['tickets']) == 0 )
         continue;
       
+      if ( count($b['tickets']) == 1 )
+      {
+        $content[] = $b['tickets'][0]->renderSimplified($with['barcode']);
+        continue;
+      }
+      
       $tck = new Ticket;
       $tck->id = ' ';
-      if ( sfConfig::get('app_tickets_merge', false) == 'vertical' )
+      if ( sfConfig::get('app_tickets_merge', false) == 'vertical' && $b['tickets'][0]->contact_id )
         $tck->DirectContact = $b['tickets'][0]->DirectContact;
+      else
+        $tck->DirectContact = $this->Contact;
       $tck->Manifestation = clone $b['tickets'][0]->Manifestation;
       $tck->Manifestation->Event->name = __('Meta-Ticket', null, 'li_tickets_email');
       $tck->Transaction = $b['tickets'][0]->Transaction;

@@ -593,6 +593,10 @@ LI.initContent = function(){
         LI.alert(data.error[1],'error');
         return;
       }
+      
+      if ( !data.success )
+        return;
+      
       if (!( data.success.error_fields !== undefined && data.success.error_fields[id] === undefined ))
       {
         LI.alert(data.success.error_fields[id],'error');

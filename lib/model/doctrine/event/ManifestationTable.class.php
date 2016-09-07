@@ -85,6 +85,10 @@ class ManifestationTable extends PluginManifestationTable
     {
       $credentials = Manifestation::getCredentials();
       
+      if (!(
+          sfContext::getInstance()->getUser()->hasCredential($credentials['reservation_confirmed'])
+        || sfContext::getInstance()->getUser()->hasCredential($credentials['contact_id'])
+      )) // this condition is an optimization for tautologies
       $q->andWhere("($alias.reservation_confirmed = ? OR ? OR ($alias.contact_id IS NOT NULL AND $alias.contact_id = ?) OR ?)", array(
         true, // confirmed
         sfContext::getInstance()->getUser()->hasCredential($credentials['reservation_confirmed']), // can access to all manifs

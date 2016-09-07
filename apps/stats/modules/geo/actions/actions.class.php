@@ -29,22 +29,13 @@ class geoActions extends sfActions
       ->addOnlyWhatCriteria()
       ->addApproachCriteria()
       ->addEventCriterias()
+      ->addLocationsCriteria()
       ->addManifestationCriteria()
       ->addGroupsCriteria();
     if ( is_array($this->getCriterias()) )
       $this->form->bind($this->getCriterias());
   }
-  
-  protected function getCriterias()
-  {
-    return $this->getUser()->getAttribute('stats.criterias',array(),'admin_module');
-  }
-  protected function setCriterias($values)
-  {
-    $this->getUser()->setAttribute('stats.criterias',$values,'admin_module');
-    return $this;
-  }
-  
+
   public function executeJson(sfWebRequest $request)
   {
     $criterias = $this->getCriterias();
@@ -66,105 +57,15 @@ class geoActions extends sfActions
       }
     }
   }
-  public function executeCsv(sfWebRequest $request)
-  {
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N','Date','CrossAppLink','Number'));
-    
-    $criterias = $this->getCriterias();
-    $this->data = $this->getData($request->getParameter('type','ego'), !(isset($criterias['approach']) && $criterias['approach'] === ''), 'csv');
-    
-    $total = array('nb' => 0, 'value' => 0, 'tickets' => 0);
-    foreach ( $total as $approach => $val )
-    foreach ( $this->data[$approach] as $data )
-      $total[$approach] += $data;
-    
-    $this->lines = array();
-    foreach ( $this->data['nb'] as $name => $data )
-    {
-      $this->lines[$name] = array(
-        'name' => __($name),
-        'qty' => $data,
-        'percent' => format_number(round($data*100/($total['nb'] ? $total['nb'] : 0),2)),
-      );
-    }
-    foreach ( $this->data['tickets'] as $name => $data )
-    {
-      $this->lines[$name]['tickets'] = $data;
-      $this->lines[$name]['tickets%'] = format_number(round($data*100/($total['tickets'] ? $total['tickets'] : 1), 2));
-    }
-    foreach ( $this->data['value'] as $name => $data )
-    {
-      $this->lines[$name]['value'] = format_currency($data, $this->getContext()->getConfiguration()->getCurrency());
-      $this->lines[$name]['value%'] = format_number(round($data*100/($total['value'] ? $total['value'] : 1), 2));
-    }
-    
-    $this->lines['total'] = array(
-      'name'          => __('Total'),
-      'qty'           => $total['nb'],
-      'percent'       => 100,
-      'tickets'       => $total['tickets'],
-      'tickets%'      => 100,
-      'value'         => format_currency($total['value'],$this->getContext()->getConfiguration()->getCurrency()),
-      'value%'        => 100,
-    );
-    
-    $params = OptionCsvForm::getDBOptions();
-    $this->options = array(
-      'ms'        => in_array('microsoft',$params['option']),
-      'fields'    => array('name','qty','percent','tickets', 'tickets%', 'value','value%'),
-      'tunnel'    => false,
-      'noheader'  => false,
-    );
-    
-    // for data coming from GeoFrStreetBase
-    if ( isset($this->data['iris2008']) )
-    {
-      foreach ( $this->data['iris2008'] as $name => $iris )
-        $this->lines[$name]['iris2008'] = $iris;
-      $this->lines['total']['iris2008'] = '';
-      array_unshift($this->options['fields'], 'iris2008');
-    }
-    
-    $this->outstream = 'php://output';
-    $this->delimiter = $this->options['ms'] ? ';' : ',';
-    $this->enclosure = '"';
-    $this->charset   = sfConfig::get('software_internals_charset');
-    
-    sfConfig::set('sf_escaping_strategy', false);
-    $confcsv = sfConfig::get('software_internals_csv');
-    if ( isset($confcsv['set_charset']) && $confcsv['set_charset'] ) sfConfig::set('sf_charset', $this->options['ms'] ? $this->charset['ms'] : $this->charset['db']);
-    
-    if ( $request->hasParameter('debug') )
-    {
-      $this->setLayout('layout');
-      $this->getResponse()->sendHttpHeaders();
-    }
-    else
-      sfConfig::set('sf_web_debug', false);
-  }
   
-  public function executeData(sfWebRequest $request)
+  protected function getCriterias()
   {
-    $criterias = $this->getCriterias();
-    $data = $this->getData($request->getParameter('type','ego'), !(isset($criterias['approach']) && $criterias['approach'] === ''));
-    
-    $this->data = $data['nb'];
-    if ( isset($criterias['approach']) )
-    switch ( $criterias['approach'] ) {
-    case 'financial':
-      $this->data = $data['value'];
-      break;
-    case 'by-tickets':
-      $this->data = $data['tickets'];
-      break;
-    }
-    
-    if ( !$request->hasParameter('debug') )
-    {
-      $this->setLayout('raw');
-      sfConfig::set('sf_debug',false);
-      $this->getResponse()->setContentType('application/json');
-    }
+    return $this->getUser()->getAttribute('stats.criterias',array(),'admin_module');
+  }
+  protected function setCriterias($values)
+  {
+    $this->getUser()->setAttribute('stats.criterias',$values,'admin_module');
+    return $this;
   }
   
   protected function buildQuery()
@@ -224,6 +125,8 @@ class geoActions extends sfActions
       $q->andWhereIn('tck.sf_guard_user_id', $criterias['sf_guard_users_list']);
     if ( isset($criterias['events_list']) && is_array($criterias['events_list']) )
       $q->andWhereIn('m.event_id', $criterias['events_list']);
+    if ( isset($criterias['locations_list']) && is_array($criterias['locations_list']) )
+      $q->andWhereIn('m.location_id', $criterias['locations_list']);
     if ( isset($criterias['manifestations_list']) && is_array($criterias['manifestations_list']) )
       $q->andWhereIn('m.id', $criterias['manifestations_list']);
     
@@ -325,8 +228,6 @@ class geoActions extends sfActions
     case 'districts':
       $q = $this->buildQuery()
         ->select('t.id, c.id AS contact_id')
-        ->addSelect('(SELECT db.name FROM GeoFrStreetBase sb LEFT JOIN sb.GeoFrDistrictBase db WHERE c.address = sb.address AND c.postalcode = sb.zip AND c.city = sb.city) AS iris')
-        ->addSelect('(SELECT sb2.iris2008 FROM GeoFrStreetBase sb2 WHERE c.address = sb2.address AND c.postalcode = sb2.zip AND c.city = sb2.city) AS iris2008')
         ->addSelect('count(DISTINCT tck.id) AS qty')
         ->addSelect('sum(tck.value) AS sum')
         ->groupBy('t.id, c.id, c.postalcode, pro.id, o.postalcode, t.postalcode')
@@ -345,6 +246,7 @@ class geoActions extends sfActions
         if ( !isset($res[$approach][$pc['iris']]) )
           $res[$approach][$pc['iris']] = 0;
         $res[$approach][$pc['iris']] += is_int($field) ? $field : $pc[$field];
+        $total[$approach] += is_int($field) ? $field : $pc[$field];
       }
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
         arsort($res[$approach]);
@@ -623,10 +525,11 @@ class geoActions extends sfActions
         }
         
         $res[$approach]['exact'] += is_int($field) ? $field : $c[$field];
-        $total[$approach] += is_int($field) ? $field : $c[$field];
       }
       
       // metropolis
+      foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
+        $res[$approach]['metropolis'] = 0;
       if ( count($client['postalcode']) > 1 )
       {
         $buf = $client['postalcode'][0];
@@ -640,7 +543,7 @@ class geoActions extends sfActions
           ->andWhere('(pro.id IS NULL AND (c.country ILIKE ? OR c.country IS NULL OR c.country = ?) OR pro.id IS NOT NULL AND (o.country ILIKE ? OR o.country IS NULL OR o.country = ?))', array(isset($client['country']) ? $client['country'] : 'France', '', isset($client['country']) ? $client['country'] : 'France', '',))
         ;
         foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
-          $res[$approach]['metropolis'] = 0;
+          $res[$approach]['metropolis'] = -$res[$approach]['exact'];
         $contacts = array();
         $arr = $q->fetchArray();
         foreach ( $arr as $c )
@@ -656,7 +559,6 @@ class geoActions extends sfActions
           }
           
           $res[$approach]['metropolis'] += is_int($field) ? $field : $c[$field];
-          $total[$approach] += is_int($field) ? $field : $c[$field];
         }
         $client['postalcode'][0] = $buf;
         $qs[0] = '?';
@@ -671,7 +573,7 @@ class geoActions extends sfActions
         ->andWhere("substring(CASE WHEN o.postalcode IS NOT NULL AND o.postalcode != '' THEN o.postalcode ELSE CASE WHEN c.postalcode IS NOT NULL AND c.postalcode != '' THEN c.postalcode ELSE t.postalcode END END, 1, 2) = substring(?, 1, 2)", $client['postalcode'][0])
         ->andWhere('(pro.id IS NULL AND (c.country ILIKE ? OR c.country IS NULL OR c.country = ?) OR pro.id IS NOT NULL AND (o.country ILIKE ? OR o.country IS NULL OR o.country = ?))', array(isset($client['country']) ? $client['country'] : 'France', '', isset($client['country']) ? $client['country'] : 'France', '',));
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
-        $res[$approach]['department'] = -$res[$approach]['exact'];
+        $res[$approach]['department'] = -$res[$approach]['exact'] -$res[$approach]['metropolis'];
       $contacts = array();
       $arr = $q->fetchArray();
       foreach ( $arr as $c )
@@ -687,7 +589,6 @@ class geoActions extends sfActions
         }
         
         $res[$approach]['department'] += is_int($field) ? $field : $c[$field];
-        $total[$approach] += is_int($field) ? $field : $c[$field];
       }
       
       // region
@@ -699,7 +600,7 @@ class geoActions extends sfActions
         ->andWhere("substring(CASE WHEN o.postalcode IS NOT NULL AND o.postalcode != '' THEN o.postalcode ELSE CASE WHEN c.postalcode IS NOT NULL AND c.postalcode != '' THEN c.postalcode ELSE t.postalcode END END, 1, 2) = substring(?, 1, 2)", $client['postalcode'][0])
         ->andWhere('(pro.id IS NULL AND (c.country ILIKE ? OR c.country IS NULL OR c.country = ?) OR pro.id IS NOT NULL AND (o.country ILIKE ? OR o.country IS NULL OR o.country = ?))', array(isset($client['country']) ? $client['country'] : 'France', '', isset($client['country']) ? $client['country'] : 'France', '',));
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
-        $res[$approach]['region'] = -$res[$approach]['exact'] -$res[$approach]['department'];
+        $res[$approach]['region'] = -$res[$approach]['exact'] -$res[$approach]['metropolis'] -$res[$approach]['department'];
       $contacts = array();
       $arr = $q->fetchArray();
       foreach ( $arr as $c )
@@ -715,7 +616,6 @@ class geoActions extends sfActions
         }
         
         $res[$approach]['region'] += is_int($field) ? $field : $c[$field];
-        $total[$approach] += is_int($field) ? $field : $c[$field];
       }
       
       // country
@@ -726,7 +626,7 @@ class geoActions extends sfActions
         ->groupBy('t.id, c.id')
         ->andWhere('(pro.id IS NULL AND (c.country ILIKE ? OR c.country IS NULL OR c.country = ?) OR pro.id IS NOT NULL AND (o.country ILIKE ? OR o.country IS NULL OR o.country = ?))', array(isset($client['country']) ? $client['country'] : 'France', '', isset($client['country']) ? $client['country'] : 'France', '',));
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
-        $res[$approach]['country'] = -$res[$approach]['exact'] -$res[$approach]['department'] -$res[$approach]['region'];
+        $res[$approach]['country'] = -$res[$approach]['exact'] -$res[$approach]['metropolis'] -$res[$approach]['department'] -$res[$approach]['region'];
       $arr = $q->fetchArray();
       $contacts = array();
       foreach ( $arr as $c )
@@ -742,7 +642,6 @@ class geoActions extends sfActions
         }
         
         $res[$approach]['country'] += is_int($field) ? $field : $c[$field];
-        $total[$approach] += is_int($field) ? $field : $c[$field];
       }
       
       // others
@@ -752,7 +651,7 @@ class geoActions extends sfActions
         ->addSelect('sum(tck.value) AS sum')
         ->groupBy('t.id, c.id');
       foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
-        $res[$approach]['others'] = -$res[$approach]['exact'] -$res[$approach]['department'] -$res[$approach]['region'] -$res['nb']['country'];
+        $res[$approach]['others'] = -$res[$approach]['exact'] -$res[$approach]['metropolis'] -$res[$approach]['department'] -$res[$approach]['region'] -$res[$approach]['country'];
       $arr = $q->fetchArray();
       $contacts = array();
       foreach ( $arr as $c )
@@ -770,6 +669,11 @@ class geoActions extends sfActions
         $res[$approach]['others'] += is_int($field) ? $field : $c[$field];
         $total[$approach] += is_int($field) ? $field : $c[$field];
       }
+
+      // removes metropolis if not needed
+      if ( count($client['postalcode']) <= 1 )
+      foreach ( array('nb' => 1, 'tickets' => 'qty', 'value' => 'sum') as $approach => $field )
+        unset($res[$approach]['metropolis']);
       
       break;
     }

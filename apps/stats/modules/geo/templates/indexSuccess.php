@@ -1,4 +1,3 @@
-
 <?php include_partial('attendance/filters',array('form' => $form)) ?>
 <?php use_helper('Date') ?>
 <div class="ui-widget ui-corner-all ui-widget-content">
@@ -9,6 +8,7 @@
   </div>
 <?php include_partial('show_criterias') ?>
 <?php include_partial('show_header') ?>
+<?php include_partial('global/chart_help'); ?>
 <?php if ( $sf_user->hasCredential('stats-geo') ): ?>
   <?php include_partial('global/chart_jqplot', array(
           'id'    => 'ego',

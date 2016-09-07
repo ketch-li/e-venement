@@ -9,6 +9,7 @@
   $maxsize['place'] = isset($maxsize['place']) && intval($maxsize['place']) != 0 ? intval($maxsize['place']) : 30;
   $maxsize['event_subtitle'] = isset($maxsize['event_subtitle']) && intval($maxsize['event_subtitle']) != 0 ? intval($maxsize['event_subtitle']) : 40;
 ?>
+<div class="page">
 <div class="ticket">
   <div class="logo"><?php //echo image_tag(sfConfig::get('app_tickets_logo')) ?></div>
   <div class="left">
@@ -141,4 +142,5 @@
     <p class="nb"><?php echo __('%%nb%% places',array('%%nb%%' => $nb)) ?></p>
     <?php endif ?>
   </div>
+</div>
 </div>

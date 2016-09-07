@@ -101,6 +101,22 @@ class ManifestationFormFilter extends BaseManifestationFormFilter
       'required' => false,
       'multiple' => true,
     ));
+    
+    $this->widgetSchema   ['gauge_state'] = new sfWidgetFormChoice(array(
+      'choices' => $choices = array(
+        '' => '',
+        'online' => __('Online'),
+        '!online' => __('Offline'),
+        'onsite' => __('Onsite'),
+        '!onsite' => __('Offsite'),
+      ),
+      'multiple' => true,
+    ));
+    $this->validatorSchema['gauge_state'] = new sfValidatorChoice(array(
+      'choices' => array_keys($choices),
+      'required' => false,
+      'multiple' => true,
+    ));
   }
 
   public function getFields()
@@ -134,6 +150,32 @@ class ManifestationFormFilter extends BaseManifestationFormFilter
     
     $a = $q->getRootAlias();
     $q->andWhereIn("EXTRACT(DOW FROM $a.happens_at)", $values);
+    return $q;
+  }
+  
+  public function addGaugeStateColumnQuery(Doctrine_Query $q, $field, $values)
+  {
+    if ( !is_array($values) )
+    {
+      if ( $values === '' )
+        return $q;
+      $values = array($values);
+    }
+    
+    if (( $key = array_search('', $values) ) !== false )
+      unset($values[$key]);
+    if ( !$values )
+      return $q;
+    
+    $a = $q->getRootAlias();
+    if ( in_array('online', $values) )
+      $q->andWhere('g.online = ?', true);
+    if ( in_array('!online', $values) )
+      $q->andWhere('g.online = ?', false);
+    if ( in_array('onsite', $values) )
+      $q->andWhere('g.onsite = ?', true);
+    if ( in_array('!onsite', $values) )
+      $q->andWhere('g.onsite = ?', false);
     return $q;
   }
   

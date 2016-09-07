@@ -42,98 +42,11 @@ class cardsActions extends sfActions
     $this->cards = $this->getMembersCards($this->dates['from'],$this->dates['to']);
   }
   
-  public function executeCsv(sfWebRequest $request)
-  {
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N','Date'));
-    $this->criterias  = $this->getUser()->getAttribute('stats.criterias',array(),'admin_module');
-    $this->accounting = $this->getUser()->getAttribute('stats.accounting',array(),'admin_module');
-    
-    $dates = $this->getDatesCriteria();
-    $this->lines = $this->getMembersCards($dates['from'],$dates['to']);
-    
-    $total = 0;
-    foreach ( $this->lines as $line )
-      $total += $line['nb'];
-    
-    foreach ( $this->lines as $key => $line )
-    {
-      unset($this->lines[$key][0],$this->lines[$key][1]);
-      $this->lines[$key]['percent'] = round($line['nb']*100/$total,1);
-      $this->lines[$key]['name'] = __($line['name']);
-      $this->lines[$key]['nb'] = round($line['nb']/365);
-      $this->lines[$key]['pit'] = round($this->lines[$key]['nb']*$this->accounting['price'][$line['name']],2);
-      if ( isset($this->accounting['vat']) && $this->accounting['vat'] )
-      {
-        $this->lines[$key]['tep'] = round($this->lines[$key]['pit']/(1+$this->accounting['vat']/100),2);
-        $this->lines[$key]['vat'] = $this->lines[$key]['pit'] - $this->lines[$key]['tep'];
-      }
-    }
-    
-    $total = array('nb' => 0, 'pit' => 0, 'vat' => 0, 'tep' => 0);
-    foreach ( $this->lines as $line )
-    {
-      $total['nb']  += $line['nb'];
-      if ( isset($this->accounting['vat']) && $this->accounting['vat'] )
-      {
-        $total['tep'] += $line['tep'];
-        $total['vat'] += $line['vat'];
-      }
-      $total['pit'] += $line['pit'];
-    }
-    $this->lines[] = array(
-      'name' => __('Total'),
-      'nb' => $total['nb'],
-      'percent' => '100',
-      'tep' => $total['tep'],
-      'vat' => $total['vat'],
-      'pit' => $total['pit'],
-    );
-    
-    // the CSV ouput
-    $params = OptionCsvForm::getDBOptions();
-    $this->options = array(
-      'ms' => in_array('microsoft',$params['option']),
-      'fields' => array('name','nb','percent','tep','vat','pit'),
-      'tunnel' => false,
-      'noheader' => false,
-    );
-    
-    $this->outstream = 'php://output';
-    $this->delimiter = $this->options['ms'] ? ';' : ',';
-    $this->enclosure = '"';
-    $this->charset   = sfConfig::get('software_internals_charset');
-    
-    sfConfig::set('sf_escaping_strategy', false);
-    $confcsv = sfConfig::get('software_internals_csv'); if ( isset($confcsv['set_charset']) && $confcsv['set_charset'] ) sfConfig::set('sf_charset', $this->options['ms'] ? $this->charset['ms'] : $this->charset['db']);
-    
-    if ( $request->hasParameter('debug') )
-    {
-      $this->setLayout(true);
-      $this->getResponse()->sendHttpHeaders();
-    }
-    else
-      sfConfig::set('sf_web_debug', false);
-  }
-  
   public function executeJson(sfWebRequest $request)
   {
     $this->getResponse()->setContentType('application/json');
     $dates = $this->getDatesCriteria();
     $this->lines = $this->getMembersCards($dates['from'],$dates['to']);
-  }
-
-  public function executeData(sfWebRequest $request)
-  {
-    $this->accounting = $this->getUser()->getAttribute('stats.accounting',array(),'admin_module');
-    $this->dates = $this->getDatesCriteria();
-    $this->mc = $this->getMembersCards($this->dates['from'], $this->dates['to']);
-    
-    if ( !$request->hasParameter('debug') )
-    {
-      $this->setLayout('raw');
-      sfConfig::set('sf_debug',false);
-      $this->getResponse()->setContentType('application/json');
-    }
   }
   
   protected function getMembersCards( $from = NULL, $until = NULL )

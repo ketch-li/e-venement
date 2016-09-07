@@ -20,6 +20,10 @@ class ProductCategoryFormFilter extends BaseProductCategoryFormFilter
     $this->widgetSchema   ['name']  = new sfWidgetFormInput;
     $this->validatorSchema['name']  = new sfValidatorString(array('required' => false));
     
+    $this->widgetSchema['color_id']
+      ->setOption('method', 'getName')
+      ->setOption('order_by', array('name',''));
+    
     $this->widgetSchema['product_category_id']
       ->setOption('order_by', array('name',''))
       ->setOption('query', Doctrine::getTable('ProductCategory')->createQuery('pc')

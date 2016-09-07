@@ -49,17 +49,6 @@ class groupsActions extends sfActions
     $this->lines = $this->getRawData();
   }
   
-  public function executeData(sfWebRequest $request)
-  {
-    $this->dates = $this->getRawData();
-    if ( !$request->hasParameter('debug') )
-    {
-      $this->setLayout('raw');
-      sfConfig::set('sf_debug',false);
-      $this->getResponse()->setContentType('application/json');
-    }
-  }
-  
   protected function getRawData()
   {
     $criterias = $this->getUser()->getAttribute('stats.criterias',array(),'admin_module');
@@ -95,35 +84,5 @@ class groupsActions extends sfActions
     $stmt->execute();
     
     return $stmt->fetchAll();
-  }
-  
-  public function executeCsv(sfWebRequest $request)
-  {
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Number'));
-    $this->lines = $this->getRawData();
-    
-    $params = OptionCsvForm::getDBOptions();
-    $this->options = array(
-      'ms' => in_array('microsoft',$params['option']),
-      'fields' => array('date', 'nb',),
-      'tunnel' => false,
-      'noheader' => false,
-    );
-    
-    $this->outstream = 'php://output';
-    $this->delimiter = $this->options['ms'] ? ';' : ',';
-    $this->enclosure = '"';
-    $this->charset   = sfConfig::get('software_internals_charset');
-    
-    sfConfig::set('sf_escaping_strategy', false);
-    $confcsv = sfConfig::get('software_internals_csv'); if ( isset($confcsv['set_charset']) && $confcsv['set_charset'] ) sfConfig::set('sf_charset', $this->options['ms'] ? $this->charset['ms'] : $this->charset['db']);
-    
-    if ( $request->hasParameter('debug') )
-    {
-      $this->setLayout(true);
-      $this->getResponse()->sendHttpHeaders();
-    }
-    else
-      sfConfig::set('sf_web_debug', false);
   }
 }

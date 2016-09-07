@@ -33,6 +33,10 @@ class liOnlineExternalAuthOpenIDConnectPluginConfiguration extends sfPluginConfi
       require_once __DIR__.'/../lib/'.$file;
     require_once __DIR__.'/../lib/composer/vendor/autoload.php';
     
+    // this is a trick to avoid recursive missing dependancies
+    require_once __DIR__.'/../lib/model/doctrine/PluginContactOpenIdConnect.class.php';
+    require_once __DIR__.'/../lib/model/doctrine/PluginContactOpenIdConnectTable.class.php';
+    
     if ( !class_exists('\League\OAuth2\Client\Provider\GenericProvider') )
       throw new liOnlineSaleException('liOnlineExternalAuthOpenIDConnectPlugin: A dependancy is missing: https://github.com/thephpleague/oauth2-client');
   }

@@ -15,14 +15,13 @@ LI.stats.groups = function(){
     var chart = $(this).find('.chart')
     var name = chart.attr('data-series-name');
     var id = chart.prop('id');
-    var title = $(this).find('h2').prop('title') ? $(this).find('h2').prop('title')+': ' : '';
+    var title = $(this).find('h2') ? $(this).find('h2').text() : '';
     LI.csvData[name] = [
       [
-        title,
-        $(this).find('h2').text()
+        $(this).find('#csvTitle').text(),
+        title
       ],
-    ]; 
-    
+    ];     
     //retrieve stats
     $.get(chart.attr('data-json-url') + '?id=' + name, function(json){
       var array = [];
@@ -51,8 +50,7 @@ LI.stats.groups = function(){
               tickOptions: { formatString:'%d/%m/%Y' }
             },
            yaxis: {
-              min: name == 'web-origin' ? 0 : null,
-              //tickInterval: 1,
+              min: 0,
               tickOptions: {
                 formatString: '%d'
               }

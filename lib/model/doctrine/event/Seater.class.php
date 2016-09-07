@@ -43,7 +43,8 @@ class Seater
       $q->andWhere('g.id = ?', $this->gauge_id);
     if ( $this->hold )
       $q->andWhere('m.id = ?', $this->hold->manifestation_id);
-    $this->location_id = $q->fetchOne()->location_id;
+    $manif = $q->fetchOne();
+    $this->location_id = $manif ? $manif->location_id : NULL;
     
     $this->seats = $this->createQuery()->execute();
   }

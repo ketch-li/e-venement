@@ -36,6 +36,86 @@ require_once dirname(__FILE__).'/../lib/eventGeneratorHelper.class.php';
  */
 class eventActions extends autoEventActions
 {
+  public function executeAddContactToEvent(sfWebRequest $request)
+  {
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('CrossAppLink','I18N'));
+    
+    $this->form = new sfForm;
+    $ws = $this->form->getWidgetSchema();
+    $vs = $this->form->getValidatorSchema();
+    $ws['professional_id'] = new liWidgetFormDoctrineJQueryAutocompleter(array(
+      'model' => 'Professional',
+      'url'   => cross_app_url_for('rp', 'professional/ajax'),
+      'default' => $request->getParameter('professional_id')
+    ));
+    $ws['event_id'] = new liWidgetFormDoctrineJQueryAutocompleter(array(
+      'model' => 'Event',
+      'url'   => cross_app_url_for('event', 'event/ajax'),
+      'default' => $request->getParameter('event_id')
+    ));
+    
+    // if some data is given
+    if ( !$request->hasParameter('nogo') && $request->hasParameter('professional_id') && $request->hasParameter('event_id') )
+    {
+      // prerequisite
+      if ( !($entry = Doctrine::getTable('Entry')->createQuery('e')
+        ->andWhere('e.event_id = ?', $request->getParameter('event_id'))
+        ->fetchOne())
+      || !($professional = Doctrine::getTable('Professional')->createQuery('p')
+        ->andWhere('p.id = ?', $request->getParameter('professional_id'))
+        ->fetchOne()) )
+      {
+        $this->getUser()->setFlash('error', __('The submitted event or contact is invalid.'));
+        $this->redirect('event/addContactToEvent?professional_id='.$request->getParameter('professional_id').'&event_id='.$request->getParameter('event_id').'&nogo=1');
+      }
+      
+      $ce = new ContactEntry;
+      $ce->entry_id = $entry->id;
+      $ce->professional_id = $professional->id;
+      $ce->save();
+      
+      $this->redirect('event/addContactToEvent?event_id='.$request->getParameter('event_id'));
+    }
+  }
+  public function executeAddManifestationToEvent(sfWebRequest $request)
+  {
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('CrossAppLink','I18N'));
+    
+    $this->form = new sfForm;
+    $ws = $this->form->getWidgetSchema();
+    $vs = $this->form->getValidatorSchema();
+    $ws['manifestation_id'] = new liWidgetFormDoctrineJQueryAutocompleter(array(
+      'model' => 'Manifestation',
+      'url'   => cross_app_url_for('event', 'manifestation/ajax'),
+      'default' => $request->getParameter('manifestation_id')
+    ));
+    
+    // if some data is given
+    if ( !$request->hasParameter('nogo') && $request->hasParameter('manifestation_id') )
+    {
+      // prerequisite
+      if ( !($entry = Doctrine::getTable('Entry')->createQuery('e')
+        ->leftJoin('e.Event ev')
+        ->leftJoin('ev.Manifestations m')
+        ->andWhere('m.id = ?', $request->getParameter('manifestation_id'))
+        ->andWhere('e.id NOT IN (SELECT me.entry_id FROM ManifestationEntry me WHERE me.manifestation_id = ?)', $request->getParameter('manifestation_id'))
+        ->fetchOne())
+      || !($manifestation = Doctrine::getTable('Manifestation')->createQuery('m')
+        ->andWhere('m.id = ?', $request->getParameter('manifestation_id'))
+        ->fetchOne()) )
+      {
+        $this->getUser()->setFlash('error', __('The submitted manifestation is invalid.'));
+        $this->redirect('event/addManifestationToEvent?manifestation_id='.$request->getParameter('manifestation_id').'&nogo=1');
+      }
+      
+      $ce = new ManifestationEntry;
+      $ce->entry_id = $entry->id;
+      $ce->manifestation_id = $manifestation->id;
+      $ce->save();
+      
+      $this->redirect('event/addManifestationToEvent');
+    }
+  }
   public function executeFromDateToDate(sfWebRequest $request)
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N'));
@@ -108,8 +188,7 @@ class eventActions extends autoEventActions
   {
     parent::executeEdit($request);
     
-    $q = new Doctrine_Query();
-    $this->entry = $q->from('Entry e')
+    $q = Doctrine_Query::create()->from('Entry e')
       ->leftJoin('e.ContactEntries ce')
       ->leftJoin('ce.Transaction t')
       ->leftJoin('t.Translinked t2')
@@ -120,7 +199,19 @@ class eventActions extends autoEventActions
       ->leftJoin('me.Manifestation m')
       ->andWhere('e.event_id = ?',$request->getParameter('id'))
       ->orderBy("ce.comment1 IS NULL OR TRIM(ce.comment1) = '', ce.comment1, c.name, c.firstname, m.happens_at ASC")
-      ->fetchOne();
+    ;
+    
+    // using date_range filter to focus on some manifestations only
+    $filters = $this->getFilters();
+    if ( isset($filters['dates_range']) )
+    {
+      if ( isset($filters['dates_range']['from']) )
+        $q->andWhere('m.happens_at > ?', $filters['dates_range']['from']);
+      if ( isset($filters['dates_range']['to']) )
+        $q->andWhere('m.happens_at < ?', $filters['dates_range']['to']);
+    }
+    
+    $this->entry = $q->fetchOne();
     
     if ( !$this->entry )
     {

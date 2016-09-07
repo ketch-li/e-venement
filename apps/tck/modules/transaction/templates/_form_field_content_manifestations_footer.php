@@ -16,10 +16,10 @@
       <?php endif ?>
       <?php if ( $sf_user->hasCredential('tck-print-ticket') && $sf_user->hasCredential('tck-duplicate-ticket') ): ?>
         <input type="checkbox" name="duplicate" value="true" title="<?php echo __('Duplicatas') ?>" onclick="javascript: if ( $('#li_transaction_manifestations .item.ui-state-highlight').length == 0 ) { $(this).prop('checked',false); LI.alert($(this).closest('form').find('.choose-a-manifestation').text()); return false; } $(this).hide(); $(this).closest('form').find('[name=price_name]').show().focus();" />
-        <input type="checkbox" name="rfid" value="true" title="<?php echo __('RFID') ?>" />
         <input type="text" name="price_name" value="" title="<?php echo __('Duplicatas') ?>" class="price" size="5" style="display: none;" />
       <?php endif ?>
     <?php endif ?>
+    <input type="checkbox" name="rfid" value="true" title="<?php echo __('RFID') ?>" />
     <input type="hidden" name="manifestation_id" value="" />
     <span style="display: none;" class="choose-a-manifestation"><?php echo __('You must choose a manifestation first') ?></span>
   </p>

@@ -513,7 +513,7 @@ class myUser extends pubUser
     {
       if ( isset($mcp[$ticket->price_id][$ticket->event_id]) )
         $mcp[$ticket->price_id][$ticket->event_id]--;
-      else
+      elseif ( isset($mpc[$ticket->price_id]['']) )
         $mcp[$ticket->price_id]['']--;
     }
     

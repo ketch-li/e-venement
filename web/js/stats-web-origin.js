@@ -13,11 +13,11 @@ LI.stats.webOrigin = function(){
     var chart = $(this).find('.chart')
     var name = chart.attr('data-series-name');
     var id = chart.prop('id');
-    var title = $(this).find('h2').prop('title') ? $(this).find('h2').prop('title')+': ' : '';
+    var title = $(this).find('h2') ? $(this).find('h2').text() : '';
     LI.csvData[name] = [
       [
-        title,
-        $(this).find('h2').text()
+        $(this).find('#csvTitle').text(),
+        title
       ],
     ]; 
 
@@ -47,8 +47,8 @@ LI.stats.webOrigin = function(){
               tickOptions: { formatString:'%d/%m/%Y' }
             },
            yaxis: {
-              min: name == 'web-origin' ? 0 : null,
-              //tickInterval: 1,
+              min: 0,
+              tickInterval: 1,
               tickOptions: {
                 formatString: '%d'
               }
@@ -56,7 +56,7 @@ LI.stats.webOrigin = function(){
           },
           highlighter: {
             sizeAdjust: 2,
-            show: true
+            show: true,
           },
           legend: {
             show: false,
@@ -82,6 +82,13 @@ LI.stats.webOrigin = function(){
             },
             renderer: $.jqplot.PieRenderer
           },
+          highlighter: {
+            sizeAdjust: 2,
+            show: true,
+            useAxesFormatters: false,
+            tooltipFormatString: '%s',
+            tooltipContentEditor: LI.stats.pieTooltips
+          },
           cursor: {
             showTooltip: false,
             show: true
@@ -96,4 +103,20 @@ LI.stats.webOrigin = function(){
       }
     });
   });
+};
+
+LI.stats.webOriginTooltips = function (str, seriesIndex, pointIndex, plot){
+
+     var total = 0;
+     var data = plot.data[seriesIndex];
+     var label = data[pointIndex][0];
+     var value = data[pointIndex][1];
+     
+     $(data).each(function(key, value){
+        total +=  value[1];     
+     });
+
+     var percentage = Math.round(100*value/total);
+
+     return label + ': ' + value + ' (' + percentage + '%) , ' + 'Total: ' + total;
 };

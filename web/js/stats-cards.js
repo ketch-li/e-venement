@@ -15,11 +15,11 @@ LI.stats.cards = function(){
     var chart = $(this).find('.chart')
     var name = chart.attr('data-series-name');
     var id = chart.prop('id');
-    var title = $(this).find('h2').prop('title') ? $(this).find('h2').prop('title')+': ' : '';
+    var title = $(this).find('h2') ? $(this).find('h2').text() : '';
     LI.csvData[name] = [
       [
-        title,
-        $(this).find('h2').text()
+        $(this).find('#csvTitle').text(),
+        title
       ],
     ]; 
     
@@ -47,6 +47,13 @@ LI.stats.cards = function(){
             lineWidth: 5
           },
           renderer: $.jqplot.PieRenderer
+        },
+        highlighter: {
+          sizeAdjust: 2,
+          show: true,
+          useAxesFormatters: false,
+          tooltipFormatString: '%s',
+          tooltipContentEditor: LI.stats.pieTooltips
         },
         cursor: {
           showTooltip: false,

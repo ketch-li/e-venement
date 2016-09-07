@@ -34,7 +34,6 @@
           <?php endif ?>
           <?php if ( $sf_user->hasCredential('stats-prices') ): ?>
           <li><a href="<?php echo cross_app_url_for('stats','prices/index') ?>"><?php echo __('Tickets by price',array(),'menu') ?></a></li>
-          <li><a href="<?php echo cross_app_url_for('stats','transactions/index') ?>"><?php echo __('Transactions by price',array(),'menu') ?></a></li>
           <?php endif ?>
           <?php if ( $sf_user->hasCredential('stats-geo') ): ?>
           <li><a href="<?php echo cross_app_url_for('stats', 'geo/index') ?>"><?php echo __('Geographical approach', null, 'menu') ?></a></li>
@@ -50,7 +49,7 @@
           <?php if ( $sf_user->hasCredential('stats-pub') ): ?>
           <li><a href="<?php echo cross_app_url_for('stats','web_origin/index') ?>"><?php echo __('Online sales',array(),'menu') ?></a></li>
           <?php endif ?>
-          <?php if ( $sf_user->hasCredential('stats-pr-cards') || $sf_user->hasCredential('stats-pr-social') || $sf_user->hasCredential('stats-pr-social') ): ?>
+          <?php if ( $sf_user->hasCredential('stats-pr-cards') || $sf_user->hasCredential('stats-pr-social') || $sf_user->hasCredential('stats-pr-groups') ): ?>
           <li class="spaced"></li>
           <?php endif ?>
           <?php if ( $sf_user->hasCredential('stats-pr-groups') ): ?>

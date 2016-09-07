@@ -21,6 +21,7 @@
       <div class="ui-widget-header ui-corner-all fg-toolbar">
         <h2><?php echo __('Signin', null, 'sf_guard') ?></h2>
       </div>
+      <?php include_partial('global/flashes') ?>
       <?php echo get_partial('sfGuardAuth/signin_form', array('form' => $form)) ?>
       <?php if ( true ): ?>
         <div id="ipv6">

@@ -26,15 +26,15 @@ body {
 #customer .phonenumber { display: none; }
 
 #date { position: absolute; right: 30px; }
+#date .time { display: none; }
 #place { position: absolute; right: 60px; }
 
 #seller p { margin: 0; }
 #seller .name { font-weight: bold; }
-#seller .country,
-#seller .refs,
-#seller .other { font-size: 80%; }
+#seller .country, #seller .refs, #seller .other { font-size: 80%; }
 #seller .postalcode, #seller .city { display: inline; }
 #seller .other { margin-top: 7px; }
+#seller .sf_guard_user { display: none; }
 
 #lines td, #lines th { border-bottom: 1px solid silver; border-left: 1px solid silver; padding: 0 5px; text-align: center; }
 #lines th:after { content: ''; }
@@ -61,6 +61,7 @@ body {
 
 #ids { padding-top: 150px; }
 #ids .order_id { font-weight: bold }
+#ids .time { display: none; }
 #correction { position: absolute; margin-top: 130px; }
 
 #type {

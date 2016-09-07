@@ -33,6 +33,12 @@
       <span><?php echo $form['meta_events_list'] ?></span>
     </li>
     <?php endif ?>
+    <?php if ( isset($form['locations_list']) ): ?>
+    <li class="locations_list">
+      <?php echo $form['locations_list']->renderLabel() ?>
+      <span><?php echo $form['locations_list'] ?></span>
+    </li>
+    <?php endif ?>
     <?php if ( isset($form['events_list']) ): ?>
     <?php use_javascript('/sfAdminThemejRollerPlugin/js/jquery-ui.custom.min.js') ?>
     <?php use_javascript('/sfFormExtraPlugin/js/jquery.autocompleter.js') ?>
