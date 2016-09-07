@@ -61,13 +61,13 @@ EOF;
     if ( file_exists($quitfile) && filemtime($quitfile) < strtotime($period) )
       $period = filemtime($quitfile);
 
-    $q = Doctrine_Query::create()->from('Manifestation m')
-      ->leftJoin('m.Event e')
-      ->leftJoin('m.Applicant a')
-      ->leftJoin('m.Organizers o');
-    
     foreach ( array('tocome', 'pendings') as $type )
     {
+      $q = Doctrine_Query::create()->from('Manifestation m')
+        ->leftJoin('m.Event e')
+        ->leftJoin('m.Applicant a')
+        ->leftJoin('m.Organizers o');
+    
       $alarms = $$type;
       if (!( $alarms && in_array('email', $alarms['what']) ))
         continue;
@@ -85,7 +85,7 @@ EOF;
       
       $manifs = $q->execute();
       if ( $manifs->count() == 0 )
-        $this->logSection('notification', sprintf('Nothing to notify.'));
+        $this->logSection('Notification', sprintf('Nothing to notify.'));
       else foreach ( $manifs as $manif )
       {
         $who = isset($alarms['who']) ? $alarms['who'] : array('organizers', 'applicant');
