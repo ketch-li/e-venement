@@ -1,119 +1,67 @@
 <h3>Principales évolutions</h3>
-<ul>
-  <li>Boutique
-<ul>
-  <li>Améliorations générales</li>
-  <li>Gestion stocks</li>
-</ul>
-</li>
-</li>
-  <li>Relations aux Publics / CRM:
-<ul>
-  <li>possibilité d'ajouter à la volée et automatiquement des informations personnelles dans le corps des emailings que l'on envoie, afin d'envoyer un email différent pour chaque destinataire d'un emailing de 5.000 personnes (par exemple)</li>
-</ul>
-</li>
-  <li>Événementiel:
-<ul>
-  <li>mise en cache automatique des données "lourdes" des manifestations (le cache existait déjà, mais était rechargé par les utilisateurs, alors que maintenant cela se passe en tâche de fond, sauf demande express)</li>
-</ul>
-</li>
-  <li>Cartes d'abonnement:
-<ul>
-  <li>possibilité de voir des billets ajoutés automatiquement à la création d'un pass / d'une carte d'abonnement</li>
-  <li>alertes envoyées automatiquement par email aux personnes disposant d'un pass / d'une carte d'abonnement arrivant à expiration ou ayant expiré, totalement paramétrable par les utilisateurs.</li>
-  <li>possibilité de lier un produit (de la boutique) automatiquement lors de l'ajout d'un pass / d'une carte d'abonnement, ce qui permet de lui donner un prix intrinsèque (pour ne plus être utilisable qu'en système "cashless")</li>
-</ul>
-</li>
-  <li>Billetterie:
-<ul>
-  <li>arrivée d'une simplification de l'interface, pour pouvoir accéder à des fonctionnalités basiques de manière directe et intuitive. cette simplification ne prive en rien de l'usage de l'interface complète dans toute sa diversité d'usages.</li>
-</ul>
-</li>
-</ul>
-<h3>Dans le détail...</h3>
-<ul>
-  <li>Relations aux Publics
-<ul>
-  <li>Amélioration du support des photos des contacts (dont prise de photo à partir d'une webcam)</li>
-  <li>Amélioration de l'import d'organismes et de contacts</li>
-</ul>
-</li>
-  <li>Vente en ligne
-<ul>
-  <li>Ajout de messages plus "fins"</li>
-  <li>Corrections de divers bugs mineurs, parfois majeurs</li>
-  <li>Amélioration du "Seater" (placement automatique, non graphique)</li>
-  <li>Support de Safari 8 pour l'usage de la vente en ligne</li>
-  <li>Amélioration de la réservation en ligne</li>
-  <li>Améliorations importantes sur les cartes d'abonnement / pass</li>
-</ul>
-</li>
-  <li>Billetterie
-<ul>
-  <li>Correction d'un bug très gênant en billetterie avec le passage à Firefox 42</li>
-  <li>Améliorations mineures absolument partout</li>
-  <li>Amélioration de la sortie en PDF des billets</li>
-  <li>Ajout de la possibilité, sur un simple clic, de renvoyer un email de confirmation à l'acheteur (comme si nous étions en vente en ligne)</li>
-  <li>Support complet des musées</li>
-  <li>Création d'une interface simplifiée pour les usages simples mais quotidien</li>
-  <li>Élargissement des possibilités de mise en page des billets</li>
-  <li>Possibilité d'intégrer des billets vendus par des partenaires en placement numéroté</li>
-  <li>Ajout de crochets ("hooks", via le sfEventDispatcher) sur les différentes actions, afin de permettre le développement plus facile de plugins</li>
-  <li>Amélioration de l'accès via webservices aux checkpoints permettant le contrôle d'accès (permettant le développement d'applications tiers, ex: appli Android ou iPhone)</li>
-</ul>
-</li>
-  <li>Statistiques
-<ul>
-  <li>Correction d'un bug sur les codes postaux commençant par "0"</li>
-  <li>Ajout, dans les statistiques géographiques, de la notion de métropole</li>
-  <li>Possibilité, dans les statistiques géographiques, d'afficher les données par contact, par billets, ou par volume d'affaire</li>
-</ul>
-</li>
-  <li>Questionnaires
-<ul>
-  <li>Possibilité de dupliquer les questionnaires</li>
-  <li>Optimisation des temps de chargement</li>
-</ul>
-</li>
-  <li>Musées
-<ul>
-  <li>Support stable des fonctionnalités liées à l'usage d'une billetterie musée</li>
-</ul>
-</li>
-  <li>Événementiel
-<ul>
-  <li>Clarification de plusieurs erreur sur des actions sans rechargement (Ajax)</li>
-  <li>Rafraîchissement automatique des données liées aux manifestations</li>
-  <li>Correction de bugs divers</li>
-  <li>Amélioration de la sécurité sur les retenues</li>
-  <li>Améliorations générales des fonctionnalités des retenues</li>
-  <li>Amélioration de l'impression des onglets "billets" et "spectateurs" des manifestations</li>
-  <li>Correction d'un bug bloquant sur le "Seater" (placement automatique, utilisé particulièrement en VeL) dans certains cas isolés</li>
-  <li>internationalisation</li>
-  <li>Amélioration de la fusion des plans numérotés pour permettre l'affichage optimisé du plan général d'une manifestation</li>
-</ul>
-</li>
-  <li>Général:
-<ul>
-  <li>Amélioration de la duplication des utilisateurs</li>
-  <li>Amélioration de fonctions internes bien pratiques (comme le CrossAppLinkHelper)</li>
-  <li>Mise en place d'un processus permettant de forger des requêtes HTTP complètes depuis des tâches (ex: pour régénérer le cache des manifestations sans tout redévelopper)</li>
-  <li>Amélioration de l'indexeur d'enregistrement (Behavior Doctrine1 "Searchable")</li>
-  <li>Correction et information sur un bug PostgreSQL lié à l'utilisation de connexions SSL</li>
-  <li>Introduction de la librairie jqplot qui remplacera progressivement Open Flash Charts 2</li>
-  <li>Amélioration du spooler d'emails</li>
-</ul>
-</li>
-  <li>CLI:
-<ul>
-  <li>amélioration des cronjobs (entre autre pour éviter des auto-DOS)</li>
-  <li>ajout d'un script de connexion automatique à la base de données principale courante (fonctionnalité "beta", pratique pour éviter les erreurs de connexion)</li>
-  <li>création du script de migration v2.8 → v2.9</li>
-</ul>
-</li>
-  <li>Documentation:
-<ul>
-  <li>Mise à jour du schéma de la base de données SVG</li>
-</ul>
-</li>
-</ul>
+  <ul>
+    <li>Billetterie
+  <ul>
+  <li>Impression directe</li>
+    <li>Intégration digitick</li>
+    <li>Meta-billets, les billets fusionnés</li>
+    <li>Billet valable à la journée</li>
+    <li>Image de fond personnalisée sur les billets (communication)</li>
+    <li>Intégration des TPE ingénico</li>
+    <li>Intégration d'afficheurs clients</li>
+  </ul></li>
+  <li>Module avantages
+  <ul>
+  <li>Ajout de codes promo</li>
+  </ul>
+  </li>
+    <li>Musées
+  <ul>
+  <li>Décrémentation automatique de la jauge</li>
+    <li>Contrôle automatique des billets en vente directe</li>
+  </ul>
+  </li>
+    <li>Événementiel
+  <ul>
+  <li>Inverser l'état "en ligne" de jauges par manifestation</li>
+  </ul>
+  </li>
+    <li>Boutique
+  <ul>
+  <li>Frais d'expédition relatifs au poids d'un produit</li>
+  </ul>
+  </li>
+    <li>Vente en ligne
+  <ul>
+  <li>Opt-In sur les newsletters</li>
+    <li>Paiements en ligne multiples possibles</li>
+    <li>Extraction des données d'un de ses opérations</li>
+    <li>Obliger les internautes à avoir des billets nominatifs</li>
+    <li>Reprendre les noms déjà paramétrés sur des billets précédents</li>
+    <li>Partage sur les réseaux sociaux</li>
+    <li>Multi-devises (limité)</li>
+    <li>Ajout automatique d'un billet sur une manifestation donnée</li>
+    <li>Authentification via OpenID Connect / OAuth2</li>
+  </ul>
+  </li>
+    <li>Relations aux publics
+  <ul>
+  <li>Mise en cache et optimisation des listes</li>
+    <li>Cloisonnement des RP via les groupes</li>
+    <li>Intégration de bases de rues externe (OpenData)</li>
+    <li>Possibilité d'accéder aux groupes communs sans pouvoir les modifier</li>
+  </ul>
+  </li>
+    <li>Questionnaires
+  <ul>
+  <li>Options pour participants via les questionnaires</li>
+  </ul>
+  </li>
+  <li>Général
+  <ul>
+    <li>Stockage des sessions en base de données</li>
+    <li>Stockage des données mises en cache en base de données</li>
+    <li>Restrictions par domaine d'utilisation</li>
+  </ul>
+  </li>
+  </ul>

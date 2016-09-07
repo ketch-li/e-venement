@@ -16,8 +16,9 @@
 #li_fieldset_simplified .simplified-top-block > .bunch > li { background-color: rgba(255,237,189,0.4); border: 1px solid #A6C9E2; border-radius: 5px; padding: 3px; margin: 3px; }
 #li_fieldset_simplified .simplified-top-block > .bunch > li:hover { background-color: rgba(255,237,189,0.6); }
 #li_fieldset_simplified .simplified-top-block > .bunch > li .happens_at { white-space: nowrap; }
-#li_fieldset_simplified .simplified-top-block > .bunch > li .category { font-weight: bold; display: block; }
-#li_fieldset_simplified .simplified-top-block > .bunch > li > span { border-left: 5px solid transparent; }
+#li_fieldset_simplified .simplified-top-block > .bunch > li .category { display: block; }
+#li_fieldset_simplified .simplified-top-block > .bunch > li .product { font-weight: bold; }
+#li_fieldset_simplified .simplified-top-block > .bunch > li > span { border-left: 5px solid transparent; border-right: 5px solid transparent; }
 #li_fieldset_simplified .simplified-top-block > .bunch > li > ul { display: none; text-align: left; margin-top: 4px; }
 #li_fieldset_simplified .simplified-top-block > .bunch > li > :not(ul) { cursor: pointer; display: block; text-align: center; }
 #li_fieldset_simplified .simplified-top-block > .bunch > li > ul > li { border-radius: 3px; padding: 6px; }

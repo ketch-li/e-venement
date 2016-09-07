@@ -160,7 +160,7 @@ $(document).ready(function(){
             .append('<span></span>')
             
             .find('span')
-            .css('border-left-color', cat.color)
+            .css('border-color', cat.color)
             .append($('<span></span>'))
             
             .find('span')
@@ -341,9 +341,9 @@ LI.touchscreenSimplified_LoadData = function(data, form, append){
       .attr('data-family-id', manif.id)
       .attr('data-category-id', manif.category_id)
       .attr('data-category', manif.category)
-      .append('<span></span>')
-      .find('span')
-      .css('border-left-color', manif.color)
+      .prepend('<span></span>')
+      .find('> span')
+      .css('border-color', manif.color)
       .append($('<span></span>').addClass('product').text(pdt))
       .append($('<span></span>').addClass('category').text(manif.category))
     ;

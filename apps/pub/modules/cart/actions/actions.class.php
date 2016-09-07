@@ -261,7 +261,7 @@ class cartActions extends sfActions
   {
     return Doctrine::getTable('PaymentMethod')->createQuery('pm')
       ->andWhere('pm.member_card_linked = ?',true)
-      ->andWhere('pm.display = ?',true)
+      //->andWhere('pm.display = ?',true)
       ->orderBy('id')
       ->fetchOne();
   }
@@ -280,6 +280,8 @@ class cartActions extends sfActions
   {
     if ( is_null($payment_method) )
       $payment_method = $this->getMemberCardPaymentMethod();
+    if ( !$payment_method )
+      throw new liOnlineSaleException('Online Sales: No payment method defined for member cards.');
 
     foreach ( $this->getUser()->getTransaction()->Tickets as $ticket )
     if ( $ticket->Price->member_card_linked )
