@@ -34,7 +34,13 @@ class Price extends PluginPrice implements liUserAccessInterface
   
   public function isAccessibleBy(sfSecurityUser $user, $option = NULL)
   {
-    if ( !in_array($user->getId(), $this->Users->getPrimaryKeys()) )
+    if ( $this->isNew() )
+      return false;
+    
+    if ( Doctrine::getTable('UserPrice')->createQuery('up')
+      ->andWhere('up.price_id = ?', $this->id)
+      ->andWhere('up.sf_guard_user_id = ?', $user->getId())
+      ->count() == 0 )
       return false;
     if ( ! $user instanceof pubUser )
       return true;
