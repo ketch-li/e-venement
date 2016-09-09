@@ -35,7 +35,8 @@
       ? $request->getParameter('transaction_id')
       : false;
     $this->transaction = $tid ? Doctrine::getTable('Transaction')->find($tid) : $this->getUser()->getTransaction();
-    if ( $this->transaction->contact_id != $this->getUser()->getTransaction()->contact_id )
+    if ( $this->transaction->contact_id != $this->getUser()->getTransaction()->contact_id
+      && $request->getParameter('token','') === md5($this->transaction->id.'||'.sfConfig::get('project_eticketting_salt', '123456789123456789')) )
       $this->transaction = $this->getUser()->getTransaction();
     
     // harden data
@@ -46,7 +47,7 @@
     catch ( liEvenementException $e )
     { $this->form = new ContactPublicForm; }
     
-    if (!( $this->getUser()->getTransaction()->contact_id && !$request->hasParameter('contact') ))
+    if (!( $this->transaction->contact_id && !$request->hasParameter('contact') ))
     {
       // add the contact to the DB
       if ( !$this->form->getObject()->isNew() )
@@ -102,7 +103,7 @@
     
     // passes controls: the current transaction does not embed more MemberCards than allowed
     if ( ($max = sfConfig::get('app_member_cards_max_per_transaction', false))
-      && ($nb = $this->getUser()->getTransaction()->MemberCards->count()) > sfConfig::get('app_member_cards_max_per_transaction') )
+      && ($nb = $this->transaction->MemberCards->count()) > sfConfig::get('app_member_cards_max_per_transaction') )
     {
       $this->getContext()->getConfiguration()->loadHelpers('I18N');
       $this->getUser()->setFlash('error', $str = __('You have ordered %%nb%% passes/member cards, but %%max%% is allowed. Please remove some of them...'));
@@ -111,10 +112,10 @@
     }
     
     // passes controls: checks if the current transaction does not have more than the maximum acceptable
-    if ( $this->getUser()->getTransaction()->MemberCards->count() > 0 )
+    if ( $this->transaction->MemberCards->count() > 0 )
     {
       $mcs = array();
-      foreach ( $this->getUser()->getTransaction()->MemberCards as $mc )
+      foreach ( $this->transaction->MemberCards as $mc )
       foreach ( $mc->MemberCardPrices as $mcp )
       {
         if ( !isset($mcs[$mcp->price_id]) )
@@ -124,7 +125,7 @@
         $mcs[$mcp->price_id][$mcp->event_id ? $mcp->event_id : '']++;
       }
       
-      foreach ( $this->getUser()->getTransaction()->Tickets as $ticket )
+      foreach ( $this->transaction->Tickets as $ticket )
       if ( $ticket->Price->member_card_linked && !$ticket->member_card_id )
       {
         if ( isset($mcs[$ticket->price_id][$ticket->Manifestation->event_id])
@@ -161,7 +162,7 @@
       // order the tickets by the quantity (DESC) of their Event bookings
       $tickets = new Doctrine_Collection('Ticket');
       $events = array();
-      foreach ( $this->getUser()->getTransaction()->Tickets as $ticket )
+      foreach ( $this->transaction->Tickets as $ticket )
       {
         if ( !isset($events[$ticket->Manifestation->event_id]) )
           $events[$ticket->Manifestation->event_id] = 0;
@@ -169,13 +170,13 @@
       }
       arsort($events);
       foreach ( $events as $event_id => $buf )
-      foreach ( $this->getUser()->getTransaction()->Tickets as $ticket )
+      foreach ( $this->transaction->Tickets as $ticket )
       if ( $ticket->Manifestation->event_id == $event_id )
         $tickets[] = $ticket;
       unset($events);
       
       // checks for each member card if it matches the rules set in the configuration
-      foreach ( $this->getUser()->getTransaction()->MemberCards as $mc )
+      foreach ( $this->transaction->MemberCards as $mc )
       if ( $nb[$mc->MemberCardType->name] > 0 )
       {
         $events = array();
@@ -246,11 +247,11 @@
     
     // passes controls: the current transaction does embed only authorized tickets
     $tickets = new Doctrine_Collection('Ticket');
-    foreach ( $this->getUser()->getTransaction()->Tickets as $ticket )
+    foreach ( $this->transaction->Tickets as $ticket )
     if ( $ticket->Price->member_card_linked && !$ticket->member_card_id )
       $tickets[] = $ticket;
     $mcps = array();
-    foreach ( $this->getUser()->getTransaction()->Contact->MemberCards as $mc )
+    foreach ( $this->transaction->Contact->MemberCards as $mc )
     if ( $mc->active || $mc->transaction_id == $this->getUser()->getTransactionId() )
     foreach ( $mc->MemberCardPrices as $mcp )
       $mcps[($mcp->event_id ? 'e' : 'z').$mcp->id] = $mcp;
@@ -279,7 +280,7 @@
     }
     
     // surveys to apply
-    $surveys = $this->getUser()->getTransaction()->getSurveysToFillIn();
+    $surveys = $this->transaction->getSurveysToFillIn();
     if ( $surveys->count() > 0 )
     {
       $this->getContext()->getConfiguration()->loadHelpers('I18N');
@@ -355,11 +356,13 @@
     $vel = sfConfig::get('app_tickets_vel', array());
     if ( isset($vel['one_shot']) && $vel['one_shot'] )
     {
-      $this->getUser()->getTransaction()->Contact->password = NULL;
-      $this->getUser()->getTransaction()->Contact->save();
+      $this->transaction->Contact->password = NULL;
+      $this->transaction->Contact->save();
       error_log('Logout forced following the "one_shot" option.');
       $this->getUser()->logout();
     }
     
     if ( $redirect )
       $this->redirect($redirect);
+
+    $this->tid = $this->transaction->id;

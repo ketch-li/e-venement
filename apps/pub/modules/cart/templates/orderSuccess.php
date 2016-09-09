@@ -11,7 +11,7 @@
     }
   });
 --></script>
-<h1><?php echo __('Payment of your order #%%tid%%', array('%%tid%%' => $transaction->id)) ?></h1>
+<h1><?php echo __('Payment of your order #%%tid%%', array('%%tid%%' => $tid)) ?></h1>
 <?php $currency = sfConfig::get('project_internals_currency', array()) ?>
 <?php if ( isset($currency['conversions']) && is_array($currency['conversions']) && $currency['conversions']
         && !$sf_request->getPostParameter('currency', false) ): ?>
