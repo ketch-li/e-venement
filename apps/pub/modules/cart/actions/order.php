@@ -36,7 +36,7 @@
       : false;
     $this->transaction = $tid ? Doctrine::getTable('Transaction')->find($tid) : $this->getUser()->getTransaction();
     if ( $this->transaction->contact_id != $this->getUser()->getTransaction()->contact_id
-      && $request->getParameter('token','') === md5($this->transaction->id.'||'.sfConfig::get('project_eticketting_salt', '123456789123456789')) )
+      && $request->getParameter('token','') === md5($this->transaction->id.'|*|*|'.sfConfig::get('project_eticketting_salt', 'e-venement')) )
       $this->transaction = $this->getUser()->getTransaction();
     
     // harden data
