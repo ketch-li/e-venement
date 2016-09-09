@@ -229,7 +229,7 @@ class cartActions extends sfActions
   {
     return Doctrine::getTable('PaymentMethod')->createQuery('pm')
       ->andWhere('pm.member_card_linked = ?',true)
-      ->andWhere('pm.display = ?',true)
+      //->andWhere('pm.display = ?',true)
       ->orderBy('id')
       ->fetchOne();
   }
