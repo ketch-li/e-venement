@@ -68,6 +68,7 @@ ul.no-bullet li.highlight { text-decoration: underline; }
 #contact-form .field.terms_conditions label { display: inline; font-weight: normal; float: none; }
 #contact-form .field.terms_conditions input { width: auto; }
 
+#member_card_types .qty { white-space: nowrap; }
 #member_card_types .qty input, #member_card_types .qty, #member_card_types .total, #member_card_types .value { text-align: right; }
 #member_card_types .qty input { width: 2em; }
 #member_card_types tbody tr:last-child td { padding-bottom: 5px; }
@@ -277,7 +278,7 @@ a.actions a:hover { color: #000; background: #F4F4F4; }
   border-radius: 5px;
   text-decoration: none;
   padding: 0 0 0 5px;
-  color: #313739;
+  color: #fff;
   background: #F4F4F4; /* Old browsers */
   background: -moz-linear-gradient(top, #F4F4F4 0%, #E7E7E7 37%, #DBDBDB 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F4F4F4), color-stop(37%,#E7E7E7), color-stop(100%,#DBDBDB)); /* Chrome,Safari4+ */
