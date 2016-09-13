@@ -78,8 +78,8 @@
           foreach ( $mc->MemberCardPrices as $mcp )
           if ( $mcp->price_id == $id && $mcp->event_id == $manifestation->event_id )
             $mc_max++;
+          $max = $max > $mc_max ? $mc_max : $max;
         }
-        $max = $max > $mc_max ? $mc_max : $max;
       ?>
       <?php if ( ! $price instanceof Doctrine_Record ) $price = $price->getRawValue(); ?>
       <?php if ( in_array($gauge->workspace_id, $price->Price->Workspaces->getPrimaryKeys()) ): ?>

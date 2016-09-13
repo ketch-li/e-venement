@@ -62,6 +62,15 @@
 ><span class="ui-icon ui-icon-mail-closed"></span></a>
 <a
   class="ui-widget-content ui-state-default ui-corner-all ui-widget fg-button"
+  href="<?php echo cross_app_url_for('pub','cart/order?transaction_id='.$transaction->id.'&token='.md5($transaction->id.'|*|*|'.sfConfig::get('project_eticketting_salt', 'e-venement'))) ?>"
+  title="<?php echo __('Pay by card online (only efficient if this transaction has a contact)') ?>"
+  data-text-prefix="<?php echo __('This is the URL to use: ') ?>"
+  id="pay-online"
+  target="_blank"
+  onclick="javascript: var anchor = $('<a></a>').text($(this).prop('href')).prop('href', $(this).prop('href')); LI.alert($(this).attr('data-text-prefix')+anchor.html(),'success', 8000); return false;"
+><span class="ui-icon ui-icon-suitcase"></span></a>
+<a
+  class="ui-widget-content ui-state-default ui-corner-all ui-widget fg-button"
   href="<?php echo url_for('transaction/directSurveys?id='.$transaction->id) ?>"
   title="<?php echo __('Edit transaction surveys...') ?>"
   id="direct-surveys"

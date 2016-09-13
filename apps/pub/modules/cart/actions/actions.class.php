@@ -103,10 +103,12 @@ class cartActions extends sfActions
   }
   public function executeDone(sfWebRequest $request)
   {
+    error_log($this->getUser()->getTransaction()->id);
     $this->dispatcher->notify(new sfEvent($this, 'pub.cart.done', array(
       'request' => $request,
       'action' => $this,
     )));
+    error_log($this->getUser()->getTransaction()->id);
 
     try { $this->transaction = $this->getUser()->getTransaction(); }
     catch ( liOnlineSaleException $e )
@@ -121,6 +123,7 @@ class cartActions extends sfActions
     sleep(2);
 
     // go back to the just-paid transaction, what ever it is
+    error_log($this->transaction->contact_id.' '.$this->transaction->id.' '.$this->getUser()->getTransaction()->id);
     $transaction = Doctrine::getTable('Transaction')->createQuery('t')
       ->select('t.*')
       ->andWhere('t.contact_id = ?', $this->transaction->contact_id)
