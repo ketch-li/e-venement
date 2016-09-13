@@ -1,700 +1,674 @@
 GeoFrRegion:
   GeoFrRegion_1:
-    name: Aquitaine
-    strict_name: AQUITAINE
-    slug: aquitaine
+    name: guadeloupe
+    strict_name: GUADELOUPE
+    slug: guadeloupe
   GeoFrRegion_2:
-    name: Auvergne
-    strict_name: AUVERGNE
-    slug: auvergne
+    name: Martinique
+    strict_name: MARTINIQUE
+    slug: martinique
   GeoFrRegion_3:
-    name: Bourgogne
-    strict_name: BOURGOGNE
-    slug: bourgogne
+    name: Guyane
+    strict_name: GUYANE
+    slug: guyane
   GeoFrRegion_4:
-    name: Bretagne
-    strict_name: BRETAGNE
-    slug: bretagne
-  GeoFrRegion_5:
-    name: Centre
-    strict_name: CENTRE
-    slug: centre
+    name: 'La Réunion'
+    strict_name: 'LA REUNION'
+    slug: la-réunion
   GeoFrRegion_6:
-    name: 'Champagne Ardenne'
-    strict_name: 'CHAMPAGNE ARDENNE'
-    slug: champagne-ardenne
-  GeoFrRegion_7:
-    name: Corse
-    strict_name: CORSE
-    slug: corse
-  GeoFrRegion_8:
-    name: DOM/TOM
-    strict_name: DOM/TOM
-    slug: dom-tom
-  GeoFrRegion_9:
-    name: 'Franche Comté'
-    strict_name: 'FRANCHE COMTÉ'
-    slug: franche-comte
-  GeoFrRegion_10:
-    name: 'Ile de France'
-    strict_name: 'ILE DE FRANCE'
-    slug: ile-de-france
+    name: Mayotte
+    strict_name: MAYOTTE
+    slug: mayotte
   GeoFrRegion_11:
-    name: 'Languedoc Roussillon'
-    strict_name: 'LANGUEDOC ROUSSILLON'
-    slug: languedoc-roussillon
-  GeoFrRegion_12:
-    name: Limousin
-    strict_name: LIMOUSIN
-    slug: limousin
-  GeoFrRegion_13:
-    name: Lorraine
-    strict_name: LORRAINE
-    slug: lorraine
-  GeoFrRegion_14:
-    name: 'Midi Pyrénées'
-    strict_name: 'MIDI PYRÉNÉES'
-    slug: midi-pyrenees
-  GeoFrRegion_15:
-    name: 'Nord Pas de Calais'
-    strict_name: 'NORD PAS DE CALAIS'
-    slug: nord-pas-de-calais
-  GeoFrRegion_17:
-    name: 'Haute Normandie '
-    strict_name: 'HAUTE NORMANDIE '
-    slug: haute-normandie-
-  GeoFrRegion_18:
+    name: Île-de-France
+    strict_name: ILE-DE-FRANCE
+    slug: ile-de-france
+  GeoFrRegion_24:
+    name: 'Centre-Val de Loire'
+    strict_name: 'CENTRE-VAL DE LOIRE'
+    slug: centre-val-de-loire
+  GeoFrRegion_27:
+    name: Bourgogne-Franche-Comté
+    strict_name: BOURGOGNE-FRANCHE-COMTE
+    slug: bourgogne-franch-comte
+  GeoFrRegion_28:
+    name: Normandie
+    strict_name: NORMANDIE
+    slug: normandie
+  GeoFrRegion_32:
+    name: Nord-Pas-de-Calais-Picardie
+    strict_name: NORD-PAS-DE-CALAIS-PICARDIE
+    slug: nord-pas-de-calais-picardie
+  GeoFrRegion_44:
+    name: Alsace-Champagne-Ardenne-Lorraine
+    strict_name: ALSACE-CHAMPAGNE-ARDENNE-LORRAINE
+    slug: alsace-champagne-ardenne-lorraine
+  GeoFrRegion_52:
     name: 'Pays de la Loire'
     strict_name: 'PAYS DE LA LOIRE'
     slug: pays-de-la-loire
-  GeoFrRegion_19:
-    name: Picardie
-    strict_name: PICARDIE
-    slug: picardie
-  GeoFrRegion_20:
-    name: 'Poitou Charentes'
-    strict_name: 'POITOU CHARENTES'
-    slug: poitou-charentes
-  GeoFrRegion_21:
-    name: 'Provence Alpes Côte d''azur'
-    strict_name: 'PROVENCE ALPES CÔTE D''AZUR'
+  GeoFrRegion_53:
+    name: Bretagne
+    strict_name: BRETAGNE
+    slug: bretagne
+  GeoFrRegion_75:
+    name: Aquitaine-Limousin-Poitou-Charentes
+    strict_name: AQUITAINE-LIMOUSIN-POITOU-CHARENTES
+    slug: aquitaine-limousin-poitou-charentes
+  GeoFrRegion_76:
+    name: Languedoc-Roussillon-Midi-Pyrénées
+    strict_name: LANGUEDOC-ROUSSILLON-MIDI-PYRENEES
+    slug: languedoc-rousillon-midi-pyrenees
+  GeoFrRegion_84:
+    name: Auvergne-Rhône-Alpes
+    strict_name: AUVERGNE-RHONE-ALPES
+    slug: auvergne-rhone-alpes
+  GeoFrRegion_93:
+    name: 'Provence-Alpes-Côte d''Azur'
+    strict_name: 'PROVENCE-ALPES-COTE D''AZUR'
     slug: provence-alpes-cote-dazur
-  GeoFrRegion_22:
-    name: 'Rhône Alpes'
-    strict_name: 'RHÔNE ALPES'
-    slug: rhone-alpes
-  GeoFrRegion_23:
-    name: Alsace
-    strict_name: ALSACE
-    slug: alsace
-  GeoFrRegion_24:
-    name: Basse-Normandie
-    strict_name: BASSE-NORMANDIE
-    slug: basse-normandie
+  GeoFrRegion_94:
+    name: Corse
+    strict_name: CORSE
+    slug: corse
 GeoFrDepartment:
-  GeoFrDepartment_1:
-    Region: GeoFrRegion_22
+  GeoFrDepartment_101:
+    Region: GeoFrRegion_84
     num: '01'
     name: Ain
     strict_name: AIN
     slug: ain
-  GeoFrDepartment_2:
-    Region: GeoFrRegion_19
+  GeoFrDepartment_102:
+    Region: GeoFrRegion_32
     num: '02'
     name: Aisne
     strict_name: AISNE
     slug: aisne
-  GeoFrDepartment_3:
-    Region: GeoFrRegion_2
+  GeoFrDepartment_103:
+    Region: GeoFrRegion_84
     num: '03'
     name: Allier
     strict_name: ALLIER
     slug: allier
-  GeoFrDepartment_4:
-    Region: GeoFrRegion_21
+  GeoFrDepartment_104:
+    Region: GeoFrRegion_93
     num: '04'
-    name: 'Alpes de Haute-Provence'
-    strict_name: 'ALPES DE HAUTE PROVENCE'
+    name: Alpes-de-Haute-Provence
+    strict_name: ALPES-DE-HAUTE-PROVENCE
     slug: alpes-de-haute-provence
-  GeoFrDepartment_5:
-    Region: GeoFrRegion_21
+  GeoFrDepartment_105:
+    Region: GeoFrRegion_93
     num: '05'
-    name: 'Alpes (Hautes)'
-    strict_name: 'ALPES (HAUTES)'
-    slug: alpes-hautes
-  GeoFrDepartment_6:
-    Region: GeoFrRegion_21
+    name: Hautes-Alpes
+    strict_name: HAUTES-ALPES
+    slug: hautes-alpes
+  GeoFrDepartment_106:
+    Region: GeoFrRegion_93
     num: '06'
-    name: 'Alpes Maritimes'
-    strict_name: 'ALPES MARITIMES'
+    name: Alpes-Maritimes
+    strict_name: ALPES-MARITIMES
     slug: alpes-maritimes
-  GeoFrDepartment_7:
-    Region: GeoFrRegion_22
+  GeoFrDepartment_107:
+    Region: GeoFrRegion_84
     num: '07'
-    name: Ardéche
-    strict_name: ARDÉCHE
+    name: Ardèche
+    strict_name: ARDECHE
     slug: ardeche
-  GeoFrDepartment_8:
-    Region: GeoFrRegion_6
+  GeoFrDepartment_108:
+    Region: GeoFrRegion_44
     num: '08'
     name: Ardennes
     strict_name: ARDENNES
     slug: ardennes
-  GeoFrDepartment_9:
-    Region: GeoFrRegion_14
+  GeoFrDepartment_109:
+    Region: GeoFrRegion_76
     num: '09'
-    name: ' Ariége'
-    strict_name: ' ARIÉGE'
-    slug: -ariege
-  GeoFrDepartment_10:
-    Region: GeoFrRegion_6
+    name: Ariège
+    strict_name: ARIEGE
+    slug: ariege
+  GeoFrDepartment_110:
+    Region: GeoFrRegion_44
     num: '10'
     name: Aube
     strict_name: AUBE
     slug: aube
-  GeoFrDepartment_11:
-    Region: GeoFrRegion_11
+  GeoFrDepartment_111:
+    Region: GeoFrRegion_76
     num: '11'
     name: Aude
     strict_name: AUDE
     slug: aude
-  GeoFrDepartment_12:
-    Region: GeoFrRegion_14
+  GeoFrDepartment_112:
+    Region: GeoFrRegion_76
     num: '12'
     name: Aveyron
     strict_name: AVEYRON
     slug: aveyron
-  GeoFrDepartment_13:
-    Region: GeoFrRegion_21
+  GeoFrDepartment_113:
+    Region: GeoFrRegion_93
     num: '13'
-    name: 'Bouches du Rhône'
-    strict_name: 'BOUCHES DU RHÔNE'
+    name: Bouches-du-Rhône
+    strict_name: BOUCHES-DU-RHONE
     slug: bouches-du-rhone
-  GeoFrDepartment_14:
-    Region: GeoFrRegion_24
+  GeoFrDepartment_114:
+    Region: GeoFrRegion_28
     num: '14'
     name: Calvados
     strict_name: CALVADOS
     slug: calvados
-  GeoFrDepartment_15:
-    Region: GeoFrRegion_2
+  GeoFrDepartment_115:
+    Region: GeoFrRegion_84
     num: '15'
     name: Cantal
     strict_name: CANTAL
     slug: cantal
-  GeoFrDepartment_16:
-    Region: GeoFrRegion_20
+  GeoFrDepartment_116:
+    Region: GeoFrRegion_75
     num: '16'
     name: Charente
     strict_name: CHARENTE
     slug: charente
-  GeoFrDepartment_17:
-    Region: GeoFrRegion_20
+  GeoFrDepartment_117:
+    Region: GeoFrRegion_75
     num: '17'
-    name: 'Charente Maritime'
-    strict_name: 'CHARENTE MARITIME'
+    name: Charente-Maritime
+    strict_name: CHARENTE-MARITIME
     slug: charente-maritime
-  GeoFrDepartment_18:
-    Region: GeoFrRegion_5
+  GeoFrDepartment_118:
+    Region: GeoFrRegion_24
     num: '18'
     name: Cher
     strict_name: CHER
     slug: cher
-  GeoFrDepartment_19:
-    Region: GeoFrRegion_12
+  GeoFrDepartment_119:
+    Region: GeoFrRegion_75
     num: '19'
-    name: Corréze
-    strict_name: CORRÉZE
+    name: Corrèze
+    strict_name: CORREZE
     slug: correze
-  GeoFrDepartment_21:
-    Region: GeoFrRegion_12
+  GeoFrDepartment_120:
+    Region: GeoFrRegion_94
+    num: 2A
+    name: Corse-du-Sud
+    strict_name: CORSE-DU-SUD
+    slug: corse-du-sud
+  GeoFrDepartment_121:
+    Region: GeoFrRegion_94
+    num: 2B
+    name: Haute-Corse
+    strict_name: HAUTE-CORSE
+    slug: haute-corse
+  GeoFrDepartment_122:
+    Region: GeoFrRegion_27
+    num: '21'
+    name: 'Côte-d''Or'
+    strict_name: 'COTE-D''OR'
+    slug: cote-dor
+  GeoFrDepartment_123:
+    Region: GeoFrRegion_53
+    num: '22'
+    name: 'Côtes-d''Armor'
+    strict_name: 'COTES-D''ARMOR'
+    slug: cotes-darmor
+  GeoFrDepartment_124:
+    Region: GeoFrRegion_75
     num: '23'
-    name: 'Creuse '
-    strict_name: 'CREUSE '
-    slug: creuse-
-  GeoFrDepartment_22:
-    Region: GeoFrRegion_1
+    name: Creuse
+    strict_name: CREUSE
+    slug: creuse
+  GeoFrDepartment_125:
+    Region: GeoFrRegion_75
     num: '24'
     name: Dordogne
     strict_name: DORDOGNE
     slug: dordogne
-  GeoFrDepartment_23:
-    Region: GeoFrRegion_9
+  GeoFrDepartment_126:
+    Region: GeoFrRegion_27
     num: '25'
     name: Doubs
     strict_name: DOUBS
     slug: doubs
-  GeoFrDepartment_24:
-    Region: GeoFrRegion_22
+  GeoFrDepartment_127:
+    Region: GeoFrRegion_84
     num: '26'
     name: Drôme
-    strict_name: DRÔME
+    strict_name: DROME
     slug: drome
-  GeoFrDepartment_25:
-    Region: GeoFrRegion_17
+  GeoFrDepartment_128:
+    Region: GeoFrRegion_28
     num: '27'
     name: Eure
     strict_name: EURE
     slug: eure
-  GeoFrDepartment_26:
-    Region: GeoFrRegion_5
-    num: '28'
-    name: 'Eure et Loir'
-    strict_name: 'EURE ET LOIR'
-    slug: eure-et-loir
-  GeoFrDepartment_27:
-    Region: GeoFrRegion_4
+  GeoFrDepartment_129:
+    Region: GeoFrRegion_53
     num: '29'
-    name: Finistére
-    strict_name: FINISTÉRE
+    name: Finistère
+    strict_name: FINISTERE
     slug: finistere
-  GeoFrDepartment_28:
-    Region: GeoFrRegion_11
+  GeoFrDepartment_130:
+    Region: GeoFrRegion_76
     num: '30'
     name: Gard
     strict_name: GARD
     slug: gard
-  GeoFrDepartment_29:
-    Region: GeoFrRegion_14
+  GeoFrDepartment_131:
+    Region: GeoFrRegion_76
     num: '31'
-    name: 'Garonne (Haute)'
-    strict_name: 'GARONNE (HAUTE)'
-    slug: garonne-haute
-  GeoFrDepartment_30:
-    Region: GeoFrRegion_14
+    name: Haute-Garonne
+    strict_name: HAUTE-GARONNE
+    slug: haute-garonne
+  GeoFrDepartment_132:
+    Region: GeoFrRegion_76
     num: '32'
     name: Gers
     strict_name: GERS
     slug: gers
-  GeoFrDepartment_31:
-    Region: GeoFrRegion_1
+  GeoFrDepartment_133:
+    Region: GeoFrRegion_75
     num: '33'
     name: Gironde
     strict_name: GIRONDE
     slug: gironde
-  GeoFrDepartment_32:
-    Region: GeoFrRegion_11
+  GeoFrDepartment_134:
+    Region: GeoFrRegion_76
     num: '34'
     name: Hérault
-    strict_name: HÉRAULT
+    strict_name: HERAULT
     slug: herault
-  GeoFrDepartment_33:
-    Region: GeoFrRegion_4
+  GeoFrDepartment_135:
+    Region: GeoFrRegion_53
     num: '35'
-    name: 'Ile et Vilaine'
-    strict_name: 'ILE ET VILAINE'
-    slug: ile-et-vilaine
-  GeoFrDepartment_34:
-    Region: GeoFrRegion_5
+    name: Ille-et-Vilaine
+    strict_name: ILLE-ET-VILAINE
+    slug: ille-et-vilaine
+  GeoFrDepartment_136:
+    Region: GeoFrRegion_24
     num: '36'
     name: Indre
     strict_name: INDRE
     slug: indre
-  GeoFrDepartment_35:
-    Region: GeoFrRegion_5
+  GeoFrDepartment_137:
+    Region: GeoFrRegion_24
     num: '37'
-    name: 'Indre et Loire'
-    strict_name: 'INDRE ET LOIRE'
+    name: Indre-et-Loire
+    strict_name: INDRE-ET-LOIRE
     slug: indre-et-loire
-  GeoFrDepartment_36:
-    Region: GeoFrRegion_22
+  GeoFrDepartment_138:
+    Region: GeoFrRegion_84
     num: '38'
-    name: Isére
-    strict_name: ISÉRE
+    name: Isère
+    strict_name: ISERE
     slug: isere
-  GeoFrDepartment_37:
-    Region: GeoFrRegion_9
+  GeoFrDepartment_139:
+    Region: GeoFrRegion_27
     num: '39'
     name: Jura
     strict_name: JURA
     slug: jura
-  GeoFrDepartment_38:
-    Region: GeoFrRegion_1
+  GeoFrDepartment_140:
+    Region: GeoFrRegion_75
     num: '40'
     name: Landes
     strict_name: LANDES
     slug: landes
-  GeoFrDepartment_39:
-    Region: GeoFrRegion_5
+  GeoFrDepartment_141:
+    Region: GeoFrRegion_24
     num: '41'
-    name: 'Loir et Cher'
-    strict_name: 'LOIR ET CHER'
+    name: Loir-et-Cher
+    strict_name: LOIR-ET-CHER
     slug: loir-et-cher
-  GeoFrDepartment_40:
-    Region: GeoFrRegion_22
+  GeoFrDepartment_142:
+    Region: GeoFrRegion_84
     num: '42'
     name: Loire
     strict_name: LOIRE
     slug: loire
-  GeoFrDepartment_41:
-    Region: GeoFrRegion_2
+  GeoFrDepartment_143:
+    Region: GeoFrRegion_84
     num: '43'
-    name: 'Loire (Haute)'
-    strict_name: 'LOIRE (HAUTE)'
-    slug: loire-haute
-  GeoFrDepartment_42:
-    Region: GeoFrRegion_18
+    name: Haute-Loire
+    strict_name: HAUTE-LOIRE
+    slug: haute-loire
+  GeoFrDepartment_144:
+    Region: GeoFrRegion_52
     num: '44'
-    name: 'Loire Atlantique'
-    strict_name: 'LOIRE ATLANTIQUE'
+    name: Loire-Atlantique
+    strict_name: LOIRE-ATLANTIQUE
     slug: loire-atlantique
-  GeoFrDepartment_43:
-    Region: GeoFrRegion_5
+  GeoFrDepartment_145:
+    Region: GeoFrRegion_24
     num: '45'
     name: Loiret
     strict_name: LOIRET
     slug: loiret
-  GeoFrDepartment_44:
-    Region: GeoFrRegion_14
+  GeoFrDepartment_146:
+    Region: GeoFrRegion_76
     num: '46'
     name: Lot
     strict_name: LOT
     slug: lot
-  GeoFrDepartment_45:
-    Region: GeoFrRegion_1
+  GeoFrDepartment_147:
+    Region: GeoFrRegion_75
     num: '47'
-    name: 'Lot et Garonne'
-    strict_name: 'LOT ET GARONNE'
+    name: Lot-et-Garonne
+    strict_name: LOT-ET-GARONNE
     slug: lot-et-garonne
-  GeoFrDepartment_46:
-    Region: GeoFrRegion_11
+  GeoFrDepartment_148:
+    Region: GeoFrRegion_76
     num: '48'
-    name: Lozére
-    strict_name: LOZÉRE
+    name: Lozère
+    strict_name: LOZERE
     slug: lozere
-  GeoFrDepartment_47:
-    Region: GeoFrRegion_18
+  GeoFrDepartment_149:
+    Region: GeoFrRegion_52
     num: '49'
-    name: 'Maine et Loire'
-    strict_name: 'MAINE ET LOIRE'
+    name: Maine-et-Loire
+    strict_name: MAINE-ET-LOIRE
     slug: maine-et-loire
-  GeoFrDepartment_48:
-    Region: GeoFrRegion_24
+  GeoFrDepartment_150:
+    Region: GeoFrRegion_28
     num: '50'
     name: Manche
     strict_name: MANCHE
     slug: manche
-  GeoFrDepartment_49:
-    Region: GeoFrRegion_6
+  GeoFrDepartment_151:
+    Region: GeoFrRegion_44
     num: '51'
     name: Marne
     strict_name: MARNE
     slug: marne
-  GeoFrDepartment_50:
-    Region: GeoFrRegion_6
+  GeoFrDepartment_152:
+    Region: GeoFrRegion_44
     num: '52'
-    name: 'Marne (Haute)'
-    strict_name: 'MARNE (HAUTE)'
-    slug: marne-haute
-  GeoFrDepartment_51:
-    Region: GeoFrRegion_18
+    name: Haute-Marne
+    strict_name: HAUTE-MARNE
+    slug: haute-marne
+  GeoFrDepartment_153:
+    Region: GeoFrRegion_52
     num: '53'
     name: Mayenne
     strict_name: MAYENNE
     slug: mayenne
-  GeoFrDepartment_52:
-    Region: GeoFrRegion_13
+  GeoFrDepartment_154:
+    Region: GeoFrRegion_44
     num: '54'
-    name: 'Meurthe et Moselle'
-    strict_name: 'MEURTHE ET MOSELLE'
+    name: Meurthe-et-Moselle
+    strict_name: MEURTHE-ET-MOSELLE
     slug: meurthe-et-moselle
-  GeoFrDepartment_53:
-    Region: GeoFrRegion_13
+  GeoFrDepartment_155:
+    Region: GeoFrRegion_44
     num: '55'
     name: Meuse
     strict_name: MEUSE
     slug: meuse
-  GeoFrDepartment_54:
-    Region: GeoFrRegion_4
+  GeoFrDepartment_156:
+    Region: GeoFrRegion_53
     num: '56'
     name: Morbihan
     strict_name: MORBIHAN
     slug: morbihan
-  GeoFrDepartment_55:
-    Region: GeoFrRegion_13
+  GeoFrDepartment_157:
+    Region: GeoFrRegion_44
     num: '57'
     name: Moselle
     strict_name: MOSELLE
     slug: moselle
-  GeoFrDepartment_56:
-    Region: GeoFrRegion_3
+  GeoFrDepartment_158:
+    Region: GeoFrRegion_27
     num: '58'
-    name: Niévre
-    strict_name: NIÉVRE
+    name: Nièvre
+    strict_name: NIEVRE
     slug: nievre
-  GeoFrDepartment_57:
-    Region: GeoFrRegion_15
+  GeoFrDepartment_159:
+    Region: GeoFrRegion_32
     num: '59'
     name: Nord
     strict_name: NORD
     slug: nord
-  GeoFrDepartment_58:
-    Region: GeoFrRegion_19
+  GeoFrDepartment_160:
+    Region: GeoFrRegion_32
     num: '60'
     name: Oise
     strict_name: OISE
     slug: oise
-  GeoFrDepartment_59:
-    Region: GeoFrRegion_24
+  GeoFrDepartment_161:
+    Region: GeoFrRegion_28
     num: '61'
     name: Orne
     strict_name: ORNE
     slug: orne
-  GeoFrDepartment_60:
-    Region: GeoFrRegion_15
+  GeoFrDepartment_162:
+    Region: GeoFrRegion_32
     num: '62'
-    name: 'Pas de Calais'
-    strict_name: 'PAS DE CALAIS'
+    name: Pas-de-Calais
+    strict_name: PAS-DE-CALAIS
     slug: pas-de-calais
-  GeoFrDepartment_61:
-    Region: GeoFrRegion_2
+  GeoFrDepartment_163:
+    Region: GeoFrRegion_84
     num: '63'
-    name: 'Puy de Dôme'
-    strict_name: 'PUY DE DÔME'
+    name: Puy-de-Dôme
+    strict_name: PUY-DE-DOME
     slug: puy-de-dome
-  GeoFrDepartment_62:
-    Region: GeoFrRegion_1
+  GeoFrDepartment_164:
+    Region: GeoFrRegion_75
     num: '64'
-    name: 'Pyrénées Atlantiques'
-    strict_name: 'PYRÉNÉES ATLANTIQUES'
+    name: Pyrénées-Atlantiques
+    strict_name: PYRENEES-ATLANTIQUES
     slug: pyrenees-atlantiques
-  GeoFrDepartment_63:
-    Region: GeoFrRegion_14
+  GeoFrDepartment_165:
+    Region: GeoFrRegion_76
     num: '65'
-    name: 'Pyrénées (Hautes)'
-    strict_name: 'PYRÉNÉES (HAUTES)'
-    slug: pyrenees-hautes
-  GeoFrDepartment_64:
-    Region: GeoFrRegion_11
+    name: Hautes-Pyrénées
+    strict_name: HAUTES-PYRENEES
+    slug: hautes-pyrenees
+  GeoFrDepartment_166:
+    Region: GeoFrRegion_76
     num: '66'
-    name: 'Pyrénées Orientales'
-    strict_name: 'PYRÉNÉES ORIENTALES'
+    name: Pyrénées-Orientales
+    strict_name: PYRENEES-ORIENTALES
     slug: pyrenees-orientales
-  GeoFrDepartment_65:
-    Region: GeoFrRegion_23
+  GeoFrDepartment_167:
+    Region: GeoFrRegion_44
     num: '67'
-    name: 'Rhin (Bas)'
-    strict_name: 'RHIN (BAS)'
-    slug: rhin-bas
-  GeoFrDepartment_66:
-    Region: GeoFrRegion_23
+    name: Bas-Rhin
+    strict_name: BAS-RHIN
+    slug: bas-rhin
+  GeoFrDepartment_168:
+    Region: GeoFrRegion_44
     num: '68'
-    name: 'Rhin (Haut)'
-    strict_name: 'RHIN (HAUT)'
-    slug: rhin-haut
-  GeoFrDepartment_67:
-    Region: GeoFrRegion_22
+    name: Haut-Rhin
+    strict_name: HAUT-RHIN
+    slug: haut-rhin
+  GeoFrDepartment_169:
+    Region: GeoFrRegion_84
     num: '69'
     name: Rhône
-    strict_name: RHÔNE
+    strict_name: RHONE
     slug: rhone
-  GeoFrDepartment_68:
-    Region: GeoFrRegion_9
+  GeoFrDepartment_170:
+    Region: GeoFrRegion_27
     num: '70'
-    name: 'Saône (Haute)'
-    strict_name: 'SAÔNE (HAUTE)'
-    slug: saone-haute
-  GeoFrDepartment_69:
-    Region: GeoFrRegion_3
+    name: Haute-Saône
+    strict_name: HAUTE-SAONE
+    slug: haute-saone
+  GeoFrDepartment_171:
+    Region: GeoFrRegion_27
     num: '71'
-    name: 'Saône et Loire'
-    strict_name: 'SAÔNE ET LOIRE'
+    name: Saône-et-Loire
+    strict_name: SAONE-ET-LOIRE
     slug: saone-et-loire
-  GeoFrDepartment_70:
-    Region: GeoFrRegion_18
+  GeoFrDepartment_172:
+    Region: GeoFrRegion_52
     num: '72'
     name: Sarthe
     strict_name: SARTHE
     slug: sarthe
-  GeoFrDepartment_71:
-    Region: GeoFrRegion_22
+  GeoFrDepartment_173:
+    Region: GeoFrRegion_84
     num: '73'
     name: Savoie
     strict_name: SAVOIE
     slug: savoie
-  GeoFrDepartment_72:
-    Region: GeoFrRegion_22
+  GeoFrDepartment_174:
+    Region: GeoFrRegion_84
     num: '74'
-    name: 'Savoie (Haute)'
-    strict_name: 'SAVOIE (HAUTE)'
-    slug: savoie-haute
-  GeoFrDepartment_73:
-    Region: GeoFrRegion_10
+    name: Haute-Savoie
+    strict_name: HAUTE-SAVOIE
+    slug: haute-savoie
+  GeoFrDepartment_175:
+    Region: GeoFrRegion_11
     num: '75'
     name: Paris
     strict_name: PARIS
     slug: paris
-  GeoFrDepartment_74:
-    Region: GeoFrRegion_17
+  GeoFrDepartment_176:
+    Region: GeoFrRegion_28
     num: '76'
-    name: 'Seine Maritime'
-    strict_name: 'SEINE MARITIME'
+    name: SEINE-MARITIME
+    strict_name: Seine-Maritime
     slug: seine-maritime
-  GeoFrDepartment_75:
-    Region: GeoFrRegion_10
+  GeoFrDepartment_177:
+    Region: GeoFrRegion_11
     num: '77'
-    name: 'Seine et Marne'
-    strict_name: 'SEINE ET MARNE'
+    name: Seine-et-Marne
+    strict_name: SEINE-ET-MARNE
     slug: seine-et-marne
-  GeoFrDepartment_76:
-    Region: GeoFrRegion_10
+  GeoFrDepartment_178:
+    Region: GeoFrRegion_11
     num: '78'
     name: Yvelines
     strict_name: YVELINES
     slug: yvelines
-  GeoFrDepartment_77:
-    Region: GeoFrRegion_20
+  GeoFrDepartment_179:
+    Region: GeoFrRegion_75
     num: '79'
-    name: 'Sèvres (Deux)'
-    strict_name: 'SÈVRES (DEUX)'
-    slug: sevres-deux
-  GeoFrDepartment_78:
-    Region: GeoFrRegion_19
+    name: Deux-Sèvres
+    strict_name: DEUX-SEVRES
+    slug: deux-sevres
+  GeoFrDepartment_180:
+    Region: GeoFrRegion_32
     num: '80'
     name: Somme
     strict_name: SOMME
     slug: somme
-  GeoFrDepartment_79:
-    Region: GeoFrRegion_14
+  GeoFrDepartment_181:
+    Region: GeoFrRegion_76
     num: '81'
     name: Tarn
     strict_name: TARN
     slug: tarn
-  GeoFrDepartment_80:
-    Region: GeoFrRegion_14
+  GeoFrDepartment_182:
+    Region: GeoFrRegion_76
     num: '82'
-    name: 'Tarn et Garonne'
-    strict_name: 'TARN ET GARONNE'
+    name: Tarn-et-Garonne
+    strict_name: TARN-ET-GARONNE
     slug: tarn-et-garonne
-  GeoFrDepartment_81:
-    Region: GeoFrRegion_21
+  GeoFrDepartment_183:
+    Region: GeoFrRegion_93
     num: '83'
     name: Var
     strict_name: VAR
     slug: var
-  GeoFrDepartment_82:
-    Region: GeoFrRegion_21
+  GeoFrDepartment_184:
+    Region: GeoFrRegion_93
     num: '84'
     name: Vaucluse
     strict_name: VAUCLUSE
     slug: vaucluse
-  GeoFrDepartment_83:
-    Region: GeoFrRegion_18
+  GeoFrDepartment_185:
+    Region: GeoFrRegion_52
     num: '85'
     name: Vendée
-    strict_name: VENDÉE
+    strict_name: VENDEE
     slug: vendee
-  GeoFrDepartment_84:
-    Region: GeoFrRegion_20
+  GeoFrDepartment_186:
+    Region: GeoFrRegion_75
     num: '86'
     name: Vienne
     strict_name: VIENNE
     slug: vienne
-  GeoFrDepartment_85:
-    Region: GeoFrRegion_12
+  GeoFrDepartment_187:
+    Region: GeoFrRegion_75
     num: '87'
-    name: 'Vienne (Haute)'
-    strict_name: 'VIENNE (HAUTE)'
-    slug: vienne-haute
-  GeoFrDepartment_86:
-    Region: GeoFrRegion_13
+    name: Haute-Vienne
+    strict_name: HAUTE-VIENNE
+    slug: haute-vienne
+  GeoFrDepartment_188:
+    Region: GeoFrRegion_44
     num: '88'
     name: Vosges
     strict_name: VOSGES
     slug: vosges
-  GeoFrDepartment_87:
-    Region: GeoFrRegion_3
+  GeoFrDepartment_189:
+    Region: GeoFrRegion_27
     num: '89'
     name: Yonne
     strict_name: YONNE
     slug: yonne
-  GeoFrDepartment_88:
-    Region: GeoFrRegion_9
+  GeoFrDepartment_190:
+    Region: GeoFrRegion_27
     num: '90'
-    name: 'Belfort (Territoire de)'
-    strict_name: 'BELFORT (TERRITOIRE DE)'
-    slug: belfort-territoire-de
-  GeoFrDepartment_89:
-    Region: GeoFrRegion_10
+    name: 'Territoire de Belfort'
+    strict_name: 'TERRITOIRE DE BELFORT'
+    slug: territoire-de-belfort
+  GeoFrDepartment_191:
+    Region: GeoFrRegion_11
     num: '91'
     name: Essonne
     strict_name: ESSONNE
     slug: essonne
-  GeoFrDepartment_90:
-    Region: GeoFrRegion_10
+  GeoFrDepartment_192:
+    Region: GeoFrRegion_11
     num: '92'
-    name: 'Hauts de Seine'
-    strict_name: 'HAUTS DE SEINE'
+    name: Hauts-de-Seine
+    strict_name: HAUTS-DE-SEINE
     slug: hauts-de-seine
-  GeoFrDepartment_91:
-    Region: GeoFrRegion_10
+  GeoFrDepartment_193:
+    Region: GeoFrRegion_11
     num: '93'
-    name: 'Seine Saint Denis'
-    strict_name: 'SEINE SAINT DENIS'
+    name: Seine-Saint-Denis
+    strict_name: SEINE-SAINT-DENIS
     slug: seine-saint-denis
-  GeoFrDepartment_92:
-    Region: GeoFrRegion_10
+  GeoFrDepartment_194:
+    Region: GeoFrRegion_11
     num: '94'
-    name: 'Val de Marne'
-    strict_name: 'VAL DE MARNE'
+    name: Val-de-Marne
+    strict_name: VAL-DE-MARNE
     slug: val-de-marne
-  GeoFrDepartment_93:
-    Region: GeoFrRegion_8
-    num: '976'
-    name: Mayotte
-    strict_name: MAYOTTE
-    slug: mayotte
-  GeoFrDepartment_94:
-    Region: GeoFrRegion_8
+  GeoFrDepartment_195:
+    Region: GeoFrRegion_11
+    num: '95'
+    name: 'Val-d''Oise'
+    strict_name: 'VAL-D''OISE'
+    slug: val-doise
+  GeoFrDepartment_196:
+    Region: GeoFrRegion_1
     num: '971'
     name: Guadeloupe
     strict_name: GUADELOUPE
     slug: guadeloupe
-  GeoFrDepartment_95:
-    Region: GeoFrRegion_8
-    num: '973'
-    name: Guyane
-    strict_name: GUYANE
-    slug: guyane
-  GeoFrDepartment_96:
-    Region: GeoFrRegion_8
+  GeoFrDepartment_197:
+    Region: GeoFrRegion_2
     num: '972'
     name: Martinique
     strict_name: MARTINIQUE
     slug: martinique
-  GeoFrDepartment_97:
-    Region: GeoFrRegion_8
-    num: '974'
-    name: Réunion
-    strict_name: RÉUNION
-    slug: reunion
-  GeoFrDepartment_98:
+  GeoFrDepartment_198:
     Region: GeoFrRegion_3
-    num: '21'
-    name: 'Côte d''or'
-    strict_name: 'CÔTE D''OR'
-    slug: cote-dor
-  GeoFrDepartment_100:
+    num: '973'
+    name: Guyane
+    strict_name: GUYANE
+    slug: guyane
+  GeoFrDepartment_199:
     Region: GeoFrRegion_4
-    num: '22'
-    name: 'Côtes d''armor'
-    strict_name: 'CÔTES D''ARMOR'
-    slug: cotes-darmor
-  GeoFrDepartment_102:
-    Region: GeoFrRegion_7
-    num: 2A
-    name: 'Corse du sud'
-    strict_name: 'CORSE DU SUD'
-    slug: corse-du-sud
-  GeoFrDepartment_103:
-    Region: GeoFrRegion_7
-    num: 2B
-    name: 'Haute corse'
-    strict_name: 'HAUTE CORSE'
-    slug: haute-corse
-  GeoFrDepartment_104:
-    Region: GeoFrRegion_10
-    num: '95'
-    name: 'Val d''oise'
-    strict_name: 'VAL D''OISE'
-    slug: val-doise
+    num: '974'
+    name: 'La Réunion'
+    strict_name: 'LA REUNION'
+    slug: la-reunion
+  GeoFrDepartment_200:
+    Region: GeoFrRegion_6
+    num: '976'
+    name: Mayotte
+    strict_name: MAYOTTE
+    slug: mayotte
