@@ -32,14 +32,37 @@ class emailActions extends autoEmailActions
   {
     $this->email = $this->getRoute()->getObject();
   }
-  public function executeAttach(sfWebRequest $request) {
+  public function executeAttach(sfWebRequest $request)
+  {
     $email = $request->getParameter('email');
     $this->email = Doctrine::getTable('email')->find($email['id']);
     
     $arr = $request->getFiles();
-    $file = new liFileAttachment($arr['attachment']['name'],$arr['attachment']['type'],$arr['attachment']['tmp_name'],$arr['attachment']['size'],sfConfig::get('sf_upload_dir'));
-    $file->setEmail($this->email);
-    $file->save(sfConfig::get('sf_upload_dir').'/'.$file->generateFilename());
+    
+    // if the storage *does not need* to be done by the DB
+    if ( count($this->email->getTable()->getConnection()->getManager()->getConnections()) == 1 )
+    {
+      $file = new liFileAttachment($arr['attachment']['name'],$arr['attachment']['type'],$arr['attachment']['tmp_name'],$arr['attachment']['size'],sfConfig::get('sf_upload_dir'));
+      $file->setEmail($this->email);
+      $file->save(sfConfig::get('sf_upload_dir').'/'.$file->generateFilename());
+    }
+    // if the storage *needs* to be done by the DB
+    else
+    {
+      $file = new Picture;
+      $file->name = 'db:'.$arr['attachment']['tmp_name'];
+      $file->content = $tmp = base64_encode(file_get_contents($arr['attachment']['tmp_name']));
+      $file->type = $arr['attachment']['type'];
+      $file->save();
+      
+      $attachment = new Attachment;
+      $attachment->original_name = $arr['attachment']['name'];
+      $attachment->mime_type = $arr['attachment']['type'];
+      $attachment->size = $arr['attachment']['size'];
+      $attachment->filename = 'db:'.$arr['attachment']['tmp_name'];
+      $this->email->Attachments[] = $attachment;
+      $attachment->save();
+    }
     
     $this->getUser()->setFlash('notice','File attached.');
     $this->redirect('email/edit?id='.$this->email->id);
