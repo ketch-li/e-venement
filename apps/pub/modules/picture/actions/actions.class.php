@@ -33,6 +33,13 @@ class pictureActions extends autoPictureActions
       $this->getResponse()->addHttpMeta('Content-Encoding', $this->picture->content_encoding);
   }
   
+  public function executeShow(sfWebRequest $request)
+  {
+    parent::executeShow($request);
+    if ( substr($this->picture->name, 0, 3) == 'db:' )
+      $this->forward404();
+  }
+  
   public function executeRaw(sfWebRequest $request)
   {
     $this->executeShow($request);
