@@ -35,9 +35,8 @@ class attendanceActions extends sfActions
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('Number', 'Date'));
     $this->lines = array();
-    $manifs = $this->getManifs();
 
-    foreach ( $manifs as $key => $manif )
+    foreach ( $this->getManifs() as $key => $manif )
     {
       $this->lines[$key] = $manif->toArray();
       $this->lines[$key]['name'] = (string)$manif;

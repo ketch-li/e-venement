@@ -61,5 +61,5 @@ $json['legends'] = array(
     'available' => __('Available')
 );
 
-echo json_encode($json, JSON_PRETTY_PRINT);
+echo json_encode($json, sfConfig::get('sf_web_debug', false) ? JSON_PRETTY_PRINT : NULL);
 ?>

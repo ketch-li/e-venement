@@ -53,8 +53,6 @@ LI.stats.attendance = function () {
             LI.csvData[name].push(json.csvHeaders);
 
             $.each(json, function (key, manif) {
-
-                console.error(json);
                 if(key !== 'csvHeaders' && key !== 'legends'){
 
                     array.push(manif.free);

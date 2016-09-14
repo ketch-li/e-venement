@@ -17,7 +17,7 @@
   data-type="<?php echo $sf_user->getExtractionType() ?>"
   <?php else: ?>
   target="_blank"
-  href="<?php echo $dl ;var_dump($dl);?>"
+  href="<?php echo $dl; var_dump($dl);?>"
   <?php endif ?>
   title="<?php echo __('Record') ?>"
   class="record ui-corner-all"
