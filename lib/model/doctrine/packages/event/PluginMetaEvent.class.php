@@ -28,7 +28,7 @@ abstract class PluginMetaEvent extends BaseMetaEvent implements liDuplicable
       $new->Users[] = $user;
 
   	$new->slug = NULL;
-  	$new->name = sprintf('%s  (%s)', $this->name, __('copy'));
+  	$new->name = sprintf('%s (%s %s)', $this->name, __('copy'), date('Y-m-d H:i:s'));
 
   	$new->save();
 
