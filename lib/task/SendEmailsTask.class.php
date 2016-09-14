@@ -42,6 +42,7 @@ Or the delay before sending the next email (in seconds):
 
   protected function execute($arguments = array(), $options = array())
   {
+    $this->logSection('project', sprintf('Starting sending emails');
     $spool = $this->getMailer()->getSpool()->setFlushDelay($options['delay']);
     parent::execute($arguments, $options);
   }
