@@ -37,55 +37,6 @@ class debtsActions extends sfActions
     $this->lines = $this->getRawData();
   }
   
-  public function executeCsv(sfWebRequest $request)
-  {
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Number','Date'));
-    $this->lines = $this->getRawData();
-    
-    foreach ( $this->lines as $nb => $line )
-    {
-      $this->lines[$nb]['date'] = format_date($line['date']);
-      $this->lines[$nb]['debt'] = format_currency($line['outcome'] - $line['income'],$this->getContext()->getConfiguration()->getCurrency());
-      $this->lines[$nb]['outcome'] = format_currency(0+$line['income'],$this->getContext()->getConfiguration()->getCurrency());
-      $this->lines[$nb]['income'] = format_currency(0+$line['outcome'],$this->getContext()->getConfiguration()->getCurrency());
-    }
-    
-    $params = OptionCsvForm::getDBOptions();
-    $this->options = array(
-      'ms' => in_array('microsoft',$params['option']),
-      'tunnel' => false,
-      'noheader' => false,
-      'fields'   => array('date','outcome','income','debt'),
-    );
-    
-    $this->outstream = 'php://output';
-    $this->delimiter = $this->options['ms'] ? ';' : ',';
-    $this->enclosure = '"';
-    $this->charset   = sfConfig::get('software_internals_charset');
-    
-    sfConfig::set('sf_escaping_strategy', false);
-    $confcsv = sfConfig::get('software_internals_csv'); if ( isset($confcsv['set_charset']) && $confcsv['set_charset'] ) sfConfig::set('sf_charset', $this->options['ms'] ? $this->charset['ms'] : $this->charset['db']);
-    
-    if ( $request->hasParameter('debug') )
-    {
-      $this->getResponse()->sendHttpHeaders();
-      $this->setLayout(true);
-    }
-    else
-      sfConfig::set('sf_web_debug', false);
-  }
-  
-  public function executeData(sfWebRequest $request)
-  {
-    $this->dates = $this->getRawData();
-    if ( !$request->hasParameter('debug') )
-    {
-      $this->setLayout('raw');
-      sfConfig::set('sf_debug',false);
-      $this->getResponse()->setContentType('application/json');
-    }
-  }
-  
   protected function getRawData()
   {
     //$criterias = $this->getUser()->getAttribute('stats.criterias',array(),'admin_module');

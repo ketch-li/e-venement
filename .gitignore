@@ -11,6 +11,7 @@
 /web/private/*
 /web/uploads/*
 /data/sql/*
+/data/openidconnect
 
 /apps/email/config/app.yml
 /apps/email/config/factories.yml
@@ -42,3 +43,7 @@
 /config/private
 
 /nbproject
+
+/apps/jpros/
+/web/jpros.php
+/web/jpros_dev.php

@@ -15,4 +15,10 @@ $(document).ready(function(){
   .middleclick(function(e){
     window.open($(this).closest('tr').find('.sf_admin_action_edit a').prop('href')+'#sf_fieldset_stocks');
   });
+  
+  $('.sf_admin_list_td_list_category span').each(function(){
+    var color;
+    if ( color = $(this).css('background-color') )
+      $(this).closest('td').css('background-color', color);
+  });
 });

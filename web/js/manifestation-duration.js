@@ -3,6 +3,12 @@ if ( LI == undefined )
   var LI = {};
   
 $(document).ready(function(){
+  // padding with "left 0" every two digits input[type=text]
+  $('input[type=text][size=2]').each(function(){
+    if ( parseInt($(this).val(), 10)+"" == ""+$(this).val() )
+      $(this).val(LI.pad_num($(this).val(),2));
+  });
+  
   // transforming seconds into HH:ii
   LI.manifestation_duration();
 
@@ -171,10 +177,10 @@ LI.manifestation_datetime = function(name = 'happens_at', value = null)
   if ( value )
   {
     $('.sf_admin_form_field_'+name+' input[name="manifestation['+name+'][year]"]').val(value.getFullYear());
-    $('.sf_admin_form_field_'+name+' input[name="manifestation['+name+'][month]"]').val(value.getMonth()+1);
-    $('.sf_admin_form_field_'+name+' input[name="manifestation['+name+'][day]"]').val(value.getDate());
-    $('.sf_admin_form_field_'+name+' input[name="manifestation['+name+'][hour]"]').val(value.getHours());
-    $('.sf_admin_form_field_'+name+' input[name="manifestation['+name+'][minute]"]').val(value.getMinutes());
+    $('.sf_admin_form_field_'+name+' input[name="manifestation['+name+'][month]"]').val(LI.pad_num(value.getMonth()+1,2));
+    $('.sf_admin_form_field_'+name+' input[name="manifestation['+name+'][day]"]').val(LI.pad_num(value.getDate(),2));
+    $('.sf_admin_form_field_'+name+' input[name="manifestation['+name+'][hour]"]').val(LI.pad_num(value.getHours(),2));
+    $('.sf_admin_form_field_'+name+' input[name="manifestation['+name+'][minute]"]').val(LI.pad_num(value.getMinutes(),2));
   }
   
   return new Date(

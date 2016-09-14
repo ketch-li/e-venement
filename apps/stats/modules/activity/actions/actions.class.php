@@ -33,53 +33,11 @@ class activityActions extends sfActions
     if ( is_array($this->getUser()->getAttribute('stats.criterias',array(),'admin_module')) )
       $this->form->bind($this->getUser()->getAttribute('stats.criterias',array(),'admin_module'));
   }
-  
-  public function executeCsv(sfWebRequest $request)
+
+  public function executeJson(sfWebRequest $request)
   {
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Date'));
+    $this->getResponse()->setContentType('application/json');
     $this->lines = $this->getRawData();
-    
-    foreach ( $this->lines as $nb => $line )
-      $this->lines[$nb]['date'] = format_date($line['date']);
-    
-    $params = OptionCsvForm::getDBOptions();
-    $this->options = array(
-      'ms' => in_array('microsoft',$params['option']),
-      'fields' => array('name'),
-      'tunnel' => false,
-      'noheader' => false,
-      'fields'   => array('date','passing','printed','ordered','asked'),
-    );
-    
-    //if ( sfConfig::get('app_ticketting_hide_demands') )
-    //  unset($this->options->fields['asked']);
-    
-    $this->outstream = 'php://output';
-    $this->delimiter = $this->options['ms'] ? ';' : ',';
-    $this->enclosure = '"';
-    $this->charset   = sfConfig::get('software_internals_charset');
-    
-    sfConfig::set('sf_escaping_strategy', false);
-    $confcsv = sfConfig::get('software_internals_csv'); if ( isset($confcsv['set_charset']) && $confcsv['set_charset'] ) sfConfig::set('sf_charset', $this->options['ms'] ? $this->charset['ms'] : $this->charset['db']);
-    
-    if ( $request->hasParameter('debug') )
-    {
-      $this->getResponse()->sendHttpHeaders();
-      $this->setLayout(true);
-    }
-    else
-      sfConfig::set('sf_web_debug', false);
-  }
-  
-  public function executeData(sfWebRequest $request)
-  {
-    $this->dates = $this->getRawData();
-    if ( !$request->hasParameter('debug') )
-    {
-      $this->setLayout('raw');
-      sfConfig::set('sf_debug',false);
-      $this->getResponse()->setContentType('application/json');
-    }
   }
   
   protected function getRawData()

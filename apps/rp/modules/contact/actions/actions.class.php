@@ -266,7 +266,7 @@ class contactActions extends autoContactActions
     }
     catch (sfValidatorError $e)
     {
-      $this->getUser()->setFlash('error', 'A problem occurs when deleting the selected items as some items do not exist anymore.');
+      $this->getUser()->setFlash('error', 'A problem occured when deleting the selected items as some items do not exist anymore.');
     }
 
     $this->redirect('@contact');
@@ -294,7 +294,7 @@ class contactActions extends autoContactActions
     catch (sfValidatorError $e)
     {
       error_log('contact/batchAddToGroup: '.$e->getMessage());
-      $this->getUser()->setFlash('error', 'A problem occurs when adding the selected items as some items do not exist anymore.');
+      $this->getUser()->setFlash('error', 'A problem occured when adding the selected items as some items do not exist anymore.');
       return $this->redirect('@contact');
     }
 

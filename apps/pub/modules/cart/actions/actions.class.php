@@ -103,10 +103,12 @@ class cartActions extends sfActions
   }
   public function executeDone(sfWebRequest $request)
   {
+    error_log($this->getUser()->getTransaction()->id);
     $this->dispatcher->notify(new sfEvent($this, 'pub.cart.done', array(
       'request' => $request,
       'action' => $this,
     )));
+    error_log($this->getUser()->getTransaction()->id);
 
     try { $this->transaction = $this->getUser()->getTransaction(); }
     catch ( liOnlineSaleException $e )
@@ -121,6 +123,7 @@ class cartActions extends sfActions
     sleep(2);
 
     // go back to the just-paid transaction, what ever it is
+    error_log($this->transaction->contact_id.' '.$this->transaction->id.' '.$this->getUser()->getTransaction()->id);
     $transaction = Doctrine::getTable('Transaction')->createQuery('t')
       ->select('t.*')
       ->andWhere('t.contact_id = ?', $this->transaction->contact_id)
@@ -164,7 +167,7 @@ class cartActions extends sfActions
         $this->specific_transaction = false;
       elseif ( $this->specific_transaction->id != $this->getUser()->getTransaction()->id )
       {
-        $this->dispatcher->notify(new sfEvent($this, 'pub.transaction_respawning', array(
+        $this->dispatcher->notify(new sfEvent($this->getUser(), 'pub.transaction_respawning', array(
           'configuration' => $this->configuration,
           'transaction'   => $this->specific_transaction,
         )));
@@ -261,7 +264,7 @@ class cartActions extends sfActions
   {
     return Doctrine::getTable('PaymentMethod')->createQuery('pm')
       ->andWhere('pm.member_card_linked = ?',true)
-      ->andWhere('pm.display = ?',true)
+      //->andWhere('pm.display = ?',true)
       ->orderBy('id')
       ->fetchOne();
   }
@@ -280,6 +283,8 @@ class cartActions extends sfActions
   {
     if ( is_null($payment_method) )
       $payment_method = $this->getMemberCardPaymentMethod();
+    if ( !$payment_method )
+      throw new liOnlineSaleException('Online Sales: No payment method defined for member cards.');
 
     foreach ( $this->getUser()->getTransaction()->Tickets as $ticket )
     if ( $ticket->Price->member_card_linked )

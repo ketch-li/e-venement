@@ -17,48 +17,51 @@ LI.dashboardStats = function(){
   $('#dashboard > .jqplot').each(function(){
     var name = $(this).find('.chart').attr('data-series-name');
     var id = $(this).find('.chart').prop('id');
-    var title = $(this).find('h2').prop('title') ? $(this).find('h2').prop('title')+': ' : '';
+    var title = $(this).find('h2') ? $(this).find('h2').text() : '';
     LI.csvData[name] = [
       [
-        title,
-        $(this).find('h2').text()
+        $(this).find('#csvTitle').text(),
+        title
       ],
     ]; 
     
     $.get($(this).find('.chart').attr('data-json-url'), function(json){
       var array = [];
-      var series = [];
+
+      LI.csvData[name].push(json.csvHeaders);
       
       switch ( name ) {
       case 'debts':
-        $.each(json, function(i, data) {
-          array.push([data.date, data.outcome - data.income]);
-          LI.csvData[name].push([data.date, data.outcome, data.income, data.outcome - data.income]);
-        });
-        $(this).dblclick(function(){
-          $(this).resetZoom();
-        });
+        $.each(json, function(key, data) {
+
+          if(key !== 'csvHeaders'){
+            array.push([data.date, data.outcome - data.income]);
+            LI.csvData[name].push([data.date, data.outcome, data.income, data.outcome - data.income]);
+        }
+      });
         break;
       case 'web-origin':
-        $.each(json, function(date, value){
-          array.push([date, value]);
-          LI.csvData[name].push([date, value]);
-        });
-        $(this).dblclick(function(){
-          $(this).resetZoom();
+        $.each(json, function(key, value){
+        if(key !== 'csvHeaders'){
+            array.push([key, value.value]);
+            LI.csvData[name].push([key, value.value, value.percent]);
+          }
         });
         break;
       case 'geo':
-        $.each(json.tickets, function(key, value) {
-          array.push([json.translations[key], value]);
-          LI.csvData[name].push([json.translations[key], value]);
-        });
+        $.each(json.nb, function(key, value) {
+            array.push([json.translations[key], value.value]);
+            LI.csvData[name].push([json.translations[key], value.value, value.percent, json.tickets[key].value, json.tickets[key].percent, json.value[key].value + ' €', json.value[key].percent]);
+          });
         break;
       default:
-        $.each(json, function(i, data){
-          array.push([data.name, data.nb]);
-          LI.csvData[name].push([data.name, data.nb]);
-        });
+        $.each(json, function(key, value) {
+
+        if(key !== 'csvHeaders'){
+          array.push([value.name, value.nb]);
+          LI.csvData[name].push([value.name, value.nb, value.percent]);
+        }
+      });
       }
       
       switch ( name ) {

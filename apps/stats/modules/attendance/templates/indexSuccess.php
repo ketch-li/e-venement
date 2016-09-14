@@ -4,12 +4,16 @@
     <?php include_partial('filters_buttons') ?>
     <h1><?php echo __('Gauge filling') ?></h1>
   </div>
+  <?php include_partial('global/chart_help'); ?>
+  <?php if ( $sf_user->hasCredential('stats-attendance') ): ?>
   <?php include_partial('global/chart_jqplot', array(
 		  	    'id'    => 'attendance',
 		  	    'data'  => cross_app_url_for('stats', 'attendance/json'),
-		  	    'width' => '900'
+		  	    'width' => '900',
+		  	    'name' => __('Attendance')
 		  	  )) 
 		?>
+  <?php endif ?>
 </div>
 
 <?php use_javascript('/js/jqplot/plugins/jqplot.barRenderer.js') ?>

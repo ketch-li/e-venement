@@ -25,7 +25,6 @@ abstract class PluginPicture extends BasePicture
       
       $dest_scale = $this->width / $this->height;
       $orig_scale = $resizer->getImageWidth() / $resizer->getImageHeight();
-      echo "dest: $dest_scale, orig: $orig_scale\n\n";
       if ( $dest_scale < $orig_scale )
         $resizer->resizeImage($this->width, $resizer->getImageHeight()*$this->width/$resizer->getImageWidth(), Imagick::FILTER_LANCZOS, 1);
       else

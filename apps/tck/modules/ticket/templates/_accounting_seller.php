@@ -19,4 +19,8 @@
     '%%invoice_id%%' => $type == 'invoice' ? sfConfig::get('app_seller_invoice_prefix').$transaction->Invoice[0]->id : '',
   ) ?>
   <p class="other"><?php echo str_replace(array_keys($translate),array_values($translate),nl2br(sfConfig::get('app_seller_other'))) ?></p>
+  <p class="sf_guard_user">
+    <span class="name"><?php echo $sf_user->getGuardUser()->name ?></span>
+    <span class="id"><?php echo $sf_user->getId() ?></span>
+  </p>
 </div>

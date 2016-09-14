@@ -19,16 +19,14 @@ class web_originActions extends autoWeb_originActions
     $this->filters['excluded_ids'] = $request->getParameter('ids');
     $this->getUser()->setAttribute($this->getModuleName().'.filters', $this->filters, 'admin_module');
   }
-  public function executeData(sfWebRequest $request)
-  {
-    $this->debug($request);
-    $this->data = $this->getData($request->getParameter('which', 'referers'));
-  }
+  
   public function executeJson(sfWebRequest $request)
   {
     $this->debug($request);
-    $data = $this->getData($request->getParameter('which', 'referers'), true);
-    $this->data = array();
+    $wich = $request->getParameter('which', 'referers');
+    $data = $this->getData($wich, true);
+    $this->lines = array();
+    $total = 0;
     
     $previous = NULL;
     foreach ( $data as $date => $value )
@@ -37,51 +35,22 @@ class web_originActions extends autoWeb_originActions
       {
         $tmp = strtotime($previous);
         while ( ($tmp = strtotime('+1 day', $tmp)) < strtotime($date) )
-          $this->data[date('Y-m-d H:i:s', $tmp)] = 0;
+          $this->lines[date('Y-m-d H:i:s', $tmp)] = 0;
       }
-      $this->data[$date] = $value;
+      $this->lines[$date] = $value;
       $previous = $date;
     }
-  }
-  public function executeCsv(sfWebRequest $request)
-  {
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N','Date','CrossAppLink','Number'));
-    
-    $debug = $this->debug($request);
-    $this->data = $this->getData($request->getParameter('which', 'referers'));
-    
-    $this->lines = array();
-    $total = array_sum($this->data);
-    $names = array('referers' => __('Referers'), 'campaigns' => __('Campaigns'), 'deal_done' => __('Done deals'), 'evolution' => __('Activity'));
-    foreach ( $this->data as $key => $value )
-      $this->lines[] = array(
-        'name' => $key,
-        'nb'   => $value,
-        'percent'   => format_number(round($value*100/$total,2)),
+
+    foreach ( $this->lines as $line )
+        $total += $line;
+      
+    foreach ( $this->lines as $key => $line )
+      $this->lines[$key] = array(
+        'value'   => $line,
+        'percent' => number_format(round($line*100/$total,2))
       );
-    $this->name = isset($names[$request->getParameter('which', 'referers')])
-      ? $names[$request->getParameter('which', 'referers')]
-      : $request->getParameter('which', 'referers');
-    
-    $params = OptionCsvForm::getDBOptions();
-    $this->options = array(
-      'ms' => in_array('microsoft',$params['option']),
-      'fields' => array('name','nb','percent'),
-      'tunnel' => false,
-      'noheader' => false,
-    );
-    
-    $this->outstream = 'php://output';
-    $this->delimiter = $this->options['ms'] ? ';' : ',';
-    $this->enclosure = '"';
-    $this->charset   = sfConfig::get('software_internals_charset');
-    
-    sfConfig::set('sf_escaping_strategy', false);
-    $confcsv = sfConfig::get('software_internals_csv');
-    if ( isset($confcsv['set_charset']) && $confcsv['set_charset'] )
-      sfConfig::set('sf_charset', $this->options['ms'] ? $this->charset['ms'] : $this->charset['db']);
   }
-  
+
   protected function debug(sfWebRequest $request)
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('Date', 'I18N'));
@@ -97,6 +66,7 @@ class web_originActions extends autoWeb_originActions
     
     return sfConfig::get('sf_web_debug', false);
   }
+
   protected function getData($which = 'referers', $sysdate = false)
   {
     $pdo = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();

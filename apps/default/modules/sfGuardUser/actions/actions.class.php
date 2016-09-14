@@ -44,10 +44,10 @@ class sfGuardUserActions extends autoSfGuardUserActions
     if ($count >= count($ids))
       $this->getUser()->setFlash('notice', __('The selected items have been deleted successfully.'));
     else if ( $count == 0 )
-      $this->getUser()->setFlash('error', __('A problem occurs when deleting the selected items.'));
+      $this->getUser()->setFlash('error', __('A problem occured when deleting the selected items.'));
     else
     {
-      $this->getUser()->setFlash('error', __('A problem occurs when deleting some of the selected item (you probably tried to delete one or more (Super)Admin accounts without being a (Super)Admin yourself).'));
+      $this->getUser()->setFlash('error', __('A problem occured when deleting some of the selected item (you probably tried to delete one or more (Super)Admin accounts without being a (Super)Admin yourself).'));
       $this->getUser()->setFlash('notice', __('Some of the selected items have been deleted successfully.'));
     }
 
@@ -69,6 +69,11 @@ class sfGuardUserActions extends autoSfGuardUserActions
   {
     $this->restrictDirectAccess($request);
     $this->restrictGiveSuperAdminFlag($request);
+    Doctrine::getTable('Cache')->createQuery('c')
+      ->andWhere('c.domain = ?', 'cache_files')
+      ->andWhere('c.identifier ILIKE ?', 'global/menu%')
+      ->delete()
+      ->execute();
     parent::executeUpdate($request);
     $this->restrictVisualPermissions();
   }

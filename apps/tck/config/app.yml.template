@@ -18,6 +18,7 @@ all:
     #gauge_block: true
     manifestations:
       max_display: 20
+      #display_time_limit: 1 month
     #store:
     #  max_display: 20
     #museum:

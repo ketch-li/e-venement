@@ -16,11 +16,11 @@ LI.stats.geo = function(){
     var chart = $(this).find('.chart')
     var name = chart.attr('data-series-name');
     var id = chart.prop('id');
-    var title = $(this).find('h2').prop('title') ? $(this).find('h2').prop('title')+': ' : '';
+    var title = $(this).find('h2') ? $(this).find('h2').text() : '';
     LI.csvData[name] = [
       [
-        title,
-        $(this).find('h2').text()
+        $(this).find('#csvTitle').text(),
+        title
       ],
     ]; 
     
@@ -28,24 +28,27 @@ LI.stats.geo = function(){
     $.get(chart.attr('data-json-url') + '?type=' + name, function(json){
       var array = [];
       var series = [];
+
+      LI.csvData[name].push(json.csvHeaders);
+
       //build data array depending on approach filter
       switch ( approach ) {
         case 'by-tickets':
           $.each(json.tickets, function(key, value) {
-            array.push([json.translations[key], value]);
-            LI.csvData[name].push([json.translations[key], value]);
+            array.push([json.translations[key], value.value]);
+            LI.csvData[name].push([json.translations[key], json.nb[key].value, json.nb[key].percent, value.value, value.percent, json.value[key].value + ' €', json.value[key].percent]);
           });
           break;
         case 'financial':
           $.each(json.value, function(key, value) {
-            array.push([json.translations[key], value]);
-            LI.csvData[name].push([json.translations[key], value]);
+            array.push([json.translations[key], value.value]);
+            LI.csvData[name].push([json.translations[key], json.nb[key].value, json.nb[key].percent, json.tickets[key].value, json.tickets[key].percent, value.value + ' €', value.percent]);
           });
           break;
         default:
          $.each(json.nb, function(key, value) {
-            array.push([json.translations[key], value]);
-            LI.csvData[name].push([json.translations[key], value]);
+            array.push([json.translations[key], value.value]);
+            LI.csvData[name].push([json.translations[key], value.value, value.percent, json.tickets[key].value, json.tickets[key].percent, json.value[key].value + ' €', json.value[key].percent]);
           });
       }
       
@@ -59,6 +62,13 @@ LI.stats.geo = function(){
             lineWidth: 5
           },
           renderer: $.jqplot.PieRenderer
+        },
+        highlighter: {
+          sizeAdjust: 2,
+          show: true,
+          useAxesFormatters: false,
+          tooltipFormatString: '%s',
+          tooltipContentEditor: LI.stats.pieTooltips
         },
         cursor: {
           showTooltip: false,

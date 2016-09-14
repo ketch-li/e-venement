@@ -52,7 +52,10 @@
           <?php echo __('Detailed Ledger',array(),'menu') ?>
         </option>
         <option value="<?php echo url_for('ledger/extract') ?>?type=<?php echo $ledger ?>">
-          <?php echo __('Extract (%%format%%)',array('%%format%%' => 'standard, csv')) ?>
+          <?php echo __('Extract (%%format%%)',array('%%format%%' => 'CSV')) ?>
+        </option>
+        <option value="<?php echo url_for('ledger/extract') ?>?type=<?php echo $ledger ?>&with_totals=1">
+          <?php echo __('Extract (%%format%%)',array('%%format%%' => 'CSV, '.__('with totals'))) ?>
         </option>
         <?php endif ?>
         <?php if ( $ledger == 'cash' ): ?>

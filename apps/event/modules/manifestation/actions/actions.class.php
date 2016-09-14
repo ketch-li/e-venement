@@ -408,6 +408,19 @@ class manifestationActions extends autoManifestationActions
     $this->pager->setPage($request->getParameter('page') ? $request->getParameter('page') : 1);
     $this->pager->init();
   }
+  
+  public function executeGoToListWithLocation(sfWebRequest $request)
+  {
+    $this->setPage(1);
+    $this->setFilters(array('location_id' => $request->getParameter('id',0)));
+    $this->redirect('manifestation/index');
+  }
+  public function executeGoToListWithEvent(sfWebRequest $request)
+  {
+    $this->setPage(1);
+    $this->setFilters(array('event_id' => $request->getParameter('id',0)));
+    $this->redirect('manifestation/index');
+  }
   public function executeLocationList(sfWebRequest $request)
   {
     if ( !$request->getParameter('id') )
@@ -459,9 +472,19 @@ class manifestationActions extends autoManifestationActions
     $this->getUser()->setFlash('success', __('The provided manifestations have been applied to "%%event%%".', array('%%event%%' => $event)));
     $this->redirect('manifestation/index');
   }
+  public function executeBatchToggleOnlineGauges(sfWebRequest $request)
+  {
+    $q = Doctrine::getTable('Gauge')->createQuery('g')
+      ->andWhereIn('g.manifestation_id', $request->getParameter('ids'));
+    foreach ( $q->execute() as $gauge )
+    {
+      $gauge->online = !$gauge->online;
+      $gauge->save();
+    }
+  }
   public function executeBatchPeriodicity(sfWebRequest $request)
   {
-    $arg = 'periodicity[manifestation_id][%%i%%]=';
+    $arg = 'ids[%%i%%]=';
     $args = array();
     foreach ( $request->getParameter('ids') as $i => $id )
       $args[] = str_replace('%%i%%', $i, $arg).$id;

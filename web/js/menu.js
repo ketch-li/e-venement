@@ -203,7 +203,7 @@ LI.about_show_contributors = function()
 
 LI.window_transition = function(speed)
 {
-  if ( speed == 'undefined' )
+  if ( speed === undefined )
     speed = 'medium';
   
   var transition = $('#transition')

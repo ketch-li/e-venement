@@ -52,7 +52,7 @@ class liGuardSecurityUser extends sfGuardSecurityUser
   }
   public function __toString()
   {
-    return is_object($this->getGuardUser()) ? $this->getGuardUser()->__toString() : '__unknown__';
+    return is_object($this->getGuardUser()) ? $this->getGuardUser()->__toString() : '__Logout__';
   }
   public function getCredentials()
   {
@@ -119,6 +119,6 @@ class liGuardSecurityUser extends sfGuardSecurityUser
       ->andWhere('o.name = ?', 'option')
       ->andWhere('o.value = ?', 'microsoft')
     ;
-    return $this->extractionType = $q->count() ? 'xls' : 'csv';
+    return $this->extractionType = $q->count() ? 'xlsx' : 'csv';
   }
 }

@@ -234,7 +234,7 @@ class eventActions extends autoEventActions
     }
     else
     {
-      $this->getUser()->setFlash('error', 'A problem occurs when deleting the selected items.');
+      $this->getUser()->setFlash('error', 'A problem occured when deleting the selected items.');
     }
 
     $this->redirect('@event');
@@ -277,7 +277,7 @@ class eventActions extends autoEventActions
     }
     else
     {
-      $this->getUser()->setFlash('error', 'A problem occurs when merging some of the selected items.');
+      $this->getUser()->setFlash('error', 'A problem occured when merging some of the selected items.');
     }
 
     $this->redirect('@event');

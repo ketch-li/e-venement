@@ -188,10 +188,7 @@ LI.arrayToTable = function(data){
   {
     tag = i == 0 ? 'th' : 'td';
     for ( var j = 0 ; j < array[i].length ; j++ )
-    {
-      console.error(LI.htmlEncode(array[i][j]));
       array[i][j] = LI.htmlEncode(array[i][j]);
-    }
     array[i] = '<'+tag+'>'+array[i].join('</'+tag+'><'+tag+'>')+'</'+tag+'>';
   }
   array = '<table><tr>'+array.join('</tr><tr>')+'</tr></table>';
@@ -252,7 +249,7 @@ LI.htmlEntitiesTable = {
   32 : 'nbsp',
   34 : 'quot', 
   38 : 'amp', 
-  39 : 'apos', 
+  //39 : 'apos', 
   60 : 'lt', 
   62 : 'gt', 
   160 : 'nbsp', 

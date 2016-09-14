@@ -1,4 +1,3 @@
-
 <?php include_partial('attendance/filters',array('form' => $form)) ?>
 <?php use_helper('Date') ?>
 <div class="ui-widget ui-corner-all ui-widget-content">
@@ -9,11 +8,13 @@
   </div>
 <?php include_partial('show_criterias') ?>
 <?php include_partial('show_header') ?>
+<?php include_partial('global/chart_help'); ?>
 <?php if ( $sf_user->hasCredential('stats-geo') ): ?>
   <?php include_partial('global/chart_jqplot', array(
           'id'    => 'ego',
           'data'  => cross_app_url_for('stats', 'geo/json'),
           'label' => __('From your localization'),
+          'name' => __('Geographical approach',null,'menu'),
           'width' => '100%',
           'class' => 'geo charts-4'
          )) 
@@ -25,6 +26,7 @@
             'id'    => 'metropolis-in',
             'data'  => cross_app_url_for('stats', 'geo/json'),
             'label' => __('Your metropolis'),
+            'name' => __('Geographical approach',null,'menu'),
             'width' => '100%',
             'class' => 'geo charts-4'
            )) 
@@ -35,6 +37,7 @@
             'id'    => 'districts',
             'data'  => cross_app_url_for('stats', 'geo/json'),
             'label' => __('By district'),
+            'name' => __('Geographical approach',null,'menu'),
             'width' => '100%',
             'class' => 'geo charts-4'        
            )) 
@@ -44,6 +47,7 @@
           'id'    => 'postalcodes',
           'data'  => cross_app_url_for('stats', 'geo/json'),
           'label' => __('By postalcode'),
+          'name' => __('Geographical approach',null,'menu'),
           'width' => '100%',
           'class' => 'geo charts-4'       
          )) 
@@ -52,6 +56,7 @@
           'id'    => 'departments',
           'data'  => cross_app_url_for('stats', 'geo/json'),
           'label' => __('By department'),
+          'name' => __('Geographical approach',null,'menu'),
           'width' => '100%',
           'class' => 'geo charts-4'
          )) 
@@ -60,6 +65,7 @@
           'id'    => 'regions',
           'data'  => cross_app_url_for('stats', 'geo/json'),
           'label' => __('By region'),
+          'name' => __('Geographical approach',null,'menu'),
           'width' => '100%',
           'class' => 'geo charts-4'
          ))
@@ -68,6 +74,7 @@
           'id'    => 'countries',
           'data'  => cross_app_url_for('stats', 'geo/json'),
           'label' => __('By country'),
+          'name' => __('Geographical approach',null,'menu'),
           'width' => '100%',
           'class' => 'geo charts-4'
           )

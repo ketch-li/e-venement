@@ -43,61 +43,10 @@ class socialActions extends sfActions
     $this->getUser()->setAttribute('stats.criterias',$values,'admin_module');
     return $this;
   }
-  
-  public function executeCsv(sfWebRequest $request)
+
+  public function executeJson(sfWebRequest $request)
   {
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N','Date','CrossAppLink','Number'));
-    $param = $request->getParameter('id');
-    
-    $this->lines = $this->getData($param)->toArray();
-    
-    switch ( $param ) {
-    case 'fs':
-      $this->name = __('Familial situations');
-      break;
-    case 'fq':
-      $this->name = __('Familial quotients');
-      break;
-    case 'tor':
-      $this->name = __('Types of resources');
-      break;
-    }
-    
-    $total = 0;
-    foreach ( $this->lines as $line )
-      $total += $line['nb'];
-    
-    foreach ( $this->lines as $key => $line )
-      $this->lines[$key]['percent'] = format_number(round($line['nb']*100/$total,2));
-    
-    $params = OptionCsvForm::getDBOptions();
-    $this->options = array(
-      'ms' => in_array('microsoft',$params['option']),
-      'fields' => array('name','nb','percent'),
-      'tunnel' => false,
-      'noheader' => false,
-    );
-    
-    $this->outstream = 'php://output';
-    $this->delimiter = $this->options['ms'] ? ';' : ',';
-    $this->enclosure = '"';
-    $this->charset   = sfConfig::get('software_internals_charset');
-    
-    sfConfig::set('sf_escaping_strategy', false);
-    $confcsv = sfConfig::get('software_internals_csv'); if ( isset($confcsv['set_charset']) && $confcsv['set_charset'] ) sfConfig::set('sf_charset', $this->options['ms'] ? $this->charset['ms'] : $this->charset['db']);
-    
-    if ( $request->hasParameter('debug') )
-    {
-      $this->setLayout(true);
-      $this->getResponse()->sendHttpHeaders();
-    }
-    else
-      sfConfig::set('sf_web_debug', false);
-  }
-  
-  public function executeData(sfWebRequest $request)
-  {
-    $this->data = $this->getData($request->getParameter('id'));
+    $this->lines = $this->getData($request->getParameter('id'), 'array');
     
     if ( !$request->hasParameter('debug') )
     {
@@ -107,7 +56,7 @@ class socialActions extends sfActions
     }
   }
   
-  protected function getData($id)
+  protected function getData($id, $type = NULL)
   {
     switch ( $id ) {
     case 'fs':
@@ -140,6 +89,6 @@ class socialActions extends sfActions
       $q->leftJoin('c.YOBs y')
         ->addSelect('count(DISTINCT (c.id, y.id)) AS nb');
     
-    return $q->execute();
+    return $type == 'array' ? $q->fetchArray() : $q->execute();
   }
 }

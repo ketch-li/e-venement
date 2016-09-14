@@ -4,9 +4,9 @@
 <span class="arrow"></span>
 <a
   href="#<?php echo isset($anchor) ? $anchor : '' ?>"
+  id="img-export"
   title="<?php echo __('Chart') ?>"
-  class="chart ui-corner-all"
-  <?php if ( $ofc ): ?>onclick="javascript: LI.OFC.init($(this).closest('.ui-widget-content').find('embed')).popup(); return false;"<?php endif ?>
+  class="chart ui-corner-all img-export"
 >
   <span><?php echo __('Chart') ?></span>
 </a>
@@ -17,7 +17,7 @@
   data-type="<?php echo $sf_user->getExtractionType() ?>"
   <?php else: ?>
   target="_blank"
-  href="<?php echo $dl ?>"
+  href="<?php echo $dl; var_dump($dl);?>"
   <?php endif ?>
   title="<?php echo __('Record') ?>"
   class="record ui-corner-all"

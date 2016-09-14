@@ -6,12 +6,14 @@
     	<?php include_partial('attendance/filters_buttons') ?>
     	<h1><?php echo __('Tickets by price',null,'menu') ?></h1>
   	</div>
+  	<?php include_partial('global/chart_help'); ?>
   	<?php if ( $sf_user->hasCredential('stats-prices') ): ?>
 		<?php include_partial('show_criterias') ?>
 		<?php include_partial('global/chart_jqplot', array(
 		  	    'id'    => 'printed',
 		  	    'data'  => cross_app_url_for('stats', 'prices/json'),
 		  	    'label' => __('Printed tickets'),
+		  	    'name'  => __('Tickets by price', null, 'menu'),
 		  	    'width' => '100%',
 		  	    'class' => 'charts-4'
 		  	  )) 
@@ -20,6 +22,7 @@
 		  	    'id'    => 'ordered',
 		  	    'data'  => cross_app_url_for('stats', 'prices/json'),
 		  	    'label' => __('Ordered tickets'),
+		  	    'name'  => __('Tickets by price', null, 'menu'),
 		  	    'width' => '100%',
 		  	    'class' => 'charts-4'
 		  	  )) 
@@ -30,6 +33,7 @@
 		  	    'id'    => 'asked',
 		  	    'data'  => cross_app_url_for('stats', 'prices/json'),
 		  	    'label' => __('Asked tickets'),
+		  	    'name'  => __('Tickets by price', null, 'menu'),
 		  	    'width' => '100%',
 		  	    'class' => 'charts-4'
 		  	  )) 
@@ -39,6 +43,7 @@
 		  	    'id'    => 'all',
 		  	    'data'  => cross_app_url_for('stats', 'prices/json'),
 		  	    'label' => __('Global repartition'),
+		  	    'name'  => __('Tickets by price', null, 'menu'),
 		  	    'width' => '100%',
 		  	    'class' => 'charts-4'
 		  	  )) 

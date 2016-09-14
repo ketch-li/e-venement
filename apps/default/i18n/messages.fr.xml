@@ -185,8 +185,12 @@
         <target>L'utilisateur choisi a été correctement dupliqué, n'oubliez pas de vérifier son nom d'utilisateur et son email</target>
       </trans-unit>
       <trans-unit>
-        <source>Ticketting items</source>
-        <target>Éléments de billetterie</target>
+        <source>Ticketing</source>
+        <target>Billetterie</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Events</source>
+        <target>Événementiel</target>
       </trans-unit>
       <trans-unit>
         <source>Prices list</source>
@@ -229,7 +233,7 @@
         <target>Vous ne pouvez ajouter un compte comme (Super)Admin si vous n'êtes pas (Super)Admin vous-même. Cette propriété a simplement été déactivée.</target>
       </trans-unit>
       <trans-unit>
-        <source>A problem occurs when deleting some of the selected item (you probably tried to delete one or more (Super)Admin accounts without being a (Super)Admin yourself).</source>
+        <source>A problem occured when deleting some of the selected item (you probably tried to delete one or more (Super)Admin accounts without being a (Super)Admin yourself).</source>
         <target>Un problème est apparût en supprimant l'une de vos sélections (vous avez probablement essayé de supprimer un compte (Super)Admin sans en être un vous-même).</target>
       </trans-unit>
       <trans-unit>
@@ -241,7 +245,7 @@
         <target>Vos sélections ont été correctement supprimées.</target>
       </trans-unit>
       <trans-unit>
-        <source>A problem occurs when deleting the selected items.</source>
+        <source>A problem occured when deleting the selected items.</source>
         <target>Il y a eu un problème lors de la suppression de vos sélections.</target>
       </trans-unit>
       <trans-unit>
@@ -431,6 +435,14 @@
       <trans-unit>
         <source>Password (again)</source>
         <target>Mot de passe (encore)</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Last attempt !</source>
+        <target>Dernier essai !</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Please contact your administrator</source>
+        <target>Veuillez contacter votre administrateur</target>
       </trans-unit>
     </body>
   </file>

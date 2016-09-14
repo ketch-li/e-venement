@@ -57,12 +57,16 @@ class cardActions extends sfActions
   {
     //$this->redirectIfNotAuthenticated();
     
-    $this->member_card_types = Doctrine::getTable('MemberCardType')->createQuery('mct')
+    // use pub.php/card?member_card_types[]=ID1&member_card_types[]=ID2 to restrict the displaid member cards
+    
+    $q = Doctrine::getTable('MemberCardType')->createQuery('mct')
       ->leftJoin('mct.Users u')
       ->leftJoin('mct.Translation translation WITH translation.lang = ?', $this->getUser()->getCulture())
       ->andWhere('u.id = ?',$this->getUser()->getId())
-      ->orderBy('translation.description')
-      ->execute();
+      ->orderBy('translation.description');
+    if ( $restrictions = $request->getParameter('member_card_types', array()) )
+      $q->andWhereIn('mct.id', $restrictions);
+    $this->member_card_types = $q->execute();
     
     $this->mct = array();
     if ( $this->getUser()->getTransaction()->MemberCards->count() > 0 )

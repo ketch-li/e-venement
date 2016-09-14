@@ -24,8 +24,15 @@
     quantity: <?php echo $mcp->quantity ?>
   });
 <?php endforeach ?>
-  $.get(url, { tickets: tickets }, function(){ location.reload(); });
+  $.ajax({
+    url: url,
+    data: { tickets: tickets },
+    success: function(){ location.reload(); },
+    error: function(){ location.reload(); }
+  });
+  
   $('body').html('Loading...');
+  LI.busyIndicator();
 <?php $sf_user->setAttribute('pub.mc.autoadd_tickets', false) ?>
 <?php endif ?>
 --></script>

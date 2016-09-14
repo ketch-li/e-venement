@@ -111,20 +111,17 @@ abstract class PluginEmail extends BaseEmail
     
     // attach normal file attachments
     foreach ( $this->Attachments as $key => $attachment )
-    if ( file_exists(sfConfig::get('sf_upload_dir').DIRECTORY_SEPARATOR.$attachment->filename) )
     {
       $id = $attachment->getId() ? $attachment->getId() : date('YmdHis').rand(10000,99999);
-      $att = Swift_Attachment::fromPath($path = substr($attachment->filename, 0, 1) == '/'
-          ? $attachment->filename
-          : sfConfig::get('sf_upload_dir').DIRECTORY_SEPARATOR.$attachment->filename, $attachment->mime_type)
-        ->setFilename($attachment->original_name)
+      if (!( $content = $attachment->content ))
+      {
+        unset($this->Attachments[$key]);
+        error_log('PluginEmail: attachment #'.$attachment->id.' not found for email #'.$this->id.', continuing.');
+        continue;
+      }
+      $att = Swift_Attachment::newInstance($content, $attachment->original_name, $attachment->mime_type)
         ->setId('part.'.$id.'@e-venement');
       $this->message->attach($att);
-    }
-    else
-    {
-      unset($this->Attachments[$key]);
-      error_log('PluginEmail: attachment #'.$attachment->id.' not found for email #'.$this->id.', continuing.');
     }
     
     // force setting the Content-Type to 'multipart/related' to really follow the norm

@@ -39,6 +39,7 @@
   $vars['options']['header'] = array(
     'method'          => __('Payment method'),
     'value'           => __('Value'),
+    'reference'       => __('Reference'),
     'account'         => __('Detail'),
     'transaction_id'  => __('Transaction'),
     'contact'         => __('Contact'),

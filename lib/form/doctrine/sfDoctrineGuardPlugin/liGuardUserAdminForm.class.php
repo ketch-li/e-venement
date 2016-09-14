@@ -38,6 +38,8 @@ class liGuardUserAdminForm extends sfGuardUserAdminForm
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N'));
     parent::configure();
     
+    $this->validatorSchema['email_address'] = new liValidatorEmail;
+    
     // don't know why but parent::setup() is called before self::configure() so we need to specify the contact's widget correctly here and not in BaseDoctrineForm::setup()
     $this->widgetSchema   ['contact_id'] = new sfWidgetFormDoctrineJQueryAutocompleter(array(
       'model' => 'Contact',
@@ -109,8 +111,7 @@ class liGuardUserAdminForm extends sfGuardUserAdminForm
     ));
   }
   
-  public function doSave($con = NULL)
-  {
+  public function doSave($con = NULL) {
     // contact embedded form
     if ( $this->values['contact_id'] )
       $this->object->Contact[0] = Doctrine::getTable('Contact')->fetchOneById($this->values['contact_id']);

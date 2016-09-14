@@ -41,6 +41,7 @@ ProductCategory:
       notnull: true
     product_category_id: integer
     shipping_fees: string
+    color_id: integer
   relations:
     Vat:
       foreignAlias: ProductCategories
@@ -50,6 +51,10 @@ ProductCategory:
       class: ProductCategory
       foreignAlias: Children
       onDelete: CASCADE
+      onUpdate: CASCADE
+    Color:
+      foreignAlias: ProductCategories
+      onDelete: SET NULL
       onUpdate: CASCADE
 
 Product:

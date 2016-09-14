@@ -146,7 +146,7 @@ class organismActions extends autoOrganismActions
     }
     catch (sfValidatorError $e)
     {
-      $this->getUser()->setFlash('error', 'A problem occurs when adding the selected items as some items do not exist anymore.');
+      $this->getUser()->setFlash('error', 'A problem occured when adding the selected items as some items do not exist anymore.');
       return $this->redirect('@organism');
     }
     

@@ -376,7 +376,20 @@ $(document).ready(function(){
   $('#li_transaction_field_payment_new .submit').hide();
 
   // reset the current transaction + resend the confirmation email + access to the simplified gui
-  $('#abandon, #resend-email, #simplified-gui, #direct-surveys').appendTo($('#sf_admin_container .ui-widget-header h1'));
+  $('#abandon, #resend-email, #pay-online, #simplified-gui, #direct-surveys').appendTo($('#sf_admin_container .ui-widget-header h1'));
+  $('#resend-email').click(function(){
+    $('#autocomplete_transaction_contact_id').click();
+    var anchor = this;
+    setTimeout(function(){
+      if ( !$.trim($('#li_transaction_field_informations .email a').text()) )
+      {
+        LI.alert($(anchor).attr('data-text-error'), 'error');
+        return false;
+      }
+      window.open($(anchor).prop('href'));
+    },1500);
+    return false;
+  });
 });
 
 // check gauges for overbooking
@@ -407,7 +420,7 @@ LI.checkGauges = function(form, submitHandler){
   $('#li_transaction_field_content #li_transaction_manifestations .families:not(.sample) .item:not(.total)').each(function(){
     if ( go == false )
       return;
-
+    
     if ( $(this).find('tbody .declination:not(.printed):not(.integrated) [name="qty"]').length > 0 )
     {
       var gauge = this;
@@ -429,6 +442,10 @@ LI.checkGauges = function(form, submitHandler){
         {
           go = false;
           elts.addClass('blink');
+          elts.each(function(){
+            // simplified GUI
+            $('#li_transaction_field_simplified [data-declination-id="'+$(this).closest('data-gauge-id').attr('data-gauge-id')+'"][data-price-id="'+$(this).closest('[data-price-id]').attr('data-price-id')+'"]').addClass('blink');
+          });
           LI.blinkQuantities(elts, true);
         }
 
@@ -576,6 +593,10 @@ LI.initContent = function(){
         LI.alert(data.error[1],'error');
         return;
       }
+      
+      if ( !data.success )
+        return;
+      
       if (!( data.success.error_fields !== undefined && data.success.error_fields[id] === undefined ))
       {
         LI.alert(data.success.error_fields[id],'error');

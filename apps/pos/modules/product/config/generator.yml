@@ -32,8 +32,9 @@ generator:
         linked_products_list: { label: Products }
         online_limit: { help: The limit in the stocks when the online sales are stopped }
         online_limit_per_transaction: { help: The maximum that can be bought at once online }
+        list_category: { label: Category }
       list:
-        display: [Category, =name, short_name, MetaEvent, online, Vat, _list_stocks]
+        display: [_list_category, =name, short_name, MetaEvent, online, Vat, _list_stocks]
         sort: [pt.name, '']
         object_actions:
           _edit: ~

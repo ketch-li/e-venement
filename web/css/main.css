@@ -167,3 +167,5 @@ body #jappix_mini a.jm_friend { padding: 1px; }
 #jappix_mini .jm_grouped_groupchat[data-xid="e-venement-support@conference.jabber.libre-informatique.fr"], #jappix_mini .jm_grouped_groupchat[data-xid="e-venement-public@conference.jabber.libre-informatique.fr"] { display: none !important; }
 
 #noautoscroll { display: none; }
+
+#chart-help { font-size: 0.8em; }

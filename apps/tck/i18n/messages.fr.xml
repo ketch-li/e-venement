@@ -5,6 +5,26 @@
     <header/>
     <body>
       <trans-unit>
+        <source>This is the URL to use: </source>
+        <target>Voici l'URL à utiliser : </target>
+      </trans-unit>
+      <trans-unit>
+        <source>Pay by card online (only efficient if this transaction has a contact)</source>
+        <target>Payer par carte bancaire en ligne (ne fonctionne que si cette opération a un contact lié)</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Best sales</source>
+        <target>Meilleures ventes</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Categories</source>
+        <target>Catégories</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Unable to send an email: no email address available.</source>
+        <target>Impossible d'envoyer un email: pas d'adresse disponible.</target>
+      </trans-unit>
+      <trans-unit>
         <source>Warnings</source>
         <target>Rappels</target>
       </trans-unit>
@@ -707,6 +727,10 @@
       <trans-unit>
         <source>Extract (%%format%%)</source>
         <target>Extraire (%%format%%)</target>
+      </trans-unit>
+      <trans-unit>
+        <source>with totals</source>
+        <target>avec tot.</target>
       </trans-unit>
       <trans-unit>
         <source>Cannot duplicate the ticket #%%i%% because its transaction has been closed already. Trick: open its transaction in an other tab when you try to duplicate it.</source>

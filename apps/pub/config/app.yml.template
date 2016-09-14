@@ -10,6 +10,7 @@ all:
     plugins: []       # add your plugins here, especially OnlinePayment plugins...
     #synthetic_plans: false   # for online seating for real
     #home: meta_event
+    #manifestations_lists_as_select: false
   user:
     templating: vel
     #other_templates: [] # usefull if more than one "pub" app is working on this instance
@@ -55,23 +56,6 @@ all:
       phone_number: true
     #picture: true
     #newsletter: true
-
-  # OpenID Connect / OAuth2
-  openidconnect:
-    wellknownurl: https://auth.example.com/.well-known/openid-configuration # mandatory
-    client_id: eve-id
-    client_secret: eve-pass
-    redirect_uri: http://localhost/pub.php/login
-    verify_ssl: false
-    #scope_separator: ' '
-    data_matching: # data given by OAuth: data stored by e-venement in the contact schema
-      name: name
-      email: email
-      country: country
-      street_address: address
-      postal_code: postalcode
-      locality: city
-      locale: culture
 
   #member_cards: # this feature allows auto-creation of passes if some prerequisites match or deletion of passes if conditions are not matched
   #  trigger_after_manifestations: 3 # does not count tickets whose price are linked to member cards

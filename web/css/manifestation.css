@@ -123,9 +123,9 @@ dsf#sf_fieldset_tickets td .tickets, sdf#sf_fieldset_spectators td .tickets { di
 
 /* the list */
 .sf_admin_list table tbody tr.sf_admin_row .sf_admin_list_td_list_dates { padding: 0; }
-.sf_admin_list .sf_admin_list_td_list_dates > div { padding: 4px; }
+.sf_admin_list .sf_admin_list_td_list_dates > div { padding: 4px; font-size: 85%; }
 .sf_admin_list .sf_admin_list_td_list_dates a { display: block; white-space: nowrap; text-align: right; }
-.sf_admin_list .sf_admin_list_td_list_dates .to { color: gray; }
+.sf_admin_list .sf_admin_list_td_list_dates .to { color: gray; font-size: 90%; }
 .sf_admin_list table tbody tr.sf_admin_row .sf_admin_list_td_list_location { text-align: center; }
 .sf_admin_list .sf_admin_list_td_list_booking_list .with-comment { font-style: italic; }
 .sf_admin_list .sf_admin_action_sell a { background: rgb(223, 239, 252) url("../sfAdminThemejRollerPlugin/css/jquery/redmond/images/ui-icons_6da8d5_256x240.png") no-repeat -48px -112px; }
@@ -170,3 +170,4 @@ dsf#sf_fieldset_tickets td .tickets, sdf#sf_fieldset_spectators td .tickets { di
 #seats .name, #seats .rank { font-weight: bold; text-align: right; }
 #seats h2 .close { float: right; text-decoration: none; border: 1px solid white; border-radius: 2px; padding: 2px 5px; margin-top: -3px; }
 
+#more .list { margin-bottom: -29px; margin-top: 4px; float:right; }

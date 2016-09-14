@@ -12,13 +12,45 @@
  */
 class Attachment extends PluginAttachment
 {
+  protected $picture = NULL;
+  
   public function __toString()
   {
     return $this->original_name.' ('.$this->mime_type.')';
   }
   
+  public function isStoredInDatabase()
+  {
+    return substr($this->filename, 0, 3) == 'db:';
+  }
+  
+  public function getDbFile()
+  {
+    if ( !$this->isStoredInDatabase() )
+      throw new liEvenementException('Email Attachment: you tried to get the file stored in the DB whereas it is stored in the filesystem.');
+    
+    if ( $this->picture instanceof Picture )
+      return $this->picture;
+    return $this->picture = Doctrine::getTable('Picture')->findOneByName($this->filename);
+  }
+  
+  public function getContent()
+  {
+    if ( $this->isStoredInDatabase() )
+      return $this->getDbFile()->decoded_content;
+    if ( file_exists($path = sfConfig::get('sf_upload_dir').DIRECTORY_SEPARATOR.$attachment->filename) )
+      return file_get_contents($path);
+    return false;
+  }
+  
   public function getWebUri()
   {
+    if ( $this->isStoredInDatabase() )
+    {
+      if ( !$this->db_file )
+        return '#';
+      return $this->db_file->getUrl();
+    }
     $up  = sfConfig::get('sf_upload_dir');
     return '/'.basename($up).'/'.$this->filename;
   }

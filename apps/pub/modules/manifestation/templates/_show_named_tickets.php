@@ -94,9 +94,11 @@
   </div>
 </form>
 
+<?php if ( sfConfig::get('app_tickets_always_need_a_contact',false) ): ?>
 <p class="info">
   <?php echo __('You can take back a contact only once. In case of necessity, %%tagstart%%reload the page%%tagend%%...', array('%%tagstart%%' => '<a href="">', '%%tagend%%' => '</a>')) ?>
 </p>
+<?php endif ?>
 
 <?php if (!( isset($display_continue) && !$display_continue )): ?>
 <p class="submit">

@@ -16,8 +16,8 @@
 *    along with e-venement; if not, write to the Free Software
 *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 *
-*    Copyright (c) 2006-2015 Baptiste SIMON <baptiste.simon AT e-glop.net>
-*    Copyright (c) 2006-2015 Libre Informatique [http://www.libre-informatique.fr/]
+*    Copyright (c) 2006-2016 Baptiste SIMON <baptiste.simon AT e-glop.net>
+*    Copyright (c) 2006-2016 Libre Informatique [http://www.libre-informatique.fr/]
 *
 ***********************************************************************************/
 ?>
@@ -114,7 +114,8 @@
       }
       
       // blank separation line
-      $this->lines[] = array();
+      if ( $this->products->count() )
+        $this->lines[] = array();
       
       foreach ( $this->products as $pdt )
       {
@@ -138,6 +139,16 @@
         $this->lines[$key]['extra-taxes'] += $pdt->shipping_fees;
         $this->lines[$key]['tep'] += $tmp = round($pdt->value/(1+$pdt->vat) + $pdt->shipping_fees/(1+$pdt->shipping_fees_vat),2);
         $this->lines[$key]['vat'] += $pdt->value + $pdt->shipping_fees - $tmp;
+      }
+      
+      if ( $request->hasParameter('with_totals') )
+      {
+        $total = array('qty' => 0, 'pit' => 0, 'extra-taxes' => 0, 'tep' => 0, 'vat' => 0);
+        foreach ( $this->lines as $key => $line )
+        foreach ( $line as $row => $value )
+        if ( in_array($row, array_keys($total)) )
+          $total[$row] += $value;
+        $this->lines[] = $total;
       }
       
       $this->getContext()->getConfiguration()->loadHelpers('Number');
@@ -176,6 +187,16 @@
           'user'            => (string)$payment->User,
           'account'         => $method->account,
         );
+      
+      if ( $request->hasParameter('with_totals') )
+      {
+        $total = array('value' => 0);
+        foreach ( $this->lines as $key => $line )
+        foreach ( $line as $row => $value )
+        if ( in_array($row, array_keys($total)) )
+          $total[$row] += $value;
+        $this->lines[] = $total;
+      }
       
       foreach ( $this->lines as $key => $line )
       foreach ( array('value',) as $field )

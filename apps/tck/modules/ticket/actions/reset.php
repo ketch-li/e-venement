@@ -42,7 +42,7 @@
       return $this->redirect('ticket/sell?id='.$this->transaction->id);
     }
     
-    foreach ( array('Tickets', 'Order', 'Payments') as $rel )
+    foreach ( array('Tickets', 'Order', 'Payments', 'MemberCards', 'BoughtProducts') as $rel )
       $this->transaction->{$rel}->delete();
     
     $this->getUser()->setFlash('notice',__('Transaction resetted and closed'));

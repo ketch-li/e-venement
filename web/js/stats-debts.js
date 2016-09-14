@@ -15,22 +15,26 @@ LI.stats.debts = function(){
     var chart = $(this).find('.chart')
     var name = chart.attr('data-series-name');
     var id = chart.prop('id');
-    var title = $(this).find('h2').prop('title') ? $(this).find('h2').prop('title')+': ' : '';
+    var title = $(this).find('h2') ? $(this).find('h2').text() : '';
     LI.csvData[name] = [
       [
-        title,
-        $(this).find('h2').text()
+        $(this).find('#csvTitle').text(),
+        title
       ],
     ]; 
     
     //retrieve stats
     $.get(chart.attr('data-json-url') + '?id=' + name, function(json){
       var array = [];
-      var series = [];
 
-      $.each(json, function(i, data) {
-        array.push([data.date, data.outcome - data.income]);
-        LI.csvData[name].push([data.date, data.outcome, data.income, data.outcome - data.income]);
+      LI.csvData[name].push(json.csvHeaders);
+
+      $.each(json, function(key, data) {
+
+        if(key !== 'csvHeaders'){
+          array.push([data.date, data.outcome - data.income]);
+          LI.csvData[name].push([data.date, data.outcome, data.income, data.outcome - data.income]);
+        }
       });
       $(this).dblclick(function(){
         $(this).resetZoom();
