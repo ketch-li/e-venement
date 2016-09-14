@@ -34,27 +34,31 @@ class attendanceActions extends sfActions
   public function executeJson(sfWebRequest $request)
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('Number', 'Date'));
-    $this->lines = $this->getManifs('array', true);
+    $this->lines = array();
+    $manifs = $this->getManifs();
 
-    foreach ( $this->lines as $key => $line )
+    foreach ( $manifs as $key => $manif )
     {
+      $this->lines[$key] = $manif->toArray();
+      $this->lines[$key]['name'] = (string)$manif;
+      
       // free seats
-      $this->lines[$key]['free'] = $line['gauge']-$line['printed']-(sfConfig::get('project_tickets_count_demands',false) ? $line['asked'] : 0)-$line['ordered'];
+      $this->lines[$key]['free'] = $manif['gauge']-$manif['printed']-(sfConfig::get('project_tickets_count_demands',false) ? $manif['asked'] : 0)-$manif['ordered'];
       
       // percentages
-      $this->lines[$key]['printed_percentage'] = $line['gauge'] > 0 ? format_number(round($line['printed']*100/$line['gauge'],0)) : 'N/A';
-      $this->lines[$key]['ordered_percentage'] = $line['gauge'] > 0 ? format_number(round($line['ordered']*100/$line['gauge'],0)) : 'N/A';
+      $this->lines[$key]['printed_percentage'] = $manif['gauge'] > 0 ? format_number(round($manif['printed']*100/$manif['gauge'],0)) : 'N/A';
+      $this->lines[$key]['ordered_percentage'] = $manif['gauge'] > 0 ? format_number(round($manif['ordered']*100/$manif['gauge'],0)) : 'N/A';
       if ( sfConfig::get('project_tickets_count_demands',false) )
-        $this->lines[$key]['asked_percentage']   = $line['gauge'] > 0 ? format_number(round($line['asked']  *100/$line['gauge'],0)) : 'N/A';
+        $this->lines[$key]['asked_percentage']   = $manif['gauge'] > 0 ? format_number(round($manif['asked']  *100/$manif['gauge'],0)) : 'N/A';
       else
         $this->lines[$key]['asked'] = 'false';
-      $this->lines[$key]['printed_gifts_percentage'] = $line['printed'] > 0 ? format_number(round($line['printed_gifts']*100/$line['printed'],0)) : 'N/A';
-      $this->lines[$key]['printed_with_payment_percentage'] = $line['printed'] > 0 ? format_number(round($line['printed_with_payment']*100/$line['printed'],0)) : 'N/A';
-      $this->lines[$key]['printed_deposits_percentage'] = $line['printed'] > 0 ? format_number(round($line['printed_deposits']*100/$line['printed'],0)) : 'N/A';
-      $this->lines[$key]['free_percentage']    = $line['gauge'] > 0 ? format_number(round(($line['gauge']-$line['printed']-(sfConfig::get('project_tickets_count_demands',false) ? $line['asked'] : 0)-$line['ordered'])*100/$line['gauge'],0)) : 'N/A';
+      $this->lines[$key]['printed_gifts_percentage'] = $manif['printed'] > 0 ? format_number(round($manif['printed_gifts']*100/$manif['printed'],0)) : 'N/A';
+      $this->lines[$key]['printed_with_payment_percentage'] = $manif['printed'] > 0 ? format_number(round($manif['printed_with_payment']*100/$manif['printed'],0)) : 'N/A';
+      $this->lines[$key]['printed_deposits_percentage'] = $manif['printed'] > 0 ? format_number(round($manif['printed_deposits']*100/$manif['printed'],0)) : 'N/A';
+      $this->lines[$key]['free_percentage']    = $manif['gauge'] > 0 ? format_number(round(($manif['gauge']-$manif['printed']-(sfConfig::get('project_tickets_count_demands',false) ? $manif['asked'] : 0)-$manif['ordered'])*100/$manif['gauge'],0)) : 'N/A';
       
       // cashflow
-      $this->lines[$key]['cashflow']    = format_number(round($line['cashflow'],2));
+      $this->lines[$key]['cashflow']    = format_number(round($manif['cashflow'],2));
       
       // datetime
       $this->lines[$key]['dotw'] = format_datetime($this->lines[$key]['happens_at'],'EEEE');
@@ -71,7 +75,7 @@ class attendanceActions extends sfActions
     }
   }
   
-  protected function getManifs($type = NULL, $extra_data = false)
+  protected function getManifs($type = NULL)
   {
     $criterias = $this->getUser()->getAttribute('stats.criterias',array('dates' => array(
       'from' => array(
