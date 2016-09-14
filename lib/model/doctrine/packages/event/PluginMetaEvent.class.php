@@ -10,10 +10,28 @@
  * @author     Baptiste SIMON <baptiste.simon AT e-glop.net>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-abstract class PluginMetaEvent extends BaseMetaEvent
+abstract class PluginMetaEvent extends BaseMetaEvent implements liDuplicable
 {
   public function getUsers($load)
   {
     return liDoctrineRelationAssociationUsers::removeUpperUsersFromCollection($this->_get('Users', $load));
+  }
+
+  public function duplicate()
+  {
+  	sfApplicationConfiguration::getActive()->loadHelpers('I18N');
+  	$new = $this->copy();
+
+  	foreach( $this->Events as $event )
+      $new->Events[] = $event->duplicate();
+    foreach( $this->Users as $user )
+      $new->Users[] = $user;
+
+  	$new->slug = NULL;
+  	$new->name = sprintf('%s (%s %s)', $this->name, __('copy'), date('Y-m-d H:i:s'));
+
+  	$new->save();
+
+  	return $new;
   }
 }
