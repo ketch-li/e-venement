@@ -6,7 +6,7 @@
   href="#<?php echo isset($anchor) ? $anchor : '' ?>"
   id="img-export"
   title="<?php echo __('Chart') ?>"
-  class="chart ui-corner-all img-export"  
+  class="chart ui-corner-all img-export"
 >
   <span><?php echo __('Chart') ?></span>
 </a>

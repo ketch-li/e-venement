@@ -119,6 +119,6 @@ class liGuardSecurityUser extends sfGuardSecurityUser
       ->andWhere('o.name = ?', 'option')
       ->andWhere('o.value = ?', 'microsoft')
     ;
-    return $this->extractionType = $q->count() ? 'xls' : 'csv';
+    return $this->extractionType = $q->count() ? 'xlsx' : 'csv';
   }
 }
