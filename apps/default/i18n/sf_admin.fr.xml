@@ -105,7 +105,7 @@
         <target>Cliquez pour valider vos modifications</target>
       </trans-unit>
       <trans-unit>
-        <source>A problem occurs when adding the selected items as some items do not exist anymore.</source>
+        <source>A problem occured when adding the selected items as some items do not exist anymore.</source>
         <target>Impossible d'ajouter les objets sélectionnés car certains ont disparus.</target>
       </trans-unit>
       <trans-unit>
@@ -286,7 +286,7 @@
         <target>Vous devez sélectionner une action à executer sur les objets sélectionnés.</target>
       </trans-unit>
       <trans-unit>
-        <source>A problem occurs when deleting the selected items as some items do not exist anymore.</source>
+        <source>A problem occured when deleting the selected items as some items do not exist anymore.</source>
         <target>Un problème est survenu lors de la suppression des objets sélectionnés car certains objets n'existent plus.</target>
       </trans-unit>
       <trans-unit>
@@ -302,15 +302,15 @@
         <target>Les objets sélectionnés ont été dupliqués avec succès.</target>
       </trans-unit>
       <trans-unit>
-        <source>A problem occurs when deleting the selected items.</source>
+        <source>A problem occured when deleting the selected items.</source>
         <target>Un problème est survenu lors de la suppression des objets sélectionnés.</target>
       </trans-unit>
       <trans-unit>
-        <source>A problem occurs when merging the selected items.</source>
+        <source>A problem occured when merging the selected items.</source>
         <target>Un problème est survenu lors de la fusion des objets sélectionnés.</target>
       </trans-unit>
       <trans-unit>
-        <source>A problem occurs when duplicating the selected items.</source>
+        <source>A problem occured when duplicating the selected items.</source>
         <target>Un problème est survenu lors de la duplication des objets sélectionnés.</target>
       </trans-unit>
       <trans-unit>
