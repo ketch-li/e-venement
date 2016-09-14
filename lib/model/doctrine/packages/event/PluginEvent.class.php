@@ -10,7 +10,7 @@
  * @author     Baptiste SIMON <baptiste.simon AT e-glop.net>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-abstract class PluginEvent extends BaseEvent implements liMetaEventSecurityAccessor
+abstract class PluginEvent extends BaseEvent implements liMetaEventSecurityAccessor, liDuplicable
 {
   public function preSave($event)
   {
@@ -79,5 +79,23 @@ abstract class PluginEvent extends BaseEvent implements liMetaEventSecurityAcces
     // searchable
     $tpl = $this->getTable()->getTemplate('Searchable');
     $tpl->getListener()->set('Searchable', new Doctrine_Search_Listener_I18n($tpl->getPlugin()));
+  }
+
+  public function duplicate()
+  { 
+    $new = $this->copy();
+    
+    foreach ( array('Translation', 'Companies', 'Checkpoints', 'MemberCardPrices', 'MemberCardPriceModels') as $relation )
+      foreach ( $this->$relation as $relobj )
+        $new->{$relation}[] = $relobj->copy();
+    foreach ( array('MetaEvent', 'EventCategory') as $relation )
+      $new->$relation = $this->$relation;
+    foreach($new->Checkpoints as $checkpoint)
+      $checkpoint->slug = null;
+    $new->slug = NULL;
+
+    $new->save();
+
+    return $new;
   }
 }

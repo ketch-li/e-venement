@@ -21,4 +21,46 @@ class meta_eventActions extends autoMeta_eventActions
       ->execute();
     return sfView::NONE;
   }
+
+  public function executeBatchDuplicate(sfWebRequest $request)
+  {
+    $class = 'MetaEvent';
+    $rc = new ReflectionClass($class);
+    $sfUser = sfContext::getInstance()->getUser();
+
+    if ( $rc->implementsInterface('liDuplicable') )
+    {
+      $ids = $request->getParameter('ids');
+
+      $metaEvents = Doctrine::getTable($class)->createQuery('me')->orderBy('me.updated_at DESC')
+        ->andWhereIn('me.id', $ids)
+        ->andWhereIn('me.id', array_keys($sfUser->getMetaEventsCredentials()))
+        ->execute();
+
+      if ( $metaEvents->count() == 0 )
+      {
+        $this->getUser()->setFlash('error', 'You must at least select one item.');
+        $this->redirect('@meta_event');
+      }
+      
+      $duplicated = array();
+
+      foreach ( $metaEvents as $metaEvent )
+        $duplicated[] = $metaEvent->duplicate();
+      
+      if (count($duplicated) >= count($ids))
+      {
+        $this->getUser()->setFlash('notice', 'The selected items have been duplicated successfully.');
+      }
+      else
+      {
+        $this->getUser()->setFlash('error', 'A problem occured when duplicating the selected items.');
+      }
+    }
+    else
+      throw new sfException(sprintf('Class %s must implement interface liDuplicable in order to be duplicated.', $class));
+
+    $this->redirect('@meta_event');
+  }
+
 }

@@ -284,42 +284,39 @@ class eventActions extends autoEventActions
   }
   public function executeBatchDuplicate(sfWebRequest $request)
   {
-    $ids = $request->getParameter('ids');
+    $class = 'Event';
+    $rc = new ReflectionClass($class);
 
-    $events = Doctrine::getTable('Event')->retrieveList()->orderBy('e.updated_at DESC')
-      ->andWhereIn('e.id', $ids)
-      ->execute();
-    if ( $events->count() == 0 )
+    if ( $rc->implementsInterface('liDuplicable') )
     {
-      $this->getUser()->setFlash('error', 'You must at least select one item.');
-      $this->redirect('@event');
-    }
-    
-    $count = 0;
-    foreach ( $events as $event )
-    {
-      $new = $event->copy();
+      $ids = $request->getParameter('ids');
+
+      $events = Doctrine::getTable($class)->retrieveList()->orderBy('e.updated_at DESC')
+        ->andWhereIn('e.id', $ids)
+        ->execute();
+
+      if ( $events->count() == 0 )
+      {
+        $this->getUser()->setFlash('error', 'You must at least select one item.');
+        $this->redirect('@event');
+      }
       
-      foreach ( array('Translation', 'Manifestations', 'Companies', 'Checkpoints', 'MemberCardPrices', 'MemberCardPriceModels') as $relation )
-      foreach ( $event->$relation as $relobj )
-        $new->{$relation}[] = $relobj->copy();
-      foreach ( array('MetaEvent', 'EventCategory') as $relation )
-        $new->$relation = $event->$relation;
-      foreach ( array('slug') as $prop )
-        $new->$prop = NULL;
+      $duplicated = array();
+
+      foreach ( $events as $event )
+        $duplicated[] = $event->duplicate();
       
-      $new->save();
-      $count++;
-    }
-    
-    if ($count >= count($ids))
-    {
-      $this->getUser()->setFlash('notice', 'The selected items have been duplicated successfully.');
+      if (count($duplicated) >= count($ids))
+      {
+        $this->getUser()->setFlash('notice', 'The selected items have been duplicated successfully.');
+      }
+      else
+      {
+        $this->getUser()->setFlash('error', 'A problem occured when duplicating the selected items.');
+      }
     }
     else
-    {
-      $this->getUser()->setFlash('error', 'A problem occurs when merging some of the selected items.');
-    }
+      throw new sfException(sprintf('Class %s must implement interface liDuplicable in order to be duplicated.', $class));
 
     $this->redirect('@event');
   }
