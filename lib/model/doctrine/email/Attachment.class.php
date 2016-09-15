@@ -21,14 +21,13 @@ class Attachment extends PluginAttachment
   
   public function isStoredInDatabase()
   {
-    return substr($this->filename, 0, 3) == 'db:';
+    if ( substr($this->filename, 0, 3) == 'db:' && $this->getDbFile() )
+      return true;
+    return false;
   }
   
   public function getDbFile()
   {
-    if ( !$this->isStoredInDatabase() )
-      throw new liEvenementException('Email Attachment: you tried to get the file stored in the DB whereas it is stored in the filesystem.');
-    
     if ( $this->picture instanceof Picture )
       return $this->picture;
     return $this->picture = Doctrine::getTable('Picture')->findOneByName($this->filename);
@@ -46,11 +45,7 @@ class Attachment extends PluginAttachment
   public function getWebUri()
   {
     if ( $this->isStoredInDatabase() )
-    {
-      if ( !$this->db_file )
-        return '#';
       return $this->db_file->getUrl();
-    }
     $up  = sfConfig::get('sf_upload_dir');
     return '/'.basename($up).'/'.$this->filename;
   }
