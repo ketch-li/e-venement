@@ -38,6 +38,13 @@ class EmailFormFilter extends BaseEmailFormFilter
     $this->validatorSchema['email_address'] = new sfValidatorEmail(array(
       'required' => false,
     ));
+    
+    $this->widgetSchema   ['with_attachments'] = new sfWidgetFormChoice(array(
+      'choices' => $choices = array('' => '', 'yes' => 'Yes', 'no' => 'No'),
+    ));
+    $this->validatorSchema['with_attachments'] = new sfValidatorChoice(array(
+      'choices' => array_keys($choices),
+    ));
   }
   
   public function getFields()
@@ -47,6 +54,17 @@ class EmailFormFilter extends BaseEmailFormFilter
     return $fields;
   }
   
+  public function addWithAttachmentsColumnQuery(Doctrine_Query $q, $field, $value)
+  {
+    if ( !$value )
+      return $q;
+    
+    $a = $q->getRootAlias();
+    $q->leftJoin("$a.Attachments att")
+      ->andWhere($value == 'no' ? 'att.id IS NULL' : 'att.id IS NOT NULL');
+    
+    return $q;
+  }
   public function addEmailAddressColumnQuery(Doctrine_Query $q, $field, $value)
   {
     if ( !$value )
