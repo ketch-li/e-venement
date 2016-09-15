@@ -5,6 +5,14 @@
     <header/>
     <body>
       <trans-unit>
+        <source>This is the URL to use: </source>
+        <target>Voici l'URL à utiliser : </target>
+      </trans-unit>
+      <trans-unit>
+        <source>Pay by card online (only efficient if this transaction has a contact)</source>
+        <target>Payer par carte bancaire en ligne (ne fonctionne que si cette opération a un contact lié)</target>
+      </trans-unit>
+      <trans-unit>
         <source>Best sales</source>
         <target>Meilleures ventes</target>
       </trans-unit>

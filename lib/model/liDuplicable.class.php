@@ -16,25 +16,13 @@
 *    along with e-venement; if not, write to the Free Software
 *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 *
-*    Copyright (c) 2006-2016 Baptiste SIMON <baptiste.simon AT e-glop.net>
-*    Copyright (c) 2006-2016 Libre Informatique [http://www.libre-informatique.fr/]
+*    Copyright (c) 2006-2011 Baptiste SIMON <baptiste.simon AT e-glop.net>
+*    Copyright (c) 2006-2011 Libre Informatique [http://www.libre-informatique.fr/]
 *
 ***********************************************************************************/
 ?>
 <?php
-class liOnlinePaymentPaylinePluginConfiguration extends sfPluginConfiguration
+interface liDuplicable
 {
-  const paylineVersion = 4;
-  public function setup()
-  {
-    require_once __DIR__.'/../lib/PaylinePayment.class.php';
-    $this->dispatcher->connect('pub.cart.done', array($this, 'cartDone'));
-  }
-  
-  public function cartDone(sfEvent $event)
-  {
-    $transaction = $event->getSubject()->getUser()->getTransaction();
-    $event['action']->executeResponse($event['request']);
-    $event->getSubject()->getUser()->setTransaction($transaction); // this is to avoid side-effects when using not-current-transaction
-  }
+  public function duplicate();
 }

@@ -52,45 +52,42 @@ LI.stats.attendance = function () {
             LI.stats.attendanceLegends = json.legends;
             LI.csvData[name].push(json.csvHeaders);
 
-            $.each(json, function (key, value) {
-
+            $.each(json, function (key, manif) {
                 if(key !== 'csvHeaders' && key !== 'legends'){
 
-                    var eventName = value.Event.Translation.fr.name;
-
-                    array.push(value.free);
-                    ordered.push(value.ordered);
-                    printed.push(value.printed);
-                    labels.push(eventName);
+                    array.push(manif.free);
+                    ordered.push(manif.ordered);
+                    printed.push(manif.printed);
+                    labels.push(manif.name);
 
                     var csvData = [
-                        eventName, 
-                        value.dotw,
-                        value.date,
-                        value.time, 
-                        value.location_name, 
-                        value.location_city, 
-                        value.gauge, 
-                        value.printed, 
-                        value.printed_with_payment, 
-                        value.printed_gifts, 
-                        value.printed_deposits, 
-                        value.ordered,
-                        value.asked, 
-                        value.free,
-                        value.printed_percentage,
-                        value.printed_with_payment_percentage,
-                        value.printed_gifts_percentage,
-                        value.printed_deposits_percentage,
-                        value.ordered_percentage,
-                        value.asked_percentage,
-                        value.free_percentage,
-                        value.cashflow,
-                        value.meta_event,
-                        value.event_category
+                        manif.event_name,
+                        manif.dotw,
+                        manif.date,
+                        manif.time, 
+                        manif.location_name, 
+                        manif.location_city, 
+                        manif.gauge, 
+                        manif.printed, 
+                        manif.printed_with_payment, 
+                        manif.printed_gifts, 
+                        manif.printed_deposits, 
+                        manif.ordered,
+                        manif.asked, 
+                        manif.free,
+                        manif.printed_percentage,
+                        manif.printed_with_payment_percentage,
+                        manif.printed_gifts_percentage,
+                        manif.printed_deposits_percentage,
+                        manif.ordered_percentage,
+                        manif.asked_percentage,
+                        manif.free_percentage,
+                        manif.cashflow,
+                        manif.meta_event,
+                        manif.event_category
                     ];
                     
-                    if(value.asked === 'false'){
+                    if(manif.asked === 'false'){
                         csvData.splice(12, 1);
                         csvData.splice(18, 1);
                     }

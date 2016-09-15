@@ -20,7 +20,7 @@
 *    Copyright (c) 2006-2011 Libre Informatique [http://www.libre-informatique.fr/]
 *
 ***********************************************************************************/
-$json = $sf_data->getRaw('lines'); 
+$json = $sf_data->getRaw('lines');
 $json['csvHeaders'] = [
     __('Event'),
     __('Day'),
@@ -61,5 +61,5 @@ $json['legends'] = array(
     'available' => __('Available')
 );
 
-echo json_encode($json);
+echo json_encode($json, sfConfig::get('sf_web_debug', false) ? JSON_PRETTY_PRINT : NULL);
 ?>

@@ -903,8 +903,8 @@ ou bien suivez ce lien&nbsp;:&lt;br/&gt;
         <target>État du réglement</target>
       </trans-unit>
       <trans-unit>
-        <source>Payment of your order</source>
-        <target>Réglement de votre commande</target>
+        <source>Payment of your order #%%tid%%</source>
+        <target>Réglement de votre commande #%%tid%%</target>
       </trans-unit>
       <trans-unit>
         <source>Choose your payment method</source>

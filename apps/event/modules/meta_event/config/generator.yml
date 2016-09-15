@@ -23,6 +23,9 @@ generator:
       list:
         display: [name, _list_description, _list_hide_in_month_calendars]
         sort: [translation.name,'']
+        batch_actions:
+          _delete: ~
+          _duplicate: ~
       filter:  ~
       form:
         display:

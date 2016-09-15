@@ -376,7 +376,7 @@ $(document).ready(function(){
   $('#li_transaction_field_payment_new .submit').hide();
 
   // reset the current transaction + resend the confirmation email + access to the simplified gui
-  $('#abandon, #resend-email, #simplified-gui, #direct-surveys').appendTo($('#sf_admin_container .ui-widget-header h1'));
+  $('#abandon, #resend-email, #pay-online, #simplified-gui, #direct-surveys').appendTo($('#sf_admin_container .ui-widget-header h1'));
   $('#resend-email').click(function(){
     $('#autocomplete_transaction_contact_id').click();
     var anchor = this;

@@ -219,7 +219,7 @@ class WebOriginFormFilter extends BaseWebOriginFormFilter
     if ( !$value['text'] )
       return $q;
     
-    $q->andWhere('wo.first_page ILIKE ?', '%'.$value['text']);
+    $q->andWhere('wo.first_page ILIKE ?', '%'.$value['text'].'%');
     return $q;
   }
   public function addIpaddressColumnQuery(Doctrine_Query $q, $field, $value)

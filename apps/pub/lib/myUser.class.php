@@ -319,6 +319,7 @@ class myUser extends pubUser
       throw new liOnlineSaleException('Your contact is not yet recorded or does not fit the system requirements');
     
     $this->getTransaction()->Contact = $contact;
+    $this->getTransaction()->contact_id = $contact->id;
     foreach ( $this->getTransaction()->MemberCards as $mc )
       $mc->Contact = $contact;
     $this->getTransaction()->save();
