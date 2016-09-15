@@ -30,5 +30,8 @@
   <?php if ( sfConfig::get('app_tickets_id', 'id') == 'barcode' && ($ticket->printed_at || $ticket->integrated_at) ): ?>
     <img class="qrcode" src="data:image/png;base64,<?php echo base64_encode($ticket->getRawValue()->getBarcodePng()) ?>" alt="#<?php echo $ticket->id ?>" />
   <?php endif ?>
+  <?php if ( $ticket->othercode ): ?>
+    <span class="rfidcode" title="RFID: <?php echo $ticket->othercode ?>">RFID: <?php echo $ticket->othercode ?></span>
+  <?php endif ?>
   </td>
 <td></td>
