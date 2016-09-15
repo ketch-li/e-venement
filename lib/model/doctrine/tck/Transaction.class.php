@@ -290,7 +290,7 @@ class Transaction extends PluginTransaction
           if ( !isset($batch[$id]) )
             $batch[$id] = array('barcodes' => array(), 'tickets' => array(), 'descriptions' => array());
           
-          $batch[$id]['barcodes'][] = $ticket->barcode;
+          $batch[$id]['barcodes'][] = $ticket->qrcode;
           $batch[$id]['tickets'][] = $ticket;
           $batch[$id]['descriptions'][] = $ticket->description;
           

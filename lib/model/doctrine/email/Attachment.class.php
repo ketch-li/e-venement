@@ -33,6 +33,13 @@ class Attachment extends PluginAttachment
     return $this->picture = Doctrine::getTable('Picture')->findOneByName($this->filename);
   }
   
+  public function setPicture(Picture $picture)
+  {
+    $this->picture = $picture;
+    $this->filename = $picture->name;
+    return $this;
+  }
+  
   public function getContent()
   {
     if ( $this->isStoredInDatabase() )
