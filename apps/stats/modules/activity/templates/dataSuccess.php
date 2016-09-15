@@ -56,7 +56,7 @@
     $bars->set_keys(array(
       new liBarStackKey('#DE0202', __('Printed'), 11),
       new liBarStackKey('#FF7800', __('Ordered'), 11),
-      sfConfig::get('project_tickets_cound_demands',false) ? new liBarStackKey('#00A0B0', __('Asked'), 11) : new liBarStackKey('', '', 11),
+      sfConfig::get('project_tickets_count_demands',false) ? new liBarStackKey('#00A0B0', __('Asked'), 11) : new liBarStackKey('', '', 11),
     ));
     $bars->set_tooltip("#x_label#: #val#\nTotal: #total#");
     
