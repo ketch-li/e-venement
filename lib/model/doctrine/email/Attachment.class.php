@@ -21,7 +21,9 @@ class Attachment extends PluginAttachment
   
   public function isStoredInDatabase()
   {
-    return substr($this->filename, 0, 3) == 'db:';
+    if ( substr($this->filename, 0, 3) == 'db:' && $this->getDbFile() )
+      return true;
+    return false;
   }
   
   public function getDbFile()
