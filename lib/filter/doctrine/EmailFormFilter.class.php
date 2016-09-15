@@ -46,6 +46,7 @@ class EmailFormFilter extends BaseEmailFormFilter
     ));
     $this->validatorSchema['with_attachments'] = new sfValidatorChoice(array(
       'choices' => array_keys($choices),
+      'required' => false,
     ));
   }
   
