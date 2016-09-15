@@ -1,4 +1,3 @@
-
   $(document).ready(function(){
     var form = $('#li_transaction_field_price_new form.prices');
     $('#li_transaction_field_price_new').click(function(){
