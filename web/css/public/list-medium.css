@@ -485,6 +485,17 @@ body > #footer {
   font-size: 1em;
   line-height: 1.231; }
 
+/* Client header */
+body > #client-header {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 3px 0;
+  background-color: #eff2f4;
+  color: #575e71;
+  font-size: 1em;
+  line-height: 1.231; }
+
 /* Client footer */
 body > #client-footer {
   width: 100%;
@@ -586,7 +597,10 @@ body > #client-footer {
 
 /* Media queries */
 @media (min-width: 760px) {
-  #content, body > #footer, body > #client-footer {
+  #content,
+  body > #footer,
+  body > #client-footer,
+  #client-header {
     width: 755px; }
 
   .mod-event #sf_admin_content .sf_admin_list tbody tr {
@@ -650,7 +664,10 @@ body > #client-footer {
       height: 100px;
       line-height: 1.2; } }
 @media (min-width: 992px) {
-  #content, body > #footer, body > #client-footer {
+  #content,
+  body > #footer,
+  body > #client-footer,
+  body > #client-header {
     width: 972px; }
 
   .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture {
@@ -663,7 +680,10 @@ body > #client-footer {
     height: 100px;
     line-height: 1.2; } }
 @media (min-width: 1200px) {
-  #content, body > #footer, body > #client-footer {
+  #content,
+  body > #footer,
+  body > #client-footer,
+  body > #client-header {
     width: 1180px; }
 
   .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture {

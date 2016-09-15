@@ -432,6 +432,19 @@ body > #footer {
   line-height: 1.231;  
 }
 
+/* Client header */
+
+body > #client-header {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;  
+  padding: 3px 0;
+  background-color: $page-footer-bg-color;
+  color: $footer-text-color;
+  font-size: 1em;
+  line-height: 1.231;  
+}
+
 /* Client footer */
 
 body > #client-footer {
