@@ -19,7 +19,8 @@ html, body {
 body.mod-transaction,
 body.mod-cart,
 body.mod-login,
-body.mod-manifestation.action-show { color: $text-color2; }
+body.mod-manifestation.action-show,
+body.mod-cart { color: $text-color2; }
 
 .clearfix { clear: both; }
 

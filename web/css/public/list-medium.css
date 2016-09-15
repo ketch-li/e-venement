@@ -48,7 +48,8 @@ html, body {
 body.mod-transaction,
 body.mod-cart,
 body.mod-login,
-body.mod-manifestation.action-show {
+body.mod-manifestation.action-show,
+body.mod-cart {
   color: #575e71; }
 
 .clearfix {
