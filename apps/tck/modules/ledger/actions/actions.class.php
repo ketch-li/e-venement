@@ -192,6 +192,11 @@ class ledgerActions extends sfActions
       ));
     }
     
+    // per-domain restrictions
+    if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
+      $q->leftJoin('u.Domain d')
+        ->andWhere('d.name ILIKE ? OR d.name = ?', array('%.'.$dom, $dom));
+    
     if ( isset($criterias['users']) && is_array($criterias['users']) && isset($criterias['users'][0]) )
       $q->andWhereIn('p.sf_guard_user_id',$criterias['users']);
     
