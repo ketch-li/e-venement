@@ -39,9 +39,16 @@
             error_log('Tickets RFID: '.$key.' => '.$error);
           
           if ( $form->isValid() )
+          {
             $t->othercode = $ticket['othercode'];
+            if ( $request->hasParameter('reset-barcodes') )
+              $t->barcode = md5(rand(-9999999999999999999999999999,0));
+          }
           else
+          {
             $t->printed_at = NULL;
+            $t->integrated_at = NULL;
+          }
           $t->save();
         }
       }
