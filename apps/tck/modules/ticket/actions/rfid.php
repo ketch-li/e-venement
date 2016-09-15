@@ -41,7 +41,10 @@
           if ( $form->isValid() )
             $t->othercode = $ticket['othercode'];
           else
+          {
             $t->printed_at = NULL;
+            $t->integrated_at = NULL;
+          }
           $t->save();
         }
       }
