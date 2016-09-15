@@ -110,7 +110,10 @@
   $gutter: 20px;
   $cwidth: $screen-md-min;
   
-  #content, body > #footer { width: $cwidth; }
+  #content, 
+  body > #footer, 
+  body > #client-footer,
+  body > #client-header  { width: $cwidth; } 
   
   /* Events admin list */
   .mod-event #sf_admin_content .sf_admin_list table {
@@ -124,7 +127,10 @@
   $gutter: 13px;
   $cwidth: $screen-lg-min - 6px;
   
-  #content, body > #footer { width: $cwidth; }
+  #content, 
+  body > #footer, 
+  body > #client-footer,
+  body > #client-header  { width: $cwidth; }  
   
   /* Events admin list */
   .mod-event #sf_admin_content .sf_admin_list table {

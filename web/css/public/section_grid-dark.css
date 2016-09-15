@@ -486,6 +486,17 @@ body > #footer {
   font-size: 1em;
   line-height: 1.231; }
 
+/* Client header */
+body > #client-header {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 3px 0;
+  background-color: #575e71;
+  color: white;
+  font-size: 1em;
+  line-height: 1.231; }
+
 /* Client footer */
 body > #client-footer {
   width: 100%;
@@ -582,7 +593,10 @@ body > #client-footer {
 /* Media queries */
 @media (min-width: 760px) {
   /* We want 3 blocks in a row */
-  #content, body > #footer {
+  #content,
+  body > #footer,
+  body > #client-footer,
+  body > #client-header {
     width: 760px; }
 
   /* Events admin list */
@@ -689,7 +703,10 @@ body > #client-footer {
         text-align: center; } }
 @media (min-width: 992px) {
   /* We want 4 blocks in a row */
-  #content, body > #footer {
+  #content,
+  body > #footer,
+  body > #client-footer,
+  body > #client-header {
     width: 992px; }
 
   /* Events admin list */
@@ -703,7 +720,10 @@ body > #client-footer {
       margin: 0 32px 25px; } }
 @media (min-width: 1200px) {
   /* We want 5 blocks in a row */
-  #content, body > #footer {
+  #content,
+  body > #footer,
+  body > #client-footer,
+  body > #client-header {
     width: 1200px; }
 
   /* Events admin list */

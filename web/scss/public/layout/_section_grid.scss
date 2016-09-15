@@ -6,7 +6,10 @@
   /* We want 3 blocks in a row */
   $half-gutter: floor(($screen-sm-min - $grid-width * 3) / 4);
   
-  #content, body > #footer { width: 3 * $grid-width + 4 * $half-gutter; }
+  #content, 
+  body > #footer,
+  body > #client-footer,
+  body > #client-header { width: 3 * $grid-width + 4 * $half-gutter; }
   
   /* Events admin list */
   .mod-event #sf_admin_content .sf_admin_list table {
@@ -130,7 +133,10 @@
   /* We want 4 blocks in a row */
   $half-gutter: floor(($screen-md-min - $grid-width * 4) / 6);
   
-  #content, body > #footer { width: 4 * $grid-width + 6 * $half-gutter; }  
+  #content, 
+  body > #footer,
+  body > #client-footer,
+  body > #client-header { width: 4 * $grid-width + 6 * $half-gutter; }    
   
   /* Events admin list */
   .mod-event #sf_admin_content .sf_admin_list table {
@@ -148,7 +154,11 @@
   /* We want 5 blocks in a row */
   $half-gutter: floor(($screen-lg-min - $grid-width * 5) / 8);
   
-  #content, body > #footer { width: 5 * $grid-width + 8 * $half-gutter; }  
+  #content, 
+  body > #footer,
+  body > #client-footer,
+  body > #client-header { width: 5 * $grid-width + 8 * $half-gutter; }  
+  
   
   /* Events admin list */
   .mod-event #sf_admin_content .sf_admin_list table {
