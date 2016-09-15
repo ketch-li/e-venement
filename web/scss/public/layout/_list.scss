@@ -10,7 +10,7 @@
 /* Media queries */
 
 @media (min-width: $screen-sm-min) {
-  #content, body > #footer { width: $screen-sm-min - 5px; }
+  #content, body > #footer, body > #client-footer { width: $screen-sm-min - 5px; }
   
   .mod-event #sf_admin_content .sf_admin_list tbody tr {
       height: $picture-height;
@@ -87,7 +87,8 @@
 
 
 @media (min-width: $screen-md-min) {
-  #content, body > #footer { width: $screen-md-min - 20px; }
+  #content, body > #footer, body > #client-footer { width: $screen-md-min - 20px; }
+  
   
   .mod-event #sf_admin_content .sf_admin_list td {
     &.sf_admin_list_td_list_picture {
@@ -106,7 +107,7 @@
 }
 
 @media (min-width: $screen-lg-min) {
-  #content, body > #footer { width: $screen-lg-min - 20px; }
+  #content, body > #footer, body > #client-footer { width: $screen-lg-min - 20px; }
   
   .mod-event #sf_admin_content .sf_admin_list td {
     &.sf_admin_list_td_list_picture {

@@ -192,17 +192,19 @@ $(document).ready(function(){
     mydates.sort().reverse();
     $.each(mydates, function(i, key){
       var d = /^(\d\d\d\d)-(\d\d)-(\d\d)$/.exec(key);
-      mydate = new Date(d[1], parseInt(d[2],10)-1, d[3]);
-      var td = $('<td colspan="'+colspan+'"></td>').text(
-        $.trim(arr[key][0].find('.sf_admin_list_td_list_day_name').text())
-        +' '+
-        mydate.getDate()+'/'+(mydate.getMonth()+1)
-      );
-      var tr = $('<tr></tr>')
-        .addClass('sort-by-day')
-        .append(td)
-        .prependTo($('.sf_admin_list tbody'))
-        .after(arr[key]);
+      if (d) {
+        mydate = new Date(d[1], parseInt(d[2],10)-1, d[3]);
+        var td = $('<td colspan="'+colspan+'"></td>').text(
+          $.trim(arr[key][0].find('.sf_admin_list_td_list_day_name').text())
+          +' '+
+          mydate.getDate()+'/'+(mydate.getMonth()+1)
+        );
+        var tr = $('<tr></tr>')
+          .addClass('sort-by-day')
+          .append(td)
+          .prependTo($('.sf_admin_list tbody'))
+          .after(arr[key]);        
+      }
     });
   }
   
@@ -323,6 +325,7 @@ LI.pubPictureRowspan = function()
 }
 
 // DOM manipulation for custom layouts
+
 LI.customLayout = function()
 {
   // If not a custom layout do nothing
@@ -337,6 +340,10 @@ LI.customLayout = function()
   
   // Move #sf_admin_container to the top
   $('#sf_admin_container').detach().prependTo('#content');
+  
+  // Move things around for manifestation list page
+  $('body.mod-manifestation.action-index #sf_admin_header h1').insertBefore('#sf_admin_content');
+  $('body.mod-manifestation.action-index #sf_admin_header #meta_event').insertBefore('#sf_admin_content');
 
   // Add a span in arian links
   ariane.find('ul li a').each(function(){

@@ -16,6 +16,11 @@ html, body {
   font-weight: 300;
 }
 
+body.mod-transaction,
+body.mod-cart,
+body.mod-login,
+body.mod-manifestation.action-show { color: $text-color2; }
+
 .clearfix { clear: both; }
 
 #menu, #cart-widget, #oplog { display: none; }
@@ -108,7 +113,7 @@ html, body {
   }  
 }
 
-.sf_admin_flashes { margin: 0; }
+.sf_admin_flashes, #content .sf_admin_flashes { margin: 0; }
 
 /* Search bar */
 
@@ -159,7 +164,7 @@ html, body {
 /* Contact form */
 /* this is copied from public.css */
 
-.mod-cart.action-order #login, .mod-cart.action-register #login, #contact-form { border-radius: 4px; border: 1px dashed silver; margin: 10px 0 10px 45px; padding: 5px; }
+.mod-cart.action-order #login, .mod-cart.action-register #login, #contact-form { border-radius: 4px; border: 1px dashed silver; margin: 10px 0 10px 0; padding: 5px; }
 .mod-cart.action-order #login.active, .mod-cart.action-register #login.active, #contact-form.active { border-style: solid; }
 .mod-cart.action-order #login h2, .mod-cart.action-register #login h2, #contact-form h2 { margin: 0; }
 .mod-cart.action-order #login p, .mod-cart.action-register #login p, #contact-form .field { background-color: white; padding: 1px 3px; border-radius: 3px; clear: both; }
@@ -186,7 +191,36 @@ html, body {
 
 /* Manifestation */
 
+body.mod-manifestation.action-index {
+  #sf_admin_header {
+    .event-fields { display: none; }
+  }
+  #sf_admin_container > h1.event-title {
+    display: block;
+  }
+  #sf_admin_footer {
+    .go-to-cart { display: none; }
+  }
+  #sf_admin_content .sf_admin_list {
+    tr {
+      margin: 5px 0;
+      padding: 10px 0;
+      &.sort-by-day { display: none; }
+    }
+    td { 
+      padding: 0 10px; 
+      &.sf_admin_list_td_formatted_date { display: block; }
+      &.sf_admin_list_td_Event { display: block; }    
+      &.sf_admin_list_td_Location { display: block; }    
+    }
+  }
+}
+
 body.mod-manifestation.action-show {
+  #sf_admin_container {
+    h1 { display: none; }
+    #event-fields { display: none; }
+  }
   #content h1 {
     font-weight: 400;
     font-size: 1.5em;
@@ -398,6 +432,19 @@ body > #footer {
   line-height: 1.231;  
 }
 
+/* Client footer */
+
+body > #client-footer {
+  width: 100%;
+  margin: 25px auto 0;
+  text-align: center;  
+  padding: 3px 0;
+  background-color: $page-footer-bg-color;
+  color: $footer-text-color;
+  font-size: 1em;
+  line-height: 1.231;  
+}
+
 /* Social networks */
 
 #social-networks {
@@ -469,6 +516,21 @@ body > #footer {
   #sf_admin_footer { 
     margin: 25px 0; 
     padding: 25px 0; 
+  }
+  body.mod-manifestation.action-index #sf_admin_content .sf_admin_list td {
+    padding: 0 10px; 
+    &.sf_admin_list_td_formatted_date { 
+      display: inline-block; 
+      width: 40%;
+    }
+    &.sf_admin_list_td_Event { 
+      display: inline-block;
+      width: 30%;
+    }    
+    &.sf_admin_list_td_Location { 
+      display: inline-block; 
+      width: 28%
+    }    
   }
 }
 

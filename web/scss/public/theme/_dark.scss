@@ -25,8 +25,9 @@ $date-btn-color: white;
 $order-btn-bg-color: $color-green;
 $order-btn-color: white;
 
-$text-color: $color-light-gray;
-$footer-text-color: white;
+$text-color: $color-light-gray; /* used for texts on "box" background */
+$text-color2: white;   /* used for texts on page background */
+$footer-text-color: $text-color2;
 $event-name-color: $color-orange;
 
 $pagination-bg-color: white;

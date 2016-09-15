@@ -1,4 +1,6 @@
 /* Colors */
+/* used for texts on "box" background */
+/* used for texts on page background */
 /* Sizes */
 /* list layout */
 /* list layout */
@@ -43,6 +45,12 @@ html, body {
   font-family: Roboto;
   line-height: 1.231;
   font-weight: 300; }
+
+body.mod-transaction,
+body.mod-cart,
+body.mod-login,
+body.mod-manifestation.action-show {
+  color: #777; }
 
 .clearfix {
   clear: both; }
@@ -136,7 +144,7 @@ html, body {
         #sf_admin_header #ariane #translation .i18n a.culture-en {
           background-image: url("/images/vel/themes/flag_uk.png"); }
 
-.sf_admin_flashes {
+.sf_admin_flashes, #content .sf_admin_flashes {
   margin: 0; }
 
 /* Search bar */
@@ -191,7 +199,7 @@ html, body {
 .mod-cart.action-order #login, .mod-cart.action-register #login, #contact-form {
   border-radius: 4px;
   border: 1px dashed silver;
-  margin: 10px 0 10px 45px;
+  margin: 10px 0 10px 0;
   padding: 5px; }
 
 .mod-cart.action-order #login.active, .mod-cart.action-register #login.active, #contact-form.active {
@@ -284,6 +292,30 @@ html, body {
   list-style: none; }
 
 /* Manifestation */
+body.mod-manifestation.action-index #sf_admin_header .event-fields {
+  display: none; }
+body.mod-manifestation.action-index #sf_admin_container > h1.event-title {
+  display: block; }
+body.mod-manifestation.action-index #sf_admin_footer .go-to-cart {
+  display: none; }
+body.mod-manifestation.action-index #sf_admin_content .sf_admin_list tr {
+  margin: 5px 0;
+  padding: 10px 0; }
+  body.mod-manifestation.action-index #sf_admin_content .sf_admin_list tr.sort-by-day {
+    display: none; }
+body.mod-manifestation.action-index #sf_admin_content .sf_admin_list td {
+  padding: 0 10px; }
+  body.mod-manifestation.action-index #sf_admin_content .sf_admin_list td.sf_admin_list_td_formatted_date {
+    display: block; }
+  body.mod-manifestation.action-index #sf_admin_content .sf_admin_list td.sf_admin_list_td_Event {
+    display: block; }
+  body.mod-manifestation.action-index #sf_admin_content .sf_admin_list td.sf_admin_list_td_Location {
+    display: block; }
+
+body.mod-manifestation.action-show #sf_admin_container h1 {
+  display: none; }
+body.mod-manifestation.action-show #sf_admin_container #event-fields {
+  display: none; }
 body.mod-manifestation.action-show #content h1 {
   font-weight: 400;
   font-size: 1.5em; }
@@ -454,6 +486,17 @@ body > #footer {
   font-size: 1em;
   line-height: 1.231; }
 
+/* Client footer */
+body > #client-footer {
+  width: 100%;
+  margin: 25px auto 0;
+  text-align: center;
+  padding: 3px 0;
+  background-color: #ECECEC;
+  color: #777;
+  font-size: 1em;
+  line-height: 1.231; }
+
 /* Social networks */
 #social-networks {
   text-align: center;
@@ -523,7 +566,19 @@ body > #footer {
 @media (min-width: 760px) {
   #sf_admin_footer {
     margin: 25px 0;
-    padding: 25px 0; } }
+    padding: 25px 0; }
+
+  body.mod-manifestation.action-index #sf_admin_content .sf_admin_list td {
+    padding: 0 10px; }
+    body.mod-manifestation.action-index #sf_admin_content .sf_admin_list td.sf_admin_list_td_formatted_date {
+      display: inline-block;
+      width: 40%; }
+    body.mod-manifestation.action-index #sf_admin_content .sf_admin_list td.sf_admin_list_td_Event {
+      display: inline-block;
+      width: 30%; }
+    body.mod-manifestation.action-index #sf_admin_content .sf_admin_list td.sf_admin_list_td_Location {
+      display: inline-block;
+      width: 28%; } }
 /* Event Admin list */
 #sf_admin_content .sf_admin_list {
   /* Hide months and prevent js pagination recalculation (in public.js) */ }
