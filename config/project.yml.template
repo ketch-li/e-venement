@@ -67,7 +67,7 @@ all:
       br: Brezhoneg
     #scroll_lists: true  # enable/disable lists scrolling when one's reaches the end of a screen (can also be defined app by app using config/app.yml, but it will be overloaded if this is set here)
     currency:
-      id: 978
+      iso: 978
       symbol: €
     plugins: []       # e.g. [liMemberCardPlugin]
     #users_domain: eve # to restrict the listing of users in this particular domain and its subdomain (this is not a DNS but an internal split only)
