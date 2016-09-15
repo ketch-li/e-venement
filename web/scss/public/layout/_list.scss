@@ -1,0 +1,130 @@
+@import "../import/base";
+
+/* Admin lists */
+
+#sf_admin_content .sf_admin_list {
+  /* Hide months and prevent js pagination recalculation (in public.js) */
+  .sf_admin_list_th_month { display: none; }
+}
+
+/* Media queries */
+
+@media (min-width: $screen-sm-min) {
+  #content, body > #footer { width: $screen-sm-min - 5px; }
+  
+  .mod-event #sf_admin_content .sf_admin_list tbody tr {
+      height: $picture-height;
+      overflow: hidden;
+  }  
+  .mod-event #sf_admin_content .sf_admin_list td {
+      float: left;
+      &.sf_admin_list_td_list_picture {
+        display: block;
+        width: $picture-width;
+      }  
+      &.sf_admin_list_td_name {
+        display: block;
+        padding: 25px;
+        color: $event-name-color;
+        a { 
+          display: block;
+          text-transform: uppercase;
+          font-size: 30 / 13 * 1em;
+          line-height: 1;
+          font-weight: 400;
+          color: $event-name-color; 
+        }
+        h2 {
+          margin: 0;
+          padding: 10px 0 0;
+          font-size: 24 / 13 * 1em;
+          font-weight: 300;
+        }      
+      }    
+      &.sf_admin_list_td_list_description {
+        display: block;
+        padding: 25px;
+        overflow: hidden;
+      }    
+      &.sf_admin_date_action {
+        display: block;
+        width: $actions-width;
+        height: $picture-height / 2;
+        margin-top: - $picture-height / 2;
+        text-align: center;
+        a {
+          display: block;
+          width: $actions-width - 20px;
+          height: 28px;
+          line-height: 28px; 
+          margin: (($picture-height / 2 - 28px) / 2) auto 0;
+          padding-left: 1em;
+          border-radius: $box-border-radius;
+          font-size: 1em;
+          font-weight: 400;
+          text-align: left;
+          color: $date-btn-color;
+          background-color: $date-btn-bg-color;
+          @include bg-image("show_dates.png");
+          background-repeat: no-repeat;
+          background-position: center right;          
+        }
+      }    
+    &.sf_admin_list_td_list_picture {
+      width: $picture-width;
+    }
+    &.sf_admin_list_td_name {
+      width: $screen-sm-min - 5px - $picture-width - $actions-width;
+      height: $picture-height / 2;
+    }
+    &.sf_admin_list_td_list_description {
+      width: $screen-sm-min - 5px - $picture-width - $actions-width;
+      height: $picture-height / 2;
+      line-height: 1.2;
+    }      
+  }  
+}
+
+
+@media (min-width: $screen-md-min) {
+  #content, body > #footer { width: $screen-md-min - 20px; }
+  
+  .mod-event #sf_admin_content .sf_admin_list td {
+    &.sf_admin_list_td_list_picture {
+      width: $picture-width;
+    }
+    &.sf_admin_list_td_name {
+      width: $screen-md-min - 20px - $picture-width - $actions-width;
+      height: $picture-height / 2;
+    }
+    &.sf_admin_list_td_list_description {
+      width: $screen-md-min - 20px - $picture-width - $actions-width;
+      height: $picture-height / 2;
+      line-height: 1.2;
+    }      
+  }  
+}
+
+@media (min-width: $screen-lg-min) {
+  #content, body > #footer { width: $screen-lg-min - 20px; }
+  
+  .mod-event #sf_admin_content .sf_admin_list td {
+    &.sf_admin_list_td_list_picture {
+      width: $picture-width;
+    }
+    &.sf_admin_list_td_name {
+      width: $screen-lg-min - 20px - $picture-width - $actions-width;
+      height: $picture-height / 2;
+    }
+    &.sf_admin_list_td_list_description {
+      width: $screen-lg-min - 20px - $picture-width - $actions-width;
+      height: $picture-height / 2;
+      line-height: 1.2;
+    }      
+  }  
+}
+
+
+
+
+

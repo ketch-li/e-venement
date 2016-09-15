@@ -281,7 +281,10 @@ $(document).ready(function(){
       $('#actions .register a').addClass('disabled');
     return true;
   });
-});
+  
+  LI.customLayout();
+  
+});  // END $(document).ready(...)
 
 LI.manifCalculateTotal = function(elt){
   if ( elt == undefined )
@@ -317,5 +320,90 @@ LI.pubPictureRowspan = function()
       tr.parent().find('[data-manifestation-id='+tr.attr('data-manifestation-id')+']').removeClass('picture-to-merge').not(tr).find('td:first').hide();
     }
   }
+}
+
+// DOM manipulation for custom layouts
+LI.customLayout = function()
+{
+  // If not a custom layout do nothing
+  if ( !$('body[class*=" layout-"]').length )
+    return;
+  
+  // Wrap Ariane in container divs (if needed) for consitencty between pub pages
+  var ariane = $('#ariane');
+  if (ariane.parents('#sf_admin_container').length === 0) {
+    ariane.wrap('<div id="sf_admin_container"><div id="sf_admin_header"></div></div>')
+  }
+  
+  // Move #sf_admin_container to the top
+  $('#sf_admin_container').detach().prependTo('#content');
+
+  // Add a span in arian links
+  ariane.find('ul li a').each(function(){
+    $(this).html('<span>' + $(this).text() + '</span>');
+  });
+  
+  // Put login links at the end
+  var login =   ariane.find('.login');
+  login.detach().insertBefore(ariane.find('.command'));
+  
+  // Put two login links under the same icon
+  login.find('ul li a').eq(1).detach().appendTo(login.find('ul li').eq(0)).addClass('second-link');
+
+  // Add search button
+  $('<a href="#">')
+    .text('Rechercher')  // TODO: translation !
+    .attr('href', '#')
+    .appendTo('#sf_admin_bar .sf_admin_filter .sf_admin_filter_field_name td')
+    .click(function(){
+      $(this).parents('form').submit();
+    })
+  ;
+
+  // Remove pagination links
+  // TODO: insert a menu to access all pages
+  $('#sf_admin_content .sf_admin_list tfoot th .sf_admin_pagination a').each(function(){
+    if ($(this).find('img').length > 0)
+      $(this).remove();
+  });
+  
+  // Login: move things around
+  $('body.mod-login')
+
+  $('.mod-event .sf_admin_list tbody tr:not(.sf_admin_month)').each(function(){
+    // Add subtitle
+    var category = $(this).find('.sf_admin_list_td_EventCategory').text();
+    var subtitle = $('<h2>').text(category);
+    $(this).find('.sf_admin_list_td_name').append(subtitle);
+
+    // Add date picker for events
+    var dateBtn = $('<a href="#">').text('Choisir une date');  // TODO: translation !
+    $('<td>').addClass('sf_admin_date_action').append(dateBtn).appendTo($(this));
+
+    // Add order button
+    var orderHref = $(this).find('.sf_admin_list_td_name a').attr('href');
+    var orderBtn = $('<a>').attr('href', orderHref).text('Commander');  // TODO: translation !
+    $('<td>').addClass('sf_admin_order_action').append(orderBtn).appendTo($(this));
+  });   
+  
+  // Odd/event sections in lists (section-grid layout only)
+  // ( elem.class:odd and elem.class:even does not work in CSS )
+  $('.mod-event.layout-section_grid .sf_admin_list tbody tr.sf_admin_month:odd').addClass('month-odd');
+  $('.mod-event.layout-section_grid .sf_admin_list tbody tr.sf_admin_month:even').addClass('month-even');
+  
+  // overlays in event list (section-grid layout only)
+  $('.mod-event.layout-section_grid .sf_admin_list tbody tr:not(.sf_admin_month)').on('mouseenter', function(){
+    $(this).find('.sf_admin_list_td_list_picture').hide();
+    $(this).find('.sf_admin_list_td_name, .sf_admin_date_action').show();
+  });
+  $('.mod-event.layout-section_grid .sf_admin_list tbody tr:not(.sf_admin_month)').on('mouseleave', function(){
+    $(this).find('.sf_admin_list_td_list_picture').show();
+    $(this).find('.sf_admin_list_td_name, .sf_admin_date_action').hide();
+  });
+  
+  // Manifestations: move things around
+  $('body.mod-manifestation.action-show .event-pic').detach().insertBefore('#event');
+  $('<div class="clearfix"></div>').insertAfter('body.mod-manifestation.action-show #location');
+  
 }
 
