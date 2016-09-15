@@ -92,7 +92,8 @@ body.mod-manifestation.action-show { color: $text-color2; }
     .login a[href*="login"] { @include bg-image("icon_account.png"); }
     .login a.second-link { margin: 0 0 0 -15px; }
     .cart a { @include bg-image("icon_panier.png"); }
-    .event a { @include bg-image("icon_reservation.png"); }
+    .event a.event { @include bg-image("icon_reservation.png"); }
+    .event a.mc { @include bg-image("icon_cube.png"); }
     .command { float: right; }
     #translation .i18n {
       display: inline-block;

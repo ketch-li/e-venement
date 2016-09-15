@@ -122,8 +122,10 @@ body.mod-manifestation.action-show {
       margin: 0 0 0 -15px; }
     #sf_admin_header #ariane .cart a {
       background-image: url("/images/vel/themes/icon_panier.png"); }
-    #sf_admin_header #ariane .event a {
+    #sf_admin_header #ariane .event a.event {
       background-image: url("/images/vel/themes/icon_reservation.png"); }
+    #sf_admin_header #ariane .event a.mc {
+      background-image: url("/images/vel/themes/icon_cube.png"); }
     #sf_admin_header #ariane .command {
       float: right; }
     #sf_admin_header #ariane #translation .i18n {
