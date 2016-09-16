@@ -287,7 +287,7 @@ LI.sumPayments = function()
   $('#li_transaction_field_payments_list tfoot .total .sf_admin_list_td_list_value')
     .html(LI.format_currency(val));
   
-  var ratio = val / LI.parseFloat($('#li_transaction_field_payments_list tfoot .topay .sf_admin_list_td_list_value.pit').html());
+  var ratio = 1 - (val / LI.parseFloat($('#li_transaction_field_payments_list tfoot .topay .sf_admin_list_td_list_value.pit').html()));
   if ( isNaN(ratio) )
     ratio = 0;
   
@@ -309,6 +309,7 @@ LI.sumPayments = function()
     LI.parseFloat($('#li_transaction_field_payments_list tfoot .topay .sf_admin_list_td_list_value.tep').html())
     * ratio
   ));
+  console.error(LI.parseFloat($('#li_transaction_field_payments_list tfoot .topay .sf_admin_list_td_list_value.vat').html()), LI.parseFloat($('#li_transaction_field_payments_list tfoot .topay .sf_admin_list_td_list_value.tep').html()), ratio);
   
   // hidding content as it used to be
   if ( Cookie.has('tck.touchscreen.hidden-bunches') )
