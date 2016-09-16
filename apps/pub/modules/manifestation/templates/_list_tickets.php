@@ -76,7 +76,7 @@
           $mcs->merge($sf_user->getTransaction()->MemberCards->getRawValue());
           foreach ( $mcs as $mc )
           foreach ( $mc->MemberCardPrices as $mcp )
-          if ( $mcp->price_id == $id && $mcp->event_id == $manifestation->event_id )
+          if ( $mcp->price_id == $id && ($mcp->event_id == $manifestation->event_id || is_null($mcp->event_id)) )
             $mc_max++;
           $max = $max > $mc_max ? $mc_max : $max;
         }
@@ -88,6 +88,7 @@
         $form->setGaugeId($gauge->id);
         $form->setPriceId($id);
       ?>
+      <?php if ( $max > 0 ): ?>
       <li data-price-id="<?php echo $id ?>"><form action="<?php echo url_for('ticket/commit') ?>" method="get">
         <span class="name" title="<?php echo $txt = $price->Price->description ? $price->Price->description : $price->Price ?>"><?php echo $txt ?></span>
         <span class="value"><?php echo format_currency($price->value, $sf_context->getConfiguration()->getCurrency()) ?></span>
@@ -104,6 +105,7 @@
         </span>
         <span class="total <?php echo $max == 0 ? 'n-a' : '' ?>"></span>
       </form></li>
+      <?php endif ?>
       <?php endif ?>
     <?php endforeach ?></ul>
   </li>
