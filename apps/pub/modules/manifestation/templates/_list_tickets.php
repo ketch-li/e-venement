@@ -92,13 +92,13 @@
       <li data-price-id="<?php echo $id ?>"><form action="<?php echo url_for('ticket/commit') ?>" method="get">
         <span class="name" title="<?php echo $txt = $price->Price->description ? $price->Price->description : $price->Price ?>"><?php echo $txt ?></span>
         <span class="value"><?php echo format_currency($price->value, $sf_context->getConfiguration()->getCurrency()) ?></span>
-        <span class="qty"><?php if ( $max > 0 ): ?><input
+        <span class="qty"><input
           type="number"
           name="price[<?php echo $gauge->id ?>][<?php echo $id ?>][quantity]"
           min="0"
           max="<?php echo $max ?>"
           value="<?php echo $tickets[$id] ?>"
-        /><?php else: ?>-<?php endif ?></span>
+        /></span>
         <span class="data">
           <?php echo $form->renderHiddenFields() ?>
           <input type="hidden" name="no_redirect" value="1" />
