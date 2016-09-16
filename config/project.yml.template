@@ -100,6 +100,6 @@ all:
   anti_brute_force:  # If there was more than login_threshold or ip_threshold login attempts in less than time_threshold minutes, login is denied without checking credentials  
     #time_threshold:  30 # (default: 30 minutes) ex: 20 minutes, 2 hours, ...
     #login_threshold: 5 # Number of attempts with the same username (default: 5)
-    #ip_threshold: 5 # Number of attempts with the same ip (default: 20)
+    #ip_threshold: 20 # Number of attempts with the same ip (default: 20)
     #ban_message: Please contact your administrator  #message displayed after last allowed attempt
     #last_attempt_message: This is your last attempt ! #Message displayed on last login attempt

@@ -581,7 +581,7 @@ LI.tdp_side_bar = function()
           .prop('selected', true)
           .appendTo($('#sf_admin_filter .sf_admin_filter_field_groups_list select').change());
       else
-        $('#sf_admin_filter .sf_admin_filter_field_groups_list          select option[value="'+$(this).val()+'"]')
+        $('#sf_admin_filter .sf_admin_filter_field_groups_list select option[value="'+$(this).val()+'"]')
           .remove()
           .change();
     }
