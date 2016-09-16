@@ -117,7 +117,7 @@ $(document).ready(function(){
       url: $(this).attr('data-url').replace('SEARCH_VAL', search),
       method: 'get',
       dataType: 'json',
-      success: LI.touchscreenSimplifiedProductsSearch,
+      success: function(json){ LI.touchscreenSimplifiedProductsSearch(json, search) },
       error: LI.touchscreenSimplifiedErrorGUI
     });
     
@@ -199,15 +199,17 @@ LI.touchscreenSimplifiedErrorGUI = function(){
   $('#simplified-gui').remove();
 }
       
-LI.touchscreenSimplifiedProductsSearch = function(json){
+LI.touchscreenSimplifiedProductsSearch = function(json, search){
   var form = $('#li_transaction_field_content [data-bunch-id="'+$('#li_fieldset_simplified .products-types .selected').attr('data-bunch-id')+'"] .new-family');
   
-  LI.touchscreenSimplified_LoadData(json, form);
+  LI.touchscreenSimplified_LoadData(json, form, true);
   
   // auto-select a declination if possible
   var type = $(form).closest('[data-bunch-id]').attr('data-bunch-id');
+  if ( search )
   $.each(json.success.success_fields[type].data.content, function(i, pdt){
     $.each(pdt[pdt.declinations_name], function(i, decl){
+      console.error(decl.code.toLowerCase(), search.toLowerCase());
       if ( decl.code && decl.code.toLowerCase() == search.toLowerCase() )
       {
         // click on the first price of the first declination availables
