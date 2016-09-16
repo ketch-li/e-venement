@@ -309,7 +309,6 @@ LI.sumPayments = function()
     LI.parseFloat($('#li_transaction_field_payments_list tfoot .topay .sf_admin_list_td_list_value.tep').html())
     * ratio
   ));
-  console.error(LI.parseFloat($('#li_transaction_field_payments_list tfoot .topay .sf_admin_list_td_list_value.vat').html()), LI.parseFloat($('#li_transaction_field_payments_list tfoot .topay .sf_admin_list_td_list_value.tep').html()), ratio);
   
   // hidding content as it used to be
   if ( Cookie.has('tck.touchscreen.hidden-bunches') )
