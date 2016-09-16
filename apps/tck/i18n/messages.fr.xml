@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Paid</source>
+        <target>Réglé</target>
+      </trans-unit>
+      <trans-unit>
         <source>Reset barcodes</source>
         <target>Réinitialiser les codes barre</target>
       </trans-unit>

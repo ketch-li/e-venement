@@ -32,7 +32,7 @@
 </tbody>
 <tfoot>
   <tr class="sf_admin_row ui-widget-content odd total">
-    <td class="sf_admin_text" colspan="3"><?php echo __('Total') ?></td>
+    <td class="sf_admin_text" colspan="3"><?php echo __('Paid') ?></td>
     <td class="sf_admin_text sf_admin_list_td_list_value pit" title="<?php echo __('Total') ?>"></td>
     <td></td>
   </tr>
@@ -51,6 +51,15 @@
     <td></td>
   </tr>
 </tfoot>
+<thead>
+  <tr>
+    <td class="sf_admin_text"></td>
+    <td class="sf_admin_text sf_admin_list_td_list_value tep"><?php echo __('PET') ?></td>
+    <td class="sf_admin_text sf_admin_list_td_list_value vat"><?php echo __('VAT') ?></td>
+    <td class="sf_admin_text sf_admin_list_td_list_value pit"><?php echo __('PIT') ?></td>
+    <td></td>
+  </tr>
+</thead>
 </table>
 <script type="text/javascript">
 $(document).ready(function(){
