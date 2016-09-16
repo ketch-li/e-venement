@@ -218,7 +218,7 @@ $(document).ready(function(){
   });
   
   // change quantities in manifestations list
-  $('.sf_admin_list_td_list_tickets .qty input').focusout(function(){
+  $('.sf_admin_list_td_list_tickets .qty input').on('input', function(){
     $(this).closest('form').submit();
     LI.manifCalculateTotal(this);
   });
