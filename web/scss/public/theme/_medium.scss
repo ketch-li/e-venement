@@ -1,0 +1,99 @@
+/* Colors */
+
+$color-dark-gray: #575e71;
+$color-light-gray: #eff2f4;
+$color-orange: #f46245;
+$color-green: #b2d135;
+$color-blue: #1d8dcc;
+$color-light-blue: #91d2ce;
+
+$page-bg-color: $color-light-gray;
+$search-input-border: 1px solid #EEE;
+$content-bg-color: $color-light-gray;
+$event-bg-color: white;
+$toolbar-bg-color: $color-blue;
+$searchbar-bg-color: white;
+$page-footer-bg-color: $color-light-gray;
+
+$search-input-bg-color: white;
+$search-btn-bg-color: $color-orange;
+$search-btn-color: white;
+
+$date-btn-bg-color: $color-light-blue; 
+$date-btn-color: white;
+
+$order-btn-bg-color: $color-orange;
+$order-btn-color: white;
+
+$text-color: $color-dark-gray;
+$text-color2: $color-dark-gray;   /* used for texts on page background */
+$footer-text-color: $color-dark-gray;
+$event-name-color: $color-blue;
+
+$pagination-bg-color: white;
+$pagination-color: $color-orange;
+$pagination-link-color: $text-color;
+
+$section-even-bg-color: $color-green;
+$section-even-color: #FFF;
+$section-odd-bg-color: $color-light-blue;
+$section-odd-color: #FFF;
+
+/* Sizes */
+
+$picture-width: 170px;  /* list layout */
+$picture-height: 200px; /* list layout */
+$actions-width: 170px;  /* list layout */
+
+$grid-height: 200px; /* section-grid layout */
+$grid-width: 200px;  /* section-grid layout */
+
+/* Fonts */
+
+/* roboto-300 - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: url('/fonts/roboto-v15-latin-300.eot'); /* IE9 Compat Modes */
+  src: local('Roboto Light'), local('Roboto-Light'),
+       url('/fonts/roboto-v15-latin-300.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('/fonts/roboto-v15-latin-300.woff2') format('woff2'), /* Super Modern Browsers */
+       url('/fonts/roboto-v15-latin-300.woff') format('woff'), /* Modern Browsers */
+       url('/fonts/roboto-v15-latin-300.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('/fonts/roboto-v15-latin-300.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
+/* roboto-regular - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/roboto-v15-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Roboto'), local('Roboto-Regular'),
+       url('/fonts/roboto-v15-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('/fonts/roboto-v15-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('/fonts/roboto-v15-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('/fonts/roboto-v15-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('/fonts/roboto-v15-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
+
+$base-font-family: Roboto;
+$base-font-size: 15px;
+$base-line-height: 1.231;
+
+/* Border radius */
+
+$box-border-radius: 3px;
+
+/* Responsive page breakpoints */
+
+$screen-sm-min: 760px;  /* Small devices (tablets, 768px and up) */
+$screen-md-min: 992px;  /* Medium devices (desktops, 992px and up) */
+$screen-lg-min: 1200px; /* Large devices (large desktops, 1200px and up) */
+
+/* Images path */
+
+$images-path: "/images/vel/themes/";
+

@@ -11,6 +11,8 @@ all:
     #synthetic_plans: false   # for online seating for real
     #home: meta_event
     #manifestations_lists_as_select: false
+    #layout: grid      # if layout is not set, public.css will be used
+    #theme: medium     # must be set if layout is set. If set <layout>-<theme>.css will be used
   user:
     templating: vel
     #other_templates: [] # usefull if more than one "pub" app is working on this instance

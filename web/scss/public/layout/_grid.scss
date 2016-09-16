@@ -1,0 +1,146 @@
+@import "../import/base";
+ 
+/* Event Admin list */
+
+#sf_admin_content .sf_admin_list {
+  /* Hide months and prevent js pagination recalculation (in public.js) */
+  .sf_admin_list_th_month { display: none; }
+}
+
+/* Media queries */
+
+@media (min-width: $screen-sm-min) {
+  $gutter: 25px;
+  
+  #content, body > #footer { width: $screen-sm-min - 5px; }
+  
+  /* Events admin list */
+  .mod-event #sf_admin_content .sf_admin_list table {
+    width: $screen-sm-min - 5px + 2 * $gutter;
+    margin: 0 -$gutter;
+    tbody tr {
+        height: 425px;
+        width: 218px;
+        float: left;
+        position: relative;
+        margin: 25px $gutter;
+        overflow: hidden;
+        clear: none;
+    }  
+    tbody td {
+      &.sf_admin_list_td_list_picture {
+        display: block;
+        width: 100%;
+        height: 40%;
+        a { display: block; }
+        img { width: 100%; }
+      }  
+      &.sf_admin_list_td_name {
+        display: block;
+        padding: 8px;
+        color: $event-name-color;
+        a { 
+          display: block;
+          margin: 0;
+          text-transform: uppercase;
+          font-size: 1.5em;
+          line-height: 1;
+          font-weight: 400;
+          color: $event-name-color;
+        }
+        h2 {
+          margin: 0;
+          padding: 0;
+          font-size: 1.2em;
+          font-weight: 300;
+        }      
+      }    
+      &.sf_admin_list_td_list_description {
+        display: block;
+        padding: 8px;
+        overflow: hidden;
+        font-size: 0.8em;
+      }    
+      &.sf_admin_date_action {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 115px;
+        padding: 8px;        
+        bottom: 0;
+        a {
+          display: block;
+          width: 100%;
+          height: 28px;
+          line-height: 28px; 
+          margin: 0;
+          padding-left: 1em;
+          border-radius: $box-border-radius;
+          font-size: 1em;
+          font-weight: 400;
+          text-align: left;
+          color: $date-btn-color;
+          background-color: $date-btn-bg-color;
+          @include bg-image("show_dates.png");
+          background-repeat: no-repeat;
+          background-position: center right;          
+        }
+      }    
+      &.sf_admin_order_action {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: auto;
+        padding: 0 8px 12px;        
+        bottom: 0;
+        right: 0;
+        text-align: right;
+        a {
+          display: inline-block;
+          margin: 0;
+          text-align: center;
+        }
+      }    
+    }  
+  }
+}
+
+
+@media (min-width: $screen-md-min) {
+  $gutter: 20px;
+  $cwidth: $screen-md-min;
+  
+  #content, 
+  body > #footer, 
+  body > #client-footer,
+  body > #client-header  { width: $cwidth; } 
+  
+  /* Events admin list */
+  .mod-event #sf_admin_content .sf_admin_list table {
+    width: $cwidth + 2 * $gutter;
+    margin: 0 -$gutter;
+    tbody tr { margin: $gutter;  }      
+  } 
+}
+
+@media (min-width: $screen-lg-min) {
+  $gutter: 13px;
+  $cwidth: $screen-lg-min - 6px;
+  
+  #content, 
+  body > #footer, 
+  body > #client-footer,
+  body > #client-header  { width: $cwidth; }  
+  
+  /* Events admin list */
+  .mod-event #sf_admin_content .sf_admin_list table {
+    width: $cwidth + 2 * $gutter;
+    margin: 0 -$gutter;
+    tbody tr { margin: $gutter; }      
+  } 
+}
+
+
+
+
+

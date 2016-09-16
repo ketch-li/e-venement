@@ -100,18 +100,18 @@ LI.urls['payments'] = '<?php echo url_for($options->getRaw('data_url').'?id='.$t
       $('#li_transaction_field_price_new .seats-first').fadeOut();
     <?php endif ?>
     $('#li_transaction_field_payments_list .accounting.order').submit(function(){
-      if ( !LI.checkGauge(this) )
-        return false;
-      $('#li_transaction_field_payments_list .accounting.order [name=cancel-order]')
-        .css('visibility', 'visible');
-      $('#li_transaction_field_price_new .seats-first').fadeOut();
+      LI.checkGauges(this, function(){
+        $('#li_transaction_field_payments_list .accounting.order [name=cancel-order]')
+          .css('visibility', 'visible');
+        $('#li_transaction_field_price_new .seats-first').fadeOut();
+      });
+      return false;
     });
     $('#li_transaction_field_payments_list .accounting.order [name=cancel-order]').click(function(){
       $.ajax({
         url:  $(this).closest('form').prop('action')+'?cancel-order',
         method: 'get',
-        complete: function()
-        {
+        complete: function(){
           $('#li_transaction_field_payments_list .accounting.order [name=cancel-order]')
             .css('visibility', 'hidden');
           $('#li_transaction_field_price_new .seats-first').fadeIn();

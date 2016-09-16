@@ -8,5 +8,6 @@
   'action-'.$sf_context->getActionName().' '.
   'culture-'.$sf_user->getCulture().' '.
   (sfConfig::get('sf_web_debug', false) ? 'env-debug' : '').
+  'layout-'.(sfConfig::get('app_options_layout', 'default')).
   ''
 ?>

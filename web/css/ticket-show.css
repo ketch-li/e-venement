@@ -37,7 +37,7 @@
   font-weight: normal;
   color: black;
 }
-.ticket-show .state .qrcode { width: 100px; margin: 5px; padding: 5px; border: 1px solid grey; }
+.ticket-show .state .rfidcode, .ticket-show .state .qrcode { width: 100px; margin: 5px; padding: 5px; border: 1px solid grey; }
 
 .by-seat label { min-width: 8em; display: inline-block; }
 

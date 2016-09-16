@@ -13,6 +13,7 @@
     <p>
       <input type="submit" name="submit" value="ok" />
       <input type="checkbox" name="all" value="all" title="<?php echo __('Apply to all') ?>" />
+      <input type="checkbox" name="reset-barcodes" value="reset" title="<?php echo __('Reset barcodes') ?>" />
     </p>
   </form>
 </div>

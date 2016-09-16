@@ -233,7 +233,7 @@ EOF
       $file->save();
       
       $attachment = new Attachment;
-      $attachment->filename = 'db:'.$filename;
+      $attachment->picture = $file;
       $attachment->original_name = $filename;
       $attachment->mime_type = 'application/pdf';
       $attachment->size = strlen($pdf);
