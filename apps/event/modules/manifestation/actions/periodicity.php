@@ -30,19 +30,22 @@
       $this->form->getCSRFFieldName() => isset($periodicity[$this->form->getCSRFFieldName()]) ? $periodicity[$this->form->getCSRFFieldName()] : ''
     ));
     $errmsg = __('Try again with valid informations.');
-    
+
     if ( $this->form->isValid() && $request->getParameter('periodicity',array()) )
     {
       $errors = 0;
       $cpt = 0;
       
       $details = array('blocking' => false, 'reservation_optional' => NULL, 'reservation_confirmed' => NULL);
+      
       if ( $this->getUser()->hasCredential('event-reservation-confirm') )
         $details['blocking'] = NULL;
       
       if (!( isset($periodicity['manifestation_id']) && is_array($periodicity['manifestation_id']) ))
         $periodicity['manifestation_id'] = array();
+
       $q = Doctrine::getTable('Manifestation')->createQuery('m')->andWhereIn('m.id',$periodicity['manifestation_id']);
+
       foreach ( $q->execute() as $manifestation )
       switch ( $periodicity['behaviour'] ) {
       case 'one_occurrence':
@@ -61,6 +64,7 @@
             : date('H:i',strtotime($manifestation->happens_at))
            )
         );
+        
         $diff = $time - strtotime($manifestation->happens_at);
         
         // periodicity stuff
@@ -112,6 +116,7 @@
           && !(isset($periodicity['repeat']['weeks']) && intval($periodicity['repeat']['weeks']) > 0)
           && !(isset($periodicity['repeat']['month']) && intval($periodicity['repeat']['month']) > 0)
           && !(isset($periodicity['repeat']['years']) && intval($periodicity['repeat']['years']) > 0)
+          && !(isset($periodicity['repeat']['minutes']) && intval($periodicity['repeat']['minutes']) > 0)
         )
         {
           $error++;
@@ -120,7 +125,7 @@
         
         // interval calculation
         $interval = 0;
-        foreach ( array('hours', 'days', 'weeks', 'month', 'years') as $fieldname )
+        foreach ( array('minutes', 'hours', 'days', 'weeks', 'month', 'years') as $fieldname )
         if ( intval($periodicity['repeat'][$fieldname]) > 0 )
           $interval = strtotime('+'.intval($periodicity['repeat'][$fieldname]).' '.$fieldname,$interval);
         
