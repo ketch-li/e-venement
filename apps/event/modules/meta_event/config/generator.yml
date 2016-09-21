@@ -26,7 +26,8 @@ generator:
         batch_actions:
           _delete: ~
           _duplicate: ~
-      filter:  ~
+      filter:
+        display: [name, users_list]
       form:
         display:
           General: [name, description, hide_in_month_calendars]
