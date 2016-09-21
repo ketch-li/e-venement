@@ -66,13 +66,13 @@
         );
         
         $diff = $time - strtotime($manifestation->happens_at);
-        
+
         // periodicity stuff
         $manif = $manifestation->duplicate(false); // duplicating w/o saving (for the moment)
         $manif->happens_at            = date('Y-m-d H:i',$time);
         $manif->reservation_ends_at   = date('Y-m-d H:i',strtotime($manif->reservation_ends_at)+$diff);
         $manif->reservation_begins_at = date('Y-m-d H:i',strtotime($manif->reservation_begins_at)+$diff);
-        
+
         // booking details
         foreach ( $details as $field => $value )
           $manif->$field = is_null($value) ? isset($periodicity['options'][$field]) : $value;
@@ -80,27 +80,36 @@
         $cpt++;
         $manif->save();
         
-        // redirect
+        // http_redirect()
         break;
       
       case 'until':
         // particular preconditions
-        $max = array();
-        foreach ( $fields = array('day', 'month', 'year') as $fieldname )
-        if ( !(isset($periodicity['until'][$fieldname]) && intval($periodicity['until'][$fieldname])) > 0 )
-        {
-          $errors++;
-          break;
-        }
-        
+        foreach( $fieldSets = array('from', 'to') as $fieldSet)
+          foreach ( $fields = array('day', 'month', 'year') as $fieldname )
+            if ( !(isset($periodicity['until'][$fieldSet][$fieldname]) && intval($periodicity['until'][$fieldSet][$fieldname])) > 0 )
+            {
+              $errors++;
+              break;
+            }
+ 
         // removing extra-fields
-        foreach ( $periodicity['until'] as $key => $value )
-        if ( !in_array($key,$fields) )
-          unset($periodicity['until'][$key]);
+        foreach ( $periodicity['until'] as $k => $v )
+          foreach( $periodicity['until'][$k] as $key => $value)
+            if ( !in_array($key, $fields) )
+              unset($periodicity['until'][$k][$key]);
         
         // calculating the time that the duplication has to stop before...
-        $maxtime = strtotime('+ 1 day',strtotime(implode('-',array_reverse($periodicity['until']))));
-        
+        $maxtime = strtotime('+ 1 day',strtotime(implode('-',array_reverse($periodicity['until']['to']))));
+        $from = strtotime($periodicity['until']['from']['year'] 
+          . '-' 
+          . $periodicity['until']['from']['month'] 
+          . '-' 
+          . $periodicity['until']['from']['day'] 
+          . ' ' 
+          . explode(' ', $manifestation->happens_at)[1]);
+        $manifestation->happens_at = date('Y-m-d H:i', $from);
+
       case 'nb':
         // particular preconditions
         if ( $periodicity['behaviour'] == 'nb'
