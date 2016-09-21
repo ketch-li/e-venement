@@ -12,5 +12,14 @@ class MetaEventFormFilter extends BaseMetaEventFormFilter
 {
   public function configure()
   {
+    $this->widgetSchema   ['name'] = new sfWidgetFormInputText;
+    $this->validatorSchema['name'] = new sfValidatorString(array('required' => false));
+  }
+  
+  public function addNameColumnQuery(Doctrine_Query $q, $field, $values)
+  {
+    if ( !$values )
+      return $q;
+    return $q->andWhere('translation.name ILIKE ?', $values.'%');
   }
 }
