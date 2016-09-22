@@ -153,6 +153,7 @@
           $cancontrol = false;
           $this->controls       = new Doctrine_Collection('Control');
           foreach ( $q->execute() as $ticket )
+          // the ticket is in its duration of validity
           if ( $ticket->Price->x_days_valid > 0
             && $ticket->Controls->count() > 0
             && $ticket->Controls[0]->created_at >= date('Y-m-d', strtotime(($control->Ticket->Price->x_days_valid-1).' days ago')) )
@@ -170,7 +171,7 @@
           else
           {
             $cancontrol = true;
-            $this->tickets[] = $ticket;
+            $this->tickets[$ticket->id] = $ticket;
           }
         }
         
@@ -203,7 +204,13 @@
               else
               {
                 $err[] = $id;
-                $this->tickets[] = $tck[$id] = Doctrine::getTable('Ticket')->find($id);
+                if ( isset($this->tickets[$id]) )
+                {
+                  $tck[$id] = $this->tickets[$id];
+                  unset($this->tickets[$id]);
+                }
+                else
+                  $tck[$id] = Doctrine::getTable('Ticket')->find($id);
               }
             }
             foreach ( $err as $e )

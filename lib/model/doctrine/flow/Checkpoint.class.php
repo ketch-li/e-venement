@@ -12,8 +12,29 @@
  */
 class Checkpoint extends PluginCheckpoint
 {
+  protected $results = array();
+  
   public function __toString()
   {
     return $this->name.' @ '.$this->Event->name;
+  }
+  
+  public function mightControl($ticket_id)
+  {
+    if ( isset($this->results[$ticket_id]) )
+      return $this->results[$ticket_id];
+    if ( $this->isNew() || !$this->id )
+      return false;
+    $q = Doctrine::getTable('Event')->createQuery('e')
+      ->leftJoin('e.Checkpoints c')
+      ->leftJoin('e.Manifestations m')
+      ->leftJoin('m.Tickets tck WITH (tck.printed_at IS NOT NULL OR tck.integrated_at IS NOT NULL) AND tck.cancelling IS NULL')
+      ->leftJoin('tck.Cancelling cancel')
+      ->leftJoin('tck.Duplicatas dupli')
+      ->andWhere('cancel.id IS NULL AND dupli.id IS NULL')
+      ->andWhere('tck.id = ?', $ticket_id)
+      ->andWhere('c.id = ?', $this->id)
+    ;
+    return $q->count() > 0;
   }
 }
