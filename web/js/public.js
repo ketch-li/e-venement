@@ -332,7 +332,7 @@ LI.pubPictureRowspan = function()
 LI.customLayout = function()
 {
   // If not a custom layout do nothing
-  if ( !$('body[class*=" layout-"]').length )
+  if ( $('body').hasClass('layout-default') )
     return;
   
   // Wrap Ariane in container divs (if needed) for consitencty between pub pages
@@ -354,7 +354,7 @@ LI.customLayout = function()
   });
   
   // Put login links at the end
-  var login =   ariane.find('.login');
+  var login = ariane.find('.login');
   login.detach().insertBefore(ariane.find('.command'));
   
   // Put two login links under the same icon
@@ -416,4 +416,3 @@ LI.customLayout = function()
   $('<div class="clearfix"></div>').insertAfter('body.mod-manifestation.action-show #location');
   
 }
-
