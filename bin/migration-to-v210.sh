@@ -80,6 +80,8 @@ name="$PGDATABASE"
 [ -z "$name" ] && name=db
 
 echo "DUMPING DB..."
+[ -f  data/sql/$name-`date +%Y%m%d`.before.pgdump ] && \
+mv data/sql/$name-`date +%Y%m%d`.before.pgdump data/sql/$name-`date +%Y%m%d%H%M%s`.before.pgdump
 pg_dump -Fc > data/sql/$name-`date +%Y%m%d`.before.pgdump && echo "DB pre dumped"
 
 ## preliminary modifications & backup
