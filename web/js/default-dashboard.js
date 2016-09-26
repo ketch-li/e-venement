@@ -8,7 +8,7 @@ $(document).ready(function(){
     $('#sf_admin_content .welcome > .ui-widget-content:first')
       .append($('#dashboard'))
       .append('<div class="clear"></div>')
-      .find('h3, ul').remove()
+      .find('h3, ul').hide()
     ;
   }
 });
