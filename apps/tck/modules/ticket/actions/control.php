@@ -167,6 +167,11 @@
               '%%datetime%%' => $control->created_at,
               '%%user%%' => (string)$control->User,
             ));
+            
+            // adding a failure in the control log if a ticket is being controled twice
+            $failure = new FailedControl;
+            $params['ticket_id'] = $ticket->id;
+            $failure->complete($params);
           }
           else
           {
@@ -190,6 +195,7 @@
           if ( $checkpoint->id )
           {
             $err = $tck = array();
+            $ids = $params['ticket_id'];
             $ids = $this->tickets->getPrimaryKeys();
             foreach ( $ids as $id )
             {
@@ -207,10 +213,19 @@
                 if ( isset($this->tickets[$id]) )
                 {
                   $tck[$id] = $this->tickets[$id];
-                  unset($this->tickets[$id]);
+                  if ( !$this->form->getObject()->Checkpoint->mightControl($id) )
+                  {
+                    unset($this->tickets[$id]);
+                    continue;
+                  }
                 }
                 else
                   $tck[$id] = Doctrine::getTable('Ticket')->find($id);
+                
+                $failure = new FailedControl;
+                if ( isset($this->tickets[$id]) )
+                  $params['ticket_id'] = $id;
+                $failure->complete($params);
               }
             }
             foreach ( $err as $e )

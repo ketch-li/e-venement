@@ -73,6 +73,7 @@ class ControlForm extends BaseControlForm
     
     if (!( $checkpoint = Doctrine::getTable('Checkpoint')->find($this->values['checkpoint_id']) ))
       return false;
+    $this->object->Checkpoint = $checkpoint;
     return $checkpoint->mightControl($this->values['ticket_id']);
   }
   
