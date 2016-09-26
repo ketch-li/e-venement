@@ -6,7 +6,7 @@
 
     LI.printTickets = function(form, pay_before, submitHandler){
       var pay_before = typeof pay_before !== 'undefined' ? pay_before : false;
-      var submitHandler = typeof submitHandler !== 'undefined' ? submitHandler : function(){ return true; };
+      var callback = typeof submitHandler !== 'undefined' ? submitHandler : function(){ return true; };
       if ( pay_before && LI.parseFloat($('#li_transaction_field_payments_list .change .pit').html()) > 0 )
       {
         LI.alert($('#li_transaction_field_close .print .pay-before').html());
@@ -17,7 +17,7 @@
         && $(form).find('[name=manifestation_id]').prop('checked') )
       {
         $(form).focusout();
-        return LI.checkGauges(form, submitHandler);
+        return LI.checkGauges(form, callback);
       }
 
       // work around Work In Progress tickets (w/o a given price, but a seat only)
@@ -36,7 +36,11 @@
       if ( $(form).find('[name=duplicate]').prop('checked') && $(form).find('[name=price_name]').val() )
       {
         $(form).find('[name=manifestation_id]').val($('#li_transaction_manifestations .item.ui-state-highlight').closest('.family').attr('data-family-id'));
-        $(form).submit();
+        if ( submitHandler != undefined )
+          $(form).clone(true).removeAttr('onsubmit').unbind('submit').appendTo('body')
+            .submit(submitHandler).submit().remove();
+        else
+          $(form).submit();
         return true;
       }
       return LI.checkGauges(form, submitHandler);
