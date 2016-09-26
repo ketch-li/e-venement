@@ -114,9 +114,9 @@ class ContactTable extends PluginContactTable
       $ws[] = 0;
       $me = array_keys($sf_user->getMetaEventsCredentials());
       $me[] = 0;
-      $q->leftJoin('c.Transactions transac WITH transac.professional_id IS NULL AND transac.id IN (SELECT ttck.transaction_id FROM Ticket ttck LEFT JOIN ttck.Manifestation mm LEFT JOIN mm.Event ee LEFT JOIN mm.Gauges gg WHERE gg.workspace_id IN ('.implode(',',$ws).') AND ee.meta_event_id IN ('.implode(',',$me).'))')
-        ->leftJoin('c.DirectTickets dc WITH dc.id IN (SELECT ttck2.transaction_id FROM Ticket ttck2 LEFT JOIN ttck2.Manifestation mm2 LEFT JOIN mm2.Event ee2 LEFT JOIN mm2.Gauges gg2 WHERE gg2.workspace_id IN ('.implode(',',$ws).') AND ee2.meta_event_id IN ('.implode(',',$me).'))')
-        ->leftJoin('p.Transactions ptr WITH ptr.id IN (SELECT ttck3.transaction_id FROM Ticket ttck3 LEFT JOIN ttck3.Manifestation mm3 LEFT JOIN mm3.Event ee3 LEFT JOIN mm3.Gauges gg3 WHERE gg3.workspace_id IN ('.implode(',',$ws).') AND ee3.meta_event_id IN ('.implode(',',$me).'))')
+      $q->leftJoin('c.Transactions transac WITH transac.professional_id IS NULL AND transac.id IN (SELECT tt.id FROM Transaction tt LEFT JOIN tt.Tickets ttck LEFT JOIN ttck.Manifestation mm LEFT JOIN mm.Event ee LEFT JOIN mm.Gauges gg WHERE gg.workspace_id IN ('.implode(',',$ws).') AND ee.meta_event_id IN ('.implode(',',$me).') AND tt.contact_id = c.id)')
+        ->leftJoin('c.DirectTickets dc WITH dc.id IN (SELECT ttck2.id FROM Ticket ttck2 LEFT JOIN ttck2.Manifestation mm2 LEFT JOIN mm2.Event ee2 LEFT JOIN mm2.Gauges gg2 WHERE gg2.workspace_id IN ('.implode(',',$ws).') AND ee2.meta_event_id IN ('.implode(',',$me).') AND ttck2.contact_id = c.id)')
+        ->leftJoin('p.Transactions ptr WITH ptr.id IN (SELECT tt3.id FROM Transaction tt3 LEFT JOIN tt3.Tickets ttck3 LEFT JOIN ttck3.Manifestation mm3 LEFT JOIN mm3.Event ee3 LEFT JOIN mm3.Gauges gg3 WHERE gg3.workspace_id IN ('.implode(',',$ws).') AND ee3.meta_event_id IN ('.implode(',',$me).') AND tt3.professional_id = p.id)')
       ;
     }
     $q->leftJoin('transac.Payments payment');
