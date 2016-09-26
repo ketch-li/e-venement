@@ -153,6 +153,7 @@
           $cancontrol = false;
           $this->controls       = new Doctrine_Collection('Control');
           foreach ( $q->execute() as $ticket )
+          // the ticket is in its duration of validity
           if ( $ticket->Price->x_days_valid > 0
             && $ticket->Controls->count() > 0
             && $ticket->Controls[0]->created_at >= date('Y-m-d', strtotime(($control->Ticket->Price->x_days_valid-1).' days ago')) )
@@ -166,11 +167,16 @@
               '%%datetime%%' => $control->created_at,
               '%%user%%' => (string)$control->User,
             ));
+            
+            // adding a failure in the control log if a ticket is being controled twice
+            $failure = new FailedControl;
+            $params['ticket_id'] = $ticket->id;
+            $failure->complete($params);
           }
           else
           {
             $cancontrol = true;
-            $this->tickets[] = $ticket;
+            $this->tickets[$ticket->id] = $ticket;
           }
         }
         
@@ -189,6 +195,7 @@
           if ( $checkpoint->id )
           {
             $err = $tck = array();
+            $ids = $params['ticket_id'];
             $ids = $this->tickets->getPrimaryKeys();
             foreach ( $ids as $id )
             {
@@ -203,7 +210,22 @@
               else
               {
                 $err[] = $id;
-                $this->tickets[] = $tck[$id] = Doctrine::getTable('Ticket')->find($id);
+                if ( isset($this->tickets[$id]) )
+                {
+                  $tck[$id] = $this->tickets[$id];
+                  if ( !$this->form->getObject()->Checkpoint->mightControl($id) )
+                  {
+                    unset($this->tickets[$id]);
+                    continue;
+                  }
+                }
+                else
+                  $tck[$id] = Doctrine::getTable('Ticket')->find($id);
+                
+                $failure = new FailedControl;
+                if ( isset($this->tickets[$id]) )
+                  $params['ticket_id'] = $id;
+                $failure->complete($params);
               }
             }
             foreach ( $err as $e )

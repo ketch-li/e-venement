@@ -32,6 +32,6 @@
   </a>
   <div class="manifestation_list">
   </div>
-  <?php echo $url = url_for('manifestation/'.$type.'List?id='.$form->getObject()->id) ?>
+  <?php $url = url_for('manifestation/'.$type.'List?id='.$form->getObject()->id) ?>
   <script type="text/javascript">var manifestation_list_url = '<?php echo $url ?>';</script>
 </div>
