@@ -221,14 +221,16 @@ $(document).ready(function(){
   
   // change quantities in manifestations list
   $('.sf_admin_list_td_list_tickets .qty input').on('input', function(){
+    //console.info('on input', $(this).closest('li[data-gauge-id]').data('gauge-id'));
     LI.manifCalculateTotal(this);
     $(this).focus();
   }).focusout(function(){
+    //console.info('on focusout', $(this).closest('li[data-gauge-id]').data('gauge-id'));
     $(this).closest('form').submit();
-    console.error('focusout', this);
   });
   LI.manifCalculateTotal();
-  $('.sf_admin_list_td_list_tickets form').submit(function(){
+  $('.sf_admin_list_td_list_tickets form').submit(function(e){
+    e.preventDefault();
     if ( location.hash == '#debug' )
     {
       $(this).prop('target', '_blank');
@@ -236,22 +238,22 @@ $(document).ready(function(){
     }
     else
       $(this).prop('target', '');
-    
+   
+    //console.info('ajax data', $(this).serializeArray());
     $.ajax({
       type: $(this).prop('method'),
       url: $(this).prop('action'),
       data: $(this).serialize(),
       success: function(json){
-        $('.sf_admin_list_td_list_tickets form .qty input').val(0);
         if ( json.message )
           LI.alert(json.message, 'error');
         
         if ( !json.tickets || json.tickets.length == 0 )
           return;
-        
+        //console.info('json.tickets', json.tickets); 
         $.each(json.tickets, function(gauge_id, price){
           $.each(price, function(price_id, qty){
-            $(str = '.sf_admin_list_td_list_tickets [data-gauge-id='+gauge_id+'] [data-price-id='+price_id+'] .qty input').val(qty);
+            $('.sf_admin_list_td_list_tickets [data-gauge-id='+gauge_id+'] [data-price-id='+price_id+'] .qty input:not(:focus)').val(qty);
           });
         });
       }
