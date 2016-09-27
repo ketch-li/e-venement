@@ -54,7 +54,7 @@ class ProfessionalTable extends PluginProfessionalTable
       ->select("$a.*, $t.*, $c.*, $gce.*");
     
     // limitating to user's MetaEvents
-    if ( sfContext::hasInstance() )
+    if ( !sfContext::hasInstance() )
       return $q;
     
     $prepare = array();
@@ -68,7 +68,7 @@ class ProfessionalTable extends PluginProfessionalTable
       ->leftJoin('gce.Entry ge')
       ->leftJoin('ge.ManifestationEntries gme')
       ->leftJoin('gme.Manifestation m')
-      ->leftJoin('m.Event e WITH e.meta_event_id IN ('.explode(',', $prepare).')', array_keys(sfContext::getInstance()->getUser()->getMetaEventsCredentials()))
+      ->leftJoin('m.Event e WITH e.meta_event_id IN ('.implode(',', array_keys(sfContext::getInstance()->getUser()->getMetaEventsCredentials())).')')
       ->leftJoin("$a.Groups g")
       ->leftJoin('g.Picture pic')
       ->leftJoin('gce.Entries gee ON gee.accepted = TRUE AND gee.contact_entry_id = gce.id')
