@@ -239,6 +239,7 @@ $(document).ready(function(){
     else
       $(this).prop('target', '');
     
+    var localelt = elt;
     $.ajax({
       type: $(this).prop('method'),
       url: $(this).prop('action'),
@@ -247,14 +248,14 @@ $(document).ready(function(){
         if ( json.message )
           LI.alert(json.message, 'error');
         
-        var price = $(elt).closest('[data-price-id]').attr('data-price-id');
-        var gauge = $(elt).closest('[data-gauge-id]').attr('data-gauge-id');
+        var price = $(localelt).closest('[data-price-id]').attr('data-price-id');
+        var gauge = $(localelt).closest('[data-gauge-id]').attr('data-gauge-id');
         // blinking the line concerned by a constraint
         if (!( json.tickets[gauge] != undefined && json.tickets[gauge][price] != undefined ))
         {
-          $(elt).closest('tr').css('background-color', 'rgba(255,0,0,0.2)');
+          $(localelt).closest('tr').css('background-color', 'rgba(255,0,0,0.2)');
           setTimeout(function(){
-            $(elt).closest('tr').css('background-color', 'transparent');
+            $(localelt).closest('tr').css('background-color', 'transparent');
           },2000);
         }
         $('.sf_admin_list_td_list_tickets [data-gauge-id] [data-price-id] .qty input:not(:focus)').val(0);
