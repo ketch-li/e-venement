@@ -1,10 +1,13 @@
 <?php include_partial('flashes') ?>
 
 <?php echo $form->renderFormTag('',array('class'=>'ui-widget-content ui-corner-all', 'id' => 'checkpoint', 'target' => '_blank')) ?>
-  <div class="fg-toolbar ui-widget-header ui-corner-all">
+  <div class="fg-toolbar ui-widget-header ui-corner-all" id="control-header">
     <h1><?php echo __('Checkpoint') ?></h1>
     <?php echo $form->renderHiddenFields() ?>
   </div>
+  <?php if( sfContext::getInstance()->getRequest()->getUserAgent() == 'evenement-android' ) : ?>
+    <a href="" id="reload" class="fg-button ui-state-default fg-button-icon-left"><span class="ui-icon  ui-icon-arrowrefresh-1-e"></span><?php echo __('Reload') ?></a>
+  <?php endif ?>
   <ul class="ui-corner-all ui-widget-content">
     <li class="ticket_id ui-corner-all sf_admin_form_row sf_admin_text <?php echo $form['ticket_id']->hasError() ? 'ui-state-error' : '' ?>">
       <label for="ticket_id"><?php echo __('Ticket') ?></label>
