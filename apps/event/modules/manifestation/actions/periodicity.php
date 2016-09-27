@@ -35,7 +35,8 @@
     {
       $errors = 0;
       $cpt = 0;
-      
+      $maxtime = 0;
+
       $details = array('blocking' => false, 'reservation_optional' => NULL, 'reservation_confirmed' => NULL);
       
       if ( $this->getUser()->hasCredential('event-reservation-confirm') )
@@ -92,7 +93,6 @@
               $errors++;
               break;
             }
- 
         // removing extra-fields
         foreach ( $periodicity['until'] as $k => $v )
           foreach( $periodicity['until'][$k] as $key => $value)
@@ -108,6 +108,7 @@
           . $periodicity['until']['from']['day'] 
           . ' ' 
           . explode(' ', $manifestation->happens_at)[1]);
+
         $manifestation->happens_at = date('Y-m-d H:i', $from);
 
       case 'nb':
@@ -126,6 +127,7 @@
           && !(isset($periodicity['repeat']['month']) && intval($periodicity['repeat']['month']) > 0)
           && !(isset($periodicity['repeat']['years']) && intval($periodicity['repeat']['years']) > 0)
           && !(isset($periodicity['repeat']['minutes']) && intval($periodicity['repeat']['minutes']) > 0)
+          && !isset($periodicity['repeat']['weekdays'])
         )
         {
           $error++;
@@ -145,29 +147,30 @@
         foreach ( $details as $field => $value )
           $manif->$field = is_null($value) ? isset($periodicity['options'][$field]) : $value;
         
-        // date / periodicity related stuff
-        for (
-          $i = 0 ;
-          $periodicity['behaviour'] == 'nb'
-            ? $i < intval($periodicity['nb'])
-            : strtotime($manif->happens_at) + $interval < $maxtime ;
-          $i++
-        )
-        {
-          foreach ( array('happens_at', 'reservation_begins_at', 'reservation_ends_at') as $field )
-          {
-            // to avoid timezone (winter/summer times) mistakes duplicating a manifestation
-            $local_interval = $interval;
-            if ( ($from = date('P',strtotime($manif->$field))) != ($to = date('P', strtotime($manif->$field) + $interval)) )
-              $local_interval = $interval + strtotime($to) - strtotime($from);
 
-            $manif->$field = date('Y-m-d H:i:s',strtotime($manif->$field) + $local_interval);
+        // date / periodicity related stuff
+        if( isset($periodicity['repeat']['weekdays']) )
+        {
+          foreach( $periodicity['repeat']['weekdays'] as $day)
+          {
+            $date = new DateTime($manifestation->happens_at);
+            $originalDate = new DateTime($manifestation->happens_at);
+            $date->modify('last ' . substr($day, 0, -1));
+            $date->setTime($originalDate->format('H'), $originalDate->format('i'));
+            $manif->happens_at = $date->format('Y-m-d H:i');
+            $interval = 604800;
+
+            $return = $this->periodicityDuplicate($periodicity, $manif, $interval, $maxtime);
+            $manif = $return['manif'];
+            $cpt += $return['count'];
           }
           
-          $next_manif = $manif->duplicate(false);
-          $manif->save();
-          $manif = $next_manif;
-          $cpt++;
+        }
+        else
+        {
+          $return = $this->periodicityDuplicate($periodicity, $manif, $interval, $maxtime);
+          $manif = $return['manif'];
+          $cpt += $return['count'];
         }
         
         break;

@@ -844,4 +844,38 @@ class manifestationActions extends autoManifestationActions
     $search = mb_strtolower(iconv($charset['db'],$charset['ascii'], mb_substr($search,$nb-1,$nb) == '*' ? mb_substr($search,0,$nb-1) : $search));
     return $search;
   }
+
+  protected function periodicityDuplicate($periodicity, $manif, $interval, $maxtime)
+  {
+    $count = 0;
+
+    for (
+      $i = 0 ;
+      $periodicity['behaviour'] == 'nb'
+      ? $i < intval($periodicity['nb'])
+      : strtotime($manif->happens_at) + $interval < $maxtime ;
+      $i++
+    )
+    {
+      foreach ( array('happens_at', 'reservation_begins_at', 'reservation_ends_at') as $field )
+      {
+        // to avoid timezone (winter/summer times) mistakes duplicating a manifestation
+        $local_interval = $interval;
+        if ( ($from = date('P',strtotime($manif->$field))) != ($to = date('P', strtotime($manif->$field) + $interval)) )
+          $local_interval = $interval + strtotime($to) - strtotime($from);
+
+        $manif->$field = date('Y-m-d H:i:s',strtotime($manif->$field) + $local_interval);
+      }
+
+      $next_manif = $manif->duplicate(false);
+      $manif->save();
+      $manif = $next_manif;
+      $count++;
+    }
+    return array(
+      'manif' => $manif,
+      'count' => $count
+      );
+  }
+
 }

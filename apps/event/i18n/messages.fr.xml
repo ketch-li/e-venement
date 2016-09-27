@@ -2202,6 +2202,34 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>to</source>
         <target>au</target>
       </trans-unit>
+      <trans-unit>
+        <source>Mondays</source>
+        <target>Lundis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Tuesdays</source>
+        <target>Mardis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Wednesdays</source>
+        <target>Mercredis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Thursdays</source>
+        <target>Jeudis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Fridays</source>
+        <target>Vendredis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Saturdays</source>
+        <target>Samedis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Sundays</source>
+        <target>Dimanches</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
