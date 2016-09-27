@@ -78,10 +78,10 @@ class tckConfiguration extends sfApplicationConfiguration
     if ( !$pdt->isSold() && !( $pdt instanceof Ticket && $pdt->auto_by_hold )) // if something has to be done
     // we go if:
     //     - the pdt's value can be paid by the Payments
-    //       OR its value == 0 and there is no order in the Transaction
+    //       OR its value == 0 and there is an order in the Transaction
     // AND - the pdt is not a Ticket that requires a Seat
     // AND - the pdt is not a Ticket with no Price linked
-    if ( $pdt->value == 0 && $pdt->Transaction->Order->count() == 0
+    if ( $pdt->value == 0 && $pdt->Transaction->Order->count() > 0
       || $pdt->value > 0 && $event['transaction']->getPrice(false, true) < $paid )
     if (!( $pdt instanceof Ticket && $pdt->needsSeating() ))
     if (!( $pdt instanceof Ticket && is_null($pdt->price_id) ))
@@ -207,7 +207,6 @@ class tckConfiguration extends sfApplicationConfiguration
           'user'        => NULL,
         )));
         
-        
         $semaphore = array('products' => true, 'amount' => 0);
         foreach ( $items as $pdt )
         if ( !$pdt->isSold() )
@@ -218,6 +217,7 @@ class tckConfiguration extends sfApplicationConfiguration
         if ( $semaphore['products'] && ($semaphore['amount'] = $transaction->getPaid() - $transaction->getPrice(true,true)) == 0 )
         {
           $transaction->closed = true;
+          $transaction->automatic = true;
           $closed++;
           $this->stdout($section, 'Transaction #'.$transaction->id.' closed by garbage collector.', 'INFO');
         }
@@ -298,7 +298,8 @@ class tckConfiguration extends sfApplicationConfiguration
         ->having('count(tck.id) = 0 AND count(p.id) = 0 AND count(bp.id) = 0 AND count(o.id) = 0')
       ;
       $transactions = $q->execute();
-      foreach ( $transactions as $transaction )
+      $cpt = 0;
+      foreach ( $transactions as $transaction ) try
       {
         $this->dispatcher->notify($event = new sfEvent($this, 'tck.before_trying_to_close_transaction', array(
           'transaction' => $transaction,
@@ -307,9 +308,14 @@ class tckConfiguration extends sfApplicationConfiguration
         
         $transaction->closed = true;
         $transaction->save();
+        $cpt++;
+      }
+      catch ( Exception $e )
+      {
+        $this->stdout($section, '[KO] the transaction #'.$transaction->id.' cannot be closed: '.$e->getMessage(), 'ERROR');
       }
       
-      $this->stdout($section, '[OK] '.$transactions->count().' transactions closed', 'INFO');
+      $this->stdout($section, '[OK] '.$cpt.' transactions closed', 'INFO');
     });
     
     return $this;

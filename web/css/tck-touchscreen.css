@@ -145,6 +145,7 @@
 #li_transaction_field_payments_list .sf_admin_list_td_list_created_at { text-align: center; }
 #li_transaction_field_payments_list table { background-color: white; }
 #li_transaction_field_payments_list .template { display: none; }
+#li_transaction_field_payments_list thead td { border-right: 1px solid rgb(166, 201, 226); padding-right: 1em; font-size: 75%; }
 #li_transaction_field_payments_list tfoot { font-size: 75%; }
 #li_transaction_field_payments_list tfoot td:first-child, #li_transaction_field_payments_list tfoot .pit { font-weight: bold; font-size: 13px; }
 #li_transaction_field_payments_list tfoot td { padding: 4px; margin: 0px; text-align: left; overflow: hidden; border-bottom: 1px solid rgb(166, 201, 226); border-right: 1px solid rgb(166, 201, 226); }

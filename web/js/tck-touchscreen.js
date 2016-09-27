@@ -566,6 +566,7 @@ LI.responsiveDesign = function(){
       x: $('#sf_admin_container').width()/$('#sf_admin_content').width(),
       y: ( $(window).height()
           - $('#sf_admin_content').position().top
+          - 60
          )/$('#sf_admin_content').height()
     };
 

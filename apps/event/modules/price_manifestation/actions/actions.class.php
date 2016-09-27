@@ -13,21 +13,25 @@ require_once dirname(__FILE__).'/../lib/price_manifestationGeneratorHelper.class
  */
 class price_manifestationActions extends autoPrice_manifestationActions
 {
+  protected $manifid = 0;
+
   public function executeBatchEdit(sfWebRequest $request)
   {
-    if ( intval($mid = $request->getParameter('id')).'' != $request->getParameter('id') )
+    if ( intval($this->manifid = $request->getParameter('id')).'' != $request->getParameter('id') )
       throw new sfError404Exception();
 
     $q = Doctrine::getTable('PriceManifestation')->createQuery('pm')
       ->leftJoin('pm.Price p')
       ->leftJoin("p.Translation pt WITH pt.lang = '".$this->getUser()->getCulture()."'")
-      ->where('manifestation_id = ?',$mid)
+      ->where('manifestation_id = ?',$this->manifid)
       ->orderBy('pm.value DESC, pt.name');
     $this->sort = array('value','desc');
 
     $this->pager = $this->configuration->getPager('PriceManifestation');
     $this->pager->setQuery($q);
-    $this->pager->setPage($request->getParameter('page'));
+    if ( $request->hasParameter('page') )
+      $this->setPage($request->getParameter('page'));
+    $this->pager->setPage($this->getPage());
     $this->pager->init();
 
     $this->hasFilters = $this->getUser()->getAttribute('price_manifestation.list_filters', $this->configuration->getFilterDefaults(), 'admin_module');
@@ -46,5 +50,15 @@ class price_manifestationActions extends autoPrice_manifestationActions
     //$this->redirect('@price_manifestation?blank=1');
 
     return sfView::NONE;
+  }
+
+  protected function setPage($page)
+  {
+    $this->getUser()->setAttribute('price_manifestation.'.$this->manifid.'.page', $page, 'admin_module');
+  }
+
+  protected function getPage()
+  {
+    return $this->getUser()->getAttribute('price_manifestation.'.$this->manifid.'.page', 1, 'admin_module');
   }
 }

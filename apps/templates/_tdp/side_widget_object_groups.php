@@ -68,7 +68,7 @@
                 
                 var li = $('<li></li>');
                 $('<a></a>').prop('href', '#').text('x')
-                  .click(LI.contact_tdp_group_removing_obj<?php echo $cpt.'_'.$obj->id ?>)
+                  .click(function(){ LI.contact_tdp_group_removing_obj<?php echo $cpt.'_'.$obj->id ?>(this); })
                   .appendTo(li);
                 li.append(' ');
                 $('<input />').prop('type','hidden')
@@ -92,6 +92,7 @@
               var object = <?php echo $cpt == 1 ? "$('.sf_admin_edit.tdp-object')" : "$('#tdp-content [name=\"professional".($obj->isNew() ? '' : '_'.$obj->id)."[id]\"][value=".$obj->id."]').closest('.tdp-subobject')" ?>;
               var groups = <?php echo $cpt == 1 ? "$('.groups-object')" : "$('.groups-subobject-".$obj->id."')" ?>;
               
+              LI.anchor = anchor;
               object.find('.tdp-groups_list .open_list .open_list_selected').change()
                 .find('option[value="'+$(anchor).closest('li').find('[name=group_id]').val()+'"]')
                 .remove();

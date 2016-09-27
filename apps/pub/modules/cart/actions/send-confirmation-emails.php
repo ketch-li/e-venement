@@ -225,11 +225,18 @@ EOF
       // attachments, tickets/products in PDF
       $generator = new liPDFPlugin($action->getPartial('global/get_tickets_pdf', array('tickets_html' => $content)));
       $pdf = $generator->getPDF();
+
+      $file = new Picture;
+      $file->name = 'db:'.($filename = $var.'-'.$transaction->id.'-'.date('YmdHis').'.pdf');
+      $file->content = base64_encode($pdf);
+      $file->type = 'application/pdf';
+      $file->save();
       
-      file_put_contents(sfConfig::get('sf_upload_dir').'/'.($filename = $var.'-'.$transaction->id.'-'.date('YmdHis').'-'.rand(1000000000,9999999999).'.pdf'), $pdf);
       $attachment = new Attachment;
-      $attachment->filename = $filename;
+      $attachment->picture = $file;
       $attachment->original_name = $filename;
+      $attachment->mime_type = 'application/pdf';
+      $attachment->size = strlen($pdf);
       $email->Attachments[] = $attachment;
       $attachment->save();
     }

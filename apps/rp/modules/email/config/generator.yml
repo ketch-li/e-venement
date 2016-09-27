@@ -24,9 +24,10 @@ generator:
         updated_at:     { label: Last access }
         sf_guard_user_id: { label: User }
         load:           { label: Load and replace content }
+        list_attachments: { label: Attachments }
       list:
         title: List of emails sent
-        display: [User,field_subject,sent,created_at,updated_at]
+        display: [User,field_subject,sent,_list_attachments,created_at,updated_at]
         sort: [updated_at,desc]
         actions:
           _new: ~
@@ -34,7 +35,7 @@ generator:
             ui-icon: plus
             action: newFromTemplate
       filter:
-        display: [sf_guard_user_id, sent, field_subject, contacts_list, professionals_list, organisms_list, email_address]
+        display: [sf_guard_user_id, sent, field_subject, contacts_list, professionals_list, organisms_list, email_address, with_attachments]
       show:
         display:
           NONE:      [User, _show_sent, _show_timestampable]

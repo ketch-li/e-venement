@@ -287,7 +287,7 @@ LI.sumPayments = function()
   $('#li_transaction_field_payments_list tfoot .total .sf_admin_list_td_list_value')
     .html(LI.format_currency(val));
   
-  var ratio = val / LI.parseFloat($('#li_transaction_field_payments_list tfoot .topay .sf_admin_list_td_list_value.pit').html());
+  var ratio = 1 - (val / LI.parseFloat($('#li_transaction_field_payments_list tfoot .topay .sf_admin_list_td_list_value.pit').html()));
   if ( isNaN(ratio) )
     ratio = 0;
   

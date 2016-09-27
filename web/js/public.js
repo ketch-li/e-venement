@@ -192,17 +192,19 @@ $(document).ready(function(){
     mydates.sort().reverse();
     $.each(mydates, function(i, key){
       var d = /^(\d\d\d\d)-(\d\d)-(\d\d)$/.exec(key);
-      mydate = new Date(d[1], parseInt(d[2],10)-1, d[3]);
-      var td = $('<td colspan="'+colspan+'"></td>').text(
-        $.trim(arr[key][0].find('.sf_admin_list_td_list_day_name').text())
-        +' '+
-        mydate.getDate()+'/'+(mydate.getMonth()+1)
-      );
-      var tr = $('<tr></tr>')
-        .addClass('sort-by-day')
-        .append(td)
-        .prependTo($('.sf_admin_list tbody'))
-        .after(arr[key]);
+      if (d) {
+        mydate = new Date(d[1], parseInt(d[2],10)-1, d[3]);
+        var td = $('<td colspan="'+colspan+'"></td>').text(
+          $.trim(arr[key][0].find('.sf_admin_list_td_list_day_name').text())
+          +' '+
+          mydate.getDate()+'/'+(mydate.getMonth()+1)
+        );
+        var tr = $('<tr></tr>')
+          .addClass('sort-by-day')
+          .append(td)
+          .prependTo($('.sf_admin_list tbody'))
+          .after(arr[key]);        
+      }
     });
   }
   
@@ -218,12 +220,17 @@ $(document).ready(function(){
   });
   
   // change quantities in manifestations list
-  $('.sf_admin_list_td_list_tickets .qty input').focusout(function(){
-    $(this).closest('form').submit();
+  $('.sf_admin_list_td_list_tickets .qty input').on('input', function(){
+    //console.info('on input', $(this).closest('li[data-gauge-id]').data('gauge-id'));
     LI.manifCalculateTotal(this);
+    $(this).focus();
+  }).focusout(function(){
+    //console.info('on focusout', $(this).closest('li[data-gauge-id]').data('gauge-id'));
+    $(this).closest('form').submit();
   });
   LI.manifCalculateTotal();
-  $('.sf_admin_list_td_list_tickets form').submit(function(){
+  $('.sf_admin_list_td_list_tickets form').submit(function(e){
+    e.preventDefault();
     if ( location.hash == '#debug' )
     {
       $(this).prop('target', '_blank');
@@ -231,22 +238,22 @@ $(document).ready(function(){
     }
     else
       $(this).prop('target', '');
-    
+   
+    //console.info('ajax data', $(this).serializeArray());
     $.ajax({
       type: $(this).prop('method'),
       url: $(this).prop('action'),
       data: $(this).serialize(),
       success: function(json){
-        $('.sf_admin_list_td_list_tickets form .qty input').val(0);
         if ( json.message )
           LI.alert(json.message, 'error');
         
         if ( !json.tickets || json.tickets.length == 0 )
           return;
-        
+        //console.info('json.tickets', json.tickets); 
         $.each(json.tickets, function(gauge_id, price){
           $.each(price, function(price_id, qty){
-            $(str = '.sf_admin_list_td_list_tickets [data-gauge-id='+gauge_id+'] [data-price-id='+price_id+'] .qty input').val(qty);
+            $('.sf_admin_list_td_list_tickets [data-gauge-id='+gauge_id+'] [data-price-id='+price_id+'] .qty input:not(:focus)').val(qty);
           });
         });
       }
@@ -281,7 +288,10 @@ $(document).ready(function(){
       $('#actions .register a').addClass('disabled');
     return true;
   });
-});
+  
+  LI.customLayout();
+  
+});  // END $(document).ready(...)
 
 LI.manifCalculateTotal = function(elt){
   if ( elt == undefined )
@@ -319,3 +329,92 @@ LI.pubPictureRowspan = function()
   }
 }
 
+// DOM manipulation for custom layouts
+
+LI.customLayout = function()
+{
+  // If not a custom layout do nothing
+  if ( $('body').hasClass('layout-default') )
+    return;
+  
+  // Wrap Ariane in container divs (if needed) for consitencty between pub pages
+  var ariane = $('#ariane');
+  if (ariane.parents('#sf_admin_container').length === 0) {
+    ariane.wrap('<div id="sf_admin_container"><div id="sf_admin_header"></div></div>')
+  }
+  
+  // Move #sf_admin_container to the top
+  $('#sf_admin_container').detach().prependTo('#content');
+  
+  // Move things around for manifestation list page
+  $('body.mod-manifestation.action-index #sf_admin_header h1').insertBefore('#sf_admin_content');
+  $('body.mod-manifestation.action-index #sf_admin_header #meta_event').insertBefore('#sf_admin_content');
+
+  // Add a span in arian links
+  ariane.find('ul li a').each(function(){
+    $(this).html('<span>' + $(this).text() + '</span>');
+  });
+  
+  // Put login links at the end
+  var login = ariane.find('.login');
+  login.detach().insertBefore(ariane.find('.command'));
+  
+  // Put two login links under the same icon
+  login.find('ul li a').eq(1).detach().appendTo(login.find('ul li').eq(0)).addClass('second-link');
+
+  // Add search button
+  $('<a href="#">')
+    .text('Rechercher')  // TODO: translation !
+    .attr('href', '#')
+    .appendTo('#sf_admin_bar .sf_admin_filter .sf_admin_filter_field_name td')
+    .click(function(){
+      $(this).parents('form').submit();
+    })
+  ;
+
+  // Remove pagination links
+  // TODO: insert a menu to access all pages
+  $('#sf_admin_content .sf_admin_list tfoot th .sf_admin_pagination a').each(function(){
+    if ($(this).find('img').length > 0)
+      $(this).remove();
+  });
+  
+  // Login: move things around
+  $('body.mod-login')
+
+  $('.mod-event .sf_admin_list tbody tr:not(.sf_admin_month)').each(function(){
+    // Add subtitle
+    var category = $(this).find('.sf_admin_list_td_EventCategory').text();
+    var subtitle = $('<h2>').text(category);
+    $(this).find('.sf_admin_list_td_name').append(subtitle);
+
+    // Add date picker for events
+    var dateBtn = $('<a href="#">').text('Choisir une date');  // TODO: translation !
+    $('<td>').addClass('sf_admin_date_action').append(dateBtn).appendTo($(this));
+
+    // Add order button
+    var orderHref = $(this).find('.sf_admin_list_td_name a').attr('href');
+    var orderBtn = $('<a>').attr('href', orderHref).text('Commander');  // TODO: translation !
+    $('<td>').addClass('sf_admin_order_action').append(orderBtn).appendTo($(this));
+  });   
+  
+  // Odd/event sections in lists (section-grid layout only)
+  // ( elem.class:odd and elem.class:even does not work in CSS )
+  $('.mod-event.layout-section_grid .sf_admin_list tbody tr.sf_admin_month:odd').addClass('month-odd');
+  $('.mod-event.layout-section_grid .sf_admin_list tbody tr.sf_admin_month:even').addClass('month-even');
+  
+  // overlays in event list (section-grid layout only)
+  $('.mod-event.layout-section_grid .sf_admin_list tbody tr:not(.sf_admin_month)').on('mouseenter', function(){
+    $(this).find('.sf_admin_list_td_list_picture').hide();
+    $(this).find('.sf_admin_list_td_name, .sf_admin_date_action').show();
+  });
+  $('.mod-event.layout-section_grid .sf_admin_list tbody tr:not(.sf_admin_month)').on('mouseleave', function(){
+    $(this).find('.sf_admin_list_td_list_picture').show();
+    $(this).find('.sf_admin_list_td_name, .sf_admin_date_action').hide();
+  });
+  
+  // Manifestations: move things around
+  $('body.mod-manifestation.action-show .event-pic').detach().insertBefore('#event');
+  $('<div class="clearfix"></div>').insertAfter('body.mod-manifestation.action-show #location');
+  
+}
