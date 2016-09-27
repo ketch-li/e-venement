@@ -55,17 +55,22 @@ class ProfessionalTable extends PluginProfessionalTable
     
     // limitating to user's MetaEvents
     if ( sfContext::hasInstance() )
-    $q
+      return $q;
+    
+    $prepare = array();
+    foreach ( array_keys(sfContext::getInstance()->getUser()->getMetaEventsCredentials()) as $id )
+      $prepare[] = '?';
+    
+    return $q
       ->leftJoin('gce.Transaction gt')
       ->leftJoin('gt.Translinked gtt')
       ->andWhere('gtt.id IS NULL')
       ->leftJoin('gce.Entry ge')
       ->leftJoin('ge.ManifestationEntries gme')
       ->leftJoin('gme.Manifestation m')
-      ->leftJoin('m.Event e')
+      ->leftJoin('m.Event e WITH e.meta_event_id IN ('.explode(',', $prepare).')', array_keys(sfContext::getInstance()->getUser()->getMetaEventsCredentials()))
       ->leftJoin("$a.Groups g")
       ->leftJoin('g.Picture pic')
-      ->andWhereIn('e.meta_event_id',array_keys(sfContext::getInstance()->getUser()->getMetaEventsCredentials()))
       ->leftJoin('gce.Entries gee ON gee.accepted = TRUE AND gee.contact_entry_id = gce.id')
       ->leftJoin('gee.ManifestationEntry gmee')
       ->leftJoin('gmee.Manifestation eem')
@@ -76,8 +81,6 @@ class ProfessionalTable extends PluginProfessionalTable
       ->groupBy("$a.id, c.id, c.name, c.firstname, o.id, o.name, t.name, g.id, g.name, u.id, pic.id, pic.name, pic.content, g.display_everywhere, g.sf_guard_user_id")
       */
     ;
-    
-    return $q;
   }
 
     /**
