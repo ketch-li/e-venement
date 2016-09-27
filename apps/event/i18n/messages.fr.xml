@@ -2194,6 +2194,14 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>copy</source>
         <target>copie</target>
       </trans-unit>
+      <trans-unit>
+        <source>From</source>
+        <target>Du</target>
+      </trans-unit>
+      <trans-unit>
+        <source>to</source>
+        <target>au</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

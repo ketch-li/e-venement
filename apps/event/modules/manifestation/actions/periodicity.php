@@ -30,19 +30,22 @@
       $this->form->getCSRFFieldName() => isset($periodicity[$this->form->getCSRFFieldName()]) ? $periodicity[$this->form->getCSRFFieldName()] : ''
     ));
     $errmsg = __('Try again with valid informations.');
-    
+
     if ( $this->form->isValid() && $request->getParameter('periodicity',array()) )
     {
       $errors = 0;
       $cpt = 0;
       
       $details = array('blocking' => false, 'reservation_optional' => NULL, 'reservation_confirmed' => NULL);
+      
       if ( $this->getUser()->hasCredential('event-reservation-confirm') )
         $details['blocking'] = NULL;
       
       if (!( isset($periodicity['manifestation_id']) && is_array($periodicity['manifestation_id']) ))
         $periodicity['manifestation_id'] = array();
+
       $q = Doctrine::getTable('Manifestation')->createQuery('m')->andWhereIn('m.id',$periodicity['manifestation_id']);
+
       foreach ( $q->execute() as $manifestation )
       switch ( $periodicity['behaviour'] ) {
       case 'one_occurrence':
@@ -61,14 +64,15 @@
             : date('H:i',strtotime($manifestation->happens_at))
            )
         );
-        $diff = $time - strtotime($manifestation->happens_at);
         
+        $diff = $time - strtotime($manifestation->happens_at);
+
         // periodicity stuff
         $manif = $manifestation->duplicate(false); // duplicating w/o saving (for the moment)
         $manif->happens_at            = date('Y-m-d H:i',$time);
         $manif->reservation_ends_at   = date('Y-m-d H:i',strtotime($manif->reservation_ends_at)+$diff);
         $manif->reservation_begins_at = date('Y-m-d H:i',strtotime($manif->reservation_begins_at)+$diff);
-        
+
         // booking details
         foreach ( $details as $field => $value )
           $manif->$field = is_null($value) ? isset($periodicity['options'][$field]) : $value;
@@ -76,27 +80,36 @@
         $cpt++;
         $manif->save();
         
-        // redirect
+        // http_redirect()
         break;
       
       case 'until':
         // particular preconditions
-        $max = array();
-        foreach ( $fields = array('day', 'month', 'year') as $fieldname )
-        if ( !(isset($periodicity['until'][$fieldname]) && intval($periodicity['until'][$fieldname])) > 0 )
-        {
-          $errors++;
-          break;
-        }
-        
+        foreach( $fieldSets = array('from', 'to') as $fieldSet)
+          foreach ( $fields = array('day', 'month', 'year') as $fieldname )
+            if ( !(isset($periodicity['until'][$fieldSet][$fieldname]) && intval($periodicity['until'][$fieldSet][$fieldname])) > 0 )
+            {
+              $errors++;
+              break;
+            }
+ 
         // removing extra-fields
-        foreach ( $periodicity['until'] as $key => $value )
-        if ( !in_array($key,$fields) )
-          unset($periodicity['until'][$key]);
+        foreach ( $periodicity['until'] as $k => $v )
+          foreach( $periodicity['until'][$k] as $key => $value)
+            if ( !in_array($key, $fields) )
+              unset($periodicity['until'][$k][$key]);
         
         // calculating the time that the duplication has to stop before...
-        $maxtime = strtotime('+ 1 day',strtotime(implode('-',array_reverse($periodicity['until']))));
-        
+        $maxtime = strtotime('+ 1 day',strtotime(implode('-',array_reverse($periodicity['until']['to']))));
+        $from = strtotime($periodicity['until']['from']['year'] 
+          . '-' 
+          . $periodicity['until']['from']['month'] 
+          . '-' 
+          . $periodicity['until']['from']['day'] 
+          . ' ' 
+          . explode(' ', $manifestation->happens_at)[1]);
+        $manifestation->happens_at = date('Y-m-d H:i', $from);
+
       case 'nb':
         // particular preconditions
         if ( $periodicity['behaviour'] == 'nb'
@@ -112,6 +125,7 @@
           && !(isset($periodicity['repeat']['weeks']) && intval($periodicity['repeat']['weeks']) > 0)
           && !(isset($periodicity['repeat']['month']) && intval($periodicity['repeat']['month']) > 0)
           && !(isset($periodicity['repeat']['years']) && intval($periodicity['repeat']['years']) > 0)
+          && !(isset($periodicity['repeat']['minutes']) && intval($periodicity['repeat']['minutes']) > 0)
         )
         {
           $error++;
@@ -120,7 +134,7 @@
         
         // interval calculation
         $interval = 0;
-        foreach ( array('hours', 'days', 'weeks', 'month', 'years') as $fieldname )
+        foreach ( array('minutes', 'hours', 'days', 'weeks', 'month', 'years') as $fieldname )
         if ( intval($periodicity['repeat'][$fieldname]) > 0 )
           $interval = strtotime('+'.intval($periodicity['repeat'][$fieldname]).' '.$fieldname,$interval);
         

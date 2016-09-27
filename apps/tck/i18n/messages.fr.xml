@@ -2020,6 +2020,10 @@
         <source>Updated_at</source>
         <target>Mise à jour le</target>
       </trans-unit>
+      <trans-unit>
+        <source>Reload</source>
+        <target>Recharger</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
