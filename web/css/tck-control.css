@@ -65,5 +65,13 @@
   form#checkpoint input[type=submit] { 
     display: none; 
   }
-  #checkpoint .ticket_id input { max-width: 50%; }  
+  #reload { 
+    float: none;
+    margin-left: 10px;
+  }
+  #content { margin-top: 10px; }
+  #checkpoint .ticket_id input { max-width: 50%; }
+  #checkpoint ul { margin-top: 10px; }
+  #control-header { margin-bottom: 10px;}  
 }
+

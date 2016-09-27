@@ -171,3 +171,14 @@ dsf#sf_fieldset_tickets td .tickets, sdf#sf_fieldset_spectators td .tickets { di
 #seats h2 .close { float: right; text-decoration: none; border: 1px solid white; border-radius: 2px; padding: 2px 5px; margin-top: -3px; }
 
 #more .list { margin-bottom: -29px; margin-top: 4px; float:right; }
+
+#periodicity_repeat ul { 
+  display: inline-block; 
+  list-style-type: none;
+  margin-left: 10px; 
+  margin-right: 10px;
+}
+
+#periodicity_repeat #time { margin-bottom: 20px; }
+
+#periodicity_repeat .number { margin: 2px;}

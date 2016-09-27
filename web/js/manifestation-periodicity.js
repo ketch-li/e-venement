@@ -15,4 +15,9 @@ $(document).ready(function(){
     else
       $('#periodicity_repeat input').prop('disabled',false);
   }).first().change();
+
+  //Force focus to time input after date has been picked
+  $('#periodicity_one_occurrence_year').change(function(){
+    $('#periodicity_one_occurrence_hour').focus();
+  });
 });
