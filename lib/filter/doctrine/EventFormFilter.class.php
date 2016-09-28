@@ -241,7 +241,6 @@ class EventFormFilter extends BaseEventFormFilter
   }
   public function addIdColumnQuery(Doctrine_Query $q, $field, $values)
   {
-    //die('azeaze');
     if ( $values === '' )
       return $q;
     

@@ -40,6 +40,8 @@
       $eventIds = array();
       //manifestation ids list for do again
       $manifIds = array();
+      //keep track of generated manifestations
+      $createdManifs = array();
 
       $details = array('blocking' => false, 'reservation_optional' => NULL, 'reservation_confirmed' => NULL);
       
@@ -90,7 +92,7 @@
           
           $cpt++;
           $manif->save();
-          
+          $createdManifs[] = $manif->id;
           // http_redirect()
           break;
         
@@ -172,17 +174,17 @@
 
               $return = $this->periodicityDuplicate($periodicity, $manif, $interval, $maxtime);
               $manif = $return['manif'];
+              $createdManifs = array_merge($createdManifs, $return['created_ids']);
               $cpt += $return['count'];
             }
-            
           }
           else
           {
             $return = $this->periodicityDuplicate($periodicity, $manif, $interval, $maxtime);
             $manif = $return['manif'];
+            $createdManifs = array_merge($createdManifs, $return['created_ids']);
             $cpt += $return['count'];
           }
-          
           break;
         }
       }
@@ -197,9 +199,12 @@
         else
           $this->redirect('event/edit?id[]='.$periodicity['manifestation_id'][0]);
       }
-      
+
+      //add generated manifestations to user session for cancellation purposes
+      $this->getUser()->setAttribute('last_periodicity', $createdManifs);
       // redirect
       $this->getUser()->setFlash('success',__('%%nb%% manifestation(s) have been created during the duplication process.',array('%%nb%%' => $cpt)));
+      
       if ( $periodicity['manifestation_id'] > 1 )
       {
         if( $request->hasParameter('calendar') )

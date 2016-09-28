@@ -2238,6 +2238,14 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>Duplicate and show in calendar</source>
         <target>Dupliquer et montrer dans le calendrier</target>
       </trans-unit>
+      <trans-unit>
+        <source>Extract&lt;span class="ui-icon ui-icon-document"&gt;&lt;/span&gt;</source>
+        <target>Extraire&lt;span class="ui-icon ui-icon-document"&gt;&lt;/span&gt;</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Cancel periodicity&lt;span class="ui-icon ui-icon-closethick"&gt;&lt;/span&gt;</source>
+        <target>Annul. périodicité&lt;span class="ui-icon ui-icon-closethick"&gt;&lt;/span&gt;</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
