@@ -181,6 +181,24 @@ LI.slugify = function(str) {
   return str;
 }
 
+LI.tableToArray = function(elt, tableSections){
+  if ( $(elt).not('table') )
+    elt = $(elt).find('> table');
+  if ( typeof(tableSections) != 'object' )
+    tableSections = ['thead', 'tbody', 'tfoot'];
+
+  var data = [];
+  $.each(tableSections, function(i, sel){
+    $(elt).find('> '+sel+' > tr').each(function(){
+      data.push([]);
+      $(this).find('> td, > th').each(function(){
+        data[data.length-1].push($.trim($(this).text()));
+      });
+    });
+  });
+  
+  return data;
+}
 LI.arrayToTable = function(data){
   array = LI.clone(data);
   var tag;

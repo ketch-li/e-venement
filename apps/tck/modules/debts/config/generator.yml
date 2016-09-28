@@ -19,6 +19,11 @@ generator:
       list:
         title: Debts
         display: [_id, _invoice_id, Contact, Professional, _debt, closed, updated_at]
+        actions:
+          _new: ~
+          _extract:
+            action: 'index#csv'
+            ui-icon: document
         object_actions:
           _show: ~
         batch_actions: []
