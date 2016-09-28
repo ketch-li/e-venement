@@ -41,6 +41,7 @@ class professionalActions extends autoProfessionalActions
     $table = Doctrine::getTable('Professional');
     $this->professional = $table->doSelectOnlyGrp($table->createQuery('p'))
       ->andWhere('p.id = ?', $request->getParameter('id'))
+      ->andWhere('e.id IS NOT NULL')
       ->fetchOne();
     $this->forward404Unless($this->professional);
     $this->form = $this->configuration->getForm($this->professional);

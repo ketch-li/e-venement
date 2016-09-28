@@ -57,8 +57,8 @@ class professional_fullActions extends autoProfessional_fullActions
       $this->redirect('professional_full/edit?id='.$this->form->getObject()->Professional->id);
     }
     
-    $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
-    $this->setTemplate('new');
+    $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.');
+    $this->redirect('professional_full/new');
   }
   public function executeUpdate(sfWebRequest $request)
   { throw new liEvenementException('This action is not implemented.'); }
