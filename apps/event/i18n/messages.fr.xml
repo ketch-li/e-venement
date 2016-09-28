@@ -2230,6 +2230,14 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>Sundays</source>
         <target>Dimanches</target>
       </trans-unit>
+      <trans-unit>
+        <source>Duplicate and repeat</source>
+        <target>Dupliquer et répéter</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Duplicate and show in calendar</source>
+        <target>Dupliquer et montrer dans le calendrier</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

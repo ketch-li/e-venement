@@ -153,6 +153,8 @@ class EventFormFilter extends BaseEventFormFilter
     $this->validatorSchema['participants_list'] = new sfValidatorDoctrineChoice($arr + array(
       'required' => false,
     ));
+
+    $this->validatorSchema['id'] = new SfValidatorPass();
   }
   public function buildQuery(array $values)
   {
@@ -170,6 +172,7 @@ class EventFormFilter extends BaseEventFormFilter
       'dates_range'       => 'DatesRange',
       'participants_list' => 'ParticipantsList',
       'voucherized'       => 'Voucherized',
+      'id'                => 'Id'    
     ));
   }
   protected function getTranslatedFields($fieldName = NULL)
@@ -234,6 +237,15 @@ class EventFormFilter extends BaseEventFormFilter
     if ( $values['to'] )
       $q->andWhere("m.reservation_ends_at < ?", array($values['to']));
     
+    return $q;
+  }
+  public function addIdColumnQuery(Doctrine_Query $q, $field, $values)
+  {
+    //die('azeaze');
+    if ( $values === '' )
+      return $q;
+    
+    $q->andWhereIn('id', $values);
     return $q;
   }
   public function addVoucherizedColumnQuery(Doctrine_Query $q, $field, $values)
