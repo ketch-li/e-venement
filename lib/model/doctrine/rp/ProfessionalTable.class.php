@@ -66,6 +66,8 @@ class ProfessionalTable extends PluginProfessionalTable
       ->leftJoin('gt.Translinked gtt')
       ->andWhere('gtt.id IS NULL')
       ->leftJoin('gce.Entry ge')
+      ->leftJoin('ge.Event gevent')
+      ->andWhereIn('gevent.meta_event_id', array_keys(sfContext::getInstance()->getUser()->getMetaEventsCredentials()))
       ->leftJoin('ge.ManifestationEntries gme')
       ->leftJoin('gme.Manifestation m')
       ->leftJoin('m.Event e WITH e.meta_event_id IN ('.implode(',', array_keys(sfContext::getInstance()->getUser()->getMetaEventsCredentials())).')')
