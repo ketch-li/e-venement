@@ -90,9 +90,6 @@ $(document).ready(function(){
   // INIT PAYMENT METHODS FROM A COPY OF STANDARD GUI
   LI.touchscreenSimplifiedLoadPaymentMethods();
   
-  // AVOID HEAVY SCROLL BARS
-  $('#li_fieldset_simplified .simplified-top-block.content > ul').niceScroll();
-  
   // USING THE NORMAL "PRINT" BUTTON IF CLICKING ON THE SIMPLIFIED ONE
   $('#li_fieldset_simplified .cart .print').click(function(){
     $('#li_fieldset_content .bunch').find('.print, .store-print').submit();
