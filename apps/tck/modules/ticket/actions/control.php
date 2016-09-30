@@ -203,6 +203,9 @@
               if ( $this->form->isValid() ) try
               {
                 $this->form->save();
+                // do only one loop if the config says to control tickets one by one
+                if ( sfConfig::get('app_control_type', 'group') == 'onebyone' )
+                  break;
               } catch ( liEvenementException $e ) { error_log('TicketActions::executeControl() - '.$e->getMessage().' Passing by.'); }
               else
               {
