@@ -58,47 +58,44 @@
       $params = $request->getParameter($this->form->getName());
       
       // creating tickets ids array
-      if ( !in_array('othercode', $field) )
+      if ( $tmp = json_decode($params['ticket_id']) )
+        $params['ticket_id'] = $tmp; // json array
+      elseif ( in_array('othercode', $field) )
+        $params['ticket_id'] = array(preg_replace('/!$/', '', $params['ticket_id']));
+      else
       {
-        if ( $tmp = json_decode($params['ticket_id']) )
-          $params['ticket_id'] = $tmp; // json array
-        else // human encoded arrays
+        $tmp = explode(',',$params['ticket_id']);
+        if ( count($tmp) == 1 )
+          $tmp = preg_split('/\s+/',$params['ticket_id']);
+        $params['ticket_id'] = array();
+        foreach ( $tmp as $key => $ids )
         {
-          $tmp = explode(',',$params['ticket_id']);
-          if ( count($tmp) == 1 )
-            $tmp = preg_split('/\s+/',$params['ticket_id']);
-          $params['ticket_id'] = array();
-          foreach ( $tmp as $key => $ids )
-          {
-            $ids = explode('-',$ids);
-            
-            if ( count($ids) > 0 && isset($ids[1]) )
-            for ( $i = intval($ids[0]) ; $i <= intval($ids[1]) ; $i++ )
-              $params['ticket_id'][$i] = $i;
-            else
-              $params['ticket_id'][] = $ids[0];
-          }
-        }
-        if ( !is_array($params['ticket_id']) )
-          $params['ticket_id'] = array($params['ticket_id']);
-        // decode EAN if it exists
-        if ( in_array('id', $field) )
-        foreach ( $params['ticket_id'] as $key => $value )
-        {
-          $value = preg_replace('/!$/', '', $value);
-          if ( (strlen($value) == 13 || strlen($value) == 12 ) && substr($value,0,1) === '0' )
-          {
-            try { $value = liBarcode::decode_ean($value); }
-            catch ( sfException $e )
-            { $value = intval($value); }
-            $params['ticket_id'][$key] = $value;
-          }
+          $ids = explode('-',$ids);
+          
+          if ( count($ids) > 0 && isset($ids[1]) )
+          for ( $i = intval($ids[0]) ; $i <= intval($ids[1]) ; $i++ )
+            $params['ticket_id'][$i] = $i;
           else
-            $params['ticket_id'][$key] = intval($value);
+            $params['ticket_id'][] = $ids[0];
         }
       }
-      else
-        $params['ticket_id'] = array(preg_replace('/!$/', '', $params['ticket_id']));
+      if ( !is_array($params['ticket_id']) )
+        $params['ticket_id'] = array($params['ticket_id']);
+      // decode EAN if it exists
+      if ( in_array('id', $field) )
+      foreach ( $params['ticket_id'] as $key => $value )
+      {
+        $value = preg_replace('/!$/', '', $value);
+        if ( (strlen($value) == 13 || strlen($value) == 12 ) && substr($value,0,1) === '0' )
+        {
+          try { $value = liBarcode::decode_ean($value); }
+          catch ( sfException $e )
+          { $value = intval($value); }
+          $params['ticket_id'][$key] = $value;
+        }
+        else
+          $params['ticket_id'][$key] = intval($value);
+      }
       
       if ( !in_array('id', $field) && !in_array('othercode', $field) && intval($params['ticket_id'][0]).'' === ''.$params['ticket_id'][0] )
         $field = array('id');
