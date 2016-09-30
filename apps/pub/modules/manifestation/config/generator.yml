@@ -29,7 +29,7 @@ generator:
         display: [_list_picture, _list_happens_at, _list_day_name, =formatted_date, happens_at_time_h_r, Event, Location, _MetaEvent, _list_tickets]
         title: Dates
         table_method: retrievePublicList
-        max_per_page: 250
+        max_per_page: <?php echo sfConfig::get('app_tickets_nb_manifestations_per_default',100).PHP_EOL ?>
       filter:
         display: [event_id, happens_at]
       form:    ~

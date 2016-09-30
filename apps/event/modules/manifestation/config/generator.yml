@@ -76,6 +76,12 @@ generator:
           csv:
             label: Extract
             action: csv
+            ui-icon: document
+          cancelPeriodicity:
+            credentials: event-manif-edit
+            label: Cancel periodicity
+            action: cancelPeriodicity
+            ui-icon: closethick
         batch_actions:
           _delete: ~
           _bestFreeSeat:

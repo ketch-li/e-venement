@@ -641,6 +641,17 @@ class manifestationActions extends autoManifestationActions
     $cacher->setData($this->cache)->writeData();
   }
 
+  public function executeCancelPeriodicity(sfWebRequest $request)
+  {
+    $request->setParameter('ids', $this->getUser()->getAttribute('last_periodicity', array()));
+    $request->setParameter('batch_action', 'batchDelete');
+    //create empty form to generate CSRF token
+    $form = new BaseForm();
+    $request->setParameter($form->getCSRFFieldName(), $form->getCSRFToken());
+
+    $this->executeBatch($request);
+  }
+
   protected function countTickets($manifestation_id)
   {
     $q = '
@@ -848,6 +859,7 @@ class manifestationActions extends autoManifestationActions
   protected function periodicityDuplicate($periodicity, $manif, $interval, $maxtime)
   {
     $count = 0;
+    $ids = array();
 
     for (
       $i = 0 ;
@@ -869,12 +881,14 @@ class manifestationActions extends autoManifestationActions
 
       $next_manif = $manif->duplicate(false);
       $manif->save();
+      $ids[] = $manif->id;
       $manif = $next_manif;
       $count++;
     }
     return array(
-      'manif' => $manif,
-      'count' => $count
+      'manif'       => $manif,
+      'count'       => $count,
+      'created_ids' => $ids
       );
   }
 
