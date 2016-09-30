@@ -45,9 +45,9 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
       new sfCommandOption('no-headers', sfCommandOption::PARAMETER_OPTIONAL),
     ));
     $this->namespace = 'e-venement';
-    $this->name = 'csv-import';
-    $this->briefDescription = '';
-    $this->detailedDescription = '';
+    $this->name = 'rp-csv-import';
+    $this->briefDescription = 'Imports CSV data into Contacts & Organisms';
+    $this->detailedDescription = 'Imports CSV data into Contacts & Organisms using YTF8 + "," separator...';
   }
 
   protected function execute($arguments = array(), $options = array())

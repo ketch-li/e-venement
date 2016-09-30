@@ -13,6 +13,7 @@
       .text($('#sf_fieldset_tickets thead td.contact:first').text());
     
     LI.fixCacherLinks();
+    $('#transition .close').click();
     <?php include_partial('show_print_part_js',array('tab' => 'tickets', 'jsFunction' => 'LI.manifShowTickets')) ?>
   });
 </script>

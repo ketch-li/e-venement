@@ -1,5 +1,6 @@
       <?php if ( isset($jsFunction) ): ?>
       $('#sf_fieldset_<?php echo $tab ?> .tab-print a.refresh').click(function(){
+        $('#transition').fadeIn();
         $.get($(this).prop('href'), <?php echo $jsFunction ?>);
         return false;
       });
