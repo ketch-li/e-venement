@@ -205,7 +205,23 @@
                 $this->form->save();
                 // do only one loop if the config says to control tickets one by one
                 if ( sfConfig::get('app_control_type', 'group') == 'onebyone' )
+                {
+                  $cpt = 0;
+                  foreach ( $ids as $id2 )
+                  if ( $id2 != $id )
+                  {
+                    $form = new ControlForm;
+                    $form->forceField('id');
+                    $params['ticket_id'] = $id;
+                    $form->bind($params, $request->getFiles($form->getName()));
+                    if ( $form->isValid() )
+                      $cpt++;
+                    unset($this->tickets[$id]);
+                  }
+                  if ( $cpt > 0 )
+                    $this->errors[] = __('You still have %%nb%% control(s) left on this meta-ticket', array('%%nb%%' => $cpt));
                   break;
+                }
               } catch ( liEvenementException $e ) { error_log('TicketActions::executeControl() - '.$e->getMessage().' Passing by.'); }
               else
               {
