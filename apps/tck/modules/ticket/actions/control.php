@@ -58,7 +58,7 @@
       $params = $request->getParameter($this->form->getName());
       
       // creating tickets ids array
-      if ( $tmp = json_decode($params['ticket_id']) )
+      if ( ($tmp = json_decode($params['ticket_id'], true, 512, JSON_BIGINT_AS_STRING)) && is_array($tmp) )
         $params['ticket_id'] = $tmp; // json array
       elseif ( in_array('othercode', $field) )
         $params['ticket_id'] = array(preg_replace('/!$/', '', $params['ticket_id']));
@@ -216,7 +216,7 @@
                     $form->bind($params, $request->getFiles($form->getName()));
                     if ( $form->isValid() )
                       $cpt++;
-                    unset($this->tickets[$id]);
+                    unset($this->tickets[$id2]);
                   }
                   if ( $cpt > 0 )
                     $this->errors[] = __('You still have %%nb%% control(s) left on this meta-ticket', array('%%nb%%' => $cpt));
