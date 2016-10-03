@@ -60,6 +60,7 @@ all:
       wip: 2 hours # for the garbage collector to remove useless WIPs
       asked: 40 minutes # for the garbage collector to remove elder asked tickets
     #logo: /private/logo-xxx.png
+    #dematerialized_thermic_printing: false
     authorize_grouped_tickets: false
     #simplified_printing: false     # for dematerialized ticketting only, cf. web/css/print-simplified-tickets.css & web/private/print-simplified-tickets.css
                                     # incompatible with RFID
@@ -71,6 +72,7 @@ all:
     future: 6 hours
     past:   1 day
     #permissive: false
+    type: group # can be "group" or "onebyone"
   #holds:
   #  can_divide_demands: true
   seller:
