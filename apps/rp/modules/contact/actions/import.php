@@ -28,6 +28,7 @@
   $matches = array(
     'id',
     'etablissement1',
+    'function',
     'titre',
     'prenom',
     'nom',
@@ -100,6 +101,8 @@
       if ( $org )
       {
         $pro = new Professional;
+        if ( $entry['function'] )
+          $pro->name = $entry['function'];
         $pro->Contact = $contact;
         $pro->Organism = $org;
         $pro->description = $entry['id'];
