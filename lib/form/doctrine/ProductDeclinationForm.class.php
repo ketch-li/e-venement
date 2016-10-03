@@ -33,6 +33,16 @@ class ProductDeclinationForm extends BaseProductDeclinationForm
     $this->widgetSchema['weight']
       ->setAttribute('class', 'weight');
     
+    $this->validatorSchema['code'] = new sfValidatorAnd(array(
+      $this->validatorSchema['code'],
+      new sfValidatorDoctrineUnique(array(
+        'model'  => 'ProductDeclination',
+        'column' => 'code',
+      )),
+    ), array(
+      'required' => false,
+    ));
+    
     $this->useFields(array_merge(array(
       'id', 'product_id', 'prioritary', 'code', 'weight',
     ),array_keys($this->embeddedForms),

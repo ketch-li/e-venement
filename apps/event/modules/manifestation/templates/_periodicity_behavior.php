@@ -9,10 +9,15 @@
       </p>
       <p>
         <input type="radio" name="periodicity[behaviour]" value="until" />
-        <label for="periodicity_until"><?php echo __('Until') ?></label>
+        <label for="periodicity_until"><?php echo __('From') ?></label>
         <?php
           $widget = new liWidgetFormJQueryDateText(array('culture' => $sf_user->getCulture()));
-          echo $widget->render('periodicity[until]', null, array('id' => 'periodicity_until'));
+          echo $widget->render('periodicity[until][from]', null, array('id' => 'periodicity_until'));
+        ?>
+        <label for="periodicity_until"><?php echo __('to') ?></label>
+        <?php
+          $widget = new liWidgetFormJQueryDateText(array('culture' => $sf_user->getCulture()));
+          echo $widget->render('periodicity[until][to]', null, array('id' => 'periodicity_until'));
         ?>
       </p>
       <p>

@@ -79,10 +79,9 @@
     
     // only when groups are a part of filters
     if ( in_array("LEFT JOIN $a.Groups gc",$q->getDqlPart('from')) )
-      $q->leftJoin(" p.ProfessionalGroups mpg ON mpg.group_id = gp.id AND mpg.professional_id = p.id")
-        ->leftJoin("$a.ContactGroups      mcg ON mcg.group_id = gc.id AND mcg.contact_id      = $a.id")
+      $q->leftJoin(" p.ProfessionalGroups mpg WITH mpg.group_id = gp.id")
+        ->leftJoin("$a.ContactGroups      mcg WITH mcg.group_id = gc.id")
         ->addSelect("(CASE WHEN mcg.information IS NOT NULL THEN mcg.information ELSE mpg.information END) AS information")
-        ->addSelect('mpg.*, p.id, mcg.*')
       ;
     
     $this->lines = $q->fetchArray();
@@ -90,7 +89,7 @@
       $this->filters->setProfessionalData(true);
     
     foreach ( $this->lines as $key => $line )
-    if ( count($line['Professionals']) > 1 )
+    if ( count($line['Professionals']) > 1 && $line['group_pro'] )
     {
       $pros = $line['Professionals'];
       $this->lines[$key]['Professionals'] = array($pros[0]);
@@ -149,8 +148,11 @@
       if ( !$this->filters->showProfessionalData() && !$group_pro )
       {
         foreach ( $line as $field => $value )
-        if ( strpos($field,'professional_') !== false || strpos($field,'organism_') !== false )
-          $this->lines[$key][$field] = '';
+        {
+          if ( strpos($field,'professional_') !== false || strpos($field,'organism_') !== false )
+            $this->lines[$key][$field] = '';
+          unset($this->lines[$key]['Professionals']);
+        }
       }
       
       // address: split new lines in multiple cells

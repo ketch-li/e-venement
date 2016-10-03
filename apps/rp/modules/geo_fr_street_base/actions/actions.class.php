@@ -27,6 +27,7 @@ class geo_fr_street_baseActions extends autoGeo_fr_street_baseActions
     }
     
     $this->addresses = array();
+    $transliterate = sfConfig::get('software_internals_transliterate');
     
     $addr = explode("\n",$this->sanitizeSearch($request->getParameter('address')));
     $address  = explode(' ',$addr[count($addr)-1]);
@@ -45,7 +46,7 @@ class geo_fr_street_baseActions extends autoGeo_fr_street_baseActions
       ->select('sb.address')
     ;
     foreach ( $address as $elt )
-      $q->andWhere('sb.address ILIKE ?', '%'.$elt.'%');
+      $q->andWhere(sprintf("TRANSLATE(sb.address, '%s', '%s') ILIKE ?", $transliterate['from'], $transliterate['to']), '%'.$elt.'%');
     foreach ( $q->fetchArray() as $sb )
       $this->addresses[] = $sb['address'];
   }

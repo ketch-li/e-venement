@@ -220,15 +220,17 @@ $(document).ready(function(){
   });
   
   // change quantities in manifestations list
+  var elt;
   $('.sf_admin_list_td_list_tickets .qty input').on('input', function(){
     LI.manifCalculateTotal(this);
     $(this).focus();
   }).focusout(function(){
+    elt = this;
     $(this).closest('form').submit();
-    console.error('focusout', this);
   });
   LI.manifCalculateTotal();
-  $('.sf_admin_list_td_list_tickets form').submit(function(){
+  $('.sf_admin_list_td_list_tickets form').submit(function(e){
+    e.preventDefault();
     if ( location.hash == '#debug' )
     {
       $(this).prop('target', '_blank');
@@ -237,21 +239,37 @@ $(document).ready(function(){
     else
       $(this).prop('target', '');
     
+    var localelt = elt;
     $.ajax({
       type: $(this).prop('method'),
       url: $(this).prop('action'),
       data: $(this).serialize(),
       success: function(json){
-        $('.sf_admin_list_td_list_tickets form .qty input').val(0);
         if ( json.message )
-          LI.alert(json.message, 'error');
+          LI.alert(json.message, 'error', 6000);
+        
+        var price = $(localelt).closest('[data-price-id]').attr('data-price-id');
+        var gauge = $(localelt).closest('[data-gauge-id]').attr('data-gauge-id');
+        // blinking the line concerned by a constraint
+        if ( parseInt($(localelt).val()) > 0 )
+        if (!( json.tickets[gauge] != undefined && json.tickets[gauge][price] != undefined ))
+        {
+          $(localelt).closest('tr').css('background-color', 'rgba(255,0,0,0.2)');
+          $('html, body').animate({
+            scrollTop: $(localelt).offset().top - 150
+          }, 1500);
+          setTimeout(function(){
+            $(localelt).closest('tr').css('background-color', 'transparent');
+          },3000);
+        }
+        $('.sf_admin_list_td_list_tickets [data-gauge-id] [data-price-id] .qty input:not(:focus)').val(0);
         
         if ( !json.tickets || json.tickets.length == 0 )
           return;
         
         $.each(json.tickets, function(gauge_id, price){
           $.each(price, function(price_id, qty){
-            $(str = '.sf_admin_list_td_list_tickets [data-gauge-id='+gauge_id+'] [data-price-id='+price_id+'] .qty input').val(qty);
+            $('.sf_admin_list_td_list_tickets [data-gauge-id='+gauge_id+'] [data-price-id='+price_id+'] .qty input:not(:focus)').val(qty);
           });
         });
       }
@@ -332,7 +350,7 @@ LI.pubPictureRowspan = function()
 LI.customLayout = function()
 {
   // If not a custom layout do nothing
-  if ( !$('body[class*=" layout-"]').length )
+  if ( $('body').hasClass('layout-default') )
     return;
   
   // Wrap Ariane in container divs (if needed) for consitencty between pub pages
@@ -354,7 +372,7 @@ LI.customLayout = function()
   });
   
   // Put login links at the end
-  var login =   ariane.find('.login');
+  var login = ariane.find('.login');
   login.detach().insertBefore(ariane.find('.command'));
   
   // Put two login links under the same icon
@@ -416,4 +434,3 @@ LI.customLayout = function()
   $('<div class="clearfix"></div>').insertAfter('body.mod-manifestation.action-show #location');
   
 }
-

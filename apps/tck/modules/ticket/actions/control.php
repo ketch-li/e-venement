@@ -58,47 +58,44 @@
       $params = $request->getParameter($this->form->getName());
       
       // creating tickets ids array
-      if ( !in_array('othercode', $field) )
+      if ( ($tmp = json_decode($params['ticket_id'], true, 512, JSON_BIGINT_AS_STRING)) && is_array($tmp) )
+        $params['ticket_id'] = $tmp; // json array
+      elseif ( in_array('othercode', $field) )
+        $params['ticket_id'] = array(preg_replace('/!$/', '', $params['ticket_id']));
+      else
       {
-        if ( $tmp = json_decode($params['ticket_id']) )
-          $params['ticket_id'] = $tmp; // json array
-        else // human encoded arrays
+        $tmp = explode(',',$params['ticket_id']);
+        if ( count($tmp) == 1 )
+          $tmp = preg_split('/\s+/',$params['ticket_id']);
+        $params['ticket_id'] = array();
+        foreach ( $tmp as $key => $ids )
         {
-          $tmp = explode(',',$params['ticket_id']);
-          if ( count($tmp) == 1 )
-            $tmp = preg_split('/\s+/',$params['ticket_id']);
-          $params['ticket_id'] = array();
-          foreach ( $tmp as $key => $ids )
-          {
-            $ids = explode('-',$ids);
-            
-            if ( count($ids) > 0 && isset($ids[1]) )
-            for ( $i = intval($ids[0]) ; $i <= intval($ids[1]) ; $i++ )
-              $params['ticket_id'][$i] = $i;
-            else
-              $params['ticket_id'][] = $ids[0];
-          }
-        }
-        if ( !is_array($params['ticket_id']) )
-          $params['ticket_id'] = array($params['ticket_id']);
-        // decode EAN if it exists
-        if ( in_array('id', $field) )
-        foreach ( $params['ticket_id'] as $key => $value )
-        {
-          $value = preg_replace('/!$/', '', $value);
-          if ( (strlen($value) == 13 || strlen($value) == 12 ) && substr($value,0,1) === '0' )
-          {
-            try { $value = liBarcode::decode_ean($value); }
-            catch ( sfException $e )
-            { $value = intval($value); }
-            $params['ticket_id'][$key] = $value;
-          }
+          $ids = explode('-',$ids);
+          
+          if ( count($ids) > 0 && isset($ids[1]) )
+          for ( $i = intval($ids[0]) ; $i <= intval($ids[1]) ; $i++ )
+            $params['ticket_id'][$i] = $i;
           else
-            $params['ticket_id'][$key] = intval($value);
+            $params['ticket_id'][] = $ids[0];
         }
       }
-      else
-        $params['ticket_id'] = array(preg_replace('/!$/', '', $params['ticket_id']));
+      if ( !is_array($params['ticket_id']) )
+        $params['ticket_id'] = array($params['ticket_id']);
+      // decode EAN if it exists
+      if ( in_array('id', $field) )
+      foreach ( $params['ticket_id'] as $key => $value )
+      {
+        $value = preg_replace('/!$/', '', $value);
+        if ( (strlen($value) == 13 || strlen($value) == 12 ) && substr($value,0,1) === '0' )
+        {
+          try { $value = liBarcode::decode_ean($value); }
+          catch ( sfException $e )
+          { $value = intval($value); }
+          $params['ticket_id'][$key] = $value;
+        }
+        else
+          $params['ticket_id'][$key] = intval($value);
+      }
       
       if ( !in_array('id', $field) && !in_array('othercode', $field) && intval($params['ticket_id'][0]).'' === ''.$params['ticket_id'][0] )
         $field = array('id');
@@ -153,6 +150,7 @@
           $cancontrol = false;
           $this->controls       = new Doctrine_Collection('Control');
           foreach ( $q->execute() as $ticket )
+          // the ticket is in its duration of validity
           if ( $ticket->Price->x_days_valid > 0
             && $ticket->Controls->count() > 0
             && $ticket->Controls[0]->created_at >= date('Y-m-d', strtotime(($control->Ticket->Price->x_days_valid-1).' days ago')) )
@@ -166,11 +164,16 @@
               '%%datetime%%' => $control->created_at,
               '%%user%%' => (string)$control->User,
             ));
+            
+            // adding a failure in the control log if a ticket is being controled twice
+            $failure = new FailedControl;
+            $params['ticket_id'] = $ticket->id;
+            $failure->complete($params);
           }
           else
           {
             $cancontrol = true;
-            $this->tickets[] = $ticket;
+            $this->tickets[$ticket->id] = $ticket;
           }
         }
         
@@ -189,6 +192,7 @@
           if ( $checkpoint->id )
           {
             $err = $tck = array();
+            $ids = $params['ticket_id'];
             $ids = $this->tickets->getPrimaryKeys();
             foreach ( $ids as $id )
             {
@@ -199,11 +203,45 @@
               if ( $this->form->isValid() ) try
               {
                 $this->form->save();
+                // do only one loop if the config says to control tickets one by one
+                if ( sfConfig::get('app_control_type', 'group') == 'onebyone' )
+                {
+                  $cpt = 0;
+                  foreach ( $ids as $id2 )
+                  if ( $id2 != $id )
+                  {
+                    $form = new ControlForm;
+                    $form->forceField('id');
+                    $params['ticket_id'] = $id;
+                    $form->bind($params, $request->getFiles($form->getName()));
+                    if ( $form->isValid() )
+                      $cpt++;
+                    unset($this->tickets[$id2]);
+                  }
+                  if ( $cpt > 0 )
+                    $this->errors[] = __('You still have %%nb%% control(s) left on this meta-ticket', array('%%nb%%' => $cpt));
+                  break;
+                }
               } catch ( liEvenementException $e ) { error_log('TicketActions::executeControl() - '.$e->getMessage().' Passing by.'); }
               else
               {
                 $err[] = $id;
-                $this->tickets[] = $tck[$id] = Doctrine::getTable('Ticket')->find($id);
+                if ( isset($this->tickets[$id]) )
+                {
+                  $tck[$id] = $this->tickets[$id];
+                  if ( !$this->form->getObject()->Checkpoint->mightControl($id) )
+                  {
+                    unset($this->tickets[$id]);
+                    continue;
+                  }
+                }
+                else
+                  $tck[$id] = Doctrine::getTable('Ticket')->find($id);
+                
+                $failure = new FailedControl;
+                if ( isset($this->tickets[$id]) )
+                  $params['ticket_id'] = $id;
+                $failure->complete($params);
               }
             }
             foreach ( $err as $e )

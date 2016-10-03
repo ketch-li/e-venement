@@ -4,6 +4,8 @@
 
 select[disabled] { color: #444; }
 
+#sf_admin_actions_menu_list .sf_admin_action_cancelperiodicity a {  }
+
 #content .sf_admin_form_field_participants_list ul,
 #content .sf_admin_form_field_organizers_list ul,
 #content .sf_admin_form_field_workspaces_list ul,
@@ -47,7 +49,7 @@ select[disabled] { color: #444; }
 #sf_fieldset_tickets .workspace td, #sf_fieldset_spectators .workspace td { border-top: 1px solid black; padding: 3px 10px 3px 0; }
 #sf_fieldset_tickets .workspace:first-child td, #sf_fieldset_spectators .workspace:first-child td { border: 0; }
 #sf_fieldset_tickets td .workspace, #sf_fieldset_spectators td .workspace { display: none; }
-dsf#sf_fieldset_tickets td .tickets, sdf#sf_fieldset_spectators td .tickets { display: block; white-space: nowrap; }
+#sf_fieldset_tickets td .tickets, sdf#sf_fieldset_spectators td .tickets { display: block; white-space: nowrap; }
 #sf_fieldset_tickets td.nb_contacts { text-align: right; }
 #sf_fieldset_tickets td.nb_contacts span { width: 2em; display: inline-block; padding-right: 2px; }
 
@@ -92,6 +94,15 @@ dsf#sf_fieldset_tickets td .tickets, sdf#sf_fieldset_spectators td .tickets { di
 .periodicity .mods_reservation_optional { display: none; }
 .periodicity#sf_admin_container .manifestations-list { margin: 5px 5px 0 5px; padding: 5px 5px 5px 20px; }
 .periodicity#sf_admin_container .manifestations-list li { padding: 5px; border-radius: 3px; }
+.periodicity #again, .periodicity #calendar { float: none; } 
+#periodicity_repeat ul { 
+  display: inline-block; 
+  list-style-type: none;
+  margin-left: 10px; 
+  margin-right: 10px;
+}
+#periodicity_repeat #time { margin-bottom: 20px; }
+#periodicity_repeat .number { margin: 2px;}
 
 .sf_admin_action_version input { border-width: 0; padding: 0; width: 3em; text-align: right; }
 .sf_admin_action_version label { padding-right: 10px; }

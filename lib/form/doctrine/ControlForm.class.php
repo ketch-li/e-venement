@@ -66,6 +66,17 @@ class ControlForm extends BaseControlForm
     return parent::doBind($values);
   }
   
+  public function isValid()
+  {
+    if ( !parent::isValid() )
+      return false;
+    
+    if (!( $checkpoint = Doctrine::getTable('Checkpoint')->find($this->values['checkpoint_id']) ))
+      return false;
+    $this->object->Checkpoint = $checkpoint;
+    return $checkpoint->mightControl($this->values['ticket_id']);
+  }
+  
   public function forceField($field = NULL)
   {
     if ( $field )

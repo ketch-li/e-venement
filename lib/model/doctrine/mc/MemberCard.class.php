@@ -72,7 +72,7 @@ class MemberCard extends PluginMemberCard
     
     $payments = $tickets = 0;
     foreach ( $this->Tickets as $ticket )
-    if ( $ticket->Duplicatas->count() == 0 && ($ticket->integrated_at || $ticket->printed_at) && !$ticket->hasBeenCancelled() )
+    if ( $ticket->Duplicatas->count() == 0 && ($ticket->integrated_at || $ticket->printed_at) && !$ticket->hasBeenCancelled() && !$ticket->cancelling )
       $tickets++;
     foreach ( $this->Payments as $payment )
       $payments += $payment->value;

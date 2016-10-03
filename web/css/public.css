@@ -19,6 +19,7 @@ ul.no-bullet li.highlight { text-decoration: underline; }
 .sf_admin_list_td_list_companies ul { margin: 0; padding: 0; }
 #sf_admin_container .sf_admin_list tbody td { vertical-align: middle; }
 .sf_admin_list table thead a { padding: 0; }
+.sf_admin_list .sf_admin_row { transition: background-color 1s; }
 
 .sf_admin_filter select { width: 180px; }
 

@@ -65,6 +65,16 @@ class ManifestationFormFilter extends BaseManifestationFormFilter
       'required'  => false,
     ));
     
+    $this->widgetSchema   ['prices_list'] = new cxWidgetFormDoctrineJQuerySelectMany(array(
+      'model' => 'Price',
+      'url'   => url_for('price/ajax'),
+    ));
+    $this->validatorSchema['prices_list'] = new sfValidatorDoctrineChoice(array(
+      'model' => 'Price',
+      'multiple' => true,
+      'required' => false,
+    ));
+    
     $this->widgetSchema['color_id']->setOption('method', 'getName');
     
     $this->widgetSchema   ['has_description'] =
@@ -134,6 +144,21 @@ class ManifestationFormFilter extends BaseManifestationFormFilter
     ));
   }
   
+  public function addPricesListColumnQuery(Doctrine_Query $q, $field, $values)
+  {
+    if ( !$values )
+      return $q;
+    if ( !is_array($values) )
+      $values = array($values);
+    
+    return $q
+      ->leftJoin('g.PriceGauges pg')
+      ->andWhere('(TRUE')
+      ->andWhereIn('pm.price_id', $values)
+      ->orWhereIn('pg.price_id', $values)
+      ->andWhere('TRUE)')
+    ;
+  }
   public function addDayOfTheWeekColumnQuery(Doctrine_Query $q, $field, $values)
   {
     if ( !is_array($values) )
