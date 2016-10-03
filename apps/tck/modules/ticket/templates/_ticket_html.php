@@ -62,8 +62,11 @@
         <span class="organism"><?php echo $ticket->Transaction->Professional->Organism ?></span>
         <span class="contact"><?php echo $ticket->Transaction->Contact ?></span>
       <?php else: ?>
-        <?php echo $ticket->Transaction->professional_id > 0 ? $ticket->Transaction->Professional->Organism : $ticket->Transaction->Contact ?>
+        <?php echo $ticket->Transaction->professional_id ? $ticket->Transaction->Professional->Organism : $ticket->Transaction->Contact ?>
       <?php endif ?>
+      <span class="vard_uid">
+        <?php echo $ticket->Transaction->professional_id ? $ticket->Transaction->Professional->Organism->vcard_uid : $ticket->Transaction->Contact->vcard_uid ?>
+      </span>
     </p>
     <p class="mentions">
       <?php if ( trim($ticket->Manifestation->Location->licenses) ): ?>
