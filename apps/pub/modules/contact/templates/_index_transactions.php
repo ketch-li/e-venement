@@ -49,16 +49,18 @@
           continue;
         
         // has at least one normal ticket
+        $cpt = array('price' => 0, 'sold' => 0);
         foreach ( $t->Tickets as $ticket )
         {
-          $cpt = 0;
           if ( !is_null($ticket->price_id) )
-            $cpt++;
+            $cpt['price']++;
+          if ( $ticket->isSold() )
+            $cpt['sold']++;
         }
         if ( $cpt == 0 )
           continue;
       ?>
-      <?php if ( $t->Order->count() > 0 && $t->Tickets->count() > 0 || $t->getPrice() > 0 ): ?>
+      <?php if ( $t->Order->count() > 0 && $t->Tickets->count() > 0 || $cpt['sold'] > 0 || $t->getPrice() > 0 ): ?>
         <tr class="sf_admin_row <?php echo $cpt%2 == 0 ? '' : 'odd' ?> transaction-<?php echo $t->id ?>">
           <td class="sf_admin_text sf_admin_list_td_list_id">#<a href="<?php echo url_for('transaction/show?id='.$t->id) ?>" class="transaction"><?php echo $t->id ?></a></td>
           <td class="sf_admin_date sf_admin_list_td_list_date"><?php echo format_date($t->created_at) ?></td>

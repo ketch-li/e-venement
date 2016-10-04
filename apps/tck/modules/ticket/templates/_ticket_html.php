@@ -62,8 +62,11 @@
         <span class="organism"><?php echo $ticket->Transaction->Professional->Organism ?></span>
         <span class="contact"><?php echo $ticket->Transaction->Contact ?></span>
       <?php else: ?>
-        <?php echo $ticket->Transaction->professional_id > 0 ? $ticket->Transaction->Professional->Organism : $ticket->Transaction->Contact ?>
+        <?php echo $ticket->Transaction->professional_id ? $ticket->Transaction->Professional->Organism : $ticket->Transaction->Contact ?>
       <?php endif ?>
+      <span class="vard_uid">
+        <?php echo $ticket->Transaction->professional_id ? $ticket->Transaction->Professional->Organism->vcard_uid : $ticket->Transaction->Contact->vcard_uid ?>
+      </span>
     </p>
     <p class="mentions">
       <?php if ( trim($ticket->Manifestation->Location->licenses) ): ?>
@@ -118,6 +121,9 @@
       <?php else: ?>
         <?php echo $ticket->Transaction->professional_id > 0 ? $ticket->Transaction->Professional->Organism : $ticket->Transaction->Contact ?>
       <?php endif ?>
+      <span class="vard_uid">
+        <?php echo $ticket->Transaction->professional_id ? $ticket->Transaction->Professional->Organism->vcard_uid : $ticket->Transaction->Contact->vcard_uid ?>
+      </span>
     </p>
     <p class="event"><?php echo mb_strlen($buf = (string)$ticket->getRaw('Manifestation')->Event) > $maxsize['event_name_right'] ? mb_substr($buf,0,$maxsize['event_name_right']-3).'...' : $buf ?></p>
     <p class="event-short"><?php echo mb_strlen($buf = $ticket->Manifestation->Event->short_name) > $maxsize['event_shortname'] ? mb_substr($buf,0,$maxsize['event_shortname']).'...' : $buf ?></p>

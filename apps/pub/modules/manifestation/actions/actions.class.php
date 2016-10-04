@@ -107,7 +107,7 @@ class manifestationActions extends autoManifestationActions
   {
     $vel = sfConfig::get('app_tickets_vel', array());
     $q = Doctrine::getTable('Gauge')->createQuery('g')
-      ->addSelect('gtck.*, m.*, mpm.*, mp.*, tck.*, e.*, l.*, ws.*, sp.*, op.*')
+      ->addSelect('gtck.*, m.*, mpm.*, mp.*, gpg.*, gp.*, tck.*, e.*, l.*, ws.*, sp.*, op.*')
       ->andWhere('g.online = ?', true)
       
       ->leftJoin('g.Tickets gtck WITH gtck.price_id IS NULL AND gtck.seat_id IS NOT NULL AND gtck.transaction_id = ?', $this->getUser()->getTransaction()->id)
@@ -127,6 +127,7 @@ class manifestationActions extends autoManifestationActions
       ->leftJoin('g.PriceGauges gpg')
       ->leftJoin('gpg.Price gp')
       ->leftJoin('gp.Translation gpt WITH gpt.lang = ?', $this->getUser()->getCulture())
+      ->leftJoin('gp.Tickets ggtck WITH ggtck.gauge_id = g.id AND ggtck.transaction_id = ?', $this->getUser()->getTransaction()->id)
       ->leftJoin('m.PriceManifestations mpm')
       ->leftJoin('mpm.Price mp')
       ->leftJoin('mp.Translation mpt WITH mpt.lang = ?', $this->getUser()->getCulture())
