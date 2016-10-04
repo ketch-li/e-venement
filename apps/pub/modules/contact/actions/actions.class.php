@@ -105,7 +105,7 @@ class contactActions extends sfActions
     catch ( liEvenementException $e )
     { $this->redirect('contact/new'); }
     
-    $this->manifestations = Doctrine::getTable('Manifestation')->createQuery('m')
+    $q = Doctrine::getTable('Manifestation')->createQuery('m', true)
       ->leftJoin('m.Tickets tck')
       ->leftJoin('tck.Transaction t')
       ->leftJoin('t.Order order')
@@ -115,7 +115,8 @@ class contactActions extends sfActions
       ->leftJoin('t.HoldTransaction ht')
       ->andWhere('ht.id IS NULL')
       ->orderBy('m.happens_at DESC')
-      ->execute();
+    ;
+    $this->manifestations = $q->execute();
     
     $this->products = Doctrine::getTable('BoughtProduct')->createQuery('bp')
       ->leftJoin('bp.Transaction t')
