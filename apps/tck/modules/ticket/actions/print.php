@@ -27,6 +27,8 @@
       'print'     => sfConfig::get('app_tickets_simplified_printing', false) && sfConfig::get('app_tickets_merge') ? 300 : 150,
       'duplicate' => 30,
     );
+    
+    $i = 0;
 
     $q = Doctrine::getTable('Transaction')
       ->createQuery('t')
@@ -214,6 +216,7 @@
             }
 
             if ( sfConfig::get('app_tickets_simplified_printing', false) ||
+                 sfConfig::get('app_tickets_dematerialized_thermic_printing', false) ||
               (
                 !$ticket->printed_at && !$ticket->integrated_at
                 && !($request->getParameter('manifestation_id') && $ticket->manifestation_id != $request->getParameter('manifestation_id'))
@@ -221,7 +224,9 @@
             )
             {
               $cpt++;
-              if ( $ticket->Manifestation->no_print || sfConfig::get('app_tickets_simplified_printing', false) )
+              if ( $ticket->Manifestation->no_print
+                || sfConfig::get('app_tickets_simplified_printing', false)
+                || sfConfig::get('app_tickets_dematerialized_thermic_printing', false) )
               {
                 // member cards (cf. PluginTicket::preUpdate()) OR auto controled tickets
                 if ( $ticket->Price->member_card_linked || $ticket->Manifestation->Location->auto_control )
@@ -229,14 +234,14 @@
                   $cpt += 2; // because member cards treatments take a loong time
                   $ticket->integrated_at = date('Y-m-d H:i:s');
                   $ticket->vat = $ticket->Manifestation->Vat->value;
-                  $ticket->qrcode;
+                  //$ticket->qrcode;
                   $ticket->save();
                   $cpt += 2; // because member cards treatments take a loong time
                 }
                 else
                   $update['integrated_at'][$ticket->id] = $ticket->id;
                 
-                if ( sfConfig::get('app_tickets_simplified_printing', false) )
+                if ( sfConfig::get('app_tickets_simplified_printing', false) || sfConfig::get('app_tickets_dematerialized_thermic_printing', false) )
                   $this->tickets[] = $ticket;
               }
               else
@@ -277,7 +282,8 @@
         ->set('t.version','t.version + 1')
         ->set('t.barcode',"md5('#'||id||'-".sfConfig::get('project_eticketting_salt', '')."')") // cf. Ticket::getBarcodePng()
       ;
-      if ( !sfConfig::get('app_tickets_simplified_printing', false) )
+      if ( !sfConfig::get('app_tickets_simplified_printing', false)
+        && !sfConfig::get('app_tickets_dematerialized_thermic_printing', false) )
         $q->andWhere(sprintf('t.%s IS NULL',$type));
 
       // bulk update for grouped tickets
@@ -290,7 +296,7 @@
 
         $q->set('t.grouping_fingerprint',"'".$fingerprint."'");
       }
-
+      
       $q->execute();
 
       // ticket version

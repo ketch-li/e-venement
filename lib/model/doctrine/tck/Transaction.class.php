@@ -38,10 +38,19 @@ class Transaction extends PluginTransaction
   public function getItemables()
   {
     $r = new Doctrine_Collection('Itemable');
+    
+    // retrieving and ordering stuff
+    $arr = array();
     foreach ( $this->getTable()->getRelations() as $rel => $fk )
     if ( is_a($fk->getClass(), 'Itemable', true) )
     foreach ( $this->$rel as $obj )
+      $arr[$obj->created_at.' '.$rel.' '.$obj->id] = $obj;
+    ksort($arr);
+    
+    // presenting things correctly and in the good order
+    foreach ( $arr as $key => $obj )
       $r[] = $obj;
+    
     return $r;
   }
 

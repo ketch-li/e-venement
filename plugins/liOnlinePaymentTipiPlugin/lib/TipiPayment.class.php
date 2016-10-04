@@ -33,7 +33,7 @@
       return new self($transaction);
     }
     
-    public static function getTransactionIdByResponse(sfWebRequest $parameters)
+    public static function getTransactionIdByResponse(sfWebRequest $request)
     {
       return $request->getParameter('transaction_id');
     }
@@ -85,6 +85,8 @@
     
     protected function __construct(Transaction $transaction)
     {
+      sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
+      
       // the configuration
       $this->id       = str_pad(sfConfig::get('app_payment_id', 194), 6, '0', STR_PAD_LEFT);
       $this->refdet   = str_pad(sfConfig::get('app_payment_refdet', 999900000000999999), 18, '0', STR_PAD_LEFT);

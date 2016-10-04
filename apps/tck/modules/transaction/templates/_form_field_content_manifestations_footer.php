@@ -10,7 +10,7 @@
       autocomplete="off">
   <p>
     <input type="submit" name="s" value="<?php echo __('Print') ?>" class="ui-widget-content ui-state-default ui-corner-all ui-widget fg-button" />
-    <?php if ( !sfConfig::get('app_tickets_simplified_printing', false) ): ?>
+    <?php if ( !sfConfig::get('app_tickets_simplified_printing', false) && !sfConfig::get('app_tickets_authorize_multi_prints', false) ): ?>
       <?php if ( sfConfig::get('app_tickets_authorize_grouped_tickets', false) ): ?>
         <input type="checkbox" name="grouped_tickets" value="true" title="<?php echo __('Grouped tickets') ?>" />
       <?php endif ?>
@@ -26,7 +26,10 @@
   </p>
 </form>
 
-<?php if ( $sf_user->hasCredential('tck-integrate') && !sfConfig::get('app_tickets_simplified_printing', false) ): ?>
+<?php if ( $sf_user->hasCredential('tck-integrate')
+  && !sfConfig::get('app_tickets_simplified_printing', false)
+  && !sfConfig::get('app_tickets_authorize_multi_prints', false)
+): ?>
 <form action="<?php echo url_for('ticket/integrate?id='.$transaction->id) ?>"
       method="get" target="_blank" class="integrate noajax"
       onsubmit="javascript: return LI.checkGauges(this);">
