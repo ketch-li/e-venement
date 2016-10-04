@@ -20,7 +20,7 @@ body {
 .spectator * { display: none; }
 .all-infos, .comment { display: none; }
 .all-infos { white-space: normal; font-weight: normal; overflow: hidden; }
-.spectator span + span { display: none; }
+.spectator .vcard_uid, .spectator span + span { display: none; }
 .ticket {
   width: 150mm;
   height: 58mm;

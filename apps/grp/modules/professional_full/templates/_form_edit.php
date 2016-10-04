@@ -51,27 +51,20 @@
           <?php include_partial('form_manifestation',array('me' => $me, )) ?>
         </td>
         <?php foreach ( $ces as $ce1 ): ?>
+        <?php if ( $ce1->entry_id != $me->entry_id ): ?>
+        <td></td>
+        <?php else: ?>
         <?php
-          $entry_element = Doctrine::getTable('EntryElement')->fetchOneByContactManifestation($ce1->id, $me->id);
-          if ( !$entry_element )
+          if (!( $entry_element = Doctrine::getTable('EntryElement')->fetchOneByContactManifestation($ce1->id, $me->id) ))
           {
             $entry_element = new EntryElement;
-            $entry_element->contact_entry_id = $ce->id;
+            $entry_element->contact_entry_id = $ce1->id;
             $entry_element->manifestation_entry_id = $me->id;
             $entry_element->save();
           }
         ?>
         <td class="contact-<?php echo $ce->id ?> <?php echo ++$j%2 == 0 ? 'pair' : 'impair' ?> <?php echo $entry_element->second_choice ? 'second_choice' : '' ?> <?php echo $entry_element->accepted ? 'accepted' : '' ?>">
           <?php if ( $ce1->id === $ce->id ): ?>
-          <?php
-            if ( !$entry_element )
-            {
-              $entry_element = new EntryElement;
-              $entry_element->contact_entry_id = $ce->id;
-              $entry_element->manifestation_entry_id = $me->id;
-              $entry_element->save();
-            }
-          ?>
           <script type="text/javascript"><!--
             $(document).ready(function(){
               $('tr.manifestation-<?php echo $me->id ?> td.contact-<?php echo $ce->id ?>').attr('title',"<?php echo $professional->Contact.' - '.$professional?>\n<?php echo $me->Manifestation ?>");
@@ -105,6 +98,7 @@
           </form>
           <?php endif ?>
         </td>
+        <?php endif ?>
         <?php endforeach ?>
       </tr>
       <?php endforeach ?>
