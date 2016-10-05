@@ -95,14 +95,15 @@ body.mod-card {
         margin: 0; }
     #sf_admin_header #ariane a {
       float: left;
-      margin: 2px 20px;
+      margin: 2px 0px;
       height: 60px;
-      width: 60px;
+      width: 100px;
       position: relative;
       background-size: 40px;
       background-position: center;
       background-repeat: no-repeat;
       text-align: center;
+      white-space: nowrap;
       span-display: none; }
     #sf_admin_header #ariane li:hover a {
       text-decoration: none;
@@ -119,8 +120,8 @@ body.mod-card {
         border-radius: 3px; }
     #sf_admin_header #ariane .login a[href*="login"] {
       background-image: url("/images/vel/themes/icon_account.png"); }
-    #sf_admin_header #ariane .login a.second-link {
-      margin: 0 0 0 -15px; }
+    #sf_admin_header #ariane .login a {
+      background-image: url("/images/vel/themes/icon_new_account.png"); }
     #sf_admin_header #ariane .cart a {
       background-image: url("/images/vel/themes/icon_panier.png"); }
     #sf_admin_header #ariane .event a.event {

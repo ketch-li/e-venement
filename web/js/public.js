@@ -405,7 +405,8 @@ LI.customLayout = function()
     $(this).find('.sf_admin_list_td_name').append(subtitle);
 
     // Add date picker for events
-    var dateBtn = $('<a href="#">').text('Choisir une date');  // TODO: translation !
+    var dateHref = $(this).find('.sf_admin_list_td_name a').attr('href'); // TODO: display the list ?
+    var dateBtn = $('<a>').attr('href', dateHref).text('Choisir une date');  // TODO: translation !
     $('<td>').addClass('sf_admin_date_action').append(dateBtn).appendTo($(this));
 
     // Add order button

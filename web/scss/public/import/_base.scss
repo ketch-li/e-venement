@@ -63,14 +63,15 @@ body.mod-card { color: $text-color2; }
     }    
     a { 
       float: left;
-      margin: 2px 20px;
+      margin: 2px 0px;
       height: 60px;
-      width: 60px;      
+      width: 100px;      
       position: relative;
       background-size: 40px; 
       background-position: center;
       background-repeat: no-repeat;
       text-align: center;
+      white-space: nowrap;
       span: { 
         display: none; 
       }
@@ -91,7 +92,7 @@ body.mod-card { color: $text-color2; }
       }      
     }
     .login a[href*="login"] { @include bg-image("icon_account.png"); }
-    .login a.second-link { margin: 0 0 0 -15px; }
+    .login a {  @include bg-image("icon_new_account.png"); }
     .cart a { @include bg-image("icon_panier.png"); }
     .event a.event { @include bg-image("icon_reservation.png"); }
     .event a.mc { @include bg-image("icon_cube.png"); }
