@@ -171,7 +171,7 @@ body.mod-card { color: $text-color2; }
 .mod-cart.action-order #login, .mod-cart.action-register #login, #contact-form { border-radius: 4px; border: 1px dashed silver; margin: 10px 0 10px 0; padding: 5px; }
 .mod-cart.action-order #login.active, .mod-cart.action-register #login.active, #contact-form.active { border-style: solid; }
 .mod-cart.action-order #login h2, .mod-cart.action-register #login h2, #contact-form h2 { margin: 0; }
-.mod-cart.action-order #login p, .mod-cart.action-register #login p, #contact-form .field { background-color: white; padding: 1px 3px; border-radius: 3px; clear: both; }
+.mod-cart.action-order #login p, .mod-cart.action-register #login p, #contact-form .field { background-color: $form-bg-color; padding: 1px 3px; border-radius: 3px; clear: both; }
 .mod-cart.action-order #login p input, .mod-cart.action-register #login p input, #contact-form .field input:not([type=checkbox]),
 #contact-form .field select,
 .mod-cart.action-order #login p textarea, .mod-cart.action-register #login p textarea, #contact-form .field textarea { border: 1px solid black; border-radius: 3px; background-color: whitesmoke; width: 30em; }
@@ -182,7 +182,8 @@ body.mod-card { color: $text-color2; }
 #contact-form .field.address.error .textarea :not(:last-child) { color: black; }
 #contact-form .field.address.error .textarea :last-child { font-weight: bold; color: #cd0a0a; }
 #contact-form .field.address.error .textarea > * { display: block; padding-top: 2px; }
-.mod-cart.action-order #login label, .mod-cart.action-register #login label, #contact-form .field label { width: 140px; display: block; float: left; margin-top: 3px; font-weight: bold; }
+.mod-cart.action-order #login label, .mod-cart.action-register #login label, #contact-form .field label { width: 200px; display: block; float: left; margin-top: 3px; font-weight: bold; }
+#contact-form .field.newsletter label { width: 25em; }
 .mod-cart.action-order #login .submit, .mod-cart.action-register #login .submit, #contact-form .submit { margin-left: 142px; }
 .mod-cart.action-order #login .create, .mod-cart.action-register #login .create { display: none; }
 #contact-form .special_groups_list { padding-top: 5px; }

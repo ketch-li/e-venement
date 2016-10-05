@@ -261,11 +261,14 @@ body.mod-card {
   padding-top: 2px; }
 
 .mod-cart.action-order #login label, .mod-cart.action-register #login label, #contact-form .field label {
-  width: 140px;
+  width: 200px;
   display: block;
   float: left;
   margin-top: 3px;
   font-weight: bold; }
+
+#contact-form .field.newsletter label {
+  width: 25em; }
 
 .mod-cart.action-order #login .submit, .mod-cart.action-register #login .submit, #contact-form .submit {
   margin-left: 142px; }
