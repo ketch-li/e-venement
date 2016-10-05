@@ -89,7 +89,7 @@
       
       // the configuration
       $this->id       = str_pad(sfConfig::get('app_payment_id', 194), 6, '0', STR_PAD_LEFT);
-      $this->refdet   = str_pad(sfConfig::get('app_payment_refdet', 999900000000999999), 18, '0', STR_PAD_LEFT);
+      $this->refdet   = $transaction->id;
       $this->email    = $transaction->Contact->email;
       $url = sfConfig::get('app_payment_url', array('response' => 'cart/response'));
       $this->subject  = 'Transaction n'.$transaction->id;

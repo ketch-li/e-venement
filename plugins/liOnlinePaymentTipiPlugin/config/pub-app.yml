@@ -5,10 +5,9 @@ all:
   # ...
   payment:
     type: tipi
-    id: 194
-    refdet: 999900000000999999
-    prod: true
-    salt: xxxx
+    id: 194 # numéro de client
+    prod: true # false pour les tests
+    salt: xxxx # très important, mettre une longue chaîne aléatoire
     url:
       payment: [https://www.jepaiemesserviceslocaux.dgfip.finances.gouv.fr/]
       uri: tpa/paiement.web
