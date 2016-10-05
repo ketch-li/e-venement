@@ -94,6 +94,7 @@ body.mod-card { color: $text-color2; }
     .login a[href*="login"] { @include bg-image("icon_account.png"); }
     .login a {  @include bg-image("icon_new_account.png"); }
     .cart a { @include bg-image("icon_panier.png"); }
+    .with-store a { @include bg-image("icon_store.png"); }
     .event a.event { @include bg-image("icon_reservation.png"); }
     .event a.mc { @include bg-image("icon_cube.png"); }
     .command { float: right; }

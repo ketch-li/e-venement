@@ -125,6 +125,8 @@ body.mod-card {
       background-image: url("/images/vel/themes/icon_new_account.png"); }
     #sf_admin_header #ariane .cart a {
       background-image: url("/images/vel/themes/icon_panier.png"); }
+    #sf_admin_header #ariane .with-store a {
+      background-image: url("/images/vel/themes/icon_store.png"); }
     #sf_admin_header #ariane .event a.event {
       background-image: url("/images/vel/themes/icon_reservation.png"); }
     #sf_admin_header #ariane .event a.mc {
