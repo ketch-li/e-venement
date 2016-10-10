@@ -126,9 +126,7 @@
       
       $r .= '<input type="submit" value="Tipi" />';
       $r .= '</form>';
-       var_dump($r);
 
-      die();
       return $r;
     }
 
