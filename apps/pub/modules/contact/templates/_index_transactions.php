@@ -45,7 +45,7 @@
       <?php foreach ( $contact->Transactions as $t ): ?>
       <?php
         // is related to a Hold
-        if ( $t->HoldTransaction->id )
+        if ( $t->getRaw('HoldTransaction') instanceof HoldTransaction && $t->HoldTransaction->id )
           continue;
         
         // has at least one normal ticket
