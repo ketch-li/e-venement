@@ -150,4 +150,6 @@ for ( $i = -1 ; $i < count($options) ; $i++ )
   }
 }
 
+$this->oneShot();
+
 return sfView::NONE;

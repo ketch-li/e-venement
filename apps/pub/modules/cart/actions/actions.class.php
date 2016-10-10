@@ -307,6 +307,21 @@ class cartActions extends sfActions
         $this->getUser()->getTransaction()->Payments[] = $p_mc;
     }
   }
+  
+  protected function oneShot()
+  {
+    // empty'ing the password if asked for
+    $vel = sfConfig::get('app_tickets_vel', array());
+    if (!( isset($vel['one_shot']) && $vel['one_shot'] ))
+      return false;
+    
+    $this->transaction->Contact->password = NULL;
+    $this->transaction->Contact->save();
+    error_log('Logout forced following the "one_shot" option.');
+    $this->getUser()->logout();
+    
+    return true;
+  }
 
 
     public function getErrors($form = false, $embedded_forms = array()) {
