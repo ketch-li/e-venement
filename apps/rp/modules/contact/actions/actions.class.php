@@ -141,7 +141,7 @@ class contactActions extends autoContactActions
     $q = $this->buildQuery()
       ->limit($limit)
       ->offset($offset = $request->getParameter('offset',0));
-
+    
     $a = $q->getRootAlias();
     foreach ( $q->execute() as $contact )
     {
@@ -184,7 +184,7 @@ class contactActions extends autoContactActions
   }
   protected function sendPassword($obj)
   {
-    if (!( $obj instanceof Contact ? $contact->email : $obj->contact_email ))
+    if (!( $obj instanceof Contact ? $obj->email : $obj->contact_email ))
       return false;
 
     // format content
