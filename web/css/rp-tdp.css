@@ -58,9 +58,8 @@ body #content { width: auto; }
 #tdp-content #sf_admin_content .tdp-line.address select { position: absolute; margin-top: -4em; width: 279px; }
 #tdp-content #sf_admin_content .tdp-line.complements .tdp-email { display: block; }
 #tdp-content #sf_admin_content .tdp-line.internet .tdp-contact_email input { width: 240px; }
-#tdp-content #sf_admin_content .tdp-line.complements .tdp-url input,
-#tdp-content #sf_admin_content .tdp-line.complements .tdp-email input { width: 270px; }
-#tdp-content #sf_admin_content .tdp-line.internet .tdp-contact_email.bad input, #tdp-content #sf_admin_content .tdp-line.complements .tdp-email.bad input { border: 1px dashed red; border-radius: 2px; background-color: rgba(0,0,0,0.01); padding: 4px; }
+#tdp-content #sf_admin_content .tdp-line.complements .tdp-url input, #tdp-content #sf_admin_content .tdp-line.complements .tdp-email input { width: 270px; }
+#tdp-content #sf_admin_content .bad input, #tdp-content #sf_admin_content .bad textarea { border: 1px dashed red; border-radius: 2px; background-color: rgba(0,0,0,0.01); padding: 4px; }
 #tdp-content #sf_admin_content .tdp-line.complements .tdp-email_npai,
 #tdp-content #sf_admin_content .tdp-contact_email_npai,
 #tdp-content #sf_admin_content .tdp-line.complements .tdp-email_no_newsletter,

@@ -252,11 +252,12 @@ $(document).ready(function(){
   // SIDEBAR
   LI.tdp_side_bar();
   
+  // Highlightening email addresses & addresses if they are "ticked" as invalid
   $('.tdp-line.internet .tdp-contact_email_npai input[type=checkbox], .tdp-line.complements .tdp-email_npai input[type=checkbox]').change(function(){
-    if ( $(this).prop('checked') )
-      $(this).closest('.tdp-line.complements, .tdp-line.internet').find('.tdp-email, .tdp-contact_email').addClass('bad');
-    else
-      $(this).closest('.tdp-line.complements, .tdp-line.internet').find('.tdp-email, .tdp-contact_email').removeClass('bad');
+    $(this).prop('checked') ? $(this).closest('.tdp-line.complements, .tdp-line.internet').find('.tdp-email, .tdp-contact_email').addClass('bad') : $(this).closest('.tdp-line.complements, .tdp-line.internet').find('.tdp-email, .tdp-contact_email').removeClass('bad');
+  }).change();
+  $('.tdp-line.more .tdp-npai input[type=checkbox]').change(function(){
+    $(this).prop('checked') ? $(this).closest('.tdp-object').find('.tdp-address').addClass('bad') : $(this).closest('.tdp-object').find('.tdp-address').removeClass('bad');
   }).change();
   
   // TOPBAR
