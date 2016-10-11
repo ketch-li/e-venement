@@ -133,6 +133,11 @@ body #content { width: auto; }
 #tdp-content .tdp-line.relations .tdp-Relationships table table tr + tr { margin-top: 2px; }
 #tdp-content .tdp-line.relations .tdp-Relationships table table select { margin: 0; }
 
+@media screen and (min-width: 1200px) {
+#tdp-content #sf_admin_content .sf_admin_form_field_professional_type_id select { max-width: 25%; }
+#tdp-content .tdp-professional #sf_admin_content .tdp-line.line1 input[type=text] { width: 25%; }
+}
+
 @media screen and (min-width: 1500px) {
 
 #tdp-content .tdp-line.more { position: absolute; margin-top: -105px; margin-left: 800px; }
