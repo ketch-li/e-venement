@@ -49,9 +49,10 @@ jQuery().ready(function(){
 		// modal window for filters
 		submit = $('#sf_admin_filter_submit').val();
 		reset  = $('#sf_admin_filter_reset').val();
+		console.error($(document).width());
 		$('.sf_admin_filter').dialog({
 			autoOpen: false,
-			width: 600,
+			width: $(document).width() > 1450 ? 1100 : 600,
 			height: $(window).height() - 50,
 			close: function(evt, ui){
 				$('#sf_admin_filter_button').removeClass('ui-state-active');
