@@ -303,6 +303,7 @@ body #content { width: auto; }
 #tdp-side-bar .batch-add-to { display: none; }
 #tdp-side-bar .tdp-side-widget h2 { margin: 2px 0; padding: 3px 2px; }
 #tdp-side-bar.object .tdp-side-widget h2 { font-size: 125%; }
+#tdp-side-bar h3 { width: 100%; white-space: normal; word-wrap: break-word; }
 
 #tdp-side-bar.add-to #tdp-side-groups input[type=checkbox] { display: none; }
 #tdp-side-bar.add-to #tdp-side-groups li { padding-left: 21px; line-height: 20px; }
@@ -348,14 +349,14 @@ body #content { width: auto; }
 #tdp-side-bar #tdp-side-picture .facebook img { max-width: 15px; position: relative; top: 5px; }
 
 @media screen and (min-width: 1600px) {
-  #tdp-side-bar { width: 230px; }
-  #tdp-content { margin-left: 235px; }
-  #tdp-side-bar #tdp-side-ticketting .metaevent .seat-rank { margin-left: 165px; }
+  #tdp-side-bar { width: 250px; }
+  #tdp-content { margin-left: 255px; }
+  #tdp-side-bar #tdp-side-ticketting .metaevent .seat-rank { margin-left: 180px; }
 }
-@media screen and (min-width: 1900px) {
-  #tdp-side-bar { width: 300px; }
-  #tdp-content { margin-left: 305px; }
-  #tdp-side-bar #tdp-side-ticketting .metaevent .seat-rank { margin-left: 225px; }
+@media screen and (min-width: 1850px) {
+  #tdp-side-bar { width: 350px; }
+  #tdp-content { margin-left: 355px; }
+  #tdp-side-bar #tdp-side-ticketting .metaevent .seat-rank { margin-left: 255px; }
 }
 
 /* TOP */
