@@ -1,8 +1,13 @@
-<?php use_helper('I18N'); ?>
+<?php use_helper('I18N') ?>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <?php use_stylesheet('material.min.css') ?>
+<?php use_stylesheet('dialog-polyfill.css') ?>
 <?php use_stylesheet('kiosk') ?>
+<?php use_javascript('jquery') ?>
+<?php use_javascript('/js/mustache/mustache.min.js') ?>
+<?php use_javascript('/js/material/dialog-polyfill.js') ?>
 <?php use_javascript('/js/material/material.min.js') ?>
+<?php use_javascript('/js/kiosk.js') ?>
 <div class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
 	<header class="app-header mdl-layout__header">
 		<div class="mdl-layout__header-row">
@@ -29,7 +34,6 @@
 	</header>
 	<div class="app-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
 		<header class="app-drawer-header">
-			<img src="images/user.jpg" class="app-logo">
 			<div class="app-logo-dropdown">
 				<span>hello@example.com</span>
 				<div class="mdl-layout-spacer"></div>
@@ -59,39 +63,35 @@
 		</nav>
 	</div>
 	<main class="mdl-layout__content mdl-color--blue-grey-800">
-		<ul id="events-list">
-			<li class="event">
-				<div class="event-card-wide mdl-card mdl-shadow--2dp">
-					<div class="mdl-card__title">
-						<h2 class="mdl-card__title-text">Welcome</h2>
-					</div>
-					<div class="mdl-card__supporting-text">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Mauris sagittis pellentesque lacus eleifend lacinia...
-					</div>
-					<div class="mdl-card__actions mdl-card--border">
-						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-							<?php echo __('Plus de détails') ?>
-						</a>
-					</div>
-				</div>
-			</li>
-			<li class="event">
-				<div class="event-card-wide mdl-card mdl-shadow--2dp">
-					<div class="mdl-card__title">
-						<h2 class="mdl-card__title-text">Welcome</h2>
-					</div>
-					<div class="mdl-card__supporting-text">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Mauris sagittis pellentesque lacus eleifend lacinia...
-					</div>
-					<div class="mdl-card__actions mdl-card--border">
-						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-							<?php echo __('Plus de détails') ?>
-						</a>
-					</div>
-				</div>
-			</li>
-		<ul>
+		<div class="mdl-spinner mdl-js-spinner is-active" id="spinner"></div>
+		<ul id="manifs-list">
+			
+		</ul>
 	</main>
 </div>
+<!-- MUSTACHE TEMPLATES -->
+	<!-- manif card -->
+<script id="manif-card-template" type="x-tmpl-mustache">
+<li class="manif"> 
+	<div class="manif-card-wide mdl-card mdl-shadow--2dp" id="{{ manif.id }}">
+		<div class="mdl-card__title manif-title" style="background-color: {{ manif.color }};">
+			<p class="mdl-card__title-text manif-name">{{ manif.name }}</p>
+			<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ manif.happens_at }}</p>
+			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ manif.location }}</p>
+		</div>
+		<div class="mdl-card__supporting-text manif-description">
+			{{ manif.description }}
+		</div>
+		<!-- <div class="mdl-card__actions mdl-card--border manif-actions">
+		 	<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+		 		<?php echo __('Book') ?>
+		 	</a>
+		</div> -->
+	</div>
+</li>
+</script>
+
+<!-- manif dialog -->
+<script id="manif-dialog-template" type="x-tmpl-mustache">
+
+</script>

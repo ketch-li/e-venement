@@ -1,5 +1,9 @@
 <?php
 
-class myUser extends sfBasicSecurityUser
+class myUser extends liGuardSecurityUser
 {
+	public function getContactId()
+	{
+		return true;
+	}
 }
