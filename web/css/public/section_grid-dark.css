@@ -40,7 +40,7 @@ html, body {
   margin: 0;
   padding: 0;
   background-color: #575e71;
-  color: #777;
+  color: white;
   font-size: 15px;
   font-family: Roboto;
   line-height: 1.231;
@@ -96,14 +96,15 @@ body.mod-card {
         margin: 0; }
     #sf_admin_header #ariane a {
       float: left;
-      margin: 2px 20px;
+      margin: 2px 0px;
       height: 60px;
-      width: 60px;
+      width: 100px;
       position: relative;
       background-size: 40px;
       background-position: center;
       background-repeat: no-repeat;
       text-align: center;
+      white-space: nowrap;
       span-display: none; }
     #sf_admin_header #ariane li:hover a {
       text-decoration: none;
@@ -120,10 +121,12 @@ body.mod-card {
         border-radius: 3px; }
     #sf_admin_header #ariane .login a[href*="login"] {
       background-image: url("/images/vel/themes/icon_account.png"); }
-    #sf_admin_header #ariane .login a.second-link {
-      margin: 0 0 0 -15px; }
+    #sf_admin_header #ariane .login a {
+      background-image: url("/images/vel/themes/icon_new_account.png"); }
     #sf_admin_header #ariane .cart a {
       background-image: url("/images/vel/themes/icon_panier.png"); }
+    #sf_admin_header #ariane .with-store a {
+      background-image: url("/images/vel/themes/icon_store.png"); }
     #sf_admin_header #ariane .event a.event {
       background-image: url("/images/vel/themes/icon_reservation.png"); }
     #sf_admin_header #ariane .event a.mc {
@@ -212,7 +215,7 @@ body.mod-card {
   margin: 0; }
 
 .mod-cart.action-order #login p, .mod-cart.action-register #login p, #contact-form .field {
-  background-color: white;
+  background-color: none;
   padding: 1px 3px;
   border-radius: 3px;
   clear: both; }
@@ -258,11 +261,14 @@ body.mod-card {
   padding-top: 2px; }
 
 .mod-cart.action-order #login label, .mod-cart.action-register #login label, #contact-form .field label {
-  width: 140px;
+  width: 200px;
   display: block;
   float: left;
   margin-top: 3px;
   font-weight: bold; }
+
+#contact-form .field.newsletter label {
+  width: 25em; }
 
 .mod-cart.action-order #login .submit, .mod-cart.action-register #login .submit, #contact-form .submit {
   margin-left: 142px; }
@@ -426,7 +432,7 @@ body.mod-manifestation.action-show .manifestation_bottom .social-description {
       #sf_admin_content .sf_admin_list tfoot th .sf_admin_pagination a {
         display: inline-block;
         padding: 0 5px;
-        color: #777; }
+        color: white; }
 
 /* Meta events admin list */
 .mod-meta_event #sf_admin_content .sf_admin_list td {

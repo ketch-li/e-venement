@@ -34,6 +34,14 @@ class price_manifestationActions extends autoPrice_manifestationActions
     $this->pager->setPage($this->getPage());
     $this->pager->init();
 
+    // let's avoid over numbered page
+    if ( $this->getPage() > $this->pager->getLastPage() )
+    {
+      $this->setPage(1);
+      $this->pager->setPage($this->getPage());
+      $this->pager->init();
+    }
+
     $this->hasFilters = $this->getUser()->getAttribute('price_manifestation.list_filters', $this->configuration->getFilterDefaults(), 'admin_module');
   }
 
@@ -55,6 +63,7 @@ class price_manifestationActions extends autoPrice_manifestationActions
   protected function setPage($page)
   {
     $this->getUser()->setAttribute('price_manifestation.'.$this->manifid.'.page', $page, 'admin_module');
+    return $this;
   }
 
   protected function getPage()
