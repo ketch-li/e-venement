@@ -15,4 +15,20 @@ $(document).ready(function(){
     else
       $('#periodicity_repeat input').prop('disabled',false);
   }).first().change();
+
+  //Force focus to time input after date has been picked
+  $('#periodicity_one_occurrence_year').change(function(){
+    $('#periodicity_one_occurrence_hour').focus();
+  });
+
+  $('#days, #days input').click(function(){
+    $('#time input').prop('disabled', true);
+    $('#days input').prop('disabled', false);
+  });
+
+  $('#time, #time input').click(function(){
+    $('#days input').prop('checked', false);
+    $('#days input').prop('disabled', true);
+    $('#time input').prop('disabled', false);
+  });
 });

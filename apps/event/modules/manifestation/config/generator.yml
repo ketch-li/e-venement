@@ -76,6 +76,12 @@ generator:
           csv:
             label: Extract
             action: csv
+            ui-icon: document
+          cancelPeriodicity:
+            credentials: event-manif-edit
+            label: Cancel periodicity
+            action: cancelPeriodicity
+            ui-icon: closethick
         batch_actions:
           _delete: ~
           _bestFreeSeat:
@@ -89,7 +95,7 @@ generator:
         display:
           Manifestation: [happens_at, day_of_the_week, participants_list, event_id, location_id, workspace_id, meta_event_id, event_categories_list, no_print, voucherized]
           Reservation: [contact_id, booking_list, reservation_confirmed]
-          Extra: [gauge_state, color_id, has_description, has_extra_infos, description]
+          Extra: [prices_list, gauge_state, color_id, has_description, has_extra_infos, description]
       form: ~
       edit:
         title: %%name%% @ %%Location%%

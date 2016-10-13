@@ -63,17 +63,17 @@ LI.stats.activity = function () {
                 },
                 series: [
                         {
-                            label: json.legends.printed, 
+                            label: json.legends.printed,
                             color: "#FF0000",
                             highlighter: {show: true}
                         },
                         {
-                            label: json.legends.ordered, 
+                            label: json.legends.ordered,
                             color: "#FFA500",
                             highlighter: {show: true}
                         },
                         { 
-                            showLabel: false,
+                            label: json.legends.passing,
                             color: "#00FF00",
                             disableStack : true,
                             renderer: $.jqplot.LineRenderer,

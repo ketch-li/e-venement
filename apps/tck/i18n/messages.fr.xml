@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>You still have %%nb%% control(s) left on this meta-ticket</source>
+        <target>Vous avez encore %%nb%% contrôle(s) possibles sur ce meta-billet</target>
+      </trans-unit>
+      <trans-unit>
         <source>Paid</source>
         <target>Réglé</target>
       </trans-unit>
@@ -2019,6 +2023,10 @@
       <trans-unit>
         <source>Updated_at</source>
         <target>Mise à jour le</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Reload</source>
+        <target>Recharger</target>
       </trans-unit>
     </body>
   </file>

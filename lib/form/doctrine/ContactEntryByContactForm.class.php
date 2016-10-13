@@ -59,17 +59,25 @@ class ContactEntryByContactForm extends BaseContactEntryForm
   {
     if ( $name == 'professional_id' )
     {
-        $q = Doctrine_Query::create()
+      $q = Doctrine_Query::create()
         ->from('Event e1')
         ->select('e1.id')
         ->leftJoin('e1.Manifestations m1')
         ->leftJoin('m1.ManifestationEntries mentry')
         ->leftJoin('mentry.Entry entry')
         ->leftJoin('entry.ContactEntries ce')
-        ->andWhere('ce.professional_id = ?', $default);
+        ->andWhere('ce.professional_id = ?', $default)
+      ;
+      $r = Doctrine_Query::create()
+        ->from('Event e2')
+        ->select('e2.id')
+        ->leftJoin('e2.Entries ee2')
+        ->leftJoin('ee2.ContactEntries ce2')
+        ->andWhere('ce2.professional_id = ?', $default)
+      ;
         
       $this->widgetSchema['event_id']->getOption('query')
-        ->andWhere("e.id NOT IN ($q)", $default);
+        ->andWhere("e.id NOT IN ($q) AND e.id NOT IN ($r)", array($default, $default));
     }
     
     return parent::setDefault($name, $default);

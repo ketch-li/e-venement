@@ -2194,6 +2194,58 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>copy</source>
         <target>copie</target>
       </trans-unit>
+      <trans-unit>
+        <source>From</source>
+        <target>Du</target>
+      </trans-unit>
+      <trans-unit>
+        <source>to</source>
+        <target>au</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Mondays</source>
+        <target>Lundis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Tuesdays</source>
+        <target>Mardis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Wednesdays</source>
+        <target>Mercredis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Thursdays</source>
+        <target>Jeudis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Fridays</source>
+        <target>Vendredis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Saturdays</source>
+        <target>Samedis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Sundays</source>
+        <target>Dimanches</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Duplicate and repeat</source>
+        <target>Dupliquer et répéter</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Duplicate and show in calendar</source>
+        <target>Dupliquer et montrer dans le calendrier</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Extract&lt;span class="ui-icon ui-icon-document"&gt;&lt;/span&gt;</source>
+        <target>Extraire&lt;span class="ui-icon ui-icon-document"&gt;&lt;/span&gt;</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Cancel periodicity&lt;span class="ui-icon ui-icon-closethick"&gt;&lt;/span&gt;</source>
+        <target>Annul. périodicité&lt;span class="ui-icon ui-icon-closethick"&gt;&lt;/span&gt;</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

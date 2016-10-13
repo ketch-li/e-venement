@@ -30,7 +30,8 @@ $json = $sf_data->getRaw('lines');
     ];
     $json['legends'] = array(
         'ordered' => __('Ordered'),
-        'printed' => __('Printed')
+        'printed' => __('Printed'),
+        'passing' => __('Passing'),
     );
 
     echo json_encode($json);

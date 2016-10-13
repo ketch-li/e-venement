@@ -12,4 +12,13 @@
  */
 abstract class PluginEntryElement extends BaseEntryElement
 {
+  public function preSave($con)
+  {
+    if ( Doctrine::getTable('EntryElement')->createQuery('ee')
+      ->andWhere('ee.manifestation_entry_id = ?', $this->manifestation_entry_id)
+      ->andWhere('ee.contact_entry_id = ?', $this->contact_entry_id)
+      ->count() > 0 )
+      return;
+    parent::preSave($con);
+  }
 }

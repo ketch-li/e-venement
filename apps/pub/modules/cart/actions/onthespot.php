@@ -50,7 +50,11 @@
     }
     
     // confirmation email
-    $this->sendConfirmationEmails($this->transaction, $this);
+    try {
+      $this->sendConfirmationEmails($this->transaction, $this);
+    } catch ( Exception $e ) {
+      error_log('Exception raised when sending an email: '.$e->getMessage());
+    }
     
     // confirming all the contacts
     $contacts = new Doctrine_Collection('Contact');
@@ -72,6 +76,8 @@
       $this->getUser()->setFlash('notice',__("Your command has been passed on your member cards, you don't have to pay anything."));
     elseif ( sfConfig::get('app_payment_type', false) == 'onthespot' || array_key_exists('onthespot', $payments) )
       $this->getUser()->setFlash('notice',__("Your command has been booked, you will have to pay for it directly with us."));
+    
+    $this->oneShot();
     
     // redirection
     $redirect = 'transaction/show?id='.$this->transaction->id;

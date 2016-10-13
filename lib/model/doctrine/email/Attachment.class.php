@@ -44,7 +44,7 @@ class Attachment extends PluginAttachment
   {
     if ( $this->isStoredInDatabase() )
       return $this->getDbFile()->decoded_content;
-    if ( file_exists($path = sfConfig::get('sf_upload_dir').DIRECTORY_SEPARATOR.$attachment->filename) )
+    if ( file_exists($path = sfConfig::get('sf_upload_dir').DIRECTORY_SEPARATOR.$this->filename) )
       return file_get_contents($path);
     return false;
   }

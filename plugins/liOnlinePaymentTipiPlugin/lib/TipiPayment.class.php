@@ -33,7 +33,7 @@
       return new self($transaction);
     }
     
-    public static function getTransactionIdByResponse(sfWebRequest $parameters)
+    public static function getTransactionIdByResponse(sfWebRequest $request)
     {
       return $request->getParameter('transaction_id');
     }
@@ -85,13 +85,15 @@
     
     protected function __construct(Transaction $transaction)
     {
+      sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
+      
       // the configuration
       $this->id       = str_pad(sfConfig::get('app_payment_id', 194), 6, '0', STR_PAD_LEFT);
-      $this->refdet   = str_pad(sfConfig::get('app_payment_refdet', 999900000000999999), 18, '0', STR_PAD_LEFT);
+      $this->refdet   = str_pad($transaction->id, 6, 0, STR_PAD_LEFT);
       $this->email    = $transaction->Contact->email;
       $url = sfConfig::get('app_payment_url', array('response' => 'cart/response'));
       $this->subject  = 'Transaction n'.$transaction->id;
-      $this->mode     = sfConfig::get('app_payment_prod', false) ? 'X' : 'T';
+      $this->mode     = sfConfig::get('app_payment_prod', T);
       $this->autosubmit = sfConfig::get('app_payment_autosubmit',true);
       
       // the transaction and the amount
@@ -113,7 +115,7 @@
         return '<div class="'.$attributes['class'].'" id="'.$attributes['id'].'">Pas de serveur Paybox disponible...</div>';
       
       $r = '';
-      $r .= '<form action="'.$url.'" method="get" ';
+      $r .= '<form action="'.$url.'" method="post" ';
       $attributes = $attributes + array('target' => '_top');
       foreach ( $attributes as $key => $value )
         $r .= $key.'="'.$value.'" ';
@@ -124,7 +126,7 @@
       
       $r .= '<input type="submit" value="Tipi" />';
       $r .= '</form>';
-      
+
       return $r;
     }
 
