@@ -206,7 +206,6 @@ LI.touchscreenSimplifiedProductsSearch = function(json, search){
   if ( search )
   $.each(json.success.success_fields[type].data.content, function(i, pdt){
     $.each(pdt[pdt.declinations_name], function(i, decl){
-      console.error(decl.code.toLowerCase(), search.toLowerCase());
       if ( decl.code && decl.code.toLowerCase() == search.toLowerCase() )
       {
         // click on the first price of the first declination availables
@@ -242,7 +241,7 @@ LI.touchscreenSimplifiedLoadPaymentMethods = function(){
     $('<li></li>')
       .attr('data-payment-id', $(this).find('input').val())
       .append(payment)
-      .appendTo($('#li_fieldset_simplified .payments'))
+      .insertBefore($('#li_fieldset_simplified .payments #ept-transaction-simplified'))
     ;
   });
   
@@ -250,6 +249,8 @@ LI.touchscreenSimplifiedLoadPaymentMethods = function(){
   $('#li_fieldset_simplified .payments button').click(function(){
     $('#li_transaction_field_payment_new [name="transaction[payment_new][value]"]').val($('#li_fieldset_simplified .payments [name="simplified[payment_value]"]').val());
     $('#li_fieldset_simplified .payments [name="simplified[payment_value]"]').val('')
+    $('#li_transaction_field_payment_new [name="transaction[payment_new][detail]"]').val($('#li_fieldset_simplified .payments [name="simplified[payment_detail]"]').val());
+    $('#li_fieldset_simplified .payments [name="simplified[payment_detail]"]').val('')
     $('#li_transaction_field_payment_new [name="transaction[payment_new][payment_method_id]"][value="'+$(this).val()+'"]')
       .prop('checked', true)
       .siblings('button').eq(0).trigger('click');
