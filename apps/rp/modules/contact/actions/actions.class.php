@@ -137,14 +137,19 @@ class contactActions extends autoContactActions
   {
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
 
-    $limit = 500;
+    $limit = 100;
     $q = $this->buildQuery()
       ->limit($limit)
-      ->offset($offset = $request->getParameter('offset',0));
+      ->offset($offset = $request->getParameter('offset',0))
+      ->select('c.*, p.*, o.*');
     
     $a = $q->getRootAlias();
+    $i = 0;
+    $errors = array();
     foreach ( $q->execute() as $contact )
     {
+      $i++;
+      echo "\n$i: ".memory_get_usage(true);
       // new password
       $letters = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
       if ( !trim($contact->password) )
@@ -153,7 +158,6 @@ class contactActions extends autoContactActions
         $contact->save();
       }
 
-      $errors = array();
       $params = OptionCsvForm::getDBOptions();
       if ( in_array('tunnel',$params['option']) ) // prefer professionals
       {
@@ -172,7 +176,10 @@ class contactActions extends autoContactActions
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
     $this->getUser()->setFlash('notice', __('Your email have been sent correctly.'));
     if ( count($errors) > 0 )
-      $this->getUser()->setFlash('error', implode(', ', $errors));
+    {
+      $this->getUser()->setFlash('error', $errors = implode(', ', $errors));
+      error_log('Passwords sent with errors: '.$errors);
+    }
 
     if ( $this->buildQuery()->count() > $offset+$limit )
       $this->redirect('contact/sendPasswords?offset='.($offset+$limit));
@@ -213,7 +220,7 @@ class contactActions extends autoContactActions
     $email->field_from = $this->getUser()->getGuardUser()->email_address;
     $email->field_subject = __('Password reminder for your private space at %%name%%', array('%%name%%' => $about['name']));
 
-    if ( $obj instanceof Contact)
+    if ( $obj instanceof Contact )
       $email->Contacts[] = $obj;
     else
       $email->Professionals[] = $obj;
