@@ -209,6 +209,9 @@
       }
       // set another price_id (if not getting back a transaction already paid)
       if ( !$request->getParameter('transaction_id')
+        && $this->getUser()->getTransaction()->Order->count() == 0
+        && $this->getUser()->getTransaction()->Payments->count() == 0
+        && !$ticket->printed_at && !$ticket->integrated_at
         && $data[$ticket->id]['price_id'] != $ticket->price_id
         && in_array($ticket->price_id, $ticket->Gauge->Workspace->Prices->getPrimaryKeys())
         && ($price = Doctrine::getTable('Price')->find($data[$ticket->id]['price_id']))
