@@ -106,15 +106,15 @@ class manifestationActions extends autoManifestationActions
   public function executeShow(sfWebRequest $request)
   {
     $vel = sfConfig::get('app_tickets_vel', array());
+    $mes = array();
+    foreach ( $this->getUser()->getMetaEventsCredentials() as $meid => $c )
+      $mes[$meid] = '?';
+    
     $q = Doctrine::getTable('Gauge')->createQuery('g')
       ->addSelect('gtck.*, m.*, mpm.*, mp.*, gpg.*, gp.*, tck.*, e.*, l.*, ws.*, sp.*, op.*')
-      ->andWhere('g.online = ?', true)
       
       ->leftJoin('g.Tickets gtck WITH gtck.price_id IS NULL AND gtck.seat_id IS NOT NULL AND gtck.transaction_id = ?', $this->getUser()->getTransaction()->id)
-      ->leftJoin('g.Manifestation m')
-      ->andWhere('(m.happens_at > NOW() OR ?)', sfConfig::get('sf_web_debug', false))
-      ->andWhere('m.id = ?',$request->getParameter('id'))
-      ->andWhere('m.reservation_confirmed = ?',true)
+      ->leftJoin('g.Manifestation m WITH m.id = ? AND m.reservation_confirmed = ?', array($request->getParameter('id'), true))
       
       ->leftJoin('m.IsNecessaryTo int')
       //->leftJoin('g.Workspace ws')
@@ -123,7 +123,7 @@ class manifestationActions extends autoManifestationActions
       ->leftJoin('l.SeatedPlans sp')
       ->leftJoin('sp.Workspaces spws')
       ->leftJoin('m.Event e')
-      ->leftJoin('e.MetaEvent me')
+      ->leftJoin('e.MetaEvent me WITH me.id IN ('.implode(',',$mes).')', array_keys($mes))
       ->leftJoin('g.PriceGauges gpg')
       ->leftJoin('gpg.Price gp')
       ->leftJoin('gp.Translation gpt WITH gpt.lang = ?', $this->getUser()->getCulture())
@@ -133,14 +133,17 @@ class manifestationActions extends autoManifestationActions
       ->leftJoin('mp.Translation mpt WITH mpt.lang = ?', $this->getUser()->getCulture())
       ->leftJoin('mp.Tickets tck WITH tck.gauge_id = g.id AND tck.transaction_id = ?', $this->getUser()->getTransaction()->id)
       
-      ->leftJoin('gp.Users gpu WITH gpu.id = wu.id')
+      ->leftJoin('gp.Users gpu WITH gpu.id = wu.id AND wu.id = ?', $this->getUser()->getId())
       ->leftJoin('gp.Workspaces gpw WITH gpw.id = g.workspace_id')
       ->leftJoin('mp.Users mpu WITH mpu.id = wu.id')
       ->leftJoin('mp.Workspaces mpw WITH mpw.id = g.workspace_id')
       
+      ->andWhere('g.online = ?', true)
+      ->andWhere('m.id IS NOT NULL')
+      ->andWhere('(m.happens_at > NOW() OR ?)', sfConfig::get('sf_web_debug', false))
+      
       ->andWhere('mpu.id IS NOT NULL AND mpw.id IS NOT NULL OR gpu.id IS NOT NULL AND gpw.id IS NOT NULL')
-      ->andWhere('wu.id = ?', $this->getUser()->getId())
-      ->andWhereIn('me.id',array_keys($this->getUser()->getMetaEventsCredentials()))
+      ->andWhere('wu.id IS NOT NULL')
       
       ->orderBy('g.group_name, ws.name, gpg.value DESC, mpm.value DESC, gpt.name, mpt.name')
     ;
