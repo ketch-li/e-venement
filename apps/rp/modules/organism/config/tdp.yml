@@ -157,6 +157,8 @@ all:
       show_region: { label: Region }
       organism_category_id: { label: Category }
       email_no_newsletter: { label: No newsletter }
+      email_npai: { label: Bad email }
+      contact_email_npai: { label: Bad email }
       contact_email_no_newsletter: { label: No newsletter }
       administrative_number: { label: Admin. ID }
 
