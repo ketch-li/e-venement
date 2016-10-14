@@ -26,6 +26,7 @@ body.mod-card { color: $text-color2; }
 
 .clearfix { clear: both; }
 
+
 #menu, #cart-widget, #oplog { display: none; }
 
 #sf_admin_container {
@@ -163,9 +164,20 @@ body.mod-card { color: $text-color2; }
 
 /* Login form */
 
-#login label { min-width: 125px; display: inline-block; }
-#login .submit { margin-left: 0; }
-#login .submit input { margin-left: 5px; }
+#login {
+  label { width: 125px; display: inline-block; }
+  .submit { 
+     margin-left: 0; 
+     input { margin-left: 5px; }
+  }
+  .password {
+    a { 
+      display: block; 
+      margin: 1em 0 0 (125px + 4px);
+    }
+    br { display: none; }
+  }
+}
 
 /* Contact form */
 /* this is copied from public.css */

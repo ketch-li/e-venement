@@ -194,14 +194,17 @@ body.mod-card {
 
 /* Login form */
 #login label {
-  min-width: 125px;
+  width: 125px;
   display: inline-block; }
-
 #login .submit {
   margin-left: 0; }
-
-#login .submit input {
-  margin-left: 5px; }
+  #login .submit input {
+    margin-left: 5px; }
+#login .password a {
+  display: block;
+  margin: 1em 0 0 129px; }
+#login .password br {
+  display: none; }
 
 /* Contact form */
 /* this is copied from public.css */
