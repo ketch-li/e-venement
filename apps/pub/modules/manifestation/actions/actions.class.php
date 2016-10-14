@@ -118,7 +118,7 @@ class manifestationActions extends autoManifestationActions
       
       ->leftJoin('m.IsNecessaryTo int')
       //->leftJoin('g.Workspace ws')
-      ->leftJoin('ws.Users wu')
+      ->leftJoin('ws.Users wu WITH wu.id = ?', $this->getUser()->getId())
       ->leftJoin('m.Location l')
       ->leftJoin('l.SeatedPlans sp')
       ->leftJoin('sp.Workspaces spws')
@@ -133,12 +133,13 @@ class manifestationActions extends autoManifestationActions
       ->leftJoin('mp.Translation mpt WITH mpt.lang = ?', $this->getUser()->getCulture())
       ->leftJoin('mp.Tickets tck WITH tck.gauge_id = g.id AND tck.transaction_id = ?', $this->getUser()->getTransaction()->id)
       
-      ->leftJoin('gp.Users gpu WITH gpu.id = wu.id AND wu.id = ?', $this->getUser()->getId())
-      ->leftJoin('gp.Workspaces gpw WITH gpw.id = g.workspace_id')
-      ->leftJoin('mp.Users mpu WITH mpu.id = wu.id')
-      ->leftJoin('mp.Workspaces mpw WITH mpw.id = g.workspace_id')
+      ->leftJoin('gp.Users gpu WITH gpu.id = ?', $this->getUser()->getId())
+      ->leftJoin('gp.Workspaces gpw WITH gpw.id = g.workspace_id AND g.manifestation_id = ?', $request->getParameter('id'))
+      ->leftJoin('mp.Users mpu WITH mpu.id = ?', $this->getUser()->getId())
+      ->leftJoin('mp.Workspaces mpw WITH mpw.id = g.workspace_id AND g.manifestation_id = ?', $request->getParameter('id'))
       
       ->andWhere('g.online = ?', true)
+      ->andWhere('g.manifestation_id = ?', $request->getParameter('id'))
       ->andWhere('m.id IS NOT NULL')
       ->andWhere('(m.happens_at > NOW() OR ?)', sfConfig::get('sf_web_debug', false))
       
