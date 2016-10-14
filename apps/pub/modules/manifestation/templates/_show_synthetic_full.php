@@ -5,7 +5,8 @@ if ( isset($manifestation) )
   $online_limit = $manifestation->online_limit;
 ?>
 <?php foreach ( $gauges as $gauge ): ?>
-  <?php if (( $free = $gauge->value
+  <?php if ( $gauge->online
+        && ( $free = $gauge->value
     - $gauge->printed
     - $gauge->ordered
     - (sfConfig::get('app_tickets_count_demands',false) ? $gauge->asked : 0)

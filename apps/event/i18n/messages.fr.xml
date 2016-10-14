@@ -225,6 +225,10 @@
         <target>Transfère les places relâchées dans une autre retenue.</target>
       </trans-unit>
       <trans-unit>
+        <source>Price "%%name%%"</source>
+        <target>Tarif "%%name%%"</target>
+      </trans-unit>
+      <trans-unit>
         <source>Hold "%%name%%"</source>
         <target>Retenue "%%name%%"</target>
       </trans-unit>
