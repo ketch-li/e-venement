@@ -40,7 +40,7 @@
     </div>
     <div class="tab hidden" id="categories">
       <div class="li-content">
-        <?php include_partial('show_categories', array('manifestation' => $manifestation)) ?>
+        <?php include_partial('show_categories', array('manifestation' => $manifestation, 'gauges' => $gauges)) ?>
         <div class="description"><?php echo nl2br(pubConfiguration::getText('app_texts_synthetic_categories', '')); ?></div>
         <div class="clear"></div>
       </div>

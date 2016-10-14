@@ -1,7 +1,7 @@
 <?php use_helper('Number') ?>
 <?php
   $groups = array();
-  foreach ( $manifestation->Gauges as $gauge )
+  foreach ( $gauges as $gauge )
   if ( $gauge->online && $gauge->getFree() > $gauge->getHeldFreeSeats()->count() )
   {
     if ( !isset($groups[$gauge->group_name]) )

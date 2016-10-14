@@ -12,6 +12,8 @@
  */
 class Gauge extends PluginGauge
 {
+  protected $seats = NULL;
+  
   public function __toString()
   {
     return (string)$this->Workspace->name;
@@ -32,14 +34,19 @@ class Gauge extends PluginGauge
       - ($count_demands ? $this->asked : 0);
   }
   
-  public function getHeldFreeSeats()
+  public function getHeldFreeSeats($refresh = false)
   {
-    $seats = new Doctrine_Collection('Seat');
-    foreach ( $this->getSeatedPlan()->Seats as $seat )
-    if ( !in_array($this->manifestation_id, $seat->Tickets->toKeyValueArray('id', 'manifestation_id'))
-      && in_array($this->manifestation_id, $seat->Holds->toKeyValueArray('id', 'manifestation_id')) )
-      $seats[] = $seat;
-    return $seats;
+    if ( $this->seats instanceof Doctrine_Collection )
+      return $this->seats;
+    
+    $q = Doctrine::getTable('Seat')->createQuery('s')
+      ->leftJoin('s.Tickets tck WITH tck.manifestation_id = ?', $this->manifestation_id)
+      ->andWhere('tck.id IS NULL')
+      ->leftJoin('s.Holds h WITH h.manifestation_id = ?', $this->manifestation_id)
+      ->andWhere('h.id IS NOT NULL')
+      ->select('s.*')
+    ;
+    return $this->seats = $q->execute();
   }
   
   public function preSave($event)
