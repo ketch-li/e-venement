@@ -14,6 +14,7 @@
     <?php include_javascripts() ?>
   </head>
   <body class="<?php include_partial('global/body_classes') ?>">
+    <?php include_component('layout', 'layoutSwitcher') ?>
     <div id="client-header"></div>
     <div id="content">
       <?php include_partial('global/oplog') ?>

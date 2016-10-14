@@ -4,7 +4,6 @@ class layoutComponents  extends sfComponents
 {
   public function initialize($context, $moduleName, $actionName)
   {
-
     parent::initialize($context, $moduleName, $actionName);
     $this->initLayout($this->request);
   }
@@ -20,6 +19,25 @@ class layoutComponents  extends sfComponents
   {
     $class = ($this->layout && $this->layout != 'old') ? $this->layout : 'default';
     $this->body_class = 'layout-' . $class;
+  }
+
+  public function executeLayoutSwitcher()
+  {
+    if ($this->getUser()->getAttribute('_layout')) {
+      $this->displaySwitcher = true;
+      $root_dir = sfConfig::get('sf_root_dir');
+
+      $this->layouts = array();
+      foreach (glob("$root_dir/web/scss/public/layout/_*.scss") as $filename)
+        $this->layouts[] = substr(basename($filename, '.scss'), 1);
+      $this->layouts[] = 'old';
+
+      $this->themes = array();
+      foreach (glob("$root_dir/web/scss/public/theme/_*.scss") as $filename)
+        $this->themes[] = substr(basename($filename, '.scss'), 1);
+    }
+    else
+      $this->displaySwitcher = false;
   }
 
   private function initLayout(sfWebRequest $request)
