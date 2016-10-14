@@ -53,6 +53,9 @@ body.mod-manifestation.action-show,
 body.mod-card {
   color: #777; }
 
+.clear {
+  clear: both; }
+
 .clearfix {
   clear: both; }
 
@@ -583,6 +586,11 @@ body > #client-footer {
 .social-description {
   display: none; }
 
+/* Seated plans */
+.mod-manifestation #plans .gauge .magnify {
+  position: absolute;
+  right: 5px; }
+
 @media (min-width: 760px) {
   #sf_admin_footer {
     margin: 25px 0;
@@ -598,7 +606,23 @@ body > #client-footer {
       width: 30%; }
     body.mod-manifestation.action-index #sf_admin_content .sf_admin_list td.sf_admin_list_td_Location {
       display: inline-block;
-      width: 28%; } }
+      width: 28%; }
+
+  #container #plans.tab {
+    width: 500px; }
+
+  .mod-manifestation #container h4 {
+    width: 14em; }
+
+  .mod-manifestation #container h4 + h4 {
+    width: 16em;
+    margin-left: 500px; } }
+@media (min-width: 992px) {
+  #container #plans.tab {
+    width: 732px; } }
+@media (min-width: 1200px) {
+  #container #plans.tab {
+    width: 940px; } }
 /* Media queries */
 @media (min-width: 760px) {
   /* We want 3 blocks in a row */

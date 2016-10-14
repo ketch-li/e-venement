@@ -22,6 +22,8 @@ body.mod-login,
 body.mod-manifestation.action-show,
 body.mod-card { color: $text-color2; }
 
+.clear { clear: both; }
+
 .clearfix { clear: both; }
 
 #menu, #cart-widget, #oplog { display: none; }
@@ -530,6 +532,13 @@ body > #client-footer {
 }
 .social-description { display: none; }
 
+/* Seated plans */
+
+.mod-manifestation #plans .gauge .magnify {
+  position: absolute;
+  right: 5px;
+}
+
 @media (min-width: $screen-sm-min) {
   #sf_admin_footer { 
     margin: 25px 0; 
@@ -550,14 +559,20 @@ body > #client-footer {
       width: 28%
     }    
   }
+  #container #plans.tab { width: $screen-sm-min - 260px; }
+  .mod-manifestation #container h4 { width: 14em; }
+  .mod-manifestation #container h4 + h4 { 
+    width: 16em;
+    margin-left: $screen-sm-min - 260px; 
+  }
 }
 
 @media (min-width: $screen-md-min) {
-  
+  #container #plans.tab { width: $screen-md-min - 260px; }
 }
 
 @media (min-width: $screen-lg-min) {
-  
+  #container #plans.tab { width: $screen-lg-min - 260px; }
 }
 
 
