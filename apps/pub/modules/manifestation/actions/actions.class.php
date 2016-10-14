@@ -37,7 +37,7 @@ class manifestationActions extends autoManifestationActions
       if ( $this->getUser()->getFlash($type) )
         $this->getUser()->setFlash($type, $this->getUser()->getFlash($type));
       
-      $this->redirect('manifestation/edit?id='.$manifestation->id);
+      $this->redirect('manifestation/show?id='.$manifestation->id);
     }
     
     $filters = $this->getFilters();
