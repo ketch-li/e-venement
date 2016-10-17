@@ -253,7 +253,7 @@
                 // member cards (cf. PluginTicket::preUpdate()) OR auto controled tickets
                 if ( $ticket->Price->member_card_linked || $ticket->Manifestation->Location->auto_control )
                 {
-                  $this->getUser()->setFlash('notice', __('The contact in the current transaction doesn\'t have the required member card type for price \'') . $ticket->Price->name . ('\''));
+                  $this->getUser()->setFlash('notice', __('The contact in the current transaction does not have the required member card type for price ') . $ticket->Price->name);
                   $cpt += 2; // because member cards treatments take a loong time
                   $ticket->printed_at = date('Y-m-d H:i:s');
                   $ticket->vat = $ticket->Manifestation->Vat->value;
