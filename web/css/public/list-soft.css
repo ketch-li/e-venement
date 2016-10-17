@@ -611,6 +611,23 @@ body > #client-footer {
       background-color: #9D9D9D;
       border-radius: 3px; }
 
+/* My Account page */
+.mod-contact #manifestations #sf_admin_content .sf_admin_list thead,
+.mod-contact #transactions #sf_admin_content .sf_admin_list thead {
+  display: table-header-group; }
+  .mod-contact #manifestations #sf_admin_content .sf_admin_list thead th,
+  .mod-contact #transactions #sf_admin_content .sf_admin_list thead th {
+    padding: 5px 20px;
+    text-align: left; }
+.mod-contact #manifestations #sf_admin_content .sf_admin_list tbody tr,
+.mod-contact #transactions #sf_admin_content .sf_admin_list tbody tr {
+  display: table-row; }
+.mod-contact #manifestations #sf_admin_content .sf_admin_list tbody td,
+.mod-contact #transactions #sf_admin_content .sf_admin_list tbody td {
+  display: table-cell;
+  padding: 5px 20px;
+  border-bottom: 5px solid #EFF2F4; }
+
 @media (min-width: 760px) {
   #sf_admin_footer {
     margin: 25px 0;

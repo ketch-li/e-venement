@@ -572,6 +572,27 @@ body > #client-footer {
   }
 }
 
+/* My Account page */
+
+.mod-contact #manifestations #sf_admin_content .sf_admin_list,
+.mod-contact #transactions #sf_admin_content .sf_admin_list {
+  thead { 
+    display: table-header-group; 
+    th {
+      padding: 5px 20px;
+      text-align: left;
+    }
+  }
+  tbody {
+    tr { display: table-row; }
+    td { 
+      display: table-cell; 
+      padding: 5px 20px;
+      border-bottom: 5px solid #EFF2F4;
+    }
+  }
+}
+
 @media (min-width: $screen-sm-min) {
   #sf_admin_footer { 
     margin: 25px 0; 
