@@ -9,7 +9,7 @@
 <div class="gauge <?php if ( isset($conf['full_seating_by_customer']) && $conf['full_seating_by_customer'] ): ?>full-seating<?php endif ?>" id="gauge-<?php echo $gauge->id ?>" data-gauge-id="<?php echo $gauge->id ?>">
   <div class="blank"></div>
   <?php $form->setGaugeId($gauge->id) ?>
-  <?php if ( $gauges->count() > 1 ): ?>
+  <?php if ( $gauges->count() > 1 || isset($show_name) && $show_name ): ?>
     <h3><?php echo $gauge ?></h3>
   <?php endif ?>
   <?php if (( $free = $gauge->value

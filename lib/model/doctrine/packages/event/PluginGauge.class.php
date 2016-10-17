@@ -16,7 +16,7 @@ abstract class PluginGauge extends BaseGauge
    * getPriceGaugesFiltered()
    * filtering the PriceGauges returned depending on the availability of their Price in the current Workspace
    *
-   * @return PriceGauge
+   * @return Doctrine_Collection of PriceGauge
    **/
   public function getPriceGaugesFiltered()
   {
@@ -27,5 +27,22 @@ abstract class PluginGauge extends BaseGauge
       $pgs[] = $pg;
     
     return $pgs;
+  }
+  
+  /**
+   * getPriceManifestationsFiltered()
+   * filtering the PriceManifestations returned depending on the availability of their Price in the current Workspace
+   *
+   * @return Doctrine_Collection of PriceManifestation
+   **/
+  public function getPriceManifestationsFiltered()
+  {
+    $pms = new Doctrine_Collection('PriceManifestation');
+    
+    foreach ( $this->Manifestation->PriceManifestations as $pm )
+    if ( in_array($pm->price_id, $this->Workspace->Prices->getPrimaryKeys()) )
+      $pms[] = $pm;
+    
+    return $pms;
   }
 }

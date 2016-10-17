@@ -16,7 +16,7 @@
 <?php $sf_response->addMeta('og:description', array('property'=>'og:description', 'content'=>$manifestation->getSocialDescription())); ?>
 
 
-<?php if ( $use_synthetic_plans ): ?>
+<?php if ( sfConfig::get('app_options_synthetic_plans', false) ): ?>
 <div class="synthetic">
 
   <?php use_stylesheet('pub-manifestation-synthetic?'.date('Ymd')) ?>
@@ -26,6 +26,14 @@
   <?php include_partial('show_synthetic_full', array('gauges' => $gauges)) ?>
 
   <div id="tickets">
+    <?php
+      $unseated = new Doctrine_Collection('Gauge');
+      foreach ( $gauges as $gauge )
+      if ( !$gauge->getSeatedPlan() )
+        $unseated[] = $gauge;
+      if ( $unseated->count() > 0 )
+        include_partial('show_gauges', array('gauges' => $unseated, 'manifestation' => $manifestation, 'form' => $form, 'mcp' => $mcp, 'show_name' => true, ));
+    ?>
     <?php include_partial('show_named_tickets', array('manifestation' => $manifestation)) ?>
   </div>
   <div id="container">
@@ -40,7 +48,7 @@
     </div>
     <div class="tab hidden" id="categories">
       <div class="li-content">
-        <?php include_partial('show_categories', array('manifestation' => $manifestation)) ?>
+        <?php include_partial('show_categories', array('manifestation' => $manifestation, 'gauges' => $gauges)) ?>
         <div class="description"><?php echo nl2br(pubConfiguration::getText('app_texts_synthetic_categories', '')); ?></div>
         <div class="clear"></div>
       </div>
@@ -55,13 +63,6 @@
 </div>
 <?php else: ?>
 
-  <?php if ( sfConfig::get('app_options_synthetic_plans', false) ): ?>
-    <?php use_stylesheet('pub-manifestation-synthetic?'.date('Ymd')) ?>
-    <?php use_javascript('pub-manifestation-synthetic?'.date('Ymd')) ?>
-    <div id="tickets">
-      <?php include_partial('show_named_tickets', array('manifestation' => $manifestation)) ?>
-    </div>
-  <?php endif ?>
   <?php include_partial('show_gauges', array('gauges' => $gauges, 'manifestation' => $manifestation, 'form' => $form, 'mcp' => $mcp, )) ?>
   <?php include_partial('show_footer', array('manifestation' => $manifestation)) ?>
   <?php include_partial('show_ease') ?>

@@ -121,14 +121,14 @@ class ManifestationTemplatingForm extends BaseFormDoctrine
         ->leftJoin('gp.Gauge g');
       $gaugeprices = $q->execute();
       
-      $q = new Doctrine_Query();
-      $q->from('PriceGauge gp')
-        ->andWhereIn('gp.gauge_id',$this->object->Gauges->getPrimaryKeys())
-        ->delete()
-        ->execute();
-      
       foreach ( $this->objects as $manif )
       {
+         $q = new Doctrine_Query();
+         $q->from('PriceGauge gp')
+           ->andWhere('gp.gauge_id', $manif->Gauges->getPrimaryKeys())
+           ->delete()
+           ->execute();
+
         foreach ( $manifprices as $manifprice )
         {
           $manifprice = $manifprice->copy();

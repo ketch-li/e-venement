@@ -725,40 +725,39 @@ class manifestationActions extends autoManifestationActions
   {
     $mid = $manifestation_id ? $manifestation_id : $this->manifestation->id;
     $nb = $this->countTickets($mid);
+    
+    $wss = array();
+    foreach ( $this->getUser()->getWorkspacesCredentials() as $id => $c )
+      $wss[$id] = '?';
+    
     $q = Doctrine_Query::create()->from('Transaction tr')
+      ->select('tr.*, c.*, pro.*, o.*, order.*, invoice.*, u.*')
       ->leftJoin('tr.Contact c')
-      ->leftJoin('c.Groups gc')
-      ->leftJoin('gc.Picture gcp')
-      ->leftJoin('tr.Professional pro')
-      ->leftJoin('pro.Groups gpro')
-      ->leftJoin('gpro.Picture gprop')
       ->leftJoin('tr.Order order')
+      ->leftJoin('tr.Invoice invoice')
       ->leftJoin('tr.User u')
+      ->leftJoin('tr.Professional pro')
       ->leftJoin('pro.Organism o')
     ;
 
-    $q->leftJoin('tr.Tickets tck'.($only_printed_tck ? ' ON tck.transaction_id = tr.id AND (tck.printed_at IS NOT NULL OR tck.integrated_at IS NOT NULL OR tck.cancelling IS NOT NULL)' : ''))
+    $q->addSelect('tck.*, m.*, p.*, pt.*, g.*, w.*')
+      ->leftJoin('tr.Tickets tck WITH tck.cancelling IS NULL AND tck.id NOT IN (SELECT tt2.cancelling FROM ticket tt2 WHERE tt2.cancelling IS NOT NULL) AND tck.id NOT IN (SELECT tt3.duplicating FROM ticket tt3 WHERE tt3.duplicating IS NOT NULL) AND tck.manifestation_id = ?'.($only_printed_tck ? ' AND (tck.printed_at IS NOT NULL OR tck.integrated_at IS NOT NULL OR tck.cancelling IS NOT NULL)' : ''), $manifestation_id ? $manifestation_id : $this->manifestation->id)
       ->leftJoin('tck.Duplicatas duplicatas')
       ->leftJoin('duplicatas.Cancelling cancelling2')
       ->leftJoin('tck.Cancelling cancelling')
-      ->leftJoin('tr.Invoice invoice')
       ->leftJoin('tck.Cancelled cancelled')
       ->leftJoin('tck.Manifestation m')
       ->leftJoin('tck.Controls ctrl')
       ->leftJoin('tck.Price p')
       ->leftJoin('p.Translation pt WITH pt.lang = ?', $this->getUser()->getCulture())
-      ->leftJoin('ctrl.Checkpoint cp')
-      ->leftJoin('tck.Gauge g')
+      ->leftJoin('ctrl.Checkpoint cp WITH cp.type = ?', 'entrance')
+      ->leftJoin('tck.Gauge g WITH g.workspace_id IN ('.implode(',', $wss).')', array_keys($wss))
       ->leftJoin('g.Workspace w')
-      ->andWhere('tck.cancelling IS NULL')
-      ->andWhere('tck.id NOT IN (SELECT tt2.cancelling FROM ticket tt2 WHERE tt2.cancelling IS NOT NULL)')
-      ->andWhere('tck.id NOT IN (SELECT tt3.duplicating FROM ticket tt3 WHERE tt3.duplicating IS NOT NULL)') // we want only the last duplicates (or originals if no duplication has been made)
-      ->andWhere('tck.manifestation_id = ?',$manifestation_id ? $manifestation_id : $this->manifestation->id)
-      ->andWhere('(cp.type IS NULL OR cp.type = ?)', 'entrance')
-      ->andWhereIn('g.workspace_id',array_keys($this->getUser()->getWorkspacesCredentials()))
+      ->andWhere('tck.id IS NOT NULL')
+      ->andWhere('g.id IS NOT NULL')
       ->orderBy('c.name, c.firstname, o.name, pt.name, g.workspace_id, w.name, tr.id')
     ;
-
+    
     $spectators = $q->execute();
     return $spectators;
   }

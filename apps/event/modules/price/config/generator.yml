@@ -43,7 +43,8 @@ generator:
           General: [name, description, value]
           Options: [online, hide, member_card_linked, x_days_valid]
           Permissions: [workspaces_list, users_list]
-      edit:    ~
+      edit:
+        title: Price "%%name%%"
       new:     ~
       show:
         display:
