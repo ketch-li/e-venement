@@ -551,6 +551,27 @@ body > #client-footer {
   right: 5px;
 }
 
+/* Cart */
+
+.mod-transaction #actions {
+  margin: 20px 0;
+  .actions {
+    display: inline-block;
+    a {
+      display: inline-block;
+      padding: 0 15px;
+      height: 30px;
+      line-height: 30px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: white;
+      font-weight: 400;
+      background-color: #9D9D9D;
+      border-radius: 3px;
+    }
+  }
+}
+
 @media (min-width: $screen-sm-min) {
   #sf_admin_footer { 
     margin: 25px 0; 
