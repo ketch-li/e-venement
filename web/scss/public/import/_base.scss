@@ -553,6 +553,33 @@ body > #client-footer {
 
 /* Cart */
 
+.mod-transaction #command {
+  border-collapse: collapse;
+  td, th {
+    padding: 5px;
+    background-color: white;
+    border-bottom: 5px solid $content-bg-color;
+  }
+  thead td {
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+  tbody td.picture { 
+    padding: 0 5px 0 0;
+    background-color: $content-bg-color;
+  }
+  td.manifestation form {
+    font-size: 0.8em;
+    select, input, button { font-size: 0.8em; }
+    label { margin-top: 5px; }
+  }
+  tfoot td {
+    font-weight: 400;
+    text-transform: uppercase;
+    &.total-total { font-weight: 600; }
+  }
+}
+
 .mod-transaction #actions {
   margin: 20px 0;
   .actions {
@@ -588,7 +615,7 @@ body > #client-footer {
     td { 
       display: table-cell; 
       padding: 5px 20px;
-      border-bottom: 5px solid #EFF2F4;
+      border-bottom: 5px solid $content-bg-color;
     }
   }
 }
