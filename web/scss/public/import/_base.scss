@@ -94,8 +94,9 @@ body.mod-card { color: $text-color2; }
         border-radius: $box-border-radius;
       }      
     }
-    .login a[href*="login"] { @include bg-image("icon_account.png"); }
-    .login a {  @include bg-image("icon_new_account.png"); }
+    .login a[href*="login"],  .login a[href*="contact"] { @include bg-image("icon_account.png"); }
+    .login a[href*="login/out"] { @include bg-image("icon_logoff_account.png"); }
+    .login a[href*="contact/new"] {  @include bg-image("icon_new_account.png"); }
     .cart a { @include bg-image("icon_panier.png"); }
     .with-store a { @include bg-image("icon_store.png"); }
     .event a.event { @include bg-image("icon_reservation.png"); }

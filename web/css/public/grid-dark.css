@@ -122,9 +122,11 @@ body.mod-card {
         background-color: white;
         text-decoration: none;
         border-radius: 3px; }
-    #sf_admin_header #ariane .login a[href*="login"] {
+    #sf_admin_header #ariane .login a[href*="login"], #sf_admin_header #ariane .login a[href*="contact"] {
       background-image: url("/images/vel/themes/icon_account.png"); }
-    #sf_admin_header #ariane .login a {
+    #sf_admin_header #ariane .login a[href*="login/out"] {
+      background-image: url("/images/vel/themes/icon_logoff_account.png"); }
+    #sf_admin_header #ariane .login a[href*="contact/new"] {
       background-image: url("/images/vel/themes/icon_new_account.png"); }
     #sf_admin_header #ariane .cart a {
       background-image: url("/images/vel/themes/icon_panier.png"); }
