@@ -127,16 +127,16 @@ $(document).ready(function(){
       $.each(event.css, function(index, value){
         $(element).css(index, value);
       });
-      console.error('glop');
       
       if ( event.hacktitle )
         $(element).prop('title', event.hacktitle);
       
-      if ( $(element).closest('.fc-agenda-view').length > 0 )
+      if ( $(element).closest('.fc-agenda').length > 0 )
       {
-        $(element).find('.fc-title')
-          .width($(element).height()-16)
-          .height($(element).width())
+        $(element).find('.fc-event-title')
+          .width($(element).height()-8)
+          .height($(element).width()-5)
+          .css('margin-top', $(element).height())
         ;
       }
     },
