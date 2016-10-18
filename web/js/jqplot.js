@@ -64,16 +64,28 @@ LI.chartActions.exportCsv = function(){
 
 LI.stats.pieTooltips = function (str, seriesIndex, pointIndex, plot){
 
-     var total = 0;
-     var data = plot.data[seriesIndex];
-     var label = data[pointIndex][0];
-     var value = data[pointIndex][1];
+  var total = 0;
+  var data = plot.data[seriesIndex];
+  var label = data[pointIndex][0];
+  var value = data[pointIndex][1];
      
-     $(data).each(function(key, value){
-        total +=  value[1];     
-     });
+  $(data).each(function(key, value){
+    total +=  value[1];     
+  });
 
-     var percentage = Math.round(100*value/total);
+  var percentage = Math.round(100*value/total);
 
-     return label + ': ' + value + ' (' + percentage + '%) , ' + 'Total: ' + total;
+  return label + ': ' + value + ' (' + percentage + '%) , ' + 'Total: ' + total;
+};
+
+LI.stats.resizable = function(plot, name, id){
+  $('#resizable-' + name).resizable();
+
+  $('#resizable-' + name).bind('resizestop', function(event, ui) {
+    $('#' + id).height($('#resizable-' + name).height()*0.96 -35);
+    $('#' + id).width($('#resizable-' + name).width()*0.96);
+    plot.replot( { resetAxes:true } );
+  });
+
+  $('#resizable-' + name).children('.actions').css('margin-top', '-15px');
 };

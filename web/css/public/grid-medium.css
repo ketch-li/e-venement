@@ -121,9 +121,11 @@ body.mod-card {
         background-color: white;
         text-decoration: none;
         border-radius: 3px; }
-    #sf_admin_header #ariane .login a[href*="login"] {
+    #sf_admin_header #ariane .login a[href*="login"], #sf_admin_header #ariane .login a[href*="contact"] {
       background-image: url("/images/vel/themes/icon_account.png"); }
-    #sf_admin_header #ariane .login a {
+    #sf_admin_header #ariane .login a[href*="login/out"] {
+      background-image: url("/images/vel/themes/icon_logoff_account.png"); }
+    #sf_admin_header #ariane .login a[href*="contact/new"] {
       background-image: url("/images/vel/themes/icon_new_account.png"); }
     #sf_admin_header #ariane .cart a {
       background-image: url("/images/vel/themes/icon_panier.png"); }
@@ -594,6 +596,30 @@ body > #client-footer {
   right: 5px; }
 
 /* Cart */
+.mod-transaction #command {
+  border-collapse: collapse; }
+  .mod-transaction #command td, .mod-transaction #command th {
+    padding: 5px;
+    background-color: white;
+    border-bottom: 5px solid #eff2f4; }
+  .mod-transaction #command thead td {
+    font-weight: 400;
+    text-transform: uppercase; }
+  .mod-transaction #command tbody td.picture {
+    padding: 0 5px 0 0;
+    background-color: #eff2f4; }
+  .mod-transaction #command td.manifestation form {
+    font-size: 0.8em; }
+    .mod-transaction #command td.manifestation form select, .mod-transaction #command td.manifestation form input, .mod-transaction #command td.manifestation form button {
+      font-size: 0.8em; }
+    .mod-transaction #command td.manifestation form label {
+      margin-top: 5px; }
+  .mod-transaction #command tfoot td {
+    font-weight: 400;
+    text-transform: uppercase; }
+    .mod-transaction #command tfoot td.total-total {
+      font-weight: 600; }
+
 .mod-transaction #actions {
   margin: 20px 0; }
   .mod-transaction #actions .actions {
@@ -625,7 +651,7 @@ body > #client-footer {
 .mod-contact #transactions #sf_admin_content .sf_admin_list tbody td {
   display: table-cell;
   padding: 5px 20px;
-  border-bottom: 5px solid #EFF2F4; }
+  border-bottom: 5px solid #eff2f4; }
 
 @media (min-width: 760px) {
   #sf_admin_footer {

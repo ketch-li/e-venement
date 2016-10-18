@@ -1,3 +1,4 @@
+<?php use_helper('Number') ?>
 <?php use_javascript('pub-named-tickets?'.date('Ymd')) ?>
 <?php use_stylesheet('pub-named-tickets?'.date('Ymd')) ?>
 <form

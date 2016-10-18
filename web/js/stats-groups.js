@@ -39,7 +39,7 @@ LI.stats.groups = function(){
       });
       
       //init jqplot with data array
-      $.jqplot(id, [array], {
+      var plot = $.jqplot(id, [array], {
           seriesDefaults: {
             showMarker: false
           },
@@ -71,7 +71,9 @@ LI.stats.groups = function(){
             zoom: true
           },
           captureRightClick: true
-        });
+      });
+
+      LI.stats.resizable(plot, name, id);
     });
   });
 };

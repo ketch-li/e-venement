@@ -22,6 +22,8 @@
 ***********************************************************************************/
 ?>
 <?php
+    sfApplicationConfiguration::getActive()->loadHelpers(array('I18N'));
+
     $cpt = 0;
     $max = array(
       'print'     => sfConfig::get('app_tickets_simplified_printing', false) && sfConfig::get('app_tickets_merge') ? 300 : 150,
@@ -239,7 +241,9 @@
                   $cpt += 2; // because member cards treatments take a loong time
                 }
                 else
+                {
                   $update['integrated_at'][$ticket->id] = $ticket->id;
+                }
                 
                 if ( sfConfig::get('app_tickets_simplified_printing', false) || sfConfig::get('app_tickets_dematerialized_thermic_printing', false) )
                   $this->tickets[] = $ticket;
@@ -249,6 +253,7 @@
                 // member cards (cf. PluginTicket::preUpdate()) OR auto controled tickets
                 if ( $ticket->Price->member_card_linked || $ticket->Manifestation->Location->auto_control )
                 {
+                  $this->getUser()->setFlash('notice', __('The contact in the current transaction does not have the required member card type for price ') . $ticket->Price->name);
                   $cpt += 2; // because member cards treatments take a loong time
                   $ticket->printed_at = date('Y-m-d H:i:s');
                   $ticket->vat = $ticket->Manifestation->Vat->value;
@@ -256,8 +261,10 @@
                   $ticket->save();
                   $cpt += 2; // because member cards treatments take a loong time
                 }
-                else
+                else{
+                  $this->getUser()->setFlash('notice', 'member_card_linked_else');
                   $update['printed_at'][$ticket->id] = $ticket->id;
+                }
 
                 $this->tickets[] = $ticket;
               }
