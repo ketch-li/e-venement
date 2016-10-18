@@ -1,11 +1,4 @@
 
-main { 
-	background-color: #263238;
-  	display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 /* Menu bar */
 #search-label { top: -20px; }
 
@@ -16,15 +9,14 @@ main {
 /* manif list */
 #manifs-list {
 	list-style-type: none;
-  	display: flex;
-  	flex-wrap: wrap;
-  	justify-content: center;
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
 }
 
 /* manif card */
 .manif-card-wide.mdl-card {
   width: 480px;
-  min-height: 
   margin: 10px;
 }
 
@@ -36,7 +28,8 @@ main {
 
 .manif-card-wide .manif-title {
 	display: flex;
-	justify-content: space-between
+	justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .manif-card-wide .manif-location {
@@ -47,8 +40,25 @@ main {
 	font-size: 1em;
 }
 
+.manif-card-wide .manif-description {
+  height: 40px;
+  margin-bottom: 5px;
+}
+
+/* manif dialog */
+#manif-dialog {
+  width: 60%;
+  height: 80%;
+}
+
+/* loader */
 #spinner {
-	margin: auto;
+  height: 150px;
+  width: 150px;
+  position: absolute;
+  left: 40%;
+  top: 40%;
+  z-index: 1;
 }
 
 /* THEME CSSS */
@@ -78,8 +88,8 @@ main {
   display: -ms-flexbox;
   display: flex;
   -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 .app-drawer-header {
   box-sizing: border-box;
@@ -87,11 +97,11 @@ main {
   display: -ms-flexbox;
   display: flex;
   -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-justify-content: flex-end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   padding: 16px;
   height: 151px;
 }
@@ -101,11 +111,11 @@ main {
   display: flex;
   position: relative;
   -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   width: 100%;
 }
 
@@ -117,11 +127,11 @@ main {
   display: -ms-flexbox !important;
   display: flex !important;
   -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   color: rgba(255, 255, 255, 0.56);
   font-weight: 500;
 }
