@@ -51,7 +51,7 @@ LI.stats.activity = function () {
                 }
             });
 
-            $.jqplot(id, [printed, ordered, passing], {
+            var plot = $.jqplot(id, [printed, ordered, passing], {
                 height: 600,
                 stackSeries: true,
                 seriesDefaults: {
@@ -121,6 +121,8 @@ LI.stats.activity = function () {
                 },
                 captureRightClick: true
             });
+
+            LI.stats.resizable(plot, name, id);
         });
     });
 };

@@ -54,6 +54,7 @@ generator:
         email_no_newsletter: { label: No newsletter }
         email_newsletter: { label: Newsletter ? }
         email_npai:       { label: Bad email }
+        contact_email_npai: { label: Bad email }
         organism_category_id: { credentials: [pr-organism] }
         organism_professional_id: { label: Close contact }
         groups_picto: { credentials: [pr-group], label: Remarkable }

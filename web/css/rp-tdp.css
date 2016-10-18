@@ -63,15 +63,22 @@ body #content { width: auto; }
 #tdp-content #sf_admin_content .tdp-line.complements .tdp-email_npai,
 #tdp-content #sf_admin_content .tdp-contact_email_npai,
 #tdp-content #sf_admin_content .tdp-line.complements .tdp-email_no_newsletter,
-#tdp-content #sf_admin_content .tdp-contact_email_no_newsletter { position: absolute; margin-top: -1.5em; margin-left: 410px; }
+#tdp-content #sf_admin_content .tdp-contact_email_no_newsletter { position: absolute; margin-top: -2em; margin-left: 410px; width: 6em; text-align: center; }
 #tdp-content #sf_admin_content .tdp-contact_email_npai { margin: 0; }
-#tdp-content #sf_admin_content .tdp-contact_email_no_newsletter { margin: 0 0 0 1.5em; }
-#tdp-content #sf_admin_content .tdp-line.complements .tdp-email_no_newsletter { margin-left: calc(410px + 1.5em); }
+#tdp-content #sf_admin_content .tdp-contact_email_no_newsletter { margin: 0 0 0 5.5em; }
+#tdp-content #sf_admin_content .tdp-line.complements .tdp-email_no_newsletter { margin-left: calc(410px + 5.5em); }
 #tdp-content #sf_admin_content .tdp-groups_picto > * { padding-top: 8px; }
 #tdp-content #sf_admin_content .tdp-contact_email_npai label,
 #tdp-content #sf_admin_content .tdp-line.complements .tdp-email_npai label,
 #tdp-content #sf_admin_content .tdp-contact_email_no_newsletter label,
-#tdp-content #sf_admin_content .tdp-line.complements .tdp-email_no_newsletter label { display: none; }
+#tdp-content #sf_admin_content .tdp-line.complements .tdp-email_no_newsletter label { font-size: 65%; font-weight: normal; width: 100%; }
+@media screen and (max-width: 1100px) {
+  #tdp-content #sf_admin_content .tdp-line.complements .tdp-email_npai label,
+  #tdp-content #sf_admin_content .tdp-line.complements .tdp-email_no_newsletter label { display: none; }
+  #tdp-content #sf_admin_content .tdp-line.complements .tdp-email_npai,
+  #tdp-content #sf_admin_content .tdp-line.complements .tdp-email_no_newsletter { margin-top: -1.5em; width: auto; }
+  #tdp-content #sf_admin_content .tdp-line.complements .tdp-email_no_newsletter { margin-left: calc(410px + 1.5em); }
+}
 #tdp-content #sf_admin_content .tdp-line.complements { position: absolute; margin-left: 300px; margin-top: -5px; }
 #tdp-content #sf_admin_content #contact_postalcode { width: 6em; }
 #tdp-content #sf_admin_content #contact_city { width: 15em; }

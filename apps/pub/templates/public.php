@@ -10,9 +10,11 @@
     <meta property="og:type" content="article" />
     <link rel="shortcut icon" href="<?php echo image_path('logo-evenement.png') ?>" />
     <?php include_stylesheets() ?>
+    <?php include_component('layout', 'stylesheets') ?>
     <?php include_javascripts() ?>
   </head>
   <body class="<?php include_partial('global/body_classes') ?>">
+    <?php include_component('layout', 'layoutSwitcher') ?>
     <div id="client-header"></div>
     <div id="content">
       <?php include_partial('global/oplog') ?>

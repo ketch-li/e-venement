@@ -1,11 +1,5 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/13-View
-<?php
- $layout = sfConfig::get('app_options_layout');
- $theme = sfConfig::get('app_options_theme');
- $public_stylesheet = ($theme && $layout) ? "public/$layout-$theme.css" : "public.css";
-?>
-
 
 default:
   http_metas:
@@ -22,8 +16,7 @@ default:
     - "/sfAdminThemejRollerPlugin/css/jroller.css"
     - "/sfAdminThemejRollerPlugin/css/jquery/redmond/jquery-ui.custom.css"
     - main.css
-    - "<?php echo $public_stylesheet; ?>"
-    - "/private/public.css?<?php echo date('Ymd') ?>"
+    # other stylesheets are dynamically added by layout:stylesheets component
   javascripts:    [jquery?<?php echo date('Ymd') ?>, public?<?php echo date('Ymd') ?>, pub-timer?<?php echo date('Ymd') ?>, helper?<?php echo date('Ymd') ?>, helper-cookies?<?php echo date('Ymd') ?>, /private/public?<?php echo date('Ymd') ?>, jquery.nicescroll.min.js?<?php echo date('Ymd') ?>, helper]
 
   has_layout:     true

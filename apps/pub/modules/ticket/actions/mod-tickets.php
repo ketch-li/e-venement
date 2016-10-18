@@ -232,7 +232,10 @@
     
     // setting the most expansive price by default, if none given
     if ( !$ticket->price_id )
-      $ticket->Price = Doctrine::getTable('price')->fetchTheMostExpansiveForGauge($tck['gauge_id']);
+    {
+      $q = Doctrine::getTable('price')->createQueryToFindTheMostExpansiveForGauge($tck['gauge_id']);
+      $ticket->Price = $q->andWhere('wsu.id = ?', $this->getUser()->getId())->fetchOne();
+    }
     $ticket->price_name = NULL;
     $ticket->value      = NULL;
     $ticket->vat        = NULL;

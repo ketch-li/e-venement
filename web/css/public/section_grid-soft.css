@@ -53,6 +53,9 @@ body.mod-manifestation.action-show,
 body.mod-card {
   color: #777; }
 
+.clear {
+  clear: both; }
+
 .clearfix {
   clear: both; }
 
@@ -119,9 +122,11 @@ body.mod-card {
         background-color: white;
         text-decoration: none;
         border-radius: 3px; }
-    #sf_admin_header #ariane .login a[href*="login"] {
+    #sf_admin_header #ariane .login a[href*="login"], #sf_admin_header #ariane .login a[href*="contact"] {
       background-image: url("/images/vel/themes/icon_account.png"); }
-    #sf_admin_header #ariane .login a {
+    #sf_admin_header #ariane .login a[href*="login/out"] {
+      background-image: url("/images/vel/themes/icon_logoff_account.png"); }
+    #sf_admin_header #ariane .login a[href*="contact/new"] {
       background-image: url("/images/vel/themes/icon_new_account.png"); }
     #sf_admin_header #ariane .cart a {
       background-image: url("/images/vel/themes/icon_panier.png"); }
@@ -191,14 +196,17 @@ body.mod-card {
 
 /* Login form */
 #login label {
-  min-width: 125px;
+  width: 125px;
   display: inline-block; }
-
 #login .submit {
   margin-left: 0; }
-
-#login .submit input {
-  margin-left: 5px; }
+  #login .submit input {
+    margin-left: 5px; }
+#login .password a {
+  display: block;
+  margin: 1em 0 0 129px; }
+#login .password br {
+  display: none; }
 
 /* Contact form */
 /* this is copied from public.css */
@@ -583,6 +591,69 @@ body > #client-footer {
 .social-description {
   display: none; }
 
+/* Seated plans */
+.mod-manifestation #plans .gauge .magnify {
+  position: absolute;
+  right: 5px; }
+
+/* Cart */
+.mod-transaction #command {
+  border-collapse: collapse; }
+  .mod-transaction #command td, .mod-transaction #command th {
+    padding: 5px;
+    background-color: white;
+    border-bottom: 5px solid #FFF; }
+  .mod-transaction #command thead td {
+    font-weight: 400;
+    text-transform: uppercase; }
+  .mod-transaction #command tbody td.picture {
+    padding: 0 5px 0 0;
+    background-color: #FFF; }
+  .mod-transaction #command td.manifestation form {
+    font-size: 0.8em; }
+    .mod-transaction #command td.manifestation form select, .mod-transaction #command td.manifestation form input, .mod-transaction #command td.manifestation form button {
+      font-size: 0.8em; }
+    .mod-transaction #command td.manifestation form label {
+      margin-top: 5px; }
+  .mod-transaction #command tfoot td {
+    font-weight: 400;
+    text-transform: uppercase; }
+    .mod-transaction #command tfoot td.total-total {
+      font-weight: 600; }
+
+.mod-transaction #actions {
+  margin: 20px 0; }
+  .mod-transaction #actions .actions {
+    display: inline-block; }
+    .mod-transaction #actions .actions a {
+      display: inline-block;
+      padding: 0 15px;
+      height: 30px;
+      line-height: 30px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: white;
+      font-weight: 400;
+      background-color: #9D9D9D;
+      border-radius: 3px; }
+
+/* My Account page */
+.mod-contact #manifestations #sf_admin_content .sf_admin_list thead,
+.mod-contact #transactions #sf_admin_content .sf_admin_list thead {
+  display: table-header-group; }
+  .mod-contact #manifestations #sf_admin_content .sf_admin_list thead th,
+  .mod-contact #transactions #sf_admin_content .sf_admin_list thead th {
+    padding: 5px 20px;
+    text-align: left; }
+.mod-contact #manifestations #sf_admin_content .sf_admin_list tbody tr,
+.mod-contact #transactions #sf_admin_content .sf_admin_list tbody tr {
+  display: table-row; }
+.mod-contact #manifestations #sf_admin_content .sf_admin_list tbody td,
+.mod-contact #transactions #sf_admin_content .sf_admin_list tbody td {
+  display: table-cell;
+  padding: 5px 20px;
+  border-bottom: 5px solid #FFF; }
+
 @media (min-width: 760px) {
   #sf_admin_footer {
     margin: 25px 0;
@@ -598,7 +669,23 @@ body > #client-footer {
       width: 30%; }
     body.mod-manifestation.action-index #sf_admin_content .sf_admin_list td.sf_admin_list_td_Location {
       display: inline-block;
-      width: 28%; } }
+      width: 28%; }
+
+  #container #plans.tab {
+    width: 500px; }
+
+  .mod-manifestation #container h4 {
+    width: 14em; }
+
+  .mod-manifestation #container h4 + h4 {
+    width: 16em;
+    margin-left: 500px; } }
+@media (min-width: 992px) {
+  #container #plans.tab {
+    width: 732px; } }
+@media (min-width: 1200px) {
+  #container #plans.tab {
+    width: 940px; } }
 /* Media queries */
 @media (min-width: 760px) {
   /* We want 3 blocks in a row */

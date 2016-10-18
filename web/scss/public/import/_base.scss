@@ -22,7 +22,10 @@ body.mod-login,
 body.mod-manifestation.action-show,
 body.mod-card { color: $text-color2; }
 
+.clear { clear: both; }
+
 .clearfix { clear: both; }
+
 
 #menu, #cart-widget, #oplog { display: none; }
 
@@ -91,8 +94,9 @@ body.mod-card { color: $text-color2; }
         border-radius: $box-border-radius;
       }      
     }
-    .login a[href*="login"] { @include bg-image("icon_account.png"); }
-    .login a {  @include bg-image("icon_new_account.png"); }
+    .login a[href*="login"],  .login a[href*="contact"] { @include bg-image("icon_account.png"); }
+    .login a[href*="login/out"] { @include bg-image("icon_logoff_account.png"); }
+    .login a[href*="contact/new"] {  @include bg-image("icon_new_account.png"); }
     .cart a { @include bg-image("icon_panier.png"); }
     .with-store a { @include bg-image("icon_store.png"); }
     .event a.event { @include bg-image("icon_reservation.png"); }
@@ -161,9 +165,20 @@ body.mod-card { color: $text-color2; }
 
 /* Login form */
 
-#login label { min-width: 125px; display: inline-block; }
-#login .submit { margin-left: 0; }
-#login .submit input { margin-left: 5px; }
+#login {
+  label { width: 125px; display: inline-block; }
+  .submit { 
+     margin-left: 0; 
+     input { margin-left: 5px; }
+  }
+  .password {
+    a { 
+      display: block; 
+      margin: 1em 0 0 (125px + 4px);
+    }
+    br { display: none; }
+  }
+}
 
 /* Contact form */
 /* this is copied from public.css */
@@ -530,6 +545,82 @@ body > #client-footer {
 }
 .social-description { display: none; }
 
+/* Seated plans */
+
+.mod-manifestation #plans .gauge .magnify {
+  position: absolute;
+  right: 5px;
+}
+
+/* Cart */
+
+.mod-transaction #command {
+  border-collapse: collapse;
+  td, th {
+    padding: 5px;
+    background-color: white;
+    border-bottom: 5px solid $content-bg-color;
+  }
+  thead td {
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+  tbody td.picture { 
+    padding: 0 5px 0 0;
+    background-color: $content-bg-color;
+  }
+  td.manifestation form {
+    font-size: 0.8em;
+    select, input, button { font-size: 0.8em; }
+    label { margin-top: 5px; }
+  }
+  tfoot td {
+    font-weight: 400;
+    text-transform: uppercase;
+    &.total-total { font-weight: 600; }
+  }
+}
+
+.mod-transaction #actions {
+  margin: 20px 0;
+  .actions {
+    display: inline-block;
+    a {
+      display: inline-block;
+      padding: 0 15px;
+      height: 30px;
+      line-height: 30px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: white;
+      font-weight: 400;
+      background-color: #9D9D9D;
+      border-radius: 3px;
+    }
+  }
+}
+
+/* My Account page */
+
+.mod-contact #manifestations #sf_admin_content .sf_admin_list,
+.mod-contact #transactions #sf_admin_content .sf_admin_list {
+  thead { 
+    display: table-header-group; 
+    th {
+      padding: 5px 20px;
+      text-align: left;
+    }
+  }
+  tbody {
+    tr { display: table-row; }
+    td { 
+      display: table-cell; 
+      padding: 5px 20px;
+      border-bottom: 5px solid $content-bg-color;
+    }
+  }
+}
+
 @media (min-width: $screen-sm-min) {
   #sf_admin_footer { 
     margin: 25px 0; 
@@ -550,14 +641,20 @@ body > #client-footer {
       width: 28%
     }    
   }
+  #container #plans.tab { width: $screen-sm-min - 260px; }
+  .mod-manifestation #container h4 { width: 14em; }
+  .mod-manifestation #container h4 + h4 { 
+    width: 16em;
+    margin-left: $screen-sm-min - 260px; 
+  }
 }
 
 @media (min-width: $screen-md-min) {
-  
+  #container #plans.tab { width: $screen-md-min - 260px; }
 }
 
 @media (min-width: $screen-lg-min) {
-  
+  #container #plans.tab { width: $screen-lg-min - 260px; }
 }
 
 

@@ -1,3 +1,4 @@
+<?php use_helper('Number') ?>
 <?php use_javascript('pub-named-tickets?'.date('Ymd')) ?>
 <?php use_stylesheet('pub-named-tickets?'.date('Ymd')) ?>
 <form
@@ -19,7 +20,14 @@
     </h4>
     <div class="price">
       <span class="seat_label"><?php if ( isset($display_mods) && !$display_mods ) echo __('Seat #') ?></span><span class="seat_name"></span>
-      <span class="price_name"><select name="ticket[%%ticket_id%%][price_id]"></select></span>
+      <!--<span class="price_name"><select <?php if (!( isset($display_mods) && $display_mods )): ?>disabled="disabled"<?php endif ?> name="ticket[%%ticket_id%%][price_id]"></select></span>-->
+      <span class="price_name">
+        <?php if (!( isset($display_mods) && $display_mods )): ?>
+          <?php echo format_currency($ticket->value, '€') ?>
+        <?php else: ?>
+          <select name="ticket[%%ticket_id%%][price_id]"></select>
+        <?php endif ?>
+      </span>
       <?php if (!( isset($display_mods) && !$display_mods )): ?>
       <button value="true" class="delete" name="ticket[%%ticket_id%%][delete]" title="<?php echo __('Delete', null, 'sf_admin') ?>">X</button>
       <?php endif ?>
