@@ -41,7 +41,7 @@ LI.stats.debts = function(){
       });
       
       //init jqplot with data array
-      $.jqplot(id, [array], {
+      var plot = $.jqplot(id, [array], {
           seriesDefaults: {
             showMarker: false
           },
@@ -74,7 +74,9 @@ LI.stats.debts = function(){
             zoom: true
           },
           captureRightClick: true
-        });
+      });
+
+      LI.stats.resizable(plot, name, id);
     });
   });
 };

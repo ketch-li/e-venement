@@ -98,7 +98,7 @@ LI.stats.attendance = function () {
 
             var seriesLegend = [{label: json.legends.printed, color: "#FF0000"}, {label: json.legends.ordered, color: "#FFA500"}, {label: json.legends.available, color: "#00FF00"}];
 
-            $.jqplot(id, [printed, ordered, array], {
+            var plot = $.jqplot(id, [printed, ordered, array], {
                 height: 800,
                 stackSeries: true,
                 seriesDefaults: {
@@ -135,6 +135,8 @@ LI.stats.attendance = function () {
                 },
                 captureRightClick: true
             });
+
+            LI.stats.resizable(plot, name, id);
         });
     });
 };

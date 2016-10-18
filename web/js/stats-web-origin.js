@@ -33,10 +33,12 @@ LI.stats.webOrigin = function(){
             LI.csvData[name].push([key, value.value, value.percent]);
           }
         });
+
+      var plot;
       
       switch ( name ) {
       case 'evolution':
-        $.jqplot(id, [array], {
+        plot = $.jqplot(id, [array], {
           seriesDefaults: {
             showMarker: false
           },
@@ -72,7 +74,7 @@ LI.stats.webOrigin = function(){
         });
         break;
       default:
-        $.jqplot(id, [array], {
+        plot = $.jqplot(id, [array], {
           seriesDefaults: {
             rendererOptions: {
               fill: true,
@@ -101,6 +103,8 @@ LI.stats.webOrigin = function(){
         });
         break;
       }
+
+      LI.stats.resizable(plot, name, id);
     });
   });
 };
