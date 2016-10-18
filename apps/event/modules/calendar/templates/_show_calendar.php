@@ -127,7 +127,6 @@ $(document).ready(function(){
       $.each(event.css, function(index, value){
         $(element).css(index, value);
       });
-      console.error('glop');
       
       if ( event.hacktitle )
         $(element).prop('title', event.hacktitle);
