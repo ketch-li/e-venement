@@ -209,6 +209,9 @@
       }
       // set another price_id (if not getting back a transaction already paid)
       if ( !$request->getParameter('transaction_id')
+        && $this->getUser()->getTransaction()->Order->count() == 0
+        && $this->getUser()->getTransaction()->Payments->count() == 0
+        && !$ticket->printed_at && !$ticket->integrated_at
         && $data[$ticket->id]['price_id'] != $ticket->price_id
         && in_array($ticket->price_id, $ticket->Gauge->Workspace->Prices->getPrimaryKeys())
         && ($price = Doctrine::getTable('Price')->find($data[$ticket->id]['price_id']))
@@ -227,12 +230,14 @@
     {
       foreach ( $ticket->Manifestation->PriceManifestations as $pm )
       if ( $pm->Price->isAccessibleBy($this->getUser(), array('manifestation' => $ticket->Manifestation)) )
+      if ( in_array($ticket->Gauge->workspace_id, array_keys($pm->Price->Workspaces->getPrimaryKeys())) )
       {
         $order[$pm->price_id] = $pm->value;
         $tmp[$pm->price_id] = ($pm->Price->description ? $pm->Price->description : (string)$pm->Price).' ('.format_currency($pm->value,$this->getContext()->getConfiguration()->getCurrency()).')';
       }
       foreach ( $ticket->Gauge->PriceGauges as $pg )
       if ( $pg->Price->isAccessibleBy($this->getUser(), array('manifestation' => $ticket->Manifestation)) )
+      if ( $ticket->gauge_id == $pg->gauge_id )
       {
         $order[$pg->price_id] = $pg->value;
         $tmp[$pg->price_id] = ($pg->Price->description ? $pg->Price->description : (string)$pg->Price).' ('.format_currency($pg->value,$this->getContext()->getConfiguration()->getCurrency()).')';

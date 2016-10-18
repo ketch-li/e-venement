@@ -43,7 +43,7 @@ LI.stats.prices = function(){
         title
       ],
     ]; 
-    
+
     //retrieve stats
     $.get(chart.attr('data-json-url') + '?id=' + name, function(json){
       var array = [];
@@ -58,9 +58,9 @@ LI.stats.prices = function(){
           LI.csvData[name].push([value.name, value.nb, value.percent]);
         }
       });
-      
+
       //init jqplot with data array
-      $.jqplot(id, [array], {
+      var plot = $.jqplot(id, [array], {
         seriesDefaults: {
           rendererOptions: {
             fill: true,
@@ -87,6 +87,8 @@ LI.stats.prices = function(){
         },
         captureRightClick: true
       });
+
+      LI.stats.resizable(plot, name, id);
     });
   });
 };

@@ -4,7 +4,7 @@
   est   une   coopérative des métiers de l'informatique qui s'attache
   à ce que l'informatique soit avant tout un outil efficient qui se
   façonne à vos usages, à vos ouvrages, à   vos   travaux   et   non
-  une   injonction   permanente   à   vous réapproprier de nouveaux
+  une   injonction   permanente   à   vous approprier de nouveaux
   outils.
 </p>
 <p style="margin-bottom: 10px;">

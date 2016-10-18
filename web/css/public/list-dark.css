@@ -40,7 +40,7 @@ html, body {
   margin: 0;
   padding: 0;
   background-color: #575e71;
-  color: #777;
+  color: white;
   font-size: 15px;
   font-family: Roboto;
   line-height: 1.231;
@@ -52,6 +52,9 @@ body.mod-login,
 body.mod-manifestation.action-show,
 body.mod-card {
   color: white; }
+
+.clear {
+  clear: both; }
 
 .clearfix {
   clear: both; }
@@ -96,14 +99,15 @@ body.mod-card {
         margin: 0; }
     #sf_admin_header #ariane a {
       float: left;
-      margin: 2px 20px;
+      margin: 2px 0px;
       height: 60px;
-      width: 60px;
+      width: 100px;
       position: relative;
       background-size: 40px;
       background-position: center;
       background-repeat: no-repeat;
       text-align: center;
+      white-space: nowrap;
       span-display: none; }
     #sf_admin_header #ariane li:hover a {
       text-decoration: none;
@@ -118,12 +122,16 @@ body.mod-card {
         background-color: white;
         text-decoration: none;
         border-radius: 3px; }
-    #sf_admin_header #ariane .login a[href*="login"] {
+    #sf_admin_header #ariane .login a[href*="login"], #sf_admin_header #ariane .login a[href*="contact"] {
       background-image: url("/images/vel/themes/icon_account.png"); }
-    #sf_admin_header #ariane .login a.second-link {
-      margin: 0 0 0 -15px; }
+    #sf_admin_header #ariane .login a[href*="login/out"] {
+      background-image: url("/images/vel/themes/icon_logoff_account.png"); }
+    #sf_admin_header #ariane .login a[href*="contact/new"] {
+      background-image: url("/images/vel/themes/icon_new_account.png"); }
     #sf_admin_header #ariane .cart a {
       background-image: url("/images/vel/themes/icon_panier.png"); }
+    #sf_admin_header #ariane .with-store a {
+      background-image: url("/images/vel/themes/icon_store.png"); }
     #sf_admin_header #ariane .event a.event {
       background-image: url("/images/vel/themes/icon_reservation.png"); }
     #sf_admin_header #ariane .event a.mc {
@@ -188,14 +196,17 @@ body.mod-card {
 
 /* Login form */
 #login label {
-  min-width: 125px;
+  width: 125px;
   display: inline-block; }
-
 #login .submit {
   margin-left: 0; }
-
-#login .submit input {
-  margin-left: 5px; }
+  #login .submit input {
+    margin-left: 5px; }
+#login .password a {
+  display: block;
+  margin: 1em 0 0 129px; }
+#login .password br {
+  display: none; }
 
 /* Contact form */
 /* this is copied from public.css */
@@ -212,7 +223,7 @@ body.mod-card {
   margin: 0; }
 
 .mod-cart.action-order #login p, .mod-cart.action-register #login p, #contact-form .field {
-  background-color: white;
+  background-color: none;
   padding: 1px 3px;
   border-radius: 3px;
   clear: both; }
@@ -258,11 +269,14 @@ body.mod-card {
   padding-top: 2px; }
 
 .mod-cart.action-order #login label, .mod-cart.action-register #login label, #contact-form .field label {
-  width: 140px;
+  width: 200px;
   display: block;
   float: left;
   margin-top: 3px;
   font-weight: bold; }
+
+#contact-form .field.newsletter label {
+  width: 25em; }
 
 .mod-cart.action-order #login .submit, .mod-cart.action-register #login .submit, #contact-form .submit {
   margin-left: 142px; }
@@ -426,7 +440,7 @@ body.mod-manifestation.action-show .manifestation_bottom .social-description {
       #sf_admin_content .sf_admin_list tfoot th .sf_admin_pagination a {
         display: inline-block;
         padding: 0 5px;
-        color: #777; }
+        color: white; }
 
 /* Meta events admin list */
 .mod-meta_event #sf_admin_content .sf_admin_list td {
@@ -577,6 +591,69 @@ body > #client-footer {
 .social-description {
   display: none; }
 
+/* Seated plans */
+.mod-manifestation #plans .gauge .magnify {
+  position: absolute;
+  right: 5px; }
+
+/* Cart */
+.mod-transaction #command {
+  border-collapse: collapse; }
+  .mod-transaction #command td, .mod-transaction #command th {
+    padding: 5px;
+    background-color: white;
+    border-bottom: 5px solid #575e71; }
+  .mod-transaction #command thead td {
+    font-weight: 400;
+    text-transform: uppercase; }
+  .mod-transaction #command tbody td.picture {
+    padding: 0 5px 0 0;
+    background-color: #575e71; }
+  .mod-transaction #command td.manifestation form {
+    font-size: 0.8em; }
+    .mod-transaction #command td.manifestation form select, .mod-transaction #command td.manifestation form input, .mod-transaction #command td.manifestation form button {
+      font-size: 0.8em; }
+    .mod-transaction #command td.manifestation form label {
+      margin-top: 5px; }
+  .mod-transaction #command tfoot td {
+    font-weight: 400;
+    text-transform: uppercase; }
+    .mod-transaction #command tfoot td.total-total {
+      font-weight: 600; }
+
+.mod-transaction #actions {
+  margin: 20px 0; }
+  .mod-transaction #actions .actions {
+    display: inline-block; }
+    .mod-transaction #actions .actions a {
+      display: inline-block;
+      padding: 0 15px;
+      height: 30px;
+      line-height: 30px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: white;
+      font-weight: 400;
+      background-color: #9D9D9D;
+      border-radius: 3px; }
+
+/* My Account page */
+.mod-contact #manifestations #sf_admin_content .sf_admin_list thead,
+.mod-contact #transactions #sf_admin_content .sf_admin_list thead {
+  display: table-header-group; }
+  .mod-contact #manifestations #sf_admin_content .sf_admin_list thead th,
+  .mod-contact #transactions #sf_admin_content .sf_admin_list thead th {
+    padding: 5px 20px;
+    text-align: left; }
+.mod-contact #manifestations #sf_admin_content .sf_admin_list tbody tr,
+.mod-contact #transactions #sf_admin_content .sf_admin_list tbody tr {
+  display: table-row; }
+.mod-contact #manifestations #sf_admin_content .sf_admin_list tbody td,
+.mod-contact #transactions #sf_admin_content .sf_admin_list tbody td {
+  display: table-cell;
+  padding: 5px 20px;
+  border-bottom: 5px solid #575e71; }
+
 @media (min-width: 760px) {
   #sf_admin_footer {
     margin: 25px 0;
@@ -592,7 +669,23 @@ body > #client-footer {
       width: 30%; }
     body.mod-manifestation.action-index #sf_admin_content .sf_admin_list td.sf_admin_list_td_Location {
       display: inline-block;
-      width: 28%; } }
+      width: 28%; }
+
+  #container #plans.tab {
+    width: 500px; }
+
+  .mod-manifestation #container h4 {
+    width: 14em; }
+
+  .mod-manifestation #container h4 + h4 {
+    width: 16em;
+    margin-left: 500px; } }
+@media (min-width: 992px) {
+  #container #plans.tab {
+    width: 732px; } }
+@media (min-width: 1200px) {
+  #container #plans.tab {
+    width: 940px; } }
 /* Admin lists */
 #sf_admin_content .sf_admin_list {
   /* Hide months and prevent js pagination recalculation (in public.js) */ }
@@ -648,7 +741,7 @@ body > #client-footer {
         height: 28px;
         line-height: 28px;
         margin: 36px auto 0;
-        padding-left: 1em;
+        padding-left: 0.5em;
         border-radius: 3px;
         font-size: 1em;
         font-weight: 400;

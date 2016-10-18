@@ -78,16 +78,25 @@ abstract class PluginEmail extends BaseEmail
     return $this->raw_send(array($this->test_address),true);
   }
   
+  private function return_bytes ($size_str)
+  {
+    switch (substr ($size_str, -1))
+    {
+        case 'K': case 'k': return (int)$size_str * 1024;
+        case 'M': case 'm': return (int)$size_str * 1048576;
+        case 'G': case 'g': return (int)$size_str * 1073741824;
+        default: return $size_str;
+    }
+  }
+  
   protected function raw_send($to = array(), $immediatly = false)
   {
     // sets the PHP timeout to 5 times the default parameter, to be able to process the sending correctly
     set_time_limit(ini_get('max_execution_time')*6);
     // sets the PHP memory_limit to twice the default parameter, to be able to process the sending correctly
-    if ( ini_get('memory_limit') > 0 )
-    {
-      preg_match('/(\d+)(\w)/', ini_get('memory_limit'), $matches);
-      ini_set('memory_limit', ($matches[1]*3).$matches[2]);
-    }
+    $limit = $this->return_bytes(ini_get('memory_limit'));
+    if ( $limit > 0 && $limit < 1000000000 )
+      ini_set('memory_limit', $limit*2);
     
     $to = is_array($to) && count($to) > 0 ? $to : $this->to;
     if ( !$to && !$this->field_to )

@@ -41,7 +41,11 @@ function cross_app_url_for($appname, $url, $absolute = false, $env = null, $debu
   {
     $context = sfContext::getInstance($appname);
   }
-  $web_url = $context->getController()->genUrl($url, $absolute);
+  $web_url = str_replace(
+    $initial_web_controler.'/'.$initial_web_controler,
+    $initial_web_controler,
+    $context->getController()->genUrl($url, $absolute)
+  );
   sfContext::switchTo($initial_app);
   sfConfig::add($initial_config);
   unset($context);
@@ -65,9 +69,11 @@ function cross_app_url_for($appname, $url, $absolute = false, $env = null, $debu
     $script_name="index";
   }
   $script_name.='.php';
+  
   // check if this file exist
   if (!file_exists(sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.$script_name))
     throw new sfException('can t find '.$script_name.' in the web directory');
+  
   $web_url = str_replace ($initial_web_controler, $script_name, $web_url);
 
   return $web_url;

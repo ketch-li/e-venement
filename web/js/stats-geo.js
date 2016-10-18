@@ -53,7 +53,7 @@ LI.stats.geo = function(){
       }
       
       //init jqplot with data array
-      $.jqplot(id, [array], {
+      var plot = $.jqplot(id, [array], {
         seriesDefaults: {
           rendererOptions: {
             fill: true,
@@ -80,6 +80,8 @@ LI.stats.geo = function(){
         },
         captureRightClick: true
       });
+
+      LI.stats.resizable(plot, name, id);
     });
   });
 };

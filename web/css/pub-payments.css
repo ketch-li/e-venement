@@ -1,3 +1,3 @@
 #content { text-align: center; }
-#content > a, #content > form { display: inline-block; padding-top: 17px; text-decoration: none; border: 1px solid silver; height: 35px; border-radius: 3px; vertical-align: middle; width: 25%; background-color: whitesmoke; }
+#content > a, #content > form { display: inline-block; padding-top: 1em; text-decoration: none; border: 1px solid silver; padding-bottom: 1em; border-radius: 3px; vertical-align: middle; width: 25%; background-color: whitesmoke; }
 #content > form > * { text-decoration: none; }

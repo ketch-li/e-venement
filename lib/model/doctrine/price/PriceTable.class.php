@@ -7,19 +7,23 @@
  */
 class PriceTable extends PluginPriceTable
 {
-  public function fetchTheMostExpansiveForGauge($gauge_id)
+  public function createQueryToFindTheMostExpansiveForGauge($gauge_id)
   {
     $q = $this->createQuery('p')
+      ->leftJoin('p.Workspaces ws')
+      ->leftJoin('ws.Gauges wsg WITH wsg.id = ?', $gauge_id)
+      ->leftJoin('ws.Users wsu')
       ->leftJoin('p.PriceGauges pg')
-      ->leftJoin('pg.Gauge g')
+      ->leftJoin('pg.Gauge g WITH g.id = ?', $gauge_id)
       ->leftJoin('p.PriceManifestations pm')
       ->leftJoin('pm.Manifestation m')
-      ->leftJoin('m.Gauge mg')
-      ->andWhere('(mg.id = ? OR g.id = ?)', array($gauge_id, $gauge_id))
+      ->leftJoin('m.Gauge mg WITH mg.id = ?', $gauge_id)
+      ->andWhere('mg.id IS NOT NULL OR g.id IS NOT NULL')
+      ->andWhere('wsg.id IS NOT NULL')
       ->orderBy('pg.value DESC, pm.value DESC')
       ->select('p.*, (CASE WHEN pg.value IS NULL THEN pm.value ELSE pg.value END) AS real_value')
     ;
-    return $q->fetchOne();
+    return $q;
   }
   
   public function createQuery($alias = 'p', $override_credentials = true)

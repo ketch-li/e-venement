@@ -73,6 +73,7 @@ $(document).ready(function(){
     */
     
     LI.fixCacherLinks();
+    $('#transition .close').click();
     <?php include_partial('show_print_part_js',array('tab' => 'spectators', 'jsFunction' => 'LI.manifShowSpectators')) ?>
   });
 });

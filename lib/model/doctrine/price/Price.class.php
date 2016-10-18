@@ -26,10 +26,7 @@ class Price extends PluginPrice implements liUserAccessInterface
   
   public function getWorkspaceIds()
   {
-    $arr = array();
-    foreach ( $this->Workspaces as $ws )
-      $arr[] = $ws->id;
-    return $arr;
+    return array_keys($this->Workspaces->getPrimaryKeys());
   }
   
   public function isAccessibleBy(sfSecurityUser $user, $option = NULL)

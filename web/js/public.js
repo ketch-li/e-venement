@@ -246,17 +246,21 @@ $(document).ready(function(){
       data: $(this).serialize(),
       success: function(json){
         if ( json.message )
-          LI.alert(json.message, 'error');
+          LI.alert(json.message, 'error', 6000);
         
         var price = $(localelt).closest('[data-price-id]').attr('data-price-id');
         var gauge = $(localelt).closest('[data-gauge-id]').attr('data-gauge-id');
         // blinking the line concerned by a constraint
+        if ( parseInt($(localelt).val()) > 0 )
         if (!( json.tickets[gauge] != undefined && json.tickets[gauge][price] != undefined ))
         {
           $(localelt).closest('tr').css('background-color', 'rgba(255,0,0,0.2)');
+          $('html, body').animate({
+            scrollTop: $(localelt).offset().top - 150
+          }, 1500);
           setTimeout(function(){
             $(localelt).closest('tr').css('background-color', 'transparent');
-          },2000);
+          },3000);
         }
         $('.sf_admin_list_td_list_tickets [data-gauge-id] [data-price-id] .qty input:not(:focus)').val(0);
         
@@ -401,7 +405,8 @@ LI.customLayout = function()
     $(this).find('.sf_admin_list_td_name').append(subtitle);
 
     // Add date picker for events
-    var dateBtn = $('<a href="#">').text('Choisir une date');  // TODO: translation !
+    var dateHref = $(this).find('.sf_admin_list_td_name a').attr('href'); // TODO: display the list ?
+    var dateBtn = $('<a>').attr('href', dateHref).text('Choisir une date');  // TODO: translation !
     $('<td>').addClass('sf_admin_date_action').append(dateBtn).appendTo($(this));
 
     // Add order button

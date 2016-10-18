@@ -252,11 +252,12 @@ $(document).ready(function(){
   // SIDEBAR
   LI.tdp_side_bar();
   
+  // Highlightening email addresses & addresses if they are "ticked" as invalid
   $('.tdp-line.internet .tdp-contact_email_npai input[type=checkbox], .tdp-line.complements .tdp-email_npai input[type=checkbox]').change(function(){
-    if ( $(this).prop('checked') )
-      $(this).closest('.tdp-line.complements, .tdp-line.internet').find('.tdp-email, .tdp-contact_email').addClass('bad');
-    else
-      $(this).closest('.tdp-line.complements, .tdp-line.internet').find('.tdp-email, .tdp-contact_email').removeClass('bad');
+    $(this).prop('checked') ? $(this).closest('.tdp-line.complements, .tdp-line.internet').find('.tdp-email, .tdp-contact_email').addClass('bad') : $(this).closest('.tdp-line.complements, .tdp-line.internet').find('.tdp-email, .tdp-contact_email').removeClass('bad');
+  }).change();
+  $('.tdp-line.more .tdp-npai input[type=checkbox]').change(function(){
+    $(this).prop('checked') ? $(this).closest('.tdp-object').find('.tdp-address').addClass('bad') : $(this).closest('.tdp-object').find('.tdp-address').removeClass('bad');
   }).change();
   
   // TOPBAR
@@ -526,7 +527,7 @@ LI.tdp_filters = function()
   // stolen in web/sfAdminThemejRollerPlugin/js/jroller.js
   $('.sf_admin_filter').dialog({
    autoOpen: false,
-    width: 600,
+    width: $(document).width() > 1450 ? 1100 : 600,
     height: $(window).height() - 50,
     close: function(evt, ui){
       $('#sf_admin_filter_button').removeClass('ui-state-active');

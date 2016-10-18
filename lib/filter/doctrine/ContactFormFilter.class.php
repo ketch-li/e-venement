@@ -189,11 +189,10 @@ EOF;
       'multiple' => true,
       'required' => false,
     ));
-    $this->widgetSchema   ['events_list'] = new sfWidgetFormDoctrineChoice(array(
+    $this->widgetSchema   ['events_list'] = new cxWidgetFormDoctrineJQuerySelectMany(array(
       'model'    => 'Event',
-      'query'    => Doctrine::getTable('Event')->retrieveList()->select('e.*, translation.*'),
-      'order_by' => array('translation.name','asc'),
-      'multiple' => true,
+      'url'   => cross_app_url_for('event', 'event/ajax'),
+      'config' => '{ max: 25 }',
     ));
     $this->validatorSchema['events_list'] = new sfValidatorDoctrineChoice(array(
       'required' => false,

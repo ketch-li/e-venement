@@ -1,0 +1,129 @@
+main {
+  background-color: #263238;
+  display: flex;
+  align-items: center;
+  justify-content: center-end; }
+
+/* Menu bar */
+#search-label {
+  top: -20px; }
+
+#search-bottom-line::after {
+  background-color: white; }
+
+/* manif list */
+#manifs-list {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; }
+
+/* manif card */
+.manif-card-wide.mdl-card {
+  width: 480px;
+  margin: 10px; }
+
+.manif-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 140px;
+  background-color: #0BC6DC; }
+
+.manif-card-wide .manif-title {
+  display: flex;
+  justify-content: space-between; }
+
+.manif-card-wide .manif-location {
+  font-size: 0.9em; }
+
+.manif-card-wide .manif-happens_at {
+  font-size: 1em; }
+
+#spinner {
+  margin: auto; }
+
+/* THEME CSSS */
+.app-layout .app-header .mdl-textfield {
+  padding: 0px;
+  margin-top: 41px; }
+
+.app-layout .app-header .mdl-textfield .mdl-textfield__expandable-holder {
+  bottom: 19px; }
+
+.app-layout .mdl-layout__header .mdl-layout__drawer-button {
+  color: rgba(0, 0, 0, 0.54); }
+
+.app-drawer {
+  border: none; }
+
+/* iOS Safari specific workaround */
+.app-drawer .mdl-menu__container {
+  z-index: -1; }
+
+.app-drawer .app-navigation {
+  z-index: -2; }
+
+/* END iOS Safari specific workaround */
+.app-drawer .mdl-menu .mdl-menu__item {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center; }
+
+.app-drawer-header {
+  box-sizing: border-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  padding: 16px;
+  height: 151px; }
+
+.app-logo-dropdown {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%; }
+
+.app-navigation {
+  flex-grow: 1; }
+
+.app-layout .app-navigation .mdl-navigation__link {
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.56);
+  font-weight: 500; }
+
+.app-layout .app-navigation .mdl-navigation__link:hover {
+  background-color: #00BCD4;
+  color: #37474F; }
+
+.app-navigation .mdl-navigation__link .material-icons {
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.56);
+  margin-right: 32px; }
+
+.app-content {
+  max-width: 1080px; }
+
+/*# sourceMappingURL=kiosk.css.map */
