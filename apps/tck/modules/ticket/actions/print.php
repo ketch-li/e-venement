@@ -166,7 +166,7 @@
         {
           $err = 'An error occurred during ticket #%%tid%% printing: %%err%%';
           error_log(str_replace(array('%%err%%', '%%tid%%'), array($e->getMessage(), $ticket->id), $err));
-          $this->getUser()->setFlash('error', __($err, array('%%err%%' => $e->getMessage(), '%%tid%%' => $ticket->id)));
+          $this->getUser()->setFlash('error', __($err, array('%%err%%' => __($e->getMessage()), '%%tid%%' => $ticket->id)));
         }
       }
 
@@ -274,7 +274,7 @@
         {
           $err = 'An error occurred during ticket #%%tid%% printing: %%err%%';
           error_log(str_replace(array('%%err%%', '%%tid%%'), array($e->getMessage(), $ticket->id), $err));
-          $this->getUser()->setFlash('error', __($err, array('%%err%%' => $e->getMessage(), '%%tid%%' => $ticket->id)));
+          $this->getUser()->setFlash('error', __($err, array('%%err%%' => __($e->getMessage()), '%%tid%%' => $ticket->id)));
         }
       }
     }
