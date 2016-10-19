@@ -5,6 +5,18 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Today</source>
+        <target>Aujourd'hui</target>
+      </trans-unit>
+      <trans-unit>
+        <source>This week</source>
+        <target>Cette semaine</target>
+      </trans-unit>
+      <trans-unit>
+        <source>This month</source>
+        <target>Ce mois</target>
+      </trans-unit>
+      <trans-unit>
         <source>You still have %%nb%% control(s) left on this meta-ticket</source>
         <target>Vous avez encore %%nb%% contrôle(s) possibles sur ce meta-billet</target>
       </trans-unit>

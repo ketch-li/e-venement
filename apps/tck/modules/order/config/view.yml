@@ -1,6 +1,6 @@
 default:
   stylesheets: [accounting]
 indexSuccess:
-  javascripts: [list-scroll]
+  javascripts: [list-scroll, tck-quick-search]
   stylesheets: [print-list: {media: print}]
   
