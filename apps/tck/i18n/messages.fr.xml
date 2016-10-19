@@ -2041,8 +2041,8 @@
         <target>Recharger</target>
       </trans-unit>
       <trans-unit>
-        <source>The contact in the current transaction does not have the required member card type for price </source>
-        <target>Le contact de l'opération en cours ne possède pas le type d'avantage requis pour le tarif </target>
+        <source>An error occurred during ticket #%%tid%% printing: %%err%%</source>
+        <target>Une erreur est survenue durant l'impression du billet #%%tid%%: %%err%%</target>
       </trans-unit>
     </body>
   </file>
