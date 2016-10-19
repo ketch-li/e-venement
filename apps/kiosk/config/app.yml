@@ -3,3 +3,9 @@
 
 # default values
 all:
+  open: true
+  user:
+    templating: kiosk
+    #other_templates: []
+    must_authenticate: false
+    #session_ns: ''
