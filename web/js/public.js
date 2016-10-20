@@ -206,6 +206,8 @@ $(document).ready(function(){
           .after(arr[key]);        
       }
     });
+    if (LI.jprosManifestationList !== undefined) // this function can be defined in private/jpros.js for example
+        LI.jprosManifestationList();
   }
   
   // underlining same lines in different <td>s in the same <tr>
