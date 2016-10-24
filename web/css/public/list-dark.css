@@ -719,7 +719,8 @@ body > #client-infos {
     float: left; }
     .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture {
       display: block;
-      width: 170px; }
+      width: 170px;
+      height: 200px; }
     .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
       display: block;
       padding: 25px;
