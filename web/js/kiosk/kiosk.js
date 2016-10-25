@@ -11,10 +11,12 @@ $(document).ready(function(){
 	LI.kiosk.utils.setupDialog();
 	LI.kiosk.mustache.cacheTemplates();
   	LI.kiosk.getManifestations();
+
 });
 
 LI.kiosk.getManifestations = function(){
-	$('#spinner').addClass('is-active');
+	LI.kiosk.utils.showLoader();
+
 	$.ajax({
     url: '/tck_dev.php/transaction/getManifestations/action',
     type: 'GET',
@@ -34,12 +36,7 @@ LI.kiosk.insertManifestations = function(data){
 		if ( window.location.hash == '#debug' )
 			console.error('Loading an item (#' + manif.id + ') from the ' + type);
 
-		manif.name = manif.name == null ? manif.category : manif.name;
-
-		LI.kiosk.manifestations[manif.id] = manif;
-
 		var pdt;
-
 		switch ( type ) {
 			case 'museum':
 			case 'manifestations':
@@ -54,6 +51,19 @@ LI.kiosk.insertManifestations = function(data){
 				break;
 		}
 
+		//re arrange properties
+		manif.name = manif.name == null ? manif.category : manif.name;
+		manif.start = pdt;
+		var manifEnd = new Date(manif.ends_at.replace(' ', 'T')).getTime();
+		manif.end = manif.ends_at.split(' ')[1];
+		
+		for(key in manif.gauges)	
+			if( manif.gauges[key].name == 'INDIVIDUELS' )
+				manif.prices = manif.gauges[key].available_prices;
+
+		//add manif to global variable for futur retrieval
+		LI.kiosk.manifestations[manif.id] = manif;
+
 		//Render and insert card
   		var card = Mustache.render(cardTemplate, { manif: manif });
   		$('#manifs-list').append(card);
@@ -63,8 +73,8 @@ LI.kiosk.insertManifestations = function(data){
 	LI.kiosk.utils.hideLoader();
 };
 
-LI.kiosk.utils.error = function(){
-	console.error('Error');
+LI.kiosk.utils.error = function(error){
+	console.error(error);
 	$('#spinner').removeClass('is-active');
 };
 
@@ -86,18 +96,9 @@ LI.kiosk.utils.setupDialog = function(){
 
 LI.kiosk.addManifListener = function(){
 	$('#manifs-list').on('click', '.manif', function(event){
-		var manif = LI.kiosk.manifestations[$(event.currentTarget.children).attr('id')]
-		var manifCard = $(this).children('.manif-card-wide');
-	 
-	  	LI.kiosk.addManifDetails(manifCard, manif);
-	  	$(this).css('order', 1);
-	 	$('#dialog-content').html(manifCard.clone());
-
-		LI.kiosk.utils.dialog.showModal();
-		
-		$('.close, .backdrop').click(function(){
-			LI.kiosk.utils.dialog.close();
-		});
+		LI.kiosk.utils.showLoader();
+		var manif = LI.kiosk.manifestations[$(event.currentTarget.children).attr('id')];
+	  	LI.kiosk.openOrderDialog(manif);
 	});
 }
 
@@ -109,7 +110,23 @@ LI.kiosk.mustache.cacheTemplates = function(){
 	});
 };
 
-LI.kiosk.addManifDetails = function(manifCard, manif){
-	console.log(manifCard);
+LI.kiosk.openOrderDialog = function(manif){
+	var dialogTemplate = $('#manif-dialog-template').html();
+
+	$('dialog').html(Mustache.render(dialogTemplate, { manif: manif }));
+	LI.kiosk.addPrices(manif.prices);
+
+	LI.kiosk.utils.dialog.showModal();
+		
+	$('.close, .backdrop').click(function(){
+		LI.kiosk.utils.dialog.close();
+	});
+};
+
+LI.kiosk.addPrices = function(prices){
+	var priceTemplate = $('#price-widget-template').html();
+
+	for(key in prices)
+		$('dialog #prices').append(Mustache.render(priceTemplate, { price: prices[key] }));
 };
 
