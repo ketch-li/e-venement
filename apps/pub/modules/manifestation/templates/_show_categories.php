@@ -18,7 +18,7 @@
     
     foreach ( $gauge->getPriceGaugesFiltered() as $pg )
     if ( $pg->Price->isAccessibleBy($sf_user->getRawValue())
-      && in_array($gauge->workspace_id, array_keys($pm->getRaw('Price')->Workspaces->getPrimaryKeys())) )
+      && in_array($gauge->workspace_id, array_keys($pg->getRaw('Price')->Workspaces->getPrimaryKeys())) )
     {
       if ( !isset($groups[$gauge->group_name][$pg->price_id]) )
         $groups[$gauge->group_name][$pg->price_id] = array(

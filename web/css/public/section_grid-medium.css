@@ -524,6 +524,17 @@ body > #client-footer {
   font-size: 1em;
   line-height: 1.231; }
 
+/* Client infos */
+body > #client-infos {
+  width: 100%;
+  margin: 25px auto 0;
+  text-align: center;
+  padding: 3px 0;
+  background-color: #eff2f4;
+  color: #575e71;
+  font-size: 1em;
+  line-height: 1.231; }
+
 /* Social networks */
 #social-networks {
   text-align: center;
