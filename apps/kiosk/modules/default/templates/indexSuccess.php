@@ -69,21 +69,15 @@
 		</ul>
 	</main>
 </div>
+<!-- ORDER DIALOG -->
 <dialog class="mdl-dialog" id="manif-dialog">
-	<h6 class="mdl-dialog__title"><?php echo __('Order') ?></h4>
-    <div class="mdl-dialog__content" id="dialog-content">
-
-    </div>
-    <div class="mdl-dialog__actions mdl-dialog__actions">
-      <button type="button" class="mdl-button">Agree</button>
-      <button type="button" class="mdl-button close">Disagree</button>
-    </div>
 </dialog>
+
 <!-- MUSTACHE TEMPLATES -->
 	<!-- manif card -->
 <script id="manif-card-template" type="x-tmpl-mustache">
 <li class="manif"> 
-	<div class="manif-card-wide mdl-card mdl-shadow--2dp" id="{{ manif.id }}">
+	<div class="manif-card-wide mdl-card mdl-shadow--2dp mdl-js-ripple-effect" id="{{ manif.id }}">
 		<div class="mdl-card__title manif-title" style="background-color: {{ manif.color }};">
 			<p class="mdl-card__title-text manif-name">{{ manif.name }}</p>
 			<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ manif.happens_at }}</p>
@@ -102,6 +96,24 @@
 </script>
 
 	<!-- manif dialog -->
-<script id="manif-dialog-content-template" type="x-tmpl-mustache">
+<script id="manif-dialog-template" type="x-tmpl-mustache">
+	<h6 id="dialog-title" class="mdl-dialog__title"><?php echo __('Order') ?></h6>
+    <div class="mdl-dialog__content" id="dialog-content">
+    	<div> {{ manif.name }}</div>
+    	<div>{{ manif.gauge }}</div>
+    	<div>{{ manif.start }} - {{ manif.end }}</div>
+    	<div>{{ manif.location }}</div>
+    	<div>{{ manif.color }}</div>
+    	<div id="prices"></div>
+    </div>
+    <div class="mdl-dialog__actions mdl-dialog__actions">
+      <button type="button" class="mdl-button"><?php echo __('Order') ?></button>
+      <button type="button" class="mdl-button close"><?php echo __('Cancel') ?></button>
+    </div>
+</script>
+
+	<!-- price widget -->
+<script id="price-widget-template" type="x-tmpl-mustache">
+	<p>{{ price.name }}</p>
 
 </script>
