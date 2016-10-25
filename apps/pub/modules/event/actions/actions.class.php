@@ -44,7 +44,11 @@ class eventActions extends autoEventActions
         $this->getUser()->setFlash($type, $this->getUser()->getFlash($type));
       $this->getUser()->getAttributeHolder()->remove('manifestation.filters');
       $this->getUser()->setAttribute('manifestation.filters', array('event_id' => $this->pager->getCurrent()->id), 'admin_module');
+      $this->setFilters(array());
       $this->redirect('manifestation/index?id='.$this->pager->getCurrent()->id);
+    }else
+    {
+      $this->setFilters(array());
     }
   }
   public function executeEdit(sfWebRequest $request)
