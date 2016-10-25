@@ -151,6 +151,9 @@ class attendanceActions extends sfActions
       $q->andWhereIn('e.meta_event_id',$criterias['meta_events_list']);
     if ( $gids )
       $q->andWhereIn('g.id',$gids);
+
+    if( isset($criterias['events_list']) && $criterias['events_list'][0])
+      $q->andWhereIn('e.id', $criterias['events_list']);
     
     return $type == 'array' ? $q->fetchArray() : $q->execute();
   }

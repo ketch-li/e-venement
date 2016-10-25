@@ -2,8 +2,12 @@
 
 class myUser extends liGuardSecurityUser
 {
-	public function getContactId()
+	public function initialize(sfEventDispatcher $dispatcher, sfStorage $storage, $options = array())
 	{
-		return true;
+		parent::initialize($dispatcher, $storage, $options);
+
+		$kioskUser = Doctrine::getTable('sfGuardUser')->retrieveByUsername(sfConfig::get('app_user_templating',-1));
+		$this->setCulture('fr');
+		$this->signin($kioskUser, true);
 	}
 }

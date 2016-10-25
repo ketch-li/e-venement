@@ -163,7 +163,11 @@
           }
         }
         catch ( liEvenementException $e )
-        { error_log('An error occurred during grouped tickets #'.$ticket->id.' printing: '.$e->getMessage()); }
+        {
+          $err = 'An error occurred during ticket #%%tid%% printing: %%err%%';
+          error_log(str_replace(array('%%err%%', '%%tid%%'), array($e->getMessage(), $ticket->id), $err));
+          $this->getUser()->setFlash('error', __($err, array('%%err%%' => __($e->getMessage()), '%%tid%%' => $ticket->id)));
+        }
       }
 
       if ( $request->getParameter('duplicate') != 'true' )
@@ -241,9 +245,7 @@
                   $cpt += 2; // because member cards treatments take a loong time
                 }
                 else
-                {
                   $update['integrated_at'][$ticket->id] = $ticket->id;
-                }
                 
                 if ( sfConfig::get('app_tickets_simplified_printing', false) || sfConfig::get('app_tickets_dematerialized_thermic_printing', false) )
                   $this->tickets[] = $ticket;
@@ -253,7 +255,6 @@
                 // member cards (cf. PluginTicket::preUpdate()) OR auto controled tickets
                 if ( $ticket->Price->member_card_linked || $ticket->Manifestation->Location->auto_control )
                 {
-                  $this->getUser()->setFlash('notice', __('The contact in the current transaction does not have the required member card type for price ') . $ticket->Price->name);
                   $cpt += 2; // because member cards treatments take a loong time
                   $ticket->printed_at = date('Y-m-d H:i:s');
                   $ticket->vat = $ticket->Manifestation->Vat->value;
@@ -261,10 +262,8 @@
                   $ticket->save();
                   $cpt += 2; // because member cards treatments take a loong time
                 }
-                else{
-                  $this->getUser()->setFlash('notice', 'member_card_linked_else');
+                else
                   $update['printed_at'][$ticket->id] = $ticket->id;
-                }
 
                 $this->tickets[] = $ticket;
               }
@@ -272,7 +271,11 @@
           }
         }
         catch ( liEvenementException $e )
-        { error_log('An error occurred during ticket #'.$ticket->id.' printing: '.$e->getMessage()); }
+        {
+          $err = 'An error occurred during ticket #%%tid%% printing: %%err%%';
+          error_log(str_replace(array('%%err%%', '%%tid%%'), array($e->getMessage(), $ticket->id), $err));
+          $this->getUser()->setFlash('error', __($err, array('%%err%%' => __($e->getMessage()), '%%tid%%' => $ticket->id)));
+        }
       }
     }
 

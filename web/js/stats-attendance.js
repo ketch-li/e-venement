@@ -95,6 +95,8 @@ LI.stats.attendance = function () {
                     LI.csvData[name].push(csvData);
                 } 
             });
+            
+            var barOptions = Object.keys(json).length < 5 ? { barWidth: 200} : {};
 
             var seriesLegend = [{label: json.legends.printed, color: "#FF0000"}, {label: json.legends.ordered, color: "#FFA500"}, {label: json.legends.available, color: "#00FF00"}];
 
@@ -103,6 +105,7 @@ LI.stats.attendance = function () {
                 stackSeries: true,
                 seriesDefaults: {
                     renderer: $.jqplot.BarRenderer,
+                    rendererOptions: barOptions
                 },
                 series: seriesLegend,
                 axes: {

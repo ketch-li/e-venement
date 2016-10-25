@@ -4,14 +4,14 @@
 <?php use_stylesheet('dialog-polyfill.css') ?>
 <?php use_stylesheet('kiosk') ?>
 <?php use_javascript('jquery') ?>
-<?php use_javascript('/js/mustache/mustache.min.js') ?>
 <?php use_javascript('/js/material/dialog-polyfill.js') ?>
+<?php use_javascript('/js/mustache/mustache.min.js') ?>
 <?php use_javascript('/js/material/material.min.js') ?>
-<?php use_javascript('/js/kiosk.js') ?>
+<?php use_javascript('/js/kiosk/kiosk.js') ?>
 <div class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
 	<header class="app-header mdl-layout__header">
 		<div class="mdl-layout__header-row">
-			<span class="mdl-layout-title">Home</span>
+			<span class="mdl-layout-title">e-kiosk</span>
 			<div class="mdl-layout-spacer"></div>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
 				<label class="mdl-button mdl-js-button mdl-button--icon" for="search" id="search-label">
@@ -69,6 +69,16 @@
 		</ul>
 	</main>
 </div>
+<dialog class="mdl-dialog" id="manif-dialog">
+	<h6 class="mdl-dialog__title"><?php echo __('Order') ?></h4>
+    <div class="mdl-dialog__content" id="dialog-content">
+
+    </div>
+    <div class="mdl-dialog__actions mdl-dialog__actions">
+      <button type="button" class="mdl-button">Agree</button>
+      <button type="button" class="mdl-button close">Disagree</button>
+    </div>
+</dialog>
 <!-- MUSTACHE TEMPLATES -->
 	<!-- manif card -->
 <script id="manif-card-template" type="x-tmpl-mustache">
@@ -91,7 +101,7 @@
 </li>
 </script>
 
-<!-- manif dialog -->
-<script id="manif-dialog-template" type="x-tmpl-mustache">
+	<!-- manif dialog -->
+<script id="manif-dialog-content-template" type="x-tmpl-mustache">
 
 </script>

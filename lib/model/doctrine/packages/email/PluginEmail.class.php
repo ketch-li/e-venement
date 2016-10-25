@@ -182,7 +182,7 @@ abstract class PluginEmail extends BaseEmail
       // embedding the image
       $post_treated_content = str_replace(
         $img[0],
-        '<img '.$img[1].' '.$img[4].' src="'.$this->message->embed($att).'" />(.*)</a>',
+        '<img '.$img[1].' '.$img[4].' src="'.$this->message->embed($att).'" />',
         $post_treated_content
       );
       

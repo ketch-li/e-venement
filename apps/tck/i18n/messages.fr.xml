@@ -5,6 +5,22 @@
     <header/>
     <body>
       <trans-unit>
+        <source>No more ticket left on the contact's member card</source>
+        <target>Il n'y a plus de billet associé à la carte avantage de ce contact</target>
+      </trans-unit>
+      <trans-unit>
+        <source>This week</source>
+        <target>Cette semaine</target>
+      </trans-unit>
+      <trans-unit>
+      <trans-unit>
+        <source>This week</source>
+        <target>Cette semaine</target>
+      </trans-unit>
+        <source>This month</source>
+        <target>Ce mois</target>
+      </trans-unit>
+      <trans-unit>
         <source>You still have %%nb%% control(s) left on this meta-ticket</source>
         <target>Vous avez encore %%nb%% contrôle(s) possibles sur ce meta-billet</target>
       </trans-unit>
@@ -2029,8 +2045,8 @@
         <target>Recharger</target>
       </trans-unit>
       <trans-unit>
-        <source>The contact in the current transaction does not have the required member card type for price </source>
-        <target>Le contact de l'opération en cours ne possède pas le type d'avantage requis pour le tarif </target>
+        <source>An error occurred during ticket #%%tid%% printing: %%err%%</source>
+        <target>Une erreur est survenue durant l'impression du billet #%%tid%%: %%err%%</target>
       </trans-unit>
     </body>
   </file>

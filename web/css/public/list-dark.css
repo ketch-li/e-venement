@@ -525,6 +525,17 @@ body > #client-footer {
   font-size: 1em;
   line-height: 1.231; }
 
+/* Client infos */
+body > #client-infos {
+  width: 100%;
+  margin: 25px auto 0;
+  text-align: center;
+  padding: 3px 0;
+  background-color: #575e71;
+  color: white;
+  font-size: 1em;
+  line-height: 1.231; }
+
 /* Social networks */
 #social-networks {
   text-align: center;
@@ -708,7 +719,8 @@ body > #client-footer {
     float: left; }
     .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture {
       display: block;
-      width: 170px; }
+      width: 170px;
+      height: 200px; }
     .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
       display: block;
       padding: 25px;

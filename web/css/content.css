@@ -60,6 +60,7 @@ body .sf_admin_filter td { padding-bottom: 0; }
 
 .show_groups ul li { margin-left: 15px; }
 
+#li-direct-access { position: absolute; right: 200px; margin-top: 54px; border: 0; background: none; }
 #list-integrated-search {
   float:  right;
   margin-top: 5px;
