@@ -188,6 +188,7 @@ body #content { width: auto; }
 { max-width: 80px; overflow: hidden; word-wrap: break-word; }
 #tdp-content .sf_admin_list .alert { color: darkred; }
 
+#tdp-content .sf_admin_list_th_address, #tdp-content .sf_admin_list_td_address { display: none; }
 #tdp-content .sf_admin_list_th_description, #tdp-content .sf_admin_list_td_description { max-width: 100px; }
 #tdp-content .sf_admin_list_th_list_transactions, #tdp-content .sf_admin_list_td_list_transactions { max-width: 70px; }
 #tdp-content .sf_admin_list_td_list_transactions ul { list-style-type: none; }
