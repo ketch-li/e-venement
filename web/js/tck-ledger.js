@@ -2,7 +2,6 @@ $(document).ready(function(){
   // sales ledger "less details" display (merge the lines for identical prices)
   $('#sales-ledger .ui-widget-header button').click(function(){
     $(this).fadeOut();
-    $('#sales-ledger tbody .see-more a').click();
     $('#sales-ledger').addClass('less-details');
     
     // build a data-layer that can be processed
