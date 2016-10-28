@@ -31,7 +31,6 @@ all:
     #force_payment_before_printing: true
     #seated_plan:
     #  auto_next: false
-    #gui: touchy # force the GUI to the touchy one only
     #auto_reopen: false
     email:
       always_send_confirmation: false  # a transaction created "on the spot" is automatically set to "yes" for sending an email

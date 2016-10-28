@@ -2,9 +2,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <?php use_stylesheet('material.min.css') ?>
 <?php use_stylesheet('dialog-polyfill.css') ?>
-<?php use_stylesheet('kiosk') ?>
+<?php use_stylesheet('kiosk/waves.css') ?>
+<?php use_stylesheet('kiosk/kiosk.css') ?>
 <?php use_javascript('jquery') ?>
 <?php use_javascript('/js/material/dialog-polyfill.js') ?>
+<?php use_javascript('/js/kiosk/waves.js') ?>
 <?php use_javascript('/js/mustache/mustache.min.js') ?>
 <?php use_javascript('/js/material/material.min.js') ?>
 <?php use_javascript('/js/kiosk/kiosk.js') ?>
@@ -64,26 +66,23 @@
 	</div>
 	<main class="mdl-layout__content mdl-color--blue-grey-800">
 		<div class="mdl-spinner mdl-js-spinner is-active" id="spinner"></div>
-		<ul id="manifs-list">
-			
-		</ul>
+		<ul id="manifs-list" class="flex-list"></ul>
+		<div id="cart">
+			<ul id="cart-lines"></ul>
+			<span id="cart-total"><?php echo __('Total') ?></span>
+		</div>	
 	</main>
 </div>
-<dialog class="mdl-dialog" id="manif-dialog">
-	<h6 class="mdl-dialog__title"><?php echo __('Order') ?></h4>
-    <div class="mdl-dialog__content" id="dialog-content">
 
-    </div>
-    <div class="mdl-dialog__actions mdl-dialog__actions">
-      <button type="button" class="mdl-button">Agree</button>
-      <button type="button" class="mdl-button close">Disagree</button>
-    </div>
+<!-- ORDER DIALOG (has to be direct child of body) -->
+<dialog class="mdl-dialog" id="manif-dialog">
 </dialog>
+
 <!-- MUSTACHE TEMPLATES -->
 	<!-- manif card -->
 <script id="manif-card-template" type="x-tmpl-mustache">
 <li class="manif"> 
-	<div class="manif-card-wide mdl-card mdl-shadow--2dp" id="{{ manif.id }}">
+	<div class="manif-card-wide mdl-card mdl-shadow--2dp waves-effect" id="{{ manif.id }}">
 		<div class="mdl-card__title manif-title" style="background-color: {{ manif.color }};">
 			<p class="mdl-card__title-text manif-name">{{ manif.name }}</p>
 			<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ manif.happens_at }}</p>
@@ -102,6 +101,47 @@
 </script>
 
 	<!-- manif dialog -->
-<script id="manif-dialog-content-template" type="x-tmpl-mustache">
+<script id="manif-dialog-template" type="x-tmpl-mustache">
+	<h6 id="dialog-title" class="mdl-dialog__title"><?php echo __('Order') ?></h6>
+    <div class="mdl-dialog__content" id="dialog-content">
+    	<div class="manif-details">
+    		<div> {{ manif.name }}</div>
+    		<div>{{ manif.gauge }}</div>
+    		<div>
+    			<i class="material-icons" role="presentation">access_time</i>
+    			<span class="mdl-color-text--pink">{{ manif.start }} - {{ manif.end }}</span>
+    		</div>
+    		<div>
+    			<i class="material-icons" role="presentation">location_on</i>
+    			<span>{{ manif.location }}</span>
+    		</div>
+    		<div>{{ manif.color }}</div>
+    	</div>
+    	<ul id="prices" class="flex-list"></ul>
+    <div class="mdl-dialog__actions mdl-dialog__actions">
+      <button type="button" class="mdl-button"><?php echo __('Order') ?></button>
+      <button type="button" class="mdl-button close"><?php echo __('Cancel') ?></button>
+    </div>
+</script>
 
+	<!-- price card -->
+<script id="price-card-template" type="x-tmpl-mustache">
+	<li class="price">
+		<div id="{{ price.id }}" class="price-card-square mdl-card mdl-shadow--2dp waves-effect">
+  			<div class="mdl-card__title mdl-card--expand" style="background-color: {{ price.color }};">
+    			{{ price.name }}
+    		</div>
+  		</div>
+  	</li>
+</script>
+
+	<!-- cart line -->
+<script id="cart-line-template" type="x-tmpl-mustache">
+	<li class="cart-line" id="{{ line.id }}">
+		<span class="qty">{{ line.qty }}</span>
+		<span> x {{ line.name }}</span>
+		<span>{{ line.price.name }} ({{line.price.value}})</span>
+		<span class="total">{{ line.total }}</span>
+		<span> €</span>
+  	</li>
 </script>

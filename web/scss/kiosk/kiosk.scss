@@ -1,20 +1,23 @@
 
-/* Menu bar */
+/* MENU BAR */
 #search-label { top: -20px; }
 
 #search-bottom-line::after {
 	background-color: white;
 }
 
-/* manif list */
-#manifs-list {
-	list-style-type: none;
+/* LISTS */
+ul{
+  list-style-type: none;
+}
+
+.flex-list {
  display: flex;
  flex-wrap: wrap;
  justify-content: center;
 }
 
-/* manif card */
+/* MANIF CARD */
 .manif-card-wide.mdl-card {
   width: 480px;
   margin: 10px;
@@ -45,20 +48,44 @@
   margin-bottom: 5px;
 }
 
-/* manif dialog */
+/* MANIF DIALOG */
 #manif-dialog {
   width: 60%;
   height: 80%;
 }
 
-/* loader */
+/* PRICE CARD */
+.price { 
+  margin: 5px;
+}
+
+.price-card-square.mdl-card {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  min-height: 50px;
+  border-radius: 5px;
+}
+
+.price-card-square > .mdl-card__title {
+  color: #fff;
+  font-weight: bold;
+}
+
+/* CART PANEL */
+#cart{
+  display: none;
+}
+
+/* LOADER */
 #spinner {
   height: 150px;
   width: 150px;
   position: absolute;
   left: 40%;
   top: 40%;
-  z-index: 1;
+  z-index: 999;
 }
 
 /* THEME CSSS */
