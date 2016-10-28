@@ -49,8 +49,8 @@ $(document).ready(function(){
   
   // sales ledger / toggle every thing
   $('#ledger-products, #ledger-events, #ledger-visits').find('thead .see-more a').unbind().click(function(){
-    $(this).closest('table').find('tbody .see-more a').click();
-    $(this).remove();
+    $(this).closest('table').find('tbody '+($(this).text() == '-' ? '.event' : '')+' .see-more a:contains("'+$(this).text()+'")').click();
+    $(this).text($(this).text() == '+' ? '-' : '+');
     return false;
   });
   
