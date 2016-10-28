@@ -57,6 +57,11 @@
     
     // restrict access to our own user
     $q = $this->restrictQueryToCurrentUser($q);
+    // the limitation due to user's credentials about workspaces and metaevents
+    $q->leftJoin('bp.Declination pd')
+      ->leftJoin('pd.Product pdt')
+      ->andWhereIn('bp.product_declination_id IS NULL OR pdt.meta_event_id IS NULL OR pdt.meta_event_id',array_keys($this->getUser()->getMetaEventsCredentials()))
+    ;
     
     if ( isset($criterias['users']) && is_array($criterias['users']) && $criterias['users'][0] )
     {

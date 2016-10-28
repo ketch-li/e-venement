@@ -1,5 +1,5 @@
     <td class="event"><?php echo __('Event') ?></td>
-    <td class="see-more"><a href="#">±</a></td>
+    <td class="see-more"><a href="#">+</a></td>
     <td class="id-qty"><?php echo __('Qty') ?></td>
     <td class="value" title="<?php echo __('PIT').' = '.__('TEP').' + '.__('Tot.VAT') ?>"><?php echo __('PIT') ?></td>
     <td class="extra-taxes" title="<?php echo __('Incl. VAT') ?>"><?php echo __('Taxes', null, 'li_accounting') ?></td>
