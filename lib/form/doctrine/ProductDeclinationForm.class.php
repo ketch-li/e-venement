@@ -35,9 +35,10 @@ class ProductDeclinationForm extends BaseProductDeclinationForm
     
     $this->validatorSchema['code'] = new sfValidatorAnd(array(
       $this->validatorSchema['code'],
-      new sfValidatorDoctrineUnique(array(
+      new liValidatorDoctrineUnique(array(
         'model'  => 'ProductDeclination',
         'column' => 'code',
+        'original_object' => $this->object,
       )),
     ), array(
       'required' => false,
