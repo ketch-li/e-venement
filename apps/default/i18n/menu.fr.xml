@@ -521,6 +521,10 @@
         <target>Contrôle de billet</target>
       </trans-unit>
       <trans-unit>
+        <source>Ticket controls</source>
+        <target>Contrôles de billet</target>
+      </trans-unit>
+      <trans-unit>
         <source>Detailed Ledger</source>
         <target>Journal détaillé</target>
       </trans-unit>
