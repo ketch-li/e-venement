@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Processed tickets</source>
+        <target>Billets traités</target>
+      </trans-unit>
+      <trans-unit>
         <source>Hour of the day</source>
         <target>Heure de la journée</target>
       </trans-unit>

@@ -20,19 +20,29 @@
 *    Copyright (c) 2006-2011 Libre Informatique [http://www.libre-informatique.fr/]
 *
 ***********************************************************************************/
-$json = $sf_data->getRaw('lines'); 
-    $json['csvHeaders'] = [
-    __('Date'),
-    __('Passing'),
-    __('Printed'),
-    __('Ordered'),
-    __('Asked')
-    ];
-    $json['legends'] = array(
-        'ordered' => __('Ordered'),
-        'printed' => __('Printed'),
-        'passing' => __('Passing'),
+  $json = $sf_data->getRaw('lines');
+  switch ( $denomination ) {
+  case 'hour':
+    $json['csvHeaders'] = array(
+      __('Hour of the day'),
+      __('Processed tickets'),
     );
+    break;
+  default:
+    $json['csvHeaders'] = array(
+      __('Date'),
+      __('Passing'),
+      __('Printed'),
+      __('Ordered'),
+      __('Asked')
+    );
+    $json['legends'] = array(
+      'ordered' => __('Ordered'),
+      'printed' => __('Printed'),
+      'passing' => __('Passing'),
+    );
+    break;
+  }
 
-    echo json_encode($json);
+  echo json_encode($json);
 ?>

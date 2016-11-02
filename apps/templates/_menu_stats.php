@@ -40,11 +40,11 @@
           <?php endif ?>
           <li class="spaced"></li>
           <?php if ( $sf_user->hasCredential('stats-activity') ): ?>
-          <li><a href="<?php echo cross_app_url_for('stats','activity/index') ?>"><?php echo __('Ticketting activity',array(),'menu') ?></a></li>
+          <li><a href="<?php echo cross_app_url_for('stats','activity/index') ?>"><?php echo __('Ticketing activity',array(),'menu') ?></a></li>
           <li><a href="<?php echo cross_app_url_for('stats','debts/index') ?>"><?php echo __('Debts evolution',array(),'menu') ?></a></li>
           <?php endif ?>
           <?php if ( $sf_user->hasCredential('tck-reports') ): ?>
-          <li><a href="<?php echo cross_app_url_for('stats','tickets/index') ?>"><?php echo __('Ticketting',array(),'menu') ?></a></li>
+          <li><a href="<?php echo cross_app_url_for('stats','tickets/index') ?>"><?php echo __('Ticketing',array(),'menu') ?></a></li>
           <?php endif ?>
           <?php if ( $sf_user->hasCredential('stats-pub') ): ?>
           <li><a href="<?php echo cross_app_url_for('stats','web_origin/index') ?>"><?php echo __('Online sales',array(),'menu') ?></a></li>

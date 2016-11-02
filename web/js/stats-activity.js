@@ -4,7 +4,6 @@ if (LI.stats === undefined)
     LI.stats = [];
 
 $(document).ready(function () {
-
     LI.stats.activity();
 });
 
@@ -15,7 +14,6 @@ LI.stats.activity = function () {
         var chart = $(this).find('.chart')
         var name = chart.attr('data-series-name');
         var id = chart.prop('id');
-        var title = $(this).find('h2').prop('title') ? $(this).find('h2').prop('title') + ': ' : '';
         var title = $(this).find('h2') ? $(this).find('h2').text() : '';
         LI.csvData[name] = [
           [
@@ -25,6 +23,57 @@ LI.stats.activity = function () {
         ]; 
         
         $.get(chart.attr('data-json-url'), function (json) {
+          var plot;
+          if ( json[0].hour != undefined )
+          {
+            LI.csvData[name].push(json.csvHeaders);
+            
+            var data = [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[12,0],[13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[20,0],[21,0],[22,0],[23,0]];
+            var total = 0;
+            $.each(json, function (key, value) {
+              total += value.nb;
+            });
+            $.each(json, function (key, value) {
+              if ( key !== 'csvHeaders' && key !== 'legends' )
+              {
+                LI.csvData[name].push([parseInt(value.hour,10), value.nb, value.nb*100/total]);
+                data[parseInt(value.hour,10)] = [parseInt(value.hour,10), value.nb];
+              }
+            });
+            plot = $.jqplot(id, [data, data], {
+                animate: true,
+                height: 550,
+                series: [
+                        { renderer: $.jqplot.BarRenderer, highlighter: { show: true }, pointLabels: { show: true } },
+                        { showMarker: false, rendererOptions: { smooth: true, } },
+                    ],
+                axes: {
+                    xaxis: {
+                        min: 0,
+                        max: 24,
+                        label: json.csvHeaders[0],
+                        renderer: $.jqplot.CategoryAxisRenderer,
+                        tickOptions: { formatString: '%d' }
+                    },
+                    yaxis: {
+                        autoscale: true,
+                        min: 0,
+                        tickOptions: { formatString: '%d' }
+                    }
+                },
+                legend: {
+                    show: false,
+                },
+                cursor: {
+                    show: true,
+                    showTooltip: false,
+                    zoom: true
+                },
+                captureRightClick: true
+            });
+          }
+          else
+          {
             var passing = [];
             var ordered = [];
             var printed = [];
@@ -34,8 +83,8 @@ LI.stats.activity = function () {
             LI.csvData[name].push(json.csvHeaders);
 
             $.each(json, function (key, value) {
-
-                if(key !== 'csvHeaders' && key !== 'legends'){
+                if ( key !== 'csvHeaders' && key !== 'legends' )
+                {
                     var date = new Date(value.date);
                     var formattedDate = date.getDate() + '/' + 
                                         (date.getMonth() + 1) + '/' + 
@@ -51,7 +100,7 @@ LI.stats.activity = function () {
                 }
             });
 
-            var plot = $.jqplot(id, [printed, ordered, passing], {
+            plot = $.jqplot(id, [printed, ordered, passing], {
                 height: 600,
                 stackSeries: true,
                 seriesDefaults: {
@@ -121,8 +170,9 @@ LI.stats.activity = function () {
                 },
                 captureRightClick: true
             });
-
-            LI.stats.resizable(plot, name, id);
+          }
+          
+          LI.stats.resizable(plot, name, id);
         });
     });
 };
