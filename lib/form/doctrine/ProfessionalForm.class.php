@@ -22,11 +22,13 @@ class ProfessionalForm extends BaseProfessionalForm
       'required'  => false,
     ));
     
-    $this->widgetSchema ['groups_list'] = new cxWidgetFormDoctrineJQuerySelectMany(array(
+    $this->widgetSchema['groups_list'] = new cxWidgetFormDoctrineJQuerySelectMany(array(
       'model' => 'Group',
       'url'   => cross_app_url_for('rp', 'group/ajax'),
       'config' => '{ max: 300 }',
     ));
+    
+    $this->widgetSchema['organism_id']->setOption('config', '{ max: 20 }');
     
     if ( !$this->object->isNew() && sfConfig::get('app_options_design',false) && sfConfig::get(sfConfig::get('app_options_design').'_active') )
     {

@@ -2,7 +2,6 @@ $(document).ready(function(){
   // sales ledger "less details" display (merge the lines for identical prices)
   $('#sales-ledger .ui-widget-header button').click(function(){
     $(this).fadeOut();
-    $('#sales-ledger tbody .see-more a').click();
     $('#sales-ledger').addClass('less-details');
     
     // build a data-layer that can be processed
@@ -49,8 +48,8 @@ $(document).ready(function(){
   
   // sales ledger / toggle every thing
   $('#ledger-products, #ledger-events, #ledger-visits').find('thead .see-more a').unbind().click(function(){
-    $(this).closest('table').find('tbody .see-more a').click();
-    $(this).remove();
+    $(this).closest('table').find('tbody '+($(this).text() == '-' ? '.event' : '')+' .see-more a:contains("'+$(this).text()+'")').click();
+    $(this).text($(this).text() == '+' ? '-' : '+');
     return false;
   });
   

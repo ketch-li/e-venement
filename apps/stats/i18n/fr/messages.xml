@@ -5,6 +5,26 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Hour of the day</source>
+        <target>Heure de la journée</target>
+      </trans-unit>
+      <trans-unit>
+        <source>By hour</source>
+        <target>Par heure</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Checkpoint</source>
+        <target>Point de contrôle</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Created at</source>
+        <target>Daté du</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Statistics on ticket controls</source>
+        <target>Statistiques sur les contrôles d'accès</target>
+      </trans-unit>
+      <trans-unit>
         <source>Type of contact</source>
         <target>Type de contact</target>
       </trans-unit>
@@ -139,10 +159,6 @@
       <trans-unit>
         <source>Amount</source>
         <target>Montant</target>
-      </trans-unit>
-      <trans-unit>
-        <source>Create exceptions</source>
-        <target>Créer des exceptions</target>
       </trans-unit>
       <trans-unit>
         <source>IP address matching</source>

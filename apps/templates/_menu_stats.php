@@ -49,6 +49,10 @@
           <?php if ( $sf_user->hasCredential('stats-pub') ): ?>
           <li><a href="<?php echo cross_app_url_for('stats','web_origin/index') ?>"><?php echo __('Online sales',array(),'menu') ?></a></li>
           <?php endif ?>
+          <?php if ( $sf_user->hasCredential('stats-control') ): ?>
+          <li class="spaced"></li>
+          <li><a href="<?php echo cross_app_url_for('stats','control/index') ?>"><?php echo __('Ticket controls', array(),'menu') ?></a></li>
+          <?php endif ?>
           <?php if ( $sf_user->hasCredential('stats-pr-cards') || $sf_user->hasCredential('stats-pr-social') || $sf_user->hasCredential('stats-pr-groups') ): ?>
           <li class="spaced"></li>
           <?php endif ?>
