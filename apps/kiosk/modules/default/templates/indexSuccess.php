@@ -5,12 +5,13 @@
 <?php use_stylesheet('kiosk/waves.css') ?>
 <?php use_stylesheet('kiosk/kiosk.css') ?>
 <?php use_javascript('jquery') ?>
+<?php use_javascript('/sfAdminThemejRollerPlugin/js/jquery-ui.custom.min.js') ?>
 <?php use_javascript('/js/material/dialog-polyfill.js') ?>
 <?php use_javascript('/js/kiosk/waves.js') ?>
 <?php use_javascript('/js/mustache/mustache.min.js') ?>
 <?php use_javascript('/js/material/material.min.js') ?>
 <?php use_javascript('/js/kiosk/kiosk.js') ?>
-<div class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+<div class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 	<header class="app-header mdl-layout__header">
 		<div class="mdl-layout__header-row">
 			<span class="mdl-layout-title">e-kiosk</span>
@@ -34,7 +35,7 @@
 			</ul>
 		</div>
 	</header>
-	<div class="app-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+	<!-- <div class="app-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
 		<header class="app-drawer-header">
 			<div class="app-logo-dropdown">
 				<span>hello@example.com</span>
@@ -63,13 +64,15 @@
 			<div class="mdl-layout-spacer"></div>
 			<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span>Help</span></a>
 		</nav>
-	</div>
-	<main class="mdl-layout__content mdl-color--blue-grey-800">
+	</div> -->
+	<main id="content" class="mdl-layout__content mdl-color--blue-grey-800">
 		<div class="mdl-spinner mdl-js-spinner is-active" id="spinner"></div>
-		<ul id="manifs-list" class="flex-list"></ul>
-		<div id="cart">
+		<div id="manifs">
+			<ul id="manifs-list" class="flex-list"></ul>
+		</div>
+		<div id="cart" class="mdl-color--blue-grey-600">
 			<ul id="cart-lines"></ul>
-			<span id="cart-total"><?php echo __('Total') ?></span>
+			<div id="cart-total"><?php echo __('Total') ?></div>
 		</div>	
 	</main>
 </div>
@@ -85,7 +88,7 @@
 	<div class="manif-card-wide mdl-card mdl-shadow--2dp waves-effect" id="{{ manif.id }}">
 		<div class="mdl-card__title manif-title" style="background-color: {{ manif.color }};">
 			<p class="mdl-card__title-text manif-name">{{ manif.name }}</p>
-			<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ manif.happens_at }}</p>
+			<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ manif.start }}</p>
 			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ manif.location }}</p>
 		</div>
 		<div class="mdl-card__supporting-text manif-description">
@@ -137,11 +140,16 @@
 
 	<!-- cart line -->
 <script id="cart-line-template" type="x-tmpl-mustache">
-	<li class="cart-line" id="{{ line.id }}">
-		<span class="qty">{{ line.qty }}</span>
-		<span> x {{ line.name }}</span>
-		<span>{{ line.price.name }} ({{line.price.value}})</span>
-		<span class="total">{{ line.total }}</span>
-		<span> €</span>
+	<li class="cart-line mdl-color--blue-grey-800" id="{{ line.id }}" style="border-right: 5px solid {{ line.price.color }};">
+		<p class="line-main">
+			<span class="line-qty">{{ line.qty }}</span>
+			<span class="line-multiplier"> x </span>
+			<span class="line-name">{{ line.name }}</span>
+		<p>
+		
+			<span class="line-price">{{ line.price.name }} ({{line.price.value}})</span>
+		
+		<span class="line-total">{{ line.total }}</span>
+		<span line-currency> €</span>
   	</li>
 </script>
