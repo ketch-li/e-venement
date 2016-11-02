@@ -22,7 +22,7 @@
 ***********************************************************************************/
   $json = $sf_data->getRaw('lines');
   $json['csvHeaders'] = array(
-    __(''),
+    __('Hour of the day'),
     __('Value'),
     __('Percent')
   );
