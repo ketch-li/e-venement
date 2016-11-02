@@ -67,6 +67,7 @@ $(document).ready(function(){
     
     <?php $resources = Doctrine::getTable('Location')->createQuery('l')->andWhere('l.place = TRUE')->orderBy('l.rank IS NULL, l.rank, l.name')->execute() ?>
     resources: [
+      <?php $cpt = 0 ?>
       <?php foreach ( $resources as $res ): ?>
       { name: '<?php echo str_replace("'", "\\'", $res) ?>', id: 'resource-<?php echo $res->id ?>', readonly: true },
       <?php endforeach ?>
@@ -79,7 +80,21 @@ $(document).ready(function(){
       {
         url: '<?php echo $url ?>',
         //color: 'LightGreen',
-        error: function(){ alert('<?php echo __('Error loading the data from manifestations',null,'sf_admin') ?>'); }
+        error: function(){ alert('<?php echo __('Error loading the data from manifestations',null,'sf_admin') ?>'); },
+        success: function(){
+          if ( $('#fullcalendar .fc-day-header').length < 15 )
+            return;
+          $('#fullcalendar .fc-day-header').each(function(){
+            if ( $(this).find('> *').length > 0 )
+              return;
+            var span = $('<span></span>').text($(this).text())
+              .appendTo($(this).text(''));
+            $(this).height($(span).width());
+            $(span)
+              .css('margin-left', $(this).width())
+              .css('width', $(this).height());
+          });
+        }
       },
       <?php endforeach ?>
     ],
@@ -131,7 +146,7 @@ $(document).ready(function(){
       if ( event.hacktitle )
         $(element).prop('title', event.hacktitle);
       
-      if ( $(element).closest('.fc-agenda-view').length > 0 )
+      if ( $(element).closest('.vertical-labels').length > 0 && $(element).closest('.fc-agenda-view').length > 0 )
       {
         $(element).find('.fc-title')
           .width($(element).height()-16)

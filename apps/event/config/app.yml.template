@@ -16,6 +16,7 @@ all:
     #first_hour: 15
     #max_per_page: 15
     #default_view: resourceDay
+    #vertical_labels: true
   manifestation:
     depends_on_limit: 10
     #defaults:
