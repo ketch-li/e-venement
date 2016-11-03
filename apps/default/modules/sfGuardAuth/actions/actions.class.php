@@ -118,7 +118,7 @@ class sfGuardAuthActions extends BasesfGuardAuthActions
 
     $sameLoginAttempts = Doctrine::getTable('Authentication')->createQuery('a')
       ->where('a.description = ?', $userName)
-      ->andWhere('a.created_at > (NOW() - ?::INTERVAL)', $timeThreshold)
+      ->andWhere('a.created_at > (NOW() - CAST(? AS INTERVAL))', $timeThreshold)
       ->andWhere('a.success = false')
       ->count()
     ;
@@ -126,7 +126,7 @@ class sfGuardAuthActions extends BasesfGuardAuthActions
     $sameIpAttempts = Doctrine::getTable('Authentication')->createQuery('a')
       ->where('a.ip_address = ?', $ip)
       ->andWhere('a.description != ?', '__Logout__')
-      ->andWhere('a.created_at > (NOW() - ?::INTERVAL)', $timeThreshold)
+      ->andWhere('a.created_at > (NOW() - CAST(? AS INTERVAL))', $timeThreshold)
       ->andWhere('a.success = false')
       ->count()
     ;
@@ -141,7 +141,7 @@ class sfGuardAuthActions extends BasesfGuardAuthActions
       ->from('Authentication a')
       ->where('a.ip_address = ?', $ip)
       ->andWhere('a.description = ?', $userName)
-      ->andWhere('a.created_at > (NOW() - ?::INTERVAL)', $timeThreshold)
+      ->andWhere('a.created_at > (NOW() - CAST(? AS INTERVAL))', $timeThreshold)
       ->andWhere('a.success = false')
       ->execute(); 
   }
