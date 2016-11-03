@@ -9,8 +9,8 @@
     <meta property="og:url" content="<?php echo $sf_request->getUri() ?>" />
     <meta property="og:type" content="article" />
     <link rel="shortcut icon" href="<?php echo image_path('logo-evenement.png') ?>" />
-    <?php include_component('layout', 'stylesheets') ?>
     <?php include_stylesheets() ?>
+    <?php include_component('layout', 'stylesheets') ?>
     <?php include_javascripts() ?>
   </head>
   <body class="<?php include_partial('global/body_classes') ?>">
