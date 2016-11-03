@@ -53,7 +53,7 @@
             <a href="<?php echo cross_app_url_for('tck','ledger/both') ?>"><?php echo __('Detailed Ledger',array(),'menu') ?></a>
           </li>
           <?php endif ?>
-          <?php if ( $sf_user->hasCredential('tck-overview') ): ?>
+          <?php if ( $sf_user->hasCredential('tck-control-overview') ): ?>
           <li class="spaced">
             <a href="<?php echo cross_app_url_for('tck','control/index') ?>"><?php echo __('Ticket control',array(),'menu') ?></a>
           </li>

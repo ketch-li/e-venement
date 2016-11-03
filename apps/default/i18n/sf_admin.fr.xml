@@ -5,6 +5,10 @@
     <header />
     <body>
       <trans-unit>
+        <source>Create exceptions</source>
+        <target>Créer des exceptions</target>
+      </trans-unit>
+      <trans-unit>
         <source>Toggle online gauges</source>
         <target>Inverser l'état "en ligne"</target>
       </trans-unit>

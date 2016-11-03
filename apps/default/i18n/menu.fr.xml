@@ -217,8 +217,12 @@
         <target>Dupliquer des billets</target>
       </trans-unit>
       <trans-unit>
-        <source>Ticketting activity</source>
+        <source>Ticketing activity</source>
         <target>Activité en billetterie</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Ticketing activity by hour</source>
+        <target>Activité en billetterie heure par heure</target>
       </trans-unit>
       <trans-unit>
         <source>Tickets by price</source>
@@ -329,7 +333,7 @@
         <target>Livre de caisse</target>
       </trans-unit>
       <trans-unit id="22">
-        <source>Ticketting</source>
+        <source>Ticketing</source>
         <target>Billetterie</target>
       </trans-unit>
       <trans-unit id="23">
@@ -385,7 +389,7 @@
         <target>Étiquettes</target>
       </trans-unit>
       <trans-unit id="36">
-        <source>Events / Ticketting</source>
+        <source>Events / Ticketing</source>
         <target>Événements / Billetterie</target>
       </trans-unit>
       <trans-unit id="37">
@@ -421,7 +425,7 @@
         <target>Responsables des contingents</target>
       </trans-unit>
       <trans-unit id="45">
-        <source>Online ticketting</source>
+        <source>Online ticketing</source>
         <target>Billetterie en ligne</target>
       </trans-unit>
       <trans-unit id="46">
@@ -485,7 +489,7 @@
         <target>Renforcé par</target>
       </trans-unit>
       <trans-unit id="22">
-        <source>the only free ticketting software</source>
+        <source>the only free ticketing software</source>
         <target>l'unique logiciel libre de billetterie</target>
       </trans-unit>
       <trans-unit id="23">
@@ -493,7 +497,7 @@
         <target>À propos</target>
       </trans-unit>
       <trans-unit>
-        <source>The free ticketting system</source>
+        <source>The free ticketing system</source>
         <target>La billetterie informatique libre</target>
       </trans-unit>
       <trans-unit>
@@ -519,6 +523,10 @@
       <trans-unit>
         <source>Ticket control</source>
         <target>Contrôle de billet</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Ticket controls</source>
+        <target>Contrôles de billet</target>
       </trans-unit>
       <trans-unit>
         <source>Detailed Ledger</source>

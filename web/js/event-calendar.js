@@ -95,6 +95,7 @@ function load_calendar()
           load_calendar();
           return false;
         });
+        
         $('#transition .close').click();
       }
     });

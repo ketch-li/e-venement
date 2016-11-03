@@ -84,6 +84,10 @@
       }
     }
     
+    // the limitation due to user's credentials about workspaces and metaevents
+    $q->andWhereIn('e.meta_event_id',array_keys($this->getUser()->getMetaEventsCredentials()));
+    $q->andWhereIn('g.workspace_id',array_keys($this->getUser()->getWorkspacesCredentials()));
+    
     if ( isset($criterias['workspaces']) && is_array($criterias['workspaces']) && $criterias['workspaces'][0] )
       $q->andWhereIn('g.workspace_id',$criterias['workspaces']);
     if ( isset($criterias['manifestations']) && is_array($criterias['manifestations']) && $criterias['manifestations'][0] )

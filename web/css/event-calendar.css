@@ -3,6 +3,8 @@ h1 { font-size: 22px; }
 
 #fullcalendar { margin-top: 10px; }
 #fullcalendar .fc-view-resourceDay { overflow-x: auto; }
+#fullcalendar .ui-widget-header { padding: 0; height: auto; margin: 0; }
+#fullcalendar .fc-axis.ui-widget-header { padding: 0 4px; }
 
 #fullcalendar .fc-header .fc-button-resourceDay { z-index: 1; }
 
@@ -10,6 +12,7 @@ h1 { font-size: 22px; }
 #fullcalendar .fc-view-resourceWeek tbody tr:hover td:not(.fc-today),
 #fullcalendar .fc-view-resourceDay tbody tr:hover td { background: rgba(255,237,189,0.5); }
 #fullcalendar .fc-view-resourceDay .fc-agenda-axis { min-width: 56px; }
+#fullcalendar .fc-day-header span { transform: rotate(90deg); transform-origin: left top; display: inline-block; }
 
 #sf_admin_filter { display: none; position: absolute; background-color: white; z-index: 1000; width: auto; padding: 0; left: 25%; padding-bottom: 50px; top: 70px; bottom: 0px; }
 #sf_admin_filter form { overflow: auto; max-height: 100%; padding-right: 15px; padding-left: 10px; }
@@ -23,5 +26,5 @@ h1 { font-size: 22px; }
 #fullcalendar .fc-agenda-divider { margin-bottom: 0; height: 0; padding: 3px; }
 
 /* optimizations */
-#fullcalendar .fc-agenda-view .fc-title { transform: rotate(90deg); transform-origin: bottom left; margin-top: -90%; }
+#fullcalendar.vertical-labels .fc-agenda-view .fc-title { transform: rotate(90deg); transform-origin: bottom left; margin-top: -90%; }
 #fullcalendar .fc-event:hover { z-index: 10000; }

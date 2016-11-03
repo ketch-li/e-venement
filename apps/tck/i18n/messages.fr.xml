@@ -297,8 +297,8 @@
         <target>TVA incluse</target>
       </trans-unit>
       <trans-unit>
-        <source>Less details</source>
-        <target>Moins de détails</target>
+        <source>Remove the user details</source>
+        <target>Retire les utilisateurs</target>
       </trans-unit>
       <trans-unit>
         <source>Error</source>

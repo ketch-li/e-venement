@@ -1,0 +1,20 @@
+sfGuardGroup:
+  sfGuardGroup_64:
+    name: stats-control
+    description: 'Ability to access control statistics'
+    created_at: '2016-11-02 11:30:00'
+    updated_at: '2016-11-02 11:30:00'
+
+sfGuardPermission:
+  sfGuardPermission_156:
+    name: stats-control
+    description: 'Permission to access control statistics'
+    created_at: '2016-11-02 11:30:00'
+    updated_at: '2016-11-02 11:30:00'
+
+sfGuardGroupPermission:
+  sfGuardGroupPermission_64_156:
+    Group: sfGuardGroup_64
+    Permission: sfGuardPermission_156
+    created_at: '2016-11-02 11:30:00'
+    updated_at: '2016-11-02 11:30:00'

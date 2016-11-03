@@ -20,12 +20,12 @@
 *    Copyright (c) 2006-2011 Libre Informatique [http://www.libre-informatique.fr/]
 *
 ***********************************************************************************/
-$json = $sf_data->getRaw('lines'); 
-    $json['csvHeaders'] = [
+  $json = $sf_data->getRaw('lines');
+  $json['csvHeaders'] = array(
     __(''),
     __('Value'),
     __('Percent')
-    ];
+  );
 
-    echo json_encode($json);
+  echo json_encode($json);
 ?>

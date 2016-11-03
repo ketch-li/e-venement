@@ -54,7 +54,8 @@ LI.kiosk.insertManifestations = function(data){
 		//re arrange properties
 		manif.name = manif.name == null ? manif.category : manif.name;
 		manif.start = pdt;
-		manif.end = manif.ends_at.split(' ')[1];
+		var endDate = new Date(manif.ends_at);
+		manif.end = endDate.getHours() + ':' + endDate.getMinutes();
 
 		$.each(manif.gauges, function(i, gauge){
 			if( gauge.name == 'INDIVIDUELS' ){
@@ -104,9 +105,15 @@ LI.kiosk.utils.setupDialog = function(){
       dialogPolyfill.registerDialog(LI.kiosk.utils.dialog);
 };
 
+LI.kiosk.utils.flash = function(selector){
+	Waves.attach(selector);
+	Waves.init();
+	Waves.ripple(selector);
+};
+
 LI.kiosk.addManifListener = function(){
 	$('#manifs-list').on('click', '.manif', function(event){
-  	$('#manifs-list').show(500);
+  		$('#manifs-list').show(500);
 		var manif = LI.kiosk.manifestations[$(event.currentTarget.children).attr('id')];
 	  	LI.kiosk.openOrderDialog(manif);
 	});
@@ -123,8 +130,10 @@ LI.kiosk.mustache.cacheTemplates = function(){
 LI.kiosk.openOrderDialog = function(manif){
 	var dialogTemplate = $('#manif-dialog-template').html();
 
+	// insert manif info
 	$('dialog').html(Mustache.render(dialogTemplate, { manif: manif }));
 
+	// insert prices
 	LI.kiosk.insertPrices(manif);
 
 	LI.kiosk.utils.dialog.showModal();
@@ -168,8 +177,10 @@ LI.kiosk.cart.addItem = function(item, price){
 			line.qty++;
 			LI.kiosk.cart.lineTotal(line);
 			exists = true;
-			htmlLine.find('.total').text(line.total);
-			htmlLine.find('.qty').text(line.qty);
+			htmlLine.find('.line-total').text(line.total);
+			htmlLine.find('.line-qty').text(line.qty);
+			LI.kiosk.utils.flash('#' + line.id);
+			
 		}
 	});
 
@@ -184,6 +195,7 @@ LI.kiosk.cart.addItem = function(item, price){
 
 		LI.kiosk.cart.lines[newLine.id] = newLine;
 		LI.kiosk.cart.insertLine(LI.kiosk.cart.lines[newLine.id]);
+		LI.kiosk.utils.flash('#' + newLine.id);
 	}
 
 	$('#cart').show(500);
@@ -203,8 +215,8 @@ LI.kiosk.cart.removeItem = function(lineId) {
 	}
 	else{
 		LI.kiosk.lines[lineId] = line;
-		htmlLine.find('.qty').text(line.qty);
-		htmlLine.find('.total').text(line.total);
+		htmlLine.find('.line-qty').text(line.qty);
+		htmlLine.find('.line-total').text(line.total);
 	}
 
 	if(Object.keys(LI.kiosk.cart.lines) < 1)
@@ -214,7 +226,8 @@ LI.kiosk.cart.removeItem = function(lineId) {
 LI.kiosk.utils.generateUUID = function(){
 
     var d = new Date().getTime();
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    //Force letter as first character to avoid selector issues
+    var uuid = 'Axxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         var r = (d + Math.random() * 16) % 16 | 0;
         d = Math.floor(d / 16);
         return (c == 'x' ? r : (r & 0x7 | 0x8)).toString(16);
@@ -225,7 +238,6 @@ LI.kiosk.utils.generateUUID = function(){
 
 LI.kiosk.cart.insertLine = function(line){
 	var lineTemplate = $('#cart-line-template').html();
-
 	$('#cart-lines').append(Mustache.render(lineTemplate, { line: line }));
 };
 

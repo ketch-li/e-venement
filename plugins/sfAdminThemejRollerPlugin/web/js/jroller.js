@@ -49,7 +49,6 @@ jQuery().ready(function(){
 		// modal window for filters
 		submit = $('#sf_admin_filter_submit').val();
 		reset  = $('#sf_admin_filter_reset').val();
-		console.error($(document).width());
 		$('.sf_admin_filter').dialog({
 			autoOpen: false,
 			width: $(document).width() > 1450 ? 1100 : 600,

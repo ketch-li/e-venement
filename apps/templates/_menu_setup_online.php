@@ -22,7 +22,7 @@
 ***********************************************************************************/
 ?>
 <?php if ( $sf_user->hasCredential('ws-group') || $sf_user->hasCredential('ws-admin') || $sf_user->hasCredential('stats-pub') ): ?>
-  <li class="menu-setup-online"><a><?php echo __('Online ticketting',array(),'menu') ?></a>
+  <li class="menu-setup-online"><a><?php echo __('Online ticketing',array(),'menu') ?></a>
     <ul class="third">
       <?php if ( $sf_user->hasCredential('pub-texts') ): ?>
         <li><a href="<?php echo cross_app_url_for('ws','texts/index') ?>"><?php echo __('Texts',array(),'menu') ?></a></li>
