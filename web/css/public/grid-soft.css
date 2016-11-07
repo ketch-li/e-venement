@@ -486,6 +486,33 @@ body.mod-manifestation.action-show .manifestation_bottom .social-description {
   display: block;
   padding: 0 25px; }
 
+/* Store */
+.mod-store #sf_admin_content .sf_admin_list td {
+  float: none;
+  border-radius: 3px; }
+  .mod-store #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_name {
+    display: block;
+    padding: 25px;
+    color: #F46245; }
+    .mod-store #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_name a {
+      display: block;
+      text-transform: uppercase;
+      font-size: 2.46154em;
+      line-height: 1;
+      font-weight: 400;
+      color: #F46245; }
+  .mod-store #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_children {
+    display: block;
+    padding: 0 25px 25px;
+    font-size: 1.23077em;
+    line-height: 1.2; }
+
+.mod-store #sf_admin_header .sf_admin_list {
+  display: none; }
+
+.mod-store #sf_admin_header h1 {
+  display: none; }
+
 /* Admin footer */
 #sf_admin_footer {
   margin: 25px 25px;
