@@ -65,7 +65,7 @@ LI.kiosk.insertManifestations = function(data){
 				$.each(gauge.available_prices, function(key, price){
 
 					if( price.color == undefined )
-						price.color = '#009688';
+						price.color = '#4FC3F7';
 
 					manif.prices[price.id] = price;
 				});
@@ -99,12 +99,6 @@ LI.kiosk.utils.hideLoader = function(){
 	$('#spinner').css('display', 'none');
 };
 
-LI.kiosk.utils.setupDialog = function(){
-	LI.kiosk.utils.dialog = document.querySelector('dialog');
-	if (! LI.kiosk.utils.dialog.showModal)
-      dialogPolyfill.registerDialog(LI.kiosk.utils.dialog);
-};
-
 LI.kiosk.utils.flash = function(selector){
 	Waves.attach(selector);
 	Waves.init();
@@ -113,9 +107,9 @@ LI.kiosk.utils.flash = function(selector){
 
 LI.kiosk.addManifListener = function(){
 	$('#manifs-list').on('click', '.manif', function(event){
-  		$('#manifs-list').show(500);
+
 		var manif = LI.kiosk.manifestations[$(event.currentTarget.children).attr('id')];
-	  	LI.kiosk.openOrderDialog(manif);
+	  	LI.kiosk.showDetails(manif, $(this));
 	});
 }
 
@@ -127,27 +121,30 @@ LI.kiosk.mustache.cacheTemplates = function(){
 	});
 };
 
-LI.kiosk.openOrderDialog = function(manif){
-	var dialogTemplate = $('#manif-dialog-template').html();
-
+LI.kiosk.showDetails = function(manif, card){
+	var detailsTemplate = $('#manif-details-template').html();
+	
 	// insert manif info
-	$('dialog').html(Mustache.render(dialogTemplate, { manif: manif }));
+	$('#manif-details-panel').html(Mustache.render(detailsTemplate, { manif: manif }));
 
 	// insert prices
 	LI.kiosk.insertPrices(manif);
 
-	LI.kiosk.utils.dialog.showModal();
-		
-	$('.close, .backdrop').click(function(){
-		LI.kiosk.utils.dialog.close();
+	// TODO improve animations
+	$('#manifs-list').hide(500);
+	$('#manif-details-panel, #back-fab').show(500);
+	$('#back-fab').click(function(){
+		$('#manif-details-panel, #back-fab').hide(500);
+		$('#manifs-list').show(500);
 	});
+
 };
 
 LI.kiosk.insertPrices = function(manif){
 	var priceTemplate = $('#price-card-template').html();
 
 	for(key in manif.prices)
-		$('dialog #prices').append(Mustache.render(priceTemplate, { price: manif.prices[key] }));
+		$('#manif-details-panel #prices').append(Mustache.render(priceTemplate, { price: manif.prices[key] }));
 
 	LI.kiosk.addPriceListener(manif);
 };
@@ -161,7 +158,6 @@ LI.kiosk.addPriceListener = function(manif){
 LI.kiosk.initPlugins = function(){
 	Waves.attach('.waves-effect');
 	Waves.init();
-	LI.kiosk.utils.setupDialog();
 	LI.kiosk.mustache.cacheTemplates();
 };
 

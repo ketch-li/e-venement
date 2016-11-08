@@ -1,19 +1,17 @@
 <?php use_helper('I18N') ?>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <?php use_stylesheet('material.min.css') ?>
-<?php use_stylesheet('dialog-polyfill.css') ?>
 <?php use_stylesheet('kiosk/waves.css') ?>
 <?php use_stylesheet('kiosk/kiosk.css') ?>
 <?php use_javascript('jquery') ?>
 <?php use_javascript('/sfAdminThemejRollerPlugin/js/jquery-ui.custom.min.js') ?>
-<?php use_javascript('/js/material/dialog-polyfill.js') ?>
 <?php use_javascript('/js/kiosk/waves.js') ?>
 <?php use_javascript('/js/mustache/mustache.min.js') ?>
 <?php use_javascript('/js/material/material.min.js') ?>
 <?php use_javascript('/js/kiosk/kiosk.js') ?>
 <div class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 	<header class="app-header mdl-layout__header">
-		<div class="mdl-layout__header-row">
+		<div class="mdl-layout__header-row mdl-color--light-blue-300">
 			<span class="mdl-layout-title">e-kiosk</span>
 			<div class="mdl-layout-spacer"></div>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
@@ -66,20 +64,25 @@
 		</nav>
 	</div> -->
 	<main id="content" class="mdl-layout__content mdl-color--blue-grey-800">
+		<!-- loader -->
 		<div class="mdl-spinner mdl-js-spinner is-active" id="spinner"></div>
+		<!-- back fab -->
+		<button id="back-fab"class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-color--light-blue-300 waves-effect">
+  			<i class="material-icons">keyboard_backspace</i>
+		</button>
+		<!-- Manif details panel -->
+		<div id="manif-details-panel" class="mdl-card mdl-shadow--2dp"></div>
+		<!-- manis list -->
 		<div id="manifs">
 			<ul id="manifs-list" class="flex-list"></ul>
 		</div>
+		<!-- cart panel -->
 		<div id="cart" class="mdl-color--blue-grey-600">
 			<ul id="cart-lines"></ul>
 			<div id="cart-total"><?php echo __('Total') ?></div>
 		</div>	
 	</main>
 </div>
-
-<!-- ORDER DIALOG (has to be direct child of body) -->
-<dialog class="mdl-dialog" id="manif-dialog">
-</dialog>
 
 <!-- MUSTACHE TEMPLATES -->
 	<!-- manif card -->
@@ -103,10 +106,10 @@
 </li>
 </script>
 
-	<!-- manif dialog -->
-<script id="manif-dialog-template" type="x-tmpl-mustache">
-	<h6 id="dialog-title" class="mdl-dialog__title"><?php echo __('Order') ?></h6>
-    <div class="mdl-dialog__content" id="dialog-content">
+	<!-- manif details -->
+<script id="manif-details-template" type="x-tmpl-mustache">
+	<h6 id="details-title"><?php echo __('Order') ?></h6>
+    <div id="details-content">
     	<div class="manif-details">
     		<div> {{ manif.name }}</div>
     		<div>{{ manif.gauge }}</div>
@@ -121,10 +124,7 @@
     		<div>{{ manif.color }}</div>
     	</div>
     	<ul id="prices" class="flex-list"></ul>
-    <div class="mdl-dialog__actions mdl-dialog__actions">
-      <button type="button" class="mdl-button"><?php echo __('Order') ?></button>
-      <button type="button" class="mdl-button close"><?php echo __('Cancel') ?></button>
-    </div>
+   	<div>
 </script>
 
 	<!-- price card -->
@@ -141,6 +141,9 @@
 	<!-- cart line -->
 <script id="cart-line-template" type="x-tmpl-mustache">
 	<li class="cart-line mdl-color--blue-grey-800" id="{{ line.id }}" style="border-right: 5px solid {{ line.price.color }};">
+		<button class="remove-item mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+  			<i class="material-icons">remove</i>
+		</button>
 		<p class="line-main">
 			<span class="line-qty">{{ line.qty }}</span>
 			<span class="line-multiplier"> x </span>
