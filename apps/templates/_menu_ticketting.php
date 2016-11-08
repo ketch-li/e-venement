@@ -49,6 +49,6 @@
           <?php endif ?>
           <?php include_partial('global/menu_extra', array('name' => 'ticketting')) ?>
         </ul>
-        <span class="title"><?php echo __('Ticketting',array(),'menu') ?></span>
+        <span class="title"><?php echo __('Ticketing',array(),'menu') ?></span>
       </li>
     <?php endif ?>
