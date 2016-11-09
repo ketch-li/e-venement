@@ -67,8 +67,8 @@
 		<!-- loader -->
 		<div class="mdl-spinner mdl-js-spinner is-active" id="spinner"></div>
 		<!-- back fab -->
-		<button id="back-fab"class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-color--light-blue-300 waves-effect">
-  			<i class="material-icons">keyboard_backspace</i>
+		<button id="back-fab" class="mdl-button mdl-js-button mdl-button--fab mdl-color--light-blue-300 waves-effect">
+  			<i class="material-icons light">keyboard_backspace</i>
 		</button>
 		<!-- Manif details panel -->
 		<div id="manif-details-panel" class="mdl-card mdl-shadow--2dp"></div>
@@ -79,7 +79,13 @@
 		<!-- cart panel -->
 		<div id="cart" class="mdl-color--blue-grey-600">
 			<ul id="cart-lines"></ul>
-			<div id="cart-total"><?php echo __('Total') ?></div>
+			<div id="cart-total" class="mdl-color--blue-grey-800">
+				<span><?php echo __('Total') . ': ' ?></span>
+				<span id="cart-total-value"></span>
+			</div>
+			<div id="cart-confirm" class="">
+				<button id="confirm-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-color--teal-600 waves-effect"><i class="material-icons light">check</i><?php echo __('Confirm order') ?></button>
+			</div>
 		</div>	
 	</main>
 </div>
@@ -97,11 +103,6 @@
 		<div class="mdl-card__supporting-text manif-description">
 			{{ manif.description }}
 		</div>
-		<!-- <div class="mdl-card__actions mdl-card--border manif-actions">
-		 	<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-		 		<?php echo __('Book') ?>
-		 	</a>
-		</div> -->
 	</div>
 </li>
 </script>
@@ -142,17 +143,18 @@
 <script id="cart-line-template" type="x-tmpl-mustache">
 	<li class="cart-line mdl-color--blue-grey-800" id="{{ line.id }}" style="border-right: 5px solid {{ line.price.color }};">
 		<button class="remove-item mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-  			<i class="material-icons">remove</i>
+  			<i class="material-icons light">remove_shopping_cart</i>
 		</button>
 		<p class="line-main">
 			<span class="line-qty">{{ line.qty }}</span>
 			<span class="line-multiplier"> x </span>
 			<span class="line-name">{{ line.name }}</span>
 		<p>
-		
+		<p class="line-second">
 			<span class="line-price">{{ line.price.name }} ({{line.price.value}})</span>
-		
-		<span class="line-total">{{ line.total }}</span>
-		<span line-currency> €</span>
+		</p>
+		<p class="line-third">
+			<span class="line-total">{{ line.total }}</span>
+		</p>
   	</li>
 </script>

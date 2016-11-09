@@ -186,7 +186,7 @@ LI.kiosk.cart.addItem = function(item, price){
 			name: item.name,
 			price: price,
 			qty: 1,
-			total: price.raw_value
+			total: price.value
 		};
 
 		LI.kiosk.cart.lines[newLine.id] = newLine;
@@ -195,6 +195,7 @@ LI.kiosk.cart.addItem = function(item, price){
 	}
 
 	$('#cart').show(500);
+	$('#cart').css('display', 'flex');
 	LI.kiosk.cart.cartTotal();
 };
 
@@ -210,10 +211,12 @@ LI.kiosk.cart.removeItem = function(lineId) {
 		LI.kiosk.cart.removeLine(htmlLine);
 	}
 	else{
-		LI.kiosk.lines[lineId] = line;
+		LI.kiosk.cart.lines[lineId] = line;
 		htmlLine.find('.line-qty').text(line.qty);
 		htmlLine.find('.line-total').text(line.total);
 	}
+
+	LI.kiosk.cart.cartTotal();
 
 	if(Object.keys(LI.kiosk.cart.lines) < 1)
 		$('#cart').hide(200);
@@ -235,23 +238,28 @@ LI.kiosk.utils.generateUUID = function(){
 LI.kiosk.cart.insertLine = function(line){
 	var lineTemplate = $('#cart-line-template').html();
 	$('#cart-lines').append(Mustache.render(lineTemplate, { line: line }));
+	$('#' + line.id + ' .remove-item').click(function(){
+		LI.kiosk.cart.removeItem(line.id);
+	});
 };
 
 LI.kiosk.cart.removeLine = function(htmlLine){
-
-	$(htmlLine).remove();
+	$(htmlLine).hide(500)
+			.remove()
+		;
 };
 
 LI.kiosk.cart.lineTotal = function(line){
-	line.total = line.price.raw_value * line.qty;
+	
+	line.total = LI.format_currency(line.price.raw_value * line.qty, false);
 };
 
 LI.kiosk.cart.cartTotal = function(){
 	var total = 0;
 
 	$.each(LI.kiosk.cart.lines, function(key, line){
-		total += line.total;
+		total += parseFloat(line.total);
 	});
 
-	$('#cart-total').text(total);
+	$('#cart-total-value').text(LI.format_currency(total, false));
 };
