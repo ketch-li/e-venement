@@ -12,7 +12,7 @@
 <div class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 	<header class="app-header mdl-layout__header">
 		<div class="mdl-layout__header-row mdl-color--light-blue-300">
-			<span class="mdl-layout-title">e-kiosk</span>
+			<span class="mdl-layout-title"><img src="images/logo-evenement-small.png" alt="logo"/></span>
 			<div class="mdl-layout-spacer"></div>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
 				<label class="mdl-button mdl-js-button mdl-button--icon" for="search" id="search-label">
@@ -82,7 +82,7 @@
 			<ul id="cart-lines"></ul>
 			<!-- total -->
 			<div id="cart-total" class="mdl-color--blue-grey-800">
-				<span><?php echo __('Total') . ': ' ?></span>
+				<span id="cart-total-label"><?php echo __('Total') . ': ' ?></span>
 				<span id="cart-total-value"></span>
 			</div>
 			<!-- confirm button -->
@@ -95,6 +95,22 @@
 			</div>
 		</div>	
 	</main>
+	<footer class="mdl-card__supporting-text mdl-color--teal-600">
+		<p>
+			<a href="http://www.e-venement.org/">e-venement</a>
+			<span>la billetterie informatique, libre et open source - © 2006-2016</span>
+			<a href="http://www.libre-informatique.fr/">Libre Informatique</a>
+			<br>
+			<span>Publié sous licence</span>
+			<a href="http://www.gnu.org/licenses/gpl.html">GNU/GPL</a>
+			<span>- Renforcé par</span>
+			<a href="http://www.symfony-project.org/">Symfony</a>
+			,
+			<a href="http://www.php.net/">PHP</a>
+			,
+			<a href="http://www.postgresql.org/">PostgreSQL</a>
+		</p>
+	</footer>
 </div>
 
 <!-- MUSTACHE TEMPLATES -->
