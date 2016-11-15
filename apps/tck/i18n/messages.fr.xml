@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Today</source>
+        <target>Aujourd'hui</target>
+      </trans-unit>
+      <trans-unit>
         <source>No more ticket left on the contact's member card</source>
         <target>Il n'y a plus de billet associé à la carte avantage de ce contact</target>
       </trans-unit>
