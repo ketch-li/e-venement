@@ -218,50 +218,35 @@ LI.kiosk.utils.generateUUID = function(){
 };
 
 LI.kiosk.utils.switchPanels = function(){
+	
 	$('#manifs').effect('slide', {
 		direction: 'right', 
 		mode: 'hide', 
 		duration: '500',
 		complete: function(){
-			//$('#manif-details-card').show();
-			//$('#spacer').show();
-			// $('#manifs').css('margin-right', '-2000px');
-			//$('#manif-details-card').css('margin-left', 0);
 			$('#manif-details-card').effect('slide', {
-		direction: 'left', 
-		mode: 'show',
-		duration: '500'
-	});
+				direction: 'left', 
+				mode: 'show',
+				duration: '500'
+			});
 		}
 	});
 	
-	
-	
-
 	$('#back-fab').unbind('click').click(function(){
+
 		$('#manif-details-card').effect('slide', {
 			direction: 'left', 
 			mode: 'hide', 
 			duration: '500',
 			complete: function(){
 				$('#manifs').effect('slide', {
-			direction: 'right', 
-			mode: 'show', 
-			duration: '500',
-			complete: function(){
-				//$('#spacer').hide();
-			}
-		});
-			//	$('#manifs').show();
-				//$('spacer').show();
-				//$('#manif-details-card').css('margin-left', '-5000px');
-				// $('#manifs').css('margin-right', '0');
+					direction: 'right', 
+					mode: 'show', 
+					duration: '500'
+				});
 			}
 		});
 		
-		
-		
-
 		$(this).hide();
 	}).show();
 }
