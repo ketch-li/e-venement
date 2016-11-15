@@ -145,7 +145,7 @@
       }
       
       // empty-ing links to professionals and organisms if not needed
-      if ( !$this->filters->showProfessionalData() && !$group_pro )
+      if (!( $this->filters->showProfessionalData() || $group_pro || in_array('tunnel', $params['option']) ))
       {
         foreach ( $line as $field => $value )
         {
