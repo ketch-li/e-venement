@@ -71,20 +71,27 @@
   			<i class="material-icons light">keyboard_backspace</i>
 		</button>
 		<!-- Manif details panel -->
-		<div id="manif-details-panel" class="mdl-card mdl-shadow--2dp"></div>
+		<div id="manif-details-card" class="mdl-card mdl-shadow--2dp"></div>
 		<!-- manis list -->
 		<div id="manifs">
 			<ul id="manifs-list" class="flex-list"></ul>
 		</div>
 		<!-- cart panel -->
 		<div id="cart" class="mdl-color--blue-grey-600">
+			<!-- lines -->
 			<ul id="cart-lines"></ul>
+			<!-- total -->
 			<div id="cart-total" class="mdl-color--blue-grey-800">
 				<span><?php echo __('Total') . ': ' ?></span>
 				<span id="cart-total-value"></span>
 			</div>
+			<!-- confirm button -->
 			<div id="cart-confirm" class="">
-				<button id="confirm-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-color--teal-600 waves-effect"><i class="material-icons light">check</i><?php echo __('Confirm order') ?></button>
+				<button id="confirm-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-color--teal-600 waves-effect">
+				<span id="confirm-btn-wrapper">
+					<i class="material-icons light">check</i><?php echo __('Confirm order') ?>
+					</button>
+				</span>
 			</div>
 		</div>	
 	</main>
@@ -94,8 +101,8 @@
 	<!-- manif card -->
 <script id="manif-card-template" type="x-tmpl-mustache">
 <li class="manif"> 
-	<div class="manif-card-wide mdl-card mdl-shadow--2dp waves-effect" id="{{ manif.id }}">
-		<div class="mdl-card__title manif-title" style="background-color: {{ manif.color }};">
+	<div class="manif-card mdl-card mdl-shadow--2dp waves-effect" id="{{ manif.id }}">
+		<div class="mdl-card__title manif-title" style="{{ manif.background }};">
 			<p class="mdl-card__title-text manif-name">{{ manif.name }}</p>
 			<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ manif.start }}</p>
 			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ manif.location }}</p>
@@ -109,23 +116,24 @@
 
 	<!-- manif details -->
 <script id="manif-details-template" type="x-tmpl-mustache">
-	<h6 id="details-title"><?php echo __('Order') ?></h6>
-    <div id="details-content">
-    	<div class="manif-details">
-    		<div> {{ manif.name }}</div>
-    		<div>{{ manif.gauge }}</div>
-    		<div>
+	<div class="mdl-card__title" style="{{ manif.background }};"></div>
+	<div id="details-content" class="mdl-card__supporting-text">
+		<div id="manif-details">
+    		<div id="details-name">{{ manif.name }}</div>
+    		<span id="details-time">
     			<i class="material-icons" role="presentation">access_time</i>
     			<span class="mdl-color-text--pink">{{ manif.start }} - {{ manif.end }}</span>
-    		</div>
-    		<div>
+    		</span>
+    		<span id="details-location">
     			<i class="material-icons" role="presentation">location_on</i>
     			<span>{{ manif.location }}</span>
-    		</div>
-    		<div>{{ manif.color }}</div>
+    		</span>
     	</div>
-    	<ul id="prices" class="flex-list"></ul>
-   	<div>
+    	<div id="manif-extra">
+
+    	</div>
+	</div>
+	<ul id="prices" class="flex-list"></ul>
 </script>
 
 	<!-- price card -->

@@ -7,7 +7,7 @@
 }
 
 /* ICONS */
-i.material-icons.light {
+.material-icons.light {
   color: #fff;
 }
 #back-fab i {
@@ -18,8 +18,14 @@ i.material-icons.light {
 /* BACK BUTTON */
 #back-fab {
   display: none;
+  position: absolute;
+  top: 130px;
+  left: 100px;
   height: 80px;
   width: 80px;
+  z-index: 998;
+  margin-left: -70px;
+  margin-right: 0;
 }
 
 /* MENU BAR */
@@ -44,32 +50,60 @@ ul{
   overflow-y: auto;
 }
 
-#manif-details-panel {
+/* MANIF DETAILS */
+#manif-details-card {
   display: none;
+  height: 90%;
+  width: 60%;
+  margin: 20px 40px 20px 150px;
+  overflow-y: auto;
+}
+#manif-details-card > .mdl-card__title {
+  height: 150px;
+}
+#manif-details-card #details-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+#details-name {
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 0;
+  margin: 10px 0 30px 0;
 }
 
+#details-time, #details-location {
+  font-size: 1.2em;
+} 
+
 /* MANIF CARD */
-.manif-card-wide.mdl-card {
+.manif-card.mdl-card {
   width: 480px;
   margin: 10px;
 }
-.manif-card-wide > .mdl-card__title {
+.manif-card > .mdl-card__title {
   color: #fff;
   height: 140px;
   background-color: #0BC6DC;
 }
-.manif-card-wide .manif-title {
+.manif-card > .mdl-card__title , #manif-details-card > .mdl-card__title {
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.manif-card .manif-title {
 	display: flex;
 	justify-content: space-between;
   flex-wrap: wrap;
 }
-.manif-card-wide .manif-location {
+.manif-card .manif-location {
 	font-size: 0.9em;
 }
-.manif-card-wide .manif-happens_at {
+.manif-card .manif-happens_at {
 	font-size: 1em;
 }
-.manif-card-wide .manif-description {
+.manif-card .manif-description {
   height: 40px;
   margin-bottom: 5px;
 }
@@ -103,6 +137,8 @@ ul{
   margin-left: auto;
   height: 100%;
   width: 30%;
+  min-width: 30%;
+  max-width: 30%;
   background-color: white;
   overflow-y: auto;
 }
@@ -121,11 +157,23 @@ ul{
 #cart-confirm {
   padding: 5px;
 }
+#confirm-btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 #confirm-btn {
   color: #fff;
   width: 100%;
   height: 60px;
+  font-size: 1,5em;
+  font-weight: bold;
 }
+#confirm-btn i {
+  margin-right: 20px;
+  font-size: 48px;
+}
+
 .cart-line {
   display: flex;
   flex-wrap: wrap;
