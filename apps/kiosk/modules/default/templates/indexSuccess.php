@@ -3,18 +3,21 @@
 <?php use_stylesheet('material.min.css') ?>
 <?php use_stylesheet('kiosk/waves.css') ?>
 <?php use_stylesheet('kiosk/kiosk.css') ?>
+<?php use_stylesheet('kiosk/toastr.min.css') ?>
 <?php use_javascript('jquery') ?>
 <?php use_javascript('/sfAdminThemejRollerPlugin/js/jquery-ui.custom.min.js') ?>
+<?php use_javascript('/js/kiosk/toastr.min.js') ?>
 <?php use_javascript('/js/kiosk/waves.js') ?>
 <?php use_javascript('/js/mustache/mustache.min.js') ?>
 <?php use_javascript('/js/material/material.min.js') ?>
 <?php use_javascript('/js/kiosk/kiosk.js') ?>
+
 <div class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 	<header class="app-header mdl-layout__header mdl-color--light-blue-300">
 		<div class="mdl-layout__header-row">
 			<span class="mdl-layout-title"><img src="images/logo-evenement-small.png" alt="logo"/></span>
 			<div class="mdl-layout-spacer"></div>
-			<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+			<!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
 				<label class="mdl-button mdl-js-button mdl-button--icon" for="search" id="search-label">
 					<i class="material-icons">search</i>
 				</label>
@@ -30,7 +33,7 @@
 				<li class="mdl-menu__item">About</li>
 				<li class="mdl-menu__item">Contact</li>
 				<li class="mdl-menu__item">Legal information</li>
-			</ul>
+			</ul> -->
 		</div>
 	</header>
 	<!-- <div class="app-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
@@ -74,6 +77,27 @@
 		<button id="info-fab" class="mdl-button mdl-js-button mdl-button--fab waves-effect">
   			<i class="material-icons light mdl-color-text--light-blue-300">info_outline</i>
 		</button>
+		<div id="info-panel" class="mdl-card__supporting-text mdl-shadow--6dp mdl-color--light-blue-300">
+			<p>
+				<a href="http://www.e-venement.org/">e-venement</a>
+				<span>la billetterie informatique, libre et open source - © 2006-2016</span>
+				<a href="http://www.libre-informatique.fr/">Libre Informatique</a>
+				<br>
+				<span>Publié sous licence</span>
+				<a href="http://www.gnu.org/licenses/gpl.html">GNU/GPL</a>
+				<span>- Renforcé par</span>
+				<a href="http://www.symfony-project.org/">Symfony</a>
+				,
+				<a href="http://www.php.net/">PHP</a>
+				,
+				<a href="http://www.postgresql.org/">PostgreSQL</a>
+			</p>
+		</div>
+		<!-- Snackbar -->
+		<div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
+  			<div class="mdl-snackbar__text"></div>
+  			<button class="mdl-snackbar__action" type="button"></button>
+		</div>
 		<!-- Manif details panel -->
 		<div id="manif-details-card" class="mdl-card mdl-shadow--2dp"></div>
 		<!-- manis list -->
@@ -93,28 +117,12 @@
 			<div id="cart-confirm" class="">
 				<button id="confirm-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-color--teal-600 waves-effect">
 				<span id="confirm-btn-wrapper">
-					<i class="material-icons light">check</i><?php echo __('Confirm order') ?>
+					<i class="material-icons light">check</i><?php echo __('Valider') ?>
 					</button>
 				</span>
 			</div>
 		</div>	
 	</main>
-	<footer class="mdl-card__supporting-text mdl-color--teal-600">
-		<p>
-			<a href="http://www.e-venement.org/">e-venement</a>
-			<span>la billetterie informatique, libre et open source - © 2006-2016</span>
-			<a href="http://www.libre-informatique.fr/">Libre Informatique</a>
-			<br>
-			<span>Publié sous licence</span>
-			<a href="http://www.gnu.org/licenses/gpl.html">GNU/GPL</a>
-			<span>- Renforcé par</span>
-			<a href="http://www.symfony-project.org/">Symfony</a>
-			,
-			<a href="http://www.php.net/">PHP</a>
-			,
-			<a href="http://www.postgresql.org/">PostgreSQL</a>
-		</p>
-	</footer>
 </div>
 
 <!-- MUSTACHE TEMPLATES -->
@@ -172,7 +180,7 @@
 <script id="cart-line-template" type="x-tmpl-mustache">
 	<li class="cart-line mdl-color--blue-grey-800" id="{{ line.id }}" style="border-right: 5px solid {{ line.price.color }};">
 		<button class="remove-item mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-  			<i class="material-icons light">remove_shopping_cart</i>
+  			<i class="material-icons light">remove</i>
 		</button>
 		<p class="line-main">
 			<span class="line-qty">{{ line.qty }}</span>

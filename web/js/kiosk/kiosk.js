@@ -22,7 +22,10 @@ LI.kiosk.init = function(){
 LI.kiosk.addListeners = function(){
 	
 	$('#info-fab').click(function(){
-		$('footer').toggle(500);
+		$('#info-panel').show(500);
+		setTimeout(function(){
+			$('#info-panel').hide(500)
+		}, 3000);
 	});
 	
 	$('#manifs-list').on('click', '.manif', function(event){
@@ -68,7 +71,7 @@ LI.kiosk.insertManifestations = function(data){
 
 		$.each(manif.gauges, function(i, gauge){
 			if( gauge.name == 'INDIVIDUELS' ){
-
+				manif.gauge_url = gauge.url;
 				manif.prices = {};
 
 				$.each(gauge.available_prices, function(key, price){
@@ -188,6 +191,7 @@ LI.kiosk.cart.addItem = function(item, price){
 	$('#cart').show(500);
 	$('#cart').css('display', 'flex');
 	LI.kiosk.cart.cartTotal();
+	LI.kiosk.checkAvailability(item.gauge_url);
 }
 
 LI.kiosk.cart.removeItem = function(lineId) {
@@ -285,4 +289,10 @@ LI.kiosk.cart.cartTotal = function(){
 	});
 
 	$('#cart-total-value').text(LI.format_currency(total, false));
+}
+
+LI.kiosk.checkAvailability = function(gaugeUrl){
+	$.get(gaugeUrl, function(json){
+		console.log(json);
+	});
 }

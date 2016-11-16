@@ -1,14 +1,18 @@
 header {
   height: 62px; }
 
-footer.mdl-card__supporting-text {
+#info-panel {
   display: flex;
   display: none;
-  justify-content: center;
-  width: 100%;
-  height: 50px;
-  padding: 5px 10px; }
-  footer.mdl-card__supporting-text p, footer.mdl-card__supporting-text a {
+  align-items: center;
+  position: absolute;
+  left: 120px;
+  bottom: 30px;
+  width: 60%;
+  padding: 10px;
+  z-index: 999;
+  border-radius: 15px; }
+  #info-panel p, #info-panel a {
     color: #fff; }
 
 /* MAIN */
