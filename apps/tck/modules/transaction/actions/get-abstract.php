@@ -408,6 +408,8 @@
             'category'      => (string)$product->Event,
             'category_id'   => $product->event_id,
             'description'   => $product->Event->description,
+            'image_id'      => $product->Event->Picture->id,
+            'image_url'     => $product->Event->Picture->getUrl(array('absolute' => true)),
             'gauge_url'     => cross_app_url_for('event', 'gauge/state?json=true&manifestation_id='.$product->id, true),
             'happens_at'    => (string)$product->happens_at,
             'ends_at'       => (string)$product->ends_at,

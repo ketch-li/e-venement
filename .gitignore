@@ -36,6 +36,8 @@
 /apps/ws/config/app.yml
 /apps/ws/config/factories.yml
 /apps/srv/config/factories.yml
+/apps/kiosk/config/app.yml
+/apps/kiosk/config/factories.yml
 /config/autoload.inc.php
 /config/databases.yml
 /config/project.yml

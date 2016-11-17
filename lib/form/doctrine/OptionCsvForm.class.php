@@ -17,15 +17,15 @@ class OptionCsvForm extends BaseOptionCsvForm
   {
     parent::configure();
     $this->model = 'OptionCsv';
-    
+
     self::enableCSRFProtection();
-    
+
     foreach ( array('type','name','value','sf_guard_user_id','created_at','updated_at',) as $id )
     {
       unset($this->widgetSchema   [$id]);
       unset($this->validatorSchema[$id]);
     }
-    
+
     $this->widgets = array(
       'contact' => array(
         'title' => 'Title',
@@ -86,7 +86,7 @@ class OptionCsvForm extends BaseOptionCsvForm
         'tunnel'      => 'Prefer professional informations',
       ),
       'out' => array(
-        'select-all'  => 'Select All',
+        'select-all'  => 'Select / Deselect All',
       ),
     );
 
@@ -95,7 +95,7 @@ class OptionCsvForm extends BaseOptionCsvForm
     {
       if ( is_array($value) && isset($value['label']) )
         $value = $value['label'];
-      
+
       $this->widgetSchema[$name]    = new sfWidgetFormInputCheckbox(array(
           'value_attribute_value' => $value,
           'label'                 => $value,
@@ -106,7 +106,7 @@ class OptionCsvForm extends BaseOptionCsvForm
       $this->validatorSchema[$name] = new sfValidatorBoolean(array('true_values' => array($value)));
     }
   }
-  
+
   public static function orderData($data)
   {
 	  $fields = array(
@@ -150,7 +150,7 @@ class OptionCsvForm extends BaseOptionCsvForm
     	'__Professionals__Organism__Groups__name' => "Organism's group",
     	'information'         => 'Informations',
   	);
-		
+
     // ordering
     $ordered = array();
     foreach ( $fields as $fieldname => $field )
@@ -158,16 +158,16 @@ class OptionCsvForm extends BaseOptionCsvForm
 			$ordered[] = $fieldname;
 		elseif ( !$data )
 			$ordered[] = $fieldname;
-    
+
     return $ordered;
   }
-  
+
   public static function getDBOptions()
   {
     $options = array('field' => array(), 'option' => array());
     foreach ( self::buildOptionsQuery()->fetchArray() as $option )
       $options[$option['name']][] = $option['value'];
-    
+
     $options['field'] = self::orderData($options['field']);
     if ( in_array('no_nl', $options['option']) )
     {
@@ -178,10 +178,10 @@ class OptionCsvForm extends BaseOptionCsvForm
       $options['field'][] = 'address3';
       $options['field'] = self::orderData($options['field']);
     }
-    
+
     return $options;
   }
-  
+
   protected static function buildOptionsQuery()
   {
     $q = Doctrine::getTable('OptionCsv')->createQuery();
@@ -189,10 +189,10 @@ class OptionCsvForm extends BaseOptionCsvForm
       $q->where('sf_guard_user_id = ?',sfContext::getInstance()->getUser()->getId());
     else
       $q->where('sf_guard_user_id IS NULL');
-    
+
     return $q;
   }
-  
+
   public static function tunnelingContact($contact)
   {
       if ( $contact['organism_postalcode'] && $contact['organism_city'] && !$contact['organism_npai'] )
@@ -210,7 +210,7 @@ class OptionCsvForm extends BaseOptionCsvForm
           unset($contact[$origin]);
         }
       }
-      
+
       $email = '';
       if ( isset($contact['professional_email']) && $contact['professional_email'] )
         $email = $contact['professional_email'];
@@ -220,7 +220,7 @@ class OptionCsvForm extends BaseOptionCsvForm
         $email = $contact['organism_email'];
       $contact['email'] = $email;
       $contact['organism_email'] = $contact['professional_email'] = '';
-      
+
       if ( isset($contact['organism_phonenumber']) && $contact['organism_phonenumber'] )
       {
         $contact['phonename']    = $contact['organism_phonename'];
@@ -232,17 +232,17 @@ class OptionCsvForm extends BaseOptionCsvForm
         $contact['phonenumber']  = $contact['professional_number'];
       }
       unset($contact['organism_phonename'], $contact['organism_phonenumber'], $contact['professional_number']);
-      
+
       return $contact;
   }
-  
+
   static function getImplodedData($data, $fields, $separator = "\n")
   {
     if ( !isset($fields[0]) )
       return false;
     if ( !isset($data[$fields[0]]) && !isset($data[0]) )
       return false;
-    
+
     if ( isset($data[0]) )
     {
       $tmp = array();
@@ -250,7 +250,7 @@ class OptionCsvForm extends BaseOptionCsvForm
         $tmp[] = self::getImplodedData($buf,$fields);
       return implode($separator,$tmp);
     }
-    
+
     if ( is_array($data[$fields[0]]) ) // in case there is subelements
     {
       if ( count($fields) > 1 ) // if there lasts some subdata to get back
