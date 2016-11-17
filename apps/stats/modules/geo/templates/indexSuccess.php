@@ -4,7 +4,7 @@
   <a name="chart-title"></a>
   <div class="ui-widget-header ui-corner-all fg-toolbar">
     <?php include_partial('attendance/filters_buttons') ?>
-    <h1><?php echo __('Geographical approach',null,'menu') ?> (beta)</h1>
+    <h1><?php echo __('Geographical approach',null,'menu') ?></h1>
   </div>
 <?php include_partial('show_criterias') ?>
 <?php include_partial('show_header') ?>
@@ -17,7 +17,7 @@
           'name' => __('Geographical approach',null,'menu'),
           'width' => '100%',
           'class' => 'geo charts-4'
-         )) 
+         ))
   ?>
   <?php $client = sfConfig::get('app_about_client', array()) ?>
 
@@ -29,7 +29,7 @@
             'name' => __('Geographical approach',null,'menu'),
             'width' => '100%',
             'class' => 'geo charts-4'
-           )) 
+           ))
     ?>
   <?php endif ?>
   <?php if ( Doctrine::getTable('GeoFrStreetBase')->createQuery('sb')->count() > 0 ): ?>
@@ -39,8 +39,8 @@
             'label' => __('By district'),
             'name' => __('Geographical approach',null,'menu'),
             'width' => '100%',
-            'class' => 'geo charts-4'        
-           )) 
+            'class' => 'geo charts-4'
+           ))
     ?>
   <?php endif ?>
   <?php include_partial('global/chart_jqplot', array(
@@ -49,8 +49,8 @@
           'label' => __('By postalcode'),
           'name' => __('Geographical approach',null,'menu'),
           'width' => '100%',
-          'class' => 'geo charts-4'       
-         )) 
+          'class' => 'geo charts-4'
+         ))
   ?>
   <?php include_partial('global/chart_jqplot', array(
           'id'    => 'departments',
@@ -59,7 +59,7 @@
           'name' => __('Geographical approach',null,'menu'),
           'width' => '100%',
           'class' => 'geo charts-4'
-         )) 
+         ))
   ?>
   <?php include_partial('global/chart_jqplot', array(
           'id'    => 'regions',
@@ -78,7 +78,7 @@
           'width' => '100%',
           'class' => 'geo charts-4'
           )
-        ) 
+        )
   ?>
   <div class="clear"></div>
 <?php endif ?>
