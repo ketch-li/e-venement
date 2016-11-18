@@ -4,583 +4,583 @@
   <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2012-11-26T17:06:45Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit>
+      <trans-unit id="2">
         <source>Member card</source>
         <target>Carte d'abonnement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="1">
         <source>You must accept the terms &amp; conditions before validating your order.</source>
         <target>Vous devez accepter les CGV avant de valider votre commande.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="3">
         <source>You can take back a contact only once. In case of necessity, %%tagstart%%reload the page%%tagend%%...</source>
         <target>Un contact ne peut être repris qu'une seule fois. En cas de besoin, %%tagstart%%rechargez la page%%tagend%%...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="4">
         <source>Take back a previous contact</source>
         <target>Reprendre un précédent contact</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="5">
         <source>Share this on %network%</source>
         <target>Partagez cette page sur %network%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="6">
         <source>Invalid.</source>
         <target>Invalide</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="7">
         <source>You still have tickets without any contact information, and this is not allowed. Please fill in contact informations for each of your tickets.</source>
         <target>Vous avez toujours des billets sans information nominative, et cela n'est pas possible. Renseignez, s'il vous plaît, des informations pour chacun de vos billets.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="8">
         <source>Space</source>
         <target>Espace</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="9">
         <source>Date &amp; time</source>
         <target>Date &amp; heure</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="10">
         <source>Standard</source>
         <target>Standard</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="11">
         <source>Microsoft</source>
         <target>Microsoft</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="12">
         <source>Details (CSV)</source>
         <target>Détails (CSV)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="13">
         <source>Payment by other means</source>
         <target>Paiement par d'autres moyens</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="14">
         <source>Resume contacts</source>
         <target>Réutiliser vos contacts</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="15">
         <source>No special offer found.</source>
         <target>Aucune offre spéciale trouvée.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="16">
         <source>Enjoy your special offer!</source>
         <target>Profitez de votre offre spéciale !</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="17">
         <source>You can already enjoy this special offer.</source>
         <target>Vous pouvez déjà profiter de cette offre spéciale.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="18">
         <source>Promo Code</source>
         <target>Code avantage</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="19">
         <source>Choose your currency</source>
         <target>choisissez votre monnaie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="20">
         <source>before proceeding to payment</source>
         <target>avant de procéder au paiement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="21">
         <source>Add</source>
         <target>Ajouter</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="22">
         <source>Complete your passes</source>
         <target>Compléter mes passes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="23">
         <source>Your items were successfully removed from your cart.</source>
         <target>Vos articles ont été correctement retirés de votre panier.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="24">
         <source>Unavailable.</source>
         <target>Indisponible.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="25">
         <source>I agree to receive e-mail newsletters</source>
         <target>J'accepte de recevoir des lettres d'information</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="26">
         <source>My picture</source>
         <target>Ma photo</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="27">
         <source>You have booked more tickets linked to a member card than you can...</source>
         <target>Vous avez choisi plus de billets liés à une carte d'abo que vous ne le pouviez...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="28">
         <source>In order to buy a ticket with price %%price%%, you need a pass...</source>
         <target>Afin d'acheter un billet au tarif %%price%%, vous avez besoin d'un abonnement...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="29">
         <source>Expire at</source>
         <target>Expire le</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="30">
         <source>Fees</source>
         <target>Frais</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="31">
         <source>You have booked more tickets linked to a member card than you can...</source>
         <target>Vous avez choisi plus de billets liés à une carte d'abo que vous le pouviez...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="32">
         <source>You have ordered %%nb%% passes/member cards, but %%max%% is allowed. Please remove some of them...</source>
         <target>Vous avez commandé %%nb%% Passes/cartes d'abo. alors que %%max%% maximum sont autorisées. Retirez-en SVP...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="33">
         <source>You must book tickets at least %%nb%% different events linked to your "%%mc%%" pass to be able to order it.</source>
         <target>Vous devez réserver des billets pour au moins %%nb%% événements différents liés à votre pass "%%mc%%" pour pouvoir le commander.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="34">
         <source>Meta events</source>
         <target>Méta-événements</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="35">
         <source>The flashcode is a link to the private content of this product, and it is clickable if you read this in front of a computer.</source>
         <target>Le flashcode est un lien vers le contenu réservé de votre produit, et il est cliquable si vous lisez ceci devant un ordinateur.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="36">
         <source>If this is not working, you can follow</source>
         <target>Si cela ne fonctionne pas, vous pouvez suivre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="37">
         <source>this link</source>
         <target>ce lien</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="38">
         <source>Id</source>
         <target>Numéro</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="39">
         <source>Commands</source>
         <target>Commandes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="40">
         <source>Categories</source>
         <target>Catégories</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="41">
         <source>Subcategories</source>
         <target>Sous-catégories</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="42">
         <source>Category %%parent%% → %%name%%</source>
         <target>Catégorie %%parent%% → %%name%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="43">
         <source>Ticketting fees</source>
         <target>Frais de billetterie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="44">
         <source>Shipping fees</source>
         <target>Frais d'expédition</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="45">
         <source>The fees include if appropriate ticketing fees and shipping fees.</source>
         <target>Les frais comprennent le cas échéant les frais de billetterie et d'expédition.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="46">
         <source>Order #%%tid%%</source>
         <target>Commande #%%tid%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="47">
         <source>for %%contact%%</source>
         <target>pour %%contact%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="48">
         <source>I check my details</source>
         <target>Je vérifie mes coordonnées</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="49">
         <source>I already have an account or already bought tickets to %%organization%%</source>
         <target>J'ai déjà un compte ou acheté des billets auprès de %%organization%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="50">
         <source>I am new in this store</source>
         <target>Je suis nouveau sur cette plateforme</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="51">
         <source>You cannot get more than one active member card at the same time. Your order has been cleaned out, please check it again before anything else.</source>
         <target>Vous ne pouvez pas avoir plus d'une carte d'abo active à la fois. Vous commande a été modifiée, merci d'en reprendre le contenu avant tout chose.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="52">
         <source>You are about to complete your order, please fill in those surveys before...</source>
         <target>Vous êtes sur le point de compléter votre commande. Merci de répondre à ces quelques questions</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="53">
         <source>The survey</source>
         <target>Répondre au questionnaire</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="54">
         <source>Content</source>
         <target>Contenu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="55">
         <source>Flash me to complete your calendar...</source>
         <target>Flashez moi pour compléter votre agenda...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="56">
         <source>Content</source>
         <target>Contenu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="57">
         <source>Category</source>
         <target>Catégorie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="58">
         <source>The state of your order does not allow this action. Please contact us if necessary.</source>
         <target>L'état de votre commande ne permet pas d'effecter cette action. Contactez-nous si nécessaire.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="59">
         <source>Available seat</source>
         <target>Place disponible</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="60">
         <source>Please control your order...</source>
         <target>Vérifiez votre commande s'il vous plaît...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="61">
         <source>Unavailable seat</source>
         <target>Place indisponible</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="62">
         <source>Selected seat</source>
         <target>Place sélectionnée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="63">
         <source>Seat under your cursor</source>
         <target>Place sous votre curseur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="64">
         <source>Orphan seat</source>
         <target>Place orpheline</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="65">
         <source>Payment</source>
         <target>Paiement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="66">
         <source>Resend the tickets as they were modified</source>
         <target>Renvoyer les billets avec leurs modifications</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="67">
         <source>Remove this ticket</source>
         <target>Retirer ce billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="68">
         <source>Ticket</source>
         <target>Billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="69">
         <source>Date &amp; Time</source>
         <target>Date et heure</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="70">
         <source>We are sorry, this seat has being booked in the meantime.</source>
         <target>Nous sommes désolés, cette place a été réservée entre-temps.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="71">
         <source>from %%from%% to %%to%%</source>
         <target>de %%from%% à %%to%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="72">
         <source>Continue</source>
         <target>Continuer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="73">
         <source>Choice by the seating</source>
         <target>Choix sur plan de salle</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="74">
         <source>Automatic choice by category</source>
         <target>Choix automatique par catégorie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="75">
         <source>Seated plan loading, thanks for your patience...</source>
         <target>Chargement du plan numéroté, merci de patienter quelques instants...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="76">
         <source>My seat</source>
         <target>Ma place</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="77">
         <source>Give me this ticket</source>
         <target>Donnez-moi ce billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="78">
         <source>Some changes to submit?</source>
         <target>Des changements à apporter ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="79">
         <source>Time</source>
         <target>Heure</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="80">
         <source>Booking fees</source>
         <target>Frais de location et de réservation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="81">
         <source>Organism</source>
         <target>Organisme</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="82">
         <source>Some tickets have not been added because you reached the limit of tickets for this manifestation.</source>
         <target>Des billets n'ont pas été ajoutés car vous avez atteint la limite de billets pour cette manifestation.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="83">
         <source>Options</source>
         <target>Options</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="84">
         <source>Your option has been modified in your cart.</source>
         <target>Votre option a été modifiée dans votre panier.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="85">
         <source>Add</source>
         <target>Ajouter</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="86">
         <source>Products list</source>
         <target>Liste des produits</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="87">
         <source>My products</source>
         <target>Mes produits</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="88">
         <source>Nothing to declare...</source>
         <target>Rien à déclarer...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="89">
         <source>Order #%%tid%%</source>
         <target>Commande #%%tid%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="90">
         <source>This website requires your authentication</source>
         <target>Ce site Internet requiert votre authentification</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="91">
         <source>Your products</source>
         <target>Vos produits</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="92">
         <source>We also recommend...</source>
         <target>Recommandations :</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="93">
         <source>Read more...</source>
         <target>En savoir plus...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="94">
         <source>An error occurred updating your cart, try again please...</source>
         <target>Une erreur est survenue lors de la mise à jour de votre panier, essayez à nouveau svp...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="95">
         <source>An error occurred saving a ticket.</source>
         <target>Une erreur est survenue lors la mise à jour de votre panier, essayez à nouveau svp.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="96">
         <source>Your cart has been updated.</source>
         <target>Votre panier a été mis à jour.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="97">
         <source>Select the number of items</source>
         <target>Choisissez le nombre d’articles souhaité</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="98">
         <source>Products</source>
         <target>Produits</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="99">
         <source>Product</source>
         <target>Produit</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="100">
         <source>Declination</source>
         <target>Déclinaison</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="101">
         <source>Store</source>
         <target>Boutique</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="102">
         <source>Organizers</source>
         <target>Organisateurs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="103">
         <source>Participants</source>
         <target>Participants</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="104">
         <source>Fees</source>
         <target>Frais</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="105">
         <source>Customize your seats</source>
         <target>Personnaliser vos places</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="106">
         <source>Email address</source>
         <target>Mail</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="107">
         <source>You cannot access an order which belongs to someone else</source>
         <target>Vous ne pouvez accéder à une commande qui appartient à quelqu'un d'autre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="108">
         <source>Especially for mobile devices</source>
         <target>Spécialement pour les terminaux mobiles</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="109">
         <source>Your tickets</source>
         <target>Vos billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="110">
         <source>Generate an invoice</source>
         <target>Générer une facture</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="111">
         <source>Delay expired. Your order has been abandonned.</source>
         <target>Vous avez été trop long. Votre commande a été abandonnée.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="112">
         <source>To remove a booked seat, click it on the plan</source>
         <target>Pour retirer une place, cliquez-la sur le plan</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="113">
         <source>You have already reached the tickets limit for this manifestation, contact us.</source>
         <target>Vous avez déjà atteint la limite de quantité de billets pour cette manifestation, contactez-nous.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="114">
         <source>There are still some orphan seats generated by your selection, please choose other seats and follow eventual warnings on the plan after confirmation.</source>
         <target>Des places orphelines sont générées par votre sélection. Choisissez d'autres places et suivez bien les alertes éventuelles qui apparaîtront sur le plan après confirmation.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="115">
         <source>You need to do something to avoid those orphans (%%orphans%%)...</source>
         <target>Vous devez faire quelque chose pour éviter ces orphelins (%%orphans%%)...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="116">
         <source>Perfect, no orphans found!</source>
         <target>Parfait, pas d'orphelin trouvé !</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="117">
         <source>Order expiration</source>
         <target>Expiration de la commande</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="118">
         <source>Older item expiration</source>
         <target>Expiration du plus ancien élément</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="119">
         <source>Action successful</source>
         <target>Action réussie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="120">
         <source>Maybe this seat is no longer available, check again.</source>
         <target>Peut-être que cette place n'est plus disponible, vérifiez à nouveau.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="121">
         <source>Ticket pre-seated with success</source>
         <target>Billet pré-placé avec succès</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="122">
         <source>The seat has been freed with success</source>
         <target>La place a été libérée avec succès</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="123">
         <source>No available batch of seats can be found.</source>
         <target>Aucun lot de places n'a pu être trouvé.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="124">
         <source>We are sorry, you will have to choose your seats by yourself.</source>
         <target>Nous sommes désolés, vous allez devoir choisir vos places par vous-même.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="125">
         <source>Congratulations, your tickets are now seated.</source>
         <target>Félicitations, vos billets sont maintenant placés.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="126">
         <source>Seats</source>
         <target>Places</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="127">
         <source>Display free seats</source>
         <target>Afficher les places libres</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="128">
         <source>Companies</source>
         <target>Compagnies</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="129">
         <source>We have limitated the quantity of tickets to %%max%% for %%manif%%.</source>
         <target>Nous avons limité la quantité de billets à %%max%% pour %%manif%%.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="130">
         <source>A contact with the same informations already exists, try to authenticate or maybe you misspelled your email address...</source>
         <target>Un contact avec les mêmes informations existe déjà, essayez de vous authentifier, à moins que vous n'ayez mal orthographié votre email...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="131">
         <source>Now you are making the experience of e-venement in your favorite language.</source>
         <target>Vous faîtes maintenant l'expérience d'e-venement dans votre langue favorite.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="132">
         <source>Your command has been booked, you will have to pay for it directly with us.</source>
         <target>Votre commande a été enregistrée, vous devrez vous en acquiter directement avec nous.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="133">
         <source>your order #</source>
         <target>votre commande #</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="134">
         <source>Seat #</source>
         <target>Place n°</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="135">
         <source>Venue</source>
         <target>Lieu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="136">
         <source>Month</source>
         <target>Mois</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="137">
         <source>Not yet allocated</source>
         <target>Pas encore numéroté</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="138">
         <source>All lines marked with an wildcard concern a seated venue. You will receive a new email as soon as a change is done in the seat allocation for your tickets.</source>
         <target>Toutes les lignes marquées d'un astérisque concernent une manifestation en placement numéroté. Vous recevrez un nouvel email si jamais un changement dans l'affectation de vos places est réalisé.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="139">
         <source>Credit card</source>
         <target>Carte bancaire</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="140">
         <source>Any comment?</source>
         <target>Un commentaire ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="141">
         <source>Display venue</source>
         <target>Afficher le plan</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="142">
         <source>Be sure to keep this window opened, otherwise you will have to restart the entire processus of password recovery.</source>
         <target>Assurez-vous de laisser cette fenêtre ouverte, sinon vous devrez recommencer le processus de récupération de mot de passe au début.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="143">
         <source>Recovery code</source>
         <target>Code de récupération</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="144">
         <source>List of tickets</source>
         <target>Liste des billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="145">
         <source>The recovery code to reset your password is &lt;strong&gt;%%code%%&lt;/strong&gt;.&lt;br/&gt;
 &lt;strong&gt;Copy it&lt;/strong&gt; into the password recovery form where you just have been redirected&lt;br/&gt;
 or follow this link:&lt;br/&gt;
@@ -590,463 +590,463 @@ or follow this link:&lt;br/&gt;
 ou bien suivez ce lien&nbsp;:&lt;br/&gt;
 &lt;a href="%%link%%"&gt;%%link%%&lt;/a&gt;</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="146">
         <source>Now, fill your new password twice.</source>
         <target>Maintenant, saisissez deux fois votre nouveau mot de passe.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="147">
         <source>Reset your password for %%name%%</source>
         <target>Nouveau votre mot de passe pour %%name%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="148">
         <source>An email has been sent to your address (%%addr%%). Check it and copy the given code below.</source>
         <target>Un email a été envoyé à votre adresse (%%addr%%). Ouvrez-le et copiez le code indiqué ci-dessous.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="149">
         <source>Passwords do not match. Please try again.</source>
         <target>Vos mots de passe ne concordent pas. Essayez à nouveau...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="150">
         <source>Your password has been changed. Please login now.</source>
         <target>Votre mot de passe a été changé. Vous pouvez maintenant vous connecter.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="151">
         <source>Send me a new password</source>
         <target>Envoyer un nouveau mot de passe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="152">
         <source>Invalid email address, please try again.</source>
         <target>Adresse email invalide, essayez à nouveau SVP.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="153">
         <source>Please try again.</source>
         <target>Essayez à nouveau SVP.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="154">
         <source>Are you sure?</source>
         <target>Êtes-vous sûr(e) ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="155">
         <source>on</source>
         <target>le</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="156">
         <source>To pay</source>
         <target>À payer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="157">
         <source>Your command has been passed on your member cards, you don't have to pay anything.</source>
         <target>Ma commande a été prise en compte sur mes cartes d'abonnement, je n'ai rien à payer.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="158">
         <source>Passed on member card</source>
         <target>Passé sur carte d'abo.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="159">
         <source>In progress...</source>
         <target>En cours...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="160">
         <source>Payment method</source>
         <target>Moyen de paiement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="161">
         <source>Amount</source>
         <target>Montant</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="162">
         <source>Date</source>
         <target>Date</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="163">
         <source>Purchase confirmed</source>
         <target>Achat confirmé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="164">
         <source>Booked</source>
         <target>Réservé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="165">
         <source>Payment in progress</source>
         <target>Paiement en cours</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="166">
         <source>Order paid</source>
         <target>Commande payée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="167">
         <source>Edition date</source>
         <target>Date d'édition</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="168">
         <source>Command summary</source>
         <target>Résumé de la commande</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="169">
         <source>Transaction number</source>
         <target>N° d'opération</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="170">
         <source>To order a pass, you need to be authenticated or Create an account</source>
         <target>Pour commander un abonnement, vous devez vous authentifier ou créer un compte</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="171">
         <source>Tickets</source>
         <target>Billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="172">
         <source>Member cards</source>
         <target>Cartes Abonné</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="173">
         <source>You have been logged out.</source>
         <target>Vous avez été déconnecté</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="174">
         <source>Update</source>
         <target>Mettre à jour</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="175">
         <source>Contact updated</source>
         <target>Contact mis à jour</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="176">
         <source>You have just abandonned your payment, you can still empty / correct / validate your cart...</source>
         <target>Vous venez d'abandonner votre paiement, vous pouvez toujours vider / corriger / valider votre panier...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="177">
         <source>You are authenticated.</source>
         <target>Je suis authentifié.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="178">
         <source>Authentication failure.</source>
         <target>Échec d'authentification.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="179">
         <source>No cart to display</source>
         <target>Pas de panier à afficher</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="180">
         <source>Meta event</source>
         <target>Méta-événement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="181">
         <source>Events list</source>
         <target>Liste des événements</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="182">
         <source>Dates</source>
         <target>Dates</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="183">
         <source>With</source>
         <target>Avec</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="184">
         <source>Where?</source>
         <target>Où ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="185">
         <source>Date unavailable, try an other one.</source>
         <target>Date indisponible, essayez une autre.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="186">
         <source>Phone type</source>
         <target>Type de téléphone</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="187">
         <source>Phone number</source>
         <target>N° de téléphone</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="188">
         <source>Password</source>
         <target>Mot de passe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="189">
         <source>New password</source>
         <target>Nouveau mot de passe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="190">
         <source>Password again</source>
         <target>Retaper le mot de passe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="191">
         <source>Send</source>
         <target>Envoyer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="192">
         <source>Event category</source>
         <target>Genre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="193">
         <source>Address</source>
         <target>Adresse</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="194">
         <source>Postalcode</source>
         <target>Code postal</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="195">
         <source>City</source>
         <target>Ville</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="196">
         <source>Country</source>
         <target>Pays</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="197">
         <source>Email</source>
         <target>Courriel</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="198">
         <source>Title</source>
         <target>Titre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="199">
         <source>Firstname</source>
         <target>Prénom</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="200">
         <source>Name</source>
         <target>Nom</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="201">
         <source>Required.</source>
         <target>Obligatoire.</target>
       </trans-unit>
-      <trans-unit id="1">
+      <trans-unit id="202">
         <source>Your cart is still empty, select tickets first...</source>
         <target>Votre panier est toujours vide, sélectionnez d'abord des billets...</target>
       </trans-unit>
-      <trans-unit id="2">
+      <trans-unit id="203">
         <source>[1]There is one overloaded gauge, please review your command.|(1,+Inf]There are %%nb%% overloaded gauges, please review your command.</source>
         <target>[1]Il y a une une jauge dépassée, revoyez votre commande SVP.|(1,+Inf]Il y a %%nb%% jauges dépassées, revoyez votre commande SVP.</target>
       </trans-unit>
-      <trans-unit id="3">
+      <trans-unit id="204">
         <source>modify</source>
         <target>modifier</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="205">
         <source>delete</source>
         <target>suppr.</target>
       </trans-unit>
-      <trans-unit id="4">
+      <trans-unit id="206">
         <source>Event</source>
         <target>Événement</target>
       </trans-unit>
-      <trans-unit id="6">
+      <trans-unit id="207">
         <source>Space</source>
         <target>Espace</target>
       </trans-unit>
-      <trans-unit id="7">
+      <trans-unit id="208">
         <source>Price</source>
         <target>Tarif</target>
       </trans-unit>
-      <trans-unit id="8">
+      <trans-unit id="209">
         <source>Qty</source>
         <target>Qté</target>
       </trans-unit>
-      <trans-unit id="9">
+      <trans-unit id="210">
         <source>Unit price</source>
         <target>Prix unitaire</target>
       </trans-unit>
-      <trans-unit id="11">
+      <trans-unit id="211">
         <source>Order</source>
         <target>Commander</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="212">
         <source>Checkout</source>
         <target>Je passe commande</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="213">
         <source>Empty your cart</source>
         <target>Vider mon panier</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="214">
         <source>Continue shopping</source>
         <target>Poursuivre mes achats</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="215">
         <source>My orders</source>
         <target>Mes commandes</target>
       </trans-unit>
-      <trans-unit id="13">
+      <trans-unit id="216">
         <source>Send</source>
         <target>Envoyer</target>
       </trans-unit>
-      <trans-unit id="14">
+      <trans-unit id="217">
         <source>Value</source>
         <target>Valeur</target>
       </trans-unit>
-      <trans-unit id="15">
+      <trans-unit id="218">
         <source>Quantity</source>
         <target>Quantité</target>
       </trans-unit>
-      <trans-unit id="16">
+      <trans-unit id="219">
         <source>%%nb%% ticket(s) added to your cart</source>
         <target>%%nb%% billet(s) ajouté(s) à mon panier</target>
       </trans-unit>
-      <trans-unit id="17">
+      <trans-unit id="220">
         <source>%%i%% years old</source>
         <target>%%i%% ans</target>
       </trans-unit>
-      <trans-unit id="18">
+      <trans-unit id="221">
         <source>%%i%% month old</source>
         <target>%%i%% mois</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="222">
         <source>Command status</source>
         <target>Statut de la commande</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="223">
         <source>Payment status</source>
         <target>État du réglement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="224">
         <source>Payment of your order #%%tid%%</source>
         <target>Réglement de votre commande #%%tid%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="225">
         <source>Choose your payment method</source>
         <target>Choisir mon moyen de paiement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="226">
         <source>Your contact</source>
         <target>Mes coordonnées</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="227">
         <source>Confirm</source>
         <target>Valider</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="228">
         <source>Choose tickets</source>
         <target>Choisir mes billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="229">
         <source>You can review your previous orders by clicking on its number</source>
         <target>Vous pouvez revoir les anciennes commandes en cliquant sur leur numéro</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="230">
         <source>Your commands</source>
         <target>Mes commandes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="231">
         <source>My events</source>
         <target>Mes événements</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="232">
         <source>Update your contact information</source>
         <target>Modifier mes coordonnées</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="233">
         <source>My account</source>
         <target>Mon compte</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="234">
         <source>Create an account</source>
       	<target>Créer un compte</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="235">
         <source>I authenticate myself</source>
        <target>Je me connecte</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="236">
        <source>Login</source>
        <target>Connexion</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="237">
         <source>Logout</source>
         <target>Déconnexion</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="238">
         <source>Dates</source>
         <target>Dates</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="239">
         <source>Cart</source>
         <target>Mon panier</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="240">
         <source>Coordinates</source>
         <target>Mes Coordonnées</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="241">
         <source>Command</source>
         <target>Commander</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="242">
 	<source>password</source>
 	<target>Mot de passe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="243">
         <source>Associated prices still available</source>
 	<target>Places asssociées encore disponibles</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="244">
 	<source>Created_at</source>
 	<target>Date de création </target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="245">
 	<source>Expire at</source>
 	<target>Date d'expiration </target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="246">
 	<source>Choose your membership card</source>
 	<target>Choisir ma carte d'abonnement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="247">
 	<source>You already have an account ? Login first...</source>
 	<target>Vous avez déjà un compte ? Connectez vous...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="248">
         <source>No account yet? Create your own...</source>
         <target>Pas encore de compte ? Je crée le mien...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="249">
         <source>New account</source>
         <target>Nouveau compte</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="250">
         <source>at </source>
       	<target>le </target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="251">
       	<source>location</source>
       	<target>lieu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="252">
       	<source>Location</source>
       	<target>Lieu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="253">
         <source>AnswersGroups</source>
         <target>Questions</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="254">
 	      <source>at</source>
         <target>le</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="255">
 	      <source>You cannot book a ticket on this date because you already have a ticket booked for %%manif%%</source>
         <target>Vous ne pouvez pas réserver de billet pour cette date car vous avez déjà un billet de réservé pour %%manif%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="256">
 	      <source>You cannot book a ticket on this date because you already have a ticket booked for %%manif%% (in an other transaction #%%transaction%%)</source>
         <target>Vous ne pouvez pas réserver de billet pour cette date car vous avez déjà un billet de réservé pour %%manif%% (dans une autre opération #%%transaction%%)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="257">
         <source>You cannot book a ticket on this date because you have already reached the limit of tickets for %%manif%%</source>
         <target>Vous ne pouvez pas réserver de billet pour cette date car vous avez déjà atteint la limite de billets pour %%manif%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="258">
         <source>Price %%price%% not available</source>
         <target>Le tarif %%price%% n'est pas disponible</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="259">
         <source>Connection</source>
         <target>Connexion</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="260">
         <source>Events</source>
         <target>Évenements</target>
       </trans-unit>

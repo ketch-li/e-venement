@@ -69,9 +69,11 @@ body #content { width: auto; }
 #tdp-content #sf_admin_content .tdp-line.complements .tdp-email_no_newsletter { margin-left: calc(410px + 5.5em); }
 #tdp-content #sf_admin_content .tdp-groups_picto > * { padding-top: 8px; }
 #tdp-content #sf_admin_content .tdp-contact_email_npai label,
-#tdp-content #sf_admin_content .tdp-line.complements .tdp-email_npai label,
+#tdp-content #sf_admin_content .tdp-line.more .tdp-email_npai label,
 #tdp-content #sf_admin_content .tdp-contact_email_no_newsletter label,
-#tdp-content #sf_admin_content .tdp-line.complements .tdp-email_no_newsletter label { font-size: 65%; font-weight: normal; width: 100%; }
+#tdp-content #sf_admin_content .tdp-family_contact label,
+#tdp-content #sf_admin_content .tdp-npai label,
+#tdp-content #sf_admin_content .tdp-line.more .tdp-email_no_newsletter label { font-size: 65%; font-weight: normal; width: 100%; }
 @media screen and (max-width: 1100px) {
   #tdp-content #sf_admin_content .tdp-line.complements .tdp-email_npai label,
   #tdp-content #sf_admin_content .tdp-line.complements .tdp-email_no_newsletter label { display: none; }
@@ -140,18 +142,17 @@ body #content { width: auto; }
 #tdp-content .tdp-line.relations .tdp-Relationships table table select { margin: 0; }
 
 @media screen and (min-width: 1200px) {
-#tdp-content #sf_admin_content .sf_admin_form_field_professional_type_id select { max-width: 25%; }
-#tdp-content .tdp-professional #sf_admin_content .tdp-line.line1 input[type=text] { width: 25%; }
+#tdp-content #sf_admin_content .sf_admin_form_field_professional_type_id select { max-width: 25%; width: 207px; }
+#tdp-content .tdp-professional #sf_admin_content .tdp-line.line1 input[type=text] { width: 30%; }
 }
 
 @media screen and (min-width: 1500px) {
 
-#tdp-content .tdp-line.more { position: absolute; margin-top: -105px; margin-left: 800px; }
 #tdp-content .tdp-line.direct_contact { float: left; margin-right: 50px; }
 
 #tdp-content .tdp-line.internet { width: 375px; }
-#content #tdp-content .tdp-subobject .tdp-line.phonenumbers { float: left; width: 320px; }
-#tdp-content .tdp-line.line1 { float: left; padding-right: 50px; }
+#content #tdp-content .tdp-subobject .tdp-line.phonenumbers { float: none; width: 385px; }
+#tdp-content .tdp-line.line1 { float: none; padding-right: 0px; width: 1207px; }
 #tdp-content .tdp-line.correspondence { margin-top: 5px; }
 
 }
@@ -164,7 +165,7 @@ body #content { width: auto; }
 #tdp-content .tdp-object .tdp-delete { display: none; }
 #tdp-content .tdp-subobject .tdp-actions, #tdp-content .tdp-subobject .tdp-actions a { float: right; padding-top: 0; color: black; font-weight: normal; margin-top: 8px; }
 #tdp-content .tdp-subobject h1 { font-size: 170%; }
-#tdp-content .tdp-subobject .tdp-line.phonenumbers, #tdp-content .tdp-subobject .tdp-line.internet { display: inline-block; height: 3em; width: 430px; overflow: auto; }
+#tdp-content .tdp-subobject .tdp-line.phonenumbers, #tdp-content .tdp-subobject .tdp-line.internet { display: inline-block; height: 6em; width: 385px; overflow: auto; }
 #tdp-content .tdp-subobject .tdp-line.internet .tdp-organism_url, #tdp-content .tdp-subobject .tdp-line.internet .tdp-organism_email { display: block; line-height: 1.2em; }
 #tdp-content .tdp-subobject .tdp-line.internet .tdp-organism_url a, #tdp-content .tdp-subobject .tdp-line.internet .tdp-organism_email a { padding-left: 3px; }
 #tdp-content .tdp-subobject .tdp-line.phonenumbers ul { list-style-type: none; }
@@ -453,4 +454,3 @@ a:not([href]) { color: gray; }
 .tdp-iframe { padding: 0 0 0 0; background-color: transparent; }
 .tdp-iframe #content { padding-top: 18px; }
 .tdp-iframe #tdp-content { margin-left: 0; }
-
