@@ -56,7 +56,7 @@ class TransactionTable extends PluginTransactionTable
       ->leftJoin("$tck.Cancelled cancelled")
       ->leftJoin("$tck.Manifestation $m");
     if ( $with_products )
-      $q->leftJoin("$a.BoughtProducts bp".(is_null($tickets) ? '' : ' WITH '.($tickets == 'asked' ? 'bp.integrated_at IS NULL' : "NOT ($str)")));
+      $q->leftJoin("$a.BoughtProducts bp".(is_null($tickets) ? '' : ' WITH '.($tickets == 'asked' ? 'bp.integrated_at IS NULL' : 'bp.integrated_at IS NOT NULL')));
     return $q;
   }
   public function createQueryForManifestations($alias = 't', $tickets = NULL, $with_products = false)
