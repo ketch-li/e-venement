@@ -37,6 +37,7 @@ class ContactFormFilter extends BaseContactFormFilter
   protected $showProfessionalData = true;
   protected $tickets_having_query = NULL; // Doctrine_Query
   protected $grpintersection = false;
+  protected $alphabet = array();
 
   /**
    * @see AddressableFormFilter
@@ -55,6 +56,20 @@ class ContactFormFilter extends BaseContactFormFilter
     ));
     $this->validatorSchema['district'] = new sfValidatorDoctrineChoice(array(
       'model' => 'GeoFrDistrictBase',
+      'required' => false,
+    ));
+
+    // alphabetical search / filtering
+    $this->alphabet = range('A', 'Z');
+    $this->alphabet[''] = '';
+    ksort($this->alphabet);
+    $this->widgetSchema   ['az'] = new sfWidgetFormChoice(array(
+      'choices' => $this->alphabet,
+      'multiple' => true,
+    ));
+    $this->validatorSchema['az'] = new sfValidatorChoice(array(
+      'choices' => array_keys($this->alphabet),
+      'multiple' => true,
       'required' => false,
     ));
     
@@ -448,6 +463,29 @@ EOF;
     $fields['tickets_amount_max']   = 'TicketsAmountMax';
     
     return $fields;
+  }
+  
+  public function addAzColumnQuery(Doctrine_Query $q, $field, $value)
+  {
+    if ( !$value )
+      return $q;
+    if ( !is_array($value) )
+      $value = array(intval($value));
+    if ( count($value) == 1 && !$value[0] )
+      return $q;
+    
+    $transliterate = sfConfig::get('software_internals_transliterate');
+    
+    $a = $q->getRootAlias();
+    $letters = array();
+    foreach ( $value as $v )
+      $letters[] = strtolower($this->alphabet[$v]);
+    return $q->andWhereIn(sprintf(
+      "LOWER(TRANSLATE(SUBSTRING(%s.name,1,1),'%s','%s'))",
+      $q->getRootAlias(),
+      $transliterate['from'],
+      $transliterate['to']
+    ), $letters);
   }
   
   public function addCultureColumnQuery(Doctrine_Query $q, $field, $value)
