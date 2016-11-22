@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Alphabetic set</source>
+        <target>Classement alphabétique</target>
+      </trans-unit>
+      <trans-unit>
         <source>With attachments</source>
         <target>Avec fichiers joints</target>
       </trans-unit>
