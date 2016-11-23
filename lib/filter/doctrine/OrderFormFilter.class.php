@@ -45,6 +45,7 @@ class OrderFormFilter extends BaseOrderFormFilter
     $this->validatorSchema['manifestations_list'] = new sfValidatorDoctrineChoice(array(
       'model' => 'Manifestation',
       'required' => false,
+      'multiple' => true,
     ));
     
     $this->widgetSchema   ['has_confirmed_ticket'] = new sfWidgetFormChoice(array(
@@ -124,6 +125,7 @@ class OrderFormFilter extends BaseOrderFormFilter
     $fields['manifestation_happens_at'] = 'ManifestationHappensAt';
     $fields['meta_events_list']         = 'MetaEventsList';
     $fields['workspaces_list']          = 'WorkspacesList';
+    $fileds['manifestations_list']      = 'ManifestationsList';
     return $fields;
   }
   
@@ -179,6 +181,18 @@ class OrderFormFilter extends BaseOrderFormFilter
     $q->andWhereIn('me.id', $values);
     return $q;
   }
+
+  public function addManifestationsListColumnQuery(Doctrine_Query $q, $field, $values)
+  {
+      if ( !$values )
+        return $q;
+      if ( !is_array($values) )
+        $value = array($values);
+
+    $q->andWhereIn('m.id', $values);
+    return $q;
+  } 
+ 
   public function addContactIdColumnQuery(Doctrine_Query $q, $field, $value)
   {
     if ( !trim($value) )
