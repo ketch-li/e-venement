@@ -81,7 +81,9 @@ body #content { width: auto; }
   #tdp-content #sf_admin_content .tdp-line.complements .tdp-email_no_newsletter { margin-top: -1.5em; width: auto; }
   #tdp-content #sf_admin_content .tdp-line.complements .tdp-email_no_newsletter { margin-left: calc(410px + 1.5em); }
 }
-#tdp-content #sf_admin_content .tdp-line.complements { position: absolute; margin-left: 300px; margin-top: -5px; }
+@media screen and (min-width: 950px) {
+    #tdp-content #sf_admin_content .tdp-line.complements { position: absolute; margin-left: 300px; margin-top: -5px; }
+}
 #tdp-content #sf_admin_content #contact_postalcode { width: 6em; }
 #tdp-content #sf_admin_content #contact_city { width: 15em; }
 #tdp-content #sf_admin_content .direct_contact { margin-top: 10px; }
