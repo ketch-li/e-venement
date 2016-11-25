@@ -48,6 +48,7 @@
         'given_token'     => $request->getParameter('token'),
         'ip_address'      => $request->getRemoteAddress(),
         'transaction_id'  => $bank->transaction_id,
+        'called_url'      => sfConfig::get('app_payment_url',array()),
       );
       
       // origin of the request
@@ -55,14 +56,14 @@
       $domains['origin'] = preg_replace(
         array('!^http\w{0,1}://!', '!^www.!', '!/$!'),
         array('', '', ''),
-        sfConfig::get('app_payment_url',array())
+        $all['called_url']
       );
       $domains['response'] = preg_replace(
         array('!^http\w{0,1}://!', '!^www.!', '!/$!'),
         array('', '', ''),
-        gethostbyaddr($addr)
+        gethostbyaddr($all['ip_address'])
       );
-      if ( substr_count($domains['origin']) > 1 )
+      if ( substr_count($domains['origin'], '.') > 1 )
       foreach ( $domains as $key => $value )
         $domains[$key] = preg_replace('!^[\w-_]+.!', '', $domains[$key]);
 
@@ -101,7 +102,7 @@
       $this->email    = $transaction->Contact->email;
       $url = sfConfig::get('app_payment_url', array('response' => 'cart/response'));
       $this->subject  = 'Transaction n'.$transaction->id;
-      $this->mode     = sfConfig::get('app_payment_prod', T);
+      $this->mode     = sfConfig::get('app_payment_prod', 'T');
       $this->autosubmit = sfConfig::get('app_payment_autosubmit',true);
       
       // the transaction and the amount
