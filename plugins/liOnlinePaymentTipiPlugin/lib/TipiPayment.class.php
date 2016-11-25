@@ -51,14 +51,22 @@
       );
       
       // origin of the request
-      $url = sfConfig::get('app_payment_url',array());
-      $buf = preg_replace(
-        array('!^http\w{0,1}://!', '!/$!'),
-        array('', ''),
-        $url['payment']
+      $domains = array();
+      $domains['origin'] = preg_replace(
+        array('!^http\w{0,1}://!', '!^www.!', '!/$!'),
+        array('', '', ''),
+        sfConfig::get('app_payment_url',array())
       );
-      $addresses = gethostbynamel($buf[0]);
-      if ( !in_array($all['ip_address'], $addresses) )
+      $domains['response'] = preg_replace(
+        array('!^http\w{0,1}://!', '!^www.!', '!/$!'),
+        array('', '', ''),
+        gethostbyaddr($addr)
+      );
+      if ( substr_count($domains['origin']) > 1 )
+      foreach ( $domains as $key => $value )
+        $domains[$key] = preg_replace('!^[\w-_]+.!', '', $domains[$key]);
+
+      if ( $domains['origin'] != $domains['response'] )
         throw new liOnlineSaleException('TIPI ERROR: The request has a bad origin.');
       
       // tokens
