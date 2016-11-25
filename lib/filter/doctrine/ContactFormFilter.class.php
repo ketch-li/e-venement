@@ -118,6 +118,21 @@ class ContactFormFilter extends BaseContactFormFilter
     ));
     $this->validatorSchema['organism_id'] = new sfValidatorInteger(array('required' => false));
     
+    $this->widgetSchema['org_city'] = new sfWidgetFormInput();
+    $this->validatorSchema['org_city'] = new sfValidatorString(array(
+        'required' => false, 
+    ));
+    
+    $this->widgetSchema['org_cp'] = new sfWidgetFormInput();
+    $this->validatorSchema['org_cp'] = new sfValidatorString(array(
+        'required' => false
+    ));
+    
+    $this->widgetSchema['org_country'] = new sfWidgetFormInput();
+    $this->validatorSchema['org_country'] = new sfValidatorString(array(
+        'required' => false
+    ));
+    
     // organism category
     $this->widgetSchema   ['organism_category_id'] = new sfWidgetFormDoctrineChoice(array(
       'model'     => 'OrganismCategory',
@@ -464,6 +479,35 @@ EOF;
     
     return $fields;
   }
+  
+  
+    public function addOrgCpColumnQuery(Doctrine_Query $q, $field, $value) 
+    {
+        if ($value) 
+        {
+            $q->addWhere('o.postalcode LIKE ?', strtoupper($value).'%');
+        }            
+
+       return $q;      
+    }
+    public function addOrgCityColumnQuery(Doctrine_Query $q, $field, $value) 
+    {
+       if ($value) 
+       {
+           $q->addWhere("o.city LIKE ?", strtoupper($value).'%');
+       }     
+
+       return $q;      
+    }
+    public function addOrgCountryColumnQuery(Doctrine_Query $q, $field, $value) 
+    {
+       if ($value) 
+       {
+           $q->addWhere("o.country LIKE ?", strtoupper($value).'%');
+       }     
+       return $q;      
+    }
+      
   
   public function addAzColumnQuery(Doctrine_Query $q, $field, $value)
   {
@@ -1059,7 +1103,7 @@ EOF;
   {
     $c = $q->getRootAlias();
     if ( $value['text'] )
-      $q->addWhere("$c.postalcode LIKE ? OR (o.id IS NOT NULL AND o.postalcode LIKE ?)",array($value['text'].'%',$value['text'].'%'));
+      $q->addWhere("$c.postalcode LIKE ?", $value['text'].'%');
     
     return $q;
   }
