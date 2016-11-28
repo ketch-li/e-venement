@@ -47,10 +47,10 @@ for ( $i = -1 ; $i < count($options) ; $i++ )
   
   $transaction = Doctrine::getTable('Transaction')->findOneById($class::getTransactionIdByResponse($request));
   $this->getUser()->setTransaction($transaction); // linking the transaction to the current session/user
-  $cultures = sfConfig::get('project_internals_cultures', array('fr' => 'Français'));
-  $this->getUser()->setCulture($culture = $transaction->Contact->culture
+  $cultures = array_keys(sfConfig::get('project_internals_cultures', array('fr' => 'Français')));
+  $this->getUser()->setCulture($transaction->Contact->culture
     ? $transaction->Contact->culture
-    : array_shift(array_keys($cultures))
+    : $cultures[0]
   );
   $this->online_payment = $class::create($transaction);
   
