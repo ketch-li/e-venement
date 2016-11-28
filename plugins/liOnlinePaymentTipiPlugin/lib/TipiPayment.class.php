@@ -48,7 +48,7 @@
         'given_token'     => $request->getParameter('token'),
         'ip_address'      => $request->getRemoteAddress(),
         'transaction_id'  => $bank->transaction_id,
-        'called_url'      => sfConfig::get('app_payment_url',array()),
+        'urls'            => sfConfig::get('app_payment_url',array()),
       );
       
       // origin of the request
@@ -56,18 +56,21 @@
       $domains['origin'] = preg_replace(
         array('!^http\w{0,1}://!', '!^www.!', '!/$!'),
         array('', '', ''),
-        $all['called_url']
+        $all['urls']['payment']
       );
       $domains['response'] = preg_replace(
         array('!^http\w{0,1}://!', '!^www.!', '!/$!'),
         array('', '', ''),
         gethostbyaddr($all['ip_address'])
       );
-      if ( substr_count($domains['origin'], '.') > 1 )
-      foreach ( $domains as $key => $value )
-        $domains[$key] = preg_replace('!^[\w-_]+.!', '', $domains[$key]);
-
-      if ( $domains['origin'] != $domains['response'] )
+      foreach ( $domains['origin'] as $key => $orig )
+      if ( substr_count($orig, '.') > 1 )
+        $domains['origin'][$key] = preg_replace('!^[\w-_]+.!', '', $orig);
+      
+      foreach ( $domains['origin'] as $orig )
+      if ( $ok = ($orig == $domains['response']) )
+        break;
+      if ( !$ok )
         throw new liOnlineSaleException('TIPI ERROR: The request has a bad origin.');
       
       // tokens
