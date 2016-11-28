@@ -63,15 +63,18 @@
         array('', '', ''),
         gethostbyaddr($all['ip_address'])
       );
+      // reducing the deepness of the domains
       foreach ( $domains['origin'] as $key => $orig )
       if ( substr_count($orig, '.') > 1 )
         $domains['origin'][$key] = preg_replace('!^[\w-_]+.!', '', $orig);
+      if ( substr_count($domains['response'], '.') > 1 )
+        $domains['response'] = preg_replace('!^[\w-_]+.!', '', $domains['response']);
       
       foreach ( $domains['origin'] as $orig )
       if ( $ok = ($orig == $domains['response']) )
         break;
       if ( !$ok )
-        throw new liOnlineSaleException('TIPI ERROR: The request has a bad origin.');
+        throw new liOnlineSaleException('TIPI ERROR: The request has a bad origin. '.print_r($domains, true));
       
       // tokens
       if ( $all['token'] != $all['given_token'] )
