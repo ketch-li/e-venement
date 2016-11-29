@@ -48,28 +48,47 @@ class priceActions extends autoPriceActions
     $this->forward404Unless($this->prices && $this->prices->count() > 1);
     
     $dummy = new Price;
+    $newRank = 0;
+    
     $prices = array(
       'current' => NULL,
       'before'  => $dummy,
       'after'   => $dummy,
     );
+    
     foreach ( $this->prices as $price )
-    switch ( $price->id ) {
-    case $request->getParameter('smaller_than'):
-      $prices['after'] = $price;
-      $dummy->rank = 0;
-      break;
-    case $request->getParameter('id'):
-      $prices['current'] = $price;
-      break;
-    case $request->getParameter('bigger_than'):
-      $prices['before'] = $price;
-      $dummy->rank = $price->rank*3;
-      break;
+    {
+        switch ( $price->id ) {
+        case $request->getParameter('smaller_than'):
+          $prices['after'] = $price;
+          break;
+        case $request->getParameter('id'):
+          $prices['current'] = $price;
+          break;
+        case $request->getParameter('bigger_than'):
+          $prices['before'] = $price;
+          break;
+        }
     }
     
-    $rank = ($prices['after']->rank + $prices['before']->rank) / 2;
-    $prices['current']->rank = $rank;
+    // Id previous price rank > selected price rank, the price went down in the list (the rank has risen)
+    if ($prices['before']->rank > $prices['current']->rank) 
+    {
+        $newRank = $prices['before']->rank;        
+        $sql = "UPDATE price SET rank = rank - 1 WHERE rank BETWEEN :currentRank AND :beforeRank";
+        $params = array(':beforeRank'=>$prices['before']->rank, ':currentRank'=>$prices['current']->rank);
+    }
+    // If next price rank < selected price rank, the price went up in the list (the rank has lowered)
+    if ($prices['after']->rank < $prices['current']->rank) 
+    {
+        $newRank = $prices['after']->rank;
+        $sql = "UPDATE price SET rank = rank + 1 WHERE rank BETWEEN :afterRank AND :currentRank";
+        $params = array(':afterRank'=>$prices['after']->rank, ':currentRank'=>$prices['current']->rank);        
+    }
+
+    $em = Doctrine_Manager::connection()->prepare($sql)->execute($params);
+    
+    $prices['current']->rank = $newRank;
     $prices['current']->save();
     
     $this->price  = $prices['current'];
