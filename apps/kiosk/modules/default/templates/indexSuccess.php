@@ -13,7 +13,7 @@
 <?php use_javascript('/js/kiosk/kiosk.js') ?>
 
 <div class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
-	<header class="app-header mdl-layout__header mdl-color--light-blue-300">
+	<header class="app-header mdl-layout__header mdl-color--blue-grey-800">
 		<div class="mdl-layout__header-row">
 			<span class="mdl-layout-title"><img src="images/logo-evenement-small.png" alt="logo"/></span>
 			<div class="mdl-layout-spacer"></div>
@@ -136,7 +136,7 @@
 			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ manif.location }}</p>
 		</div>
 		<div class="mdl-card__supporting-text manif-description">
-			{{ manif.description }}
+			{{{ manif.description }}}
 		</div>
 	</div>
 </li>
@@ -144,25 +144,27 @@
 
 	<!-- manif details -->
 <script id="manif-details-template" type="x-tmpl-mustache">
-	<div class="mdl-card__title" style="{{ manif.background }};"></div>
-	<div id="details-content" class="mdl-card__supporting-text">
-		<div id="manif-details">
-    		<div id="details-name">{{ manif.name }}</div>
-    		<div id="details-description">{{ manif.description }}</div>
-    		<div id="details-time">
-	    		<span>
-	    			<i class="material-icons" role="presentation">access_time</i>
-	    			<span class="mdl-color-text--pink">{{ manif.start }} - {{ manif.end }}</span>
-	    		</span>
-	    		<span>
-	    			<i class="material-icons" role="presentation">location_on</i>
-	    			<span>{{ manif.location }}</span>
-	    		</span>
+	<div id="manif-background" style="{{ manif.background }};">
+		<div class="mdl-card__title"></div>
+		<div id="details-content" class="mdl-card__supporting-text">
+			<div id="manif-details">
+	    		<div id="details-name">{{ manif.name }}</div>
+	    		<div id="details-description">{{{ manif.description }}}</div>
+	    		<div id="details-time">
+		    		<span>
+		    			<i class="material-icons" role="presentation">access_time</i>
+		    			<span class="mdl-color-text--pink">{{ manif.start }} - {{ manif.end }}</span>
+		    		</span>
+		    		<span>
+		    			<i class="material-icons" role="presentation">location_on</i>
+		    			<span>{{ manif.location }}</span>
+		    		</span>
+		    	</div>
 	    	</div>
-    	</div>
-    	
+	    	
+		</div>
+		<ul id="prices" class="flex-list"></ul> 
 	</div>
-	<ul id="prices" class="flex-list"></ul>
 </script>
 
 	<!-- price card -->
