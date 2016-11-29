@@ -153,17 +153,20 @@ LI.kiosk.initPlugins = function(){
 	Waves.attach('.waves-effect');
 	Waves.init();
 	LI.kiosk.mustache.cacheTemplates();
+	toastr.options = {
+		positionClass: 'toast-bottom-full-width'
+	};
 }
 
 LI.kiosk.cart.addItem = function(item, price){
 
 	var newLine;
-	var id;
+	var lineId;
 	var exists = false;
 
 	$.each(LI.kiosk.cart.lines, function(key, line){
 		
-		if(line.name == item.name && line.price.id == price.id){
+		if(line.manifId == item.id && line.price.id == price.id){
 			var htmlLine = $('#' + line.id);
 			line.qty++;
 			LI.kiosk.cart.lineTotal(line);
@@ -171,7 +174,7 @@ LI.kiosk.cart.addItem = function(item, price){
 			htmlLine.find('.line-total').text(line.total);
 			htmlLine.find('.line-qty').text(line.qty);
 			LI.kiosk.utils.flash('#' + line.id);
-			id = line.id;
+			lineId = line.id;
 		}
 	});
 
@@ -179,6 +182,7 @@ LI.kiosk.cart.addItem = function(item, price){
 		var newLine = {
 			id: LI.kiosk.utils.generateUUID(),
 			name: item.name,
+			manifId: item.id,
 			price: price,
 			qty: 1,
 			total: price.value
@@ -187,13 +191,13 @@ LI.kiosk.cart.addItem = function(item, price){
 		LI.kiosk.cart.lines[newLine.id] = newLine;
 		LI.kiosk.cart.insertLine(LI.kiosk.cart.lines[newLine.id]);
 		LI.kiosk.utils.flash('#' + newLine.id);
-		id = newLine.id
+		lineId = newLine.id;
 	}
 
 	$('#cart').show(500);
 	$('#cart').css('display', 'flex');
 	LI.kiosk.cart.cartTotal();
-	LI.kiosk.checkAvailability(item.gauge_url, id);
+	LI.kiosk.checkAvailability(item.gauge_url, lineId, item.id);
 }
 
 LI.kiosk.cart.removeItem = function(lineId) {
@@ -284,26 +288,30 @@ LI.kiosk.cart.lineTotal = function(line){
 	line.total = LI.format_currency(line.price.raw_value * line.qty, false);
 }
 
-LI.kiosk.cart.cartTotal = function(param){
+LI.kiosk.cart.cartTotal = function(){
 	var total = 0;
 
 	$.each(LI.kiosk.cart.lines, function(key, line){
 		total += parseFloat(line.total);
 	});
-	console.log(total + '///' + param);
 
 	$('#cart-total-value').text(LI.format_currency(total, false));
 }
 
-LI.kiosk.checkAvailability = function(gaugeUrl, lineId){
+LI.kiosk.checkAvailability = function(gaugeUrl, lineId, manifId){
 	
-	var line = LI.kiosk.cart.lines[lineId];
+	var qty = 0;
+
+	$.each(LI.kiosk.cart.lines, function(key, lineObject){
+		if(lineObject.manifId == manifId)
+			qty += lineObject.qty;
+	});
 
 	$.get(gaugeUrl, function(data){
 
-		if(data.free < line.qty){
-			$('#' + line.id + ' .remove-item').click();
-			console.log(line);
+		if(data.free < qty){
+			$('#' + lineId + ' .remove-item').click();
+			toastr.info('The last item added to the cart was removed as it wasn\'t available anymore');
 		}
 	});
 }
