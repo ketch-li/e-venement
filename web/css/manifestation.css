@@ -182,3 +182,4 @@ select[disabled] { color: #444; }
 #seats h2 .close { float: right; text-decoration: none; border: 1px solid white; border-radius: 2px; padding: 2px 5px; margin-top: -3px; }
 
 #more .list { margin-bottom: -29px; margin-top: 4px; float:right; }
+body #more { max-width: 700px; }
