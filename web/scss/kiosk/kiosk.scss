@@ -9,7 +9,7 @@ header {
   position: absolute;
   left: 120px;
   bottom: 30px;
-  width: 60%;
+  width: 62%;
   padding: 10px;
   z-index: 999;
   border-radius: 15px;
@@ -117,7 +117,7 @@ ul{
 /* MANIF DETAILS */
 #manif-details-card {
   display: none;
-  height: 91%;
+  height: 80%;
   width: 60%;
   margin: 30px 40px 30px 150px;
   overflow-y: auto;
@@ -126,9 +126,21 @@ ul{
   .mdl-card__title { height: 150px; }
   #details-content {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 98%;
+  }
+
+  #manif-background {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 100%;
+    height: 100%;
+  }
+
+  #details-content, #prices {
+    background: rgba(255, 255, 255, 0.85);
   }
 }
 
@@ -154,7 +166,11 @@ ul{
 }
 
 /* PRICES */
-#prices { max-height: 100%; }
+#prices { 
+  max-height: 100%;
+  margin: 0;
+  padding-bottom: 30px; 
+}
 
 /* PRICE CARD */
 .price { margin: 5px; }
