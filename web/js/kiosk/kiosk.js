@@ -25,7 +25,7 @@ LI.kiosk.addListeners = function(){
 		$('#info-panel').show(500);
 		setTimeout(function(){
 			$('#info-panel').hide(500)
-		}, 3000);
+		}, 10000);
 	});
 	
 	$('#manifs-list').on('click', '.manif', function(event){
@@ -38,7 +38,7 @@ LI.kiosk.getManifestations = function(){
 	LI.kiosk.utils.showLoader();
 
 	$.ajax({
-    url: '/tck_dev.php/transaction/getManifestations/action',
+    url: '/tck.php/transaction/getManifestations/action',
     type: 'GET',
     data: { simplified: 1 },
     dataType: 'json',
@@ -158,6 +158,7 @@ LI.kiosk.initPlugins = function(){
 LI.kiosk.cart.addItem = function(item, price){
 
 	var newLine;
+	var id;
 	var exists = false;
 
 	$.each(LI.kiosk.cart.lines, function(key, line){
@@ -170,7 +171,7 @@ LI.kiosk.cart.addItem = function(item, price){
 			htmlLine.find('.line-total').text(line.total);
 			htmlLine.find('.line-qty').text(line.qty);
 			LI.kiosk.utils.flash('#' + line.id);
-			
+			id = line.id;
 		}
 	});
 
@@ -186,12 +187,13 @@ LI.kiosk.cart.addItem = function(item, price){
 		LI.kiosk.cart.lines[newLine.id] = newLine;
 		LI.kiosk.cart.insertLine(LI.kiosk.cart.lines[newLine.id]);
 		LI.kiosk.utils.flash('#' + newLine.id);
+		id = newLine.id
 	}
 
 	$('#cart').show(500);
 	$('#cart').css('display', 'flex');
 	LI.kiosk.cart.cartTotal();
-	LI.kiosk.checkAvailability(item.gauge_url);
+	LI.kiosk.checkAvailability(item.gauge_url, id);
 }
 
 LI.kiosk.cart.removeItem = function(lineId) {
@@ -202,10 +204,11 @@ LI.kiosk.cart.removeItem = function(lineId) {
 	LI.kiosk.cart.lineTotal(line);
 
 	if(line.qty == 0){
+
 		delete LI.kiosk.cart.lines[lineId]
 		LI.kiosk.cart.removeLine(htmlLine);
-	}
-	else{
+	}else{
+
 		LI.kiosk.cart.lines[lineId] = line;
 		htmlLine.find('.line-qty').text(line.qty);
 		htmlLine.find('.line-total').text(line.total);
@@ -281,18 +284,26 @@ LI.kiosk.cart.lineTotal = function(line){
 	line.total = LI.format_currency(line.price.raw_value * line.qty, false);
 }
 
-LI.kiosk.cart.cartTotal = function(){
+LI.kiosk.cart.cartTotal = function(param){
 	var total = 0;
 
 	$.each(LI.kiosk.cart.lines, function(key, line){
 		total += parseFloat(line.total);
 	});
+	console.log(total + '///' + param);
 
 	$('#cart-total-value').text(LI.format_currency(total, false));
 }
 
-LI.kiosk.checkAvailability = function(gaugeUrl){
-	$.get(gaugeUrl, function(json){
-		console.log(json);
+LI.kiosk.checkAvailability = function(gaugeUrl, lineId){
+	
+	var line = LI.kiosk.cart.lines[lineId];
+
+	$.get(gaugeUrl, function(data){
+
+		if(data.free < line.qty){
+			$('#' + line.id + ' .remove-item').click();
+			console.log(line);
+		}
 	});
 }
