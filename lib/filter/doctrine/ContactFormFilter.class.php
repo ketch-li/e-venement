@@ -908,7 +908,7 @@ EOF;
     
     if ( is_array($value) && count($value) )
     {
-      if ( !$this->values['groups_intersection'] )
+      if (!( isset($this->values['groups_intersection']) && $this->values['groups_intersection'] ))
       {
         if ( !$q->contains("LEFT JOIN $a.Groups gc") )
           $q->leftJoin("$a.Groups gc");
