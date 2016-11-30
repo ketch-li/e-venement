@@ -74,7 +74,7 @@
       if ( $ok = ($orig == $domains['response']) )
         break;
       if ( !$ok )
-        throw new liOnlineSaleException('TIPI ERROR: The request has a bad origin. '.print_r($domains, true));
+        throw new liOnlineSaleException('TIPI ERROR: The request has a bad origin.');
       
       // tokens
       if ( $all['token'] != $all['given_token'] )
