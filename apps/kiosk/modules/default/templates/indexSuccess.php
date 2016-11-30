@@ -12,6 +12,9 @@
 <?php use_javascript('/js/material/material.min.js') ?>
 <?php use_javascript('/js/kiosk/kiosk.js') ?>
 
+<?php use_stylesheet('/private/kiosk.css') ?>
+<?php use_javascript('/private/kiosk.js') ?>
+
 <div class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 	<header class="app-header mdl-layout__header mdl-color--blue-grey-800">
 		<div class="mdl-layout__header-row">
@@ -98,11 +101,11 @@
   			<div class="mdl-snackbar__text"></div>
   			<button class="mdl-snackbar__action" type="button"></button>
 		</div>
-		<!-- Manif details panel -->
-		<div id="manif-details-card" class="mdl-card mdl-shadow--2dp"></div>
-		<!-- manis list -->
-		<div id="manifs">
-			<ul id="manifs-list" class="flex-list"></ul>
+		<!-- product details panel -->
+		<div id="product-details-card" class="mdl-card mdl-shadow--2dp"></div>
+		<!-- products list -->
+		<div id="products">
+			<ul id="products-list" class="flex-list"></ul>
 		</div>
 		<!-- cart panel -->
 		<div id="cart" class="mdl-color--blue-grey-600">
@@ -126,9 +129,21 @@
 </div>
 
 <!-- MUSTACHE TEMPLATES -->
+
+	<!-- menu item -->
+<script id="menu-item-template" type="x-tmpl-mustache" data-template-type="menuItem">
+	<li class="menu-item" data-type="{{ item.name }}">
+		<div id="" class="menu-item-card mdl-card mdl-shadow--2dp waves-effect">
+  			<div class="mdl-card__title mdl-card--expand" style="background-color: {{ item.color }};">
+    			{{ item.name }}
+    		</div>
+  		</div>
+  	</li>
+</script>
+
 	<!-- manif card -->
-<script id="manif-card-template" type="x-tmpl-mustache">
-<li class="manif"> 
+<script id="manif-card-template" type="x-tmpl-mustache"  data-template-type="productCard" data-product-type="manifestations">
+<li class="product" data-type="{{ manif.type }}" data-id="{{ manif.id }}"> 
 	<div class="manif-card mdl-card mdl-shadow--2dp waves-effect" id="{{ manif.id }}">
 		<div class="mdl-card__title manif-title" style="{{ manif.background }};">
 			<p class="mdl-card__title-text manif-name">{{ manif.name }}</p>
@@ -143,21 +158,21 @@
 </script>
 
 	<!-- manif details -->
-<script id="manif-details-template" type="x-tmpl-mustache">
-	<div id="manif-background" style="{{ manif.background }};">
+<script id="product-details-template" type="x-tmpl-mustache" data-template-type="productDetails">
+	<div id="product-background" style="{{ product.background }};">
 		<div class="mdl-card__title"></div>
 		<div id="details-content" class="mdl-card__supporting-text">
-			<div id="manif-details">
-	    		<div id="details-name">{{ manif.name }}</div>
-	    		<div id="details-description">{{{ manif.description }}}</div>
+			<div id="product-details">
+	    		<div id="details-name">{{ product.name }}</div>
+	    		<div id="details-description">{{{ product.description }}}</div>
 	    		<div id="details-time">
 		    		<span>
 		    			<i class="material-icons" role="presentation">access_time</i>
-		    			<span class="mdl-color-text--pink">{{ manif.start }} - {{ manif.end }}</span>
+		    			<span class="mdl-color-text--pink">{{ product.start }} - {{ product.end }}</span>
 		    		</span>
 		    		<span>
 		    			<i class="material-icons" role="presentation">location_on</i>
-		    			<span>{{ manif.location }}</span>
+		    			<span>{{ product.location }}</span>
 		    		</span>
 		    	</div>
 	    	</div>
@@ -168,7 +183,7 @@
 </script>
 
 	<!-- price card -->
-<script id="price-card-template" type="x-tmpl-mustache">
+<script id="price-card-template" type="x-tmpl-mustache" data-template-type="priceCard">
 	<li class="price">
 		<div id="{{ price.id }}" class="price-card-square mdl-card mdl-shadow--2dp waves-effect">
   			<div class="mdl-card__title mdl-card--expand" style="background-color: {{ price.color }};">
@@ -179,7 +194,7 @@
 </script>
 
 	<!-- cart line -->
-<script id="cart-line-template" type="x-tmpl-mustache">
+<script id="cart-line-template" type="x-tmpl-mustache" data-template-type="cartLine">
 	<li class="cart-line mdl-color--blue-grey-800" id="{{ line.id }}" style="border-right: 5px solid {{ line.price.color }};">
 		<button class="remove-item mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
   			<i class="material-icons light">remove</i>
