@@ -198,18 +198,21 @@
 	    	</div>
 	    	
 		</div>
-		<ul id="prices" class="flex-list">
-		{{#each gauges }}
-			<li class="gauge">
-				<div id="{{ id }}" class="price-card-square mdl-card mdl-shadow--2dp waves-effect">
-  					<div class="mdl-card__title mdl-card--expand" style="background-color: {{ color }};">
-    					{{ name }}
-    				</div>
-  				</div>
-  			</li>
-  		{{/each }}
-		</ul> 
+		<ul id="declinations" class="flex-list"></ul>
+		<p id="declination-name"></p>
+		<ul id="prices" class="flex-list"></ul> 
 	</div>
+</script>
+
+	<!-- declination card -->
+<script id="declination-card-template" type="text/x-handlebars-template" data-template-type="declinationCard">
+	<li class="declination">
+		<div id="{{ id }}" class="declination-card mdl-card mdl-shadow--2dp waves-effect">
+			<div class="mdl-card__title mdl-card--expand" style="background-color: {{ color }};">
+				{{ name }}
+			</div>
+		</div>
+	</li>
 </script>
 
 	<!-- price card -->
