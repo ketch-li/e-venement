@@ -355,7 +355,9 @@ LI.kiosk.cart.addItem = function(item, price){
 	$('#cart').show(500);
 	$('#cart').css('display', 'flex');
 	LI.kiosk.cart.cartTotal();
-	LI.kiosk.checkAvailability(item.gauge_url, lineId, item.id);
+
+	if(item.gauge_url !== undefined)
+		LI.kiosk.checkAvailability(item.gauge_url, lineId, item.id);
 }
 
 LI.kiosk.cart.removeItem = function(lineId) {
