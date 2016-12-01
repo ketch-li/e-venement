@@ -51,16 +51,17 @@ LI.kiosk.menu = function(){
 }
 
 LI.kiosk.utils.setUpMenu = function(productLists){
+
 	$.each(productLists, function(type, length){
 		var item = {
 			name: type
 		};
 
-		$('#products-list').append(Mustache.render(LI.kiosk.templates.menuItem, { item: item }));
+		$('#product-menu-items').append(Mustache.render(LI.kiosk.templates.menuItem, { item: item }));
 	});
 
 	$('.menu-item').click(function(){
-		LI.kiosk.insertProducts($(this).data('type'));
+		LI.kiosk.utils.switchMenuPanels($(this).data('type'));
 	});
 }
 
@@ -127,7 +128,6 @@ LI.kiosk.getMuseum = function(){
 
 LI.kiosk.rearrangeProperties = function(manif){
 	
-
 	var manifDate = new Date(manif.happens_at.replace(' ', 'T'));
 	var endDate = new Date(manif.ends_at);
 
@@ -426,9 +426,66 @@ LI.kiosk.utils.switchPanels = function(){
 				});
 			}
 		});
+
+		if($('#product-menu-items .menu-item').length > 0)
+			$(this).unbind('click').click(function(){
+				$('#products').effect('slide', {
+					direction: 'right', 
+					mode: 'hide', 
+					duration: '300',
+					complete: function(){
+						$('#back-fab').hide();
+
+						$('#product-menu').effect('slide', {
+							direction: 'left', 
+							mode: 'show', 
+							duration: '300'
+						});
+					}
+				});
+			}).show();
 		
 	}).show();
 }
+
+LI.kiosk.utils.switchMenuPanels = function(type){
+		
+		$('#product-menu').effect('slide', {
+			direction: 'left', 
+			mode: 'hide', 
+			duration: '300',
+			complete: function(){
+
+				LI.kiosk.insertProducts(type);
+
+				$('#products').effect('slide', {
+					direction: 'right', 
+					mode: 'show',
+					duration: '300'
+				});
+			}
+		});
+		
+		$('#back-fab').unbind('click').click(function(){
+
+			$(this).hide();
+
+			$('#products').effect('slide', {
+				direction: 'right', 
+				mode: 'hide', 
+				duration: '300',
+				complete: function(){
+
+					$('#product-menu').effect('slide', {
+						direction: 'left', 
+						mode: 'show', 
+						duration: '300'
+					});
+				}
+			});
+			
+		}).show();
+	}
 
 LI.kiosk.cart.insertLine = function(line){
 	var lineTemplate = $('#cart-line-template').html();

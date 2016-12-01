@@ -101,6 +101,10 @@
   			<div class="mdl-snackbar__text"></div>
   			<button class="mdl-snackbar__action" type="button"></button>
 		</div>
+		<!-- menu panel -->
+		<div id="product-menu">
+			<ul id="product-menu-items" class="flex-list"></ul>
+		</div>
 		<!-- product details panel -->
 		<div id="product-details-card" class="mdl-card mdl-shadow--2dp"></div>
 		<!-- products list -->

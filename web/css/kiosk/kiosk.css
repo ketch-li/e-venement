@@ -84,8 +84,12 @@ ul {
 
 /* PRODUCTS */
 #products {
+  display: none;
   height: 95vh;
   overflow-y: auto; }
+
+#products, #product-menu {
+  margin: 0 auto; }
 
 /* MANIF CARD */
 .manif-card.mdl-card {
