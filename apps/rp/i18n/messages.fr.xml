@@ -2040,6 +2040,14 @@
 	<source>Url</source>
 	<target>Site Web</target>
       </trans-unit>
+      <trans-unit>
+          <source>by</source>
+          <target>par</target>
+      </trans-unit>
+      <trans-unit>
+          <source>unknown user</source>
+          <target>utilisateur inconnu</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
