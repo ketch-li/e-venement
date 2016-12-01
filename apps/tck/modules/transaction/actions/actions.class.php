@@ -546,6 +546,17 @@ class transactionActions extends autoTransactionActions
     $this->getUser()->setFlash('success', __('Transaction created'));
     $this->redirect('transaction/edit?id='.$this->transaction->id);
   }
+
+  public function executeNewJson(sfWebRequest $request)
+  {  
+    $this->getResponse()->setContentType('application/json');
+
+    $trans = new Transaction();
+    $trans->save();
+
+    $this->jsonTransId = $trans->id;
+  }
+
   public function executeShow(sfWebRequest $request)
   { $this->redirect('transaction/edit?id='.$request->getParameter('id')); }
   public function executeBatchDelete(sfWebRequest $request)

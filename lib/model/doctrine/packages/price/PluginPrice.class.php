@@ -21,17 +21,13 @@ abstract class PluginPrice extends BasePrice
   {
     return strtolower(get_class($this));
   }
-  
-  public function preInsert($event)
-  {
-    $price = $this->getTable()->createQuery('p')
-      ->orderBy('p.rank DESC')
-      ->limit(1)
-      ->select('p.id, p.rank')
-      ->fetchOne();
-    if ( $price )
-      $this->rank = $price->rank * 2;
-    return parent::preInsert($event);
+
+  public function postInsert($event)
+  {      
+    $this->rank = $this->id;
+    $this->save();
+    
+    return parent::postInsert($event);
   }
 
   public function getUsers($load)
