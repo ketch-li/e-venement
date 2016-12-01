@@ -53,11 +53,13 @@ LI.kiosk.menu = function(){
 LI.kiosk.utils.setUpMenu = function(productLists){
 
 	$.each(productLists, function(type, length){
+		
+		var template = Handlebars.compile(LI.kiosk.templates.menuItem);
 		var item = {
 			name: type
 		};
 
-		$('#product-menu-items').append(Mustache.render(LI.kiosk.templates.menuItem, { item: item }));
+		$('#product-menu-items').append(template(item ));
 	});
 
 	$('.menu-item').click(function(){
@@ -140,19 +142,18 @@ LI.kiosk.rearrangeProperties = function(manif){
 	else
 		manif.background = 'background-color: ' + manif.color;
 
+
 	$.each(manif.gauges, function(i, gauge){
-		if( gauge.name == 'INDIVIDUELS' ){
-			manif.gauge_url = gauge.url;
-			manif.prices = {};
 
-			$.each(gauge.available_prices, function(key, price){
+		var color = '#4FC3F7';
+		
+		if ( gauge.color == undefined )
+			gauge.color = color;
 
-				if( price.color == undefined )
-					price.color = '#4FC3F7';
-
-				manif.prices[price.id] = price;
-			});
-		}
+		$.each(gauge.available_prices, function(key, price){
+			if( price.color == undefined )
+				price.color = color;
+		});
 	});
 }
 
@@ -239,7 +240,8 @@ LI.kiosk.insertProducts = function(type){
 	$('#products-list').empty();
 	
 	$.each(LI.kiosk.products[type], function(key, product){
-		$('#products-list').append(Mustache.render(cardTemplate, { manif: product }));
+		var template = Handlebars.compile(cardTemplate);
+		$('#products-list').append(template(product));
 	});
 }
 
@@ -265,15 +267,13 @@ LI.kiosk.utils.flash = function(selector){
 
 LI.kiosk.cacheTemplates = function(){
 	//make mustache cache the templates for quicker future uses
-	$('script[type="x-tmpl-mustache"]').each(function(id, template){
+	$('script[type="text/x-handlebars-template"]').each(function(id, template){
 		var templateType = $(template).data('template-type');
 		var productType = $(template).data('product-type');
 		var html = $(template).html();
 
 		if( LI.kiosk.templates[templateType] === undefined )
 			LI.kiosk.templates[templateType] = {};
-
-		Mustache.parse(html);
 
 		if(productType !== undefined)
 			LI.kiosk.templates[templateType][productType] = html;
@@ -283,12 +283,12 @@ LI.kiosk.cacheTemplates = function(){
 }
 
 LI.kiosk.showDetails = function(product, card){
-	var detailsTemplate = $('#product-details-template').html();
+	var detailsTemplate = Handlebars.compile(LI.kiosk.templates.productDetails);
 	
 	// insert manif info
-	$('#product-details-card').html(Mustache.render(detailsTemplate, { product: product }));
+	$('#product-details-card').html(detailsTemplate(product));
 	// insert prices
-	LI.kiosk.insertPrices(product);
+	//LI.kiosk.insertPrices(product);
 	//show details panel
 	LI.kiosk.utils.switchPanels();
 }
@@ -296,8 +296,10 @@ LI.kiosk.showDetails = function(product, card){
 LI.kiosk.insertPrices = function(manif){
 	var priceTemplate = $('#price-card-template').html();
 
-	for(key in manif.prices)
-		$('#product-details-card #prices').append(Mustache.render(priceTemplate, { price: manif.prices[key] }));
+	for(key in manif.prices){
+		var template = Handlebars.compile(priceTemplate);
+		$('#product-details-card #prices').append(template(manif.prices[key]));
+	}
 
 	LI.kiosk.addPriceListener(manif);
 }
