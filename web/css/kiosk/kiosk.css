@@ -263,7 +263,9 @@ ul {
 
 /* LOADER */
 #spinner {
-  height: 150px;
+  position: absolute;
+  left: 40%;
+  top: 40%;
   width: 150px;
   align-self: center;
   z-index: 999; }
