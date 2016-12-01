@@ -233,6 +233,9 @@ LI.kiosk.insertProducts = function(type){
 
 	var cardTemplate = LI.kiosk.templates['productCard'][type];
 
+	if((cardTemplate == null))
+		cardTemplate = LI.kiosk.templates['productCard']['manifestations'];
+
 	$('#products-list').empty();
 	
 	$.each(LI.kiosk.products[type], function(key, product){
