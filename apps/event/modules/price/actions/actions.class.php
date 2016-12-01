@@ -47,29 +47,55 @@ class priceActions extends autoPriceActions
       ->execute();
     $this->forward404Unless($this->prices && $this->prices->count() > 1);
     
-    $dummy = new Price;
+    $before = new Price;
+    $before->rank = 0;
+    $after = new Price;
+    $after->rank = 0xFFFFFFFF;
+    $newRank = 0;
+    
     $prices = array(
       'current' => NULL,
-      'before'  => $dummy,
-      'after'   => $dummy,
+      'before'  => $before,
+      'after'   => $after,
     );
+    
     foreach ( $this->prices as $price )
-    switch ( $price->id ) {
-    case $request->getParameter('smaller_than'):
-      $prices['after'] = $price;
-      $dummy->rank = 0;
-      break;
-    case $request->getParameter('id'):
-      $prices['current'] = $price;
-      break;
-    case $request->getParameter('bigger_than'):
-      $prices['before'] = $price;
-      $dummy->rank = $price->rank*3;
-      break;
+    {
+        switch ( $price->id ) {
+        case $request->getParameter('smaller_than'):
+          $prices['after'] = $price;
+          break;
+        case $request->getParameter('id'):
+          $prices['current'] = $price;
+          break;
+        case $request->getParameter('bigger_than'):
+          $prices['before'] = $price;
+          break;
+        }
     }
     
-    $rank = ($prices['after']->rank + $prices['before']->rank) / 2;
-    $prices['current']->rank = $rank;
+    $q = Doctrine_Query::create()
+        ->from('Price p')
+        ->update();
+
+    // Id previous price rank > selected price rank, the price went down in the list (the rank has risen)
+    if ($prices['before']->rank > $prices['current']->rank) 
+    {
+        $newRank = $prices['before']->rank;        
+        $q->set('rank', 'rank - 1')
+          ->where('rank BETWEEN ? AND ?', array($prices['current']->rank, $prices['before']->rank));
+    }
+    // If next price rank < selected price rank, the price went up in the list (the rank has lowered)
+    if ($prices['after']->rank < $prices['current']->rank) 
+    {
+        $newRank = $prices['after']->rank;
+        $q->set('rank', 'rank + 1')
+          ->where('rank BETWEEN ? AND ?', array($prices['after']->rank, $prices['current']->rank));           
+    }
+
+    $q->execute();
+    
+    $prices['current']->rank = $newRank;
     $prices['current']->save();
     
     $this->price  = $prices['current'];
