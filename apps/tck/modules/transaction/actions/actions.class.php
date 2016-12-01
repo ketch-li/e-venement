@@ -268,7 +268,7 @@ class transactionActions extends autoTransactionActions
     $ws = $this->form['postalcode']->getWidgetSchema()->setNameFormat('transaction[%s]');
     $vs = $this->form['postalcode']->getValidatorSchema();
     $this->form['postalcode']->setDefault('postalcode', $this->transaction->postalcode);
-    $ws['postalcode'] = new sfWidgetFormInputText(array(), array('size' => 6));
+    $ws['postalcode'] = new sfWidgetFormInputText(array(), array('size' => 5));
     $vs['postalcode'] = new sfValidatorString(array(
       'required' => false,
       'max_length' => 32,
