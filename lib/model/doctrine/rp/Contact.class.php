@@ -15,6 +15,20 @@ class Contact extends PluginContact
   protected $module = 'contact';
   protected $yobs_ordered = false;
   
+  public function getLastAccessor()
+  {
+      $uname = __('unknown user');
+      
+      if ($this->last_accessor_id) 
+      {
+          $c = Doctrine::getTable('sfGuardUser')->findOneById($this->last_accessor_id);
+          
+          $uname = $c->username;
+      }
+      
+      return $uname;
+  }
+  
   public function __toString()
   {
     if ( !sfConfig::get('app_case_normalise') )

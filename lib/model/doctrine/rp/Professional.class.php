@@ -12,6 +12,12 @@
  */
 class Professional extends PluginProfessional
 {
+    
+    public function getLastAccessor() 
+    {
+        return $this->Contact->getLastAccessor();
+    }
+    
   public function __toString()
   {
     if ( $this->isNew() )
