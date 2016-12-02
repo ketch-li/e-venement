@@ -18,3 +18,5 @@
 
 .named-tickets .ticket .cherry-pick { display: block; }
 .named-tickets .ticket .cherry-pick select { width: 25em; }
+
+.named-tickets .price_name { min-width: 110px; display: inline-block; }
