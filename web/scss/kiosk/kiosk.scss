@@ -159,7 +159,7 @@ ul{
     height: 100%;
   }
 
-  #details-content, #prices, #declinations {
+  #details-content, #prices, #declinations, #declination-name {
     background: rgba(255, 255, 255, 0.85);
   }
 }
@@ -183,6 +183,10 @@ ul{
     font-size: 1.2em;
     margin: 5px;
   } 
+
+  #declination-name {
+    color: #fff;
+  }
 }
 
 /* DECLINATIONS and PRICES */

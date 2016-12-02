@@ -196,11 +196,16 @@
 		    		</span>
 		    	</div>
 	    	</div>
-	    	
 		</div>
 		<ul id="declinations" class="flex-list"></ul>
 		<p id="declination-name"></p>
-		<ul id="prices" class="flex-list"></ul> 
+		<ul id="prices" class="flex-list">
+			<li>
+				<button id="declination-back" class="mdl-button mdl-js-button">
+					<i class="material-icons">keyboard_backspace</i>
+				</button>
+			</li>
+		</ul> 
 	</div>
 </script>
 

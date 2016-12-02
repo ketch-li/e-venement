@@ -321,8 +321,6 @@ LI.kiosk.showDetails = function(product, card){
 LI.kiosk.insertPrices = function(product, prices){
 	var priceTemplate = $('#price-card-template').html();
 
-	$('#product-details-card #prices').empty();
-
 	for(key in prices){
 		var template = Handlebars.compile(priceTemplate);
 		$('#product-details-card #prices').append(template(prices[key]));
@@ -330,7 +328,13 @@ LI.kiosk.insertPrices = function(product, prices){
 
 	LI.kiosk.addPriceListener(product);
 
+	$('#declination-back').click(function(){
+		$('#prices').hide();
+		$('#declinations').show();
+	});
+
 	$('#prices').css('display', 'flex');
+
 }
 
 LI.kiosk.addPriceListener = function(product){
