@@ -378,7 +378,7 @@ LI.customLayout = function()
   login.detach().insertBefore(ariane.find('.command'));
   
   // Put two login links under the same icon
-  login.find('ul li a').eq(1).detach().appendTo(login.find('ul li').eq(0)).addClass('second-link');
+  //login.find('ul li a').eq(1).detach().appendTo(login.find('ul li').eq(0)).addClass('second-link');
 
   // Add search button
   $('<a href="#">')

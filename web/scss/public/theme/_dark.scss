@@ -1,43 +1,43 @@
 /* Colors */
 
-$color-dark-gray: #575e71;
-$color-light-gray: white;
 $color-orange: #f46245;
 $color-green: #b2d135;
 $color-blue: #1d8dcc;
 $color-light-blue: #91d2ce;
 
-$page-bg-color: $color-dark-gray;
-$search-input-border: 1px solid #EEE;
-$content-bg-color: $color-dark-gray;
-$event-bg-color: white;
-$toolbar-bg-color: $color-orange;
-$searchbar-bg-color: white; 
-$page-footer-bg-color: $color-dark-gray;
+$base-color: #575e71;
+$base-text-color: white;
 
+$page-bg-color: $base-color;
+$content-bg-color: $base-color;
+
+$command-color: $base-text-color;
+$command-text-color: $base-color;
+
+$event-bg-color: $base-text-color;
+$event-text-color: $base-color;
+$event-name-color: $color-orange;
+
+$toolbar-bg-color: $color-orange;
+
+$searchbar-bg-color: white; 
 $search-input-bg-color: white;
 $search-btn-bg-color: $color-green;
 $search-btn-color: white;
-
-$date-btn-bg-color: $color-blue;
-$date-btn-color: white;
+$search-input-border: 1px solid #EEE;
 
 $order-btn-bg-color: $color-green;
 $order-btn-color: white;
 
-$text-color: $color-light-gray; /* used for texts on "box" background */
-$text-color2: white;   /* used for texts on page background */
-$footer-text-color: $text-color2;
-$event-name-color: $color-orange;
-
 $pagination-bg-color: white;
 $pagination-color: $color-orange;
-$pagination-link-color: $text-color;
+$pagination-link-color: $base-text-color;
 
-$section-even-bg-color: $color-light-blue;
-$section-even-color: white;
-$section-odd-bg-color: $color-blue;
-$section-odd-color: white;
+$page-footer-bg-color: $base-color;
+$footer-text-color: $base-text-color;
+
+$date-btn-bg-color: $color-blue;
+$date-btn-color: white;
 
 $form-bg-color: none;
 
@@ -80,6 +80,7 @@ $grid-width: 200px;  /* section-grid layout */
        url('/fonts/roboto-v15-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
 }
 
+.help { color: white; }
 
 $base-font-family: Roboto;
 $base-font-size: 15px;
