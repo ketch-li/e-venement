@@ -1,6 +1,7 @@
 <?php use_helper('Number') ?>
 <?php use_javascript('pub-named-tickets?'.date('Ymd')) ?>
 <?php use_stylesheet('pub-named-tickets?'.date('Ymd')) ?>
+<?php $display_mods = true ?>
 <form
   action="<?php echo url_for('ticket/modNamedTickets?manifestation_id='.$manifestation->id
     .(isset($ticket) && $ticket->getRawValue() instanceof Ticket ? '&ticket_id='.$ticket->id : '')
@@ -20,7 +21,6 @@
     </h4>
     <div class="price">
       <span class="seat_label"><?php if ( isset($display_mods) && !$display_mods ) echo __('Seat #') ?></span><span class="seat_name"></span>
-      <!--<span class="price_name"><select <?php if (!( isset($display_mods) && $display_mods )): ?>disabled="disabled"<?php endif ?> name="ticket[%%ticket_id%%][price_id]"></select></span>-->
       <span class="price_name">
         <?php if (!( isset($display_mods) && $display_mods )): ?>
           <?php echo format_currency($ticket->value, '€') ?>

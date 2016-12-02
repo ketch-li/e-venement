@@ -100,6 +100,9 @@ LI.pubNamedTicketsInitialization = function()
 }
 LI.pubNamedTicketsData = function(json, callback)
 {
+  if ( window.location.hash == '#debug' )
+    console.error(json);
+  
   if (!( json.success && json.success.tickets ))
   {
     LI.alert('An error occurred with named tickets');
@@ -151,7 +154,7 @@ LI.pubNamedTicketsData = function(json, callback)
     });
     if ( !ticket.seat_name )
       elt.find('.seat_label').hide();
-    elt.find('input, select').each(function(){
+    elt.find('input, select, button').each(function(){
       $(this).attr('name', $(this).attr('name').replace('%%ticket_id%%', ticket.id));
     });
     elt.find('.force').val(ticket['force']);

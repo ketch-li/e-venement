@@ -230,7 +230,7 @@
     {
       foreach ( $ticket->Manifestation->PriceManifestations as $pm )
       if ( $pm->Price->isAccessibleBy($this->getUser(), array('manifestation' => $ticket->Manifestation)) )
-      if ( in_array($ticket->Gauge->workspace_id, array_keys($pm->Price->Workspaces->getPrimaryKeys())) )
+      if ( in_array($ticket->Gauge->workspace_id, $pm->Price->Workspaces->getPrimaryKeys()) )
       {
         $order[$pm->price_id] = $pm->value;
         $tmp[$pm->price_id] = ($pm->Price->description ? $pm->Price->description : (string)$pm->Price).' ('.format_currency($pm->value,$this->getContext()->getConfiguration()->getCurrency()).')';
