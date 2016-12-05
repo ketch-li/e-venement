@@ -16,31 +16,13 @@ option:
     column:               id
     with_wildcard_routes: true
 
-auto_group:
-  class: sfDoctrineRouteCollection
-  options:
-    model:                AutoGroup
-    module:               auto_group
-    prefix_path:          /auto_group
-    column:               id
-    with_wildcard_routes: true
-
-remote_authentication:
-  class: sfDoctrineRouteCollection
-  options:
-    model:                RemoteAuthentication
-    module:               remote_authentication
-    prefix_path:          /remote_authentication
-    column:               id
-    with_wildcard_routes: true
-
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 
 # default rules
 homepage:
   url:   /
-  param: { module: get, action: infos }
+  param: { module: get, action: option_pub_texts }
 
 # generic rules
 # please, remove them by adding more specific rules

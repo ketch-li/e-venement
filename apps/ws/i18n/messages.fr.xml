@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Terms Conditions File</source>
+        <target>Conditions Générales de Vente (fichier)</target>
+      </trans-unit>
+      <trans-unit>
         <source>Remote authentication List</source>
         <target>Liste des authentifications distantes</target>
       </trans-unit>
@@ -99,6 +103,10 @@
       <trans-unit>
         <source>Terms Conditions</source>
         <target>Acceptation des conditions de ventes</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Adding a file here will overwrite your Terms &amp; Conditions text...</source>
+        <target>Ajouter un fichier ici écrasera le texte de vos conditions de vente</target>
       </trans-unit>
       <trans-unit>
         <source>When Closed</source>
