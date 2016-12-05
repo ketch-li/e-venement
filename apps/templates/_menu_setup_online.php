@@ -27,9 +27,6 @@
       <?php if ( $sf_user->hasCredential('pub-texts') ): ?>
         <li><a href="<?php echo cross_app_url_for('ws','texts/index') ?>"><?php echo __('Texts',array(),'menu') ?></a></li>
       <?php endif ?>
-      <?php if ( $sf_user->hasCredential('pub-tc') ): ?>
-        <li><a href="<?php echo cross_app_url_for('ws','tc/index') ?>"><?php echo __('Terms & Conditions',array(),'menu') ?></a></li>
-      <?php endif ?>
       <?php if ( $sf_user->hasCredential('stats-pub') ): ?>
         <li class="spaced"><a href="<?php echo cross_app_url_for('stats','web_origin_ip') ?>"><?php echo __('Stats: IP addresses matching',array(),'menu') ?></a></li>
       <?php endif ?>
