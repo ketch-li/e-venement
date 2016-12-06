@@ -205,8 +205,11 @@ class cartActions extends sfActions
       ksort($pns);
 
       $pn = array_pop($pns);
-      $this->form->setDefault('phone_type',$pn->name);
-      $this->form->setDefault('phone_number',$pn->number);
+      if ( isset($pn) )
+      {
+        $this->form->setDefault('phone_type',$pn->name);
+        $this->form->setDefault('phone_number',$pn->number);
+      }
 
       $this->form->removePassword();
     }
