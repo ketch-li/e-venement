@@ -20,6 +20,39 @@ class Addressable extends PluginAddressable
       ->getPlugin()
       ->setOption('analyzer',new MySearchAnalyzer());
   }
+    
+  private function getAccessorById($p_aid) 
+  {            
+      $uname = __('unknown user');
+      
+      if ($p_aid) 
+      {
+          $c = Doctrine::getTable('sfGuardUser')->findOneById($p_aid);    
+          if (isset($c))
+          {
+              $uname = $c->username;
+          }          
+      }
+      
+      return $uname;
+  }
+
+  public function getLastAccessor()
+  {
+      return $this->getAccessorById($this->last_accessor_id);      
+  }
+    
+  public function getCreator() 
+  {      
+      $v = $this->Version[0];
+
+      if (isset($v))
+      {
+          return $this->getAccessorById($v->last_accessor_id);
+      } else {
+          return $this->getLastAccessor();
+      }
+  }  
   
   public function getUpdatedAtIso8601()
   {
