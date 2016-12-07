@@ -20,9 +20,11 @@ $(document).ready(function(){
   var hash = window.location.hash.split('#');
   
   $('.gauge.full-seating'+(hash[1] ? '[data-gauge-id='+hash[1]+']' : ':first')).click();
+  /* I don't understand the origin of this... I try removing it // Baptiste S. 20161207
   $('#content > :not(.synthetic) .gauge.full-seating .blank').each(function(){
     $(this).height($(this).closest('.gauge.full-seating').height());
   });
+  */
   
   // checking for orphans before submitting data
   $('form.adding-tickets').submit(function(){
