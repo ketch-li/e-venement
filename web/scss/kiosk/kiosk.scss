@@ -159,7 +159,7 @@ ul{
     height: 100%;
   }
 
-  #details-content, #prices {
+  #details-content, #prices, #declinations, #declination-name {
     background: rgba(255, 255, 255, 0.85);
   }
 }
@@ -183,10 +183,16 @@ ul{
     font-size: 1.2em;
     margin: 5px;
   } 
+
+  #declination-name {
+    color: #fff;
+  }
 }
 
-/* PRICES */
-#prices { 
+/* DECLINATIONS and PRICES */
+#prices, #declinations {
+  display: flex;
+  display: none;
   max-height: 100%;
   margin: 0;
   padding-bottom: 30px; 
@@ -293,9 +299,7 @@ ul{
 
 /* LOADER */
 #spinner {
-  position: absolute;
-  left: 40%;
-  top: 40%;
+  height: 150px;
   width: 150px;
   align-self: center;
   z-index: 999;

@@ -16,8 +16,8 @@
 *    along with e-venement; if not, write to the Free Software
 *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 *
-*    Copyright (c) 2006-2011 Baptiste SIMON <baptiste.simon AT e-glop.net>
-*    Copyright (c) 2006-2011 Libre Informatique [http://www.libre-informatique.fr/]
+*    Copyright (c) 2006-2016 Baptiste SIMON <baptiste.simon AT e-glop.net>
+*    Copyright (c) 2006-2016 Libre Informatique [http://www.libre-informatique.fr/]
 *
 ***********************************************************************************/
 ?>
@@ -26,12 +26,6 @@
     <ul class="third">
       <?php if ( $sf_user->hasCredential('pub-texts') ): ?>
         <li><a href="<?php echo cross_app_url_for('ws','texts/index') ?>"><?php echo __('Texts',array(),'menu') ?></a></li>
-      <?php endif ?>
-      <?php if ( $sf_user->hasCredential('ws-admin') ): ?>
-        <li class="spaced"><a href="<?php echo cross_app_url_for('ws','remote_authentication') ?>"><?php echo __('Authentication',array(),'menu') ?></a></li>
-      <?php endif ?>
-      <?php if ( $sf_user->hasCredential('ws-group') ): ?>
-        <li><a href="<?php echo cross_app_url_for('ws','auto_group') ?>"><?php echo __('Group association',array(),'menu') ?></a></li>
       <?php endif ?>
       <?php if ( $sf_user->hasCredential('stats-pub') ): ?>
         <li class="spaced"><a href="<?php echo cross_app_url_for('stats','web_origin_ip') ?>"><?php echo __('Stats: IP addresses matching',array(),'menu') ?></a></li>

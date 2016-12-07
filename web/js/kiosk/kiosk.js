@@ -53,11 +53,13 @@ LI.kiosk.menu = function(){
 LI.kiosk.utils.setUpMenu = function(productLists){
 
 	$.each(productLists, function(type, length){
+		
+		var template = Handlebars.compile(LI.kiosk.templates.menuItem);
 		var item = {
 			name: type
 		};
 
-		$('#product-menu-items').append(Mustache.render(LI.kiosk.templates.menuItem, { item: item }));
+		$('#product-menu-items').append(template(item ));
 	});
 
 	$('.menu-item').click(function(){
@@ -131,6 +133,8 @@ LI.kiosk.rearrangeProperties = function(manif){
 	var manifDate = new Date(manif.happens_at.replace(' ', 'T'));
 	var endDate = new Date(manif.ends_at);
 
+	manif.declinations = {};
+	manif.prices = {};
 	manif.start = manifDate.toLocaleString().replace(/:\d\d( \w+){0,1}$/,'');
 	manif.end = endDate.getHours() + ':' + endDate.getMinutes();
 	manif.name = manif.name == null ? manif.category : manif.name;
@@ -141,18 +145,20 @@ LI.kiosk.rearrangeProperties = function(manif){
 		manif.background = 'background-color: ' + manif.color;
 
 	$.each(manif.gauges, function(i, gauge){
-		if( gauge.name == 'INDIVIDUELS' ){
-			manif.gauge_url = gauge.url;
-			manif.prices = {};
 
-			$.each(gauge.available_prices, function(key, price){
+		var color = '#4FC3F7';
 
-				if( price.color == undefined )
-					price.color = '#4FC3F7';
+		if ( gauge.color == undefined )
+			gauge.color = color;
 
-				manif.prices[price.id] = price;
-			});
-		}
+		$.each(gauge.available_prices, function(key, price){
+			if( price.color == undefined )
+				price.color = color;
+
+			manif.prices[price.id] = price;
+		});
+
+		manif.declinations[gauge.id] = gauge;
 	});
 }
 
@@ -233,10 +239,14 @@ LI.kiosk.insertProducts = function(type){
 
 	var cardTemplate = LI.kiosk.templates['productCard'][type];
 
+	if((cardTemplate == null))
+		cardTemplate = LI.kiosk.templates['productCard']['manifestations'];
+
 	$('#products-list').empty();
 	
 	$.each(LI.kiosk.products[type], function(key, product){
-		$('#products-list').append(Mustache.render(cardTemplate, { manif: product }));
+		var template = Handlebars.compile(cardTemplate);
+		$('#products-list').append(template(product));
 	});
 }
 
@@ -262,15 +272,13 @@ LI.kiosk.utils.flash = function(selector){
 
 LI.kiosk.cacheTemplates = function(){
 	//make mustache cache the templates for quicker future uses
-	$('script[type="x-tmpl-mustache"]').each(function(id, template){
+	$('script[type="text/x-handlebars-template"]').each(function(id, template){
 		var templateType = $(template).data('template-type');
 		var productType = $(template).data('product-type');
 		var html = $(template).html();
 
 		if( LI.kiosk.templates[templateType] === undefined )
 			LI.kiosk.templates[templateType] = {};
-
-		Mustache.parse(html);
 
 		if(productType !== undefined)
 			LI.kiosk.templates[templateType][productType] = html;
@@ -280,28 +288,60 @@ LI.kiosk.cacheTemplates = function(){
 }
 
 LI.kiosk.showDetails = function(product, card){
-	var detailsTemplate = $('#product-details-template').html();
-	
+	var detailsTemplate = Handlebars.compile(LI.kiosk.templates.productDetails);
+
 	// insert manif info
-	$('#product-details-card').html(Mustache.render(detailsTemplate, { product: product }));
-	// insert prices
-	LI.kiosk.insertPrices(product);
+	$('#product-details-card').html(detailsTemplate(product));
+
+	if( Object.keys(product.declinations).length > 1 ){
+
+		var declinationTemplate = Handlebars.compile(LI.kiosk.templates.declinationCard);
+		
+		$.each(product.declinations, function(id, declination){
+			$('#product-details-card #declinations').append(declinationTemplate(declination));	
+		});
+
+		$('#declinations').css('display', 'flex');
+
+		$('.declination').click(function(event){
+			var declination = product.declinations[$(event.currentTarget.children).attr('id')];
+
+			$('#declinations').hide();
+			$('#declination-name').text(declination.name);
+			LI.kiosk.insertPrices(product, product.declinations[$(event.currentTarget.children).attr('id')].available_prices);
+		});
+	}else{
+		LI.kiosk.insertPrices(product, Object.values(product.declinations)[0].available_prices);
+	}
+
 	//show details panel
 	LI.kiosk.utils.switchPanels();
 }
 
-LI.kiosk.insertPrices = function(manif){
+LI.kiosk.insertPrices = function(product, prices){
 	var priceTemplate = $('#price-card-template').html();
 
-	for(key in manif.prices)
-		$('#product-details-card #prices').append(Mustache.render(priceTemplate, { price: manif.prices[key] }));
+	for(key in prices){
+		var template = Handlebars.compile(priceTemplate);
+		$('#product-details-card #prices').append(template(prices[key]));
+	}
 
-	LI.kiosk.addPriceListener(manif);
+	LI.kiosk.addPriceListener(product);
+
+	$('#declination-back').click(function(){
+		$('#prices').hide();
+		$('#declinations').show();
+	});
+
+	$('#prices').css('display', 'flex');
+
 }
 
-LI.kiosk.addPriceListener = function(manif){
+LI.kiosk.addPriceListener = function(product){
 	$('#prices').on('click', '.price', function(event){
-		LI.kiosk.cart.addItem(manif, manif.prices[$(event.currentTarget.children).attr('id')])
+		var id = $(event.currentTarget).attr('id');
+		
+		LI.kiosk.cart.addItem(product, product.prices[$(event.currentTarget.children).attr('id')])
 	});
 }
 
@@ -341,6 +381,7 @@ LI.kiosk.cart.addItem = function(item, price){
 			id: LI.kiosk.utils.generateUUID(),
 			name: item.name,
 			productId: item.id,
+			value: price.value,
 			price: price,
 			qty: 1,
 			total: price.value
@@ -490,8 +531,9 @@ LI.kiosk.utils.switchMenuPanels = function(type){
 	}
 
 LI.kiosk.cart.insertLine = function(line){
-	var lineTemplate = $('#cart-line-template').html();
-	$('#cart-lines').append(Mustache.render(lineTemplate, { line: line }));
+	var lineTemplate = Handlebars.compile(LI.kiosk.templates.cartLine);
+console.log(line);
+	$('#cart-lines').append(lineTemplate(line ));
 	$('#' + line.id + ' .remove-item').click(function(){
 		LI.kiosk.cart.removeItem(line.id);
 	});

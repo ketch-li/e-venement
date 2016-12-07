@@ -5,7 +5,7 @@
   </div>
   <?php include_partial('form_header',array('form' => $form,)); ?>
   <?php include_partial('global/flashes') ?>
-  <form action="<?php echo url_for('texts/update') ?>" method="post" class="data">
+  <form action="<?php echo url_for('texts/update') ?>" method="post" class="data" enctype="multipart/form-data">
     <?php include_partial('global/option_form',array('form' => $form,)); ?>
     <?php include_partial('form_save',array('form' => $form,)); ?>
   </form>

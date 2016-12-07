@@ -620,12 +620,19 @@ LI.initTouchscreen = function(elt)
     if ( $(elt+' [name="transaction[contact_id]"]').val() == '' )
     {
       $(elt+' .data a').remove();
-      $('#li_transaction_field_postalcode').fadeIn();
+      $('#li_transaction_field_postalcode').fadeIn().css("display","inline-block");
+      $('#li_transaction_field_contact_id').removeClass('loaded'); 
     }
     else
     {
       $(elt+' .data a').prepend('<span class="ui-icon ui-icon-person"></span>');
       $('#li_transaction_field_postalcode').fadeOut();
+      if($('#li_transaction_field_contact_id').hasClass('simplified')) 
+      {
+          $('#li_transaction_field_contact_id').addClass('loaded');    
+      } else {
+          $('#li_transaction_field_contact_id').removeClass('loaded');  
+      }
     }
     $(elt+' .li_touchscreen_new').toggle($(elt+' .data a').length == 0);
     $('#li_transaction_field_informations .vcard').remove();

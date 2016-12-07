@@ -59,7 +59,26 @@ $(document).ready(function(){
     });
     
     // THE CONTACT LINK...
-    $('#li_transaction_field_contact_id').toggleClass('simplified');
+    $('#li_transaction_field_contact_id').toggleClass('simplified');    
+    $('#li_transaction_field_contact_id').toggleClass('loaded');    
+    $('#li_transaction_field_postalcode').toggleClass('simplified');
+    
+    if ( $('#transaction_contact_id').val() != '' && $('#li_transaction_field_contact_id').hasClass('simplified'))
+    {
+        $('#li_transaction_field_contact_id').addClass('loaded');
+    } else {
+        $('#li_transaction_field_contact_id').removeClass('loaded');
+    }
+    
+    if ($('#li_transaction_field_contact_id').hasClass('simplified'))
+    {
+        $('#autocomplete_transaction_contact_id').attr('placeholder', 'Contact');
+        $('#transaction_postalcode').attr('placeholder', 'CP');
+    } else {
+        $('#autocomplete_transaction_contact_id').attr('placeholder', '');
+        $('#transaction_postalcode').attr('placeholder', '');
+    }
+    
     // THE NEW TRANSACTION LINK
     $('#li_transaction_field_new_transaction').toggleClass('simplified');
     

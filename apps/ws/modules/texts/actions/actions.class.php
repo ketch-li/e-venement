@@ -21,8 +21,32 @@ class textsActions extends autoTextsActions
   public function executeUpdate(sfWebRequest $request)
   {
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
+    $values = $request->getPostParameters();
+    
+    // terms & conditions
+    if ( $uploads = $request->getFiles() )
+    foreach ( $uploads as $upload => $content )
+    {
+      $fname = 'pub:'.$upload;
+      
+      // cleaning the DB
+      Doctrine::getTable('Picture')->createQuery('f')
+        ->delete()
+        ->where('f.name = ?', $fname)
+        ->execute();
+      
+      $file = new Picture;
+      $file->name = $fname;
+      $file->content = base64_encode(file_get_contents($content['tmp_name']));
+      $file->type = $content['type'];
+      $file->save();
+      $values[$upload] = $fname;
+      
+      $values[str_replace('_file((', '((', $upload)] = '<a href="'.$file->getUrl(array('app' => 'pub')).'">'.__('Terms & Conditions').'</a>';
+    }
+    
     $this->form = new OptionPubTextsForm();
-    $this->form->bind($request->getPostParameters());
+    $this->form->bind($values, array());
     
     if ( !$this->form->isValid() )
     {

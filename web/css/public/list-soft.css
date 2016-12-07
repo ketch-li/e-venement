@@ -1,6 +1,4 @@
 /* Colors */
-/* used for texts on "box" background */
-/* used for texts on page background */
 /* Sizes */
 /* list layout */
 /* list layout */
@@ -46,9 +44,12 @@ html, body {
   line-height: 1.231;
   font-weight: 300; }
 
-body.mod-transaction,
-body.mod-cart,
+.notice {
+  color: black; }
+
 body.mod-login,
+body.mod-cart,
+body.mod-transaction,
 body.mod-manifestation.action-show,
 body.mod-card {
   color: #777; }
@@ -402,7 +403,8 @@ body.mod-manifestation.action-show .manifestation_bottom .social-description {
     clear: both; }
   #sf_admin_content .sf_admin_list td {
     display: none;
-    background-color: #ECECEC; }
+    background-color: #ECECEC;
+    color: #777; }
     #sf_admin_content .sf_admin_list td.sf_admin_order_action {
       display: block;
       width: 170px;
@@ -525,7 +527,7 @@ body > #footer {
   margin: 25px auto 0;
   text-align: center;
   padding: 3px 0;
-  background-color: #ECECEC;
+  background-color: #FFF;
   color: #777;
   font-size: 1em;
   line-height: 1.231; }
@@ -536,7 +538,7 @@ body > #client-header {
   margin: 0 auto;
   text-align: center;
   padding: 3px 0;
-  background-color: #ECECEC;
+  background-color: #FFF;
   color: #777;
   font-size: 1em;
   line-height: 1.231; }
@@ -547,7 +549,7 @@ body > #client-footer {
   margin: 25px auto 0;
   text-align: center;
   padding: 3px 0;
-  background-color: #ECECEC;
+  background-color: #FFF;
   color: #777;
   font-size: 1em;
   line-height: 1.231; }
@@ -558,7 +560,7 @@ body > #client-infos {
   margin: 25px auto 0;
   text-align: center;
   padding: 3px 0;
-  background-color: #ECECEC;
+  background-color: #FFF;
   color: #777;
   font-size: 1em;
   line-height: 1.231; }
@@ -586,11 +588,11 @@ body > #client-infos {
     #social-networks li a.count {
       margin-right: 0; }
     #social-networks li[data-social=facebook] a {
-      background-image: url("/images/vel/social/facebook.png"); }
+      background-image: url("/images/vel/themes/facebook.png"); }
     #social-networks li[data-social=twitter] a {
-      background-image: url("/images/vel/social/twitter.png"); }
+      background-image: url("/images/vel/themes/twitter.png"); }
     #social-networks li[data-social=googleplus] a {
-      background-image: url("/images/vel/social/google_plus.png"); }
+      background-image: url("/images/vel/themes/google_plus.png"); }
     #social-networks li span::before, #social-networks li #social-networks li span::after {
       content: "";
       display: block;
@@ -640,6 +642,7 @@ body > #client-infos {
   .mod-transaction #command td, .mod-transaction #command th {
     padding: 5px;
     background-color: white;
+    color: #777;
     border-bottom: 5px solid #FFF; }
   .mod-transaction #command thead td {
     font-weight: 400;
