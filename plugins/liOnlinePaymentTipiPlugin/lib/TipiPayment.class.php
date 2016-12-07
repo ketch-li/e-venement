@@ -117,10 +117,11 @@
         + $this->transaction->getMemberCardPrice(true)
         - $this->transaction->getTicketsLinkedToMemberCardPrice(true);
       
-      $this->url      = url_for($url['response']
+      $url = url_for($url['response']
         .'?transaction_id='.$transaction->id
         .'&token='.self::getToken($transaction->id, $this->value)
       ,true);
+      $this->url      = sfConfig::get('app_payment_force_http', false) ? preg_replace('!https://!', 'http://', $url) : $url;
     }
     
     public function render(array $attributes = array())
