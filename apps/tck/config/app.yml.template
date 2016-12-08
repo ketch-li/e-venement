@@ -28,7 +28,7 @@ all:
       manifs_max_display: 12
     #persistent_manifestations: false
     #force_contact: true
-    #force_payment_before_printing: true
+    #force_payment_before_printing: true  # can be "true", "false" or "soft" for a simple user advise/choice
     #seated_plan:
     #  auto_next: false
     #auto_reopen: false

@@ -9,8 +9,16 @@
       var callback = typeof submitHandler !== 'undefined' ? submitHandler : function(){ return true; };
       if ( pay_before && LI.parseFloat($('#li_transaction_field_payments_list .change .pit').html()) > 0 )
       {
-        LI.alert($('#li_transaction_field_close .print .pay-before').html());
-        return false;
+        if ( pay_before == 'soft' )
+        {
+          if ( !confirm($('#li_transaction_field_close .print .pay-before').html()) )
+            return false;
+        }
+        else
+        {
+          LI.alert($('#li_transaction_field_close .print .pay-before').html());
+          return false;
+        }
       }
 
       if ( $('#li_transaction_manifestations .item.ui-state-highlight').length == 0
