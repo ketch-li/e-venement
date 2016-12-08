@@ -51,7 +51,9 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
     if ( strpos($name, '_file((') !== false )
     {
       // a file for terms & conditions
+      $widget = $this->widgetSchema[$name];
       $this->widgetSchema[$name] = new sfWidgetFormInputFile;
+      $this->widgetSchema[$name]->setLabel($widget->getLabel());
     }
   }
   
