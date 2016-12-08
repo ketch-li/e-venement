@@ -20,8 +20,6 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
 
     $this->model = 'OptionPubTexts';
     
-    self::enableCSRFProtection();
-    
     foreach ( array('type','name','value','sf_guard_user_id','created_at','updated_at',) as $id )
     {
       unset($this->widgetSchema   [$id]);
