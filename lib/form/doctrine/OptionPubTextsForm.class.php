@@ -20,8 +20,6 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
 
     $this->model = 'OptionPubTexts';
     
-    self::enableCSRFProtection();
-    
     foreach ( array('type','name','value','sf_guard_user_id','created_at','updated_at',) as $id )
     {
       unset($this->widgetSchema   [$id]);
@@ -53,7 +51,9 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
     if ( strpos($name, '_file((') !== false )
     {
       // a file for terms & conditions
+      $widget = $this->widgetSchema[$name];
       $this->widgetSchema[$name] = new sfWidgetFormInputFile;
+      $this->widgetSchema[$name]->setLabel($widget->getLabel());
     }
   }
   

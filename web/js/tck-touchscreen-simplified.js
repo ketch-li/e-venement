@@ -785,9 +785,18 @@ LI.touchscreenSimplifiedTotal = function()
   var topay = $('#li_fieldset_simplified .cart .topay');
   var paid  = $('#li_fieldset_simplified .cart .paid');
   var total = $('#li_fieldset_simplified .cart .total');
-  topay.find('.value').html(LI.format_currency(
-    parseFloat(total.find('.value').attr('data-value'))
-    -
-    parseFloat(paid.find('.value').attr('data-value'))
-  ));
+  var rest = parseFloat(total.find('.value').attr('data-value')) - parseFloat(paid.find('.value').attr('data-value'));
+  
+  topay.find('.value').html(LI.format_currency(rest));
+  
+
+    if (rest < 0) 
+    {
+        $('.payment_missing').hide();
+        $('.payment_change').show();
+    } else {
+        $('.payment_change').hide();
+        $('.payment_missing').show();
+    }  
+  
 }

@@ -296,9 +296,19 @@ LI.sumPayments = function()
   var topay = LI.parseFloat($('#li_transaction_field_payments_list tfoot .topay .sf_admin_list_td_list_value.pit').html());
   var $elem = $('#li_transaction_field_payments_list tfoot .change .sf_admin_list_td_list_value.pit');
   var oldval = $elem.data('value');
-  $elem.html(LI.format_currency(topay - val)).data('value', topay - val);
-  if ( oldval !== (topay - val))
+  var rest = topay - val;
+  $elem.html(LI.format_currency(rest)).data('value', rest);
+  if ( oldval !== (rest))
     $elem.trigger('changeData');
+  
+    if (rest < 0) 
+    {
+        $('.payment_missing').hide();
+        $('.payment_change').show();
+    } else {
+        $('.payment_change').hide();
+        $('.payment_missing').show();
+    }  
   
   // VAT & co.
   var topay = LI.parseFloat($('#li_transaction_field_payments_list tfoot .topay .sf_admin_list_td_list_value.pit').html());

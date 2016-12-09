@@ -506,7 +506,7 @@
       </trans-unit>
       <trans-unit>
         <source>You must record the payment(s) before printing the ticket(s)</source>
-        <target>Vous devez enregistrer le(s) paiement(s) avant d'imprimer le(s) billet(s)</target>
+        <target>Vous avez demandé l'impression de billet sans équilibrer l'opération avec un paiement. S'il s'agit d'un paiement différé, confirmez en cliquant sur Oui.</target>
       </trans-unit>
       <trans-unit>
         <source>Display the seated plan</source>
@@ -1875,6 +1875,10 @@
       <trans-unit id="175">
         <source>Still missing</source>
         <target>Reste à payer</target>
+      </trans-unit>
+      <trans-unit id="179">
+        <source>Give change</source>
+        <target>À rendre</target>
       </trans-unit>
       <trans-unit id="176">
         <source>Total excl. tax:</source>

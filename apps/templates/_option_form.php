@@ -1,5 +1,4 @@
-  <?php $form->addCSRFProtection() ?>
-  <input type="hidden" name="<?php echo $form->getCSRFFieldName() ?>" value="<?php echo $form->getCSRFToken() ?>" />
+  <?php echo $form->renderHiddenFields() ?>
   <?php foreach ( $form->widgets as $fname => $fieldset ): if ( $fname != 'out' ): ?>
   <fieldset class="<?php echo $fname ?> check">
     <div class="ui-corner-all ui-widget-content">

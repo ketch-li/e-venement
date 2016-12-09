@@ -21,11 +21,15 @@
     {
       foreach ( $transac->Tickets as $t )
       if ( !$t->printed_at && !$t->integrated_at && $t->Transaction->Order->count() > 0
-        && ($has_direct_contact ? $t->getRawValue()->contact_id : !$t->getRawValue()->contact_id)
+      && (
+          $has_direct_contact 
+          ?  ($t->getRawValue()->contact_id && ($t->getRawValue()->contact_id != $transac->contact_id))  // Registered ticket with a different contact from the buyer
+          : (!$t->getRawValue()->contact_id || ($t->getRawValue()->contact_id && ($t->getRawValue()->contact_id == $transac->contact_id))) // Non registered ticket or same contact as the buyer
+      )
       )
       {
-        // init data on every loop for tickets that has an embedded contact
-        if ( $t->getRawValue()->contact_id )
+        // init data on every loop for tickets that has an embedded contact which is different from the buyer
+        if ( $t->getRawValue()->contact_id && ($t->getRawValue()->contact_id != $transac->contact_id))
         {
           foreach ( array('value' => array(), 'prices' => array(), 'tickets-nums' => array(), 'ticket-ids' => array()) as $key => $value )
             $contact[$key] = $value;
@@ -57,8 +61,8 @@
         $workspaces[$t->gauge_id] = $t->Gauge->Workspace->name;
         $total['value'] += $t->value;
         
-        // display tickets that has an embedded contact
-        if ( $t->getRawValue()->contact_id )
+        // display tickets that has an embedded contact which is different from the buyer
+        if ( $t->getRawValue()->contact_id && ($t->getRawValue()->contact_id != $transac->contact_id))
         {
           ?><tr class="<?php echo ($overlined = !$overlined) ? 'overlined' : '' ?>"><?php
           include_partial('show_spectators_list_line',array(

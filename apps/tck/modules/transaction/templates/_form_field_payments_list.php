@@ -44,7 +44,10 @@
     <td></td>
   </tr>
   <tr class="sf_admin_row ui-widget-content odd change">
-    <td class="sf_admin_text"><?php echo __('Still missing') ?></td>
+    <td class="sf_admin_text">
+        <span class="payment_missing"><?php echo __('Still missing') ?></span>
+        <span class="payment_change" style="display:none;"><?php echo __('Give change') ?></span>
+    </td>
     <td class="sf_admin_text sf_admin_list_td_list_value tep" title="<?php echo __('PET') ?>"></td>
     <td class="sf_admin_text sf_admin_list_td_list_value vat" title="<?php echo __('VAT') ?>"></td>
     <td class="sf_admin_text sf_admin_list_td_list_value pit" title="<?php echo __('Total') ?>"></td>

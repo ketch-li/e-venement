@@ -6,7 +6,7 @@
       method="get"
       target="_blank"
       class="print noajax board-alpha"
-      onsubmit="javascript: LI.printTickets(this,<?php echo sfConfig::get('app_transaction_force_payment_before_printing',false) ? 'true' : 'false' ?>); return false;"
+      onsubmit="javascript: LI.printTickets(this,<?php echo ($fpay = sfConfig::get('app_transaction_force_payment_before_printing',false)) ? ($fpay == 'soft' ? "'soft'" : true) : 'false' ?>); return false;"
       autocomplete="off">
   <p>
     <input type="submit" name="s" value="<?php echo __('Print') ?>" class="ui-widget-content ui-state-default ui-corner-all ui-widget fg-button" />
