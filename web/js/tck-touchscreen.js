@@ -756,8 +756,18 @@ LI.calculateTotals = function()
     $elem
       .html(LI.tckFormatCurrency(tmp))
       .data('value', tmp);
-    if ( index == 'pit' && tmp !== oldval)
-      changeData = true;  
+    if ( index == 'pit' && tmp !== oldval) {
+        if (tmp < 0) 
+        {
+            $('.payment_missing').hide();
+            $('.payment_change').show();
+        } else {
+            $('.payment_change').hide();
+            $('.payment_missing').show();
+        }  
+        changeData = true; 
+    }
+       
   });
   if ( changeData )
     $('#li_transaction_field_payments_list .topay .pit').trigger('changeData');
