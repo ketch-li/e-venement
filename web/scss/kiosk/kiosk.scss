@@ -2,13 +2,17 @@ header {
   height: 62px;
 }
 
-footer.mdl-card__supporting-text {
+#info-panel {
   display: flex;
   display: none;
-  justify-content: center;
-  width: 100%;
-  height: 50px;
-  padding: 5px 10px;
+  align-items: center;
+  position: absolute;
+  left: 120px;
+  bottom: 30px;
+  width: 62%;
+  padding: 10px;
+  z-index: 999;
+  border-radius: 15px;
 
   p, a { color: #fff; }
 }
@@ -62,7 +66,7 @@ footer.mdl-card__supporting-text {
 
 /* MENU BAR */
 #search-label { top: -20px; }
-#search-bottom-line::after{
+#search-bottom-line::after {
 	background-color: white;
 }
 
@@ -77,10 +81,30 @@ ul{
   }
 }
 
-/* MANIFS */
-#manifs {
+/* MENU */
+.menu-item-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+  font-size: 2em;
+  font-weight: bold;
+  background-color: #4FC3F7;
+
+  .mdl-card__title {
+    color: #fff;
+  }
+}
+
+/* PRODUCTS */
+#products {
+  display: none;
   height: 95vh;
   overflow-y: auto;
+}
+
+#products, #product-menu {
+  margin: 0 auto;
 }
 
 /* MANIF CARD */
@@ -93,7 +117,7 @@ ul{
   height: 140px;
   background-color: #0BC6DC;
 }
-.manif-card > .mdl-card__title , #manif-details-card > .mdl-card__title {
+.manif-card > .mdl-card__title , #product-details-card > .mdl-card__title {
   background-repeat: no-repeat;
   background-size: 100%;
 }
@@ -111,9 +135,9 @@ ul{
 }
 
 /* MANIF DETAILS */
-#manif-details-card {
+#product-details-card {
   display: none;
-  height: 91%;
+  height: 80%;
   width: 60%;
   margin: 30px 40px 30px 150px;
   overflow-y: auto;
@@ -122,13 +146,25 @@ ul{
   .mdl-card__title { height: 150px; }
   #details-content {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 98%;
   }
+
+  #product-background {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 100%;
+    height: 100%;
+  }
+
+  #details-content, #prices, #declinations, #declination-name {
+    background: rgba(255, 255, 255, 0.85);
+  }
 }
 
-#manif-details {
+#product-details {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -147,10 +183,20 @@ ul{
     font-size: 1.2em;
     margin: 5px;
   } 
+
+  #declination-name {
+    color: #fff;
+  }
 }
 
-/* PRICES */
-#prices { max-height: 100%; }
+/* DECLINATIONS and PRICES */
+#prices, #declinations {
+  display: flex;
+  display: none;
+  max-height: 100%;
+  margin: 0;
+  padding-bottom: 30px; 
+}
 
 /* PRICE CARD */
 .price { margin: 5px; }
@@ -246,6 +292,10 @@ ul{
   }
 }
 
+/* TOASTS */
+#toast-container.toast-bottom-full-width {
+  width: 60%;
+}
 
 /* LOADER */
 #spinner {

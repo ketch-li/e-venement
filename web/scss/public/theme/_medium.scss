@@ -1,5 +1,11 @@
 /* Colors */
 
+$base-color: #eff2f4;
+$base-text-color: #575e71;
+
+$command-color: white;
+$command-text-color: $base-text-color;
+
 $color-dark-gray: #575e71;
 $color-light-gray: #eff2f4;
 $color-orange: #f46245;
@@ -11,6 +17,7 @@ $page-bg-color: $color-light-gray;
 $search-input-border: 1px solid #EEE;
 $content-bg-color: $color-light-gray;
 $event-bg-color: white;
+$event-text-color: $base-text-color;
 $toolbar-bg-color: $color-blue;
 $searchbar-bg-color: white;
 $page-footer-bg-color: $color-light-gray;
@@ -25,14 +32,12 @@ $date-btn-color: white;
 $order-btn-bg-color: $color-orange;
 $order-btn-color: white;
 
-$text-color: $color-dark-gray;
-$text-color2: $color-dark-gray;   /* used for texts on page background */
 $footer-text-color: $color-dark-gray;
 $event-name-color: $color-blue;
 
 $pagination-bg-color: white;
 $pagination-color: $color-orange;
-$pagination-link-color: $text-color;
+$pagination-link-color: $base-text-color;
 
 $section-even-bg-color: $color-green;
 $section-even-color: #FFF;

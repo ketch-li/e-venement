@@ -8,6 +8,7 @@ all:
     id: 194 # numéro de client
     prod: true # false pour les tests
     salt: xxxx # très important, mettre une longue chaîne aléatoire
+    #force_http: false
     url:
       payment: [https://www.jepaiemesserviceslocaux.dgfip.finances.gouv.fr/]
       uri: tpa/paiement.web

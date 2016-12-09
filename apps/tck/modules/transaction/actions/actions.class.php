@@ -268,7 +268,7 @@ class transactionActions extends autoTransactionActions
     $ws = $this->form['postalcode']->getWidgetSchema()->setNameFormat('transaction[%s]');
     $vs = $this->form['postalcode']->getValidatorSchema();
     $this->form['postalcode']->setDefault('postalcode', $this->transaction->postalcode);
-    $ws['postalcode'] = new sfWidgetFormInputText(array(), array('size' => 6));
+    $ws['postalcode'] = new sfWidgetFormInputText(array(), array('size' => 5));
     $vs['postalcode'] = new sfValidatorString(array(
       'required' => false,
       'max_length' => 32,
@@ -546,6 +546,17 @@ class transactionActions extends autoTransactionActions
     $this->getUser()->setFlash('success', __('Transaction created'));
     $this->redirect('transaction/edit?id='.$this->transaction->id);
   }
+
+  public function executeNewJson(sfWebRequest $request)
+  {  
+    $this->getResponse()->setContentType('application/json');
+
+    $trans = new Transaction();
+    $trans->save();
+
+    $this->jsonTransId = $trans->id;
+  }
+
   public function executeShow(sfWebRequest $request)
   { $this->redirect('transaction/edit?id='.$request->getParameter('id')); }
   public function executeBatchDelete(sfWebRequest $request)

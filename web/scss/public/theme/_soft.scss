@@ -1,11 +1,17 @@
 /* Colors */
 
+$base-color: #FFF;
+$base-text-color: #777;
+
+$command-color: white;
+$command-text-color: $base-text-color;
+
 $page-bg-color: #FFF;
 $content-bg-color: #FFF;
 $event-bg-color: #ECECEC;
 $toolbar-bg-color: #91D2CE; 
 $searchbar-bg-color: $event-bg-color; 
-$page-footer-bg-color: $event-bg-color;
+$page-footer-bg-color: $base-color;
 
 $search-input-bg-color: #FFF;
 $search-input-border: 1px solid #EEE;
@@ -18,14 +24,13 @@ $date-btn-color: #FFF;
 $order-btn-bg-color: #B2D135;
 $order-btn-color: #FFF;
 
-$text-color: #777; /* used for texts on "box" background */
-$text-color2: #777;   /* used for texts on page background */
-$footer-text-color: $text-color;
+$footer-text-color: $base-text-color;
 $event-name-color: #F46245;
+$event-text-color: $base-text-color;
 
 $pagination-bg-color: $event-bg-color;
 $pagination-color: $event-name-color;
-$pagination-link-color: $text-color;
+$pagination-link-color: $base-text-color;
 
 $section-even-bg-color: #B2D04B;
 $section-even-color: #FFF;

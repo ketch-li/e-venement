@@ -55,6 +55,9 @@ generator:
         email_newsletter: { label: Newsletter ? }
         email_npai:       { label: Bad email }
         contact_email_npai: { label: Bad email }
+        org_cp: { label Postal code }
+        org_city: { label City }
+        org_country: { label Country }
         organism_category_id: { credentials: [pr-organism] }
         organism_professional_id: { label: Close contact }
         groups_picto: { credentials: [pr-group], label: Remarkable }
@@ -73,6 +76,7 @@ generator:
         meta_events_list: { label: Meta events }
         manifestations_list: { label: Manifestations }
         member_cards_detail: { label: Promo code }
+        az: { label: Alphabetic set }
       list:
         display: [=name, _list_firstname, firstname, address, postalcode, city, _groups_picto, _list_emails, _list_phones, <?php if ( sfConfig::get('app_options_design',false) ): ?>_list_nb, _list_transactions, <?php endif ?>_organisms_list <?php if ( sfConfig::get('app_options_design',false) ): ?>, description, _list_see_orgs, _list_contact, _list_professional_id, _list_organism, _list_professional, _list_organism_postalcode, _list_organism_city, _list_professional_emails, _list_organism_phones_list, _list_professional_groups_picto, _list_professional_description<?php endif ?>]
         max_per_page: <?php if ( sfConfig::get('app_options_design',false) ): ?>50<?php else: ?>20<?php endif; echo PHP_EOL; ?>
@@ -90,11 +94,11 @@ generator:
         sort: ['c.name, c.firstname', '']
       filter:
         display:
-          Personal: [title, name, firstname, shortname, district, postalcode, city, region_id, country, email]
+          Personal: [title, name, firstname, shortname, district, postalcode, city, region_id, country, email, az]
           <?php if ( sfConfig::get('app_contact_social_informations', false) ): echo PHP_EOL; ?>
           Social informations: [familial_quotient_id, familial_situation_id, type_of_resources_id]
           <?php endif ?><?php echo PHP_EOL ?>
-          Relations: [groups_intersection, not_groups_list, groups_list, organism_id, organism_category_id, professional_type_id, has_professional_type_id, organism_professional_id]
+          Relations: [groups_intersection, not_groups_list, groups_list, organism_id, org_cp, org_city, org_country, organism_category_id, professional_type_id, has_professional_type_id, organism_professional_id]
           <?php if ( sfConfig::get('app_cards_enable',false) ): ?><?php echo PHP_EOL ?>
           Member cards: [member_cards, member_cards_detail, member_cards_valid_at, member_cards_not_valid_at, member_cards_only_last]
           <?php endif ?><?php echo PHP_EOL ?>

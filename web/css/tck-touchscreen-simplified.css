@@ -66,10 +66,15 @@
 #li_fieldset_simplified .bunch .categories { font-style: italic; }
 #li_fieldset_simplified .bunch .search input { width: 96%; }
 
-#sf_admin_content .li_fieldset #li_transaction_field_new_transaction.simplified, #sf_admin_content .li_fieldset #li_transaction_field_contact_id.simplified { position: absolute; z-index: 11; }
+#sf_admin_content .li_fieldset #li_transaction_field_new_transaction.simplified, #sf_admin_content .li_fieldset #li_transaction_field_contact_id.simplified, #sf_admin_content .li_fieldset  #li_transaction_field_postalcode.simplified { position: absolute; z-index: 11; }
 #sf_admin_content .li_fieldset #li_transaction_field_new_transaction.simplified { right: 11px; width: 90px; }
 #sf_admin_content .li_fieldset #li_transaction_field_new_transaction.simplified a { width: 10px; height: 30px; }
-#sf_admin_content .li_fieldset #li_transaction_field_contact_id.simplified { left: 493px; top: 1px; width: 365px; height: 44px; border-bottom: 1px solid rgb(166, 201, 226); border-radius: 5px; font-size: 150%; padding-top: 12px; }
+#sf_admin_content .li_fieldset #li_transaction_field_contact_id.simplified { left: 493px; top: 1px; width: 250px; height: 44px; border-bottom: 1px solid rgb(166, 201, 226); border-radius: 5px; font-size: 150%; padding-top: 12px; }
+#sf_admin_content .li_fieldset #li_transaction_field_postalcode.simplified { left:1192px; top: 1px; width: 100px; height: 40px; border-bottom: 1px solid rgb(166, 201, 226); border-radius: 5px; font-size: 150%; padding-top: 12px; }
+#sf_admin_content .li_fieldset #li_transaction_field_postalcode.simplified label, #sf_admin_content .li_fieldset #li_transaction_field_contact_id.simplified label { display: none;}
+#sf_admin_content .li_fieldset #li_transaction_field_contact_id.simplified #autocomplete_transaction_contact_id { width: 200px;}
+#sf_admin_content .li_fieldset #li_transaction_field_contact_id.loaded { width: 365px; }
+#sf_admin_content .li_fieldset #li_transaction_field_contact_id.loaded #autocomplete_transaction_contact_id { width: 300px; }
 #li_fieldset_simplified .header .contact { display: none; }
 
 #li_transaction_field_simplified .after-limit { display: none; }

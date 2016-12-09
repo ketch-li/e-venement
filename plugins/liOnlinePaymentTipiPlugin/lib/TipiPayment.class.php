@@ -48,17 +48,32 @@
         'given_token'     => $request->getParameter('token'),
         'ip_address'      => $request->getRemoteAddress(),
         'transaction_id'  => $bank->transaction_id,
+        'urls'            => sfConfig::get('app_payment_url',array()),
       );
       
       // origin of the request
-      $url = sfConfig::get('app_payment_url',array());
-      $buf = preg_replace(
-        array('!^http\w{0,1}://!', '!/$!'),
-        array('', ''),
-        $url['payment']
+      $domains = array();
+      $domains['origin'] = preg_replace(
+        array('!^http\w{0,1}://!', '!^www.!', '!/$!'),
+        array('', '', ''),
+        $all['urls']['payment']
       );
-      $addresses = gethostbynamel($buf[0]);
-      if ( !in_array($all['ip_address'], $addresses) )
+      $domains['response'] = preg_replace(
+        array('!^http\w{0,1}://!', '!^www.!', '!/$!'),
+        array('', '', ''),
+        gethostbyaddr($all['ip_address'])
+      );
+      // reducing the deepness of the domains
+      foreach ( $domains['origin'] as $key => $orig )
+      if ( substr_count($orig, '.') > 1 )
+        $domains['origin'][$key] = preg_replace('!^[\w-_]+.!', '', $orig);
+      if ( substr_count($domains['response'], '.') > 1 )
+        $domains['response'] = preg_replace('!^[\w-_]+.!', '', $domains['response']);
+      
+      foreach ( $domains['origin'] as $orig )
+      if ( $ok = ($orig == $domains['response']) )
+        break;
+      if ( !$ok )
         throw new liOnlineSaleException('TIPI ERROR: The request has a bad origin.');
       
       // tokens
@@ -93,7 +108,7 @@
       $this->email    = $transaction->Contact->email;
       $url = sfConfig::get('app_payment_url', array('response' => 'cart/response'));
       $this->subject  = 'Transaction n'.$transaction->id;
-      $this->mode     = sfConfig::get('app_payment_prod', T);
+      $this->mode     = sfConfig::get('app_payment_prod', 'T');
       $this->autosubmit = sfConfig::get('app_payment_autosubmit',true);
       
       // the transaction and the amount
@@ -102,10 +117,11 @@
         + $this->transaction->getMemberCardPrice(true)
         - $this->transaction->getTicketsLinkedToMemberCardPrice(true);
       
-      $this->url      = url_for($url['response']
+      $url = url_for($url['response']
         .'?transaction_id='.$transaction->id
         .'&token='.self::getToken($transaction->id, $this->value)
       ,true);
+      $this->url      = sfConfig::get('app_payment_force_http', false) ? preg_replace('!https://!', 'http://', $url) : $url;
     }
     
     public function render(array $attributes = array())

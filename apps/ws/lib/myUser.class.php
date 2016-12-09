@@ -7,8 +7,4 @@ class myUser extends liGuardSecurityUser
     $this->getAttributeHolder()->remove($name);
     return $this;
   }
-  public function getId()
-  {
-    return false;
-  }
 }

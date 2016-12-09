@@ -253,11 +253,8 @@ class emailActions extends autoEmailActions
           foreach ( $pro->Groups as $group )
             $groups_pro[$group->id] = $group;
           foreach ( $criterias['groups_list'] as $grpid )
-          {
-            $group_pro = isset($groups_pro[$grpid]);
-            if ( $group_pro )
+          if ( $group_pro = isset($groups_pro[$grpid]) )
               break;
-          }
         }
         
         if ( $contact->Professionals->count() > 0

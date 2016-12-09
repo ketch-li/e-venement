@@ -37,6 +37,7 @@ class ContactFormFilter extends BaseContactFormFilter
   protected $showProfessionalData = true;
   protected $tickets_having_query = NULL; // Doctrine_Query
   protected $grpintersection = false;
+  protected $alphabet = array();
 
   /**
    * @see AddressableFormFilter
@@ -55,6 +56,20 @@ class ContactFormFilter extends BaseContactFormFilter
     ));
     $this->validatorSchema['district'] = new sfValidatorDoctrineChoice(array(
       'model' => 'GeoFrDistrictBase',
+      'required' => false,
+    ));
+
+    // alphabetical search / filtering
+    $this->alphabet = range('A', 'Z');
+    $this->alphabet[''] = '';
+    ksort($this->alphabet);
+    $this->widgetSchema   ['az'] = new sfWidgetFormChoice(array(
+      'choices' => $this->alphabet,
+      'multiple' => true,
+    ));
+    $this->validatorSchema['az'] = new sfValidatorChoice(array(
+      'choices' => array_keys($this->alphabet),
+      'multiple' => true,
       'required' => false,
     ));
     
@@ -102,6 +117,21 @@ class ContactFormFilter extends BaseContactFormFilter
       'url'   => url_for('organism/ajax'),
     ));
     $this->validatorSchema['organism_id'] = new sfValidatorInteger(array('required' => false));
+    
+    $this->widgetSchema['org_city'] = new sfWidgetFormInput();
+    $this->validatorSchema['org_city'] = new sfValidatorString(array(
+        'required' => false, 
+    ));
+    
+    $this->widgetSchema['org_cp'] = new sfWidgetFormInput();
+    $this->validatorSchema['org_cp'] = new sfValidatorString(array(
+        'required' => false
+    ));
+    
+    $this->widgetSchema['org_country'] = new sfWidgetFormInput();
+    $this->validatorSchema['org_country'] = new sfValidatorString(array(
+        'required' => false
+    ));
     
     // organism category
     $this->widgetSchema   ['organism_category_id'] = new sfWidgetFormDoctrineChoice(array(
@@ -448,6 +478,58 @@ EOF;
     $fields['tickets_amount_max']   = 'TicketsAmountMax';
     
     return $fields;
+  }
+  
+  
+    public function addOrgCpColumnQuery(Doctrine_Query $q, $field, $value) 
+    {
+        if ($value) 
+        {
+            $q->addWhere('o.postalcode LIKE ?', strtoupper($value).'%');
+        }            
+
+       return $q;      
+    }
+    public function addOrgCityColumnQuery(Doctrine_Query $q, $field, $value) 
+    {
+       if ($value) 
+       {
+           $q->addWhere("o.city LIKE ?", strtoupper($value).'%');
+       }     
+
+       return $q;      
+    }
+    public function addOrgCountryColumnQuery(Doctrine_Query $q, $field, $value) 
+    {
+       if ($value) 
+       {
+           $q->addWhere("o.country LIKE ?", strtoupper($value).'%');
+       }     
+       return $q;      
+    }
+      
+  
+  public function addAzColumnQuery(Doctrine_Query $q, $field, $value)
+  {
+    if ( !$value )
+      return $q;
+    if ( !is_array($value) )
+      $value = array(intval($value));
+    if ( count($value) == 1 && !$value[0] )
+      return $q;
+    
+    $transliterate = sfConfig::get('software_internals_transliterate');
+    
+    $a = $q->getRootAlias();
+    $letters = array();
+    foreach ( $value as $v )
+      $letters[] = strtolower($this->alphabet[$v]);
+    return $q->andWhereIn(sprintf(
+      "LOWER(TRANSLATE(SUBSTRING(%s.name,1,1),'%s','%s'))",
+      $q->getRootAlias(),
+      $transliterate['from'],
+      $transliterate['to']
+    ), $letters);
   }
   
   public function addCultureColumnQuery(Doctrine_Query $q, $field, $value)
@@ -826,7 +908,7 @@ EOF;
     
     if ( is_array($value) && count($value) )
     {
-      if ( !$this->values['groups_intersection'] )
+      if (!( isset($this->values['groups_intersection']) && $this->values['groups_intersection'] ))
       {
         if ( !$q->contains("LEFT JOIN $a.Groups gc") )
           $q->leftJoin("$a.Groups gc");
@@ -1021,7 +1103,7 @@ EOF;
   {
     $c = $q->getRootAlias();
     if ( $value['text'] )
-      $q->addWhere("$c.postalcode LIKE ? OR (o.id IS NOT NULL AND o.postalcode LIKE ?)",array($value['text'].'%',$value['text'].'%'));
+      $q->addWhere("$c.postalcode LIKE ?", $value['text'].'%');
     
     return $q;
   }

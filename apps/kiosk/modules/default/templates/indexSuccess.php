@@ -3,18 +3,24 @@
 <?php use_stylesheet('material.min.css') ?>
 <?php use_stylesheet('kiosk/waves.css') ?>
 <?php use_stylesheet('kiosk/kiosk.css') ?>
+<?php use_stylesheet('kiosk/toastr.min.css') ?>
 <?php use_javascript('jquery') ?>
 <?php use_javascript('/sfAdminThemejRollerPlugin/js/jquery-ui.custom.min.js') ?>
+<?php use_javascript('/js/kiosk/toastr.min.js') ?>
 <?php use_javascript('/js/kiosk/waves.js') ?>
-<?php use_javascript('/js/mustache/mustache.min.js') ?>
+<?php use_javascript('/js/handlebars/handlebars-v4.0.5.js') ?>
 <?php use_javascript('/js/material/material.min.js') ?>
 <?php use_javascript('/js/kiosk/kiosk.js') ?>
+
+<?php use_stylesheet('/private/kiosk.css') ?>
+<?php use_javascript('/private/kiosk.js') ?>
+
 <div class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
-	<header class="app-header mdl-layout__header mdl-color--light-blue-300">
+	<header class="app-header mdl-layout__header mdl-color--blue-grey-800">
 		<div class="mdl-layout__header-row">
 			<span class="mdl-layout-title"><img src="images/logo-evenement-small.png" alt="logo"/></span>
 			<div class="mdl-layout-spacer"></div>
-			<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+			<!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
 				<label class="mdl-button mdl-js-button mdl-button--icon" for="search" id="search-label">
 					<i class="material-icons">search</i>
 				</label>
@@ -30,7 +36,7 @@
 				<li class="mdl-menu__item">About</li>
 				<li class="mdl-menu__item">Contact</li>
 				<li class="mdl-menu__item">Legal information</li>
-			</ul>
+			</ul> -->
 		</div>
 	</header>
 	<!-- <div class="app-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
@@ -74,11 +80,36 @@
 		<button id="info-fab" class="mdl-button mdl-js-button mdl-button--fab waves-effect">
   			<i class="material-icons light mdl-color-text--light-blue-300">info_outline</i>
 		</button>
-		<!-- Manif details panel -->
-		<div id="manif-details-card" class="mdl-card mdl-shadow--2dp"></div>
-		<!-- manis list -->
-		<div id="manifs">
-			<ul id="manifs-list" class="flex-list"></ul>
+		<div id="info-panel" class="mdl-card__supporting-text mdl-shadow--6dp mdl-color--light-blue-300">
+			<p>
+				<a href="http://www.e-venement.org/">e-venement</a>
+				<span>la billetterie informatique, libre et open source - © 2006-2016</span>
+				<a href="http://www.libre-informatique.fr/">Libre Informatique</a>
+				<br>
+				<span>Publié sous licence</span>
+				<a href="http://www.gnu.org/licenses/gpl.html">GNU/GPL</a>
+				<span>- Renforcé par</span>
+				<a href="http://www.symfony-project.org/">Symfony</a>
+				,
+				<a href="http://www.php.net/">PHP</a>
+				,
+				<a href="http://www.postgresql.org/">PostgreSQL</a>
+			</p>
+		</div>
+		<!-- Snackbar -->
+		<div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
+  			<div class="mdl-snackbar__text"></div>
+  			<button class="mdl-snackbar__action" type="button"></button>
+		</div>
+		<!-- menu panel -->
+		<div id="product-menu">
+			<ul id="product-menu-items" class="flex-list"></ul>
+		</div>
+		<!-- product details panel -->
+		<div id="product-details-card" class="mdl-card mdl-shadow--2dp"></div>
+		<!-- products list -->
+		<div id="products">
+			<ul id="products-list" class="flex-list"></ul>
 		</div>
 		<!-- cart panel -->
 		<div id="cart" class="mdl-color--blue-grey-600">
@@ -93,97 +124,129 @@
 			<div id="cart-confirm" class="">
 				<button id="confirm-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-color--teal-600 waves-effect">
 				<span id="confirm-btn-wrapper">
-					<i class="material-icons light">check</i><?php echo __('Confirm order') ?>
+					<i class="material-icons light">check</i><?php echo __('Valider') ?>
 					</button>
 				</span>
 			</div>
 		</div>	
 	</main>
-	<footer class="mdl-card__supporting-text mdl-color--teal-600">
-		<p>
-			<a href="http://www.e-venement.org/">e-venement</a>
-			<span>la billetterie informatique, libre et open source - © 2006-2016</span>
-			<a href="http://www.libre-informatique.fr/">Libre Informatique</a>
-			<br>
-			<span>Publié sous licence</span>
-			<a href="http://www.gnu.org/licenses/gpl.html">GNU/GPL</a>
-			<span>- Renforcé par</span>
-			<a href="http://www.symfony-project.org/">Symfony</a>
-			,
-			<a href="http://www.php.net/">PHP</a>
-			,
-			<a href="http://www.postgresql.org/">PostgreSQL</a>
-		</p>
-	</footer>
 </div>
 
-<!-- MUSTACHE TEMPLATES -->
+<!-- HANDLEBARS TEMPLATES -->
+
+	<!-- menu item -->
+<script id="menu-item-template" type="text/x-handlebars-template" data-template-type="menuItem">
+	<li class="menu-item" data-type="{{ name }}">
+		<div id="" class="menu-item-card mdl-card mdl-shadow--2dp waves-effect">
+  			<div class="mdl-card__title mdl-card--expand" style="background-color: {{ color }};">
+    			{{ name }}
+    		</div>
+  		</div>
+  	</li>
+</script>
+
 	<!-- manif card -->
-<script id="manif-card-template" type="x-tmpl-mustache">
-<li class="manif"> 
-	<div class="manif-card mdl-card mdl-shadow--2dp waves-effect" id="{{ manif.id }}">
-		<div class="mdl-card__title manif-title" style="{{ manif.background }};">
-			<p class="mdl-card__title-text manif-name">{{ manif.name }}</p>
-			<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ manif.start }}</p>
-			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ manif.location }}</p>
+<script id="manif-card-template" type="text/x-handlebars-template"  data-template-type="productCard" data-product-type="manifestations">
+<li class="product" data-type="{{ type }}" data-id="{{ id }}"> 
+	<div class="manif-card mdl-card mdl-shadow--2dp waves-effect" id="{{ id }}">
+		<div class="mdl-card__title manif-title" style="{{ background }};">
+			<p class="mdl-card__title-text manif-name">{{ name }}</p>
+			<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ start }}</p>
+			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ location }}</p>
 		</div>
 		<div class="mdl-card__supporting-text manif-description">
-			{{ manif.description }}
+			{{{ description }}}
+		</div>
+	</div>
+</li>
+</script>
+
+<!-- store card -->
+<script id="store-card-template" type="text/x-handlebars-template"  data-template-type="productCard" data-product-type="store">
+<li class="product" data-type="{{ type }}" data-id="{{ id }}"> 
+	<div class="manif-card mdl-card mdl-shadow--2dp waves-effect" id="{{ id }}">
+		<div class="mdl-card__title manif-title" style="{{ background }};">
+			<p class="mdl-card__title-text manif-name">{{ name }}</p>
+			<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ start }}</p>
+			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ location }}</p>
+		</div>
+		<div class="mdl-card__supporting-text manif-description">
+			{{{ description }}}
 		</div>
 	</div>
 </li>
 </script>
 
 	<!-- manif details -->
-<script id="manif-details-template" type="x-tmpl-mustache">
-	<div class="mdl-card__title" style="{{ manif.background }};"></div>
-	<div id="details-content" class="mdl-card__supporting-text">
-		<div id="manif-details">
-    		<div id="details-name">{{ manif.name }}</div>
-    		<div id="details-description">{{ manif.description }}</div>
-    		<div id="details-time">
-	    		<span>
-	    			<i class="material-icons" role="presentation">access_time</i>
-	    			<span class="mdl-color-text--pink">{{ manif.start }} - {{ manif.end }}</span>
-	    		</span>
-	    		<span>
-	    			<i class="material-icons" role="presentation">location_on</i>
-	    			<span>{{ manif.location }}</span>
-	    		</span>
+<script id="product-details-template" type="text/x-handlebars-template" data-template-type="productDetails">
+	<div id="product-background" style="{{ background }};">
+		<div class="mdl-card__title"></div>
+		<div id="details-content" class="mdl-card__supporting-text">
+			<div id="product-details">
+	    		<div id="details-name">{{ name }}</div>
+	    		<div id="details-description">{{{ description }}}</div>
+	    		<div id="details-time">
+		    		<span>
+		    			<i class="material-icons" role="presentation">access_time</i>
+		    			<span class="mdl-color-text--pink">{{ start }} - {{ end }}</span>
+		    		</span>
+		    		<span>
+		    			<i class="material-icons" role="presentation">location_on</i>
+		    			<span>{{ location }}</span>
+		    		</span>
+		    	</div>
 	    	</div>
-    	</div>
-    	
+		</div>
+		<ul id="declinations" class="flex-list"></ul>
+		<p id="declination-name"></p>
+		<ul id="prices" class="flex-list">
+			<li>
+				<button id="declination-back" class="mdl-button mdl-js-button">
+					<i class="material-icons">keyboard_backspace</i>
+				</button>
+			</li>
+		</ul> 
 	</div>
-	<ul id="prices" class="flex-list"></ul>
+</script>
+
+	<!-- declination card -->
+<script id="declination-card-template" type="text/x-handlebars-template" data-template-type="declinationCard">
+	<li class="declination">
+		<div id="{{ id }}" class="declination-card mdl-card mdl-shadow--2dp waves-effect">
+			<div class="mdl-card__title mdl-card--expand" style="background-color: {{ color }};">
+				{{ name }}
+			</div>
+		</div>
+	</li>
 </script>
 
 	<!-- price card -->
-<script id="price-card-template" type="x-tmpl-mustache">
+<script id="price-card-template" type="text/x-handlebars-template" data-template-type="priceCard">
 	<li class="price">
-		<div id="{{ price.id }}" class="price-card-square mdl-card mdl-shadow--2dp waves-effect">
-  			<div class="mdl-card__title mdl-card--expand" style="background-color: {{ price.color }};">
-    			{{ price.name }}
-    		</div>
-  		</div>
-  	</li>
+		<div id="{{ id }}" class="price-card-square mdl-card mdl-shadow--2dp waves-effect">
+			<div class="mdl-card__title mdl-card--expand" style="background-color: {{ color }};">
+				{{ name }}
+			</div>
+		</div>
+	</li>
 </script>
 
 	<!-- cart line -->
-<script id="cart-line-template" type="x-tmpl-mustache">
-	<li class="cart-line mdl-color--blue-grey-800" id="{{ line.id }}" style="border-right: 5px solid {{ line.price.color }};">
+<script id="cart-line-template" type="text/x-handlebars-template" data-template-type="cartLine">
+	<li class="cart-line mdl-color--blue-grey-800" id="{{ id }}" style="border-right: 5px solid {{ color }};">
 		<button class="remove-item mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-  			<i class="material-icons light">remove_shopping_cart</i>
+  			<i class="material-icons light">remove</i>
 		</button>
 		<p class="line-main">
-			<span class="line-qty">{{ line.qty }}</span>
+			<span class="line-qty">{{ qty }}</span>
 			<span class="line-multiplier"> x </span>
-			<span class="line-name">{{ line.name }}</span>
+			<span class="line-name">{{ name }}</span>
 		<p>
 		<p class="line-second">
-			<span class="line-price">{{ line.price.name }} ({{line.price.value}})</span>
+			<span class="line-price">{{ name }} ({{value}})</span>
 		</p>
 		<p class="line-third">
-			<span class="line-total">{{ line.total }}</span>
+			<span class="line-total">{{ total }}</span>
 		</p>
   	</li>
 </script>

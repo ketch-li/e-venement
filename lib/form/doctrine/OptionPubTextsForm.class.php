@@ -20,8 +20,6 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
 
     $this->model = 'OptionPubTexts';
     
-    self::enableCSRFProtection();
-    
     foreach ( array('type','name','value','sf_guard_user_id','created_at','updated_at',) as $id )
     {
       unset($this->widgetSchema   [$id]);
@@ -48,6 +46,15 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
     }
     
     $this->convertConfiguration($this->widgets);
+    
+    foreach ( $this->widgetSchema->getFields() as $name => $widget )
+    if ( strpos($name, '_file((') !== false )
+    {
+      // a file for terms & conditions
+      $widget = $this->widgetSchema[$name];
+      $this->widgetSchema[$name] = new sfWidgetFormInputFile;
+      $this->widgetSchema[$name]->setLabel($widget->getLabel());
+    }
   }
   
   protected function convertConfiguration($widgets)
@@ -57,6 +64,7 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
     {
       $validator_class = 'sfValidator'.strtoupper(substr($value['type'],0,1)).strtolower(substr($value['type'],1));
       
+      if ( !isset($this->widgetSchema[$name]) )
       $this->widgetSchema[$name]    = new sfWidgetFormTextArea(array(
           'label'                 => $value['label'],
           'default'               => $value['default'],
@@ -81,6 +89,7 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
     sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
     return array(
       'payment_onthespot_info'     => __("Content of the popup which appears after a 'on site' payment"),
+      'terms_conditions_file'      => __("Adding a file here will overwrite your Terms & Conditions text..."),
       // TODO: complete, if necessary, with other params
     );
   }
@@ -116,6 +125,7 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
         'contact_bottom'          => '',  // empty by default
         'seated_plan_loading'     => '',  // empty by default
         'terms_conditions'        => '',  // empty by default
+        'terms_conditions_file'   => '',  // empty by default
         'email_footer'            => '',  // empty by default
         'email_confirmation'      => '
 Voici le récapitulatif de votre commande en date du %%DATE%% :

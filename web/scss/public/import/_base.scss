@@ -9,18 +9,20 @@ html, body {
   margin: 0;
   padding: 0;    
   background-color: $page-bg-color; 
-  color: $text-color;
+  color: $base-text-color;
   font-size: $base-font-size;
   font-family: $base-font-family;
   line-height: $base-line-height;
   font-weight: 300;
 }
 
-body.mod-transaction,
-body.mod-cart,
+.notice { color:black; }
+
 body.mod-login,
+body.mod-cart,
+body.mod-transaction,
 body.mod-manifestation.action-show,
-body.mod-card { color: $text-color2; }
+body.mod-card { color: $base-text-color; }
 
 .clear { clear: both; }
 
@@ -321,6 +323,7 @@ body.mod-manifestation.action-show {
   td {
     display: none;
     background-color: $event-bg-color;
+    color: $event-text-color;
     &.sf_admin_order_action {
       display: block;
       width: $actions-width;
@@ -604,7 +607,8 @@ body > #client-infos {
   border-collapse: collapse;
   td, th {
     padding: 5px;
-    background-color: white;
+    background-color: $command-color;
+    color: $command-text-color;
     border-bottom: 5px solid $content-bg-color;
   }
   thead td {
