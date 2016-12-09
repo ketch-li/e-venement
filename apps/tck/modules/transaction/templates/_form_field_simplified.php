@@ -63,7 +63,8 @@
       </li>
       <li class="topay end">
         <div class="left">
-          <span class="category"><?php echo __('Still missing') ?></span>
+          <span class="payment_missing category"><?php echo __('Still missing') ?></span>
+          <span class="payment_change category" style="display:none;"><?php echo __('Give change') ?></span>
         </div>
         <div class="right">
           <span class="value"><?php echo format_currency(0,$sf_context->getConfiguration()->getCurrency()) ?></span>

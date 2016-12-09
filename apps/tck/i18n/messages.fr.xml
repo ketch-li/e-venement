@@ -1876,6 +1876,10 @@
         <source>Still missing</source>
         <target>Reste à payer</target>
       </trans-unit>
+      <trans-unit id="179">
+        <source>Give change</source>
+        <target>À rendre</target>
+      </trans-unit>
       <trans-unit id="176">
         <source>Total excl. tax:</source>
         <target>Total HT:</target>
