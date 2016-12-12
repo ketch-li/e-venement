@@ -506,7 +506,7 @@
       </trans-unit>
       <trans-unit>
         <source>You must record the payment(s) before printing the ticket(s)</source>
-        <target>Vous avez demandé l'impression de billet sans équilibrer l'opération avec un paiement. S'il s'agit d'un paiement différé, confirmez en cliquant sur Oui.</target>
+        <target>Vous avez demandé l'impression de billet sans équilibrer l'opération. S'il s'agit d'un paiement différé, confirmez en cliquant sur OK.</target>
       </trans-unit>
       <trans-unit>
         <source>Display the seated plan</source>
