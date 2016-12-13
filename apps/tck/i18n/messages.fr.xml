@@ -1181,6 +1181,10 @@
         <target>Imp./Int. partielle</target>
       </trans-unit>
       <trans-unit>
+        <source>You must enter a postal code before printing the ticket(s).</source>
+        <target>Vous devez saisir un code postal avant d'imprimer le(s) billet(s).</target>
+      </trans-unit>
+      <trans-unit>
         <source>Unassociated</source>
         <target>Non associés</target>
       </trans-unit>

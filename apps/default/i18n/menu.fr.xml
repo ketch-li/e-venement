@@ -540,6 +540,10 @@
         <source>Gauge timeout</source>
         <target>Sorties automatisées</target>
       </trans-unit>
+      <trans-unit>
+        <source>Selling options</source>
+        <target>Options de billetterie</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

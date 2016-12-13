@@ -361,6 +361,10 @@
         <source>Show</source>
         <target>Voir</target>
       </trans-unit>
+      <trans-unit>
+        <source>The option has been successfully modified.</source>
+        <target>l'option a été correctement modifiée.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
