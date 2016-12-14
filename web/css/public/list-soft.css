@@ -588,11 +588,11 @@ body > #client-infos {
     #social-networks li a.count {
       margin-right: 0; }
     #social-networks li[data-social=facebook] a {
-      background-image: url("/images/vel/themes/facebook.png"); }
+      background-image: url("/images/vel/social/facebook.png"); }
     #social-networks li[data-social=twitter] a {
-      background-image: url("/images/vel/themes/twitter.png"); }
+      background-image: url("/images/vel/social/twitter.png"); }
     #social-networks li[data-social=googleplus] a {
-      background-image: url("/images/vel/themes/google_plus.png"); }
+      background-image: url("/images/vel/social/google_plus.png"); }
     #social-networks li span::before, #social-networks li #social-networks li span::after {
       content: "";
       display: block;
