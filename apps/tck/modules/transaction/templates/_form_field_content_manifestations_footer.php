@@ -2,6 +2,9 @@
 <div class="ui-corner-all ui-widget-content">
 <?php if ( $sf_user->hasCredential('tck-print-ticket') ): ?>
 
+<?php if ( $sf_user->hasCredential('tck-print-ticket-cp') ): ?>
+<?php echo use_javascript('tck-touchscreen-options?'.date('Ymd')); ?>
+<?php endif ?>
 <form action="<?php echo url_for('ticket/print?id='.$transaction->id) ?>"
       method="get"
       target="_blank"
@@ -9,7 +12,7 @@
       onsubmit="javascript: LI.printTickets(this,<?php echo ($fpay = sfConfig::get('app_transaction_force_payment_before_printing',false)) ? ($fpay == 'soft' ? "'soft'" : true) : 'false' ?>); return false;"
       autocomplete="off">
   <p>
-    <input type="submit" name="s" value="<?php echo __('Print') ?>" class="ui-widget-content ui-state-default ui-corner-all ui-widget fg-button" />
+    <input id="print-tickets" type="submit" name="s" value="<?php echo __('Print') ?>" class="ui-widget-content ui-state-default ui-corner-all ui-widget fg-button" />
     <?php if ( !sfConfig::get('app_tickets_simplified_printing', false) && !sfConfig::get('app_tickets_authorize_multi_prints', false) ): ?>
       <?php if ( sfConfig::get('app_tickets_authorize_grouped_tickets', false) ): ?>
         <input type="checkbox" name="grouped_tickets" value="true" title="<?php echo __('Grouped tickets') ?>" />
