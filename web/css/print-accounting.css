@@ -108,3 +108,8 @@ body.bdc #echeance { display: none; }
 #lines .inline-modifiable.qty input { width: 4em; }
 .get-a-pdf { margin-top: 45px; }
 
+/** Mise en forme des body */
+.body1 { padding-bottom: 20px; padding-left: 25px; }
+.body2 { padding-bottom: 20px; padding-left: 25px; }
+.body3 { padding-bottom: 20px; padding-left: 25px; }
+
