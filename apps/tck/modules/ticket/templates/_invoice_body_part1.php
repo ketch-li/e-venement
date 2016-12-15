@@ -1,4 +1,4 @@
-<div class="body1">
+<div class="body1"><span class="inline-modifiable">
 <?php
   $translate = array(
     '%%transaction_id%%' => $transaction->id,
@@ -7,5 +7,6 @@
   );
       echo str_replace(array_keys($translate),array_values($translate),nl2br(sfConfig::get('app_seller_invoice_bodypart1')));
 ?>
+</span>
 </div>
 
