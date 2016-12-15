@@ -1,1 +1,3 @@
 .survey-next { display: none; }
+.pub-survey > table > tbody > tr > th  { display:none; }
+.pub-survey th :not(label) { display:none; }
