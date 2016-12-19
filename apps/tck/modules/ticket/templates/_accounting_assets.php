@@ -21,11 +21,11 @@ $(document).ready(function(){
   });
   $('form.inline-modifications button').click(function() {
     $('.inline-modifiable').each(function() {
-      if ( $(this).find('input').length == 0 )
+      if ( $(this).find('textarea').length == 0 )
         $(this).html($('<textarea name="inline-modifiable"></textarea>').val($(this).html()));
       else
       {
-        $(this).html($(this).find('input').val());
+        $(this).html($(this).find('textarea').val());
         if ( $('[name="inline-modifiable"]').length == 0 )
         {
           $.post($('form.inline-modifications').attr('action'), {
