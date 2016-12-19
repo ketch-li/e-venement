@@ -1,10 +1,10 @@
 sfGuardPermission:
-  sfGuardPermission_158:
+  sfGuardPermission_159:
     name: tck-print-ticket-cp
     description: 'Force a postal code input before printing tickets'
     created_at: '2016-11-13 17:15:00'
     updated_at: '2016-11-13 17:15:00'
-  sfGuardPermission_157:
+  sfGuardPermission_158:
     name: tck-selling-option
     description: 'Access to the configuration form of the selling page'
     created_at: '2016-11-13 17:15:00'
@@ -736,6 +736,16 @@ sfGuardPermission:
     updated_at: '2014-05-28 09:20:41'
 
 sfGuardGroupPermission:
+  sfGuardGroupPermission_14_159:
+    Group: sfGuardGroup_14
+    Permission: sfGuardPermission_159
+    created_at: '2016-12-16 14:30:00'
+    updated_at: '2016-12-16 14:30:00'
+  sfGuardGroupPermission_15_158:
+    Group: sfGuardGroup_15
+    Permission: sfGuardPermission_158
+    created_at: '2016-12-16 14:30:00'
+    updated_at: '2016-12-16 14:30:00'      
   sfGuardGroupPermission_64_156:
     Group: sfGuardGroup_64
     Permission: sfGuardPermission_156
