@@ -82,6 +82,7 @@ all:
     city: PARIS
     country: France
     other:
+    date: P #P for format day-name day month-name year t for format %d%/%m%/%y%
     invoice_prefix: FB
     salt: sqnao@é 98Fdnquèç&
     #invoice_bodypart1: #content between invoice's number and lines
