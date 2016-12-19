@@ -47,6 +47,7 @@ $(document).ready(function(){
     <p class="barcode"><?php echo image_tag('/liBarcodePlugin/php-barcode/barcode.php?scale=1&code='.$contact->getIdBarcoded()); ?></p>
   </div>
   <div class="content receipt">
+    <p class="cardid"><span class="title">N°</span><?php echo(' '.$card->id); ?></p>
     <p class="librinfo">Imprimé et géré par e-venement www.libre-informatique.fr</p>
     <h2><?php echo __('Card receipt') ?></h2>
     <p class="name"><span class="title"><?php echo __('Name') ?></span><br/><?php echo $contact->name ?></p>
@@ -58,7 +59,19 @@ $(document).ready(function(){
     <p class="date"><span class="title"><?php echo __('Expiration date') ?></span> <?php echo format_date($card->expire_at) ?></p>
     <p class="extra-date"><?php echo nl2br(sfConfig::get('app_cards_date_extra')) ?></p>
     <p class="extra-card"><?php echo nl2br(sfConfig::get('app_cards_extra')) ?></p>
-    <p class="barcode"><?php echo image_tag('/liBarcodePlugin/php-barcode/barcode.php?scale=1&code='.$contact->getIdBarcoded()); ?></p>
+    <p class="barcode">
+        <?php        
+            switch(sfConfig::get('app_cards_id', 'id') )
+            {
+                case 'qrcode':
+                    echo("<img src='data:image/png;base64,".$card->QRcodeBase64PNG."' alt='QRcode #".$card->id."' />");
+                break;
+                case 'id':
+                    echo image_tag('/liBarcodePlugin/php-barcode/barcode.php?scale=1&code='.$contact->getIdBarcoded());
+                break;
+            }    
+         ?>
+    </p>    
     <p class="logo"></p>
   </div>
 </div>

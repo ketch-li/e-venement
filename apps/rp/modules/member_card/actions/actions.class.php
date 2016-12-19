@@ -62,24 +62,58 @@ class member_cardActions extends autoMember_cardActions
       sfConfig::set('sf_web_debug', false);
   }
   
+  public function checkQRcode(sfWebRequest $request)
+  {
+      // {"type":"MemberCard","member_card_id":620}
+      $this->type = 'failure';
+      
+      $data = json_decode($request->getParameter('id'), true);
+      
+      if ($data['type'] == 'MemberCard')
+      {
+          $id = (int)$data['member_card_id'];
+      }      
+      
+      return $id;
+  }
+  
+  public function checkEANcode($pid)
+  {
+      try { $id = liBarcode::decode_ean($pid); }
+      catch ( sfException $e )
+      { $id = intval($pid); }
+      
+      return $id;      
+  }
+  
   public function executeCheck(sfWebRequest $request)
   {
     $this->type = '';
     
-    if ( intval('9'.($id = $request->getParameter('id'))).'' !== '9'.$id || !$id )
-      return 'Success';
-    
-    try { $id = liBarcode::decode_ean($id); }
-    catch ( sfException $e )
-    { $id = intval($id); }
-    
-    $this->member_cards = Doctrine::getTable('MemberCard')->retreiveListOfActivatedCards()
+    $q = Doctrine::getTable('MemberCard')->retreiveListOfActivatedCards()
       ->select('mc.*, c.*')
       ->leftJoin('c.Archives ca')
       ->addSelect('(SELECT sum(pp.value) FROM Payment pp WHERE pp.member_card_id = mc.id) AS value')
-      ->addSelect('(SELECT count(mcp.id) FROM MemberCardPrice mcp WHERE mcp.member_card_id = mc.id) AS nb_prices')
-      ->andWhere('c.id = ? OR ca.old_id = ?',array($id,$id))
-      ->orderBy('mc.expire_at > NOW() DESC, CASE WHEN mc.expire_at > NOW() THEN NOW() - mc.expire_at ELSE mc.expire_at - NOW() END DESC, mc.created_at')
+      ->addSelect('(SELECT count(mcp.id) FROM MemberCardPrice mcp WHERE mcp.member_card_id = mc.id) AS nb_prices');
+    
+    if (sfConfig::get('app_cards_id', 'id') == 'qrcode') 
+    {
+        $code = $this->checkQRcode($request);
+        
+        $q->andWhere('mc.id = ?', $code);
+    } else 
+    {
+        if ( intval('9'.($id = $request->getParameter('id'))).'' !== '9'.$id || !$id )
+          return 'Success';
+                
+        $id = $this->checkEANcode($id);
+        
+        echo $id;
+        
+        $q->andWhere('c.id = ? OR ca.old_id = ?',array($id,$id));
+    }
+
+    $this->member_cards = $q->orderBy('mc.expire_at > NOW() DESC, CASE WHEN mc.expire_at > NOW() THEN NOW() - mc.expire_at ELSE mc.expire_at - NOW() END DESC, mc.created_at')
       ->execute();
     
     if ( $this->member_cards->count() == 0 )
