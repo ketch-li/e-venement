@@ -13,6 +13,20 @@
 class MemberCard extends PluginMemberCard
 {
   protected $value;
+
+  public function getQRcode()
+  {
+      $code = array('type' => 'MemberCard', 'member_card_id' => $this->id);
+      
+      return json_encode($code);
+  }
+  
+  public function getQRcodeBase64PNG() 
+  {
+      $bc = new liBarcode($this->QRcode);
+
+      return base64_encode($bc);
+  }
   
   public function hasPrice($price_id, $nb = 1)
   {
