@@ -2052,6 +2052,10 @@
           <source>unknown user</source>
           <target>utilisateur inconnu</target>
       </trans-unit>
+      <trans-unit>
+          <source>N° mumber card</source>
+          <target>N° de carte</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
