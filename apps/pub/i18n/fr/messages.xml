@@ -1050,6 +1050,14 @@ ou bien suivez ce lien&nbsp;:&lt;br/&gt;
         <source>Events</source>
         <target>Évenements</target>
       </trans-unit>
+      <trans-unit id="261">
+        <source>Terms &amp; Conditions</source>
+        <target>Conditions Générales de vente</target>
+      </trans-unit>      
+      <trans-unit id="262">
+        <source>Download PDF file</source>
+        <target>Télécharger le fichier PDF</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>
