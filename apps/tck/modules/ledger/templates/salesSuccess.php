@@ -2,7 +2,7 @@
 <?php include_partial('assets') ?>
 <?php use_javascript('helper') ?>
 <?php use_javascript('helper-cookies') ?>
-<?php use_javascript('/private/tck_ledger_sales.js'); ?>
+<?php use_javascript('/private/tck_ledger.js'); ?>
 
 <div class="ui-widget-content ui-corner-all" id="sales-ledger">
 <?php include_partial('sales_title', array('dates' => $dates)) ?>
