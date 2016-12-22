@@ -24,25 +24,29 @@ class textsActions extends autoTextsActions
     $values = $request->getPostParameters();
     
     // terms & conditions
-    if ( $uploads = $request->getFiles() )
-    foreach ( $uploads as $upload => $content )
+    foreach ( $request->getFiles() as $upload => $content )
     {
-      $fname = 'pub:'.$upload;
-      
-      // cleaning the DB
-      Doctrine::getTable('Picture')->createQuery('f')
-        ->delete()
-        ->where('f.name = ?', $fname)
-        ->execute();
-      
-      $file = new Picture;
-      $file->name = $fname;
-      $file->content = base64_encode(file_get_contents($content['tmp_name']));
-      $file->type = $content['type'];
-      $file->save();
-      $values[$upload] = $fname;
-      
-      $values[str_replace('_file((', '((', $upload)] = '<a href="'.$file->getUrl(array('app' => 'pub')).'">'.__('Terms & Conditions').'</a>';
+      if ( $content['error'] == 0 ) 
+      {            
+          $fname = 'pub:'.$upload;
+          
+          // cleaning the DB
+          Doctrine::getTable('Picture')->createQuery('f')
+            ->delete()
+            ->where('f.name = ?', $fname)
+            ->execute();
+          
+          $file = new Picture;
+          $file->name = $fname;
+          $file->content = base64_encode(file_get_contents($content['tmp_name']));
+          $file->type = $content['type'];
+          $file->save();
+          $values[$upload] = $fname;
+          $values[str_replace('_file((', '_url((', $upload)] = $file->getUrl(array('app' => 'pub'));
+          
+          $values[str_replace('_file((', '((', $upload)] = '<a href="'.$file->getUrl(array('app' => 'pub')).'" target="_blank">'.__('Terms & Conditions').'</a>';
+          //$values[str_replace('_file((', '((', $upload)] = $file->getUrl(array('app' => 'pub'));
+        }
     }
     
     $this->form = new OptionPubTextsForm();
