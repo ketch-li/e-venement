@@ -68,6 +68,20 @@ class ContactPublicForm extends ContactForm
     );
     if ( sfConfig::get('app_contact_newsletter', true) )
       $fields[] = 'newsletter';
+      
+    if (pubConfiguration::getText('app_texts_terms_conditions'))
+    {
+        $this->widgetSchema   ['terms_conditions']      = new sfWidgetFormInputCheckbox(array(
+            'default' => false,
+            'value_attribute_value' => 'yes',
+            'label' => pubConfiguration::getText('app_texts_terms_conditions_url')?'<a href="cgv" target="_blank">'.__('Terms & Conditions').'</a>':pubConfiguration::getText('app_texts_terms_conditions'),
+        ));
+        $this->validatorSchema['terms_conditions']      = new sfValidatorBoolean(array(
+            'true_values' => array('yes'),
+            'required' => true,
+        ));        
+        $fields[] = 'terms_conditions';
+    }    
     $this->widgetSchema->setPositions($fields);
     
     $this->validatorSchema['id'] = new sfValidatorDoctrineChoice(array(

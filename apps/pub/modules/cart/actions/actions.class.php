@@ -141,6 +141,20 @@ class cartActions extends sfActions
     $this->getUser()->setFlash('error',__('You have just abandonned your payment, you can still empty / correct / validate your cart...'));
     $this->redirect('cart/show');
   }
+  
+  // Temp fix
+  public function executeUndefined(sfWebRequest $request) {
+      $this->redirect('event');
+  }
+  
+  public function executeCgv(sfWebRequest $request) {
+      $this->form = new sfForm;
+      $this->getContext()->getConfiguration()->loadHelpers('I18N');
+      $this->getResponse()->setTitle(__('Terms & Conditions').' - ');
+      
+      $this->form->url = pubConfiguration::getText('app_texts_terms_conditions_url');     
+  }
+  
   public function executeRegister(sfWebRequest $request)
   {
     // harden data

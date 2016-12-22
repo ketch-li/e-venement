@@ -53,6 +53,7 @@
 #li_fieldset_simplified .cart .paid .payment:hover { background-color: rgba(255,237,189,0.6); border-radius: 3px; }
 #li_fieldset_simplified .cart .total .qty { display: none; }
 #li_fieldset_simplified .cart .print button { width: 100%; min-height: 3em; font-size: 85%; }
+#li_fieldset_simplified .cart .warning { background-color: rgb(246, 202, 187); }
 #li_fieldset_simplified .bunch .gauge-gfx, #li_fieldset_simplified .bunch .gauge-gfx > * { display: inline-block; height: 1em; border-radius: 3px; }
 #li_fieldset_simplified .bunch .gauge-gfx { float: right; width: 50px; }
 #li_fieldset_simplified .bunch .product .gauge-gfx { margin-right: 6px; text-align: left; }

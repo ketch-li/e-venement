@@ -77,7 +77,7 @@
       
       try
       {
-        if ( !$this->form->isValid() || sfConfig::get('app_texts_terms_conditions') && !$request->hasParameter('terms_conditions') )
+        if ( !$this->form->isValid() )
         {
           error_log('An error occurred registering a contact ('.$this->form->getErrorSchema().')');
           $this->login = new LoginForm;

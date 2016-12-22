@@ -1,3 +1,10 @@
+<?php if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $sf_data->getRaw('sf_context')->getConfiguration()->getPlugins())
+        && pubConfiguration::getText('app_texts_terms_conditions') ): ?>
+<p id="terms_and_conditions">
+  <input type="checkbox" name="cgv" value="ok" id="terms_conditions" />
+  <label for="terms_conditions"><?php echo pubConfiguration::getText('app_texts_terms_conditions') ?></label>
+</p>
+<?php endif ?>
 <div id="actions">
 <?php if ( $transaction->id == $sf_user->getTransactionId() ): ?>
 <?php if ( ($txt = pubConfiguration::getText('app_member_cards_complete_your_passes', false)) && $sf_user->getTransaction()->MemberCards->count() ): ?>
@@ -26,10 +33,3 @@
 </div>
 <?php endif ?>
 </div>
-<?php if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $sf_data->getRaw('sf_context')->getConfiguration()->getPlugins())
-        && pubConfiguration::getText('app_texts_terms_conditions') ): ?>
-<p id="terms_and_conditions">
-  <input type="checkbox" name="cgv" value="ok" id="terms_conditions" />
-  <label for="terms_conditions"><?php echo pubConfiguration::getText('app_texts_terms_conditions') ?></label>
-</p>
-<?php endif ?>
