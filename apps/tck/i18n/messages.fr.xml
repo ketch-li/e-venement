@@ -2056,6 +2056,14 @@
         <source>An error occurred during ticket #%%tid%% printing: %%err%%</source>
         <target>Une erreur est survenue durant l'impression du billet #%%tid%%: %%err%%</target>
       </trans-unit>
+      <trans-unit>
+        <source>Too soon for ticket #%%id%% (gates will open at %%datetime%%)</source>
+        <target>Trop tôt pour le billet #%%id%% (ouverture du contrôle d'accès: %%datetime%%)</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>Too late for ticket #%%id%% (gates closed at %%datetime%%)</source>
+        <target>Trop tard pour le billet #%%id%% (fermeture du contrôle d'accès: %%datetime%%)</target>
+      </trans-unit>   
     </body>
   </file>
 </xliff>
