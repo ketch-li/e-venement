@@ -1,10 +1,12 @@
 <?php use_javascript('tck-touchscreen-print?'.date('Ymd')) ?>
+
+<script>
+  LI.printingNeedsZipCode = <?php echo $sf_user->hasCredential('tck-print-ticket-cp') ? 'true' : 'false'; ?>;
+</script>
+
 <div class="ui-corner-all ui-widget-content">
 <?php if ( $sf_user->hasCredential('tck-print-ticket') ): ?>
 
-<?php if ( $sf_user->hasCredential('tck-print-ticket-cp') ): ?>
-<?php echo use_javascript('tck-touchscreen-options?'.date('Ymd')); ?>
-<?php endif ?>
 <form action="<?php echo url_for('ticket/print?id='.$transaction->id) ?>"
       method="get"
       target="_blank"

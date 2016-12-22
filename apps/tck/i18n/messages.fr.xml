@@ -2064,6 +2064,10 @@
         <source>Too late for ticket #%%id%% (gates closed at %%datetime%%)</source>
         <target>Trop tard pour le billet #%%id%% (fermeture du contrôle d'accès: %%datetime%%)</target>
       </trans-unit>   
+      <trans-unit>
+        <source>A contact is needed for printing the ticket(s) if it is a delayed payment.</source>
+        <target>Vous avez demandé l'impression de billet sans équilibrer l'opération. Pour effectuer un paiement différé, vous devez saisir un contact.</target>
+      </trans-unit>   
     </body>
   </file>
 </xliff>
