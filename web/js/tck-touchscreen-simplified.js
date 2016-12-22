@@ -794,9 +794,11 @@ LI.touchscreenSimplifiedTotal = function()
     {
         $('.payment_missing').hide();
         $('.payment_change').show();
+        topay.addClass('warning');
     } else {
         $('.payment_change').hide();
         $('.payment_missing').show();
+        topay.removeClass('warning');
     }  
   
 }
