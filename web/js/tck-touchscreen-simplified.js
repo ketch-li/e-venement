@@ -593,6 +593,7 @@ LI.touchscreenSimplifiedPrices = function(gauge, data){
     $(form).submit();
     return false;
   });
+  target.trigger('prices_loaded');
 }
 
 if ( LI.touchscreenContentLoad == undefined )
