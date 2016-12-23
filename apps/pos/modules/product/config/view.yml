@@ -18,3 +18,8 @@ stateJson:
     content-type: application/json
 indexSuccess:
   javascripts: [pos-list, jquery.middleclick.js]
+csvSuccess:
+  has_layout: false
+  http_metas:
+    content-type: text/comma-separated-values
+    content-disposition: attachment; filename="products.csv"

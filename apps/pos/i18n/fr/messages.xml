@@ -320,6 +320,42 @@
         <source>Codes</source>
         <target>Codes</target>
       </trans-unit>
+      <trans-unit id="187">
+        <source>Extract to CSV</source>
+        <target>Extraire (tableur)</target>
+      </trans-unit>      
+      <trans-unit id="188">
+        <source>Product</source>
+        <target>Produit</target>
+      </trans-unit>      
+      <trans-unit id="189">
+        <source>Product description</source>
+        <target>Description produit</target>
+      </trans-unit>      
+      <trans-unit id="190">
+        <source>Prices</source>
+        <target>Tarifs</target>
+      </trans-unit>      
+      <trans-unit id="191">
+        <source>VAT</source>
+        <target>TVA</target>
+      </trans-unit>      
+      <trans-unit id="192">
+        <source>Declination</source>
+        <target>Déclinaison</target>
+      </trans-unit>      
+      <trans-unit id="193">
+        <source>Declination description</source>
+        <target>Description déclinaison</target>
+      </trans-unit>      
+      <trans-unit id="194">
+        <source>yes</source>
+        <target>oui</target>
+      </trans-unit>      
+      <trans-unit id="195">
+        <source>no</source>
+        <target>non</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>
