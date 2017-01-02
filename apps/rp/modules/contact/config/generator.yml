@@ -94,7 +94,7 @@ generator:
         sort: ['c.name, c.firstname', '']
       filter:
         display:
-          Personal: [title, name, firstname, shortname, district, postalcode, city, region_id, country, email, az]
+          Personal: [title, name, firstname, shortname, district, postalcode, city, region_id, country, email, az, duplicates]
           <?php if ( sfConfig::get('app_contact_social_informations', false) ): echo PHP_EOL; ?>
           Social informations: [familial_quotient_id, familial_situation_id, type_of_resources_id]
           <?php endif ?><?php echo PHP_EOL ?>
