@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>Search</source>
+        <target>Rechercher</target>
+      </trans-unit>
+      <trans-unit>
         <source>Today</source>
         <target>Aujourd'hui</target>
       </trans-unit>
