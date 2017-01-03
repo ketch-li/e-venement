@@ -356,6 +356,10 @@
         <source>no</source>
         <target>non</target>
       </trans-unit>      
+      <trans-unit id="196">
+        <source>Declination code</source>
+        <target>Code déclinaison</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>

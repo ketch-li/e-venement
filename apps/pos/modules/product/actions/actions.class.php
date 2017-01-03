@@ -346,5 +346,20 @@ class productActions extends autoProductActions
     }
     else
       sfConfig::set('sf_web_debug', false);
-    }
+  }
+
+  public function executeSearch(sfWebRequest $request)
+  {
+    self::executeIndex($request);
+    $table = Doctrine::getTable('Product');
+
+    $query = $table->createQuery()
+        ->andWhere('d.code = ?', $request->getParameter('s'));
+
+    $this->pager->setQuery($query);
+    $this->pager->setPage($request->getParameter('page') ? $request->getParameter('page') : 1);
+    $this->pager->init();
+
+    $this->setTemplate('index');
+  }
 }
