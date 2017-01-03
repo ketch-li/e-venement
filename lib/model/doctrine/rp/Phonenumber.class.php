@@ -19,6 +19,6 @@ class Phonenumber extends PluginPhonenumber
         $arr[] = $this->name;
       $arr[] = $this->number;
   
-      return implode(', ', $arr);
+      return implode(' ', $arr);
     }
 }
