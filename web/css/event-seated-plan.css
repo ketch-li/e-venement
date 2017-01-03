@@ -57,7 +57,7 @@
 #sf_fieldset_neighbors .seated_plan_batch_field .label { display: inline-block; }
 
 /* MANIFESTATIONS */
-#sf_fieldset_workspaces .picture.seated-plan { transform: scale(0.5); margin-bottom: -50%; }
+#sf_fieldset_workspaces .picture.seated-plan { transform: scale(0.5); margin: 20px 0 50% 150px; }
 
 /* TRANSACTIONS */
 .seats-allocation .ui-widget-content { margin: 5px; padding: 5px; min-height: 800px; }
