@@ -31,7 +31,7 @@ html body #content { margin-right: 0; }
 .error.conflict a { text-decoration: none; font-size: 80%; }
 .error.conflict a:hover { text-decoration: underline; }
 
-.sf_admin_field_workspaces_list .seated-plan-parent { position: absolute !important; right: 35px; border: 1px solid silver; border-radius: 5px; display: none; margin: 75px 0 0 5px; cursor: default; background-color: white; z-index: 1; overflow-x: auto; width: 85%; height: auto; min-height: 30em; }
+.sf_admin_field_workspaces_list .seated-plan-parent { position: absolute !important; left: 35px; border: 1px solid silver; border-radius: 5px; display: none; margin: 75px 0 0 5px; cursor: default; background-color: white; z-index: 1; overflow-x: auto; width: 95%; height: auto; min-height: 30em; }
 .sf_admin_field_workspaces_list .seated-plan-parent.high { height: 100%; }
 .sf_admin_field_workspaces_list .gauge-gfx { display: none; }
 .sf_admin_field_workspaces_list .gauge .gauge { cursor: pointer; }

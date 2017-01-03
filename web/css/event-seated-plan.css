@@ -26,8 +26,8 @@
 #sf_admin_container ul li.sf_admin_action_duplicate a { background-image: none; }
 
 /* PARENT */
-.seated-plan-parent .seated-plan-actions { position: absolute; z-index: 6; margin: 5px 0 0 5px; }
-.seated-plan-parent .seated-plan-actions > * { border: 1px solid gray; background-color: rgba(0,0,0,0.2); padding: 2px 5px; border-radius: 2px; display: block; margin-bottom: 2px; text-decoration: none; }
+.seated-plan-parent .seated-plan-actions { position: fixed; z-index: 6; margin: 5px 0 0 5px; }
+.seated-plan-parent .seated-plan-actions > * { border: 1px solid gray; background-color: lightgray; padding: 2px 5px; border-radius: 2px; display: block; margin-bottom: 2px; text-decoration: none; }
 #content .seated-plan-parent .seated-plan-actions select { width: 140px; margin: 0; }
 .seated-plan-parent .seated-plan-actions .controls-loop { position: absolute; margin-top: 5px; }
 
@@ -57,7 +57,7 @@
 #sf_fieldset_neighbors .seated_plan_batch_field .label { display: inline-block; }
 
 /* MANIFESTATIONS */
-#sf_fieldset_workspaces .picture.seated-plan { transform: scale(0.5); margin: 20px 0 50% 150px; }
+#sf_fieldset_workspaces .picture.seated-plan { transform: scale(0.5); margin-bottom: -50%; }
 
 /* TRANSACTIONS */
 .seats-allocation .ui-widget-content { margin: 5px; padding: 5px; min-height: 800px; }
