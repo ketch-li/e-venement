@@ -34,7 +34,7 @@
       </trans-unit>
       <trans-unit>
         <source>&lt;span class="name inline-modifiable"&gt;Order&lt;/span&gt; #&lt;span class="order_id"&gt;%%oid%%&lt;/span&gt;, for transaction #&lt;span class="transaction_id"&gt;%%tid%%&lt;/span&gt;</source>
-        <target>&lt;span class="name inline-modifiable"&gt;Bon de commande&lt;/span&gt; #&lt;span class="order_id"&gt;%%oid%%&lt;/span&gt;, pour l'operation #&lt;span class="transaction_id"&gt;%%tid%%&lt;/span&gt;</target>
+        <target>&lt;span class="name inline-modifiable"&gt;Bon de commande&lt;/span&gt; #&lt;span class="order_id"&gt;%%oid%%&lt;/span&gt;, pour l'opération #&lt;span class="transaction_id"&gt;%%tid%%&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit>
         <source>TEP</source>
