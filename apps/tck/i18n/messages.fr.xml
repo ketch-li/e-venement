@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>If 0 is set, this will not be considered; if -1, this will mean "infinite"</source>
+        <target>Si 0, cette association ne sera pas considérée ; si -1, cela signifiera "une infinité"</target>
+      </trans-unit>
+      <trans-unit>
         <source>Search</source>
         <target>Rechercher</target>
       </trans-unit>

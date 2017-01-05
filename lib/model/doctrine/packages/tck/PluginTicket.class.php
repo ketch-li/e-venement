@@ -362,7 +362,8 @@ abstract class PluginTicket extends BaseTicket
     
     if ( $card && $card->MemberCardPrices->count() > 0 )
     {
-      $card->MemberCardPrices[0]->delete();
+      unset($card->MemberCardPrices[0]);
+      $card->save();
       $this->member_card_id = $card->id;
     }
     else
