@@ -27,6 +27,7 @@
           <li><a href="http://www.e-venement.org/documentation/faq/" target="_blank"><?php echo __('Frequently Asked Questions',array(),'menu') ?></a></li>
           <li><a href="<?php echo cross_app_url_for('default','about') ?>" class="fancybox"><?php echo __('About',array(),'menu') ?></a></li>
           <?php if ( $sf_user->isAuthenticated() ): ?>
+          <li><a href="<?php echo cross_app_url_for('default','userPolicy/index') ?>" target="_blank"><?php echo __("User policy", null, 'menu') ?></a>
           <?php include_partial('global/menu_extra', array('name' => 'help')) ?>
           <?php endif ?>
         </ul>
