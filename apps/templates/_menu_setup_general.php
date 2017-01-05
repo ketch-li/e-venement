@@ -26,6 +26,7 @@
               <li><?php echo cross_app_link_to(__('Change language', null, 'menu'), 'default', 'culture/index') ?></li>
               <?php if ( $sf_user->hasCredential('admin-users') ): ?>
               <li class="spaced"><a href="<?php echo cross_app_url_for('default','sfGuardUser') ?>"><?php echo __('Users',array(),'menu') ?></a></li>
+              <li><a href="<?php echo cross_app_url_for('default','userPolicy/edit') ?>"><?php echo __('User policy',array(),'menu') ?></a></li>
               <?php endif ?>
               <?php if ( $sf_user->hasCredential('admin-power') ): ?>
               <li><a href="<?php echo cross_app_url_for('default','sfGuardGroup') ?>"><?php echo __('Groups',array(),'menu') ?></a></li>
