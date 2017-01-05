@@ -12,6 +12,12 @@ ID,ETABLISSEMENT,FONCTION,CIVILITE,PRENOM,NOM*,ADRESSE1,ADRESSE2,CP,VILLE,PAYS,G
 "","CULTURES DU CŒUR",Médiatrice,Mme,Jeanne,CHANCELLE,11 RUE DOCTEUR LAENNEC,,38610,GIERES,FRANCE,ASSOCULT,04 76 24 08 48,culturesducoeur@free.fr,en
 "","","","M.",Christian,MAJEUR,9 ALLEE DES LAURIERS,,69300,CALUIRE,FRANCE,AUTEUR,,,en
     </pre>
+    <p><?php echo __('For importing organism. Be careful to respect this type of file:') ?></p>
+    <pre>
+ID,ORGANISME,FONCTION,CIVILITE,PRENOM,NOM*,ADRESSE1,ADRESSE2,CP,VILLE,PAYS,CATEGORIE,TELEPHONE,EMAIL
+"",Libre Informatique,"","","","",38 chemin de Kerlagatu,"",29000,QUIMPER,FRANCE,Entreprise,02 30 96 06 49,contact@libre-informatique.fr
+"",Cultures du Coeur,"","","","",11 Rue Docteur LAENNEC,"",38610,GIERES,FRANCE,Association,04 76 24 08 48,culturesducoeur@free.fr
+    </pre>    
     <p><?php echo __('Do not forget that this file must be UTF-8 encoded, its fields must be separated by a comma, and the first line dedicated to field titles... Actually a standard CSV format.'); ?></p>
     <p><?php echo __('To import the culture of your contacts, you must use the standard language code (ex: en, fr, br,...). This field is optional ("fr" by default).'); ?></p>
     <p><?php echo __('Try to import a maximum of %%nb%% lines at once. Then repeat the import the number of times needed.',array('%%nb%%' => 250)) ?></p>

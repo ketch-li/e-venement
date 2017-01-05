@@ -305,9 +305,11 @@ LI.sumPayments = function()
     {
         $('.payment_missing').hide();
         $('.payment_change').show();
+        $('#li_transaction_field_payments_list .change').addClass('warning');
     } else {
         $('.payment_change').hide();
         $('.payment_missing').show();
+        $('#li_transaction_field_payments_list .change').removeClass('warning');
     }  
   
   // VAT & co.

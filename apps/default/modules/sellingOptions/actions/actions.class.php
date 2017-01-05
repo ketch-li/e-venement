@@ -49,8 +49,8 @@ class sellingOptionsActions extends sfActions
               } else {
                   $q = Doctrine_Query::create()
                     ->delete('sfGuardGroupPermission u')
-                    ->where('u.group_id = ?', 14)
-                    ->andWhere('u.permission_id = ?', 186);
+                    ->where('u.group_id = ?', $this->group->id)
+                    ->andWhere('u.permission_id = ?', $this->permission->id);
                   $q->execute();
                   $this->getUser()->setFlash('success', 'The option has been successfully modified.');
               }

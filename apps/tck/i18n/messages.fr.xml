@@ -5,6 +5,14 @@
     <header/>
     <body>
       <trans-unit>
+        <source>If 0 is set, this will not be considered; if -1, this will mean "infinite"</source>
+        <target>Si 0, cette association ne sera pas considérée ; si -1, cela signifiera "une infinité"</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Search</source>
+        <target>Rechercher</target>
+      </trans-unit>
+      <trans-unit>
         <source>Today</source>
         <target>Aujourd'hui</target>
       </trans-unit>
@@ -2056,6 +2064,18 @@
         <source>An error occurred during ticket #%%tid%% printing: %%err%%</source>
         <target>Une erreur est survenue durant l'impression du billet #%%tid%%: %%err%%</target>
       </trans-unit>
+      <trans-unit>
+        <source>Too soon for ticket #%%id%% (gates will open at %%datetime%%)</source>
+        <target>Trop tôt pour le billet #%%id%% (ouverture du contrôle d'accès: %%datetime%%)</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>Too late for ticket #%%id%% (gates closed at %%datetime%%)</source>
+        <target>Trop tard pour le billet #%%id%% (fermeture du contrôle d'accès: %%datetime%%)</target>
+      </trans-unit>   
+      <trans-unit>
+        <source>A contact is needed for printing the ticket(s) if it is a delayed payment.</source>
+        <target>Vous avez demandé l'impression de billet sans équilibrer l'opération. Pour effectuer un paiement différé, vous devez saisir un contact.</target>
+      </trans-unit>   
     </body>
   </file>
 </xliff>

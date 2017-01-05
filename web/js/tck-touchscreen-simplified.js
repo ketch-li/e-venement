@@ -288,10 +288,14 @@ LI.touchscreenSimplifiedLoadData = function(){
   
   // get back distant initial data
   var form = $('#li_transaction_field_content [data-bunch-id="'+$('#li_fieldset_simplified .products-types .selected').attr('data-bunch-id')+'"] .new-family');
+  var data = { simplified: 1, manifestation_id: [] /*, id: $('[name="transaction[close][id]"]').val() */ };
+  $(location.hash.split('#manifestations-')).each(function(key, value){
+    if ( value ) data.manifestation_id.push(value);
+  });
   $.ajax({
     url: $(form).prop('action'),
     type: $(form).prop('method'),
-    data: { simplified: 1 /*, id: $('[name="transaction[close][id]"]').val() */ },
+    data: data,
     dataType: 'json',
     success: function(json){
       LI.touchscreenSimplified_LoadData(json, form);
@@ -593,6 +597,7 @@ LI.touchscreenSimplifiedPrices = function(gauge, data){
     $(form).submit();
     return false;
   });
+  target.trigger('prices_loaded');
 }
 
 if ( LI.touchscreenContentLoad == undefined )
@@ -794,9 +799,11 @@ LI.touchscreenSimplifiedTotal = function()
     {
         $('.payment_missing').hide();
         $('.payment_change').show();
+        topay.addClass('warning');
     } else {
         $('.payment_change').hide();
         $('.payment_missing').show();
+        topay.removeClass('warning');
     }  
   
 }

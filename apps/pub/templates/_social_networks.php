@@ -17,7 +17,7 @@
 $(document).ready(function(){
   var social_networks = <?php echo json_encode(sfConfig::get('app_social_media_networks', array()))  ?>;
   var url = window.location.href;
-  var twitter_text = social_networks.twitter && social_networks.twitter.text ? social_networks.twitter.text : '';
+  var twitter_text = social_networks.twitter && social_networks.twitter.text ? social_networks.twitter.text : document.title;
   var default_urls = {
     'facebook': 'https://www.facebook.com/sharer/sharer.php?u=' + url,
     'twitter': 'https://twitter.com/share?text=' + encodeURIComponent(twitter_text),

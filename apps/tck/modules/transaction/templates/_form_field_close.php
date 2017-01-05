@@ -12,10 +12,11 @@
 </ul>
 <ul class="print">
   <li class="pay-before"><?php echo __('You must record the payment(s) before printing the ticket(s)') ?></li>
+  <li class="delayed-payment-contact-needed"><?php echo __('A contact is needed for printing the ticket(s) if it is a delayed payment.') ?></li>
   <li class="partial-print-error"><?php echo __('You must have at least one manifestation selected.') ?></li>
-  
+
   <li class="CP-print-error"><?php echo __('You must enter a postal code before printing the ticket(s).') ?></li>
-  
+
   <li class="give-price-to-wip"><?php echo __('You always need to give a price to every seated-only tickets before printing or booking.') ?></li>
   <li class="direct-printing-info"><?php echo __('e-venement will print the tickets directly on your printer') ?></li>
   <script type="text/javascript"><!--

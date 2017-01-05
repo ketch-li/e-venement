@@ -100,6 +100,7 @@
           max = $(this).height();
         }
       }).height(max);
+      form.trigger('prices_loaded');
     }).focusout(function(){
       var elt = this;
       setTimeout(function(){

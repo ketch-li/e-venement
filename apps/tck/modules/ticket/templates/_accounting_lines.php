@@ -8,10 +8,10 @@
   <th class="postalcode"><span><?php echo __('Postal code', null, 'li_accounting') ?></span></th>
   <th class="city"><span><?php echo __('City', null, 'li_accounting') ?></span></th>
   <th class="price"><span><?php echo __('Price', null, 'li_accounting') ?></span></th>
-  <th class="up"><span class="inline-modifiable"><?php echo __('UP Net', null, 'li_accounting') ?></span></th>
+  <th class="up"><span><?php echo __('UP Net', null, 'li_accounting') ?></span></th>
   <th class="qty"><span><?php echo __('Qty', null, 'li_accounting') ?></span></th>
   <th class="seats"><span><?php echo __('Seats', null, 'li_accounting') ?></span></th>
-  <th class="extra-taxes"><span class="inline-modifiable"><?php echo __('Taxes', null, 'li_accounting') ?></span></th>
+  <th class="extra-taxes"><span><?php echo __('Taxes', null, 'li_accounting') ?></span></th>
   <th class="pit"><span><?php echo __('TIP', null, 'li_accounting') ?></span></th>
   <th class="vat"><span><?php echo __('VAT', null, 'li_accounting') ?></span></th>
   <th class="tep"><span><?php echo __('PET', null, 'li_accounting') ?></span></th>
@@ -21,12 +21,12 @@
 <?php $ticket = $tickets[$i] ?>
 <?php if ( $ticket->id > 0 ): ?>
   <tr class="ticket">
-    <td class="event inline-modifiable"><?php echo $ticket->Manifestation->Event ?></td>
-    <td class="date inline-modifiable"><?php echo format_date($ticket->Manifestation->happens_at) ?></td>
-    <td class="time inline-modifiable"><?php echo format_date($ticket->Manifestation->happens_at,'HH:mm') ?></td>
-    <td class="location inline-modifiable"><?php echo $ticket->Manifestation->Location ?></td>
-    <td class="postalcode inline-modifiable"><?php echo $ticket->Manifestation->Location->postalcode ?></td>
-    <td class="city inline-modifiable"><?php echo $ticket->Manifestation->Location->city ?></td>
+    <td class="event"><?php echo $ticket->Manifestation->Event ?></td>
+    <td class="date"><?php echo format_date($ticket->Manifestation->happens_at) ?></td>
+    <td class="time"><?php echo format_date($ticket->Manifestation->happens_at,'HH:mm') ?></td>
+    <td class="location"><?php echo $ticket->Manifestation->Location ?></td>
+    <td class="postalcode"><?php echo $ticket->Manifestation->Location->postalcode ?></td>
+    <td class="city "><?php echo $ticket->Manifestation->Location->city ?></td>
     <td class="price"><?php echo $ticket->Price->description ?></td>
     <td class="up"><?php echo format_currency($ticket->value,$sf_context->getConfiguration()->getCurrency()) ?></td>
     <?php
@@ -58,7 +58,7 @@
       }
       $i--; // rollback to process the last ticket that has been ignored
     ?>
-    <td class="qty inline-modifiable"><?php echo $qty; ?></td>
+    <td class="qty"><?php echo $qty; ?></td>
     <td class="seats"><span><?php echo count($nums) > 20 ? '' : implode('<span>, </span>', $nums) ?></span></td>
     <td class="extra-taxes"><?php echo $total['taxes'] ? format_currency($total['taxes'],$sf_context->getConfiguration()->getCurrency()) : '-'; $totals['taxes'] += $total['taxes']; ?></td>
     <td class="pit"><?php echo format_currency($total['tip'],$sf_context->getConfiguration()->getCurrency()); $totals['tip'] += $total['tip']; ?></td>
@@ -74,9 +74,9 @@
 <?php $product = $products[$i] ?>
 <?php if ( $product->id > 0 ): ?>
   <tr class="product">
-    <td class="event inline-modifiable"><?php echo (string)$product ?></td>
-    <td class="time inline-modifiable" colspan="2"><?php echo $product->code ?></td>
-    <td class="location inline-modifiable" colspan="2"><?php echo $product->declination ?></td>
+    <td class="event"><?php echo (string)$product ?></td>
+    <td class="time" colspan="2"><?php echo $product->code ?></td>
+    <td class="location" colspan="2"><?php echo $product->declination ?></td>
     <td class="price"><?php echo $product->price_id ? $product->Price->description : $product->price_name ?></td>
     <td class="up"><?php echo format_currency($product->value,$sf_context->getConfiguration()->getCurrency()) ?></td>
     <?php
@@ -99,7 +99,7 @@
       }
       $i--; // rollback to process the last ticket that has been ignored
     ?>
-    <td class="qty inline-modifiable"><?php echo $qty; ?></td>
+    <td class="qty"><?php echo $qty; ?></td>
     <td class="seats"></td>
     <td class="extra-taxes"><?php echo $total['taxes'] ? format_currency($total['taxes'],$sf_context->getConfiguration()->getCurrency()) : '-'; $totals['taxes'] += $total['taxes']; ?></td>
     <td class="pit"><?php echo format_currency($total['tip'],$sf_context->getConfiguration()->getCurrency()); $totals['tip'] += $total['tip']; ?></td>

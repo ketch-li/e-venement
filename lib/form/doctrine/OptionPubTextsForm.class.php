@@ -28,7 +28,8 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
     
     $helpers = $this->getHelpers();
     $this->widgets = array();
-    foreach ( $this->getDBOptions() as $key => $text )
+    $Options = $this->getDBOptions();
+    foreach ( $Options as $key => $text )
     {
       $struct = $this->getStructuredFromRawName($key);
       $name = ucwords(str_replace('_', ' ', $struct['name']));
@@ -36,11 +37,18 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
       
       if ( !isset($this->widgets[$name]) )
         $this->widgets[$name] = array();
+    
+      $helperContent = isset($helpers[$struct['name']]) ? $helpers[$struct['name']] : null;
+      
+      if ( strpos($struct['name'], '_file') !== false )
+      {
+          $helperContent .= '<br>'.$Options[str_replace('_file', '', $key)];
+      }
       
       $this->widgets[$name][$key] = array(
         'label' => strtoupper($lang),
         'type' => 'string',
-        'helper' => isset($helpers[$struct['name']]) ? $helpers[$struct['name']] : null,
+        'helper' => $helperContent,
         'default' => $text,
       );
     }
@@ -126,6 +134,7 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
         'seated_plan_loading'     => '',  // empty by default
         'terms_conditions'        => '',  // empty by default
         'terms_conditions_file'   => '',  // empty by default
+        'terms_conditions_url'    => '',
         'email_footer'            => '',  // empty by default
         'email_confirmation'      => '
 Voici le récapitulatif de votre commande en date du %%DATE%% :

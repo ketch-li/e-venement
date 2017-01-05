@@ -11,6 +11,12 @@
       {
         if ( pay_before == 'soft' )
         {
+          // Check if a contact is selected
+          if ( !$('#transaction_contact_id').attr('value') )
+          {
+            LI.alert($('#li_transaction_field_close .print .delayed-payment-contact-needed').html());
+            return false;              
+          }
           if ( !confirm($('#li_transaction_field_close .print .pay-before').html()) )
             return false;
         }
@@ -20,6 +26,16 @@
           return false;
         }
       }
+      
+      // Check if zip code is filled or contact is selected (when needed)
+      if ( LI.printingNeedsZipCode &&
+           $('#transaction_postalcode').val().length == 0 &&
+           $('#li_transaction_field_informations .adr .postal-code').text().length == 0 &&
+           !$('#transaction_contact_id').attr('value') )
+      {
+        LI.alert($('#li_transaction_field_close .print .CP-print-error').html());
+        return false;
+      }       
 
       if ( $('#li_transaction_manifestations .item.ui-state-highlight').length == 0
         && $(form).find('[name=manifestation_id]').prop('checked') )
