@@ -9,7 +9,12 @@
         <?php echo $form ?>        
         <div class="help">
           <span class="ui-icon ui-icon-help floatleft"></span>
-          <?php echo __("Adding a file here will overwrite your").' <a href="'.$link.'" target="_blank">'.__('User policy').'</a>' ?>
+          <?php 
+            if ($link)
+                echo __('Adding a file here will overwrite your').' <a href="'.$link.'" target="_blank">'.__('User policy').'</a>';
+            else 
+                echo __('No user policy file.');
+          ?>
         </div>
         
         <input type="submit" name="submit" value="<?php echo __('Validate',null,'sf_admin') ?>" />

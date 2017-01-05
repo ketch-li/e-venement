@@ -472,6 +472,10 @@
         <source>The file has been successfully modified.</source>
         <target>Le fichier a bien été ajouté.</target>
       </trans-unit>      
+      <trans-unit>
+        <source>No user policy file.</source>
+        <target>Aucune charte utilisateur présente.</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>
