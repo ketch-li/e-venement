@@ -128,6 +128,9 @@
 
 /* payments & prices */
 #li_fieldset_payments { clear: both; }
+#li_fieldset_payments #li_transaction_field_gift_coupon { position: absolute; margin-top: 180px; margin-left: 199px; border: 0; display: none; background: transparent; }
+#li_fieldset_payments #li_transaction_field_gift_coupon button { display: none; }
+#li_fieldset_payments #li_transaction_field_gift_coupon input { width: 107px; text-align: center; }
 #li_fieldset_payments #li_transaction_field_payment_new { width: 44%; }
 #li_fieldset_payments #li_transaction_field_payments_list { width: 50.5%; overflow-y: scroll; height: 120px; }
 #sf_admin_content #li_transaction_field_price_new { position: absolute; display: none; z-index: 1; overflow-y: auto; right: 11px; top: 320px; width: 35%; height: 170px; background: url("images/ui-bg_flat_55_fbec88_40x100.png") repeat-x scroll 50% 50% #FBEC88; }

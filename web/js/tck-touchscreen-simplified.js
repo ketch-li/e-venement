@@ -275,6 +275,16 @@ LI.touchscreenSimplifiedLoadPaymentMethods = function(){
       .siblings('button').eq(0).trigger('click');
     return false;
   });
+  $('#li_fieldset_simplified .payments .gift_coupon input').change(function(){
+    $('#li_transaction_field_gift_coupon input[type=text]').val($(this).val()).submit();
+    $(this).val('');
+  }).keypress(function(e){
+    if ( e.which == 13 )
+    {
+      $(this).change();
+      return false;
+    }
+  });
 }
 
 LI.touchscreenSimplifiedLoadData = function(){
