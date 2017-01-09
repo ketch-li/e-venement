@@ -405,9 +405,7 @@ class transactionActions extends autoTransactionActions
     ), array(
       'placeholder' => __('Coupon code'),
     ));
-    $vs['code'] = new sfValidatorDoctrineChoice(array(
-      'model' => 'MemberCard',
-    ));
+    $vs['code'] = new sfValidatorString(array('required' => false));
     
     // NEW PAYMENT
     $this->form['payment_new'] = new sfForm;
