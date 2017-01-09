@@ -96,10 +96,10 @@ body.bdc #echeance { display: none; }
 #lines td { font-size: 10px; }
 
 @media print {
-.get-a-pdf, .inline-modifications { display: none; }
+.send-by-email, .get-a-pdf, .inline-modifications { display: none; }
 }
-.pdf .get-a-pdf, .pdf .inline-modifications { display: none; }
-.get-a-pdf, .inline-modifications {
+.pdf .send-by-email, .pdf .get-a-pdf, .pdf .inline-modifications { display: none; }
+.send-by-email, .get-a-pdf, .inline-modifications {
   position: absolute;
   right: 20px;
   top: 30px;
@@ -107,6 +107,7 @@ body.bdc #echeance { display: none; }
 .inline-modifiable input { width: 100px; }
 #lines .inline-modifiable.qty input { width: 4em; }
 .get-a-pdf { margin-top: 45px; }
+.send-by-email { margin-top: 90px; }
 
 /** Mise en forme des body */
 .body1 { padding-bottom: 20px; padding-left: 25px; }

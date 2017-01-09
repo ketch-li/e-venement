@@ -120,6 +120,26 @@
         <source>Order</source>
         <target>Résa./Bon de comm.</target>
       </trans-unit>
+      <trans-unit>
+        <source>Send by email</source>
+        <target>Envoyer par email</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Your order for transaction #%%tid%%</source>
+        <target>Votre commande pour l'opération #%%tid%%</target>
+      </trans-unit>
+      <trans-unit>
+        <source>You will find your order from %%seller%% in this email message as an attachment.</source>
+        <target>Veuillez trouver ci-joint le descriptif de votre réservation pour %%seller%%.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Your invoice for transaction #%%tid%%</source>
+        <target>Votre facture pour l'opération #%%tid%%</target>
+      </trans-unit>
+      <trans-unit>
+        <source>You will find your invoice from %%seller%% in this email message as an attachment.</source>
+        <target>Veuillez trouver ci-joint la facture de votre réservation pour %%seller%%.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

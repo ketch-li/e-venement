@@ -10,6 +10,12 @@
     <input type="hidden" name="<?php echo $name ?>" value="<?php echo $value ?>" />
   <?php endforeach ?>
 </p></form>
+<form class="send-by-email" action="" method="get"><p>
+  <input type="submit" name="email" value="<?php echo __('Send by email',null,'li_accounting') ?>" />
+  <?php foreach ( $sf_request->getGetParameters() as $name => $value ): ?>
+    <input type="hidden" name="<?php echo $name ?>" value="<?php echo $value ?>" />
+  <?php endforeach ?>
+</p></form>
 <?php if ( isset($modifiable) && $modifiable ): ?>
 <script type="text/javascript">
 $(document).ready(function(){
