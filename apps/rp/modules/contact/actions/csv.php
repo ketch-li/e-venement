@@ -173,7 +173,7 @@
         $addr = explode("\r\n", $this->lines[$key]['organism_address']);
         for ( $i = 0 ; $i < count($addr) ; $i++ )
         {
-          $j = $i>2?3:$i+1;
+          $j = $i > 2 ? 3 : $i + 1;
           $this->lines[$key]['organism_address'.$j] = !isset($this->lines[$key]['organism_address'.$j])
             ? $addr[$i]
             : $this->lines[$key]['organism_address'.$j]."\r\n".$addr[$i];
