@@ -62,6 +62,9 @@ $(document).ready(function(){
   $('.highlight input, .highlight select, .highlight textarea')
     .focusout(function(){ return false; })
     .focusin (function(){ $(this).closest('.highlight').focusin(); return false; });
+  $('#li_transaction_field_gift_coupon').focusin(function(){
+    $('#li_transaction_field_payment_new').focusin();
+  });
 
   // changing quantities
   $('#li_transaction_field_content .qty a').click(function(){

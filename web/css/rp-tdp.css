@@ -117,7 +117,11 @@ body #content { width: auto; }
 #tdp-content #sf_admin_content .sf_admin_form_field_professional_type_id select { max-width: 200px; }
 #tdp-content #sf_admin_content .sf_admin_form_field_department input[type=text] { width: 8em; }
 #tdp-content #sf_admin_content .tdp-line.personal_description .tdp-description { width: 100%; display: inline-block; }
+.tdp-description.sf_admin_form_field_description > textarea {margin-left: 9px; width: 43.3%;}
+.tdp-description.sf_admin_form_field_description > span {margin-left: 9px;}
 #tdp-content #sf_admin_content .tdp-line.personal_description .tdp-flash_on_control { width: calc(30% - 10px); display: none; }
+.tdp-flash_on_control.sf_admin_form_field_flash_on_control > textarea {margin-left: 32px; width: 43.3%;}
+.tdp-flash_on_control.sf_admin_form_field_flash_on_control > span {margin-left: 31px;}
 #tdp-content #sf_admin_content .tdp-line.personal_description textarea { width: 96%; }
 #tdp-content #sf_admin_content .tdp-line.more .tdp-password { display: none; }
 #tdp-content .tdp-subobject h1 .tdp-organism_professional_id, #tdp-content .tdp-subobject h1 .tdp-organism_category { float: right; display: inline-block; overflow: hidden; margin-left: 5px; }
@@ -144,7 +148,7 @@ body #content { width: auto; }
 #tdp-content .tdp-line.relations .tdp-Relationships table table select { margin: 0; }
 
 @media screen and (min-width: 1200px) {
-#tdp-content #sf_admin_content .sf_admin_form_field_professional_type_id select { max-width: 25%; width: 207px; }
+#tdp-content #sf_admin_content .sf_admin_form_field_professional_type_id select { max-width: 25%; width: 291px; }
 #tdp-content .tdp-professional #sf_admin_content .tdp-line.line1 input[type=text] { width: 30%; }
 }
 
@@ -154,7 +158,7 @@ body #content { width: auto; }
 
 #tdp-content .tdp-line.internet { width: 375px; }
 #content #tdp-content .tdp-subobject .tdp-line.phonenumbers { float: none; width: 385px; }
-#tdp-content .tdp-line.line1 { float: none; padding-right: 0px; width: 1207px; }
+#tdp-content .tdp-line.line1 { float: none; padding-right: 0px; width: 1241px; }
 #tdp-content .tdp-line.correspondence { margin-top: 5px; }
 
 }

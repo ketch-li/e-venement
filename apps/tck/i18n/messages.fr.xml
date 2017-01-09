@@ -2076,6 +2076,18 @@
         <source>A contact is needed for printing the ticket(s) if it is a delayed payment.</source>
         <target>Vous avez demandé l'impression de billet sans équilibrer l'opération. Pour effectuer un paiement différé, vous devez saisir un contact.</target>
       </trans-unit>   
+      <trans-unit>
+        <source>Gift coupon</source>
+        <target>Bon cadeau</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Coupon code</source>
+        <target>Code du bon</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Gift coupon #%%mc%% successfully added to the current transaction.</source>
+        <target>Bon cadeau #%%mc%% ajouté avec succès à l'opération en cours.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

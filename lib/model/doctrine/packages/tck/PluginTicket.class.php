@@ -347,22 +347,39 @@ abstract class PluginTicket extends BaseTicket
       ->andWhere('mc.contact_id IS NOT NULL AND t.id = ? OR mc.transaction_id = ?',array($this->transaction_id, $this->transaction_id))
       ->leftJoin('mc.MemberCardPrices mcp')
       ->leftJoin('mcp.Event e')
-      ->leftJoin('e.Manifestations m')
       ->andWhere('mc.created_at <= ?',date('Y-m-d H:i:s'))
       ->andWhere('mc.expire_at >  ?',date('Y-m-d H:i:s'))
       ->andWhere('mc.active = ? OR mc.transaction_id = ?', array(true, $this->transaction_id))
-      ->andWhere('mcp.price_id = ?',$this->price_id)
       ->orderBy('mcp.event_id IS NULL, mc.expire_at');
     if ( $this->manifestation_id )
-      $q->andWhere('(mcp.event_id IS NULL OR m.id = ?)',$this->manifestation_id);
+      $q->leftJoin('e.Manifestations m WITH m.id = ?', $this->manifestation_id);
     elseif ( $this->gauge_id )
-      $q->leftJoin('m.Gauges g')
-        ->andWhere('(mcp.event_id IS NULL OR g.id = ?)',$this->gauge_id);
+      $q->leftJoin('e.Manifestations m')
+        ->leftJoin('m.Gauges g WITH g.id = ?', $this->gauge_id);
     $card = $q->fetchOne();
     
     if ( $card && $card->MemberCardPrices->count() > 0 )
     {
-      unset($card->MemberCardPrices[0]);
+      foreach ( $card->MemberCardPrices as $i => $mcp )
+      if ( $mcp->price_id == $this->price_id )
+      {
+        // event agnostic MemberCardPrice
+        if ( !$mcp->event_id )
+        {
+          unset($card->MemberCardPrices[$i]);
+          break;
+        }
+
+        if ( $this->manifestation_id && $mcp->Event->Manifestations->count() > 0
+            && $mcp->Event->Manifestations[0]->id == $this->manifestation_id
+          || $this->gauge_id && $mcp->Event->Manifestations->count() > 0 && $mcp->Event->Manifestations[0]->Gauges->count() > 0
+            && $mcp->Event->Manifestations[0]->Gauges[0]->id == $this->gauge_id
+        )
+        {
+          unset($card->MemberCardPrices[$i]);
+          break;
+        }
+      }
       $card->save();
       $this->member_card_id = $card->id;
     }

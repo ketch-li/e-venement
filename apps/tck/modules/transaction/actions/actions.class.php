@@ -396,6 +396,19 @@ class transactionActions extends autoTransactionActions
       ->setDefault('force', null)
     ;
 
+    // GIFT COUPON
+    $this->form['gift_coupon'] = new sfForm;
+    $ws = $this->form['gift_coupon']->getWidgetSchema()->setNameFormat('transaction[gift_coupon][%s]');
+    $vs = $this->form['gift_coupon']->getValidatorSchema();
+    $ws['code'] = new sfWidgetFormInputText(array(
+      'label' => 'Gift coupon',
+    ), array(
+      'placeholder' => __('Coupon code'),
+    ));
+    $vs['code'] = new sfValidatorDoctrineChoice(array(
+      'model' => 'MemberCard',
+    ));
+    
     // NEW PAYMENT
     $this->form['payment_new'] = new sfForm;
     $ws = $this->form['payment_new']->getWidgetSchema()->setNameFormat('transaction[payment_new][%s]');

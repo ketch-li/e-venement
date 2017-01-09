@@ -36,6 +36,7 @@
         <button class="cancel-ept-transaction"><?php echo __('Cancel') ?></button>
       </li>
       <li class="detail"><input type="text" name="simplified[payment_detail]" value="" placeholder="<?php echo __('Detail') ?>" /></li>
+      <li class="gift_coupon"><input type="text" name="simplified[gift_coupon]" value="" placeholder="<?php echo __('Gift coupon') ?>" /></li>
     </ul>
     <ul class="cart ui-widget-content ui-corner-all">
       <li class="print end">

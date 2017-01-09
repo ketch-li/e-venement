@@ -47,8 +47,8 @@ abstract class PluginMemberCard extends BaseMemberCard
   
   public function postSave($event)
   {
-    $this->processInfinitePrices();
     parent::postSave($event);
+    $this->processInfinitePrices();
   }
   public function postInsert($event)
   {
@@ -77,15 +77,19 @@ abstract class PluginMemberCard extends BaseMemberCard
     $q = Doctrine::getTable('MemberCardPriceModel')->createQuery('pm')
       ->andWhere('pm.member_card_type_id = ?',$this->member_card_type_id)
       ->andWhere('pm.quantity < 0');
+    $mcpms = $q->execute();
     
-    foreach ( $q->execute() as $model )
+    foreach ( $mcpms as $model )
     {
+      $qty = -$model->quantity;
       // do not add existing prices
       foreach ( $this->MemberCardPrices as $mcp )
-      if ( $mcp->price_id == $model->price_id )
-        $model->quantity++;
+      {
+        if ( $mcp->price_id == $model->price_id && $model->event_id == $mcp->event_id )
+          $qty--;
+      }
       
-      for ( $i = 0 ; $i < -$model->quantity ; $i++ )
+      for ( $i = 0 ; $i < $qty ; $i++ )
       {
         $mc_price = new MemberCardPrice;
         $mc_price->price_id = $model->price_id;
@@ -95,6 +99,8 @@ abstract class PluginMemberCard extends BaseMemberCard
         $this->MemberCardPrices[] = $mc_price;
       }
     }
+    
+    return $this;
   }
   
   public function getIndexesPrefix()
