@@ -2056,6 +2056,10 @@
           <source>N° mumber card</source>
           <target>N° de carte</target>
       </trans-unit>
+      <trans-unit>
+        <source>Sell</source>
+        <target>Vendre</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>
