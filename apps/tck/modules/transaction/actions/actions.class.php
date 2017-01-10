@@ -303,7 +303,7 @@ class transactionActions extends autoTransactionActions
     $this->form['price_new'] = new sfForm;
     $ws = $this->form['price_new']->getWidgetSchema()->setNameFormat('transaction[price_new][%s]');
     $vs = $this->form['price_new']->getValidatorSchema();
-    $ws['qty'] = new sfWidgetFormInput(array('type' => 'number'), array('min' => -999, 'max' => 999));
+    $ws['qty'] = new sfWidgetFormInput(array('type' => 'number'), array('min' => -250, 'max' => 250));
     $vs['qty'] = new sfValidatorInteger(array(
       'max' => 251,
       'required' => false, // if no qty is set, then "1" is used

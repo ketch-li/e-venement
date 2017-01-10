@@ -73,8 +73,16 @@ $(document).ready(function(){
     input.val(newval < 0 ? 0 : newval).change();
   });
   $('#li_transaction_field_content .qty input').focusout(function(){ return false; }).select(function(){
+    if ( parseInt($(this).val(),10) > parseInt($(this).prop('max'),10) )
+      $(this).val($(this).prop('max'));
+    if ( parseInt($(this).val(),10) < parseInt($(this).prop('min'),10) )
+      $(this).val($(this).prop('min'));
     $(this).prop('defaultValue',$(this).val());
   }).change(function(){
+    if ( parseInt($(this).val(),10) > parseInt($(this).prop('max'),10) )
+      $(this).val($(this).prop('max'));
+    if ( parseInt($(this).val(),10) < parseInt($(this).prop('min'),10) )
+      $(this).val($(this).prop('min'));
     if ( $(this).closest('.highlight.ui-state-highlight').length == 0 )
       $(this).closest('.highlight').focusin();
     if ( isNaN(parseInt($(this).val(),10)) || $(this).closest('.declination').is('.active.printed') )
