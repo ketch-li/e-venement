@@ -102,7 +102,7 @@
     );
     
     // direct transaction's fields
-    foreach ( array('contact_id', 'professional_id', 'postalcode', 'description', 'deposit', 'with_shipment',) as $form )
+    foreach ( array('contact_id', 'professional_id', 'postalcode', 'description', 'deposit', 'with_shipment') as $form )
     if ( isset($params[$form]) && (isset($this->form[$form]) || $this->form['more']->getWidgetSchema()->offsetExists($form)) )
     {
       $field = $form;
@@ -145,7 +145,7 @@
     }
     
     // more complex data
-    foreach ( array('price_new', 'payment_new', 'payments_list', 'store_integrate', 'close') as $field )
+    foreach ( array('price_new', 'payment_new', 'payments_list', 'store_integrate', 'close', 'gift_coupon') as $field )
     if ( isset($params[$field]) && is_array($params[$field]) && isset($this->form[$field]) )
     {
       $this->json['success']['success_fields'][$field] = $success;
@@ -332,6 +332,20 @@
         
         if ( $this->transaction->isModified() )
           $this->transaction->save(); // saving the transaction even if nothing has changed, because of the dispatcher's actions
+        break;
+        
+      case 'gift_coupon':          
+          $data = json_decode($this->form[$field]->getValue('code'), true);
+
+          if ($data['type'] == 'MemberCard')
+          {
+              $id = (int)$data['member_card_id'];
+              $mc = Doctrine::getTable('MemberCard')->find($id);
+              $mc->Transaction = $this->transaction;
+              $mc->save();
+              $this->json['success']['success_fields'][$field]['data']['type'] = $field;
+              $this->json['success']['success_fields'][$field]['data']['alert'] = __('Gift coupon #%%mc%% successfully added to the current transaction.', array('%%mc%%' => $id));              
+          }
         break;
       }
       else

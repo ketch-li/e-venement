@@ -444,6 +444,38 @@
         <source>Please contact your administrator</source>
         <target>Veuillez contacter votre administrateur</target>
       </trans-unit>
+      <trans-unit>
+        <source>Selling screen configuration</source>
+        <target>Paramètrage de l'écran de vente</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>Force postal code</source>
+        <target>Imposer la saisie du code postal.</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>User policy</source>
+        <target>Charte utilisateur</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>User policy file</source>
+        <target>Fichier contenant la charte</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>User policy upload</source>
+        <target>Ajout d'une charte utilisateur</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>Adding a file here will overwrite your</source>
+        <target>Ajouter un fichier remplacera votre</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>The file has been successfully modified.</source>
+        <target>Le fichier a bien été ajouté.</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>No user policy file.</source>
+        <target>Aucune charte utilisateur présente.</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>

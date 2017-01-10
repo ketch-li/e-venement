@@ -82,8 +82,15 @@ all:
     city: PARIS
     country: France
     other:
+    date: P #P for format day-name day month-name year t for format %d%/%m%/%y%
     invoice_prefix: FB
     salt: sqnao@é 98Fdnquèç&
+    #invoice_bodypart1: #content between invoice's number and lines
+    #invoice_bodypart2: #content between lines and total
+    #invoice_bodypart3: #content before footer
+    #order_bodypart1: #content between order's number and lines
+    #order_bodypart2: #content between lines and total
+    #order_bodypart3: #content before footer
     #invoice_footer: A footer...      # parameters: %%transaction_id%%, %%order_id%%, %%invoice_id%%
 
 dev:

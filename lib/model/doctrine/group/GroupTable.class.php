@@ -41,7 +41,7 @@ class GroupTable extends PluginGroupTable
     return $query
       ->leftJoin("$alias.Users users")
       ->andWhere("(CASE WHEN g.sf_guard_user_id IS NULL THEN CASE WHEN true = ? THEN true ELSE CASE WHEN true = ? THEN (SELECT count(sf_guard_user_id) > 0 FROM group_user WHERE group_id = g.id AND sf_guard_user_id = ?) ELSE false END END ELSE g.sf_guard_user_id = ? END)",array(
-        $sf_user->hasCredential(array('admin-users','admin-power')),
+        $sf_user->hasCredential(array('admin-users','admin-power'), false),
         $sf_user->hasCredential('pr-group-common'),
         $sf_user->getId(),
         $sf_user->getId(),

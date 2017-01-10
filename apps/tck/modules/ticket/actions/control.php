@@ -170,6 +170,24 @@
             $params['ticket_id'] = $ticket->id;
             $failure->complete($params);
           }
+          elseif ( $ticket->Manifestation->happens_at > date('Y-m-d H:i',strtotime('now + '.$past)) )
+          {
+            // It's too soon pal !
+            $this->error_tickets[] = $ticket;
+            $this->errors[] = __('Too soon for ticket #%%id%% (gates will open at %%datetime%%)', array(
+              '%%id%%' => $ticket->id,
+              '%%datetime%%' => date('Y-m-d H:i',strtotime($ticket->Manifestation->happens_at . ' - ' .$past))
+            ));
+          }
+          elseif ( $ticket->Manifestation->happens_at < date('Y-m-d H:i',strtotime('now - '.$future)) )
+          {
+             // It's too late man !
+             $this->error_tickets[] = $ticket;
+             $this->errors[] = __('Too late for ticket #%%id%% (gates closed at %%datetime%%)', array(
+               '%%id%%' => $ticket->id,
+               '%%datetime%%' => date('Y-m-d H:i',strtotime($ticket->Manifestation->happens_at . ' + ' .$future))
+             ));
+          }
           else
           {
             $cancontrol = true;

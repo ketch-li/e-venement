@@ -6,7 +6,7 @@
               <tr class="declination" data-price-id="">
                 <td class="qty nb">
                   <a class="fg-button-mini fg-button ui-state-default fg-button-icon-left"><span class="ui-icon ui-icon-minus"></span></a>
-                  <input class="qty" type="text" name="qty" value="" pattern="\d*" maxlength="3" />
+                  <input class="qty" type="number" name="qty" value="" min="0" max="250" />
                   <a class="fg-button-mini fg-button ui-state-default fg-button-icon-left"><span class="ui-icon ui-icon-plus"></span></a>
                 </td>
                 <td class="ticket-data">

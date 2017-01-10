@@ -62,6 +62,9 @@ $(document).ready(function(){
   $('.highlight input, .highlight select, .highlight textarea')
     .focusout(function(){ return false; })
     .focusin (function(){ $(this).closest('.highlight').focusin(); return false; });
+  $('#li_transaction_field_gift_coupon').focusin(function(){
+    $('#li_transaction_field_payment_new').focusin();
+  });
 
   // changing quantities
   $('#li_transaction_field_content .qty a').click(function(){
@@ -70,8 +73,16 @@ $(document).ready(function(){
     input.val(newval < 0 ? 0 : newval).change();
   });
   $('#li_transaction_field_content .qty input').focusout(function(){ return false; }).select(function(){
+    if ( parseInt($(this).val(),10) > parseInt($(this).prop('max'),10) )
+      $(this).val($(this).prop('max'));
+    if ( parseInt($(this).val(),10) < parseInt($(this).prop('min'),10) )
+      $(this).val($(this).prop('min'));
     $(this).prop('defaultValue',$(this).val());
   }).change(function(){
+    if ( parseInt($(this).val(),10) > parseInt($(this).prop('max'),10) )
+      $(this).val($(this).prop('max'));
+    if ( parseInt($(this).val(),10) < parseInt($(this).prop('min'),10) )
+      $(this).val($(this).prop('min'));
     if ( $(this).closest('.highlight.ui-state-highlight').length == 0 )
       $(this).closest('.highlight').focusin();
     if ( isNaN(parseInt($(this).val(),10)) || $(this).closest('.declination').is('.active.printed') )
@@ -761,9 +772,11 @@ LI.calculateTotals = function()
         {
             $('.payment_missing').hide();
             $('.payment_change').show();
+            $('#li_transaction_field_payments_list .change').addClass('warning');
         } else {
             $('.payment_change').hide();
             $('.payment_missing').show();
+            $('#li_transaction_field_payments_list .change').removeClass('warning');
         }  
         changeData = true; 
     }

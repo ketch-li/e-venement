@@ -5,6 +5,14 @@
     <header/>
     <body>
       <trans-unit>
+        <source>If 0 is set, this will not be considered; if -1, this will mean "infinite"</source>
+        <target>Si 0, cette association ne sera pas considérée ; si -1, cela signifiera "une infinité"</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Search</source>
+        <target>Rechercher</target>
+      </trans-unit>
+      <trans-unit>
         <source>Today</source>
         <target>Aujourd'hui</target>
       </trans-unit>
@@ -506,7 +514,7 @@
       </trans-unit>
       <trans-unit>
         <source>You must record the payment(s) before printing the ticket(s)</source>
-        <target>Vous avez demandé l'impression de billet sans équilibrer l'opération avec un paiement. S'il s'agit d'un paiement différé, confirmez en cliquant sur Oui.</target>
+        <target>Vous avez demandé l'impression de billet sans équilibrer l'opération. S'il s'agit d'un paiement différé, confirmez en cliquant sur OK.</target>
       </trans-unit>
       <trans-unit>
         <source>Display the seated plan</source>
@@ -1179,6 +1187,10 @@
       <trans-unit>
         <source>Partial printing</source>
         <target>Imp./Int. partielle</target>
+      </trans-unit>
+      <trans-unit>
+        <source>You must enter a postal code before printing the ticket(s).</source>
+        <target>Vous devez saisir un code postal avant d'imprimer le(s) billet(s).</target>
       </trans-unit>
       <trans-unit>
         <source>Unassociated</source>
@@ -2051,6 +2063,30 @@
       <trans-unit>
         <source>An error occurred during ticket #%%tid%% printing: %%err%%</source>
         <target>Une erreur est survenue durant l'impression du billet #%%tid%%: %%err%%</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Too soon for ticket #%%id%% (gates will open at %%datetime%%)</source>
+        <target>Trop tôt pour le billet #%%id%% (ouverture du contrôle d'accès: %%datetime%%)</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>Too late for ticket #%%id%% (gates closed at %%datetime%%)</source>
+        <target>Trop tard pour le billet #%%id%% (fermeture du contrôle d'accès: %%datetime%%)</target>
+      </trans-unit>   
+      <trans-unit>
+        <source>A contact is needed for printing the ticket(s) if it is a delayed payment.</source>
+        <target>Vous avez demandé l'impression de billet sans équilibrer l'opération. Pour effectuer un paiement différé, vous devez saisir un contact.</target>
+      </trans-unit>   
+      <trans-unit>
+        <source>Gift coupon</source>
+        <target>Bon cadeau</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Coupon code</source>
+        <target>Code du bon</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Gift coupon #%%mc%% successfully added to the current transaction.</source>
+        <target>Bon cadeau #%%mc%% ajouté avec succès à l'opération en cours.</target>
       </trans-unit>
     </body>
   </file>

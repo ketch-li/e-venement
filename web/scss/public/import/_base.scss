@@ -2,6 +2,9 @@
 @mixin bg-image($image) {
   background-image: url("#{$images-path + $image}");
 }
+@mixin bg-social($image) {
+  background-image: url("#{$social-path + $image}");
+}
 
 * { box-sizing: border-box; }
 
@@ -549,9 +552,9 @@ body > #client-infos {
       padding: 0;
     }  
     a.count { margin-right: 0; }    
-    &[data-social=facebook] a { @include bg-image("facebook.png"); }
-    &[data-social=twitter] a { @include bg-image("twitter.png"); }
-    &[data-social=googleplus] a { @include bg-image("google_plus.png"); }
+    &[data-social=facebook] a { @include bg-social("facebook.png"); }
+    &[data-social=twitter] a { @include bg-social("twitter.png"); }
+    &[data-social=googleplus] a { @include bg-social("google_plus.png"); }
     span::before, #social-networks li span::after {
       content: "";
       display: block;
@@ -651,6 +654,16 @@ body > #client-infos {
 }
 
 /* My Account page */
+
+.mod-contact #member_cards #sf_admin_content .sf_admin_list,
+.mod-contact #products #sf_admin_content .sf_admin_list  {
+    thead { display: table-header-group; }
+    td, th{ 
+        display: table-cell; 
+        padding: 5px;
+    }
+    tbody tr { display: table-row; }
+}
 
 .mod-contact #manifestations #sf_admin_content .sf_admin_list,
 .mod-contact #transactions #sf_admin_content .sf_admin_list {

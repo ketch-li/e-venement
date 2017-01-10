@@ -10,6 +10,12 @@
     <input type="hidden" name="<?php echo $name ?>" value="<?php echo $value ?>" />
   <?php endforeach ?>
 </p></form>
+<form class="send-by-email" action="" method="get"><p>
+  <input type="submit" name="email" value="<?php echo __('Send by email',null,'li_accounting') ?>" />
+  <?php foreach ( $sf_request->getGetParameters() as $name => $value ): ?>
+    <input type="hidden" name="<?php echo $name ?>" value="<?php echo $value ?>" />
+  <?php endforeach ?>
+</p></form>
 <?php if ( isset($modifiable) && $modifiable ): ?>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -21,11 +27,11 @@ $(document).ready(function(){
   });
   $('form.inline-modifications button').click(function() {
     $('.inline-modifiable').each(function() {
-      if ( $(this).find('input').length == 0 )
-        $(this).html($('<input type="text" value="" name="inline-modifiable" />').val($(this).html()));
+      if ( $(this).find('textarea').length == 0 )
+        $(this).html($('<textarea name="inline-modifiable"></textarea>').val($(this).html()));
       else
       {
-        $(this).html($(this).find('input').val());
+        $(this).html($(this).find('textarea').val());
         if ( $('[name="inline-modifiable"]').length == 0 )
         {
           $.post($('form.inline-modifications').attr('action'), {

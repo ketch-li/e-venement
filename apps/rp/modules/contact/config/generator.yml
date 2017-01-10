@@ -107,7 +107,7 @@ generator:
           Flow management: [control_created_at, control_manifestation_id, control_checkpoint_id]
           <?php endif ?><?php echo PHP_EOL ?>
           Surveys: [survey_id, survey_query_id, survey_answer]
-          Additional: [culture, description, YOB, email_npai, email_newsletter, family_contact, npai, has_address, has_email, has_category, emails_list, created_at, updated_at]
+          Additional: [duplicates, culture, description, YOB, email_npai, email_newsletter, family_contact, npai, has_address, has_email, has_category, emails_list, created_at, updated_at]
       form: ~
       edit:
         title: Contact %%name%% %%firstname%%

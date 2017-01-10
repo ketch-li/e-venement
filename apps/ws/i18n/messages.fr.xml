@@ -13,6 +13,10 @@
         <target>Conditions Générales de Vente (fichier)</target>
       </trans-unit>
       <trans-unit>
+        <source>Terms Conditions Url</source>
+        <target>Addresse du fichier des Conditions Générales de Vente</target>
+      </trans-unit>
+      <trans-unit>
         <source>Remote authentication List</source>
         <target>Liste des authentifications distantes</target>
       </trans-unit>
