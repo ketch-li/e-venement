@@ -89,7 +89,7 @@ class member_cardActions extends autoMember_cardActions
   public function executeCheck(sfWebRequest $request)
   {
     $this->type = '';
-    
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url','CrossAppLink'));
     $q = Doctrine::getTable('MemberCard')->retreiveListOfActivatedCards()
       ->select('mc.*, c.*')
       ->leftJoin('c.Archives ca')
