@@ -121,6 +121,7 @@ body.mod-card { color: $base-text-color; }
         background-size: 30px 20px;
         &.culture-fr { @include bg-image("flag_france.png"); }
         &.culture-en { @include bg-image("flag_uk.png"); }
+        &.culture-br { @include bg-image("flag_br.png"); }
       }
     }
   }  
