@@ -64,6 +64,7 @@
         
         // case of a scan of a MemberCard
         if ( isset($tmp['type']) && $tmp['type'] == 'MemberCard' )
+        try
         {
           $control = $request->getParameter('control');
           $card = Doctrine::getTable('MemberCard')->find($tmp['member_card_id']);
@@ -81,6 +82,7 @@
             $mcps[] = $mcp;
           // then, the agnostic prices
           if ( $mcps->count() == 0 )
+          foreach ( $card->MemberCardPrices as $mcp )
           if ( !$mcp->event_id )
             $mcps[] = $mcp;
           
@@ -90,12 +92,14 @@
             $price = null;
             foreach ( $manifestation->PriceManifestations as $pm )
             if ( in_array($pm->price_id, $mcps->toKeyValueArray('id', 'price_id')) )
-            if (!( $price != null && $pm->value > $price->value ))
+            if ( is_null($price)
+              || !is_null($price) && $pm->value > $price->value && $pm->price_id == $price->price_id )
               $price = $pm;
             foreach ( $manifestation->Gauges as $gauge )
             foreach ( $gauge->PriceGauges as $pg )
-            if ( in_array($pm->price_id, $mcps->toKeyValueArray('id', 'price_id')) )
-            if (!( $price != null && ($pg->value > $price->value || $pg->price_id == $price->price_id) ))
+            if ( in_array($pg->price_id, $mcps->toKeyValueArray('id', 'price_id')) )
+            if ( is_null($price)
+              || !is_null($price) && $pg->value > $price->value && $pg->price_id == $price->price_id )
               $price = $pg;
             
             if ( $price )
@@ -135,6 +139,7 @@
                   ->fetchOne()
                 ;
                 $payment->value = $ticket->value + $ticket->taxes; //$ticket->Transaction->getPrice(false, true) - $ticket->Transaction->getPaid();
+                //$payment->MemberCard = $card;
                 $ticket->Transaction->Payments[] = $payment;
               }
               $ticket->Transaction->contact_id = $card->contact_id;
@@ -145,7 +150,14 @@
               $params['ticket_id'] = $ticket->id;
             }
           }
+        } catch ( liEvenementException $e ) {
+          // error controling a MemberCard
+          error_log('Error controlling a MemberCard on a Checkpoint: '.$e->getMessage());
+          $ticket->delete();
+          $params['ticket_id'] = null;
+          $this->errors[] = __($e->getMessage());
         }
+        
       }
       elseif ( in_array('othercode', $field) )
         $params['ticket_id'] = array(preg_replace('/!$/', '', $params['ticket_id']));

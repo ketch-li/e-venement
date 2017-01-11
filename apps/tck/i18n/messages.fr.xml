@@ -2088,6 +2088,10 @@
         <source>Gift coupon #%%mc%% successfully added to the current transaction.</source>
         <target>Bon cadeau #%%mc%% ajouté avec succès à l'opération en cours.</target>
       </trans-unit>
+      <trans-unit>
+        <source>No MemberCard linked with this Payment whereas its Method requires it.</source>
+        <target>Carte avantage introuvable pour payer ce billet, alors que cela est nécessaire.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
