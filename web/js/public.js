@@ -382,7 +382,7 @@ LI.customLayout = function()
 
   // Add search button
   $('<a href="#">')
-    .text('Rechercher')  // TODO: translation !
+    .text($('[data-source="search"]').data('target'))
     .attr('href', '#')
     .appendTo('#sf_admin_bar .sf_admin_filter .sf_admin_filter_field_name td')
     .click(function(){
@@ -408,12 +408,12 @@ LI.customLayout = function()
 
     // Add date picker for events
     var dateHref = $(this).find('.sf_admin_list_td_name a').attr('href'); // TODO: display the list ?
-    var dateBtn = $('<a>').attr('href', dateHref).text('Choisir une date');  // TODO: translation !
+    var dateBtn = $('<a>').attr('href', dateHref).text($('[data-source="pick-a-date"]').data('target'));  // TODO: translation !
     $('<td>').addClass('sf_admin_date_action').append(dateBtn).appendTo($(this));
 
     // Add order button
     var orderHref = $(this).find('.sf_admin_list_td_name a').attr('href');
-    var orderBtn = $('<a>').attr('href', orderHref).text('Commander');  // TODO: translation !
+    var orderBtn = $('<a>').attr('href', orderHref).text($('[data-source="order"]').data('target'));
     $('<td>').addClass('sf_admin_order_action').append(orderBtn).appendTo($(this));
   });   
   

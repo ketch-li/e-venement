@@ -1057,7 +1057,15 @@ ou bien suivez ce lien&nbsp;:&lt;br/&gt;
       <trans-unit id="262">
         <source>Download PDF file</source>
         <target>Télécharger le fichier PDF</target>
-      </trans-unit>      
+      </trans-unit>
+      <trans-unit id="263">
+        <source>Search</source>
+        <target>Rechercher</target>
+      </trans-unit>            
+      <trans-unit id="264">
+        <source>Pick a date</source>
+        <target>Choisir une date</target>
+      </trans-unit>            
     </body>
   </file>
 </xliff>
