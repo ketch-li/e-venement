@@ -23,63 +23,31 @@
 <?php
 class sellingOptionsActions extends sfActions
 {
-
     public function executeIndex(sfWebRequest $request)
     {
-      $this->form = $this->getForm();
+      $this->form = new OptionTckForm();
     }
     
-    public function executeChange(sfWebRequest $request)
+    public function executeUpdate(sfWebRequest $request)
     {
-      $this->form = $this->getForm();      
-      $params = $request->getParameter('Options');
-      
+      $this->getContext()->getConfiguration()->loadHelpers('I18N');
+      $this->form = new OptionTckForm();     
+      $params = $request->getPostParameters();
+
       if ($params) {
-          $this->form->bind($params);
-          if ( $this->form->isValid() )
+          $this->form->bind($params, array());
+          
+          if ( !$this->form->isValid() )
           {
-              if (array_key_exists('selling_option', $params)) {
-                  if (!$this->group->getPermissions()->search($this->permission)) {
-                      $gp = new sfGuardGroupPermission();
-                      $gp->setGroup($this->group);
-                      $gp->setPermission($this->permission);
-                      $gp->save();
-                      $this->getUser()->setFlash('success', 'The option has been successfully modified.');
-                  }
-              } else {
-                  $q = Doctrine_Query::create()
-                    ->delete('sfGuardGroupPermission u')
-                    ->where('u.group_id = ?', $this->group->id)
-                    ->andWhere('u.permission_id = ?', $this->permission->id);
-                  $q->execute();
-                  $this->getUser()->setFlash('success', 'The option has been successfully modified.');
-              }
+            $this->getUser()->setFlash('error',__('Your form cannot be validated.'));
+            return $this->setTemplate('index');
           }
-          else
-            $this->getUser()->setFlash('error', 'Please, try again...');          
+          
+          $user_id = NULL;
+          
+          $cpt = $this->form->save($user_id);
+          $this->getUser()->setFlash('notice',__('The option has been successfully modified.'));
+          $this->redirect('sellingOptions/index');
       }
-      
-      $this->redirect('sellingOptions/index');
     }
-
-    protected function getForm()
-    {
-        sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
-        
-        $form = new sfForm;
-        $ws = $form ->getWidgetSchema();
-        $vs = $form ->getValidatorSchema();
-        
-        $this->group = Doctrine::getTable('sfGuardGroup')->findOneByName('tck-operator');
-        $this->permission = Doctrine::getTable('sfGuardPermission')->findOneByName('tck-print-ticket-cp');
-        
-        $ws['selling_option'] = new sfWidgetFormInputCheckbox(array('label' => __('Force postal code')), array('value' => 1));      
-        $vs['selling_option'] = new sfValidatorBoolean();
-        $ws->setNameFormat('Options[%s]');
-
-        $form->setDefault('selling_option', $this->group->getPermissions()->search($this->permission));
-        
-        return $form;
-    }
-
 }

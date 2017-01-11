@@ -1,2 +1,2 @@
 all:
-    credentials: [tck-selling-option]
+    credentials: [tck-admin]
