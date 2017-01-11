@@ -34,7 +34,7 @@
       </trans-unit>
       <trans-unit>
         <source>&lt;span class="name inline-modifiable"&gt;Order&lt;/span&gt; #&lt;span class="order_id"&gt;%%oid%%&lt;/span&gt;, for transaction #&lt;span class="transaction_id"&gt;%%tid%%&lt;/span&gt;</source>
-        <target>&lt;span class="name inline-modifiable"&gt;Bon de commande&lt;/span&gt; #&lt;span class="order_id"&gt;%%oid%%&lt;/span&gt;, pour l'operation #&lt;span class="transaction_id"&gt;%%tid%%&lt;/span&gt;</target>
+        <target>&lt;span class="name inline-modifiable"&gt;Bon de commande&lt;/span&gt; #&lt;span class="order_id"&gt;%%oid%%&lt;/span&gt;, pour l'opération #&lt;span class="transaction_id"&gt;%%tid%%&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit>
         <source>TEP</source>
@@ -119,6 +119,26 @@
       <trans-unit>
         <source>Order</source>
         <target>Résa./Bon de comm.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Send by email</source>
+        <target>Envoyer par email</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Your order for transaction #%%tid%%</source>
+        <target>Votre commande pour l'opération #%%tid%%</target>
+      </trans-unit>
+      <trans-unit>
+        <source>You will find your order from %%seller%% in this email message as an attachment.</source>
+        <target>Veuillez trouver ci-joint le descriptif de votre réservation pour %%seller%%.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Your invoice for transaction #%%tid%%</source>
+        <target>Votre facture pour l'opération #%%tid%%</target>
+      </trans-unit>
+      <trans-unit>
+        <source>You will find your invoice from %%seller%% in this email message as an attachment.</source>
+        <target>Veuillez trouver ci-joint la facture de votre réservation pour %%seller%%.</target>
       </trans-unit>
     </body>
   </file>

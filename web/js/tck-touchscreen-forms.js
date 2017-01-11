@@ -90,6 +90,10 @@ LI.formSubmit = function(){
           LI.completeContent(value.data.content, value.data.type, false);
           break;
         
+        case 'gift_coupon':
+          LI.alert(value.data.alert, 'success');
+          $('#li_transaction_field_gift_coupon input[type=text]').val('');
+          break;
         case 'choose_mc':
           $('#li_transaction_field_payment_new [name="transaction[payment_new][member_card_id]"]').remove();
           var select = $('<select></select>').append('<option></option>')

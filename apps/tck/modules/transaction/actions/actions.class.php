@@ -303,7 +303,7 @@ class transactionActions extends autoTransactionActions
     $this->form['price_new'] = new sfForm;
     $ws = $this->form['price_new']->getWidgetSchema()->setNameFormat('transaction[price_new][%s]');
     $vs = $this->form['price_new']->getValidatorSchema();
-    $ws['qty'] = new sfWidgetFormInput(array('type' => 'number'), array('min' => -999, 'max' => 999));
+    $ws['qty'] = new sfWidgetFormInput(array('type' => 'number'), array('min' => -250, 'max' => 250));
     $vs['qty'] = new sfValidatorInteger(array(
       'max' => 251,
       'required' => false, // if no qty is set, then "1" is used
@@ -396,6 +396,17 @@ class transactionActions extends autoTransactionActions
       ->setDefault('force', null)
     ;
 
+    // GIFT COUPON
+    $this->form['gift_coupon'] = new sfForm;
+    $ws = $this->form['gift_coupon']->getWidgetSchema()->setNameFormat('transaction[gift_coupon][%s]');
+    $vs = $this->form['gift_coupon']->getValidatorSchema();
+    $ws['code'] = new sfWidgetFormInputText(array(
+      'label' => 'Gift coupon',
+    ), array(
+      'placeholder' => __('Coupon code'),
+    ));
+    $vs['code'] = new sfValidatorString(array('required' => false));
+    
     // NEW PAYMENT
     $this->form['payment_new'] = new sfForm;
     $ws = $this->form['payment_new']->getWidgetSchema()->setNameFormat('transaction[payment_new][%s]');
@@ -453,6 +464,18 @@ class transactionActions extends autoTransactionActions
         ->andWhere('t.id = ?', $this->transaction->id),
     ));
     $this->form['close']->setDefault('id', $this->transaction->id);
+
+    // Force a postal code input
+    $q = Doctrine::getTable('OptionTck')->createQuery('o')
+      ->andWhere('o.sf_guard_user_id IS NULL')
+      ->andWhere('o.name = ?', 'tck-print-ticket-cp');
+
+    $option = $q->fetchOne();
+    $auth = false;
+    if ($option) {
+        $auth = $option->value;
+    }
+    sfConfig::set('app_transaction_OptionTck', $auth);
 
     // SIMPLIFIED GUI
     //$this->form['simplified']['manifestations'] = $this->form['content']['manifestations'];

@@ -18,6 +18,7 @@ generator:
         MemberCardType: { label: Type of member card }
         autoadd: { label: Added automatically, help: On the creation of a member card (online) }
         list_event: { label: Event }
+        quantity: { help: 'If 0 is set, this will not be considered; if -1, this will mean "infinite"' }
       list:
         title: Prices association for member cards
         display: [name, Price, quantity, autoadd, _list_event, updated_at]

@@ -24,6 +24,7 @@ all:
         board: ~
       payments:
         price_new: ~
+        gift_coupon: ~
         payment_new:
           class: highlight
         payments_list:

@@ -5,6 +5,10 @@
     <header/>
     <body>
       <trans-unit>
+        <source>If 0 is set, this will not be considered; if -1, this will mean "infinite"</source>
+        <target>Si 0, cette association ne sera pas considérée ; si -1, cela signifiera "une infinité"</target>
+      </trans-unit>
+      <trans-unit>
         <source>Search</source>
         <target>Rechercher</target>
       </trans-unit>
@@ -2072,6 +2076,22 @@
         <source>A contact is needed for printing the ticket(s) if it is a delayed payment.</source>
         <target>Vous avez demandé l'impression de billet sans équilibrer l'opération. Pour effectuer un paiement différé, vous devez saisir un contact.</target>
       </trans-unit>   
+      <trans-unit>
+        <source>Gift coupon</source>
+        <target>Bon cadeau</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Coupon code</source>
+        <target>Code du bon</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Gift coupon #%%mc%% successfully added to the current transaction.</source>
+        <target>Bon cadeau #%%mc%% ajouté avec succès à l'opération en cours.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>No MemberCard linked with this Payment whereas its Method requires it.</source>
+        <target>Carte avantage introuvable pour payer ce billet, alors que cela est nécessaire.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

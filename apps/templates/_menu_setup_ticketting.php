@@ -35,7 +35,7 @@
               <?php if ( $sf_user->hasCredential('tck-ledger-sales') && $sf_user->hasCredential('tck-ledger-cash') ): ?>
               <li class="spaced"><a href="<?php echo cross_app_url_for('tck','@option_accounting') ?>"><?php echo __('Accounting informations',array(),'menu') ?></a></li>
               <?php endif ?>
-              <?php if ( $sf_user->hasCredential('tck-selling-option') ): ?>
+              <?php if ( $sf_user->hasCredential('tck-admin') ): ?>
               <li class="spaced"><?php echo cross_app_link_to(__('Selling options', null, 'menu'), 'default', 'sellingOptions/index') ?></li>
               <?php endif ?>
             </ul>
