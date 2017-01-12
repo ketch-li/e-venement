@@ -59,7 +59,106 @@
       
       // creating tickets ids array
       if ( ($tmp = json_decode($params['ticket_id'], true, 512, JSON_BIGINT_AS_STRING)) && is_array($tmp) )
+      {
         $params['ticket_id'] = $tmp; // json array
+        
+        // case of a scan of a MemberCard
+        if ( isset($tmp['type']) && $tmp['type'] == 'MemberCard' )
+        try
+        {
+          $control = $request->getParameter('control');
+          $card = Doctrine::getTable('MemberCard')->find($tmp['member_card_id']);
+          $manifestation = Doctrine::getTable('Manifestation')->createQuery('m')
+            ->leftJoin('e.Checkpoints c')
+            ->andWhere('c.id = ?', $control['checkpoint_id'])
+            ->orderBy('@extract(epoch from m.happens_at - now())')
+            ->select('m.*')
+            ->fetchOne();
+          
+          $mcps = new Doctrine_Collection('MemberCardPrice');
+          // first, the oriented prices
+          foreach ( $card->MemberCardPrices as $mcp )
+          if ( $mcp->event_id == $manifestation->event_id )
+            $mcps[] = $mcp;
+          // then, the agnostic prices
+          if ( $mcps->count() == 0 )
+          foreach ( $card->MemberCardPrices as $mcp )
+          if ( !$mcp->event_id )
+            $mcps[] = $mcp;
+          
+          // if some prices have been found, we can continue...
+          if ( $mcps->count() > 0 )
+          {
+            $price = null;
+            foreach ( $manifestation->PriceManifestations as $pm )
+            if ( in_array($pm->price_id, $mcps->toKeyValueArray('id', 'price_id')) )
+            if ( is_null($price)
+              || !is_null($price) && $pm->value > $price->value && $pm->price_id == $price->price_id )
+              $price = $pm;
+            foreach ( $manifestation->Gauges as $gauge )
+            foreach ( $gauge->PriceGauges as $pg )
+            if ( in_array($pg->price_id, $mcps->toKeyValueArray('id', 'price_id')) )
+            if ( is_null($price)
+              || !is_null($price) && $pg->value > $price->value && $pg->price_id == $price->price_id )
+              $price = $pg;
+            
+            if ( $price )
+            {
+              $ticket = new Ticket;
+              $ticket->Transaction = new Transaction;
+              $ticket->integrated_at = date('Y-m-d H:i:s');
+              $ticket->automatic = true;
+              $ticket->Manifestation = $manifestation;
+              
+              $ticket->price_id = $price->price_id;
+              $ticket->value = $price->value;
+              
+              if ( $price instanceof PriceGauge )
+                $ticket->gauge_id = $price->gauge_id;
+              else // PriceManifestation
+              {
+                foreach ( $manifestation->Gauges as $gauge )
+                if ( $gauge->free > 0 )
+                if ( in_array($gauge->workspace_id, $price->Price->Workspaces->getPrimaryKeys()) )
+                {
+                  $ticket->gauge_id = $gauge->id;
+                  break;
+                }
+              }
+              
+              // first pass for prerequisites
+              $ticket->save();
+              
+              // the payment
+              if ( $ticket->value + $ticket->taxes > 0 )
+              {
+                $payment = new Payment;
+                $payment->Method = Doctrine::getTable('PaymentMethod')->createQuery('pm')
+                  ->andWhere('pm.member_card_linked = ?', true)
+                  ->orderBy('NOT pm.display, pm.id')
+                  ->fetchOne()
+                ;
+                $payment->value = $ticket->value + $ticket->taxes; //$ticket->Transaction->getPrice(false, true) - $ticket->Transaction->getPaid();
+                //$payment->MemberCard = $card;
+                $ticket->Transaction->Payments[] = $payment;
+              }
+              $ticket->Transaction->contact_id = $card->contact_id;
+              
+              // second pass to finish stuff
+              $ticket->Transaction->save();
+              
+              $params['ticket_id'] = $ticket->id;
+            }
+          }
+        } catch ( liEvenementException $e ) {
+          // error controling a MemberCard
+          error_log('Error controlling a MemberCard on a Checkpoint: '.$e->getMessage());
+          $ticket->delete();
+          $params['ticket_id'] = null;
+          $this->errors[] = __($e->getMessage());
+        }
+        
+      }
       elseif ( in_array('othercode', $field) )
         $params['ticket_id'] = array(preg_replace('/!$/', '', $params['ticket_id']));
       else
@@ -121,7 +220,7 @@
           ->leftJoin('e.Manifestations m')
           ->leftJoin('m.Tickets t')
           ->andWhere('c.id = ?', $params['checkpoint_id']);
-          $tmp = $field;
+        $tmp = $field;
         $q->andWhere('(TRUE')
           ->andWhereIn('t.'.($f = array_shift($tmp)).' IS NOT NULL AND t.'.$f, $params['ticket_id']);
         foreach ( $tmp as $f )
@@ -169,6 +268,24 @@
             $failure = new FailedControl;
             $params['ticket_id'] = $ticket->id;
             $failure->complete($params);
+          }
+          elseif ( $ticket->Manifestation->happens_at > date('Y-m-d H:i',strtotime('now + '.$past)) )
+          {
+            // It's too soon pal !
+            $this->error_tickets[] = $ticket;
+            $this->errors[] = __('Too soon for ticket #%%id%% (gates will open at %%datetime%%)', array(
+              '%%id%%' => $ticket->id,
+              '%%datetime%%' => date('Y-m-d H:i',strtotime($ticket->Manifestation->happens_at . ' - ' .$past))
+            ));
+          }
+          elseif ( $ticket->Manifestation->happens_at < date('Y-m-d H:i',strtotime('now - '.$future)) )
+          {
+             // It's too late man !
+             $this->error_tickets[] = $ticket;
+             $this->errors[] = __('Too late for ticket #%%id%% (gates closed at %%datetime%%)', array(
+               '%%id%%' => $ticket->id,
+               '%%datetime%%' => date('Y-m-d H:i',strtotime($ticket->Manifestation->happens_at . ' + ' .$future))
+             ));
           }
           else
           {

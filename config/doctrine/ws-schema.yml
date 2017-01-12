@@ -392,3 +392,12 @@ OptionPubTexts:
     keyField: type
     keyValue: 'pub-texts'
                     
+
+OptionTck:
+  package: ws
+  inheritance:
+    extends: Option
+    type: column_aggregation
+    keyField: type
+    keyValue: 'tck'
+                    

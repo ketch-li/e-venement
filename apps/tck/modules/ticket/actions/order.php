@@ -75,11 +75,44 @@
       $this->data[$var] = $this->$var;
     
     // if everything's ok, prints out the order
-    if ( !$request->hasParameter('pdf') )
-      return 'Success';
+    if ( $request->hasParameter('pdf') )
+    {
+      $pdf = new sfDomPDFPlugin();
+      $pdf->setInput($this->getPartial('order_pdf', $this->data));
+      $this->getResponse()->setContentType('application/pdf');
+      $this->getResponse()->setHttpHeader('Content-Disposition', 'attachment; filename="order-'.$this->order->id.'.pdf"');
+      return $this->renderText($pdf->execute());
+    }
     
-    $pdf = new sfDomPDFPlugin();
-    $pdf->setInput($content = $this->getPartial('order_pdf', $this->data));
-    $this->getResponse()->setContentType('application/pdf');
-    $this->getResponse()->setHttpHeader('Content-Disposition', 'attachment; filename="order-'.$this->order->id.'.pdf"');
-    return $this->renderText($pdf->execute());
+    if ( $request->hasParameter('email') )
+    {
+      $this->getContext()->getConfiguration()->loadHelpers(array('CrossAppLink','I18N'));
+      $sf_user = $this->getUser()->getGuardUser();
+      
+      $pdf = new liPDFPlugin($this->getPartial('order_pdf', $this->data));
+      $file = new Picture;
+      $file->name = 'db:'.($fname = 'order-'.$this->order->id.'-'.date('YmdHis').'-'.rand(0,9999).'.pdf');
+      $file->content = base64_encode($raw = $pdf->getPDF());
+      $file->type = 'application/pdf';
+      $file->save();
+      
+      $attachment = new Attachment;
+      $attachment->original_name = $fname;
+      $attachment->filename = $file->name;
+      $attachment->mime_type = $file->type;
+      $attachment->size = strlen($raw);
+      
+      $email = new Email;
+      $email->field_subject = __('Your order for transaction #%%tid%%', array('%%tid%%' => $this->transaction->id), 'li_accounting');
+      $email->field_from = $sf_user->email_address;
+      if ( $this->transaction->contact_id )
+        $email->Contacts[] = $this->transaction->Contact;
+      $email->content = __('You will find your order from %%seller%% in this email message as an attachment.', array('%%seller%%' => sfConfig::get('app_seller_name', 'our ticketing system')), 'li_accounting');
+      
+      $email->Attachments[] = $attachment;
+      $email->save();
+      $this->redirect(cross_app_url_for('rp', 'email/edit?id='.$email->id));
+    }
+    
+    return 'Success';
+    

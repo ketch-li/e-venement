@@ -275,6 +275,16 @@ LI.touchscreenSimplifiedLoadPaymentMethods = function(){
       .siblings('button').eq(0).trigger('click');
     return false;
   });
+  $('#li_fieldset_simplified .payments .gift_coupon input').change(function(){
+    $('#li_transaction_field_gift_coupon input[type=text]').val($(this).val()).submit();
+    $(this).val('');
+  }).keypress(function(e){
+    if ( e.which == 13 )
+    {
+      $(this).change();
+      return false;
+    }
+  });
 }
 
 LI.touchscreenSimplifiedLoadData = function(){
@@ -288,10 +298,14 @@ LI.touchscreenSimplifiedLoadData = function(){
   
   // get back distant initial data
   var form = $('#li_transaction_field_content [data-bunch-id="'+$('#li_fieldset_simplified .products-types .selected').attr('data-bunch-id')+'"] .new-family');
+  var data = { simplified: 1, manifestation_id: [] /*, id: $('[name="transaction[close][id]"]').val() */ };
+  $(location.hash.split('#manifestations-')).each(function(key, value){
+    if ( value ) data.manifestation_id.push(value);
+  });
   $.ajax({
     url: $(form).prop('action'),
     type: $(form).prop('method'),
-    data: { simplified: 1 /*, id: $('[name="transaction[close][id]"]').val() */ },
+    data: data,
     dataType: 'json',
     success: function(json){
       LI.touchscreenSimplified_LoadData(json, form);
@@ -593,6 +607,7 @@ LI.touchscreenSimplifiedPrices = function(gauge, data){
     $(form).submit();
     return false;
   });
+  target.trigger('prices_loaded');
 }
 
 if ( LI.touchscreenContentLoad == undefined )
@@ -785,9 +800,20 @@ LI.touchscreenSimplifiedTotal = function()
   var topay = $('#li_fieldset_simplified .cart .topay');
   var paid  = $('#li_fieldset_simplified .cart .paid');
   var total = $('#li_fieldset_simplified .cart .total');
-  topay.find('.value').html(LI.format_currency(
-    parseFloat(total.find('.value').attr('data-value'))
-    -
-    parseFloat(paid.find('.value').attr('data-value'))
-  ));
+  var rest = parseFloat(total.find('.value').attr('data-value')) - parseFloat(paid.find('.value').attr('data-value'));
+  
+  topay.find('.value').html(LI.format_currency(rest));
+  
+
+    if (rest < 0) 
+    {
+        $('.payment_missing').hide();
+        $('.payment_change').show();
+        topay.addClass('warning');
+    } else {
+        $('.payment_change').hide();
+        $('.payment_missing').show();
+        topay.removeClass('warning');
+    }  
+  
 }

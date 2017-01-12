@@ -257,6 +257,10 @@
         <target>Vous êtes sur le point d'importer un lot de contacts. Attention à respecter ce type de fichier :</target>
       </trans-unit>
       <trans-unit>
+        <source>For importing organism. Be careful to respect this type of file:</source>
+        <target>Pour l'importation d'organisme. Attention à respecter ce type de fichier :</target>
+      </trans-unit>    
+      <trans-unit>
         <source>Do not forget that this file must be UTF-8 encoded, its fields must be separated by a comma, and the first line dedicated to field titles... Actually a standard CSV format.</source>
         <target>Ne pas oublier que ce fichier doit être encodé en UTF-8, que ses champs doivent être séparés par une virgule, que la première ligne est dédiée aux titres des champs... Ce qui en fait un format CSV standard.</target>
       </trans-unit>
@@ -2048,6 +2052,14 @@
           <source>unknown user</source>
           <target>utilisateur inconnu</target>
       </trans-unit>
+      <trans-unit>
+          <source>N° mumber card</source>
+          <target>N° de carte</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Sell</source>
+        <target>Vendre</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>

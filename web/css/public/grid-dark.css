@@ -591,11 +591,11 @@ body > #client-infos {
     #social-networks li a.count {
       margin-right: 0; }
     #social-networks li[data-social=facebook] a {
-      background-image: url("/images/vel/themes/facebook.png"); }
+      background-image: url("/images/vel/social/facebook.png"); }
     #social-networks li[data-social=twitter] a {
-      background-image: url("/images/vel/themes/twitter.png"); }
+      background-image: url("/images/vel/social/twitter.png"); }
     #social-networks li[data-social=googleplus] a {
-      background-image: url("/images/vel/themes/google_plus.png"); }
+      background-image: url("/images/vel/social/google_plus.png"); }
     #social-networks li span::before, #social-networks li #social-networks li span::after {
       content: "";
       display: block;
@@ -682,6 +682,18 @@ body > #client-infos {
       border-radius: 3px; }
 
 /* My Account page */
+.mod-contact #member_cards #sf_admin_content .sf_admin_list thead,
+.mod-contact #products #sf_admin_content .sf_admin_list thead {
+  display: table-header-group; }
+.mod-contact #member_cards #sf_admin_content .sf_admin_list td, .mod-contact #member_cards #sf_admin_content .sf_admin_list th,
+.mod-contact #products #sf_admin_content .sf_admin_list td,
+.mod-contact #products #sf_admin_content .sf_admin_list th {
+  display: table-cell;
+  padding: 5px; }
+.mod-contact #member_cards #sf_admin_content .sf_admin_list tbody tr,
+.mod-contact #products #sf_admin_content .sf_admin_list tbody tr {
+  display: table-row; }
+
 .mod-contact #manifestations #sf_admin_content .sf_admin_list thead,
 .mod-contact #transactions #sf_admin_content .sf_admin_list thead {
   display: table-header-group; }

@@ -36,6 +36,7 @@
         <button class="cancel-ept-transaction"><?php echo __('Cancel') ?></button>
       </li>
       <li class="detail"><input type="text" name="simplified[payment_detail]" value="" placeholder="<?php echo __('Detail') ?>" /></li>
+      <li class="gift_coupon"><input type="text" name="simplified[gift_coupon]" value="" placeholder="<?php echo __('Gift coupon') ?>" /></li>
     </ul>
     <ul class="cart ui-widget-content ui-corner-all">
       <li class="print end">
@@ -63,7 +64,8 @@
       </li>
       <li class="topay end">
         <div class="left">
-          <span class="category"><?php echo __('Still missing') ?></span>
+          <span class="payment_missing category"><?php echo __('Still missing') ?></span>
+          <span class="payment_change category" style="display:none;"><?php echo __('Give change') ?></span>
         </div>
         <div class="right">
           <span class="value"><?php echo format_currency(0,$sf_context->getConfiguration()->getCurrency()) ?></span>

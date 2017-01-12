@@ -43,4 +43,4 @@ generator:
       show:
         display:
           Ticketting: [_show_prices_list, _show_tickets_list, _show_products_list, _show_payments_list, _show_pending_tickets_list]
-          General: [_show_id, _show_contact, name, _show_value, expire_at, _show_active, created_at, checks_count]
+          General: [_show_id, _show_contact, name, _show_value, expire_at, _show_active, _show_transaction_id, created_at, checks_count]

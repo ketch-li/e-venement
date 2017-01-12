@@ -2,6 +2,7 @@
 <?php include_partial('global/flashes') ?>
 <?php use_javascript('helper-csv') ?>
 <?php use_stylesheet('tck-ledger-both','',array('media' => 'all')) ?>
+<?php use_javascript('/private/tck-ledger.js'); ?>
 
 <div><div class="ui-widget-content ui-corner-all">
   <div class="fg-toolbar ui-widget-header ui-corner-all">
