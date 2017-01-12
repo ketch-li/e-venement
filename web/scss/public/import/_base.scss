@@ -409,32 +409,34 @@ body.mod-manifestation.action-show {
 
 /* Events admin list */
 
-.mod-event #sf_admin_content .sf_admin_list {
-  tbody tr { clear: both; }  
-  td {
-    &.sf_admin_list_td_name {
-      display: block;
-      padding: 25px;
-      color: $event-name-color;
-      a { 
+.mod-event, .mod-visit {
+  #sf_admin_content .sf_admin_list {
+    tbody tr { clear: both; }  
+    td {
+      &.sf_admin_list_td_name {
         display: block;
-        text-transform: uppercase;
-        font-size: $base-font-size * 1.4;
-        line-height: 1;
-        font-weight: 400;
-        color: $event-name-color; 
-      }
-      h2 {
-        margin: 0;
-        padding: 10px 0 0;
-        font-size: $base-font-size * 1.2;
-        font-weight: 300;
-      }      
-    }    
-    &.sf_admin_list_td_list_description {
-      display: block;
-      padding: 0 25px;
-    }    
+        padding: 25px;
+        color: $event-name-color;
+        a { 
+          display: block;
+          text-transform: uppercase;
+          font-size: $base-font-size * 1.4;
+          line-height: 1;
+          font-weight: 400;
+          color: $event-name-color; 
+        }
+        h2 {
+          margin: 0;
+          padding: 10px 0 0;
+          font-size: $base-font-size * 1.2;
+          font-weight: 300;
+        }      
+      }    
+      &.sf_admin_list_td_list_description {
+        display: block;
+        padding: 0 25px;
+      }    
+    }
   }
 }
 

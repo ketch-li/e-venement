@@ -81,7 +81,7 @@ body.mod-card {
 
 /* Toolbar menu */
 #sf_admin_header {
-  background-color: #1d8dcc;
+  background-color: #263850;
   border-radius: 0; }
   #sf_admin_header #ariane {
     font-size: 0;
@@ -195,7 +195,7 @@ body.mod-card {
         font-weight: 400;
         text-transform: uppercase;
         color: white;
-        background-color: #f46245; }
+        background-color: #96bd67; }
 
 /* Login form */
 #login label {
@@ -423,7 +423,7 @@ body.mod-manifestation.action-show .manifestation_bottom .social-description {
         font-weight: 400;
         text-transform: uppercase;
         color: white;
-        background-color: #f46245; }
+        background-color: #96bd67; }
   #sf_admin_content .sf_admin_list tfoot tr {
     background-color: transparent;
     border-width: 0; }
@@ -438,7 +438,7 @@ body.mod-manifestation.action-show .manifestation_bottom .social-description {
       padding: 0.5em;
       border-radius: 3px;
       background-color: white;
-      color: #f46245;
+      color: #96bd67;
       font-size: 18px;
       font-weight: 300; }
       #sf_admin_content .sf_admin_list tfoot th .sf_admin_pagination a {
@@ -453,14 +453,14 @@ body.mod-manifestation.action-show .manifestation_bottom .social-description {
   .mod-meta_event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_name {
     display: block;
     padding: 25px;
-    color: #1d8dcc; }
+    color: #263850; }
     .mod-meta_event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_name a {
       display: block;
       text-transform: uppercase;
       font-size: 2.46154em;
       line-height: 1;
       font-weight: 400;
-      color: #1d8dcc; }
+      color: #263850; }
   .mod-meta_event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description {
     display: block;
     padding: 0 25px 25px;
@@ -473,14 +473,14 @@ body.mod-manifestation.action-show .manifestation_bottom .social-description {
 .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
   display: block;
   padding: 25px;
-  color: #1d8dcc; }
+  color: #263850; }
   .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name a, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name a {
     display: block;
     text-transform: uppercase;
     font-size: 21px;
     line-height: 1;
     font-weight: 400;
-    color: #1d8dcc; }
+    color: #263850; }
   .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name h2, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name h2 {
     margin: 0;
     padding: 10px 0 0;
@@ -497,14 +497,14 @@ body.mod-manifestation.action-show .manifestation_bottom .social-description {
   .mod-store #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_name {
     display: block;
     padding: 25px;
-    color: #1d8dcc; }
+    color: #263850; }
     .mod-store #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_name a {
       display: block;
       text-transform: uppercase;
       font-size: 2.46154em;
       line-height: 1;
       font-weight: 400;
-      color: #1d8dcc; }
+      color: #263850; }
   .mod-store #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_children {
     display: block;
     padding: 0 25px 25px;
@@ -767,14 +767,14 @@ body > #client-infos {
     .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
       display: block;
       padding: 25px;
-      color: #1d8dcc; }
+      color: #263850; }
       .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name a, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name a {
         display: block;
         text-transform: uppercase;
         font-size: 2.30769em;
         line-height: 1;
         font-weight: 400;
-        color: #1d8dcc; }
+        color: #263850; }
       .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name h2, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name h2 {
         margin: 0;
         padding: 10px 0 0;
@@ -802,7 +802,7 @@ body > #client-infos {
         font-weight: 400;
         text-align: left;
         color: white;
-        background-color: #91d2ce;
+        background-color: #c4d369;
         background-image: url("/images/vel/themes/show_dates.png");
         background-repeat: no-repeat;
         background-position: center right; }
@@ -848,4 +848,4 @@ body > #client-infos {
     height: 100px;
     line-height: 1.2; } }
 
-/*# sourceMappingURL=list-medium.css.map */
+/*# sourceMappingURL=list-private.css.map */

@@ -158,6 +158,8 @@ body.mod-card {
           background-image: url("/images/vel/themes/flag_france.png"); }
         #sf_admin_header #ariane #translation .i18n a.culture-en {
           background-image: url("/images/vel/themes/flag_uk.png"); }
+        #sf_admin_header #ariane #translation .i18n a.culture-br {
+          background-image: url("/images/vel/themes/flag_br.png"); }
 
 .sf_admin_flashes, #content .sf_admin_flashes {
   margin: 0; }
@@ -469,25 +471,25 @@ body.mod-manifestation.action-show .manifestation_bottom .social-description {
     line-height: 1.2; }
 
 /* Events admin list */
-.mod-event #sf_admin_content .sf_admin_list tbody tr {
+.mod-event #sf_admin_content .sf_admin_list tbody tr, .mod-visit #sf_admin_content .sf_admin_list tbody tr {
   clear: both; }
-.mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
+.mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
   display: block;
   padding: 25px;
   color: #f46245; }
-  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name a {
+  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name a, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name a {
     display: block;
     text-transform: uppercase;
     font-size: 21px;
     line-height: 1;
     font-weight: 400;
     color: #f46245; }
-  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name h2 {
+  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name h2, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name h2 {
     margin: 0;
     padding: 10px 0 0;
     font-size: 18px;
     font-weight: 300; }
-.mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description {
+.mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description {
   display: block;
   padding: 0 25px; }
 
@@ -752,10 +754,10 @@ body > #client-infos {
     width: 760px; }
 
   /* Events admin list */
-  .mod-event #sf_admin_content .sf_admin_list table {
+  .mod-event #sf_admin_content .sf_admin_list table, .mod-visit #sf_admin_content .sf_admin_list table {
     width: 840px;
     margin: 0 -40px; }
-    .mod-event #sf_admin_content .sf_admin_list table tbody tr {
+    .mod-event #sf_admin_content .sf_admin_list table tbody tr, .mod-visit #sf_admin_content .sf_admin_list table tbody tr {
       width: 200px;
       height: 200px;
       float: left;
@@ -763,43 +765,43 @@ body > #client-infos {
       margin: 0 40px 75px;
       overflow: visible;
       clear: none; }
-    .mod-event #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month {
+    .mod-event #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month, .mod-visit #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month {
       width: 760px;
       height: auto;
       float: none;
       margin: 0 40px 25px;
       clear: both; }
-      .mod-event #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month td {
+      .mod-event #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month td, .mod-visit #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month td {
         display: block;
         padding: 3px 1em;
         text-transform: uppercase;
         font-size: 1.4em;
         font-weight: 400;
         border-radius: 3px; }
-      .mod-event #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month.month-even td {
+      .mod-event #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month.month-even td, .mod-visit #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month.month-even td {
         background-color: #91d2ce;
         color: white; }
-      .mod-event #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month.month-odd td {
+      .mod-event #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month.month-odd td, .mod-visit #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month.month-odd td {
         background-color: #1d8dcc;
         color: white; }
-    .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_list_picture {
+    .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_list_picture, .mod-visit #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_list_picture {
       display: block;
       position: absolute;
       left: 0;
       top: 0;
       width: 200px;
       height: 200px; }
-      .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_list_picture a {
+      .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_list_picture a, .mod-visit #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_list_picture a {
         display: block; }
-      .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_list_picture img {
+      .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_list_picture img, .mod-visit #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_list_picture img {
         width: 100%; }
-    .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_name {
+    .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_name, .mod-visit #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_name {
       display: none;
       width: 200px;
       padding: 2em 0;
       color: #f46245;
       text-align: center; }
-      .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_name a {
+      .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_name a, .mod-visit #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_name a {
         display: block;
         width: 200px;
         margin: 0;
@@ -809,21 +811,21 @@ body > #client-infos {
         line-height: 1;
         font-weight: 400;
         color: #f46245; }
-      .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_name h2 {
+      .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_name h2, .mod-visit #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_name h2 {
         margin: 0;
         padding: 0;
         font-size: 1.2em;
         font-weight: 300; }
-    .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_list_description {
+    .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_list_description, .mod-visit #sf_admin_content .sf_admin_list table tbody td.sf_admin_list_td_list_description {
       display: none; }
-    .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_date_action {
+    .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_date_action, .mod-visit #sf_admin_content .sf_admin_list table tbody td.sf_admin_date_action {
       display: none;
       position: absolute;
       width: 100%;
       height: 40%;
       padding: 8px;
       bottom: 0; }
-      .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_date_action a {
+      .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_date_action a, .mod-visit #sf_admin_content .sf_admin_list table tbody td.sf_admin_date_action a {
         display: block;
         width: 100%;
         height: 28px;
@@ -839,7 +841,7 @@ body > #client-infos {
         background-image: url("/images/vel/themes/show_dates.png");
         background-repeat: no-repeat;
         background-position: center right; }
-    .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_order_action {
+    .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_order_action, .mod-visit #sf_admin_content .sf_admin_list table tbody td.sf_admin_order_action {
       display: block;
       position: absolute;
       width: 100%;
@@ -848,7 +850,7 @@ body > #client-infos {
       bottom: 0;
       right: 0;
       overflow: visible; }
-      .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_order_action a {
+      .mod-event #sf_admin_content .sf_admin_list table tbody td.sf_admin_order_action a, .mod-visit #sf_admin_content .sf_admin_list table tbody td.sf_admin_order_action a {
         width: 100%;
         display: inline-block;
         margin: 0 0 -50px;
@@ -862,12 +864,12 @@ body > #client-infos {
     width: 992px; }
 
   /* Events admin list */
-  .mod-event #sf_admin_content .sf_admin_list table {
+  .mod-event #sf_admin_content .sf_admin_list table, .mod-visit #sf_admin_content .sf_admin_list table {
     width: 1056px;
     margin: 0 -32px; }
-    .mod-event #sf_admin_content .sf_admin_list table tbody tr {
+    .mod-event #sf_admin_content .sf_admin_list table tbody tr, .mod-visit #sf_admin_content .sf_admin_list table tbody tr {
       margin: 0 32px 75px; }
-    .mod-event #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month {
+    .mod-event #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month, .mod-visit #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month {
       width: 992px;
       margin: 0 32px 25px; } }
 @media (min-width: 1200px) {
@@ -879,12 +881,12 @@ body > #client-infos {
     width: 1200px; }
 
   /* Events admin list */
-  .mod-event #sf_admin_content .sf_admin_list table {
+  .mod-event #sf_admin_content .sf_admin_list table, .mod-visit #sf_admin_content .sf_admin_list table {
     width: 1250px;
     margin: 0 -25px; }
-    .mod-event #sf_admin_content .sf_admin_list table tbody tr {
+    .mod-event #sf_admin_content .sf_admin_list table tbody tr, .mod-visit #sf_admin_content .sf_admin_list table tbody tr {
       margin: 0 25px 75px; }
-    .mod-event #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month {
+    .mod-event #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month, .mod-visit #sf_admin_content .sf_admin_list table tbody tr.sf_admin_month {
       width: 1200px;
       margin: 0 25px 25px; } }
 

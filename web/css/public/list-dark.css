@@ -158,6 +158,8 @@ body.mod-card {
           background-image: url("/images/vel/themes/flag_france.png"); }
         #sf_admin_header #ariane #translation .i18n a.culture-en {
           background-image: url("/images/vel/themes/flag_uk.png"); }
+        #sf_admin_header #ariane #translation .i18n a.culture-br {
+          background-image: url("/images/vel/themes/flag_br.png"); }
 
 .sf_admin_flashes, #content .sf_admin_flashes {
   margin: 0; }
@@ -469,25 +471,25 @@ body.mod-manifestation.action-show .manifestation_bottom .social-description {
     line-height: 1.2; }
 
 /* Events admin list */
-.mod-event #sf_admin_content .sf_admin_list tbody tr {
+.mod-event #sf_admin_content .sf_admin_list tbody tr, .mod-visit #sf_admin_content .sf_admin_list tbody tr {
   clear: both; }
-.mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
+.mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
   display: block;
   padding: 25px;
   color: #f46245; }
-  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name a {
+  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name a, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name a {
     display: block;
     text-transform: uppercase;
     font-size: 21px;
     line-height: 1;
     font-weight: 400;
     color: #f46245; }
-  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name h2 {
+  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name h2, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name h2 {
     margin: 0;
     padding: 10px 0 0;
     font-size: 18px;
     font-weight: 300; }
-.mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description {
+.mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description {
   display: block;
   padding: 0 25px; }
 
@@ -756,43 +758,42 @@ body > #client-infos {
   #client-header {
     width: 755px; }
 
-  .mod-event #sf_admin_content .sf_admin_list tbody tr {
+  .mod-event #sf_admin_content .sf_admin_list tbody tr, .mod-visit #sf_admin_content .sf_admin_list tbody tr {
     height: 200px;
     overflow: hidden; }
-
-  .mod-event #sf_admin_content .sf_admin_list td {
+  .mod-event #sf_admin_content .sf_admin_list td, .mod-visit #sf_admin_content .sf_admin_list td {
     float: left; }
-    .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture {
+    .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture {
       display: block;
       width: 170px;
       height: 200px; }
-    .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
+    .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
       display: block;
       padding: 25px;
       color: #f46245; }
-      .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name a {
+      .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name a, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name a {
         display: block;
         text-transform: uppercase;
         font-size: 2.30769em;
         line-height: 1;
         font-weight: 400;
         color: #f46245; }
-      .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name h2 {
+      .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name h2, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name h2 {
         margin: 0;
         padding: 10px 0 0;
         font-size: 1.84615em;
         font-weight: 300; }
-    .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description {
+    .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description {
       display: block;
       padding: 25px;
       overflow: hidden; }
-    .mod-event #sf_admin_content .sf_admin_list td.sf_admin_date_action {
+    .mod-event #sf_admin_content .sf_admin_list td.sf_admin_date_action, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_date_action {
       display: block;
       width: 170px;
       height: 100px;
       margin-top: -100px;
       text-align: center; }
-      .mod-event #sf_admin_content .sf_admin_list td.sf_admin_date_action a {
+      .mod-event #sf_admin_content .sf_admin_list td.sf_admin_date_action a, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_date_action a {
         display: block;
         width: 150px;
         height: 28px;
@@ -808,12 +809,12 @@ body > #client-infos {
         background-image: url("/images/vel/themes/show_dates.png");
         background-repeat: no-repeat;
         background-position: center right; }
-    .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture {
+    .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture {
       width: 170px; }
-    .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
+    .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
       width: 415px;
       height: 100px; }
-    .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description {
+    .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description {
       width: 415px;
       height: 100px;
       line-height: 1.2; } }
@@ -824,12 +825,12 @@ body > #client-infos {
   body > #client-header {
     width: 972px; }
 
-  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture {
+  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture {
     width: 170px; }
-  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
+  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
     width: 632px;
     height: 100px; }
-  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description {
+  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description {
     width: 632px;
     height: 100px;
     line-height: 1.2; } }
@@ -840,12 +841,12 @@ body > #client-infos {
   body > #client-header {
     width: 1180px; }
 
-  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture {
+  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_picture {
     width: 170px; }
-  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
+  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_name, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_name {
     width: 840px;
     height: 100px; }
-  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description {
+  .mod-event #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description, .mod-visit #sf_admin_content .sf_admin_list td.sf_admin_list_td_list_description {
     width: 840px;
     height: 100px;
     line-height: 1.2; } }

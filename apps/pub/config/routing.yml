@@ -1,3 +1,12 @@
+event_visit:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Event
+    module:               visit
+    prefix_path:          /visit
+    column:               id
+    with_wildcard_routes: true
+
 meta_event:
   class: sfDoctrineRouteCollection
   options:
