@@ -16,6 +16,12 @@ LI.safari = function(href){
   }
 }
 
+LI.trans = function(key) {
+  if (LI.translation_dict == Object(LI.translation_dict) && key in LI.translation_dict)
+    return LI.translation_dict[key];
+  return key;
+}
+
 $(document).ready(function(){
   // safari + iframe workaround
   if ( /^((?!chrome).)*safari/i.test(navigator.userAgent) && window.top != window && !Cookie.get('pub.safari.not_first_time') )
@@ -408,12 +414,12 @@ LI.customLayout = function()
 
     // Add date picker for events
     var dateHref = $(this).find('.sf_admin_list_td_name a').attr('href'); // TODO: display the list ?
-    var dateBtn = $('<a>').attr('href', dateHref).text('Choisir une date');  // TODO: translation !
+    var dateBtn = $('<a>').attr('href', dateHref).text(LI.trans('button.label.pick_a_date'));  // TODO: translation !
     $('<td>').addClass('sf_admin_date_action').append(dateBtn).appendTo($(this));
 
     // Add order button
     var orderHref = $(this).find('.sf_admin_list_td_name a').attr('href');
-    var orderBtn = $('<a>').attr('href', orderHref).text('Commander');  // TODO: translation !
+    var orderBtn = $('<a>').attr('href', orderHref).text(LI.trans('button.label.order'));  // TODO: translation !
     $('<td>').addClass('sf_admin_order_action').append(orderBtn).appendTo($(this));
   });   
   
