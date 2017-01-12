@@ -327,7 +327,7 @@ class Manifestation extends PluginManifestation implements liUserAccessInterface
     return true;
   }
 
-  public function getIcalPartial(vevent $e, $full = true, $only_pending = false)
+  public function getIcalPartial(vevent $e, $full = true, $only_pending = false, $options = array())
   {
     // settings
     $alarms = sfConfig::get('app_synchronization'.($only_pending ? 'pending_alarms' : 'alarms'), array('when' => array('-1 hour'), 'what' => array('display')));
@@ -353,6 +353,9 @@ class Manifestation extends PluginManifestation implements liUserAccessInterface
           break;
       }
     }
+    
+    if ( isset($options['status']) && $options['status'] )
+      $e->setProperty('STATUS', strtoupper($options['status']));
 
     $e->setProperty('categories', $this->Event->EventCategory );
     $e->setProperty('last-modified', date('YmdTHis',strtotime($this->updated_at)) );
@@ -380,8 +383,8 @@ class Manifestation extends PluginManifestation implements liUserAccessInterface
     if ( $full )
     {
       $client = sfConfig::get('project_about_client',array());
-      $e->setProperty('description', $client['name'].(!$nourl ? "\nURL: ".url_for('manifestation/show?id='.$this->id, true) : ''));
-      $e->setProperty('transp', $request->hasParameter('transp') ? 'TRANSPARENT' : 'OPAQUE');
+      $e->setProperty('description', $client['name'].(!(isset($nourl) && $nourl) ? "\nURL: ".url_for('manifestation/show?id='.$this->id, true) : ''));
+      $e->setProperty('transp', isset($options['transp']) && $options['transp'] ? 'TRANSPARENT' : 'OPAQUE');
 
       $orgs = array();
       if ( $this->Organizers->count() > 0 )
@@ -432,7 +435,7 @@ class Manifestation extends PluginManifestation implements liUserAccessInterface
 
     return $e;
   }
-  public function getIcal($full = true, $use_cache = true)
+  public function getIcal($full = true, $use_cache = true, $options = array())
   {
     // filename
     $caldir   = sfConfig::get('sf_module_cache_dir').'/calendars/';
@@ -448,25 +451,21 @@ class Manifestation extends PluginManifestation implements liUserAccessInterface
       'filename'  => $calfile,
     ));
 
+    // options
+    if ( isset($options['method']) && $options['method'] )
+      $v->setProperty('method', strtoupper($options['method']));
+
     if ( file_exists($caldir.$calfile)
-      && strtotime($this->happens_at) <= filemtime($caldir.$calfile)
+      && strtotime($this->happens_at) <= filemtime($caldir.'/'.$calfile)
       && $use_cache
     )
       $v->parse();
     else
     {
-      $v->addComponent($this->getIcalPartial($v->newComponent( 'vevent' ), $full));
+      $v->addComponent($this->getIcalPartial($v->newComponent( 'vevent' ), $full, $options));
 
-      if ( ! file_exists(dirname($caldir)) )
-      {
-        mkdir(dirname($caldir));
-        chmod(dirname($caldir),0777);
-      }
-      if ( ! file_exists($caldir) )
-      {
-        mkdir($caldir);
-        chmod($caldir,0777);
-      }
+      if ( !file_exists($caldir) )
+        mkdir(dirname($caldir),0777,true);
       if ( file_exists($caldir.'/'.$calfile) )
         unlink($caldir.'/'.$calfile);
 
