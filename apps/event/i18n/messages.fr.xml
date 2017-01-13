@@ -2250,6 +2250,10 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>Cancel periodicity&lt;span class="ui-icon ui-icon-closethick"&gt;&lt;/span&gt;</source>
         <target>Annul. périodicité&lt;span class="ui-icon ui-icon-closethick"&gt;&lt;/span&gt;</target>
       </trans-unit>
+      <trans-unit>
+        <source>Organizers</source>
+        <target>Organisateurs</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
