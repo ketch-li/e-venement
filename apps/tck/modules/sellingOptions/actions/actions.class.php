@@ -23,31 +23,37 @@
 <?php
 class sellingOptionsActions extends sfActions
 {
-    public function executeIndex(sfWebRequest $request)
-    {
-      $this->form = new OptionTckForm();
-    }
-    
-    public function executeUpdate(sfWebRequest $request)
-    {
-      $this->getContext()->getConfiguration()->loadHelpers('I18N');
-      $this->form = new OptionTckForm();     
-      $params = $request->getPostParameters();
+  public function executeIndex(sfWebRequest $request)
+  {
+    $this->form = $this->getForm();
+  }
+  
+  protected function getForm()
+  {
+    return new OptionTckForm;
+  }
+  
+  public function executeUpdate(sfWebRequest $request)
+  {
+    $this->getContext()->getConfiguration()->loadHelpers('I18N');
+    $this->form = $this->getForm();
+    $params = $request->getPostParameters();
 
-      if ($params) {
-          $this->form->bind($params, array());
-          
-          if ( !$this->form->isValid() )
-          {
-            $this->getUser()->setFlash('error',__('Your form cannot be validated.'));
-            return $this->setTemplate('index');
-          }
-          
-          $user_id = NULL;
-          
-          $cpt = $this->form->save($user_id);
-          $this->getUser()->setFlash('notice',__('The option has been successfully modified.'));
-          $this->redirect('sellingOptions/index');
+    if ($params)
+    {
+      $this->form->bind($params, array());
+      
+      if ( !$this->form->isValid() )
+      {
+        $this->getUser()->setFlash('error',__('Your form cannot be validated.'));
+        return $this->setTemplate('index');
       }
+      
+      $user_id = NULL;
+      
+      $cpt = $this->form->save($user_id);
+      $this->getUser()->setFlash('notice',__('The option has been successfully modified.'));
+      $this->redirect('sellingOptions/index');
     }
+  }
 }
