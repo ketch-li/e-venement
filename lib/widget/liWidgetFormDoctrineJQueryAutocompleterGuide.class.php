@@ -69,13 +69,9 @@ class liWidgetFormDoctrineJQueryAutocompleterGuide extends liWidgetFormDoctrineJ
         return parsed;
       }
     }, %s))
-    .result(function(event, data) { jQuery(input).val(data[1]); });
-    
-    jQuery(input).closest('form').submit(function(){
-      if ( jQuery(input).val() != jQuery(autocomplete).val() )
-      {
+    .result(function(event, data) { jQuery(input).val(data[1]); })
+    .change(function() {
         jQuery(input).val(jQuery(autocomplete).val());
-      }
     });
   });
 </script>
