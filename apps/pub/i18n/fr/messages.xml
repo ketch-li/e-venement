@@ -975,28 +975,28 @@ ou bien suivez ce lien&nbsp;:&lt;br/&gt;
         <target>Commander</target>
       </trans-unit>
       <trans-unit id="242">
-	<source>password</source>
-	<target>Mot de passe</target>
+      	<source>password</source>
+	      <target>Mot de passe</target>
       </trans-unit>
       <trans-unit id="243">
         <source>Associated prices still available</source>
-	<target>Places asssociées encore disponibles</target>
+      	<target>Places asssociées encore disponibles</target>
       </trans-unit>
       <trans-unit id="244">
-	<source>Created_at</source>
-	<target>Date de création </target>
+      	<source>Created_at</source>
+      	<target>Date de création </target>
       </trans-unit>
       <trans-unit id="245">
-	<source>Expire at</source>
-	<target>Date d'expiration </target>
+      	<source>Expire at</source>
+      	<target>Date d'expiration </target>
       </trans-unit>
       <trans-unit id="246">
-	<source>Choose your membership card</source>
-	<target>Choisir ma carte d'abonnement</target>
+        <source>Choose your membership card</source>
+        <target>Choisir ma carte d'abonnement</target>
       </trans-unit>
       <trans-unit id="247">
-	<source>You already have an account ? Login first...</source>
-	<target>Vous avez déjà un compte ? Connectez vous...</target>
+        <source>You already have an account ? Login first...</source>
+        <target>Vous avez déjà un compte ? Connectez vous...</target>
       </trans-unit>
       <trans-unit id="248">
         <source>No account yet? Create your own...</source>
@@ -1066,6 +1066,10 @@ ou bien suivez ce lien&nbsp;:&lt;br/&gt;
         <source>Pick a date</source>
         <target>Choisir une date</target>
       </trans-unit>            
+      <trans-unit id="265">
+        <source>Validate and access my third party account</source>
+        <target>Valider et accéder à mon compte externe</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
