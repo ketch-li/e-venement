@@ -204,8 +204,9 @@ if [ "$add" != 'n' ]
 then
   echo "If you get Symfony errors in the next few actions, it is not a problem, the permissions simply exist already in the DB"
   echo ""
-  #echo "Permissions & groups for the ws module (pub setup)"
-  #./symfony doctrine:data-load --append data/fixtures/11-permissions-v210-ws.yml
+  #echo "Permission to access the colors of the pos module"
+  ./symfony doctrine:data-load --append data/fixtures/11-permissions-v211-pos.yml
+  echo 'INSERT INTO sf_guard_group_permission (group_id, permission_id, created_at, updated_at) (SELECT (SELECT id FROM sf_guard_group WHERE name = 'pos-admin'), (SELECT id FROM sf_guard_permission WHERE name = 'pos-admin-color'), now(), now());' | psql
   #echo ""
 fi
 

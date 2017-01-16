@@ -1,4 +1,9 @@
 sfGuardPermission:
+  sfGuardPermission_160:
+    name: pos-admin-color
+    description: 'Permission to administrate colors of the store'
+    created_at: '2017-01-16 15:20:00'
+    updated_at: '2017-01-16 15:20:00'
   sfGuardPermission_159:
     name: tck-print-ticket-cp
     description: 'Force a postal code input before printing tickets'
@@ -941,6 +946,11 @@ sfGuardGroupPermission:
     Permission: sfGuardPermission_128
     created_at: '2014-09-06 19:00:27.000023'
     updated_at: '2014-09-06 19:00:27.000023'
+  sfGuardGroupPermission_50_160:
+    Group: sfGuardGroup_50
+    Permission: sfGuardPermission_160
+    created_at: '2017-01-15 15:20:00'
+    updated_at: '2017-01-15 15:20:00'
   sfGuardGroupPermission_50_122:
     Group: sfGuardGroup_50
     Permission: sfGuardPermission_122
