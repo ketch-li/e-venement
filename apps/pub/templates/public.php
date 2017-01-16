@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" itemscope itemtype="http://schema.org/Event" prefix="og: http://ogp.me/ns#">
   <head>
+    <?php use_helper('CrossAppLink') ?>
     <?php $module_name = $sf_context->getModuleName() ?>
     <?php $sf_response->setTitle($sf_response->getTitle().sfConfig::get('app_informations_title')); ?>
     <?php include_http_metas() ?>
@@ -24,7 +25,11 @@
         <?php include_partial('global/social_networks') ?>
       <?php endif ?>
     </div>
-    <div id="client-footer"></div>
+    <div id="client-footer">
+      <?php if (pubConfiguration::getText('app_texts_terms_conditions_url')): ?>
+        <a href="<?php echo cross_app_url_for('pub', 'cart/cgv');?>" target="_blank" title="<?php echo __('Terms & Conditions') ?>"><?php echo __('Terms & Conditions') ?></a>
+      <?php endif ?>
+    </div>
     <div id="client-infos"></div>
     <ul id="menu" class="first">
       <?php include_partial('global/public_choices') ?>
