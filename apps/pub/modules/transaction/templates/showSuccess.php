@@ -204,12 +204,12 @@ $(document).ready(function(){
       <td></td>
     <?php endif ?>
     <td class="qty"><?php echo $total['qty'] ?></td>
-    <td class="total"><?php echo format_currency($recalculated['total'] - $recalculated['withmc'],$sf_context->getConfiguration()->getCurrency()); ?></td>
+    <td class="total"><?php echo format_currency($total['value'],$sf_context->getConfiguration()->getCurrency()); ?></td>
     <td class="extra-taxes"><?php echo format_currency($total['taxes'],$sf_context->getConfiguration()->getCurrency()); ?></td>
     <?php if ( sfConfig::get('app_options_synthetic_plans', false) && $current_transaction ): ?>
     <td class="linked-stuff"></td>
     <?php endif ?>
-    <td class="total-total"><?php echo format_currency($recalculated['total'] + $total['taxes'],$sf_context->getConfiguration()->getCurrency()); ?></td>
+    <td class="total-total"><?php echo format_currency($recalculated['total'],$sf_context->getConfiguration()->getCurrency()); ?></td>
   </tr>
 </tfoot>
 <thead>
