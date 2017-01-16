@@ -4,6 +4,7 @@
 <?php use_stylesheet('kiosk/waves.css') ?>
 <?php use_stylesheet('kiosk/kiosk.css') ?>
 <?php use_stylesheet('kiosk/toastr.min.css') ?>
+
 <?php use_javascript('jquery') ?>
 <?php use_javascript('/sfAdminThemejRollerPlugin/js/jquery-ui.custom.min.js') ?>
 <?php use_javascript('/js/kiosk/toastr.min.js') ?>
@@ -131,12 +132,16 @@
 		</div>	
 	</main>
 </div>
+<!-- JS I18N -->
+<div class="js-i18n" data-source="manifestations" data-target="<?php echo kioskConfiguration::getText('app_texts_menu_manifestation', 'Manifestations') ?>"></div>
+<div class="js-i18n" data-source="museum" data-target="<?php echo kioskConfiguration::getText('app_texts_menu_museum', 'Museum') ?>"></div>
+<div class="js-i18n" data-source="store" data-target="<?php echo kioskConfiguration::getText('app_texts_menu_store', 'Store') ?>"></div>
 
 <!-- HANDLEBARS TEMPLATES -->
 
 	<!-- menu item -->
 <script id="menu-item-template" type="text/x-handlebars-template" data-template-type="menuItem">
-	<li class="menu-item" data-type="{{ name }}">
+	<li class="menu-item" data-type="{{ type }}">
 		<div id="" class="menu-item-card mdl-card mdl-shadow--2dp waves-effect">
   			<div class="mdl-card__title mdl-card--expand" style="background-color: {{ color }};">
     			{{ name }}
@@ -151,7 +156,9 @@
 	<div class="manif-card mdl-card mdl-shadow--2dp waves-effect" id="{{ id }}">
 		<div class="mdl-card__title manif-title" style="{{ background }};">
 			<p class="mdl-card__title-text manif-name">{{ name }}</p>
-			<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ start }}</p>
+		{{#unless museum}}
+    		<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ start }}</p>
+  		{{/unless}}
 			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ location }}</p>
 		</div>
 		<div class="mdl-card__supporting-text manif-description">
@@ -167,8 +174,8 @@
 	<div class="manif-card mdl-card mdl-shadow--2dp waves-effect" id="{{ id }}">
 		<div class="mdl-card__title manif-title" style="{{ background }};">
 			<p class="mdl-card__title-text manif-name">{{ name }}</p>
-			<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ start }}</p>
-			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ location }}</p>
+			<!-- <p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ start }}</p>
+			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ location }}</p> -->
 		</div>
 		<div class="mdl-card__supporting-text manif-description">
 			{{{ description }}}
