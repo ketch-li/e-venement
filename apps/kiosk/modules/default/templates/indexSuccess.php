@@ -131,12 +131,16 @@
 		</div>	
 	</main>
 </div>
+<!-- JS I18N -->
+<div class="js-i18n" data-source="manifestations" data-target="<?php echo kioskConfiguration::getText('app_texts_menu_manifestation', 'Manifestations') ?>"></div>
+<div class="js-i18n" data-source="museum" data-target="<?php echo kioskConfiguration::getText('app_texts_menu_museum', 'Museum') ?>"></div>
+<div class="js-i18n" data-source="store" data-target="<?php echo kioskConfiguration::getText('app_texts_menu_store', 'Store') ?>"></div>
 
 <!-- HANDLEBARS TEMPLATES -->
 
 	<!-- menu item -->
 <script id="menu-item-template" type="text/x-handlebars-template" data-template-type="menuItem">
-	<li class="menu-item" data-type="{{ name }}">
+	<li class="menu-item" data-type="{{ type }}">
 		<div id="" class="menu-item-card mdl-card mdl-shadow--2dp waves-effect">
   			<div class="mdl-card__title mdl-card--expand" style="background-color: {{ color }};">
     			{{ name }}

@@ -15,7 +15,6 @@ LI.kiosk.products = {
 	store: {}
 };
 
-
 $(document).ready(function(){
 	LI.kiosk.init();
 });
@@ -56,7 +55,8 @@ LI.kiosk.utils.setUpMenu = function(productLists){
 		
 		var template = Handlebars.compile(LI.kiosk.templates.menuItem);
 		var item = {
-			name: type
+			name: $('[data-source="' + type + '"]').data('target'),
+			type: type
 		};
 
 		$('#product-menu-items').append(template(item ));
