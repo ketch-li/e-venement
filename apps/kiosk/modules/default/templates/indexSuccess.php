@@ -4,6 +4,7 @@
 <?php use_stylesheet('kiosk/waves.css') ?>
 <?php use_stylesheet('kiosk/kiosk.css') ?>
 <?php use_stylesheet('kiosk/toastr.min.css') ?>
+
 <?php use_javascript('jquery') ?>
 <?php use_javascript('/sfAdminThemejRollerPlugin/js/jquery-ui.custom.min.js') ?>
 <?php use_javascript('/js/kiosk/toastr.min.js') ?>
@@ -155,7 +156,10 @@
 	<div class="manif-card mdl-card mdl-shadow--2dp waves-effect" id="{{ id }}">
 		<div class="mdl-card__title manif-title" style="{{ background }};">
 			<p class="mdl-card__title-text manif-name">{{ name }}</p>
-			<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ start }}</p>
+		{{#unless museum}}
+    		<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ start }}</p>
+  		{{/unless}}
+			
 			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ location }}</p>
 		</div>
 		<div class="mdl-card__supporting-text manif-description">

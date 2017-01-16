@@ -188,6 +188,7 @@ LI.kiosk.cacheMuseum = function(data){
 			console.log('Loading an item (#' + manif.id + ') from the ' + type);
 
 		manif.type = type;
+		manif.museum = true;
 		LI.kiosk.rearrangeProperties(manif);
 		LI.kiosk.products.museum[manif.id] = manif;
 	});
