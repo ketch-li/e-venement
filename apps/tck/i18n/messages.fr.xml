@@ -2092,6 +2092,18 @@
         <source>No MemberCard linked with this Payment whereas its Method requires it.</source>
         <target>Carte avantage introuvable pour payer ce billet, alors que cela est nécessaire.</target>
       </trans-unit>
+      <trans-unit id="522">
+        <source>Update</source>
+        <target>Mettre à jour</target>
+      </trans-unit>      
+      <trans-unit id="523">
+        <source>Selling screen configuration</source>
+        <target>Paramètrage de l'écran de vente</target>
+      </trans-unit>      
+      <trans-unit id="524">
+        <source>Force postal code</source>
+        <target>Imposer la saisie du code postal.</target>
+      </trans-unit>        
     </body>
   </file>
 </xliff>
