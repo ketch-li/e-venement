@@ -4,547 +4,547 @@
   <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2011-01-14T01:30:27Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit>
+      <trans-unit id="1">
         <source>Texts</source>
         <target>Textes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="2">
         <source>Alerts</source>
         <target>Alertes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="3">
         <source>Periods</source>
         <target>Périodes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="4">
         <source>Visits</source>
         <target>Visites</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="5">
         <source>Holds</source>
         <target>Retenues</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="6">
         <source>EveBox&amp;trade; pings</source>
         <target>Pings EveBox&amp;trade;</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="7">
         <source>Transactions list</source>
         <target>Liste des opérations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="8">
         <source>Stats: IP addresses matching</source>
         <target>Stats: Aliases d'adresses IP</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="9">
         <source>Stats: Filtered results</source>
         <target>Stats: Résultats des filtres</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="10">
         <source>Store</source>
         <target>Boutique</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="11">
         <source>Products</source>
         <target>Produits</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="12">
         <source>Categories</source>
         <target>Catégories</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="13">
         <source>Available prices</source>
         <target>Tarifs disponibles</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="14">
         <source>Online sales</source>
         <target>Ventes en ligne</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="15">
         <source>Extra taxes</source>
         <target>Taxes additionnelles</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="16">
         <source>Change language</source>
         <target>Changer de langue</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="17">
         <source>Geographical approach</source>
         <target>Approche géographique</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="18">
         <source>Seated plans</source>
         <target>Plans numérotés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="19">
         <source>Frequently Asked Questions</source>
         <target>Foire Aux Questions</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="20">
         <source>This plateform is dedicated to</source>
         <target>Cette plateforme est dédiée à</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="21">
         <source>Activity related to the PR module</source>
         <target>Activité liée au module RP</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="22">
         <source>Bookings to confirm</source>
         <target>Réservations à confirmer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="23">
         <source>Use conflicts</source>
         <target>Conflits d'usage</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="24">
         <source>Resources</source>
         <target>Ressources</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="25">
         <source>Evolution of groups</source>
         <target>Évolution des groupes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="26">
         <source>Social statistics</source>
         <target>Statistiques sociales</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="27">
         <source>Messaging</source>
         <target>Messagerie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="28">
         <source>Types of relationships</source>
         <target>Types de relations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="29">
         <source>Authentication</source>
         <target>Authentification</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="30">
         <source>Group association</source>
         <target>Association de groupes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="31">
         <source>Taxes</source>
         <target>Taxes (TVA)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="32">
         <source>Accounting informations</source>
         <target>Informations comptables</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="33">
         <source>Familial quotients</source>
         <target>Quotients familiaux</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="34">
         <source>Types of resources</source>
         <target>Ressources principales</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="35">
         <source>Familial situations</source>
         <target>Situations familiales</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="36">
         <source>Object not found</source>
         <target>Objet introuvable</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="37">
         <source>The requested object does not exist or is unreachable</source>
         <target>L'objet demandé n'existe pas ou est inatteignable</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="38">
         <source>You can &lt;a href="javascript: window.history.back();"&gt;go back&lt;/a&gt; from where you came and try again...</source>
         <target>Vous pouvez &lt;a href="javascript: window.history.back();"&gt;revenir&lt;/a&gt; d'où vous venez et essayer à nouveau...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="39">
         <source>Accounting</source>
         <target>Comptabilité</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="40">
         <source>Debts report</source>
         <target>État des dettes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="41">
         <source>Debts evolution</source>
         <target>Évolution des dettes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="42">
         <source>Types of member cards</source>
         <target>Types de cartes d'abo.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="43">
         <source>Member card check</source>
         <target>Cartes d'abo: contrôle</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="44">
         <source>Ticket's log</source>
         <target>Journal d'un billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="45">
         <source>Ordering your workspaces</source>
         <target>Ordonnancer vos espaces de travail</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="46">
         <source>Member cards ledger</source>
         <target>Cartes d'abo: journal</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="47">
         <source>Prices association</source>
         <target>Association de tarifs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="48">
         <source>Member cards</source>
         <target>Cartes d'abo.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="49">
         <source>Transactions by price</source>
         <target>Opérations par tarif</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="50">
         <source>By event</source>
         <target>Par événement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="51">
         <source>By contact</source>
         <target>Par contact</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="52">
         <source>The asked screen does not exist</source>
         <target>L'écran demandé n'existe pas</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="53">
         <source>Duplicate tickets</source>
         <target>Dupliquer des billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="54">
         <source>Ticketing activity</source>
         <target>Activité en billetterie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="55">
         <source>Ticketing activity by hour</source>
         <target>Activité en billetterie heure par heure</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="56">
         <source>Tickets by price</source>
         <target>Billets par tarif</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="57">
         <source>Entrances by group</source>
         <target>Entrées par groupe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="58">
         <source>Attendance</source>
         <target>Remplissage</target>
       </trans-unit>
-      <trans-unit id="1">
+      <trans-unit id="59">
         <source>Contacts</source>
         <target>Contacts</target>
       </trans-unit>
-      <trans-unit id="2">
+      <trans-unit id="60">
         <source>Organisms</source>
         <target>Organismes</target>
       </trans-unit>
-      <trans-unit id="4">
+      <trans-unit id="61">
         <source>Groups</source>
         <target>Groupes</target>
       </trans-unit>
-      <trans-unit id="5">
+      <trans-unit id="62">
         <source>Emailing</source>
         <target>Emailing</target>
       </trans-unit>
-      <trans-unit id="6">
+      <trans-unit id="63">
         <source>Pub. Rel.</source>
         <target>R.P.</target>
       </trans-unit>
-      <trans-unit id="7">
+      <trans-unit id="64">
         <source>Events</source>
         <target>Événements</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="65">
         <source>Event</source>
         <target>Événementiel</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="66">
         <source>Openings</source>
         <target>Ouvertures</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="67">
         <source>Pool</source>
         <target>Piscine</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="68">
         <source>Museum</source>
         <target>Musée</target>
       </trans-unit>
-      <trans-unit id="8">
+      <trans-unit id="69">
         <source>Agenda</source>
         <target>Agenda</target>
       </trans-unit>
-      <trans-unit id="9">
+      <trans-unit id="70">
         <source>Locations</source>
         <target>Lieux</target>
       </trans-unit>
-      <trans-unit id="10">
+      <trans-unit id="71">
         <source>Tickets</source>
         <target>Billets</target>
       </trans-unit>
-      <trans-unit id="11">
+      <trans-unit id="72">
         <source>Cancelling tickets</source>
         <target>Annuler des billets</target>
       </trans-unit>
-      <trans-unit id="12">
+      <trans-unit id="73">
         <source>Deposit</source>
         <target>Dépôt</target>
       </trans-unit>
-      <trans-unit id="13">
+      <trans-unit id="74">
         <source>Sells</source>
         <target>Ventes</target>
       </trans-unit>
-      <trans-unit id="14">
+      <trans-unit id="75">
         <source>In progress</source>
         <target>En cours</target>
       </trans-unit>
-      <trans-unit id="15">
+      <trans-unit id="76">
         <source>Asks</source>
         <target>Demandes</target>
       </trans-unit>
-      <trans-unit id="16">
+      <trans-unit id="77">
         <source>Orders</source>
         <target>Résa./Bons de comm.</target>
       </trans-unit>
-      <trans-unit id="17">
+      <trans-unit id="78">
         <source>Invoices</source>
         <target>Factures</target>
       </trans-unit>
-      <trans-unit id="18">
+      <trans-unit id="79">
         <source>Debts</source>
         <target>Dettes</target>
       </trans-unit>
-      <trans-unit id="19">
+      <trans-unit id="80">
         <source>Duplicatas</source>
         <target>Duplicatas</target>
       </trans-unit>
-      <trans-unit id="20">
+      <trans-unit id="81">
         <source>Sales Ledger</source>
         <target>Livre des ventes</target>
       </trans-unit>
-      <trans-unit id="21">
+      <trans-unit id="82">
         <source>Cash Book</source>
         <target>Livre de caisse</target>
       </trans-unit>
-      <trans-unit id="22">
+      <trans-unit id="83">
         <source>Ticketing</source>
         <target>Billetterie</target>
       </trans-unit>
-      <trans-unit id="23">
+      <trans-unit id="84">
         <source>Pupils and groups</source>
         <target>Scolaires et groupes</target>
       </trans-unit>
-      <trans-unit id="24">
+      <trans-unit id="85">
         <source>Groups</source>
         <target>Groupes</target>
       </trans-unit>
-      <trans-unit id="25">
+      <trans-unit id="86">
         <source>General</source>
         <target>Général</target>
       </trans-unit>
-      <trans-unit id="26">
+      <trans-unit id="87">
         <source>Users</source>
         <target>Utilisateurs</target>
       </trans-unit>
-      <trans-unit id="27">
+      <trans-unit id="88">
         <source>Maintenance</source>
         <target>Maintenance</target>
       </trans-unit>
-      <trans-unit id="28">
+      <trans-unit id="89">
         <source>Archiving</source>
         <target>Archivage</target>
       </trans-unit>
-      <trans-unit id="29">
+      <trans-unit id="90">
         <source>System authentication logs</source>
         <target>Journaux de connexion</target>
       </trans-unit>
-      <trans-unit id="30">
+      <trans-unit id="91">
         <source>P.R.</source>
         <target>R.P</target>
       </trans-unit>
-      <trans-unit id="31">
+      <trans-unit id="92">
         <source>Generic title</source>
         <target>Titres génériques</target>
       </trans-unit>
-      <trans-unit id="32">
+      <trans-unit id="93">
         <source>Types of phones</source>
         <target>Types de téléphones</target>
       </trans-unit>
-      <trans-unit id="33">
+      <trans-unit id="94">
         <source>Types of functions</source>
         <target>Types de fonctions</target>
       </trans-unit>
-      <trans-unit id="34">
+      <trans-unit id="95">
         <source>Organism categories</source>
         <target>Catégories d'organismes</target>
       </trans-unit>
-      <trans-unit id="35">
+      <trans-unit id="96">
         <source>Labels</source>
         <target>Étiquettes</target>
       </trans-unit>
-      <trans-unit id="36">
+      <trans-unit id="97">
         <source>Events / Ticketing</source>
         <target>Événements / Billetterie</target>
       </trans-unit>
-      <trans-unit id="37">
+      <trans-unit id="98">
         <source>Event categories</source>
         <target>Catégories d'événements</target>
       </trans-unit>
-      <trans-unit id="38">
+      <trans-unit id="99">
         <source>Meta-events</source>
         <target>Meta-événements</target>
       </trans-unit>
-      <trans-unit id="39">
+      <trans-unit id="100">
         <source>Colors</source>
         <target>Couleurs</target>
       </trans-unit>
-      <trans-unit id="40">
+      <trans-unit id="101">
         <source>Rates</source>
         <target>Tarifs</target>
       </trans-unit>
-      <trans-unit id="41">
+      <trans-unit id="102">
         <source>Payment methods</source>
         <target>Méthodes de paiement</target>
       </trans-unit>
-      <trans-unit id="42">
+      <trans-unit id="103">
         <source>Workspaces</source>
         <target>Espaces de travail</target>
       </trans-unit>
-      <trans-unit id="43">
+      <trans-unit id="104">
         <source>General settings</source>
         <target>Paramétrage général</target>
       </trans-unit>
-      <trans-unit id="44">
+      <trans-unit id="105">
         <source>Quotas leaders</source>
         <target>Responsables des contingents</target>
       </trans-unit>
-      <trans-unit id="45">
+      <trans-unit id="106">
         <source>Online ticketing</source>
         <target>Billetterie en ligne</target>
       </trans-unit>
-      <trans-unit id="46">
+      <trans-unit id="107">
         <source>Settings</source>
         <target>Paramétrage</target>
       </trans-unit>
-      <trans-unit id="47">
+      <trans-unit id="108">
         <source>Documentation</source>
         <target>Documentation</target>
       </trans-unit>
-      <trans-unit id="48">
+      <trans-unit id="109">
         <source>Help</source>
         <target>Aide</target>
       </trans-unit>
-      <trans-unit id="49">
+      <trans-unit id="110">
         <source>Groups</source>
         <target>Groupes</target>
       </trans-unit>
-      <trans-unit id="120">
+      <trans-unit id="111">
         <source>Default</source>
         <target>Accueil</target>
       </trans-unit>
-      <trans-unit id="121">
+      <trans-unit id="112">
         <source>Change user</source>
         <target>Changer d'utilisateur</target>
       </trans-unit>
-      <trans-unit id="121">
+      <trans-unit id="113">
         <source>Logout</source>
         <target>Déconnexion</target>
       </trans-unit>
-      <trans-unit id="1">
+      <trans-unit id="114">
         <source>New screen</source>
         <target>Nouvel écran</target>
       </trans-unit>
-      <trans-unit id="2">
+      <trans-unit id="115">
         <source>Bookmark</source>
         <target>Marquer cet écran</target>
       </trans-unit>
-      <trans-unit id="3">
+      <trans-unit id="116">
         <source>Print</source>
         <target>Imprimer</target>
       </trans-unit>
-      <trans-unit id="4">
+      <trans-unit id="117">
         <source>Close</source>
         <target>Fermer</target>
       </trans-unit>
-      <trans-unit id="5">
+      <trans-unit id="118">
         <source>Screen</source>
         <target>Fichier</target>
       </trans-unit>
-      <trans-unit id="7">
+      <trans-unit id="119">
         <source>Index</source>
         <target>Accueil</target>
       </trans-unit>
-      <trans-unit id="1">
+      <trans-unit id="120">
         <source>Licensed under</source>
         <target>Publié sous licence</target>
       </trans-unit>
-      <trans-unit id="2">
+      <trans-unit id="121">
         <source>Enhanced by</source>
         <target>Renforcé par</target>
       </trans-unit>
-      <trans-unit id="22">
+      <trans-unit id="122">
         <source>the only free ticketing software</source>
         <target>l'unique logiciel libre de billetterie</target>
       </trans-unit>
-      <trans-unit id="23">
+      <trans-unit id="123">
         <source>About</source>
         <target>À propos</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="124">
         <source>The free ticketing system</source>
         <target>La billetterie informatique libre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="125">
         <source>Prices</source>
         <target>Tarifs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="126">
         <source>New transaction</source>
         <target>Nouvelle opération</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="127">
         <source>New transaction (touchscreens)</source>
         <target>Nouvelle opération (tactile)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="128">
         <source>Respawn a transaction</source>
         <target>Reprendre une opération</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="129">
         <source>Cash Ledger</source>
         <target>Livre de caisse</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="130">
         <source>Ticket control</source>
         <target>Contrôle de billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="131">
         <source>Ticket controls</source>
         <target>Contrôles de billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="132">
         <source>Detailed Ledger</source>
         <target>Journal détaillé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="133">
         <source>Surveys</source>
         <target>Questionnaires</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="134">
         <source>Gauge timeout</source>
         <target>Sorties automatisées</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="135">
         <source>Selling options</source>
         <target>Options de billetterie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="136">
         <source>User policy</source>
         <target>Charte utilisateur</target>
       </trans-unit>

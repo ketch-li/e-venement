@@ -4,163 +4,163 @@
   <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2011-01-14T01:30:27Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit>
+      <trans-unit id="1">
         <source>Terms &amp; Conditions</source>
         <target>Conditions Générales de vente</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="2">
         <source>Terms Conditions File</source>
         <target>Conditions Générales de Vente (fichier)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="3">
         <source>Terms Conditions Url</source>
         <target>Addresse du fichier des Conditions Générales de Vente</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="4">
         <source>Remote authentication List</source>
         <target>Liste des authentifications distantes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="5">
         <source>New Remote authentication</source>
         <target>Nouvelle authentification distante</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="6">
         <source>Sf guard user</source>
         <target>Utilisateur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="7">
         <source>Ipaddress</source>
         <target>Adresse IP</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="8">
         <source>Active</source>
         <target>Actif</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="9">
         <source>Salt</source>
         <target>Jeton d'authentifation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="10">
         <source>Card Bottom</source>
         <target>Sous carte d'abonnement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="11">
         <source>Cart Bottom</source>
         <target>Sous le panier</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="12">
         <source>Cart End</source>
         <target>A la validation de la commande</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="13">
         <source>Contact Bottom</source>
         <target>Sous formulaire de contact</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="14">
         <source>Contact New</source>
         <target>login / nouveau contact</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="15">
         <source>Email Confirmation</source>
         <target>Mail recapitulatif commande</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="16">
         <source>Email Footer</source>
         <target>Pied de page mail</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="17">
         <source>Event Bottom</source>
         <target>Sous la liste des manifestations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="18">
         <source>Manifestation Bottom</source>
         <target>Sous la manifestation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="19">
         <source>Manifestation Closed</source>
         <target>Plus de vente sur la manifestation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="20">
         <source>Manifestation Full</source>
         <target>Plus de place sur la manifestation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="21">
         <source>Meta Events Bottom</source>
         <target>Sous la liste méta-evenement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="22">
         <source>Meta Events Header</source>
         <target>Entete des méta-evenement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="23">
         <source>Meta Events Title</source>
         <target>Titre de la page méta-evenement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="24">
         <source>Payment Onthespot Info</source>
         <target>Bouton de paiement differé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="25">
         <source>Seated Plan Loading</source>
         <target>Chargement du plan</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="26">
         <source>Store Nomore</source>
         <target>Si plus de produit disponible</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="27">
         <source>Terms Conditions</source>
         <target>Acceptation des conditions de ventes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="28">
         <source>Adding a file here will overwrite your Terms &amp; Conditions text...</source>
         <target>Ajouter un fichier ici écrasera le texte de vos conditions de vente</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="29">
         <source>When Closed</source>
         <target>Vente en ligne fermée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="30">
         <source>Your configuration has been updated with %i% option(s).</source>
         <target>Votre configuration a été mise à jour avec %i% paramètre(s).</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="31">
         <source>Content of the popup which appears after a 'on site' payment</source>
         <target>Contenu de la popup qui apparaît après un paiement "sur place"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="32">
         <source>Update</source>
         <target>Mettre à jour</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="33">
         <source>Texts for online sales</source>
         <target>Textes pour la vente en ligne</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="34">
         <source>Thank you in advance to send us your payment as soon as possible so that we can confirm your order</source>
         <target>Merci de nous faire parvenir votre réglement dans les meilleurs délais afin que nous puissions valider votre commande</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="35">
         <source>Are you sure?</source>
         <target>Êtes-vous sûr(e) ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="36">
         <source>Group</source>
         <target>Groupe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="37">
         <source>Auto group List</source>
         <target>Liste des groupes auto.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="38">
         <source>Edit Auto group</source>
         <target>Modification du groupe automatique</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="39">
         <source>New Auto group</source>
         <target>Nouveau groupe automatique</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="40">
         <source>No transaction found.</source>
         <target>Pas d'opération identifiée.</target>
       </trans-unit>
