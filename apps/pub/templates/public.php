@@ -26,9 +26,9 @@
       <?php endif ?>
     </div>
     <div id="client-footer">
-      <?php if (pubConfiguration::getText('app_texts_terms_conditions_url')): ?>
-        <a href="<?php echo cross_app_url_for('pub', 'cart/cgv');?>" target="_blank" title="<?php echo __('Terms & Conditions') ?>"><?php echo __('Terms & Conditions') ?></a>
-      <?php endif ?>
+    <?php if (pubConfiguration::getText('app_texts_terms_conditions_url')): ?>
+      <a href="<?php echo cross_app_url_for('pub', 'cart/cgv');?>" target="_blank" title="<?php echo __('Terms & Conditions') ?>"><?php echo __('Terms & Conditions') ?></a>
+    <?php endif ?>
     </div>
     <div id="client-infos"></div>
     <ul id="menu" class="first">
