@@ -29,6 +29,11 @@ dev:
       delivery_strategy: none
 
 all:
+  #storage:
+  #  class: nvDoctrineSessionStorage
+  #  param:
+  #    lock_enable: false
+
   routing:
     class: sfPatternRouting
     param:

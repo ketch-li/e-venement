@@ -9,3 +9,13 @@ all:
     #other_templates: []
     must_authenticate: false
     #session_ns: ''
+  texts:
+    menu_manifestation: 
+      fr: 'Activités'
+      en : 'Museum activities'
+    menu_museum: 
+      fr: 'Visites'
+      en: 'Museum visits'
+    menu_store: 
+      fr: 'Boutique'
+      en: 'Store'

@@ -82,7 +82,7 @@ body.bdc #echeance { display: none; }
 #lines { margin-bottom: 20px; }
 
 #min-height { height: 250mm; float: left; }
-.footer { text-align: center; }
+.footer { text-align: left; padding-left: 25px;}
 #payments { border: 1px solid silver; margin-left: 4px; padding: 5px 10px; width: 280px; position: relative; bottom: 30px; }
 #payments h2 { font-size: 13px; margin: 0 10px 0 0; float: left; }
 #payments div { display: table; }
