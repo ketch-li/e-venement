@@ -159,7 +159,6 @@
 		{{#unless museum}}
     		<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ start }}</p>
   		{{/unless}}
-			
 			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ location }}</p>
 		</div>
 		<div class="mdl-card__supporting-text manif-description">
@@ -175,8 +174,8 @@
 	<div class="manif-card mdl-card mdl-shadow--2dp waves-effect" id="{{ id }}">
 		<div class="mdl-card__title manif-title" style="{{ background }};">
 			<p class="mdl-card__title-text manif-name">{{ name }}</p>
-			<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ start }}</p>
-			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ location }}</p>
+			<!-- <p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ start }}</p>
+			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ location }}</p> -->
 		</div>
 		<div class="mdl-card__supporting-text manif-description">
 			{{{ description }}}
