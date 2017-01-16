@@ -4,43 +4,43 @@
   <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2011-01-14T01:30:27Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit>
+      <trans-unit id="1">
         <source>About</source>
         <target>À propos</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="2">
         <source>insurance</source>
         <target>garantie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="3">
         <source>the contributors</source>
         <target>les contributeurs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="4">
         <source>there is worst, but it's more expensive</source>
         <target>il y a moins bien, mais c'est plus cher</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="5">
         <source>All rights reserved</source>
         <target>Tous droits réservés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="6">
         <source>%e% is licensed under the free license</source>
         <target>%e% est distribué sous licence libre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="7">
         <source>This gives you freedoms, but also you must respect its clauses (attribution, share-alike)</source>
         <target>Cela vous donne des libertés, mais vous devez également respecter ses clauses (citer les sources, partager de la même manière)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="8">
         <source>%e% and the %e% logo are the properties of %author% and %firm%</source>
         <target>%e% et le logo d'%e% sont les propriétés de %author% et %firm%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="9">
         <source>%e% for %client%</source>
         <target>%e% pour %client%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="10">
         <source>gov.</source>
         <target>CGI</target>
       </trans-unit>

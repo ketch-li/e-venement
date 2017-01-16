@@ -4,31 +4,31 @@
   <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2011-01-14T01:30:27Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit>
+      <trans-unit id="1">
         <source>Monday</source>
         <target>Lundi</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="2">
         <source>Tuesday</source>
         <target>Mardi</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="3">
         <source>Wednesday</source>
         <target>Mercredi</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="4">
         <source>Thrusday</source>
         <target>Jeudi</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="5">
         <source>Friday</source>
         <target>Vendredi</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="6">
         <source>Saturday</source>
         <target>Samedi</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="7">
         <source>Sunday</source>
         <target>Dimanche</target>
       </trans-unit>
