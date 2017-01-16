@@ -1,7 +1,7 @@
 <?php use_javascript('tck-touchscreen-print?'.date('Ymd')) ?>
 
 <script>
-  LI.printingNeedsZipCode = <?php echo $sf_user->hasCredential('tck-print-ticket-cp') ? 'true' : 'false'; ?>;
+  LI.printingNeedsZipCode = <?php echo sfConfig::get('app_transaction_OptionTck', false) ? 'true' : 'false'; ?>;
 </script>
 
 <div class="ui-corner-all ui-widget-content">

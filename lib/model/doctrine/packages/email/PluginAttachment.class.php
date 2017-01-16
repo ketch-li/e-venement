@@ -14,6 +14,9 @@ abstract class PluginAttachment extends BaseAttachment
 {
   public function preSave($event)
   {
+    if ( substr($this->filename, 0, 3) == 'db:' )
+      return parent::preSave($event);
+    
     $real_filename = substr($this->filename, 0, 1) === '/'
       ? $this->filename
       : sfConfig::get('sf_upload_dir').'/'.$this->filename
@@ -27,5 +30,7 @@ abstract class PluginAttachment extends BaseAttachment
       $this->mime_type = finfo_file($finfo, $real_filename);
       finfo_close($finfo);
     }
+    
+    return parent::preSave($event);
   }
 }

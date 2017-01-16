@@ -465,6 +465,18 @@ class transactionActions extends autoTransactionActions
     ));
     $this->form['close']->setDefault('id', $this->transaction->id);
 
+    // Force a postal code input
+    $q = Doctrine::getTable('OptionTck')->createQuery('o')
+      ->andWhere('o.sf_guard_user_id IS NULL')
+      ->andWhere('o.name = ?', 'tck-print-ticket-cp');
+
+    $option = $q->fetchOne();
+    $auth = false;
+    if ($option) {
+        $auth = $option->value;
+    }
+    sfConfig::set('app_transaction_OptionTck', $auth);
+
     // SIMPLIFIED GUI
     //$this->form['simplified']['manifestations'] = $this->form['content']['manifestations'];
   }

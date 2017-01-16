@@ -72,23 +72,25 @@ EOF;
       if (!( $alarms && in_array('email', $alarms['what']) ))
         continue;
       
+      $q->andWhere('(FALSE');
       foreach ( $alarms['when'] as $when )
       {
         $time = time()*2-strtotime($when); // a trick to get -1 hour to the manif being +1 hour from now
         
-        $q->andWhere('m.reservation_confirmed = ? AND m.happens_at >= ? AND m.happens_at <= ?', array(
+        $q->orWhere('m.reservation_confirmed = ? AND m.happens_at >= ? AND m.happens_at <= ?', array(
           $type == 'tocome',
           $to = date('Y-m-d H:i:s', $time+time()-$period),
           $date = date('Y-m-d H:i:s', $time),
         ));
       }
+      $q->orWhere('FALSE)');
       
       $manifs = $q->execute();
       if ( $manifs->count() == 0 )
         $this->logSection('Notification', sprintf('Nothing to notify.'));
       else foreach ( $manifs as $manif )
       {
-        $who = isset($alarms['who']) ? $alarms['who'] : array('organizers', 'applicant');
+        $who = isset($alarms['who']) ? $alarms['who'] : array('organizers', 'applicant', 'location');
         $emails = array();
         // related to the manifestation itself
         if ( in_array('organizers', $who) )
@@ -105,10 +107,10 @@ EOF;
           $emails[$manif->ApplicantOrganism->email] = $manif->ApplicantOrganism->email;
         // related to the Location
         if ( in_array('location', $who) )
-        foreach ( array('contact', 'organism') as $entity )
-        if ( $manif->Location->{$entity.'_id'} && $manif->Location->${ucfirst($entity)}->email )
+        foreach ( array('contact_id' => 'Contact', 'organism_id' => 'Contact') as $prop => $rel )
+        if ( $manif->Location->$prop && $manif->Location->$rel->email )
         {
-          $email = $manif->Location->${ucfirst($entity)}->email;
+          $email = $manif->Location->$rel->email;
           $emails[$email] = $email;
         }
         if ( $manif->Location->email )
@@ -129,9 +131,16 @@ EOF;
           }
         }
         
+        $attachment = new Attachment;
+        $attachment->original_name = 'booking-'.$manif->id.'-'.rand(0,9999).'.ics';
+        $attachment->filename = sfConfig::get('sf_cache_dir').'/'.$attachment->original_name;
+        $attachment->mime_type = 'text/calendar; charset=utf-8; method=REQUEST';
+        file_put_contents($attachment->filename, $manif->getIcal(true, false, array('method' => 'request')));
+        
         foreach ( $emails as $emailaddr )
         {
           $email = new Email;
+          $email->Attachments[] = $attachment;
           $email->setMailer($this->getMailer());
           $email->isATest(false);
           $email->setNoSpool(true);
@@ -189,7 +198,6 @@ EOF
           
           $email->deleted_at = date('Y-m-d H:i:s');
           $email->save();
-          //$email->delete();
           $this->logSection('Notification', sprintf('for manifestation %s sent to %s', (string)$manif, $emailaddr));
         }
         

@@ -12,6 +12,11 @@
 <a href="http://www.php.net/">PHP</a>,
 <a href="http://www.postgresql.org/">PostgreSQL</a>
 
+<!-- Javascript I18N -->
+<div class="js-i18n" data-source="order" data-target="<?php echo __('Order')?>"></div>
+<div class="js-i18n" data-source="search" data-target="<?php echo __('Search')?>"></div>
+<div class="js-i18n" data-source="pick-a-date" data-target="<?php echo __('Pick a date')?>"></div>
+
 <?php // auto adding tickets linked to member cards ?>
 <script type="text/javascript"><!--
   var url = '<?php echo url_for('ticket/autoAdd') ?>';

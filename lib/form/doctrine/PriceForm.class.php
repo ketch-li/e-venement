@@ -48,7 +48,8 @@ class PriceForm extends BasePriceForm
       $this->widgetSchema['gauges_list'],
       $this->widgetSchema['member_cards_list'],
       $this->validatorSchema['member_cards_list'],
-      $this->widgetSchema['manifestations_list']
+      $this->widgetSchema['manifestations_list'],
+      $this->widgetSchema['products_list']
     );
     
     // select the current user by default if it is a price creation

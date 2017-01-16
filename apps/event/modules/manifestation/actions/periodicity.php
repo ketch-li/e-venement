@@ -113,16 +113,20 @@
           
           // calculating the time that the duplication has to stop before...
           $maxtime = strtotime('+ 1 day',strtotime(implode('-',array_reverse($periodicity['until']['to']))));
-          $from = strtotime($periodicity['until']['from']['year'] 
-            . '-' 
-            . $periodicity['until']['from']['month'] 
-            . '-' 
-            . $periodicity['until']['from']['day'] 
-            . ' ' 
-            . explode(' ', $manifestation->happens_at)[1]);
+          
+          foreach ( array('happens_at', 'reservation_begins_at', 'reservation_ends_at') as $field )
+          {
+              $from = strtotime($periodicity['until']['from']['year'] 
+                . '-' 
+                . $periodicity['until']['from']['month'] 
+                . '-' 
+                . $periodicity['until']['from']['day'] 
+                . ' ' 
+                . explode(' ', $manifestation->$field)[1]);
 
-          $manifestation->happens_at = date('Y-m-d H:i', $from);
-
+              $manifestation->$field = date('Y-m-d H:i', $from);
+          }
+          
         case 'nb':
           // particular preconditions
           if ( $periodicity['behaviour'] == 'nb'
@@ -165,12 +169,16 @@
           {
             foreach( $periodicity['repeat']['weekdays'] as $day)
             {
-              $date = new DateTime($manifestation->happens_at);
-              $originalDate = new DateTime($manifestation->happens_at);
-              $date->modify('last ' . substr($day, 0, -1));
-              $date->setTime($originalDate->format('H'), $originalDate->format('i'));
-              $manif->happens_at = $date->format('Y-m-d H:i');
-              $interval = 604800;
+              foreach ( array('happens_at', 'reservation_begins_at', 'reservation_ends_at') as $field )
+              {
+                  $date = new DateTime($manifestation->$field);
+                  $originalDate = new DateTime($manifestation->$field);
+                  $date->modify('last ' . substr($day, 0, -1));
+                  $date->setTime($originalDate->format('H'), $originalDate->format('i'));
+                  $manif->$field = $date->format('Y-m-d H:i');
+              }
+
+              $interval = 604800; // 1 semaine
 
               $return = $this->periodicityDuplicate($periodicity, $manif, $interval, $maxtime);
               $manif = $return['manif'];

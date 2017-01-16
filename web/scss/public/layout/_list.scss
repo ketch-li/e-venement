@@ -15,11 +15,12 @@
   body > #client-footer, 
   #client-header { width: $screen-sm-min - 5px; }
   
-  .mod-event #sf_admin_content .sf_admin_list tbody tr {
+  .mod-event, .mod-visit {
+    #sf_admin_content .sf_admin_list tbody tr {
       height: $picture-height;
       overflow: hidden;
-  }  
-  .mod-event #sf_admin_content .sf_admin_list td {
+    }
+    #sf_admin_content .sf_admin_list td {
       float: left;
       &.sf_admin_list_td_list_picture {
         display: block;
@@ -74,19 +75,20 @@
           background-position: center right;          
         }
       }    
-    &.sf_admin_list_td_list_picture {
-      width: $picture-width;
-    }
-    &.sf_admin_list_td_name {
-      width: $screen-sm-min - 5px - $picture-width - $actions-width;
-      height: $picture-height / 2;
-    }
-    &.sf_admin_list_td_list_description {
-      width: $screen-sm-min - 5px - $picture-width - $actions-width;
-      height: $picture-height / 2;
-      line-height: 1.2;
-    }      
-  }  
+      &.sf_admin_list_td_list_picture {
+        width: $picture-width;
+      }
+      &.sf_admin_list_td_name {
+        width: $screen-sm-min - 5px - $picture-width - $actions-width;
+        height: $picture-height / 2;
+      }
+      &.sf_admin_list_td_list_description {
+        width: $screen-sm-min - 5px - $picture-width - $actions-width;
+        height: $picture-height / 2;
+        line-height: 1.2;
+      }      
+    }  
+  }
 }
 
 
@@ -96,19 +98,21 @@
   body > #client-footer,
   body > #client-header { width: $screen-md-min - 20px; }
   
-  .mod-event #sf_admin_content .sf_admin_list td {
-    &.sf_admin_list_td_list_picture {
-      width: $picture-width;
+  .mod-event, .mod-visit {
+    #sf_admin_content .sf_admin_list td {
+      &.sf_admin_list_td_list_picture {
+        width: $picture-width;
+      }
+      &.sf_admin_list_td_name {
+        width: $screen-md-min - 20px - $picture-width - $actions-width;
+        height: $picture-height / 2;
+      }
+      &.sf_admin_list_td_list_description {
+        width: $screen-md-min - 20px - $picture-width - $actions-width;
+        height: $picture-height / 2;
+        line-height: 1.2;
+      }
     }
-    &.sf_admin_list_td_name {
-      width: $screen-md-min - 20px - $picture-width - $actions-width;
-      height: $picture-height / 2;
-    }
-    &.sf_admin_list_td_list_description {
-      width: $screen-md-min - 20px - $picture-width - $actions-width;
-      height: $picture-height / 2;
-      line-height: 1.2;
-    }      
   }  
 }
 
@@ -118,19 +122,21 @@
   body > #client-footer,
   body > #client-header  { width: $screen-lg-min - 20px; }
   
-  .mod-event #sf_admin_content .sf_admin_list td {
-    &.sf_admin_list_td_list_picture {
-      width: $picture-width;
+  .mod-event, .mod-visit {
+    #sf_admin_content .sf_admin_list td {
+      &.sf_admin_list_td_list_picture {
+        width: $picture-width;
+      }
+      &.sf_admin_list_td_name {
+        width: $screen-lg-min - 20px - $picture-width - $actions-width;
+        height: $picture-height / 2;
+      }
+      &.sf_admin_list_td_list_description {
+        width: $screen-lg-min - 20px - $picture-width - $actions-width;
+        height: $picture-height / 2;
+        line-height: 1.2;
+      }
     }
-    &.sf_admin_list_td_name {
-      width: $screen-lg-min - 20px - $picture-width - $actions-width;
-      height: $picture-height / 2;
-    }
-    &.sf_admin_list_td_list_description {
-      width: $screen-lg-min - 20px - $picture-width - $actions-width;
-      height: $picture-height / 2;
-      line-height: 1.2;
-    }      
   }  
 }
 

@@ -16,6 +16,12 @@ LI.safari = function(href){
   }
 }
 
+LI.trans = function(key) {
+  if (LI.translation_dict == Object(LI.translation_dict) && key in LI.translation_dict)
+    return LI.translation_dict[key];
+  return key;
+}
+
 $(document).ready(function(){
   // safari + iframe workaround
   if ( /^((?!chrome).)*safari/i.test(navigator.userAgent) && window.top != window && !Cookie.get('pub.safari.not_first_time') )
@@ -62,9 +68,9 @@ $(document).ready(function(){
   if ( location.hash != '#debug' )
   {
     // if no event is available but the store is present, go to the store
-    if ( $('.mod-event.action-index').length == 1
-      && $('.mod-event.action-index .sf_admin_list table').length == 0
-      && $('.mod-event.action-index #ariane .event.with-store').length > 0
+    if ( $('.mod-event.action-index, .mod-visit.action-index').length == 1
+      && $('.mod-event.action-index .sf_admin_list table, .mod-visit.action-index .sf_admin_list table').length == 0
+      && $('.mod-event.action-index #ariane .event.with-store, mod-visit.action-index #ariane .event.with-store').length > 0
       || $('.mod-meta_event.action-index').length == 1
       && $('.mod-meta_event.action-index .sf_admin_list .sf_admin_row').length == 0
       && $('#ariane .event.with-store a.store').length == 1 )
@@ -382,7 +388,7 @@ LI.customLayout = function()
 
   // Add search button
   $('<a href="#">')
-    .text('Rechercher')  // TODO: translation !
+    .text($('[data-source="search"]').data('target'))
     .attr('href', '#')
     .appendTo('#sf_admin_bar .sf_admin_filter .sf_admin_filter_field_name td')
     .click(function(){
@@ -400,7 +406,7 @@ LI.customLayout = function()
   // Login: move things around
   $('body.mod-login')
 
-  $('.mod-event .sf_admin_list tbody tr:not(.sf_admin_month)').each(function(){
+  $('.mod-event, .mod-visit').find('.sf_admin_list tbody tr:not(.sf_admin_month)').each(function(){
     // Add subtitle
     var category = $(this).find('.sf_admin_list_td_EventCategory').text();
     var subtitle = $('<h2>').text(category);
@@ -408,26 +414,26 @@ LI.customLayout = function()
 
     // Add date picker for events
     var dateHref = $(this).find('.sf_admin_list_td_name a').attr('href'); // TODO: display the list ?
-    var dateBtn = $('<a>').attr('href', dateHref).text('Choisir une date');  // TODO: translation !
+    var dateBtn = $('<a>').attr('href', dateHref).text(LI.trans('button.label.pick_a_date'));
     $('<td>').addClass('sf_admin_date_action').append(dateBtn).appendTo($(this));
 
     // Add order button
     var orderHref = $(this).find('.sf_admin_list_td_name a').attr('href');
-    var orderBtn = $('<a>').attr('href', orderHref).text('Commander');  // TODO: translation !
+    var orderBtn = $('<a>').attr('href', orderHref).text(LI.trans('button.label.order'));
     $('<td>').addClass('sf_admin_order_action').append(orderBtn).appendTo($(this));
   });   
   
   // Odd/event sections in lists (section-grid layout only)
   // ( elem.class:odd and elem.class:even does not work in CSS )
-  $('.mod-event.layout-section_grid .sf_admin_list tbody tr.sf_admin_month:odd').addClass('month-odd');
-  $('.mod-event.layout-section_grid .sf_admin_list tbody tr.sf_admin_month:even').addClass('month-even');
+  $('.mod-event.layout-section_grid, .mod-visit.layout-section_grid').find('.sf_admin_list tbody tr.sf_admin_month:odd').addClass('month-odd');
+  $('.mod-event.layout-section_grid, .mod-visit.layout-section_grid').find('.sf_admin_list tbody tr.sf_admin_month:even').addClass('month-even');
   
   // overlays in event list (section-grid layout only)
-  $('.mod-event.layout-section_grid .sf_admin_list tbody tr:not(.sf_admin_month)').on('mouseenter', function(){
+  $('.mod-event.layout-section_grid, .mod-visit.layout-section_grid').find('.sf_admin_list tbody tr:not(.sf_admin_month)').on('mouseenter', function(){
     $(this).find('.sf_admin_list_td_list_picture').hide();
     $(this).find('.sf_admin_list_td_name, .sf_admin_date_action').show();
   });
-  $('.mod-event.layout-section_grid .sf_admin_list tbody tr:not(.sf_admin_month)').on('mouseleave', function(){
+  $('.mod-event.layout-section_grid, .mod-visit.layout-section_grid').find('.sf_admin_list tbody tr:not(.sf_admin_month)').on('mouseleave', function(){
     $(this).find('.sf_admin_list_td_list_picture').show();
     $(this).find('.sf_admin_list_td_name, .sf_admin_date_action').hide();
   });

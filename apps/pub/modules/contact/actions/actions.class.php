@@ -46,8 +46,9 @@ class contactActions extends sfActions
     try {
       $this->form = new ContactPublicForm($this->getUser()->getContact());
       $vs = $this->form->getValidatorSchema();
-      $vs['password']->setOption('required', false);
-      $vs['password_again']->setOption('required', false);
+      foreach ( array('password', 'password_again') as $pass )
+      if ( isset($vs[$pass]) )
+        $vs[$pass]->setOption('required', false);
     }
     catch ( liEvenementException $e )
     { $this->form = new ContactPublicForm; }
@@ -67,6 +68,11 @@ class contactActions extends sfActions
       
       if ( sfConfig::get('app_contact_modify_coordinates_first', false) )
         $this->redirect(sfConfig::get('app_options_home', 'event'));
+      elseif ( $request->hasParameter('openidconnect') )
+      {
+        $provider = new liOnlineExternalAuthOpenIDConnect;
+        $this->redirect($provider->getConfig('issuer'));
+      }
       else
         $this->redirect('contact/index');
     }
@@ -77,11 +83,13 @@ class contactActions extends sfActions
   public function executeEdit(sfWebRequest $request)
   {
     // redirect to the identification provider
+/*
     if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $this->getContext()->getConfiguration()->getPlugins()) )
     {
       $provider = new liOnlineExternalAuthOpenIDConnect;
       $this->redirect($provider->getConfig('issuer'));
     }
+*/
     
     try {
       $this->form = new ContactPublicForm($this->getUser()->getContact());

@@ -129,7 +129,9 @@ abstract class PluginEmail extends BaseEmail
         continue;
       }
       $att = Swift_Attachment::newInstance($content, $attachment->original_name, $attachment->mime_type)
-        ->setId('part.'.$id.'@e-venement');
+        ->setId('part.'.$id.'@e-venement')
+        //->setDisposition('inline')
+      ;
       $this->message->attach($att);
     }
     

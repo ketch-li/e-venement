@@ -182,3 +182,6 @@ body #jappix_mini a.jm_friend { padding: 1px; }
   background-color: red;
 }
 #layout-switcher a { text-decoration: none; }
+
+/* Javascript I18N */
+.js-i18n { display: none; }

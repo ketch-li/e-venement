@@ -174,6 +174,21 @@ class ContactPublicForm extends ContactForm
     foreach ( $force as $field => $required )
     if ( isset($this->validatorSchema[$field]) && !in_array($field, array('name', 'email')) )
       $this->validatorSchema[$field]->setOption('required', $required === true);
+    
+    // if the liOpenIDConnectPlugin is activated
+    if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', sfContext::getInstance()->getConfiguration()->getPlugins()) )
+    {
+      $ws = $this->getWidgetSchema();
+      $vs = $this->getValidatorSchema();
+      unset(
+        $ws['email'],
+        $vs['email'],
+        $ws['password'],
+        $vs['password'],
+        $ws['password_again'],
+        $vs['password_again']
+      );
+    }
   }
   
   public function bind(array $taintedValues = NULL, array $taintedFiles = NULL)
