@@ -4,2253 +4,2253 @@
   <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2011-02-03T12:41:02Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit>
+      <trans-unit id="1">
         <source>Get list</source>
         <target>Voir la liste</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="2">
         <source>Related to...</source>
         <target>En relation avec...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="3">
         <source>Not related to...</source>
         <target>Sans relation avec...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="4">
         <source>Clear all prices</source>
         <target>Nettoyer tous les tarifs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="5">
         <source>[0]Only once|[1]%%days%% day|(1,+Inf]%%days%% days</source>
         <target>[0]Une fois|[1]%%days%% jour|(1,+Inf]%%days%% jours</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="6">
         <source>Validity</source>
         <target>Validité</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="7">
         <source>when a ticket is printed, it is automatically controled in entrance</source>
         <target>quand un billet est imprimé, il est automatiquement controlé en entrée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="8">
         <source>Automatic control</source>
         <target>Contrôle automatique</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="9">
         <source>Tickets background</source>
         <target>Fond de billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="10">
         <source>Optional and used only with dematerialized ticketing</source>
         <target>Optionnel et utile uniquement en billetterie dématérialisée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="11">
         <source>%%nb%% tickets</source>
         <target>%%nb%% billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="12">
         <source>Groups</source>
         <target>Groupes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="13">
         <source>%row% for alphabetic row (safe), %rown% for numeric row, %rowm% for mixte row and %num% for numeric seats</source>
         <target>%row% pour des rangs alphabétiques (sûr), %rown% pour des rangs numériques, %rowm% pour des rangs mixtes et %num% pour les numéros de place</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="14">
         <source>You cannot remove this seat, probably at least one ticket has been sold on it.</source>
         <target>Vous ne pouvez pas supprimer cette place, un billet a probablement déjà été vendu pour celle-ci.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="15">
         <source>Unlimited</source>
         <target>Illimité</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="16">
         <source>Day of the week</source>
         <target>Jour de la semaine</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="17">
         <source>Licenses</source>
         <target>Licences</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="18">
         <source>Duplicate&lt;span class="ui-icon ui-icon-plus"&gt;&lt;/span&gt;</source>
         <target>Dupliquer&lt;span class="ui-icon ui-icon-plus"&gt;&lt;/span&gt;</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="19">
         <source>Rank %%rank%% (ex: Seat %%num%%)</source>
         <target>Rang %%rank%% (ex: Place %%num%%)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="20">
         <source>%%n%% free seat</source>
         <target>%%n%% place libre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="21">
         <source>entrance</source>
         <target>entrée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="22">
         <source>info</source>
         <target>info</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="23">
         <source>exit</source>
         <target>sortie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="24">
         <source>The selected plans are now sharing their pictures.</source>
         <target>Les plans sélectionnés partagent maintenant leurs images.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="25">
         <source>Please choose more than one record...</source>
         <target>Sélectionnez au moins deux lignes...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="26">
         <source>Share pictures</source>
         <target>Partager les images</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="27">
         <source>iCal/ICS File</source>
         <target>Fichier iCal/ICS</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="28">
         <source>Main location</source>
         <target>Lieu principal</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="29">
         <source>Book all</source>
         <target>Tout réserver</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="30">
         <source>ICS file imported.</source>
         <target>Fichier ICS importé.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="31">
         <source>Import an ICS file for %%event%%</source>
         <target>Importer un fichier ICS pour %%event%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="32">
         <source>Import an ICS file</source>
         <target>Importer un fichier ICS</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="33">
         <source>Send</source>
         <target>Envoyer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="34">
         <source>All day</source>
         <target>Journée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="35">
         <source>A checkpoint is a logical point of control. If you have one venue and five doors, you only have one checkpoint. If you have five venues, and one can be only in one venue at the same time, then you have five checkpoints.</source>
         <target>Si vous avez un lieu avec cinq portes, vous n'avez qu'un seul point de contrôle. Si vous avez cinq lieux et qu'une personne ne peut être que dans un lieu à la fois, alors vous avez cinq points de contrôle.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="36">
         <source>If you choose an "info" checkpoint, one can pass through the checkpoint more than once.</source>
         <target>Un billet peut passer plusieurs fois sur des points de contrôle "info".</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="37">
         <source>If you choose an "exit" checkpoint, in case of "museums", the gauge will be decremented as soon as one can pass through it.</source>
         <target>Si vous définissez un point de contrôle "sortie", la jauge sera décrémentée aussitôt qu'un billet y sera contrôlé.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="38">
         <source>Occupied</source>
         <target>Occupation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="39">
         <source>Held for "%%hold%%"</source>
         <target>Retenue par "%%hold%%"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="40">
         <source>Held seats</source>
         <target>Retenues</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="41">
         <source>Closed &amp; free</source>
         <target>Fermé et libre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="42">
         <source>Capacity</source>
         <target>Capacité</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="43">
         <source>Day/Location</source>
         <target>Jour/Lieu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="44">
         <source>Waiting list&lt;span class="ui-icon ui-icon-arrow-1-e"&gt;&lt;/span&gt;</source>
         <target>Liste d'attente&lt;span class="ui-icon ui-icon-arrow-1-e"&gt;&lt;/span&gt;</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="45">
         <source>Waiting list for hold:</source>
         <target>Liste d'attente pour la retenue :</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="46">
         <source>Clicking a on a free seat adds it into this hold. Clicking on a held seat removes it from this hold. Click+CTRL+Drag allows to select/deselect multiple seats in batch.</source>
         <target>Cliquer sur une place libre l'ajoute à la retenue. Cliquer sur une place déjà retenue la libère. Clic+CTRL+Glissé permet de sélectionner/désélectionner plusieurs places d'un coup.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="47">
         <source>Some errors occurred but some seats have been transferred correctly from transaction #%%tid%%.</source>
         <target>Avec quelques erreurs, des places ont été correctement transférées de l'opération #%%tid%%.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="48">
         <source>A global error occurred transferring the seats from transaction #%%tid%%.</source>
         <target>Une erreur globale est survenue en transférant les places de l'opération #%%tid%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="49">
         <source>No seat can be transferred from the transaction #%%tid%%.</source>
         <target>Aucune place n'a pu être transférée de l'opération #%%tid%%.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="50">
         <source>Transfert successful from transaction #%%tid%% to this hold.</source>
         <target>Transfert opéré avec succès depuis l'opération #%%tid%% vers cette retenue.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="51">
         <source>The given transaction needs to be opened (or you must have the credential to reopen it), the only concerned tickets are the unsold tickets related to this hold's manifestation.</source>
         <target>L'opération spécifiée doit être ouverte (ou vous devez avoir les permissions pour la réouvrir), les seuls billets concernés sont ceux qui ne sont pas vendus en relation avec la manifestation de la présente retenue.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="52">
         <source>New transaction</source>
         <target>Nouvelle opération</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="53">
         <source>Get back seats from this transaction</source>
         <target>Reprendre les places depuis cette opération</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="54">
         <source>Book released seats immediatly in the given transaction (if not already booked elsewhere).</source>
         <target>Réserve immédiatement les places relâchées dans l'opération affichée (si elles ne sont pas déjà réservées par ailleurs).</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="55">
         <source>Transfert released seats into an other hold.</source>
         <target>Transfère les places relâchées dans une autre retenue.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="56">
         <source>Price "%%name%%"</source>
         <target>Tarif "%%name%%"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="57">
         <source>Hold "%%name%%"</source>
         <target>Retenue "%%name%%"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="58">
         <source>Holds list</source>
         <target>Liste des retenues</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="59">
         <source>Holds</source>
         <target>Retenues</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="60">
         <source>New Hold</source>
         <target>Nouvelle retenue</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="61">
         <source>Discharge</source>
         <target>En amont de</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="62">
         <source>Feeder</source>
         <target>En aval de</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="63">
         <source>Feeders</source>
         <target>En aval de</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="64">
         <source>Updated at</source>
         <target>Mis à jour le</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="65">
         <source>Using vouchers</source>
         <target>Utilisation de contremarques</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="66">
         <source>Products</source>
         <target>Produits</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="67">
         <source>Linked products</source>
         <target>Produits liés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="68">
         <source>Member cards</source>
         <target>Cartes d'abo</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="69">
         <source>Best free seat</source>
         <target>Meilleure place libre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="70">
         <source>Close</source>
         <target>Fermer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="71">
         <source>If you find two numbers in a cell, consider the upper number as the pessimistic estimation and the lower number as the optimistic one.</source>
         <target>Si vous trouvez deux nombres dans une cellule, considérez le nombre du haut comme l'estimation la plus pessimiste et le nombre du bas comme l'estimation la plus optimiste.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="72">
         <source>Filling</source>
         <target>Remplissage</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="73">
         <source>State of sales</source>
         <target>État des ventes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="74">
         <source>seats</source>
         <target>places</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="75">
         <source>open gauges for online sales</source>
         <target>jauges ouvertes pour la vente en ligne</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="76">
         <source>open gauges for onsite sales</source>
         <target>jauges ouvertes pour la vente sur lieu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="77">
         <source>all gauges</source>
         <target>toutes les jauges</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="78">
         <source>everything</source>
         <target>tout billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="79">
         <source>Not seated</source>
         <target>Non placé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="80">
         <source>Not free</source>
         <target>Non libre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="81">
         <source>Sold</source>
         <target>Vendu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="82">
         <source>Ordered</source>
         <target>Réservé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="83">
         <source>Free</source>
         <target>Libre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="84">
         <source>Display directly the first gauge with its plan if it has one</source>
         <target>Affiche directement la première jauge avec son plan le cas échéant</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="85">
         <source>Clear transactions</source>
         <target>Vider les opérations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="86">
         <source>Clear groups</source>
         <target>Vider les groupes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="87">
         <source>This only concerns seated gauges and seats. It is not about global free tickets.</source>
         <target>Cela concerne seulement les jauges placées et leurs places. Il ne s'agit donc pas de billets disponibles hors placement.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="88">
         <source>Tickets prepared &amp; paid by the same user</source>
         <target>Billets préparés &amp; payés par le même utilisateur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="89">
         <source>Tickets paid by this user but prepared by another</source>
         <target>Billets payés par cet utilisateur mais préparés par un autre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="90">
         <source>Tickets prepared by this user, and still unpaid</source>
         <target>Billets préparés par cet utilisateur, et sans règlement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="91">
         <source>Tickets prepared by this user, seated, and still unpaid</source>
         <target>Billets préparés par cet utilisateur, placés, et sans règlement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="92">
         <source>Available for online sales</source>
         <target>Disponibles pour la vente en ligne</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="93">
         <source>Free but not available for online sales</source>
         <target>Libres mais non disponibles à la vente en ligne</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="94">
         <source>Total</source>
         <target>Total</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="95">
         <source>None</source>
         <target>Aucun</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="96">
         <source>Seats</source>
         <target>Places</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="97">
         <source>Users used by online sales</source>
         <target>Utilisateurs concernés par la vente en ligne</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="98">
         <source>Statistics</source>
         <target>Statistiques</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="99">
         <source>Sales</source>
         <target>Ventes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="100">
         <source>Min.</source>
         <target>Min.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="101">
         <source>Max.</source>
         <target>Max.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="102">
         <source>Categories are usefull to group gauges for online sales. Use only if needed.</source>
         <target>Les catégories sont utiles pour grouper les jauges dans la vente en ligne. À n'utiliser que si nécessaire.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="103">
         <source>Unjoin?</source>
         <target>Dissocier ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="104">
         <source>Price created or updated for this gauge</source>
         <target>Tarif créé ou mis à jour pour cette jauge</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="105">
         <source>A problem occurred during the price creation / update (you should better reload your screen)</source>
         <target>Un problème est survenu lors de la création / mise à jour du tarif (vous feriez bien de recharger votre écran)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="106">
         <source>Explicit display</source>
         <target>Affichage explicite</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="107">
         <source>Ideal width</source>
         <target>Largeur idéale</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="108">
         <source>HTML colors</source>
         <target>Couleurs HTML</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="109">
         <source>Shape</source>
         <target>Forme</target>
       </trans-unit>
-        <trans-unit>
+        <trans-unit id="110">
         <source>Surveys</source>
         <target>Questionnaires</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="111">
         <source>3 letters minimum</source>
         <target>3 lettres minimum</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="112">
         <source>Deprecated</source>
         <target>Obsolète</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="113">
         <source>Participants list</source>
         <target>Liste des participants</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="114">
         <source>No registered participant</source>
         <target>Pas de participant enregistré</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="115">
         <source>Reload</source>
         <target>Recharger</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="116">
         <source>Ranks</source>
         <target>Rangs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="117">
         <source>Debts</source>
         <target>Dettes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="118">
         <source>rank</source>
         <target>rang</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="119">
         <source>Show neighborhood</source>
         <target>Voir le voisinage</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="120">
         <source>Neighbors</source>
         <target>Voisins</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="121">
         <source>Best seats</source>
         <target>Meilleures places</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="122">
         <source>If a seated plan exists, it will show up if you click on the gauge</source>
         <target>Si un plan numéroté existe, il s'affichera si vous cliquez sur la jauge</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="123">
         <source>Link(s) removed</source>
         <target>Lien(s) supprimé(s)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="124">
         <source>Link(s) created</source>
         <target>Lien(s) créé(s)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="125">
         <source>Links between seats have been cleared</source>
         <target>Les liens entre les sièges ont été remis à zéro</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="126">
         <source>%%qty%% link(s) between seats have been created</source>
         <target>%%qty%% lien(s) entre les sièges a/ont été créé(s)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="127">
         <source>This form will allow you to define the rank of seats in bulk on your map. Using it will save you a lot of time, because you will only have to set the rank of particular seats. The venues are usually symetrical, you will probably make at least to passes. Take the left side, then the right side of instance.
 Careful: this tool has its limits. It works good only with batches of seats named for instance from A-1 to H-74. Test it carefully before to conclude on its utility level.</source>
         <target>Ce formulaire va vous permettre de définir en lot des notes à des places numérotées sur votre plan. Grâce à cela vous gagnerez énormément de temps, car vous n'aurez plus qu'à préciser les notes des places particulières. Souvent les lieux sont symétriques, vous aurez ainsi sans doute au moins deux passages à faire. Prenez la moitié gauche, puis la moitié droite.
 Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de places nommées par exemple de A-1 à H-74. Faîtes des essais consciencieux avant de conclure sur son utilité.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="128">
         <source>Dates range</source>
         <target>Intervalle de dates</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="129">
         <source>Today</source>
         <target>Aujourd'hui</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="130">
         <source>This week</source>
         <target>Cette semaine</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="131">
         <source>This month</source>
         <target>Ce mois</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="132">
         <source>No color</source>
         <target>Sans couleur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="133">
         <source>Apply to</source>
         <target>Appliquer à</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="134">
         <source>If only one workspace's order is less than 0 (be careful, try to have only one workspace like this), then this workspace's gauges will be displaid alone in the mini-gauges, replacing the merging gauge.</source>
         <target>Si la priorité d'un seul espace de travail est inférieure à 0 (attention à essayer de n'en avoir qu'un), alors les jauges de cet espace de travail seront affichées seules en priorité dans les mini-jauges, remplaçant celle représentant la fusion de l'ensemble des jauges disponibles.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="135">
         <source>If only one workspace's order is more than 999, then the displaid mini-gauges will be based on profitability, in relation with the expected income and what is really being realized on every manifestation (only in the case where the expected income is given). About this point, the extra taxes are not included in the income calculation.</source>
         <target>Si la priorité d'un seul des espaces de travail est supérieure à 999, alors les mini-jauges affichées seront économiques, en rapport avec le chiffre d'affaires visé et réalisé sur chaque manifestation (à condition qu'il soit défini). À ce propos, les taxes additionnelles ne sont pas prises en compte dans le chiffre d'affaire.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="136">
         <source>Expected income</source>
         <target>Chiffre d'affaire attendu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="137">
         <source>Number</source>
         <target>Nombre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="138">
         <source>To be confirmed</source>
         <target>À confirmer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="139">
         <source>Not blocking</source>
         <target>Non bloquant</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="140">
         <source>State</source>
         <target>État</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="141">
         <source>%%d%% day(s)</source>
         <target>%%d%% jour(s)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="142">
         <source>The filters on events have been all removed.</source>
         <target>Les filtres sur les événements ont été remis à zéro.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="143">
         <source>Reset filters</source>
         <target>Effacer les filtres</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="144">
         <source>Has a memo</source>
         <target>A un memo</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="145">
         <source>Has extra informations</source>
         <target>A des informations suppl.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="146">
         <source>No extra information</source>
         <target>Pas d'information suppl.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="147">
         <source>You must provide a valid event in order to apply the selected manifestations to.</source>
         <target>Vous devez préciser un événement valide afin de pouvoir y affecter les manifestations sélectionnées.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="148">
         <source>The provided manifestations have been applied to "%%event%%".</source>
         <target>Les manifestations selectionnées ont bien été affectées à l'événement "%%event%%".</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="149">
         <source>Search</source>
         <target>Recherche</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="150">
         <source>Refresh</source>
         <target>Rafraîchir</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="151">
         <source>Total: %%total%% Free: %%free%%</source>
         <target>Total: %%total%% Libres: %%free%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="152">
         <source>Total: %%total%% Seats: %%seats%% Free: %%free%%</source>
         <target>Total: %%total%% Places: %%seats%% Libres: %%free%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="153">
         <source>Sells: %%printed%% Orders: %%ordered%% Demands: %%asked%%</source>
         <target>Ventes: %%printed%% Réservations: %%ordered%% Demandes: %%asked%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="154">
         <source>Sells: %%printed%% Orders: %%ordered%%</source>
         <target>Ventes: %%printed%% Réservations: %%ordered%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="155">
         <source>Notification for %%manif%%</source>
         <target>Notification pour %%manif%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="156">
         <source>Notification of a pending manifestation on the %%date%%</source>
         <target>Notification d'une manifestation en attente pour le %%date%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="157">
         <source>Where</source>
         <target>Où</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="158">
         <source>When</source>
         <target>Quand</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="159">
         <source>Search</source>
         <target>Recherche</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="160">
         <source>Content file</source>
         <target>Fichier</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="161">
         <source>Online Sales</source>
         <target>Vente en ligne</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="162">
         <source>This is the number of seats when the screen loaded.</source>
         <target>Ceci est le nombre de place au moment du chargement de l'écran.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="163">
         <source>Add a manifestation</source>
         <target>Ajouter une manifestation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="164">
         <source>Size</source>
         <target>Taille</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="165">
         <source>Nb of seats</source>
         <target>Nb de places</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="166">
         <source>An error occurred during the plot recording. Try again.</source>
         <target>Nb de places</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="167">
         <source>Magnify</source>
         <target>Effet loupe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="168">
         <source>New Seated plan</source>
         <target>Nouveau plan de salle</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="169">
         <source>Edit Seated plan</source>
         <target>Modification du plan de salle</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="170">
         <source>Seated plan List</source>
         <target>Liste des plans de salle</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="171">
         <source>Plot diameter behind a seat</source>
         <target>Diamètre du point derrière un siège</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="172">
         <source>Background color</source>
         <target>Couleur de fond</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="173">
         <source>This seat's name has already been given.</source>
         <target>Ce nom de place a déjà été donné.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="174">
         <source>Do not ask</source>
         <target>Directement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="175">
         <source>Hop</source>
         <target>Saut</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="176">
         <source>Poster</source>
         <target>Affiche</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="177">
         <source>Picture</source>
         <target>Plan</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="178">
         <source>Seat's name</source>
         <target>Nom de la place</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="179">
         <source>You have requested the version #%%v%% that does not exist.</source>
         <target>Vous avez demandé la version #%%v%% qui n'existe pas.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="180">
         <source>Pending</source>
         <target>En attente</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="181">
         <source>In calendars?</source>
         <target>Dans les calendriers ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="182">
         <source>Filters</source>
         <target>Filtres</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="183">
         <source>To be hidden in calendars?</source>
         <target>À cacher dans les calendriers ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="184">
         <source>You cannot edit an event object in which there are manifestations that do not belong to you.</source>
         <target>Vous ne pouvez pas modifier un événement dans lequel se trouvent des manifestations ne vous étant pas rattachées.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="185">
         <source>You do not have the credential to confirm any manifestation.</source>
         <target>Vous n'êtes pas accrédité pour confirmer une manifestation.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="186">
         <source>Are you sure?</source>
         <target>Êtes-vous sûr(e) ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="187">
         <source>New transitional event's name:</source>
         <target>Nom du nouvel événement transitionnel :</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="188">
         <source>All day long</source>
         <target>Journée entière</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="189">
         <source>This manifestation conflicts with another.</source>
         <target>Cette manifestation entre en conflit avec une autre.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="190">
         <source>Its status "confirmed" has been disabled.</source>
         <target>Son statut "confirmé" a été retiré.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="191">
         <source>But it is not yet confirmed.</source>
         <target>Mais elle n'est pas encore confirmée.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="192">
         <source>Its status "confirmed" has been kept, because you have specific credentials for that.</source>
         <target>Son statut "confirmé" a été conservé, car vous avez des autorisations spéciales pour cela.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="193">
         <source>Last mod.</source>
         <target>Modifié le</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="194">
         <source>doesn't matter</source>
         <target>qu'importe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="195">
         <source>only them</source>
         <target>uniquement...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="196">
         <source>exclude them</source>
         <target>tout sauf...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="197">
         <source>Blocking manifestations</source>
         <target>Manifestations bloquantes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="198">
         <source>Confirmed manifestations</source>
         <target>Manifestations confirmées</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="199">
         <source>Conflicted manifestations</source>
         <target>Manifestations en conflit</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="200">
         <source>Optional manifestations</source>
         <target>Manifestations optionnelles</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="201">
         <source>%%nb%% manifestation(s) confirmed</source>
         <target>%%nb%% manifestations confirmées</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="202">
         <source>Not an option</source>
         <target>Pas une option</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="203">
         <source>Bookings</source>
         <target>Réservations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="204">
         <source>List of pending bookings</source>
         <target>Liste des réservations en attente de confirmation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="205">
         <source>From %from_date%</source>
         <target>Entre le %from_date%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="206">
         <source>to %to_date%</source>
         <target>et le %to_date%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="207">
         <source>Be careful on</source>
         <target>Attention à</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="208">
         <source>Place/Resource</source>
         <target>Lieu/Ressource</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="209">
         <source>Resources</source>
         <target>Ressources</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="210">
         <source>Change the details of the reservation</source>
         <target>Changer les détails de réservation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="211">
         <source>Booked until</source>
         <target>Fin de résa.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="212">
         <source>Booked from</source>
         <target>Début de résa.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="213">
         <source>Booked dates</source>
         <target>Dates de résa.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="214">
         <source>Booked by</source>
         <target>Réservé par</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="215">
         <source>Validated</source>
         <target>Validé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="216">
         <source>Conflict on</source>
         <target>Conflit sur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="217">
         <source>Use conflicts</source>
         <target>Conflits d'usage</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="218">
         <source>Conflicts</source>
         <target>Conflits</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="219">
         <source>There is no use conflict</source>
         <target>Pas de conflit d'usage</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="220">
         <source>There are use conflicts</source>
         <target>Conflits d'usage !</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="221">
         <source>Title</source>
         <target>Titre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="222">
         <source>Resource's Bookings List</source>
         <target>Liste des réservations de la ressource</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="223">
         <source>View Resource %%name%%</source>
         <target>Fiche de la ressource %%name%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="224">
         <source>Editting resource %%name%%</source>
         <target>Fiche de la ressource %%name%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="225">
         <source>New Resource</source>
         <target>Nouvelle ressource</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="226">
         <source>List of resources</source>
         <target>Liste des ressources</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="227">
         <source>Resource</source>
         <target>Ressource</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="228">
         <source>is empty</source>
         <target>vide ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="229">
         <source>yes or no</source>
         <target>indifférent</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="230">
         <source>yes</source>
         <target>oui</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="231">
         <source>no</source>
         <target>non</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="232">
         <source>New workspace order</source>
         <target>Nouvel ordre d'espace de travail</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="233">
         <source>Department</source>
         <target>Service</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="234">
         <source>Admin. ID</source>
         <target>Admin. ID</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="235">
         <source>Qty</source>
         <target>Qté</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="236">
         <source>Extract</source>
         <target>Extraire</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="237">
         <source>... the list of spectators with a ticket</source>
         <target>... la liste des spectateurs avec billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="238">
         <source>%%nb%% manifestation(s) have been created during the duplication process.</source>
         <target>%%nb%% manifestation(s) ont été créées durant le processus de duplication.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="239">
         <source>Manifestation duplicated successfully.</source>
         <target>Manifestation dupliquée avec succès.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="240">
         <source>Try again with valid informations.</source>
         <target>Essayez à nouveau, avec des informations valides.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="241">
         <source>Unknown manifestation.</source>
         <target>Manifestation non spécifiée.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="242">
         <source>Repeat every</source>
         <target>Répéter tous les</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="243">
         <source>hours</source>
         <target>heures</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="244">
         <source>days</source>
         <target>jours</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="245">
         <source>weeks</source>
         <target>semaines</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="246">
         <source>month</source>
         <target>mois</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="247">
         <source>years</source>
         <target>années</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="248">
         <source>Repeat</source>
         <target>Répéter</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="249">
         <source>times</source>
         <target>fois</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="250">
         <source>Until</source>
         <target>Jusqu'au</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="251">
         <source>Only one occurrence</source>
         <target>Seulement une fois</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="252">
         <source>Comment</source>
         <target>Commentaire</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="253">
         <source>Extra informations</source>
         <target>Informations suppl.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="254">
         <source>Periodicity for %%manifestations%%</source>
         <target>Périodicité pour %%manifestations%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="255">
         <source>The manifestation has been duplicated successfully.</source>
         <target>La manifestation a été dupliquée avec succès.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="256">
         <source>Periodicity</source>
         <target>Périodicité</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="257">
         <source>Required.</source>
         <target>Requis.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="258">
         <source>Confirmed</source>
         <target>Confirmée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="259">
         <source>Not confirmed</source>
         <target>Pas confirmée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="260">
         <source>No extra location booked</source>
         <target>Pas de ressource supplémentaire réservée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="261">
         <source>Reservation</source>
         <target>Réservation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="262">
         <source>Extra locations</source>
         <target>Ressources suppl.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="263">
         <source>Applicant</source>
         <target>Demandeur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="264">
         <source>Applied by organism</source>
         <target>Organisme demandeur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="265">
         <source>Begins at</source>
         <target>Commence le</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="266">
         <source>Blocking</source>
         <target>Bloquante</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="267">
         <source>This is an option</source>
         <target>Ceci est une option</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="268">
         <source>Optional</source>
         <target>Optionnel</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="269">
         <source>Ends at</source>
         <target>Se termine le</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="270">
         <source>Duplicate</source>
         <target>Dupliquer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="271">
         <source>Costs</source>
         <target>Coûts</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="272">
         <source>Reservation costs</source>
         <target>Coûts de réservation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="273">
         <source>For the accounting department</source>
         <target>Pour le service comptable</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="274">
         <source>For accounting</source>
         <target>Pour la comptabilité</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="275">
         <source>Demands</source>
         <target>Demandes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="276">
         <source>eg. 9.20%</source>
         <target>ex: 9,20%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="277">
         <source>eg. 0.0920 for 9.20%</source>
         <target>ex: 0.0920 pour 9,20%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="278">
         <source>New tax</source>
         <target>Nouvelle taxe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="279">
         <source>Edit tax %%name%%</source>
         <target>Modification de la taxe %%name%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="280">
         <source>Account</source>
         <target>Compte</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="281">
         <source>Rate</source>
         <target>Taux</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="282">
         <source>Taxes list</source>
         <target>Liste des taxes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="283">
         <source>Taxes</source>
         <target>Taxes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="284">
         <source>This field is updated automagically</source>
         <target>Les champs se mettent à jour automagiquement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="285">
         <source>Display in ticketting</source>
         <target>Affiché en billetterie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="286">
         <source>Necessary to</source>
         <target>Nécessaire à</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="287">
         <source>Depends on</source>
         <target>Dépend de</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="288">
         <source>Cannot proceede to transfert because there is no gauge below this one</source>
         <target>Impossible de procéder au transfert car il n'y a pas de jauge en-dessous de celle-ci</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="289">
         <source>Click to unchain gauges, deactivating transferts</source>
         <target>Cliquer pour délier les jauges, désactivant ainsi les transferts</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="290">
         <source>Click to chain gauges, activating transferts</source>
         <target>Cliquer pour chaîner les jauges, activant ainsi les transferts</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="291">
         <source>Chained</source>
         <target>Chaîné</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="292">
         <source>With ticket</source>
         <target>Avec billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="293">
         <source>Reservations</source>
         <target>Réservations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="294">
         <source>Acc.</source>
         <target>Compta.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="295">
         <source>Rank</source>
         <target>Rang</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="296">
         <source>Ordering your workspaces...</source>
         <target>Ordonnancer vos espaces de travail...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="297">
         <source>Prices</source>
         <target>Prix</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="298">
         <source>Member cards</source>
         <target>Cartes d'abo.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="299">
         <source>Linked w/ MC</source>
         <target>Lié cartes abo.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="300">
         <source>Edit Price</source>
         <target>Modification du tarif</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="301">
         <source>Price manifestation List</source>
         <target>Liste des tarifs associés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="302">
         <source>Apply</source>
         <target>Appliquer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="303">
         <source>Loading...</source>
         <target>Chargement en cours...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="304">
         <source>Hide</source>
         <target>Cacher</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="305">
         <source>Price List</source>
         <target>Liste des tarifs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="306">
         <source>%%Name%%</source>
         <target>%%Nom%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="307">
         <source>Location's Manifestations List</source>
         <target>Les manifestations du lieu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="308">
         <source>Ticketting</source>
         <target>Billetterie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="309">
         <source>Preprinted ticketting</source>
         <target>Billetterie pré-imprimée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="310">
         <source>On ticket</source>
         <target>Sur le billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="311">
         <source>New Color</source>
         <target>Nouvelle couleur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="312">
         <source>New Workspace</source>
         <target>Nouvel espace de travail</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="313">
         <source>New Meta event</source>
         <target>Nouveau meta-événement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="314">
         <source>Unassociated</source>
         <target>Non-associés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="315">
         <source>Associated</source>
         <target>Associés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="316">
         <source>Updated at %%d%% by %%u%%</source>
         <target>Mis à jour le %%d%% par %%u%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="317">
         <source>Memo</source>
         <target>Mémo</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="318">
         <source>Current memo</source>
         <target>Mémo actuel</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="319">
         <source>Unbalanced</source>
         <target>Déséquilibres</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="320">
         <source>Total debt</source>
         <target>Dette totale</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="321">
         <source>Debt</source>
         <target>Dette</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="322">
         <source>Total to pay</source>
         <target>Total à payer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="323">
         <source>Total paid</source>
         <target>Total déjà payé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="324">
         <source>Unbalanced transactions</source>
         <target>Opérations non-équilibrées</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="325">
         <source>All the transactions linked to this manifestation are balanced</source>
         <target>Toutes les opérations liées à cette manifestation sont équilibrées</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="326">
         <source>Notice: all the amounts shown here are mixing all the tickets and all the payments of transactions linked to this manifestation</source>
         <target>Notez que les chiffres indiqués ici prennent en compte tous les billets et tous les paiements des opérations liées à cette manifestation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="327">
         <source>ID Manif</source>
         <target>ID Manif</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="328">
         <source>ID Visit</source>
         <target>ID Visite</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="329">
         <source>ID Opening</source>
         <target>ID Ouverture</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="330">
         <source>Transaction</source>
         <target>Opération</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="331">
         <source>Online limit</source>
         <target>Limite vente en ligne</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="332">
         <source>Online limit per transaction</source>
         <target>Limite vente en ligne par transaction</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="333">
         <source>[0]|[1]%y% year|(1,+Inf]%y% years old</source>
         <target>[0]|[1]%y% an|(1,+Inf]%y% ans</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="334">
         <source>%m% month old</source>
         <target>%m% mois</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="335">
         <source>Global gauge</source>
         <target>Jauge globale</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="336">
         <source>New Location</source>
         <target>Nouveau lieu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="337">
         <source>Email</source>
         <target>Courriel</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="338">
         <source>Stage manager</source>
         <target>Régisseur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="339">
         <source>Organism</source>
         <target>Organisme</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="340">
         <source>Address</source>
         <target>Adresse</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="341">
         <source>Postalcode</source>
         <target>Code postal</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="342">
         <source>City</source>
         <target>Ville</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="343">
         <source>Gauge max</source>
         <target>Jauge max</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="344">
         <source>Gauge min</source>
         <target>Jauge min</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="345">
         <source>Uncheck all tickets...</source>
         <target>Annuler tous les contrôles...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="346">
         <source>Control all...</source>
         <target>Tout contrôler...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="347">
         <source>Edit Checkpoint "%%name%%"</source>
         <target>Modification du point de contrôle "%%name%%"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="348">
         <source>Spectators to be controlled</source>
         <target>Spectateurs à contrôler</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="349">
         <source>Controlled spectators</source>
         <target>Spectateurs contrôlés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="350">
         <source>Ordered spectators</source>
         <target>Spectateurs en réservation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="351">
         <source>Asked spectators</source>
         <target>Spectateurs en demande</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="352">
         <source>Confirmed spectators</source>
         <target>Spectateurs avec billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="353">
         <source>Visitors to be controlled</source>
         <target>Visiteurs à contrôler</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="354">
         <source>Controlled visitors</source>
         <target>Visiteurs contrôlés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="355">
         <source>Ordered visitors</source>
         <target>Visiteurs en réservation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="356">
         <source>Asked visitors</source>
         <target>Visiteurs en demande</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="357">
         <source>Confirmed visitors</source>
         <target>Visiteurs avec billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="358">
         <source>Ticket ids</source>
         <target>Billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="359">
         <source>&lt;span title="booked/total (sold-booked-demanded)"&gt;Gauges&lt;/span&gt;</source>
         <target>&lt;span title="places/total (vendus-rés.-dem.)]"&gt;Jauges&lt;/span&gt;</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="360">
         <source>&lt;strong class="booked"&gt;%%b%%&lt;/strong&gt;/&lt;strong class="total"&gt;%%t%%&lt;/strong&gt; (&lt;span title="sold" class="sold"&gt;%%p%%&lt;/span&gt;-&lt;span title="ordered" class="ordered"&gt;%%o%%&lt;/span&gt;-&lt;span title="asked" class="asked"&gt;%%a%%&lt;/span&gt;)</source>
         <target>&lt;strong class="booked"&gt;%%b%%&lt;/strong&gt;/&lt;strong class="total"&gt;%%t%%&lt;/strong&gt; (&lt;span title="vendus" class="sold"&gt;%%p%%&lt;/span&gt;-&lt;span title="réservés" class="ordered"&gt;%%o%%&lt;/span&gt;-&lt;span title="demandés" class="asked"&gt;%%a%%&lt;/span&gt;)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="361">
         <source>&lt;strong class="booked"&gt;%%b%%&lt;/strong&gt;/&lt;strong class="total"&gt;%%t%%&lt;/strong&gt; (&lt;span title="sold" class="sold"&gt;%%p%%&lt;/span&gt;-&lt;span title="ordered" class="ordered"&gt;%%o%%&lt;/span&gt;)</source>
         <target>&lt;strong class="booked"&gt;%%b%%&lt;/strong&gt;/&lt;strong class="total"&gt;%%t%%&lt;/strong&gt; (&lt;span title="vendus" class="sold"&gt;%%p%%&lt;/span&gt;-&lt;span title="réservés" class="ordered"&gt;%%o%%&lt;/span&gt;)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="362">
         <source>Tickets to be controlled</source>
         <target>Billets à contrôler</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="363">
         <source>Controlled tickets</source>
         <target>Billets contrôlés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="364">
         <source>Sell</source>
         <target>Vendre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="365">
         <source>Manifestations</source>
         <target>Manifestations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="366">
         <source>Periods</source>
         <target>Périodes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="367">
         <source>New Event</source>
         <target>Nouvel événement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="368">
         <source>New visit</source>
         <target>Nouvelle visite</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="369">
         <source>New opening</source>
         <target>Nouvelle ouverture</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="370">
         <source>Visit</source>
         <target>Visite</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="371">
         <source>Opening</source>
         <target>Ouverture</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="372">
         <source>Meta opening</source>
         <target>Méta-ouverture</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="373">
         <source>Meta visit</source>
         <target>Méta-visite</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="374">
         <source>New Event category</source>
         <target>Nouvelle catégorie d'événement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="375">
         <source>Tickets</source>
         <target>Billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="376">
         <source>Printed tickets</source>
         <target>Billets vendus</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="377">
         <source>Ordered tickets</source>
         <target>Billets réservés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="378">
         <source>Asked tickets</source>
         <target>Billets demandés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="379">
         <source>Transactions</source>
         <target>Opérations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="380">
         <source>Spectators</source>
         <target>Spectateurs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="381">
         <source>Visitors</source>
         <target>Visiteurs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="382">
         <source>Qty</source>
         <target>Qté</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="383">
         <source>The template has been applied correctly.</source>
         <target>Le gabarit a été appliqué correctement.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="384">
         <source>The template has not been applied correctly !</source>
         <target>Le gabarit n'a pas été appliqué correctement !</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="385">
         <source>Manifestation model</source>
         <target>Modèle de manifestation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="386">
         <source>Templating</source>
         <target>Gabarit</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="387">
         <source>Deleting this object has been canceled because of remaining links to externals (like tickets).</source>
         <target>La suppression de cet objet a été annulée car il doit encore être lié à d'autres objets (ex: billets).</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="388">
         <source>The item was created successfully. Don't forget to update prices if necessary.</source>
         <target>L'élément a été créé. N'oubliez pas de mettre à jour les tarifs si nécessaire.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="389">
         <source>Checkpoints</source>
         <target>Points de contrôle</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="390">
         <source>Legal</source>
         <target>Légal</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="391">
         <source>Checkpoints list</source>
         <target>Liste des points de contrôle</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="392">
         <source>New Checkpoint</source>
         <target>Nouveau point de contrôle</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="393">
         <source>Geolocalization</source>
         <target>Géolocalisation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="394">
         <source>-- new workspace link --</source>
         <target>-- nouveau lien vers un espace de travail --</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="395">
         <source>-- new price --</source>
         <target>-- nouveau tarif --</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="396">
         <source>Price</source>
         <target>Tarif</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="397">
         <source>Value</source>
         <target>Prix</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="398">
         <source>at</source>
         <target>le</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="399">
         <source>Color</source>
         <target>Couleur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="400">
         <source>Color List</source>
         <target>Liste des couleurs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="401">
         <source>Users list</source>
         <target>Liste des utilisateurs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="402">
         <source>Users</source>
         <target>Utilisateurs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="403">
         <source>Manifestations list</source>
         <target>Liste des manifestations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="404">
         <source>Calendar</source>
         <target>Calendrier</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="405">
         <source>Export</source>
         <target>Exporter</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="406">
         <source>Technical</source>
         <target>Technique</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="407">
         <source>Technical informations</source>
         <target>Informations techniques</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="408">
         <source>Details</source>
         <target>Détails</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="409">
         <source>Web Content</source>
         <target>Contenu web</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="410">
         <source>Short name</source>
         <target>Petit nom</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="411">
         <source>Subtitle</source>
         <target>Sous-titre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="412">
         <source>Staging label</source>
         <target>Étiquette "mise en scène"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="413">
         <source>Staging</source>
         <target>Mise en scène</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="414">
         <source>Writer label</source>
         <target>Étiquette "auteur"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="415">
         <source>Writer</source>
         <target>Auteur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="416">
         <source>Web price</source>
         <target>Tarif web</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="417">
         <source>Web price group</source>
         <target>Tarif web pour les groupes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="418">
         <source>Organization</source>
         <target>Organisation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="419">
         <source>View Manifestation %%name%%</source>
         <target>Fiche manifestation %%name%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="420">
         <source>View Manifestation</source>
         <target>Fiche manifestation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="421">
         <source>Workspaces</source>
         <target>Jauges</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="422">
         <source>Direct phonenumber</source>
         <target>Numéro pro.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="423">
         <source>Postalcode</source>
         <target>Code Postal</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="424">
         <source>City</source>
         <target>Ville</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="425">
         <source>Organism</source>
         <target>Organisme</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="426">
         <source>Location List</source>
         <target>Liste des lieux</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="427">
         <source>General</source>
         <target>Général</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="428">
         <source>Address</source>
         <target>Adresse</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="429">
         <source>More</source>
         <target>Plus</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="430">
         <source>Country</source>
         <target>Pays</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="431">
         <source>Gauge</source>
         <target>Jauge</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="432">
         <source>Gauges</source>
         <target>Jauges</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="433">
         <source>Gauge min</source>
         <target>Jauge mini</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="434">
         <source>Gauge max</source>
         <target>Jauge max</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="435">
         <source>View Location</source>
         <target>Fiche du lieu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="436">
         <source>List of visits</source>
         <target>Liste des visites</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="437">
         <source>List of openings</source>
         <target>Liste des ouvertures</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="438">
         <source>List of events</source>
         <target>Liste des événements</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="439">
         <source>Meta event</source>
         <target>Méta-événement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="440">
         <source>Name</source>
         <target>Nom</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="441">
         <source>Event categories</source>
         <target>Catégories d'événement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="442">
         <source>Category</source>
         <target>Catégorie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="443">
         <source>Detailed category</source>
         <target>Catégorie précise</target>
       </trans-unit>
-      <trans-unit id="1">
+      <trans-unit id="444">
         <source>Events</source>
         <target>Événements</target>
       </trans-unit>
-      <trans-unit id="2">
+      <trans-unit id="445">
         <source>Agenda</source>
         <target/>
       </trans-unit>
-      <trans-unit id="3">
+      <trans-unit id="446">
         <source>Locations</source>
         <target>Lieux</target>
       </trans-unit>
-      <trans-unit id="17">
+      <trans-unit id="447">
         <source>In progress</source>
         <target>En cours</target>
       </trans-unit>
-      <trans-unit id="29">
+      <trans-unit id="448">
         <source>Online ticketting</source>
         <target>Billetterie en ligne</target>
       </trans-unit>
-      <trans-unit id="39">
+      <trans-unit id="449">
         <source>Email</source>
         <target>Courriel</target>
       </trans-unit>
-      <trans-unit id="89">
+      <trans-unit id="450">
         <source>Workspace</source>
         <target>Jauges</target>
       </trans-unit>
-      <trans-unit id="89">
+      <trans-unit id="451">
         <source>Event Category</source>
         <target>Catégorie d'événement</target>
       </trans-unit>
-      <trans-unit id="91">
+      <trans-unit id="452">
         <source>Colors</source>
         <target>Couleurs</target>
       </trans-unit>
-      <trans-unit id="92">
+      <trans-unit id="453">
         <source>View Event %%name%%</source>
         <target>Fiche de l'événement %%name%%</target>
       </trans-unit>
-      <trans-unit id="92">
+      <trans-unit id="454">
         <source>View Visit %%name%%</source>
         <target>Fiche de la visite %%name%%</target>
       </trans-unit>
-      <trans-unit id="92">
+      <trans-unit id="455">
         <source>View Opening %%name%%</source>
         <target>Fiche de l'ouverture %%name%%</target>
       </trans-unit>
-      <trans-unit id="93">
+      <trans-unit id="456">
         <source>Companies list</source>
         <target>Liste des compagnies</target>
       </trans-unit>
-      <trans-unit id="94">
+      <trans-unit id="457">
         <source>No registered company</source>
         <target>Pas de compagnie enregistrée</target>
       </trans-unit>
-      <trans-unit id="95">
+      <trans-unit id="458">
         <source>Image URL:</source>
         <target>Adresse de l'image</target>
       </trans-unit>
-      <trans-unit id="96">
+      <trans-unit id="459">
         <source>Extra description:</source>
         <target>Description suppl.:</target>
       </trans-unit>
-      <trans-unit id="97">
+      <trans-unit id="460">
         <source>Meta Event</source>
         <target>Meta événement</target>
       </trans-unit>
-      <trans-unit id="98">
+      <trans-unit id="461">
         <source>Extra specification:</source>
         <target>Description suppl.:</target>
       </trans-unit>
-      <trans-unit id="99">
+      <trans-unit id="462">
         <source>Category</source>
         <target>Catégorie</target>
       </trans-unit>
-      <trans-unit id="100">
+      <trans-unit id="463">
         <source>Description:</source>
         <target>Description:</target>
       </trans-unit>
-      <trans-unit id="101">
+      <trans-unit id="464">
         <source>Records your event before it opens a new manifestation screen</source>
         <target>Enregistre votre événement avant d'ouvrir une nouvelle manifestation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="465">
         <source>Records your visit before it opens a new period screen</source>
         <target>Enregistre votre visite avant d'ouvrir une nouvelle période</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="466">
         <source>Records your opening before it opens a new period screen</source>
         <target>Enregistre votre ouverture avant d'ouvrir une nouvelle période</target>
       </trans-unit>
-      <trans-unit id="102">
+      <trans-unit id="467">
         <source>New manifestation</source>
         <target>Nouvelle manifestation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="468">
         <source>New period</source>
         <target>Nouvelle période</target>
       </trans-unit>
-      <trans-unit id="103">
+      <trans-unit id="469">
         <source>Event List</source>
         <target>List des événements</target>
       </trans-unit>
-      <trans-unit id="104">
+      <trans-unit id="470">
         <source>Edit Event %%name%%</source>
         <target>Modifier l'événement %%name%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="471">
         <source>Edit Visit %%name%%</source>
         <target>Modifier la visite %%name%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="472">
         <source>Edit Opening %%name%%</source>
         <target>Modifier l'ouverture %%name%%</target>
       </trans-unit>
-      <trans-unit id="105">
+      <trans-unit id="473">
         <source>Detailed category</source>
         <target/>
       </trans-unit>
-      <trans-unit id="106">
+      <trans-unit id="474">
         <source>Duration</source>
         <target>Durée</target>
       </trans-unit>
-      <trans-unit id="107">
+      <trans-unit id="475">
         <source>Compagnies</source>
         <target>Compagnies</target>
       </trans-unit>
-      <trans-unit id="108">
+      <trans-unit id="476">
         <source>Extra description</source>
         <target>Description suppl.</target>
       </trans-unit>
-      <trans-unit id="109">
+      <trans-unit id="477">
         <source>Extra specification</source>
         <target>Spécification suppl.</target>
       </trans-unit>
-      <trans-unit id="110">
+      <trans-unit id="478">
         <source>Image URL</source>
         <target>Adresse de l'image</target>
       </trans-unit>
-      <trans-unit id="111">
+      <trans-unit id="479">
         <source>Age min</source>
         <target>Âge min</target>
       </trans-unit>
-      <trans-unit id="112">
+      <trans-unit id="480">
         <source>Age max</source>
         <target>Âge maxi</target>
       </trans-unit>
-      <trans-unit id="113">
+      <trans-unit id="481">
         <source>Signin</source>
         <target>S'authentifier</target>
       </trans-unit>
-      <trans-unit id="114">
+      <trans-unit id="482">
         <source>Forgot your password?</source>
         <target>Mot de passe oublié ?</target>
       </trans-unit>
-      <trans-unit id="115">
+      <trans-unit id="483">
         <source>Want to register?</source>
         <target>Vous souhaitez vous enregistrer ?</target>
       </trans-unit>
-      <trans-unit id="116">
+      <trans-unit id="484">
         <source>You don't have access to this part.</source>
         <target>Accès interdit</target>
       </trans-unit>
-      <trans-unit id="117">
+      <trans-unit id="485">
         <source>Oops! The screen you asked for is secure and you do not have proper credentials.</source>
         <target>Oops! L'écran que vous avez demandé est sécurisé et vous n'avez pas la permission requise.</target>
       </trans-unit>
-      <trans-unit id="118">
+      <trans-unit id="486">
         <source>Login below to gain access</source>
         <target>S'authentifier ci-dessous pour obtenir l'accès</target>
       </trans-unit>
-      <trans-unit id="119">
+      <trans-unit id="487">
         <source>Libre Informatique</source>
         <target/>
       </trans-unit>
-      <trans-unit id="120">
+      <trans-unit id="488">
         <source>Event</source>
         <target>Événement</target>
       </trans-unit>
-      <trans-unit id="121">
+      <trans-unit id="489">
         <source>Organizers list</source>
         <target>Liste des organisateurs</target>
       </trans-unit>
-      <trans-unit id="122">
+      <trans-unit id="490">
         <source>No registered organizer</source>
         <target>Pas d'organisateur enregistré</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="491">
         <source>Visit's Periods List</source>
         <target>Liste des périodes de visite</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="492">
         <source>Opening's Periods List</source>
         <target>Liste des périodes d'ouverture</target>
       </trans-unit>
-      <trans-unit id="124">
+      <trans-unit id="493">
         <source>Event's Manifestations List</source>
         <target>Liste des manifestations de l'événement</target>
       </trans-unit>
-      <trans-unit id="125">
+      <trans-unit id="494">
         <source>No result</source>
         <target>Pas de résultat</target>
       </trans-unit>
-      <trans-unit id="126">
+      <trans-unit id="495">
         <source>Online</source>
         <target>En ligne</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="496">
         <source>Onsite</source>
         <target>Sur lieu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="497">
         <source>Offline</source>
         <target>Non vendu en ligne</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="498">
         <source>Offsite</source>
         <target>Non vendu sur lieu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="499">
         <source>Gauge state</source>
         <target>État des jauges</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="500">
         <source>Closed on site</source>
         <target>Fermé sur lieu</target>
       </trans-unit>
-      <trans-unit id="127">
+      <trans-unit id="501">
         <source>Prices list</source>
         <target>Liste des tarifs</target>
       </trans-unit>
-      <trans-unit id="128">
+      <trans-unit id="502">
         <source>No registered price</source>
         <target>Pas de tarif enregistré</target>
       </trans-unit>
-      <trans-unit id="129">
+      <trans-unit id="503">
         <source>Seated</source>
         <target>Placé</target>
       </trans-unit>
-      <trans-unit id="130">
+      <trans-unit id="504">
         <source>Happens at</source>
         <target>Date</target>
       </trans-unit>
-      <trans-unit id="131">
+      <trans-unit id="505">
         <source>Location</source>
         <target>Lieu</target>
       </trans-unit>
-      <trans-unit id="132">
+      <trans-unit id="506">
         <source>Workspaces list</source>
         <target>Espaces de travail</target>
       </trans-unit>
-      <trans-unit id="133">
+      <trans-unit id="507">
         <source>No registered workspace</source>
         <target>Pas d'espace de travail enregistré</target>
       </trans-unit>
-      <trans-unit id="134">
+      <trans-unit id="508">
         <source>Vat</source>
         <target>TVA</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="509">
         <source>VAT</source>
         <target>TVA</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="510">
         <source>Edit Manifestation %%name%%</source>
         <target>Fiche de la manifestation %%name%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="511">
         <source>Editting location %%name%%</source>
         <target>Fiche du lieu %%name%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="512">
         <source>Stage manager</source>
         <target>Régisseur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="513">
         <source>Edit Color "%%name%%"</source>
         <target>Modification de la couleur "%%name%%"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="514">
         <source>View Color</source>
         <target>Fiche couleur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="515">
         <source>Color List</source>
         <target>Liste des couleurs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="516">
         <source>Edit Event category "%%name%%"</source>
         <target>Modification de la catégorie d'événement "%%name%%"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="517">
         <source>View Event category</source>
         <target>Fiche catégorie d'événement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="518">
         <source>Event category List</source>
         <target>Liste des catégories d'événement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="519">
         <source>Edit Meta event "%%name%%"</source>
         <target>Modification du meta-événement "%%name%%"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="520">
         <source>View Meta event</source>
         <target>Fiche meta-événement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="521">
         <source>Meta event List</source>
         <target>Liste des meta-événements</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="522">
         <source>Workspace List</source>
         <target>Liste des espaces de travail</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="523">
         <source>View Workspace</source>
         <target>Fiche espace de travail</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="524">
         <source>Edit Workspace %%name%%</source>
         <target>Modification de l'espace de travail %%name%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="525">
         <source>The item was created successfully. Don't forget to update prices if necessary. You can add another one below.</source>
         <target>L'élément a été créé avec succès. N'oubliez pas de mettre à jour les tarifs si nécessaire. Vous pouvez en créer un nouveau ci-après.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="526">
         <source>The item was created successfully. Don't forget to update prices if necessary.</source>
         <target>L'élément a été créé avec succès. N'oubliez pas de mettre à jour les tarifs si nécessaire.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="527">
         <source>Password</source>
         <target>Mot de passe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="528">
         <source>Username or E-Mail</source>
         <target>Login ou courriel</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="529">
         <source>Remember</source>
         <target>Rester connecté(e)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="530">
         <source>New Price</source>
         <target>Nouveau tarif</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="531">
         <source>Best rank</source>
         <target>Meilleur score</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="532">
         <source>First number</source>
         <target>Premier numéro de place</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="533">
         <source>Last number</source>
         <target>Dernier numéro de place</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="534">
         <source>First row</source>
         <target>Première rangée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="535">
         <source>Last row</source>
         <target>Dernière rangée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="536">
         <source>Hop value between seats</source>
         <target>Valeur du pas entre les places</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="537">
         <source>Hop value between rows</source>
         <target>Valeur du pas entre les rangées</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="538">
         <source>Contiguous?</source>
         <target>Places contiguës</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="539">
         <source>Format</source>
         <target>Format</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="540">
         <source>Exceptions to remove</source>
         <target>Exceptions à retirer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="541">
         <source>Exceptions to add</source>
         <target>Exceptions à ajouter</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="542">
         <source>Build</source>
         <target>Construire</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="543">
         <source>Clear</source>
         <target>Vider</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="544">
         <source>Timeout (in minutes)</source>
         <target>Délai (en minutes)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="545">
         <source>Timeout</source>
         <target>Sortie auto</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="546">
         <source>This exit checkpoint has been created automatically after gauge timeout.</source>
         <target>Ce point de contrôle de sortie a été créé automatiquement.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="547">
         <source>Your configuration has been updated with %i% option(s).</source>
         <target>Votre configuration a été mise à jour avec %i% paramètre(s).</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="548">
         <source>copy</source>
         <target>copie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="549">
         <source>From</source>
         <target>Du</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="550">
         <source>to</source>
         <target>au</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="551">
         <source>Mondays</source>
         <target>Lundis</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="552">
         <source>Tuesdays</source>
         <target>Mardis</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="553">
         <source>Wednesdays</source>
         <target>Mercredis</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="554">
         <source>Thursdays</source>
         <target>Jeudis</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="555">
         <source>Fridays</source>
         <target>Vendredis</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="556">
         <source>Saturdays</source>
         <target>Samedis</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="557">
         <source>Sundays</source>
         <target>Dimanches</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="558">
         <source>Duplicate and repeat</source>
         <target>Dupliquer et répéter</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="559">
         <source>Duplicate and show in calendar</source>
         <target>Dupliquer et montrer dans le calendrier</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="560">
         <source>Extract&lt;span class="ui-icon ui-icon-document"&gt;&lt;/span&gt;</source>
         <target>Extraire&lt;span class="ui-icon ui-icon-document"&gt;&lt;/span&gt;</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="561">
         <source>Cancel periodicity&lt;span class="ui-icon ui-icon-closethick"&gt;&lt;/span&gt;</source>
         <target>Annul. périodicité&lt;span class="ui-icon ui-icon-closethick"&gt;&lt;/span&gt;</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="562">
         <source>Organizers</source>
         <target>Organisateurs</target>
       </trans-unit>

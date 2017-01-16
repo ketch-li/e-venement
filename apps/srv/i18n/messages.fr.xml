@@ -4,227 +4,226 @@
   <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2014-08-26" product-name="messages">
     <header/>
     <body>
-      <trans-unit>
+      <trans-unit id="1">
         <source>Query</source>
         <target>Question</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="2">
         <source>Updated at</source>
         <target>Mise à jour</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="3">
         <source>Tickets</source>
         <target>Billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="4">
         <source>Contact</source>
         <target>Contact</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="5">
         <source>Function</source>
         <target>Fonction</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="6">
         <source>Organism</source>
         <target>Organisme</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="7">
         <source>Transaction</source>
         <target>Opération</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="8">
         <source>Extract</source>
         <target>Extraire</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="9">
         <source>Survey List</source>
         <target>Liste des questionnnaires</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="10">
         <source>Search</source>
         <target>Recherche</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="11">
         <source>Name</source>
         <target>Nom</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="12">
         <source>Description</source>
         <target>Description</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="13">
         <source>Add query</source>
         <target>Ajouter une question</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="14">
         <source>Answers</source>
         <target>Réponses</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="15">
         <source>Used by</source>
         <target>Appliquer à</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="16">
         <source>Statistics</source>
         <target>Statistiques</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="17">
         <source>Survey</source>
         <target>Questionnaire</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="18">
         <source>Only used with appropriate fields</source>
         <target>À utiliser uniquement avec les champs appropriés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="19">
         <source>Can be empty</source>
         <target>Peut être vide</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="20">
         <source>Checkbox</source>
         <target>Case à cocher</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="21">
         <source>Date with helper</source>
         <target>Date avec agenda</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="22">
         <source>Date+Time</source>
         <target>Date et Heure</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="23">
         <source>Text</source>
         <target>Texte</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="24">
         <source>Text (rich)</source>
         <target>Texte (Enrichi)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="25">
         <source>Select one in a list</source>
         <target>Choisir un élement de la liste</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="26">
         <source>Select one or many in a list</source>
         <target>Choisir un ou plusieurs éléments de la liste</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="27">
         <source>Select one or many in a list for each contact</source>
         <target>QCM pour chaque participant</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="28">
         <source>Range</source>
         <target>Intervalle</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="29">
         <source>Line</source>
         <target>Ligne</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="30">
         <source>Stats</source>
         <target>Statistiques</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="31">
         <source>free</source>
         <target>libre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="32">
         <source>choices</source>
         <target>choix</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="33">
         <source>numbers</source>
         <target>nombres</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="34">
         <source>Order</source>
         <target>Ordre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="35">
         <source>Weight</source>
         <target>Poids</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="36">
         <source>General</source>
         <target>Général</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="37">
         <source>Details</source>
         <target>Détails</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="38">
         <source>View Query</source>
         <target>Visualiser la question</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="39">
         <source>List nb queries</source>
         <target>Nombre de questions</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="40">
         <source>List nb answers group</source>
         <target>Nombre de réponses au questionnaire</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="41">
         <source>AnswersGroups</source>
         <target>Groupes de réponses</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="42">
         <source>Edit Survey</source>
         <target>Modifier le questionnaire</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="43">
         <source>View Survey</source>
         <target>Visualiser le questionnaire</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="44">
         <source>New Query</source>
         <target>Nouvelle question</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="45">
         <source>ApplyTo</source>
         <target>Appliquer à</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="46">
         <source>Everywhere</source>
         <target>Partout</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="47">
         <source>Group</source>
         <target>Groupe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="48">
         <source>Date from</source>
         <target>Du</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="49">
         <source>Date to</source>
         <target>Au</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="50">
         <source>Edit Survey %%name%%</source>
         <target>Editer le questionnaire %%name%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="51">
         <source>Date to</source>
         <target>Au</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="52">
         <source>Add query&lt;span class="ui-icon ui-icon-plus"&gt;&lt;/span&gt;</source>
         <target>Ajout d'une question&lt;span class="ui-icon ui-icon-plus"&gt;&lt;/span&gt;</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="53">
         <source>Edit Query</source>
         <target>Modifier la question</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="54">
         <source>Value</source>
         <target>Valeur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="55">
         <source>Typical answers</source>
         <target>Réponses types</target>
       </trans-unit>
     </body>
   </file>
 </xliff>
-

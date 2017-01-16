@@ -4,139 +4,139 @@
   <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2012-11-26T17:06:45Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit>
+      <trans-unit id="1">
         <source>Product</source>
         <target>Produit</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="2">
         <source>Seats</source>
         <target>Places</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="3">
         <source>Taxes</source>
         <target>Frais</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="4">
         <source>Get a PDF</source>
         <target>Format PDF</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="5">
         <source>Modify on-the-fly</source>
         <target>Modifier le document</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="6">
         <source>On %%d%%</source>
         <target>Le %%d%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="7">
         <source>&lt;span class="name inline-modifiable"&gt;Invoice&lt;/span&gt; #%%prefix%%&lt;span class="invoice_id"&gt;%%iid%%-%%version%%&lt;/span&gt;&lt;span class="transaction"&gt;, for transaction #&lt;span class="transaction_id"&gt;%%tid%%&lt;/span&gt; from the &lt;span class="date"&gt;%%d%%&lt;/span&gt; &lt;span class="time"&gt;%%t%%&lt;/span&gt;&lt;/span&gt;</source>
         <target>&lt;span class="name inline-modifiable"&gt;Facture&lt;/span&gt; #%%prefix%%&lt;span class="invoice_id"&gt;%%iid%%-%%version%%&lt;/span&gt;&lt;span class="transaction"&gt;, pour l'opération #&lt;span class="transaction_id"&gt;%%tid%%&lt;/span&gt; du &lt;span class="date"&gt;%%d%%&lt;/span&gt; &lt;span class="time"&gt;%%t%%&lt;/span&gt;&lt;/span&gt;</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="8">
         <source>&lt;span class="name inline-modifiable"&gt;Order&lt;/span&gt; #&lt;span class="order_id"&gt;%%oid%%&lt;/span&gt;, for transaction #&lt;span class="transaction_id"&gt;%%tid%%&lt;/span&gt;</source>
         <target>&lt;span class="name inline-modifiable"&gt;Bon de commande&lt;/span&gt; #&lt;span class="order_id"&gt;%%oid%%&lt;/span&gt;, pour l'opération #&lt;span class="transaction_id"&gt;%%tid%%&lt;/span&gt;</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="9">
         <source>TEP</source>
         <target>HT</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="10">
         <source>PIT</source>
         <target>TTC</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="11">
         <source>Time</source>
         <target>Heure</target>
       </trans-unit>
-      <trans-unit id="165">
+      <trans-unit id="12">
         <source>UP Net</source>
         <target>PU Net</target>
       </trans-unit>
-      <trans-unit id="166">
+      <trans-unit id="13">
         <source>TIP</source>
         <target>TTC</target>
       </trans-unit>
-      <trans-unit id="167">
+      <trans-unit id="14">
         <source>VAT</source>
         <target>TVA</target>
       </trans-unit>
-      <trans-unit id="168">
+      <trans-unit id="15">
         <source>PET</source>
         <target>HT</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="16">
         <source>Event</source>
         <target>Événement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="17">
         <source>Location</source>
         <target>Lieu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="18">
         <source>City</source>
         <target>Ville</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="19">
         <source>Price</source>
         <target>Tarif</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="20">
         <source>Unit TIP</source>
         <target>P.U.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="21">
         <source>Qty</source>
         <target>Qté</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="22">
         <source>Paid with</source>
         <target>Payé en</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="23">
         <source>Total</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="24">
         <source>Still missing</source>
         <target>Reste à payer</target>
       </trans-unit>
-      <trans-unit id="176">
+      <trans-unit id="25">
         <source>Total excl. tax:</source>
         <target>Total HT:</target>
       </trans-unit>
-      <trans-unit id="177">
+      <trans-unit id="26">
         <source>VAT %%p%%:</source>
         <target>TVA %%p%%:</target>
       </trans-unit>
-      <trans-unit id="178">
+      <trans-unit id="27">
         <source>Total incl. taxes:</source>
         <target>Total TTC:</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="28">
         <source>Invoice</source>
         <target>Facture</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="29">
         <source>Order</source>
         <target>Résa./Bon de comm.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="30">
         <source>Send by email</source>
         <target>Envoyer par email</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="31">
         <source>Your order for transaction #%%tid%%</source>
         <target>Votre commande pour l'opération #%%tid%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="32">
         <source>You will find your order from %%seller%% in this email message as an attachment.</source>
         <target>Veuillez trouver ci-joint le descriptif de votre réservation pour %%seller%%.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="33">
         <source>Your invoice for transaction #%%tid%%</source>
         <target>Votre facture pour l'opération #%%tid%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="34">
         <source>You will find your invoice from %%seller%% in this email message as an attachment.</source>
         <target>Veuillez trouver ci-joint la facture de votre réservation pour %%seller%%.</target>
       </trans-unit>
