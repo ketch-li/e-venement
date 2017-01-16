@@ -377,6 +377,8 @@ Manifestation:
       onDelete: RESTRICT
       onUpdate: CASCADE
     Color:
+      class: ColorManifestation
+      local: color_id
       foreignAlias: Manifestations
       onDelete: SET NULL
       onUpdate: CASCADE
@@ -596,18 +598,13 @@ ManifestationExtraInformation:
       onDelete: CASCADE
       onUpdate: CASCADE
 
-Color:
+ColorManifestation:
   package: event
-  actAs: [Timestampable]
-  columns:
-    name:
-      type:     string(255)
-      notnull:  true
-      notblank: true
-    color:
-      type:     string(255)
-      notnull:  true
-      notblank: true
+  inheritance:
+    extends: Color
+    type: column_aggregation
+    keyField: target
+    keyValue: 'manifestation'
 
 ManifestationOrganizer:
   package: event

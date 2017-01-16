@@ -364,6 +364,14 @@
         <source>Declination code</source>
         <target>Code déclinaison</target>
       </trans-unit>      
+      <trans-unit id="197">
+        <source>Color List</source>
+        <target>Liste des couleurs</target>
+      </trans-unit>      
+      <trans-unit id="198">
+        <source>Edit Color "%%name%%" for product categories</source>
+        <target>Modification de la couleur "%%name%%" pour les catégories de produit</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>

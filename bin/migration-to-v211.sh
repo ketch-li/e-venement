@@ -85,6 +85,7 @@ echo "DUMPING DB..."
 mv data/sql/$name-`date +%Y%m%d`.before.pgdump data/sql/$name-`date +%Y%m%d%H%M%s`.before.pgdump
 pg_dump -Fc > data/sql/$name-`date +%Y%m%d`.before.pgdump && echo "DB pre dumped"
 
+echo 'DELETE FROM cache;' | psql
 ## DO STUFF IN THE DB HERE
 
 psql <<EOF

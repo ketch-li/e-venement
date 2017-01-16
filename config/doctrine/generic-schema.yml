@@ -352,3 +352,21 @@ Domain:
       foreignAlias: Domain
       onDelete: CASCADE
       onUpdate: CASCADE
+
+Color:
+  package: generic
+  actAs: [Timestampable]
+  columns:
+    name:
+      type:     string(255)
+      notnull:  true
+      notblank: true
+    color:
+      type:     string(255)
+      notnull:  true
+      notblank: true
+    target:
+      type:     string(255)
+      notnull:  true
+      notblank: true
+      default:  'manifestation'
