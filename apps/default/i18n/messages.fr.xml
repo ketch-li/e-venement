@@ -448,14 +448,6 @@
         <source>Please contact your administrator</source>
         <target>Veuillez contacter votre administrateur</target>
       </trans-unit>
-      <trans-unit id="112">
-        <source>Selling screen configuration</source>
-        <target>Paramètrage de l'écran de vente</target>
-      </trans-unit>      
-      <trans-unit id="113">
-        <source>Force postal code</source>
-        <target>Imposer la saisie du code postal.</target>
-      </trans-unit>      
       <trans-unit id="114">
         <source>User policy</source>
         <target>Charte utilisateur</target>
