@@ -180,10 +180,11 @@ class SurveyQuery extends PluginSurveyQuery
           'true_values' => array('t'),
         )
       ),
-      'sfWidgetFormInputText' => array('class' => 'sfValidatorPass',),
-      'sfWidgetFormTextarea' => array('class' => 'sfValidatorPass',),
-      'sfWidgetFormDate'  => array('class' => 'sfValidatorDate',),
-      'liWidgetFormInputRange' => array('class' => 'sfValidatorInteger',),
+      'sfWidgetFormInputText'   => array('class' => 'sfValidatorPass',),
+      'sfWidgetFormTextarea'    => array('class' => 'sfValidatorPass',),
+      'sfWidgetFormDate'        => array('class' => 'sfValidatorDate',),
+      'liWidgetFormDateTime'    => array('class' => 'sfValidatorDateTime',),
+      'liWidgetFormInputRange'  => array('class' => 'sfValidatorInteger',),
     ));
 
     parent::__construct($table, $isNewEntry);

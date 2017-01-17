@@ -28,8 +28,8 @@ class liWidgetFormDateText extends sfWidgetFormI18nDate
    */
   protected function configure($options = array(), $attributes = array())
   {
+    $this->addOption('culture', sfContext::getInstance()->getUser()->getCulture());
     parent::configure($options,$attributes);
-    $this->addOption('culture',sfContext::getInstance()->getUser()->getCulture());
   }
   
   /**
@@ -77,7 +77,7 @@ class liWidgetFormDateText extends sfWidgetFormI18nDate
     // years
     $widget = new sfWidgetFormInput(array(), array_merge($this->attributes, $attributes, array('class' => 'sfWFDTyear', 'size' => '4', 'maxlength' => 4)));
     $date['%year%'] = $widget->render($name.'[year]', $value['year']);
-
+    
     return strtr($this->getOption('format'), $date);
   }
 }
