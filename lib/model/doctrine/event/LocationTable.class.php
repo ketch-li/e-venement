@@ -30,10 +30,57 @@ class LocationTable extends PluginLocationTable
   {
     $o  = 'o'   != $alias ? 'o'   : 'o1';
     $c  = 'c'   != $alias ? 'c'   : 'c1';
-        
-    return parent::createQuery($alias)
+    
+    $q = parent::createQuery($alias)
       ->leftJoin("$alias.Organism $o")
       ->leftJoin("$alias.Contact $c")
     ;
+    
+    // domains issue
+    $domains = $this->getApplicableDomains();
+    if ( !$domains )
+      return $q;
+    
+    $q->andWhere('(FALSE');
+    
+    // entries w/ wildcards
+    foreach ( $domains as $key => $domain )
+    if ( strpos($domain, '*') !== FALSE )
+    {
+      $q->orWhere("$alias.domain LIKE ?", str_replace('*', '%', $domain));
+      unset($domains[$key]);
+    }
+    
+    // other entries
+    if ( $domains )
+      $q->orWhereIn("$alias.domain", $domains);
+    
+    $q->orWhere('FALSE)');
+    return $q;
+  }
+  
+  /**
+   * @function getApplicableDomains()
+   * @returns  array    empty array if no domain is specified, all the possibilities otherwise (note: the string '*.domain.' means all subdomain of 'domain.')
+   */
+  public function getApplicableDomains()
+  {
+    if ( strlen(sfConfig::get('project_internals_users_domain', '.')) < 2 )
+      return array();
+    
+    $parts = array_reverse(explode('.', sfConfig::get('project_internals_users_domain', '.')));
+    $domains = array();
+    
+    for ( $i = 0 ; $i < count($parts) ; $i++ )
+      $domains[$i] = $parts[$i] ? $parts[$i].'.'.$domains[$i-1] : '';
+    // adding the root
+    $domains[] = '.';
+    $before = $domains;
+    // removing the last "." on every needed entries
+    for ( $i = 1 ; $i < count($before) - 1 ; $i++ )
+      $domains[] = preg_replace('/\.$/', '', $domains[$i]);
+    array_unshift($domains, '*.'.sfConfig::get('project_internals_users_domain', '.'));
+    
+    return $domains;
   }
 }

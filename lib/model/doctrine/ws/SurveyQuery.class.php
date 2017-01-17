@@ -69,7 +69,7 @@ class SurveyQuery extends PluginSurveyQuery
   public function getValidator()
   {
     // get back the validator's class name and properties
-    $ok = false;;
+    $ok = false;
     foreach ( $this->_validator_matches as $wClassName => $vProps )
     if ( is_a($this->type, $wClassName, true) )
     {

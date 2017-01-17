@@ -47,13 +47,13 @@ generator:
         sort: ['rank IS NULL, rank, name', '']
       filter:
         display: [name, postalcode, city, country, email, contact_id, organism_id, <?php echo $auto_control ? 'auto_control, ' : '' ?>npai]
-      form:
+      form: ~
       edit:
         title: Editting location %%name%%
         display:
           General: [name, rank, email, contact_id, organism_id, reservation_price]
           Address: [address, postalcode, _cities, city, country, npai]
-          More: [licenses, <?php echo $auto_control ? 'auto_control, ' : '' ?>description]
+          More: [_show_domain, licenses, <?php echo $auto_control ? 'auto_control, ' : '' ?>description]
           #Geolocalization: [_gmap]
       new:
         display:
@@ -64,6 +64,6 @@ generator:
         display:
           General: [name, _show_email, _show_contact, _show_organism, _show_reservation_price]
           Address: [name, address, postalcode, city, country, npai]
-          More:    [<?php echo $auto_control ? 'auto_control, ' : '' ?>_show_description, gauge_min, gauge_max]
+          More:    [domain, <?php echo $auto_control ? 'auto_control, ' : '' ?>_show_description, gauge_min, gauge_max]
           #Geolocalization: [_gmap]
 

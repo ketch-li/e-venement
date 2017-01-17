@@ -2254,6 +2254,18 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>Organizers</source>
         <target>Organisateurs</target>
       </trans-unit>
+      <trans-unit id="563">
+        <source>Applied domain</source>
+        <target>Domaine appliqué</target>
+      </trans-unit>
+      <trans-unit id="564">
+        <source>A resource or a location is available to any instance set up on the same domain, but also on all sub-domains and parent domains.</source>
+        <target>Une ressource ou un lieu est disponible dans toute instance paramétrée sur le même domaine, mais également tous les sous-domaines et tous les domaines parents.</target>
+      </trans-unit>
+      <trans-unit id="565">
+        <source>Current domain</source>
+        <target>Domaine courant</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -287,6 +287,10 @@ Location:
     auto_control:
       type: boolean
       default: false
+    domain:
+      type: string(255)
+      notnull: true
+      default: ''
   relations:
     Organism:
       foreignAlias: Locations
