@@ -65,16 +65,14 @@ class member_cardActions extends autoMember_cardActions
   public function checkQRcode($pid)
   {
     // QRcode : {"type":"MemberCard","member_card_id":620}
-    // or manual input : 620
-    $id = $pid;
+    $id = null;
 
-    if ( intval('9'.$pid).'' !== '9'.$pid ) {
-      $data = json_decode($pid, true);        
+    if ( $data = json_decode($pid, true) ) {
       if ( $data['type'] == 'MemberCard' )
       {
         $id = (int)$data['member_card_id'];
-      }           
-    }  
+      }
+    }
 
     return $id;
   }
@@ -83,7 +81,7 @@ class member_cardActions extends autoMember_cardActions
   {
     try { $id = liBarcode::decode_ean($pid); }
     catch ( sfException $e )
-    { $id = intval($pid); }
+    { $id = null; }
 
     return $id;      
   }
@@ -101,16 +99,28 @@ class member_cardActions extends autoMember_cardActions
     if ( !$pid = $request->getParameter('id') )
       return 'Success';  
     
-    switch( sfConfig::get('app_cards_id', 'id') ) {
+    $filter = '';
+    
+    if ( $id = $this->checkQRcode($pid) ) {
+      $filter = 'qrcode';
+    } else if ( $id = $this->checkEANcode($pid) ) {
+      $filter = 'id';      
+    } else {
+      if ( intval('9'.$pid).'' !== '9'.$pid )
+        return 'Success';  
+      $id = intval($pid);
+      $filter = sfConfig::get('app_cards_id', 'id');
+    }
+
+    switch($filter) {
+      case 'id':
+        $q->andWhere('c.id = ? OR ca.old_id = ?',array($id,$id));
+      break;
       case 'qrcode':
-        $code = $this->checkQRcode($pid);      
-        $q->andWhere('mc.id = ?', $code);        
+        $q->andWhere('mc.id = ?', $id); 
       break;
       default:
-        if ( intval('9'.$pid).'' !== '9'.$pid )
-          return 'Success';              
-        $id = $this->checkEANcode($pid);      
-        $q->andWhere('c.id = ? OR ca.old_id = ?',array($id,$id));
+        return 'Success';  
     }
 
     $this->member_cards = $q->orderBy('mc.expire_at > NOW() DESC, CASE WHEN mc.expire_at > NOW() THEN NOW() - mc.expire_at ELSE mc.expire_at - NOW() END DESC, mc.created_at')
