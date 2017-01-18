@@ -63,13 +63,7 @@ do let "i++";  [ $i -eq 3 ] && NBTR=$elt; done
 
 read -p "Do you want to pull all your git submodules ? [Y/n] " subm
 if [ "$subm" != "n" ]; then
-  git submodule init
-  git submodule update
-  for elt in lib/vendor/externals/*; do
-    (cd $elt; git checkout -f origin/master; git pull origin master && git checkout master && git pull)
-  done
-  for elt in `find lib/vendor/externals/ -type d`; do chmod -R a+rx $elt; done
-  echo "If you had permissions errors previously, it probably means that you are not the file owner. Please execute 'sudo for elt in `find lib/vendor/externals/ -type d`; do chmod -R a+rx $elt; done'"
+  ./bin/update-submodules.sh
 fi
 
 echo ""
