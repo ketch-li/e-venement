@@ -25,7 +25,10 @@
   git submodule init
   git submodule update
   for elt in lib/vendor/externals/*; do
-    (cd $elt; git checkout -f origin/master; git pull origin master && git checkout master && git pull)
+    if [ -f $elt/.git ]
+    then
+      (cd $elt; git checkout -f origin/master; git pull origin master && git checkout master && git pull)
+    fi
   done
   for elt in `find lib/vendor/externals/ -type d`; do chmod -R a+rx $elt; done
   echo "If you had permissions errors previously, it probably means that you are not the file owner. Please execute 'sudo for elt in `find lib/vendor/externals/ -type d`; do chmod -R a+rx $elt; done'"
