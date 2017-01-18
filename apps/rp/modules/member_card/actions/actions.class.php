@@ -62,28 +62,28 @@ class member_cardActions extends autoMember_cardActions
       sfConfig::set('sf_web_debug', false);
   }
   
-  public function checkQRcode(sfWebRequest $request)
+  public function checkQRcode($pid)
   {
-      // {"type":"MemberCard","member_card_id":620}
-      $this->type = 'failure';
-      
-      $data = json_decode($request->getParameter('id'), true);
-      
-      if ($data['type'] == 'MemberCard')
+    // QRcode : {"type":"MemberCard","member_card_id":620}
+    $id = null;
+
+    if ( $data = json_decode($pid, true) ) {
+      if ( $data['type'] == 'MemberCard' )
       {
-          $id = (int)$data['member_card_id'];
-      }      
-      
-      return $id;
+        $id = (int)$data['member_card_id'];
+      }
+    }
+
+    return $id;
   }
   
   public function checkEANcode($pid)
   {
-      try { $id = liBarcode::decode_ean($pid); }
-      catch ( sfException $e )
-      { $id = intval($pid); }
-      
-      return $id;      
+    try { $id = liBarcode::decode_ean($pid); }
+    catch ( sfException $e )
+    { $id = null; }
+
+    return $id;      
   }
   
   public function executeCheck(sfWebRequest $request)
@@ -96,21 +96,31 @@ class member_cardActions extends autoMember_cardActions
       ->addSelect('(SELECT sum(pp.value) FROM Payment pp WHERE pp.member_card_id = mc.id) AS value')
       ->addSelect('(SELECT count(mcp.id) FROM MemberCardPrice mcp WHERE mcp.member_card_id = mc.id) AS nb_prices');
     
-    if (sfConfig::get('app_cards_id', 'id') == 'qrcode') 
-    {
-        $code = $this->checkQRcode($request);
-        
-        $q->andWhere('mc.id = ?', $code);
-    } else 
-    {
-        if ( intval('9'.($id = $request->getParameter('id'))).'' !== '9'.$id || !$id )
-          return 'Success';
-                
-        $id = $this->checkEANcode($id);
-        
-        echo $id;
-        
+    if ( !$pid = $request->getParameter('id') )
+      return 'Success';  
+    
+    $filter = '';
+    
+    if ( $id = $this->checkQRcode($pid) ) {
+      $filter = 'qrcode';
+    } else if ( $id = $this->checkEANcode($pid) ) {
+      $filter = 'id';      
+    } else {
+      if ( intval('9'.$pid).'' !== '9'.$pid )
+        return 'Success';  
+      $id = intval($pid);
+      $filter = sfConfig::get('app_cards_id', 'id');
+    }
+
+    switch($filter) {
+      case 'id':
         $q->andWhere('c.id = ? OR ca.old_id = ?',array($id,$id));
+      break;
+      case 'qrcode':
+        $q->andWhere('mc.id = ?', $id); 
+      break;
+      default:
+        return 'Success';  
     }
 
     $this->member_cards = $q->orderBy('mc.expire_at > NOW() DESC, CASE WHEN mc.expire_at > NOW() THEN NOW() - mc.expire_at ELSE mc.expire_at - NOW() END DESC, mc.created_at')

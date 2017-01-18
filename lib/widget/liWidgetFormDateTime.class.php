@@ -63,17 +63,16 @@ class liWidgetFormDateTime extends sfWidgetFormDateTime
    *
    * @see sfWidgetForm
    */
-  protected function configure($options = array(), $attributes = array())
+  public function __construct($options = array(), $attributes = array())
   {
-    if ( !$options['date'] instanceof sfWidgetFormDate && !is_array($options['date']) )
-      unset($options['date']);
-    if ( !$options['time'] instanceof sfWidgetFormtime && !is_array($options['time']) )
-      unset($options['time']);
+    parent::__construct($options, $attributes);
     
-    parent::configure($options, $attributes);
-    
+    if ( $options['date'] instanceof sfWidgetFormDate )
+      $this->options['date'] = $options['date'];
+    if ( $options['time'] instanceof sfWidgetFormTime )
+      $this->options['time'] = $options['time'];
     if ( !isset($options['format']) )
-      $this->setOption('format', '<span class="date">%date%</span> <span class="time">%time%</span>');
+      $this->options['format'] = '<span class="date">%date%</span> <span class="time">%time%</span>';
   }
 
   /**
@@ -88,7 +87,9 @@ class liWidgetFormDateTime extends sfWidgetFormDateTime
     if ( $this->getOption('date') instanceof sfWidgetFormJQueryDate
       || $this->getOption('date') instanceof sfWidgetFormDate )
       return $this->getOption('date');
-    return new sfWidgetFormDate($this->getOptionsFor('date'), $this->getAttributesFor('date', $attributes));
+    if ( !isset($this->options['date']['culture']) )
+      $this->options['date']['culture'] = sfContext::getInstance()->getUser()->getCulture();
+    return new sfWidgetFormI18nDate($this->getOptionsFor('date'), $this->getAttributesFor('date', $attributes));
   }
   
   /**

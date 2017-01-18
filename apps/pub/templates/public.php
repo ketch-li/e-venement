@@ -24,7 +24,11 @@
         <?php include_partial('global/social_networks') ?>
       <?php endif ?>
     </div>
-    <div id="client-footer"></div>
+    <div id="client-footer">
+    <?php if ( pubConfiguration::getText('app_texts_terms_conditions_url') ): ?>
+      <a href="<?php echo url_for('cart/cgv');?>" target="_blank" title="<?php echo __('Terms & Conditions') ?>"><?php echo __('Terms & Conditions') ?></a>
+    <?php endif ?>
+    </div>
     <div id="client-infos"></div>
     <ul id="menu" class="first">
       <?php include_partial('global/public_choices') ?>
