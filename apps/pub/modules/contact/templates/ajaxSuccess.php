@@ -1,0 +1,1 @@
+<?php include_partial('index_member_cards_events',array('mc' => $mc)) ?>

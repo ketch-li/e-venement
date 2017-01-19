@@ -23,7 +23,7 @@
 ?>
 <?php use_helper('Number') ?>
 <div id="member_cards">
-<h2><?php echo sfConfig::get('app_member_cards_title',false) ? pubConfiguration::getText('app_member_cards_title') : __('Member card') ?></h2>
+<h2><?php echo $title ?></h2>
 
 <div id="sf_admin_container">
 <div id="sf_admin_content">
@@ -31,12 +31,17 @@
   <table cellspacing="0">
     <thead>
       <tr>
-        <th class="sf_admin_text sf_admin_list_th_list_name"><?php echo sfConfig::get('app_member_cards_title',false) ? pubConfiguration::getText('app_member_cards_title') : __('Member card') ?></th>
-        <th class="sf_admin_text sf_admin_list_th_list_value"><?php echo __('Value') ?></th>
-        <th class="sf_admin_text sf_admin_list_th_list_prices"><?php echo __('Associated prices still available') ?></th>
-        <th class="sf_admin_date sf_admin_list_th_list_expire_at"><?php echo sfConfig::get('app_member_cards_show_expire_at', true) ? __('Expire at') : '' ?></th>
-        <th class="sf_admin_date sf_admin_list_th_list_transaction_id"><?php echo __('Transaction number') ?></th>
+        <th class="sf_admin_text sf_admin_list_th_list_name" rowspan="2"><?php echo $title ?></th>
+        <th class="sf_admin_text sf_admin_list_th_list_value" rowspan="2"><?php echo __('Value') ?></th>
+        <th class="sf_admin_text sf_admin_list_th_list_prices" colspan="3"><?php echo __('Associated prices still available') ?></th>
+        <th class="sf_admin_date sf_admin_list_th_list_expire_at" rowspan="2"><?php echo sfConfig::get('app_member_cards_show_expire_at', true) ? __('Expire at') : '' ?></th>
+        <th class="sf_admin_date sf_admin_list_th_list_transaction_id" rowspan="2"><?php echo __('Transaction number') ?></th>
       </tr>
+      <tr>
+        <th class="price" style="width:40%"><?php echo __('Price') ?></th>
+        <th class="event" style="width:50%"><?php echo __('Event') ?></th>
+        <th class="qty" style="width:10%"><?php echo __('Quantity') ?></th>
+      </tr>      
     </thead>
     <tfoot>
       <tr>
@@ -48,45 +53,15 @@
       <?php foreach ( $member_cards as $mc ): ?>
       <?php if ( $mc->active ): ?>
       <tr class="sf_admin_row <?php echo $cpt%2 == 0 ? '' : 'odd' ?>">
-        <td class="sf_admin_text sf_admin_list_td_list_name"><?php echo $mc->MemberCardType->name ?></td>
-        <td class="sf_admin_text sf_admin_list_td_list_value"><?php echo format_currency($mc->value, $sf_context->getConfiguration()->getCurrency()) ?></td>
-        <td class="sf_admin_text sf_admin_list_td_list_prices">
-          <?php if ( $mc->MemberCardPrices->count() > 0 ): ?>
-          <table>
-            <thead>
-              <tr>
-                <th class="price"><?php echo __('Price') ?></td>
-                <th class="event"><?php echo __('Event') ?></td>
-                <th class="qty"><?php echo __('Quantity') ?></td>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-                $prices = array();
-                foreach ( $mc->MemberCardPrices as $mcp )
-                {
-                  $key = $mcp->price_id.'||'.$mcp->event_id;
-                  if ( !isset($prices[$key]) )
-                    $prices[$key] = array(
-                      'qty' => 0,
-                      'mcp' => $mcp,
-                    );
-                  $prices[$key]['qty']++;
-                }
-              ?>
-              <?php foreach ( $prices as $price ): ?>
-              <tr>
-                <td class="price"><?php echo $price['mcp']->Price->description ?></td>
-                <td class="event"><?php echo $price['mcp']->event_id ? link_to($price['mcp']->Event, 'event/edit?id='.$price['mcp']->event_id) : '' ?></td>
-                <td class="qty"><?php echo $price['qty'] ?></td>
-              </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
+        <td class="sf_admin_text sf_admin_list_td_list_name" style="vertical-align:top;"><?php echo $mc->MemberCardType->name ?></td>
+        <td class="sf_admin_text sf_admin_list_td_list_value" style="vertical-align:top;"><?php echo format_currency($mc->value, $sf_context->getConfiguration()->getCurrency()) ?></td>
+        <td id="mc<?php echo $mc->id; ?>" class="sf_admin_text sf_admin_list_td_list_prices" colspan="3" style="vertical-align:top;">
+          <?php if ( $mc->MemberCardPrices->count() > 0 && $show_events ): ?>
+          <?php include_partial('index_member_cards_events',array('mc' => $mc)) ?>
           <?php endif ?>
         </td>
-        <td class="sf_admin_date sf_admin_list_td_list_expire_at"><?php echo sfConfig::get('app_member_cards_show_expire_at', true) ? format_date($mc->expire_at) : '' ?></td>
-        <td class="sf_admin_date sf_admin_list_td_list_transaction_id"><?php if ( $mc->transaction_id ): ?>#<?php echo link_to($mc->transaction_id, 'transaction/show?id='.$mc->transaction_id) ?><?php endif ?></td>
+        <td class="sf_admin_date sf_admin_list_td_list_expire_at" style="vertical-align:top;"><?php echo sfConfig::get('app_member_cards_show_expire_at', true) ? format_date($mc->expire_at) : '' ?></td>
+        <td class="sf_admin_date sf_admin_list_td_list_transaction_id" style="vertical-align:top;"><?php if ( $mc->transaction_id ): ?>#<?php echo link_to($mc->transaction_id, 'transaction/show?id='.$mc->transaction_id) ?><?php endif ?></td>
       </tr>
       <?php $cpt++ ?>
       <?php endif ?>

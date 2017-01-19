@@ -26,8 +26,12 @@
 <h1><?php echo __('My account') ?></h1>
 <?php include_partial('index_contact',array('contact' => $contact)) ?>
 
-<?php if ( $member_cards->count() > 0 ): ?>
-<?php include_partial('index_member_cards',array('member_cards' => $member_cards)) ?>
+<?php if ( $active_member_cards->count() > 0 ): ?>
+<?php include_partial('index_member_cards',array('show_events' => true, 'member_cards' => $active_member_cards, 'title' => sfConfig::get('app_member_cards_title',false) ? pubConfiguration::getText('app_member_cards_title') : __('Member card'))) ?>
+<?php endif ?>
+
+<?php if ( $used_member_cards->count() > 0 ): ?>
+<?php include_partial('index_member_cards',array('show_events' => false, 'member_cards' => $used_member_cards, 'title' => sfConfig::get('app_member_cards_title',false) ? pubConfiguration::getText('app_member_cards_title') : __('Expired member card'))) ?>
 <?php endif ?>
 
 <?php if ( $products->count() > 0 ): ?>
