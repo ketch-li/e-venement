@@ -8,6 +8,10 @@
         <source>Member card</source>
         <target>Carte d'abonnement</target>
       </trans-unit>
+      <trans-unit id="263">
+        <source>Expired member card</source>
+        <target>Carte d'abonnement inactive</target>
+      </trans-unit>
       <trans-unit id="1">
         <source>You must accept the terms &amp; conditions before validating your order.</source>
         <target>Vous devez accepter les CGV avant de valider votre commande.</target>
