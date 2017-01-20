@@ -119,6 +119,9 @@ class ContactFormFilter extends BaseContactFormFilter
     $this->widgetSchema   ['email_newsletter'] = $this->widgetSchema   ['npai'];
     $this->validatorSchema['email_newsletter'] = $this->validatorSchema['npai'];
     
+    $this->widgetSchema   ['mailing'] = $this->widgetSchema   ['npai'];
+    $this->validatorSchema['mailing'] = $this->validatorSchema['npai'];    
+    
     // organism
     $this->widgetSchema   ['organism_id'] = new liWidgetFormDoctrineJQueryAutocompleter(array(
       'model' => 'Organism',
@@ -1050,6 +1053,17 @@ EOF;
       $value ? true : false,
     ));
   }
+  public function addMailingColumnQuery(Doctrine_Query $q, $field, $value)
+  {
+    if ( $value === '' )
+      return $q;
+      
+    $a = $q->getRootAlias();
+    if ( $value )
+      return $q->addWhere("$a.no_mailing = FALSE");
+    else
+      return $q->addWhere("$a.no_mailing = TRUE");
+  }  
   public function addEmailColumnQuery(Doctrine_Query $q, $field, $values)
   {
     $a = $q->getRootAlias();

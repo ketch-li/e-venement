@@ -33,6 +33,7 @@ generator:
         email_no_newsletter: { label: No newsletter }
         email_newsletter: { label: Newsletter ? }
         email_npai:       { label: Bad email }
+        no_mailing: { label: No mailing }
         groups_picto: { credentials: [pr-group], label: Remarkable }
         administrative_number: { label: Admin. ID }
         professional_meta_event_id: { label: Meta events }
@@ -73,7 +74,7 @@ generator:
         display:
           Organism:   [name, district, postalcode, city, region_id, country, email, administrative_number, organism_category_id]
           Relations:  [contacts_groups, groups_list, not_groups_list]
-          Communication: [npai, email_npai, email_newsletter, has_close_contact]
+          Communication: [npai, email_npai, email_newsletter, has_close_contact, no_mailing]
           Others:     [duplicates, professional_meta_event_id, description, created_at, updated_at]
       show:
         display:

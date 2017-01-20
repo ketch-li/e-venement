@@ -112,6 +112,9 @@ class OrganismFormFilter extends BaseOrganismFormFilter
     $this->widgetSchema   ['email_newsletter'] = $this->widgetSchema['npai'];
     $this->validatorSchema['email_newsletter'] = $this->validatorSchema['npai'];
     
+    $this->widgetSchema   ['mailing'] = $this->widgetSchema   ['npai'];
+    $this->validatorSchema['mailing'] = $this->validatorSchema['npai'];   
+    
     $this->widgetSchema   ['duplicates'] = new sfWidgetFormInputCheckbox;
     $this->validatorSchema['duplicates'] = new sfValidatorBoolean(array('required' => false));
         
@@ -172,7 +175,17 @@ class OrganismFormFilter extends BaseOrganismFormFilter
     else
       return $q->addWhere("$a.email_npai = FALSE AND NOT (p.contact_email_npai IS NOT NULL AND p.contact_email_npai = TRUE)");
   }
-
+  public function addMailingColumnQuery(Doctrine_Query $q, $field, $value)
+  {
+    if ( $value === '' )
+      return $q;
+      
+    $a = $q->getRootAlias();
+    if ( $value )
+      return $q->addWhere("$a.no_mailing = FALSE");
+    else
+      return $q->addWhere("$a.no_mailing = TRUE");
+  }  
   public function addRegionIdColumnQuery(Doctrine_Query $q, $field, $value)
   {
     $a = $q->getRootAlias();

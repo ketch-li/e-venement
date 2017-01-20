@@ -71,6 +71,10 @@ Addressable:
       type: boolean
       notnull: true
       default: false
+    no_mailing:
+      type: boolean
+      notnull: true
+      default: false
     vcard_uid:
       type: string(255)
       unique: true

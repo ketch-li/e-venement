@@ -2060,6 +2060,10 @@
         <source>Sell</source>
         <target>Vendre</target>
       </trans-unit>      
+      <trans-unit id="515">
+        <source>No mailing</source>
+        <target>Pas de courrier postal</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>

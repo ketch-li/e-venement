@@ -71,6 +71,7 @@ body #content { width: auto; }
 #tdp-content #sf_admin_content .tdp-contact_email_npai label,
 #tdp-content #sf_admin_content .tdp-line.more .tdp-email_npai label,
 #tdp-content #sf_admin_content .tdp-contact_email_no_newsletter label,
+#tdp-content #sf_admin_content .tdp-no_mailing label,
 #tdp-content #sf_admin_content .tdp-family_contact label,
 #tdp-content #sf_admin_content .tdp-npai label,
 #tdp-content #sf_admin_content .tdp-line.more .tdp-email_no_newsletter label { font-size: 65%; font-weight: normal; width: 100%; }
