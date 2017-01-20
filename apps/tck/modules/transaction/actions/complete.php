@@ -334,18 +334,32 @@
           $this->transaction->save(); // saving the transaction even if nothing has changed, because of the dispatcher's actions
         break;
         
-      case 'gift_coupon':          
-          $data = json_decode($this->form[$field]->getValue('code'), true);
+      case 'gift_coupon':
+        $id = null;
+        $code = $this->form[$field]->getValue('code');
 
-          if ($data['type'] == 'MemberCard')
+        if ( intval('9'.$code).'' !== '9'.$code )
+        {
+          if ( $data = json_decode($code, true) )
           {
+            if ( $data['type'] == 'MemberCard' )
+            {
               $id = (int)$data['member_card_id'];
-              $mc = Doctrine::getTable('MemberCard')->find($id);
-              $mc->Transaction = $this->transaction;
-              $mc->save();
-              $this->json['success']['success_fields'][$field]['data']['type'] = $field;
-              $this->json['success']['success_fields'][$field]['data']['alert'] = __('Gift coupon #%%mc%% successfully added to the current transaction.', array('%%mc%%' => $id));              
+            }
           }
+        } 
+        else
+        {
+          $id = intval($code);
+        }
+
+        if ($id) {
+          $mc = Doctrine::getTable('MemberCard')->find($id);
+          $mc->Transaction = $this->transaction;
+          $mc->save();
+          $this->json['success']['success_fields'][$field]['data']['type'] = $field;
+          $this->json['success']['success_fields'][$field]['data']['alert'] = __('Gift coupon #%%mc%% successfully added to the current transaction.', array('%%mc%%' => $id));
+        }
         break;
       }
       else

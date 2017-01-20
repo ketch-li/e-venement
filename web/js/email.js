@@ -66,7 +66,7 @@ if ( $('[name="email[id]"]').val() == '' )
   },1000);
   $('[name="email[field_subject]"]').change(manage_attachment_widget);
 }
-$('.sf_admin_form_field_attachments a').click(function(){
+$('.attachment-new a').click(function(){
   var link = this;
   
   if ( $.trim($('[name="email[field_subject]"]').val()) == '' || $.trim(tinyMCE.activeEditor.getContent()) == '' )
@@ -87,10 +87,7 @@ $('.sf_admin_form_field_attachments a').click(function(){
   
   // post data before loading the new URL 
   $.post($('form').prop('action'),$('form').serialize(),function(data){
-    window.location = $(link).parent().hasClass('attachment-new') == 0
-      ? $(link).prop('href')
-      : $($.parseHTML(data)).find('.attachment-new a').prop('href')
-    ;
+    window.location = $(link).prop('href');
   });
   return false;
 });
