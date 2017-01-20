@@ -219,7 +219,7 @@ LI.completeContent = function(data, type, replaceAll = true)
               wprice.addClass('active');
             wprice.addClass(price.state ? price.state : 'readonly');
             if ( $.inArray(price.state, ['printed', 'cancelling']) > -1 || parseInt(price.id,10)+'' !== ''+price.id ) // every cancelling, printed or Work In progress price
-              wprice.find('.qty input').prop('readonly', true);
+              wprice.find('.qty input').prop('readonly', true).removeAttr('min');
           }
           wprice.find('.qty input').val(price.qty).select();
           wprice.find('.price_name').html(price.name).prop('title', price.description);
