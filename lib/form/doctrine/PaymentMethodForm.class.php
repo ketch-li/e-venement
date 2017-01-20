@@ -22,6 +22,16 @@ class PaymentMethodForm extends BasePaymentMethodForm
       unset($this->widgetSchema[$field], $this->validatorSchema[$field]);
     }
     
+    // users
+    $this->widgetSchema['users_list']->setOption('expanded', 'true')
+      ->setOption('order_by', array('u.username', ''))/*
+      ->setOption('query', 
+        Doctrine::getTable('sfGuardUser')
+        ->createQuery('u')
+        ->leftJoin('u.PaymentMethodUser pmu ON pmu.sf_guard_user_id = u.id AND pmu.payment_method_id = ?', $this->object->id)
+        ->andWhere('pmu.payment_method_id IS NULL OR u.is_active = ?', true)
+      )*/;
+
     parent::configure();
   }
 

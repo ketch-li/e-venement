@@ -417,7 +417,9 @@ class transactionActions extends autoTransactionActions
       'method' => 'toStringEPT',
       'order_by' => array('name', ''),
       'query' => $q = Doctrine::getTable('PaymentMethod')->createQuery('pm')
-        ->andWhere('pm.display = ?',true),
+        ->leftJoin('pm.PaymentMethodUser pmu ON pmu.payment_method_id = pm.id AND pmu.sf_guard_user_id = ?', $this->getUser()->getId())
+        ->andWhere('pm.display = ?',true)
+        ->andWhere('pmu.sf_guard_user_id IS NULL'),
     ));
     $vs['payment_method_id'] = new sfValidatorDoctrineChoice(array(
       'model' => 'PaymentMethod',
