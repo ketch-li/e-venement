@@ -97,7 +97,7 @@ $(document).ready(function(){
   <?php endif ?>
   <td class="mod"><?php if ( $current_transaction ): ?>
     <?php echo link_to(__('modify'),'card/index') ?>
-    <?php echo link_to(__('delete'),'card/del?mct_id='.$mc->id) ?>
+    <?php echo link_to(__('delete'),'card/del?id='.$mc->id) ?>
   <?php endif ?></td>
 </tr>
 <?php endforeach ?>
