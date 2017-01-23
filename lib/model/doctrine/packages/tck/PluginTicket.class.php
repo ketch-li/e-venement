@@ -321,12 +321,10 @@ abstract class PluginTicket extends BaseTicket
     
     // only for normal tickets w/ member cards
     if ( $this->price_id && is_object($this->Price) && $this->Price->member_card_linked
-    && ( isset($mods['printed_at']) || isset($mods['integrated_at']) )
-    && ( $this->printed_at || $this->integrated_at )
+      && ( isset($mods['printed_at']) || isset($mods['integrated_at']) )
+      && ( $this->printed_at || $this->integrated_at )
     )
-    {
       $this->linkToMemberCard();
-    }
     
     parent::preUpdate($event);
   }
@@ -356,34 +354,37 @@ abstract class PluginTicket extends BaseTicket
     elseif ( $this->gauge_id )
       $q->leftJoin('e.Manifestations m')
         ->leftJoin('m.Gauges g WITH g.id = ?', $this->gauge_id);
-    $card = $q->fetchOne();
+    $cards = $q->execute();
     
-    if ( $card && $card->MemberCardPrices->count() > 0 )
+    foreach ( $cards as $card )
+    foreach ( $card->MemberCardPrices as $i => $mcp )
     {
-      foreach ( $card->MemberCardPrices as $i => $mcp )
-      if ( $mcp->price_id == $this->price_id )
+      if ( $mcp->price_id != $this->price_id )
+        continue;
+      
+      if ( $this->manifestation_id && $mcp->Event->Manifestations->count() > 0
+          && $mcp->Event->Manifestations[0]->id == $this->manifestation_id
+        || $this->gauge_id && $mcp->Event->Manifestations->count() > 0 && $mcp->Event->Manifestations[0]->Gauges->count() > 0
+          && $mcp->Event->Manifestations[0]->Gauges[0]->id == $this->gauge_id
+      )
       {
-        // event agnostic MemberCardPrice
-        if ( !$mcp->event_id )
-        {
-          unset($card->MemberCardPrices[$i]);
-          break;
-        }
-
-        if ( $this->manifestation_id && $mcp->Event->Manifestations->count() > 0
-            && $mcp->Event->Manifestations[0]->id == $this->manifestation_id
-          || $this->gauge_id && $mcp->Event->Manifestations->count() > 0 && $mcp->Event->Manifestations[0]->Gauges->count() > 0
-            && $mcp->Event->Manifestations[0]->Gauges[0]->id == $this->gauge_id
-        )
-        {
-          unset($card->MemberCardPrices[$i]);
-          break;
-        }
+        unset($card->MemberCardPrices[$i]);
+        $this->member_card_id = $card->id;
+        $card->save();
+        break(2);
       }
-      $card->save();
-      $this->member_card_id = $card->id;
+      
+      // event agnostic MemberCardPrice
+      if ( !$mcp->event_id )
+      {
+        unset($card->MemberCardPrices[$i]);
+        $this->member_card_id = $card->id;
+        $card->save();
+        break(2);
+      }
     }
-    else
+    
+    if ( !$this->member_card_id )
     {
       $this->printed_at = NULL;
       throw new liMemberCardException("No more ticket left on the contact's member card");
