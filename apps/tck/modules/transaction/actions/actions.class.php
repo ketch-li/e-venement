@@ -417,7 +417,7 @@ class transactionActions extends autoTransactionActions
       'method' => 'toStringEPT',
       'order_by' => array('name', ''),
       'query' => $q = Doctrine::getTable('PaymentMethod')->createQuery('pm')
-        ->leftJoin('pm.PaymentMethodUser pmu ON pmu.payment_method_id = pm.id AND pmu.sf_guard_user_id = ?', $this->getUser()->getId())
+        ->leftJoin('pm.PaymentMethodUser pmu WITH pmu.sf_guard_user_id = ?', $this->getUser()->getId())
         ->andWhere('pm.display = ?',true)
         ->andWhere('pmu.sf_guard_user_id IS NULL'),
     ));
