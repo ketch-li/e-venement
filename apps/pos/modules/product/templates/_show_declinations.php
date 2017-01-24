@@ -19,17 +19,28 @@
       var searchParams = new URLSearchParams(location.search);
       var code = searchParams.get('scrolltocode');
       if ( code !== null ) {
-        $('.sf_admin_form_field_declinations input[id^="product_declinations"][id$=_code]').each(function(){
-          if ( $(this).attr('value') == code && /^product_declinations_\d_code$/.test($(this).attr('id')) ) {
-            var $that = $(this);
-            // Hack : we wait 2 seconds before scrolling because TinyMCE is changing offsets after document ready event
-            // Hack : we add 100px to the scroll because of the main menu navbar
-            setTimeout(function(){ $("html, body").animate({ scrollTop: $that.offset().top - 100 }, 'fast') }, 2000);
-            return false;
-          }
-        });
+        var nbTextareas = $('textarea').filter(function(){
+          return this.id.match(/^product_declinations_\d+_[a-z]+_description/);
+        }).length;
+        var $scrollElement = $('.sf_admin_form_field_declinations input[type=text]').filter(function(){
+          return this.id.match(/^product_declinations_\d+_code/) && $(this).val() == code;
+        }).first();
+        if ( $scrollElement.length ) {
+
+          // do scroll when all the tinyMCE widgets are ready
+          var nbTinyMCE = 0;
+          tinyMCE.on('addeditor', function( event ) {
+            if ( event.target.activeEditor.id.match(/^product_declinations_\d+_[a-z]+_description/) ) {
+              nbTinyMCE += 1;
+              if ( nbTinyMCE == nbTextareas ) {
+                setTimeout(function(){ $("html, body").animate({ scrollTop: $scrollElement.offset().top - 100 }, 'fast') }, 100);
+              }
+            }
+          }, true );
+
+        }
       }
     }
   });
-</script>
 
+</script>
