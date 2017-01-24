@@ -12,4 +12,9 @@
  */
 class Order extends PluginOrder
 {
+  
+  public function getContact() {
+    return $this->Transaction->Contact->name;
+  }
+  
 }
