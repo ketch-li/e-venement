@@ -39,4 +39,22 @@ class orderActions extends autoOrderActions
     }
     return parent::getFilters();
   }
+  
+  protected function addSortQuery($query)
+  {
+    if (array(null, null) == ($sort = $this->getSort()))
+      return;
+ 
+    if (!in_array(strtolower($sort[1]), array('asc', 'desc')))
+      $sort[1] = 'asc';
+ 
+    switch ($sort[0]) {
+      case 'contact':
+        $sort[0] = 'c.name';
+        break;
+    }
+ 
+    $query->addOrderBy($sort[0] . ' ' . $sort[1]);
+  }  
+  
 }
