@@ -10,7 +10,4 @@
  */
 class PaymentMethodUserForm extends BasePaymentMethodUserForm
 {
-  public function configure()
-  {
-  }
 }
