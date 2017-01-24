@@ -327,6 +327,33 @@ PaymentMethod:
       foreignAlias: MetaEvent
       onDelete: SET NULL
       onUpdate: CASCADE
+    Users:
+      class: sfGuardUser
+      refClass: PaymentMethodUser
+      foreignAlias: PaymentMethods
+      local: Payment_Method_id
+      foreign: sf_guard_user_id
+PaymentMethodUser:
+  package: tck
+  columns:
+    sf_guard_user_id:
+      type: integer
+      notnull: true
+      primary: true
+    Payment_Method_id:
+      type: integer
+      notnull: true
+      primary: true
+  relations:
+    User:
+      class: sfGuardUser
+      foreignAlias: PaymentMethodUsers
+      onDelete: CASCADE
+      onUpdate: CASCADE
+    PaymentMethod:
+      foreignAlias: PaymentMethodUsers
+      onDelete: CASCADE
+      onUpdate: CASCADE      
 Payment:
   package: tck
   inheritance:

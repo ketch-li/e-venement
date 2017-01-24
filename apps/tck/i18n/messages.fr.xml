@@ -2104,6 +2104,10 @@
         <source>Force postal code</source>
         <target>Imposer la saisie du code postal.</target>
       </trans-unit>        
+      <trans-unit id="525">
+        <source>Excluded users</source>
+        <target>Utilisateurs exclus</target>
+      </trans-unit>        
     </body>
   </file>
 </xliff>
