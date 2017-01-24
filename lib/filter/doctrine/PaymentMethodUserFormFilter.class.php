@@ -10,7 +10,4 @@
  */
 class PaymentMethodUserFormFilter extends BasePaymentMethodUserFormFilter
 {
-  public function configure()
-  {
-  }
 }
