@@ -120,7 +120,7 @@
               $newticket->printed_at = date('Y-m-d H:i:s');
               $newticket->grouping_fingerprint = $fingerprint;
               $newticket->Duplicated = $ticket;
-              $newticket->qrcode();
+              $newticket->qrcode;
               $newticket->save();
               if ( $newticket->seat_id )
                 $ticket->save();

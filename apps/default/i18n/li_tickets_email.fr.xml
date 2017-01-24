@@ -4,83 +4,83 @@
   <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2012-11-26T17:06:45Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit>
+      <trans-unit id="1">
         <source>Meta-Ticket</source>
         <target>Méta-billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="2">
         <source>Free seating</source>
         <target>Placement libre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="3">
         <source>Seated</source>
         <target>Placement numéroté</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="4">
         <source>at %%date%%</source>
         <target>le %%date%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="5">
         <source>Voucher exchange</source>
         <target>Contremarque à échanger</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="6">
         <source>Guest of</source>
         <target>Invité de</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="7">
         <source>This is your ticket</source>
         <target>Ceci est votre billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="8">
         <source>Image</source>
         <target>Image</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="9">
         <source>Category</source>
         <target>Catégorie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="10">
         <source>Address</source>
         <target>Adresse</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="11">
         <source>Product</source>
         <target>Produit</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="12">
         <source>Precision</source>
         <target>Précision</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="13">
         <source>This ticket is a duplicate of #%%tid%%, it replaces and cancels any previous version of this ticket you might have recieved</source>
         <target>Ce billet est un duplicata du #%%tid%%, il remplace et annule toute version précédente de ce billet que vous auriez pu recevoir</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="14">
         <source>Event</source>
         <target>Événement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="15">
         <source>Price</source>
         <target>Tarif</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="16">
         <source>Date</source>
         <target>Date</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="17">
         <source>your order #</source>
         <target>votre commande #</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="18">
         <source>Seat #</source>
         <target>Place n°</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="19">
         <source>Venue</source>
         <target>Lieu</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="20">
         <source>Not yet allocated</source>
         <target>Pas encore numéroté</target>
       </trans-unit>

@@ -4,453 +4,473 @@
   <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2011-01-14T01:30:27Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit>
+      <trans-unit id="1">
+        <source>Update</source>
+        <target>Mettre à jour</target>
+      </trans-unit>
+      <trans-unit id="2">
         <source>An object with the same "%column%" already exist.</source>
         <target>Un objet comprenant la même valeur ("%column%") existe déjà.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="3">
         <source>New User</source>
         <target>Nouvel utilisateur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="4">
         <source>Domain</source>
         <target>Domaine</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="5">
         <source>Debts</source>
         <target>Dettes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="6">
         <source>Direct access</source>
         <target>Accès direct</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="7">
         <source>Ticket control</source>
         <target>Contrôle de billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="8">
         <source>Mandatory fields for public relations</source>
         <target>Champs obligatoires pour les relations aux publics</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="9">
         <source>Address</source>
         <target>Adresse</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="10">
         <source>Postalcode</source>
         <target>Code postal</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="11">
         <source>City</source>
         <target>Ville</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="12">
         <source>Country</source>
         <target>Pays</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="13">
         <source>Title</source>
         <target>Titre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="14">
         <source>Family contact</source>
         <target>Contact de famille</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="15">
         <source>Organism category</source>
         <target>Catégorie d'organisme</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="16">
         <source>Familial quotient</source>
         <target>Quotient familial</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="17">
         <source>Type of resources</source>
         <target>Type de ressources</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="18">
         <source>Familial situation</source>
         <target>Situation familiale</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="19">
         <source>Description</source>
         <target>Description</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="20">
         <source>Auto groups</source>
         <target>Groupes auto</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="21">
         <source>List of groups to join automatically on a contact/organism creation (careful: to be active, the user needs the permission to access this group on top of here)</source>
         <target>Liste des groupes à ajouter automatiquement lors de la création d'un contact ou d'un organisme (attention: pour être actif, l'utilisateur doit avoir la permission d'accéder à ce groupe dans la partie ci-dessus)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="22">
         <source>Filters list</source>
         <target>Liste des filtres</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="23">
         <source>Transactions</source>
         <target>Opérations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="24">
         <source>Schools &amp; Groups</source>
         <target>Scolaires &amp; groupes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="25">
         <source>Search</source>
         <target>Rechercher</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="26">
         <source>Global Search</source>
         <target>Recherche globale</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="27">
         <source>Try again your global search with a valid string</source>
         <target>Reprenez votre recherche globale correctement SVP</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="28">
         <source>Your organism</source>
         <target>Votre organisme</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="29">
         <source>What's new?</source>
         <target>Quoi de neuf ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="30">
         <source>Are you sure?</source>
         <target>Êtes-vous sûr(e) ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="31">
         <source>is empty</source>
         <target>vide ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="32">
         <source>Error loading the data from manifestations</source>
         <target>Erreur de chargement des données des manifestations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="33">
         <source>New Jabber account</source>
         <target>Nouveau compte Jabber</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="34">
         <source>List of jabber accounts</source>
         <target>Liste des comptes jabber</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="35">
         <source>List of authorized groups</source>
         <target>Liste des groupes autorisés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="36">
         <source>Public relations</source>
         <target>Relations publiques</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="37">
         <source>Edit the %%User%%'s Jabber account</source>
         <target>Modification du compte Jabber de %%User%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="38">
         <source>Remove linked contact</source>
         <target>Retirer le contact lié</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="39">
         <source>Linked contact</source>
         <target>Contact lié</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="40">
         <source>Height</source>
         <target>Hauteur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="41">
         <source>Width</source>
         <target>Largeur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="42">
         <source>Is valid ?</source>
         <target>Est valide ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="43">
         <source>Member cards list</source>
         <target>Liste des cartes d'abo disponibles</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="44">
         <source>Misc</source>
         <target>Autre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="45">
         <source>Prices association for member cards</source>
         <target>Association de prix pour les cartes d'abonnement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="46">
         <source>The chosen user has been correctly duplicated, please verify its username and its email address</source>
         <target>L'utilisateur choisi a été correctement dupliqué, n'oubliez pas de vérifier son nom d'utilisateur et son email</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="47">
         <source>Ticketing</source>
         <target>Billetterie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="48">
         <source>Events</source>
         <target>Événementiel</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="49">
         <source>Prices list</source>
         <target>Liste des tarifs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="50">
         <source>Exception!</source>
         <target>Exception !</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="51">
         <source>A software malfunction occured</source>
         <target>Un disfonctionnement du logiciel s'est produit.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="52">
         <source>Possible causes:</source>
         <target>Causes possibles :</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="53">
         <source>You tried to delete an element that had ties to other parts of the software (eg: delete a user that has tickets).</source>
         <target>Vous avez essayé de supprimer un élément lié à d'autres éléments du logiciel (ex: un utilisateur ayant des tickets associés).</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="54">
         <source>You tried to add an element that already exists (eg: create a product with the same code as an existing one).</source>
         <target>Vous avez essayé d'ajouter un élément déjà éxistant (ex: un produit ayant le même code q'un produit éxistant déjà en base).</target>
       </trans-unit>                            
-      <trans-unit>
+      <trans-unit id="55">
         <source>Please try again. If the problem persists, contact your administrator at:</source>
         <target>Veuillez réessayer. Si le problème persiste, veuillez contacter votre administrateur à l'adresse :</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="56">
         <source>Workspaces list</source>
         <target>Liste des espaces de travail</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="57">
         <source>Meta events list</source>
         <target>Liste des meta-événements</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="58">
         <source>You can't add an account as a (Super)Admin if you're not a (Super)Admin youself. This flag has been simply deactivated.</source>
         <target>Vous ne pouvez ajouter un compte comme (Super)Admin si vous n'êtes pas (Super)Admin vous-même. Cette propriété a simplement été déactivée.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="59">
         <source>A problem occured when deleting some of the selected item (you probably tried to delete one or more (Super)Admin accounts without being a (Super)Admin yourself).</source>
         <target>Un problème est apparût en supprimant l'une de vos sélections (vous avez probablement essayé de supprimer un compte (Super)Admin sans en être un vous-même).</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="60">
         <source>Some of the selected items have been deleted successfully.</source>
         <target>Certaines de vos sélections ont été supprimée correctement.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="61">
         <source>The selected items have been deleted successfully.</source>
         <target>Vos sélections ont été correctement supprimées.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="62">
         <source>A problem occured when deleting the selected items.</source>
         <target>Il y a eu un problème lors de la suppression de vos sélections.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="63">
         <source>You are not allowed to access account %%user%%, it is a (Super)Admin account.</source>
         <target>Vous n'êtes pas autorisé(e) à accéder au compte %%user%%, c'est un compte (Super)Admin.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="64">
         <source>The username and/or password is invalid.</source>
         <target>Le mot de passe ou l'identifiant est invalide.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="65">
         <source>You don't have access to this part.</source>
         <target>Vous n'avez pas accès à cette partie.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="66">
         <source>Login below to gain access</source>
         <target>Authentifiez-vous ci-dessous pour obtenir l'accès</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="67">
         <source>Oops! The screen you asked for is secure and you do not have proper credentials.</source>
         <target>Erreur ! L'écran que vous avez demandé est sécurisé et vous n'avez pas les droits nécessaires.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="68">
         <source>Last actions</source>
         <target>Dernières actions réalisées</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="69">
         <source>Emails</source>
         <target>Courriels</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="70">
         <source>Organisms</source>
         <target>Organismes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="71">
         <source>Do not worry, we can help you get back in to your account safely!</source>
         <target>Pas de problème, nous pouvons vous aider à retourner à votre compte utilisateur en toute sécurité !</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="72">
         <source>Fill out the form below to request an e-mail with information on how to reset your password.</source>
         <target>Remplissez le formulaire ci-dessous pour recevoir un courriel avec les instructions pour réinitialiser votre mot de passe.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="73">
         <source>Username or E-Mail</source>
         <target>Login ou courriel</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="74">
         <source>Remember</source>
         <target>Rester connecté(e) ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="75">
         <source>Associated</source>
         <target>Associés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="76">
         <source>Unassociated</source>
         <target>Non-associés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="77">
         <source>Permission list</source>
         <target>Liste des permissions</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="78">
         <source>Editing Permission "%%name%%"</source>
         <target>Édition de la permission "%%name%%"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="79">
         <source>Groups</source>
         <target>Groupes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="80">
         <source>Viewing permission</source>
         <target>Vue de la permission</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="81">
         <source>Viewing Group</source>
         <target>Vue du groupe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="82">
         <source>Updated at</source>
         <target>Mis à jour le</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="83">
         <source>Created at</source>
         <target>Créé le</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="84">
         <source>Editing Group "%%name%%"</source>
         <target>Edition du groupe "%%name%%"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="85">
         <source>Group list</source>
         <target>Liste des groupes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="86">
         <source>New Group</source>
         <target>Nouveau groupe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="87">
         <source>Name</source>
         <target>Nom</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="88">
         <source>Users</source>
         <target>Utilisateurs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="89">
         <source>Welcome %%user%%</source>
         <target>Bienvenue %%user%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="90">
         <source>Login</source>
         <target>Identifiant</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="91">
         <source>Firstname</source>
         <target>Prénom</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="92">
         <source>Lastname</source>
         <target>Nom</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="93">
         <source>Email address</source>
         <target>Courriel</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="94">
         <source>Email</source>
         <target>Courriel</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="95">
         <source>Permissions and groups</source>
         <target>Groupes et permissions</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="96">
         <source>Is super admin</source>
         <target>Super admin ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="97">
         <source>Is active</source>
         <target>Actif ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="98">
         <source>User</source>
         <target>Utilisateur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="99">
         <source>User view</source>
         <target>Vue utilisateur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="100">
         <source>Editing User "%%username%%"</source>
         <target>Modification de l'utilisateur "%%username%%"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="101">
         <source>User list</source>
         <target>Liste des utilisateurs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="102">
         <source>View %1% - %2% of %3%</source>
         <target>De %1% à %2% sur %3%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="103">
         <source>of %1%</source>
         <target>de %1%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="104">
         <source>Filters</source>
         <target>Filtres</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="105">
         <source>Last login</source>
         <target>Dernière auth.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="106">
         <source>Groups list</source>
         <target>Liste des groupes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="107">
         <source>Permissions list</source>
         <target>Liste des permissions</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="108">
         <source>Password</source>
         <target>Mot de passe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="109">
         <source>Password (again)</source>
         <target>Mot de passe (encore)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="110">
         <source>Last attempt !</source>
         <target>Dernier essai !</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="111">
         <source>Please contact your administrator</source>
         <target>Veuillez contacter votre administrateur</target>
       </trans-unit>
-      <trans-unit>
-        <source>Selling screen configuration</source>
-        <target>Paramètrage de l'écran de vente</target>
+      <trans-unit id="114">
+        <source>User policy</source>
+        <target>Charte utilisateur</target>
       </trans-unit>      
-      <trans-unit>
-        <source>Force postal code</source>
-        <target>Imposer la saisie du code postal.</target>
+      <trans-unit id="115">
+        <source>User policy file</source>
+        <target>Fichier contenant la charte</target>
+      </trans-unit>      
+      <trans-unit id="116">
+        <source>User policy upload</source>
+        <target>Ajout d'une charte utilisateur</target>
+      </trans-unit>      
+      <trans-unit id="117">
+        <source>Adding a file here will overwrite your</source>
+        <target>Ajouter un fichier remplacera votre</target>
+      </trans-unit>      
+      <trans-unit id="118">
+        <source>The file has been successfully modified.</source>
+        <target>Le fichier a bien été ajouté.</target>
+      </trans-unit>      
+      <trans-unit id="119">
+        <source>No user policy file.</source>
+        <target>Aucune charte utilisateur présente.</target>
       </trans-unit>      
     </body>
   </file>

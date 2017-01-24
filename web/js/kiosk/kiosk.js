@@ -9,12 +9,7 @@ LI.kiosk.templates = {};
 LI.kiosk.cart = {
 	lines: {}
 };
-LI.kiosk.products = {
-	manifestations: {},
-	museum: {},
-	store: {}
-};
-
+LI.kiosk.products = {};
 
 $(document).ready(function(){
 	LI.kiosk.init();
@@ -32,7 +27,7 @@ LI.kiosk.init = function(){
 }
 
 LI.kiosk.menu = function(){
-	
+	    console.log(LI.kiosk.products['store']);
 	var lists = {};
 
 	$.each(LI.kiosk.products, function(key, productList){
@@ -56,7 +51,8 @@ LI.kiosk.utils.setUpMenu = function(productLists){
 		
 		var template = Handlebars.compile(LI.kiosk.templates.menuItem);
 		var item = {
-			name: type
+			name: $('[data-source="' + type + '"]').data('target'),
+			type: type
 		};
 
 		$('#product-menu-items').append(template(item ));
@@ -128,23 +124,23 @@ LI.kiosk.getMuseum = function(){
   	});
 }
 
-LI.kiosk.rearrangeProperties = function(manif){
+LI.kiosk.rearrangeProperties = function(product){
 	
-	var manifDate = new Date(manif.happens_at.replace(' ', 'T'));
-	var endDate = new Date(manif.ends_at);
+	var productDate = new Date(product.happens_at.replace(' ', 'T'));
+	var endDate = new Date(product.ends_at);
 
-	manif.declinations = {};
-	manif.prices = {};
-	manif.start = manifDate.toLocaleString().replace(/:\d\d( \w+){0,1}$/,'');
-	manif.end = endDate.getHours() + ':' + endDate.getMinutes();
-	manif.name = manif.name == null ? manif.category : manif.name;
+	product.declinations = {};
+	product.prices = {};
+	product.start = productDate.toLocaleString().replace(/:\d\d( \w+){0,1}$/,'');
+	product.end = endDate.getHours() + ':' + endDate.getMinutes();
+	product.name = product.name == null ? product.category : product.name;
 
-	if(manif.image_id != undefined)
-		manif.background = 'background-image: url("' + manif.image_url + '")' ;
+	if(product.image_id != undefined)
+		product.background = 'background-image: url("' + product.image_url + '"); background-size: cover;' ;
 	else
-		manif.background = 'background-color: ' + manif.color;
+		product.background = 'background-color: ' + product.color;
 
-	$.each(manif.gauges, function(i, gauge){
+	$.each(product.gauges, function(i, gauge){
 
 		var color = '#4FC3F7';
 
@@ -155,15 +151,16 @@ LI.kiosk.rearrangeProperties = function(manif){
 			if( price.color == undefined )
 				price.color = color;
 
-			manif.prices[price.id] = price;
+			product.prices[price.id] = price;
 		});
 
-		manif.declinations[gauge.id] = gauge;
+		product.declinations[gauge.id] = gauge;
 	});
 }
 
 LI.kiosk.cacheManifestations = function(data){
 
+	LI.kiosk.products.manifestations = {};
 	var type = 'manifestations';
 
 	$.each(data.success.success_fields[type].data.content, function(key, manif){
@@ -188,6 +185,7 @@ LI.kiosk.cacheMuseum = function(data){
 			console.log('Loading an item (#' + manif.id + ') from the ' + type);
 
 		manif.type = type;
+		manif.museum = true;
 		LI.kiosk.rearrangeProperties(manif);
 		LI.kiosk.products.museum[manif.id] = manif;
 	});
@@ -203,33 +201,25 @@ LI.kiosk.cacheStore = function(data){
 		if ( window.location.hash == '#debug' )
 			console.log('Loading an item (#' + product.id + ') from the ' + type);
 
-		//re arrange properties
+		product.prices = {};
 		product.type = type;
-		// product.name = product.name == null ? product.category : product.name;
-		// var productDate = new Date(product.happens_at.replace(' ', 'T'));
-		// product.start = productDate.toLocaleString().replace(/:\d\d( \w+){0,1}$/,'');
-		// var endDate = new Date(product.ends_at);
-		// product.end = endDate.getHours() + ':' + endDate.getMinutes();
 
-		// if(product.image_id != undefined)
-		// 	product.background = 'background-image: url("' + product.image_url + '")' ;
-		// else
-		// 	product.background = 'background-color: ' + product.color;
+		$.each(product.declinations, function(i, declination){
 
-		// $.each(product.gauges, function(i, gauge){
-		// 	if( gauge.name == 'INDIVIDUELS' ){
-		// 		product.gauge_url = gauge.url;
-		// 		product.prices = {};
+			var color = '#4FC3F7';
 
-		// 		$.each(gauge.available_prices, function(key, price){
+			if ( declination.color == undefined )
+				declination.color = color;
 
-		// 			if( price.color == undefined )
-		// 				price.color = '#4FC3F7';
+			$.each(declination.available_prices, function(key, price){
+				if( price.color == undefined )
+					price.color = color;
 
-		// 			product.prices[price.id] = price;
-		// 		});
-		// 	}
-		// });
+				product.prices[price.id] = price;
+			});
+
+			product.declinations[declination.id] = declination;
+		});
 
 		LI.kiosk.products.store[product.id] = product;
 	});
@@ -288,6 +278,8 @@ LI.kiosk.cacheTemplates = function(){
 }
 
 LI.kiosk.showDetails = function(product, card){
+
+	console.log(product);
 	var detailsTemplate = Handlebars.compile(LI.kiosk.templates.productDetails);
 
 	// insert manif info

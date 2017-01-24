@@ -62,8 +62,12 @@
           .attr('data-bunch-id', $(item).closest('.bunch').attr('data-bunch-id'))
           .appendTo(form.find('p'))
           .click(function(){
-           var qty = $(this).closest('form').find('[name="transaction[price_new][qty]"]').val();
-            if ( price.value === null && (parseInt(qty,10) > 0 || qty === '') )
+            var qty = $(this).closest('form').find('[name="transaction[price_new][qty]"]');
+            if ( parseInt(qty.val(),10) > parseInt(qty.prop('max'),10) )
+              qty.val(qty.prop('max'));
+            if ( parseInt(qty.val(),10) < parseInt(qty.prop('min'),10) )
+              qty.val(qty.prop('min'));
+            if ( price.value === null && (parseInt(qty.val(),10) > 0 || qty.val() === '') )
             {
               var amount = prompt($('#li_transaction_field_close .prices .free-price').text(), parseFloat($('#li_transaction_field_close .prices .free-price-default').text()))
               if ( isNaN(parseFloat(amount)) )

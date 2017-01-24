@@ -4,71 +4,71 @@
   <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2011-01-14T01:30:27Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit>
+      <trans-unit id="1">
         <source>Server %%name%%</source>
         <target>Serveur %%name%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="2">
         <source>Instance %%name%%</source>
         <target>Instance %%name%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="3">
         <source>Legal notices</source>
         <target>Mentions légales</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="4">
         <source>Editor</source>
         <target>Éditeur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="5">
         <source>Software</source>
         <target>Logiciel</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="6">
         <source>About</source>
         <target>À propos</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="7">
         <source>Insurance: &lt;a href="%%url%%"&gt;%%name%%&lt;/a&gt;</source>
         <target>Garantie: &lt;a href="%%url%%"&gt;%%name%%&lt;/a&gt; (CGI)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="8">
         <source>By &lt;a href="%%url%%"&gt;%%name%%&lt;/a&gt;</source>
         <target>Par &lt;a href="%%url%%"&gt;%%name%%&lt;/a&gt;</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="9">
         <source>the contributors</source>
         <target>les contributeurs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="10">
         <source>there is worst, but it's more expensive</source>
         <target>il y a moins bien, mais c'est plus cher</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="11">
         <source>the ticketting software to accompany your development</source>
         <target>la billetterie informatique pour accompagner votre développement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="12">
         <source>All rights reserved</source>
         <target>Tous droits réservés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="13">
         <source>%e% is licensed under</source>
         <target>%e% est distribué sous licence</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="14">
         <source>This gives you freedoms, but also you must respect its clauses (attribution, share-alike)</source>
         <target>Cela vous donne des libertés, mais vous devez également respecter ses clauses (citer les sources, partager de la même manière)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="15">
         <source>%e% and the %e% logo are the properties of %firm%</source>
         <target>%e% et le logo d'%e% sont les propriétés de %firm%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="16">
         <source>%e% for %client%</source>
         <target>%e% pour %client%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="17">
         <source>gov.</source>
         <target>CGI</target>
       </trans-unit>

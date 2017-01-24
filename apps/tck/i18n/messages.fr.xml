@@ -4,19 +4,27 @@
   <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2011-06-28T02:05:40Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit>
+      <trans-unit id="1">
+        <source>If 0 is set, this will not be considered; if -1, this will mean "infinite"</source>
+        <target>Si 0, cette association ne sera pas considérée ; si -1, cela signifiera "une infinité"</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Search</source>
+        <target>Rechercher</target>
+      </trans-unit>
+      <trans-unit id="3">
         <source>Today</source>
         <target>Aujourd'hui</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="4">
         <source>No more ticket left on the contact's member card</source>
         <target>Il n'y a plus de billet associé à la carte avantage de ce contact</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="5">
         <source>This week</source>
         <target>Cette semaine</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="6">
       <trans-unit>
         <source>This week</source>
         <target>Cette semaine</target>
@@ -24,2050 +32,2078 @@
         <source>This month</source>
         <target>Ce mois</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="7">
         <source>You still have %%nb%% control(s) left on this meta-ticket</source>
         <target>Vous avez encore %%nb%% contrôle(s) possibles sur ce meta-billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="8">
         <source>Paid</source>
         <target>Réglé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="9">
         <source>Reset barcodes</source>
         <target>Réinitialiser les codes barre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="10">
         <source>This is the URL to use: </source>
         <target>Voici l'URL à utiliser : </target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="11">
         <source>Pay by card online (only efficient if this transaction has a contact)</source>
         <target>Payer par carte bancaire en ligne (ne fonctionne que si cette opération a un contact lié)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="12">
         <source>Best sales</source>
         <target>Meilleures ventes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="13">
         <source>Categories</source>
         <target>Catégories</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="14">
         <source>Unable to send an email: no email address available.</source>
         <target>Impossible d'envoyer un email: pas d'adresse disponible.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="15">
         <source>Warnings</source>
         <target>Rappels</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="16">
         <source>As soon as you filter this ledger on a workspace or a manifestation criteria, data related to products will not be used anymore.</source>
         <target>Aussitôt que vous filtrez ce journal sur un espace de travail ou une manifestation, les données liées à des produits ne seront plus comptabilisées.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="17">
         <source>Apply to all</source>
         <target>Appliquer à tous</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="18">
         <source>Search for a declination</source>
         <target>Chercher une déclinaison</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="19">
         <source>yes</source>
         <target>oui</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="20">
         <source>no</source>
         <target>non</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="21">
         <source>yes or no</source>
         <target>oui ou non</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="22">
         <source>Filters</source>
         <target>Filtres</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="23">
         <source>Total:</source>
         <target>Total:</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="24">
         <source>Left to pay:</source>
         <target>A payer:</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="25">
         <source>Hello !</source>
         <target>Bonjour !</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="26">
         <source>Pictogram</source>
         <target>Pictogramme</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="27">
         <source>Number of direct contacts</source>
         <target>Nombre de contacts directs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="28">
         <source>EPT</source>
         <target>TPE</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="29">
         <source>Electronic payment terminal</source>
         <target>Terminal électronique de paiement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="30">
         <source>Edit Payment method</source>
         <target>Modifier la méthode de paiement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="31">
         <source>e-venement will print the tickets directly on your printer</source>
         <target>e-venement va imprimer directement les billets sur votre imprimante</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="32">
         <source>Postalcode</source>
         <target>Code postal</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="33">
         <source>Careful: each line needs to be saved individually...</source>
         <target>Attention&nbsp;: les lignes doivent être enregistrées une à une.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="34">
         <source>Surveys for transaction #%%id%%</source>
         <target>Questionnaires pour l'opération de vente #%%id%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="35">
         <source>Save and close</source>
         <target>Enregistrer et fermer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="36">
         <source>Edit transaction surveys...</source>
         <target>Modifier les questionnaires de cette opération...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="37">
         <source>Please restart your application or reload your screen...</source>
         <target>Redémarrer votre application ou rechargez votre écran SVP...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="38">
         <source>Do you want to force the delivery?</source>
         <target>Voulez-vous forcer la livraison ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="39">
         <source>Print and deliver</source>
         <target>Imprimer et délivrer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="40">
         <source>Switch to simplified GUI / back from ...</source>
         <target>Basculer vers l'interface simplifiée / Revenir de ...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="41">
         <source>Resend confirmation email</source>
         <target>Renvoyer l'email de confirmation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="42">
         <source>[1]One product cannot be delivered, its stock is empty.|(1,+Inf]%%nb%% products cannot be delivered, their stocks are empty.</source>
         <target>[1]Un produit ne peut être délivré, son stock est vide.|(1,+Inf]%%nb%% produits ne peuvent être délivrés, leurs stocks sont vides.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="43">
         <source>Added automatically</source>
         <target>Ajouté automatiquement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="44">
         <source>On the creation of a member card (online)</source>
         <target>À la création d'une carte d'abo (en ligne)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="45">
         <source>Return to period</source>
         <target>Retour à la période</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="46">
         <source>Visit</source>
         <target>Visite</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="47">
         <source>State</source>
         <target>État</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="48">
         <source>empty</source>
         <target>vide</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="49">
         <source>not empty</source>
         <target>non vide</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="50">
         <source>printed</source>
         <target>imprimé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="51">
         <source>ordered</source>
         <target>réservé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="52">
         <source>not printed</source>
         <target>non imprimé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="53">
         <source>Internals</source>
         <target>Internes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="54">
         <source>externals</source>
         <target>Externes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="55">
         <source>Your Hold is not seatable, maybe because you have chosen an unreachable price for the targetted gauges.</source>
         <target>Votre retenue n'est pas plaçable, peut-être parce que vous avez choisi un tarif indisponible sur les jauges visées.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="56">
         <source>The transaction has been reopened automatically.</source>
         <target>L'opération a été réouverte automatiquement.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="57">
         <source>%%cpt%% transaction(s) have been dumped into this hold.</source>
         <target>%%cpt%% opération(s) ont été déversées dans cette retenue.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="58">
         <source>You have nowhere to dump this waiting list.</source>
         <target>Vous n'avez nulle part où déverser cette liste d'attente.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="59">
         <source>The content of this hold has been seated, as much as it was possible.</source>
         <target>Le contenu de cette retenue a été placé, autant que cela fût possible.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="60">
         <source>Transitionals</source>
         <target>En transition</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="61">
         <source>Waiting list (begin with: ##hold##)</source>
         <target>Liste d'attente (début: ##hold##)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="62">
         <source>Flush&lt;span class="ui-icon ui-icon-radio-on"&gt;&lt;/span&gt;</source>
         <target>Nettoyer&lt;span class="ui-icon ui-icon-radio-on"&gt;&lt;/span&gt;</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="63">
         <source>Dump&lt;span class="ui-icon ui-icon-arrow-4-diag"&gt;&lt;/span&gt;</source>
         <target>Déverser&lt;span class="ui-icon ui-icon-arrow-4-diag"&gt;&lt;/span&gt;</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="64">
         <source>Back&lt;span class="ui-icon ui-icon-arrowreturnthick-1-w"&gt;&lt;/span&gt;</source>
         <target>Retour&lt;span class="ui-icon ui-icon-arrowreturnthick-1-w"&gt;&lt;/span&gt;</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="65">
         <source>Reprocess&lt;span class="ui-icon ui-icon-circle-check"&gt;&lt;/span&gt;</source>
         <target>Re-traiter&lt;span class="ui-icon ui-icon-circle-check"&gt;&lt;/span&gt;</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="66">
         <source>Less tickets</source>
         <target>Moins de billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="67">
         <source>More tickets</source>
         <target>Plus de billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="68">
         <source>Hold</source>
         <target>Retenue</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="69">
         <source>Function</source>
         <target>Fonction</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="70">
         <source>Rank</source>
         <target>Classement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="71">
         <source>No given transaction has any printable ticket.</source>
         <target>Aucune opération fournie n'a de billet susceptible d'être imprimé.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="72">
         <source>Empty?</source>
         <target>Vide?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="73">
         <source>Control deleted.</source>
         <target>Contrôle supprimé.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="74">
         <source>You cannot remove this control, sorry.</source>
         <target>Vous ne pouvez supprimer ce contrôle, désolé.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="75">
         <source>Incl. VAT</source>
         <target>TVA incluse</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="76">
         <source>Remove the user details</source>
         <target>Retire les utilisateurs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="77">
         <source>Error</source>
         <target>Erreur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="78">
         <source>Controls overview</source>
         <target>Supervision des contrôles</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="79">
         <source>Groups</source>
         <target>Groupes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="80">
         <source>State</source>
         <target>État</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="81">
         <source>%%nb%% ticket(s) have been dispatched into this new transaction.</source>
         <target>%%nb%% billet(s) ont été envoyé(s) dans une nouvelle opération.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="82">
         <source>No ticket to be dispatched...</source>
         <target>Pas de billet à traiter...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="83">
         <source>Prepare dispatching</source>
         <target>Extraire des billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="84">
         <source>Check ticket's ids shown below any price</source>
         <target>Sélectionner des IDs de billets à envoyer dans une nouvelle opération</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="85">
         <source>Dispatch</source>
         <target>Envoyer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="86">
         <source>Expire at</source>
         <target>Date d'échéance</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="87">
         <source>Category</source>
         <target>Catégorie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="88">
         <source>Declination</source>
         <target>Déclinaison</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="89">
         <source>Show up</source>
         <target>Afficher</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="90">
         <source>Details</source>
         <target>Détails</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="91">
         <source>Detail</source>
         <target>Détail</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="92">
         <source>Created by</source>
         <target>Créé par</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="93">
         <source>Transactions</source>
         <target>Opérations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="94">
         <source>Linked transactions</source>
         <target>Opérations liées</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="95">
         <source>Those informations are used in specific ledger extractions only</source>
         <target>Ces informations sont utilisées dans les extractions spécifiques de journaux seulement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="96">
         <source>No ticket found with the given parameters</source>
         <target>Aucun billet ne correspond aux paramètres fournis</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="97">
         <source>Reduction</source>
         <target>Réduction</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="98">
         <source>Reduction on taxes</source>
         <target>Réduction sur les taxes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="99">
         <source>You cannot remove a product linked with a member card, you should better try to remove the member card...</source>
         <target>Vous ne pouvez pas retirer un produit lié à une carte d'abo, vous feriez mieux d'essayer de supprimer la carte d'abo...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="100">
         <source>Pay what you want</source>
         <target>Prix libre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="101">
         <source>Products delivered</source>
         <target>Produits délivrés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="102">
         <source>Product</source>
         <target>Produit</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="103">
         <source>Products</source>
         <target>Produits</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="104">
         <source>Tax %%name%%</source>
         <target>Taxe %%name%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="105">
         <source>Tax</source>
         <target>Taxe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="106">
         <source>Extra taxes</source>
         <target>Taxes add.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="107">
         <source>Even if something has more than one link that lead to this tax, it will only count once.</source>
         <target>Même si quelque chose a plusieurs liens menant à cette taxe, elle ne sera comptée qu'une seule fois.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="108">
         <source>Taxes by value are expressed with VAT. The Duty Free amount of tickets includes the Duty Free amount of taxes.</source>
         <target>Les taxes par valeur sont exprimées en TTC. Le montant HT des billets inclut le montant HT des taxes.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="109">
         <source>for percentages 7 means 7%, for fixed value VAT is included and depends on each manifestation</source>
         <target>pour les pourcentages 7 signifie 7%, pour les valeurs fixes la TVA est incluse et dépend de chaque manifestation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="110">
         <source>Offered by</source>
         <target>Offert par</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="111">
         <source>Please fill in the form correctly before you submit it</source>
         <target>Remplir correctement le formulaire avant de le valider SVP</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="112">
         <source>Ticket #%%id%% registered</source>
         <target>Billets #%%id%% associé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="113">
         <source>Registered tickets</source>
         <target>Billets nominatifs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="114">
         <source>Seats first</source>
         <target>Placer en 1er</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="115">
         <source>[1]1 answer to a survey|(1,+Inf]%%nb%% answers to surveys</source>
         <target>[1]1 réponse à un questionnaire|(1,+Inf]%%nb%% réponses aux questionnaires</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="116">
         <source>You always need to give a price to every seated-only tickets before printing or booking.</source>
         <target>Avant toute impression ou réservation, vous devez toujours fixer un tarif aux billets n'ayant été que placés.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="117">
         <source>Has confirmed ticket</source>
         <target>A des billets confirmés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="118">
         <source>From %from_date%</source>
         <target>Entre le %from_date%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="119">
         <source>to %to_date%</source>
         <target>et le %to_date%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="120">
         <source>You must seat all your tickets before print them, even partially</source>
         <target>Vous devez placer tous vos billets avant de les imprimer, même partiellement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="121">
         <source>The ticket #%%id%% has been already controlled on this checkpoint before (%%datetime%% by %%user%%)</source>
         <target>Le billet #%%id%% a déjà été contrôlé sur ce point de contrôle (%%datetime%% par %%user%%)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="122">
         <source>The ticket #%%id%% is unfoundable in the list of available tickets</source>
         <target>Le billet #%%id%% est introuvable dans la liste des billets disponibles</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="123">
         <source>An error occurred controlling your ticket #%%id%%.</source>
         <target>Une erreur est survenue lors du contrôle de votre billet #%%id%%.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="124">
         <source>This ticket is not sold yet.</source>
         <target>Ce billet est encore invendu.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="125">
         <source>[1]Workspace|(1,+Inf]Workspaces</source>
         <target>[1]Espace de travail|(1,+Inf]Espaces de travail</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="126">
         <source>This payment is linked to the cancelling transaction #%%id%%</source>
         <target>Ce paiement est lié à l'opération d'annulation #%%id%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="127">
         <source>You must record the payment(s) before printing the ticket(s)</source>
         <target>Vous avez demandé l'impression de billet sans équilibrer l'opération. S'il s'agit d'un paiement différé, confirmez en cliquant sur OK.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="128">
         <source>Display the seated plan</source>
         <target>Afficher le plan numéroté</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="129">
         <source>You must choose a manifestation first</source>
         <target>Vous devez au préalable choisir une manifestation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="130">
         <source>The blinking quantities mean that those gauges are or will be full.</source>
         <target>Les quantités qui clignotent signifie que ces jauges sont ou vont être pleines.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="131">
         <source>Please confirm that you allow this overbooking.</source>
         <target>Confirmez que vous autorisez cette sur-réservation SVP.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="132">
         <source>You cannot proceed your action though.</source>
         <target>Vous ne pouvez donc pas effectuer votre action.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="133">
         <source>Did you really want to exit this transaction?</source>
         <target>Souhaitiez-vous vraiment sortir de cette opération ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="134">
         <source>This transaction is not yet totally paid</source>
         <target>Cette opération n'a pas été totalement payée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="135">
         <source>Some products are not sold (printed?) yet</source>
         <target>Plusieurs produits n'ont pas encore été vendus</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="136">
         <source>This transaction has more money than needed</source>
         <target>Cette opération a plus d'argent qu'il ne lui en faut</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="137">
         <source>This transaction cannot be closed properly:</source>
         <target>Cette opération ne peut être clôturée :</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="138">
         <source>Positive or negative numbers only</source>
         <target>Uniquement des nombres positifs ou négatifs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="139">
         <source>Enter</source>
         <target>Entrée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="140">
         <source>Creation</source>
         <target>Création</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="141">
         <source>Last mod.</source>
         <target>Dern.mod.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="142">
         <source>By</source>
         <target>Par</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="143">
         <source>Museum</source>
         <target>Musée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="144">
         <source>Point of Sales</source>
         <target>Point de ventes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="145">
         <source>Transaction created</source>
         <target>Opération créée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="146">
         <source>your order #%%transaction_id%% has been updated</source>
         <target>votre commande #%%transaction_id%% a été mise à jour</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="147">
         <source>seat</source>
         <target>pl.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="148">
         <source>Seat</source>
         <target>Place</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="149">
         <source>Empowered by %%software%%</source>
         <target>Porté par %%software%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="150">
         <source>By %%firm%%</source>
         <target>Par %%firm%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="151">
         <source>An error occurred during the seat allocation. Please try again.</source>
         <target>Une erreur est survenue durant l'affectation d'un siège. Essayer encore SVP.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="152">
         <source>Force reloading the plan</source>
         <target>Forcer le rechargement du plan</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="153">
         <source>You still have to give some tickets a seat...</source>
         <target>Vous devez encore donner une place numérotée à des billets...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="154">
         <source>An error occured. Please try again.</source>
         <target>Une erreur est survenue. Essayez à nouveau SVP.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="155">
         <source>Seats allocation</source>
         <target>Distribution des places</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="156">
         <source>Next</source>
         <target>Suite</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="157">
         <source>Can not cancel a ticket #%%i%% because its transaction #%%t%% is already closed. Trick: open its transaction in an other tab when you try to cancel it.</source>
         <target>Impossible d'annuler le billet #%%i%% car son opération #%%t%% est clôturée. Astuce: ouvrez son opération dans un autre onglet quand vous essayez de l'annuler.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="158">
         <source>Summary</source>
         <target>Résumé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="159">
         <source>Ledger</source>
         <target>Journal</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="160">
         <source>It is forbidden to integrate foreign sales on an unconfirmed manifestation</source>
         <target>Il est interdit d'intégrer des ventes de partenaires sur une manifestation non confirmée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="161">
         <source>Without cancellations</source>
         <target>Sans les annulations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="162">
         <source>Paybacks</source>
         <target>Remboursements</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="163">
         <source>Really paid total</source>
         <target>Total réellement payé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="164">
         <source>Transaction resetted and closed</source>
         <target>Opération remise à zéro et fermée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="165">
         <source>Even closed transactions ?</source>
         <target>Même les opérations verrouillées ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="166">
         <source>Needs a while for calculation...</source>
         <target>Prends du temps pour le calcul...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="167">
         <source>Display even events hidden for ticketting</source>
         <target>Afficher les événements non accessibles directement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="168">
         <source>You gave bad informations... try again.</source>
         <target>Vous avez fourni des informations incorrectes... essayez à nouveau.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="169">
         <source>No control</source>
         <target>Pas de contrôle</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="170">
         <source>File number</source>
         <target>Numéro de dossier</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="171">
         <source>JA code</source>
         <target>Code JA</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="172">
         <source>Analytic section</source>
         <target>Section analytique</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="173">
         <source>Other section</source>
         <target>Section "autre"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="174">
         <source>Invoice document code</source>
         <target>Code de document facture</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="175">
         <source>Credit side code</source>
         <target>Code de document avoir</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="176">
         <source>Debit code</source>
         <target>Code de débit</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="177">
         <source>Credit code</source>
         <target>Code de crédit</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="178">
         <source>Analytic account number</source>
         <target>Numéro du compte analytique</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="179">
         <source>Transaction record code</source>
         <target>Code d'enregistrement "Transaction"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="180">
         <source>Imputation record code</source>
         <target>Code d'enregistrement "Imputation"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="181">
         <source>Expiration record code</source>
         <target>Code d'enregistrement "Expiration"</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="182">
         <source>Analytic record code</source>
         <target>Code d'enregistrement analytique</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="183">
         <source>Generic account for incomes</source>
         <target>Compte client générique</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="184">
         <source>Account for taxes</source>
         <target>Compte pour la TVA</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="185">
         <source>Currency</source>
         <target>Monnaie</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="186">
         <source>Your configuration has been updated with %i% option(s).</source>
         <target>Votre configuration a été mise à jour avec %i% paramètre(s).</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="187">
         <source>Extract</source>
         <target>Extraire</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="188">
         <source>You gave bad informations... try again.</source>
         <target>Vous avez fourni des informations incorrectes... essayez à nouveau.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="189">
         <source>Extract (%%format%%)</source>
         <target>Extraire (%%format%%)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="190">
         <source>with totals</source>
         <target>avec tot.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="191">
         <source>Cannot duplicate the ticket #%%i%% because its transaction has been closed already. Trick: open its transaction in an other tab when you try to duplicate it.</source>
         <target>Impossible de dupliquer le billet #%%i%% car son opération est verrouillée. Astuce: ouvez son opération dans un autre onglet quand vous cherchez à le dupliquer.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="192">
         <source>You can not cancel any closed transaction (like the #%%t%%).</source>
         <target>Vous ne pouvez pas annuler une opération déjà clôturée (comme la #%%t%%).</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="193">
         <source>Can't duplicate the ticket #%%i%% because it has been cancelled already.</source>
         <target>Impossible de dupliquer le billet #%%i%% car ce billet a déjà été annulé.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="194">
         <source>Can't duplicate the ticket #%%i%% because it was not yet printed... Just try to print it</source>
         <target>Impossible de dupliquer le billet #%%i%%, il ne semble pas avoir été imprimé...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="195">
         <source>Can't cancel the ticket #%%i%% because it is already a cancellation</source>
         <target>Impossible d'annuler le billet #%%i%% parce qu'il s'agit déjà d'une annulation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="196">
         <source>%%price%% (by %%user%%)</source>
         <target>%%price%% (par %%user%%)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="197">
         <source>Price name</source>
         <target>Tarif associé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="198">
         <source>Debts List</source>
         <target>Liste des dettes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="199">
         <source>Summary List</source>
         <target>Résumé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="200">
         <source>Ordered</source>
         <target>Réservé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="201">
         <source>Gauge</source>
         <target>Jauge</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="202">
         <source>Involved gauges list</source>
         <target>Liste des jauges impliquées</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="203">
         <source>There is no ticket available for cancellation corresponding to your criterias</source>
         <target>Il n'y a pas de billet disponible pour annulation correspondant à vos critères</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="204">
         <source>Cancel printed tickets as you click on prices now.</source>
         <target>Annule des billets imprimés tel que vous cliquerez sur les tarifs maintenant.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="205">
         <source>%%nb%% ticket(s) have been correctly cancelled, with transaction #%%tid%%</source>
         <target>%%nb%% billet(s) ont été annulés correctement, sur l'operation #%%tid%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="206">
         <source>Cancelling</source>
         <target>Annule</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="207">
         <source>Cancel</source>
         <target>Annule</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="208">
         <source>Partial cancellation by price</source>
         <target>Annulation partielle par tarif</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="209">
         <source>Translation for categories</source>
         <target>Correspondance pour les catégories</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="210">
         <source>Seated</source>
         <target>Placé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="211">
         <source>Printed</source>
         <target>Imprimé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="212">
         <source>Asked</source>
         <target>Demandé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="213">
         <source>Integrated</source>
         <target>Intégré</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="214">
         <source>Updated at</source>
         <target>Mis à jour le</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="215">
         <source>Printed or integrated</source>
         <target>Imprimé ou intégré</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="216">
         <source>Workspace</source>
         <target>Espace de travail</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="217">
         <source>Ticket #%%id%% log</source>
         <target>Journal du billet #%%id%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="218">
         <source>Tickets value</source>
         <target>Montant des billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="219">
         <source>Ticket's id</source>
         <target>Numéro de billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="220">
         <source>TEP</source>
         <target>HT</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="221">
         <source>PIT</source>
         <target>TTC</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="222">
         <source>Numerotation through the graphical plan</source>
         <target>Numérotation par le plan de salle</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="223">
         <source>Direct numerotation</source>
         <target>Numérotation directe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="224">
         <source>Seated gauge</source>
         <target>Placement numéroté</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="225">
         <source>There is no ticket to remove on this seat for this gauge.</source>
         <target>Il n'y a pas de billet à retirer sur cette place pour cette jauge.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="226">
         <source>There are already some tickets on this seat for this gauge.</source>
         <target>Il y a déjà des billets sur cette place pour cette jauge.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="227">
         <source>No numerotation given.</source>
         <target>Veuillez spécifier un numéro de place pour ce billet.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="228">
         <source>Invoice List</source>
         <target>Liste de factures</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="229">
         <source>No ticket found, no payment created</source>
         <target>Pas de billet trouvé, pas de paiement ajouté</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="230">
         <source>Close</source>
         <target>Fermer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="231">
         <source>Member card</source>
         <target>Carte d'abonnement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="232">
         <source>You might have tried to create a price association that was already existing. Please check the list, try some filters...</source>
         <target>Vous avez dû essayer de créer une association de prix qui existait déjà. Essayez, SVP, de vérifiez la liste en utilisant des filtres pour la retrouver.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="233">
         <source>New Member card price model</source>
         <target>Nouveau modèle de carte d'abonnement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="234">
         <source>Prices association for member cards</source>
         <target>Association de prix pour les cartes d'abonnement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="235">
         <source>Type of member card</source>
         <target>Type de carte d'abonnement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="236">
         <source>Linked w/ MC?</source>
         <target>Lié avec les cartes d'abo.?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="237">
         <source>Grouped tickets</source>
         <target>Billets groupés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="238">
         <source>Resetting this transaction is not allowed, it contains printed tickets or invoices...</source>
         <target>La remise à zéro de cette opération n'est pas autorisée, elle contient des billets imprimés ou des factures...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="239">
         <source>Transaction #%%t%% has been created to centralize payments for %%nb%% tickets</source>
         <target>L'opération #%%t%% a été créée pour centraliser les paiements de %%nb%% billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="240">
         <source>You forgot to specify a contact... or to press ENTER to validate it.</source>
         <target>Vous avez oublié de spécifier un contact... ou d'appuyer sur ENTRER pour le valider.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="241">
         <source>Close</source>
         <target>Abandonner</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="242">
         <source>Display</source>
         <target>Afficher</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="243">
         <source>Compensatory payment method</source>
         <target>Méthode de paiement compensatoire</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="244">
         <source>Paying integrated tickets</source>
         <target>Payer les billets intégrés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="245">
         <source>Valid</source>
         <target>Valider</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="246">
         <source>Please have a look into the file you want to import to get the proper name, as given by your partnair.</source>
         <target>Regardez à l'intérieur du fichier que vous souhaitez importer pour trouver le bon nom, tel que donné par votre partenaire.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="247">
         <source>Translation for workspaces</source>
         <target>Traduction des espaces de travail</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="248">
         <source>Translation for prices</source>
         <target>Traduction des tarifs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="249">
         <source>Gauges list</source>
         <target>Jauges</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="250">
         <source>Flow display</source>
         <target>Affichage des flux</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="251">
         <source>Are you sure?</source>
         <target>Êtes-vous sûr(e) ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="252">
         <source>Are you sure? You are going to replace all your payments in the original and (if it exists) cancelling transactions...</source>
         <target>Êtes-vous sûr(e) ? Vous êtes sur le point de remplacer tous les paiements de votre opération d'origine et celle d'annulation (si elle existe)...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="253">
         <source>Your transaction has been correctly cancelled</source>
         <target>Votre opération a été annulée correctement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="254">
         <source>Error reading the given values</source>
         <target>Erreur de lecture des données fournies</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="255">
         <source>Extra criterias</source>
         <target>Critères divers</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="256">
         <source>Batch cancel</source>
         <target>Annulation complète</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="257">
         <source>Simplified complete cancellation</source>
         <target>Annulation complète simplifiée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="258">
         <source>Concerned users</source>
         <target>Utilisateurs concernés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="259">
         <source>Display tickets from payment</source>
         <target>Paiement faisant foi</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="260">
         <source>Display tickets from payment date</source>
         <target>Date de paiement faisant foi</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="261">
         <source>Display not-yet-printed tickets</source>
         <target>Billets encore non-imprimés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="262">
         <source>Submitted values are invalid</source>
         <target>Les critères transmis sont invalides</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="263">
         <source>Paid with</source>
         <target>Payé par</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="264">
         <source>You've integrated more tickets than you've got in your base transaction.</source>
         <target>Vous avez intégré plus de billets que vous n'en aviez dans votre opération d'origine.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="265">
         <source>Tried to integrate a cancellation ticket without any referenced id. This kind of cancellation ticket has to be integrated manually.</source>
         <target>Tentative d'intégration d'un billet d'annulation sans billet de référence. Ce type de billet d'annulation doivent être intégrés manuellement.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="266">
         <source>Enter here the id of the transaction where to delete tickets that you're going to integrate. This is not required.</source>
         <target>Entrer ici le numéro de l'opération où supprimer les billets que vous importerez. Non requis.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="267">
         <source>Reference transaction</source>
         <target>Opération de référence</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="268">
         <source>You have already selected %%nb%% ticket(s)</source>
         <target>Vous avez déjà sélectionné %%nb%% billet(s)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="269">
         <source>Return to manifestation</source>
         <target>Retour à la manifestation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="270">
         <source>File importated with the last transaction's id %%tid%%, %%nbtck%% ticket(s), %%nberr%% error(s).</source>
         <target>Fichier importé avec le dernier identifiant d'opération %%tid%%, %%nbtck%% billet(s), %%nberr%% erreur(s).</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="271">
         <source>File</source>
         <target>Fichier</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="272">
         <source>Send</source>
         <target>Envoyer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="273">
         <source>Workspaces list</source>
         <target>Liste des jauges</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="274">
         <source>Workspaces</source>
         <target>Espaces de travail</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="275">
         <source>Filetype</source>
         <target>Type de fichier</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="276">
         <source>Integrate tickets for %%manifestation%%</source>
         <target>Intégrer des billets pour %%manifestation%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="277">
         <source>This invoice excludes cancelled tickets</source>
         <target>Les billets annulés sont exclus de cette facture</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="278">
         <source>Excludes cancelled tickets from invoice.</source>
         <target>Exclut les billets annulés de la facture.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="279">
         <source>Excludes cancelled tickets from order.</source>
         <target>Exclut les billets annulés de la commande.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="280">
         <source>updated on %%d%% by %%u%%</source>
         <target>mis à jour le %%d%% par %%u%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="281">
         <source>cancel</source>
         <target>annul.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="282">
         <source>%%price%% %%annul%% (by %%user%%)</source>
         <target>%%price%% %%annul%% (par %%user%%)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="283">
         <source>Some gauges are full, are you sure?</source>
         <target>Des jauges sont pleines, êtes vous sûr(e) ?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="284">
         <source>Some gauges are full, check them out.</source>
         <target>Des jauges sont pleines, vérifiez-les.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="285">
         <source>Dated</source>
         <target>Daté du</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="286">
         <source>Warning: you've got full gauges !</source>
         <target>Attention: vous avez des jauges pleines !</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="287">
         <source>Sorry, we can't cancel the ticket #%%i%% because it has been checked already.</source>
         <target>Désolé, nous ne pouvons annuler le billet #%%i%% parce qu'il est déjà passé à un point de contrôle.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="288">
         <source>Generate an invoice focused only on the selected manifestation.</source>
         <target>Génère une facture pour la manifestation sélectionnée uniquement.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="289">
         <source>[1]Manifestation ledger|(1,+Inf]Manifestations ledger</source>
         <target>[1]Bordereau de manifestation|(1,+Inf]Bordereau de manifestations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="290">
         <source>[1]Visit period ledger|(1,+Inf]Visit periods ledger</source>
         <target>[1]Bordereau d'une période de visite|(1,+Inf]Bordereau des périodes de visite</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="291">
         <source>Concerned manifestations</source>
         <target>Manifestations concernées</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="292">
         <source>Toggle tickets</source>
         <target>Inverser</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="293">
         <source>You must have at least one manifestation selected.</source>
         <target>Vous devez avoir au moins une manifestation sélectionnée.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="294">
         <source>Only on the selected line/manifestation</source>
         <target>Seulement sur la ligne/manifestation sélectionnée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="295">
         <source>Partial printing</source>
         <target>Imp./Int. partielle</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="296">
         <source>You must enter a postal code before printing the ticket(s).</source>
         <target>Vous devez saisir un code postal avant d'imprimer le(s) billet(s).</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="297">
         <source>Unassociated</source>
         <target>Non associés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="298">
         <source>Associated</source>
         <target>Associés</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="299">
         <source>Your tickets have been integrated correctly into your ticketing system...</source>
         <target>Vos billets ont bien été intégrés dans votre système de billetterie...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="300">
         <source>Tickets integrated!</source>
         <target>Billets intégrés !</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="301">
         <source>Integrate</source>
         <target>Intégrer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="302">
         <source>Integrate from an external seller</source>
         <target>Intégrer depuis un vendeur extérieur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="303">
         <source>WARNING: functionnality in a test period ! You've been warned.</source>
         <target>ATTENTION: fonctionnalité en période de test ! Vous êtes prévenus.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="304">
         <source>duplicate</source>
         <target>éditer les duplicatas</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="305">
         <source>Name</source>
         <target>Nom</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="306">
         <source>New Payment method</source>
         <target>Nouvelle méthode de paiement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="307">
         <source>Account</source>
         <target>Compte</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="308">
         <source>Detailed Ledger</source>
         <target>Journal détaillé</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="309">
         <source>from %%from%% to %%to%%</source>
         <target>du %%from%% au %%to%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="310">
         <source>Payment method List</source>
         <target>Liste des méthodes de paiement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="311">
         <source>The transaction cannot be validated, please check again the payments...</source>
         <target>L'opération ne peut être validée, vérifiez à nouveau les paiements svp...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="312">
         <source>The transaction cannot be validated, there are still tickets to print...</source>
         <target>L'opération ne peut être validée, il reste des billets à imprimer...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="313">
         <source>with the same initial selections</source>
         <target>avec les mêmes sélections initiales</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="314">
         <source>Transaction validated and closed</source>
         <target>Opération validée et verrouillée</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="315">
         <source>at</source>
         <target>@</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="316">
         <source>Created at</source>
         <target>Créé le</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="317">
         <source>Unable to find the given order for cancellation</source>
         <target>Impossible de retrouver le bon de commande demandé pour annulation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="318">
         <source>The given order has been cancelled successfully</source>
         <target>Le bon de commande a été annulé avec succès</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="319">
         <source>You can respawn here only normal transactions</source>
         <target>Vous ne pouvez accéder ici qu'à des opérations normales</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="320">
         <source>You have to re-open the transaction before accessing it</source>
         <target>Vous devez ré-ouvrir l'opération avant d'y accéder (case à cocher)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="321">
         <source>Order List</source>
         <target>Liste des résa./bons de commande</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="322">
         <source>Organism</source>
         <target>Organisme</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="323">
         <source>Restrict payments to payments with tickets whose date is bounded within the given dates</source>
         <target>Restreindre les paiements à ceux dont les billets liés ont une date de valeur incluse dans les dates fournies</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="324">
         <source>Closed</source>
         <target>Verr.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="325">
         <source>Debt</source>
         <target>Dette</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="326">
         <source>Del.</source>
         <target>Suppr.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="327">
         <source>Can't duplicate the ticket #%%i%% because it has been already duplicated... Simply try to duplicate the last duplicate of the serie</source>
         <target>Impossible de dupliquer le billet #%%i%% parce qu'il a déjà été dupliqué... Essayez simplement de dupliquer le dernier duplicata de la série</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="328">
         <source>Can't cancel the ticket #%%i%% because it is a duplicated ticket... Simply try to cancel the last duplicate of the series</source>
         <target>Impossible de supprimer le billet #%%i%% parce qu'il s'agit d'un billet dupliqué... Essayez simplement d'annuler le dernier duplicata de la série</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="329">
         <source>Cannot cancel the ticket #%%i%% because it has not yet been printed... Just try to suppress it</source>
         <target>Impossible de supprimer le billet #%%i%% parce qu'il n'a pas encore été imprimé... Essayez simplement de le supprimer</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="330">
         <source>Cannot find the ticket #%%i%% in database... Perhaps the related transaction is closed already.</source>
         <target>Impossible de retrouver le billet #%%i%% pour l'annuler... Peut-être que l'opération est déjà clôturée.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="331">
         <source>Don't forget to specify a checkpoint and a ticket id</source>
         <target>N'oubliez pas de spécifier un point de contrôle et un identifiant de billet</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="332">
         <source>Don't forget to specify a checkpoint</source>
         <target>N'oubliez pas de spécifier un point de contrôle</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="333">
         <source>Pay back for</source>
         <target>Rembourser l'opération</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="334">
         <source>This price doesn't exist for this manifestation !</source>
         <target>Ce tarif n'existe pas pour cette manifestation !</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="335">
         <source>This price doesn't exist for this manifestation or the contact's member card has got no more ticket !</source>
         <target>Ce tarif n'existe pas pour cette manifestation ou il n'y a plus de billet sur la carte d'abonnement du contact !</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="336">
         <source>Cancellation</source>
         <target>Annulation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="337">
         <source>Cancellations</source>
         <target>Annulations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="338">
         <source>Payments</source>
         <target>Paiements</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="339">
         <source>Payment method</source>
         <target>Méthode de paiement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="340">
         <source>Meta-event</source>
         <target>Meta-événement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="341">
         <source>Meta events list</source>
         <target>Liste des meta-événements</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="342">
         <source>Event</source>
         <target>Événement</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="343">
         <source>Can't find the given ticket number in database...</source>
         <target>Impossible de trouver le numéro de billet fourni...</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="344">
         <source>City</source>
         <target>Ville</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="345">
         <source>Professional</source>
         <target>Professionnel</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="346">
         <source>This price doesn't exist for this manifestation !</source>
         <target>Ce tarif n'existe pas pour cette manifestation !</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="347">
         <source>Add to all manifestations</source>
         <target>Ajouter à toutes les manifestations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="348">
         <source>Free seating</source>
         <target>Placement libre</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="349">
         <source>Control</source>
         <target>contrôle</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="350">
         <source>Summary list</source>
         <target>Résumé des opérations</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="351">
         <source>Username or E-Mail</source>
         <target>Login ou courriel</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="352">
         <source>Remember</source>
         <target>Rester connecté(e)</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="353">
         <source>Password</source>
         <target>Mot de passe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="354">
         <source>Print</source>
         <target>Imprimer les billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="355">
         <source>Linking tickets to specific codes</source>
         <target>Lier les billets à des codes spécifiques</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="356">
         <source>cancellation</source>
         <target>annulation</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="357">
         <source>normal</source>
         <target>normale</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="358">
         <source>With shipment</source>
         <target>Avec expédition</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="359">
         <source>deposit</source>
         <target>dépôt</target>
       </trans-unit>
-      <trans-unit id="35">
+      <trans-unit id="360">
         <source>Postalcode</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="36">
+      <trans-unit id="361">
         <source>City</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="37">
+      <trans-unit id="362">
         <source>Country</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="38">
+      <trans-unit id="363">
         <source>Npai</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="39">
+      <trans-unit id="364">
         <source>email</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="40">
+      <trans-unit id="365">
         <source>Keywords</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="41">
+      <trans-unit id="366">
         <source>Phonetype</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="42">
+      <trans-unit id="367">
         <source>Phonenumber</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="43">
+      <trans-unit id="368">
         <source>Category of organism</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="44">
+      <trans-unit id="369">
         <source>Organism</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="45">
+      <trans-unit id="370">
         <source>Department</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="46">
+      <trans-unit id="371">
         <source>Professional phone</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="47">
+      <trans-unit id="372">
         <source>Professional email</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="48">
+      <trans-unit id="373">
         <source>Type of function</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="49">
+      <trans-unit id="374">
         <source>Function</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="50">
+      <trans-unit id="375">
         <source>Email</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit id="51">
+      <trans-unit id="376">
         <source>URL</source>
         <target>Adresse web</target>
       </trans-unit>
-      <trans-unit id="52">
+      <trans-unit id="377">
         <source>Description</source>
-        <target></target>
+        <target/>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="378">
         <source>With the same selection</source>
         <target>Avec la même sélection</target>
       </trans-unit>
-      <trans-unit id="54">
+      <trans-unit id="379">
         <source>New transaction</source>
         <target>Nouvelle opération</target>
       </trans-unit>
-      <trans-unit id="55">
+      <trans-unit id="380">
         <source>Ticket control</source>
         <target>Contrôle de tickets</target>
       </trans-unit>
-      <trans-unit id="56">
+      <trans-unit id="381">
         <source>Respawn a transaction</source>
         <target>Reprendre une opération</target>
       </trans-unit>
-      <trans-unit id="57">
+      <trans-unit id="382">
         <source>Cancelations</source>
         <target>Annulations</target>
       </trans-unit>
-      <trans-unit id="58">
+      <trans-unit id="383">
         <source>Deposit</source>
         <target>Dépôt</target>
       </trans-unit>
-      <trans-unit id="59">
+      <trans-unit id="384">
         <source>Sells</source>
         <target>Ventes</target>
       </trans-unit>
-      <trans-unit id="60">
+      <trans-unit id="385">
         <source>In progress</source>
         <target>En cours</target>
       </trans-unit>
-      <trans-unit id="61">
+      <trans-unit id="386">
         <source>Asks</source>
         <target>Demandes</target>
       </trans-unit>
-      <trans-unit id="62">
+      <trans-unit id="387">
         <source>Orders</source>
         <target>Bons de C.</target>
       </trans-unit>
-      <trans-unit id="63">
+      <trans-unit id="388">
         <source>Invoices</source>
         <target>Factures</target>
       </trans-unit>
-      <trans-unit id="64">
+      <trans-unit id="389">
         <source>Debts</source>
         <target>Dettes</target>
       </trans-unit>
-      <trans-unit id="65">
+      <trans-unit id="390">
         <source>Duplicatas</source>
         <target>Duplicatas</target>
       </trans-unit>
-      <trans-unit id="66">
+      <trans-unit id="391">
         <source>Sales Ledger</source>
         <target>Livre des ventes</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="392">
         <source>Cash report</source>
         <target>Rapport de caisse</target>
       </trans-unit>
-      <trans-unit id="67">
+      <trans-unit id="393">
         <source>Cash Ledger</source>
         <target>Livre de caisse</target>
       </trans-unit>
-      <trans-unit id="68">
+      <trans-unit id="394">
         <source>Ticketting</source>
         <target>Billetterie</target>
       </trans-unit>
-      <trans-unit id="94">
+      <trans-unit id="395">
         <source>Rates</source>
         <target>Statistiques</target>
       </trans-unit>
-      <trans-unit id="95">
+      <trans-unit id="396">
         <source>Payment methods</source>
         <target>Méthodes de paiement</target>
       </trans-unit>
-      <trans-unit id="96">
+      <trans-unit id="397">
         <source>User</source>
         <target>Utilisateur</target>
       </trans-unit>
-      <trans-unit id="97">
+      <trans-unit id="398">
         <source>Transaction</source>
         <target>Opération</target>
       </trans-unit>
-      <trans-unit id="98">
+      <trans-unit id="399">
         <source>Updated at</source>
         <target>Mise à jour</target>
       </trans-unit>
-      <trans-unit id="99">
+      <trans-unit id="400">
         <source>Contact</source>
         <target>Contact</target>
       </trans-unit>
-      <trans-unit id="100">
+      <trans-unit id="401">
         <source>Operators</source>
         <target>Opérateurs</target>
       </trans-unit>
-      <trans-unit id="101">
+      <trans-unit id="402">
         <source>Criterias</source>
         <target>Critères</target>
       </trans-unit>
-      <trans-unit id="102">
+      <trans-unit id="403">
         <source>Dates:</source>
         <target>Dates:</target>
       </trans-unit>
-      <trans-unit id="103">
+      <trans-unit id="404">
         <source>Users:</source>
         <target>Utilisateurs:</target>
       </trans-unit>
-      <trans-unit id="104">
+      <trans-unit id="405">
         <source>Switch ledger</source>
         <target>Changer de livre</target>
       </trans-unit>
-      <trans-unit id="105">
+      <trans-unit id="406">
         <source>Price to pay</source>
         <target>Prix à payer</target>
       </trans-unit>
-      <trans-unit id="106">
+      <trans-unit id="407">
         <source>Amount already paid</source>
         <target>Somme déjà payée</target>
       </trans-unit>
-      <trans-unit id="107">
+      <trans-unit id="408">
         <source>Total</source>
         <target>Total</target>
       </trans-unit>
-      <trans-unit id="108">
+      <trans-unit id="409">
         <source>Payment Method</source>
         <target>Méthode de paiement</target>
       </trans-unit>
-      <trans-unit id="109">
+      <trans-unit id="410">
         <source>id/qty</source>
         <target>id/qté</target>
       </trans-unit>
-      <trans-unit id="110">
+      <trans-unit id="411">
         <source>Value</source>
         <target>Valeur</target>
       </trans-unit>
-      <trans-unit id="111">
+      <trans-unit id="412">
         <source>Reference</source>
         <target>Référence</target>
       </trans-unit>
-      <trans-unit id="112">
+      <trans-unit id="413">
         <source>Date</source>
         <target>Date</target>
       </trans-unit>
-      <trans-unit id="113">
+      <trans-unit id="414">
         <source>Tickets</source>
         <target>Billets</target>
       </trans-unit>
-      <trans-unit id="122">
+      <trans-unit id="415">
         <source>Quantity</source>
         <target>Quantité</target>
       </trans-unit>
-      <trans-unit id="123">
+      <trans-unit id="416">
         <source>Tot.VAT</source>
         <target>Tot.TVA</target>
       </trans-unit>
-      <trans-unit id="124">
+      <trans-unit id="417">
         <source>Manifestations</source>
         <target>Manifestations</target>
       </trans-unit>
-      <trans-unit id="125">
+      <trans-unit id="418">
         <source>hide / show</source>
         <target>cacher / montrer</target>
       </trans-unit>
-      <trans-unit id="126">
+      <trans-unit id="419">
         <source>Cancelling tickets</source>
         <target>Annuler des billets</target>
       </trans-unit>
-      <trans-unit id="127">
+      <trans-unit id="420">
         <source>Ticket</source>
         <target>Billet</target>
       </trans-unit>
-      <trans-unit id="128">
+      <trans-unit id="421">
         <source>cancel</source>
         <target>annule</target>
       </trans-unit>
-      <trans-unit id="129">
+      <trans-unit id="422">
         <source>pay</source>
         <target>rembourser</target>
       </trans-unit>
-      <trans-unit id="130">
+      <trans-unit id="423">
         <source>On %%d%%</source>
         <target>Le %%d%%</target>
       </trans-unit>
-      <trans-unit id="131">
+      <trans-unit id="424">
         <source>Transaction closed</source>
         <target>Opération clôturée</target>
       </trans-unit>
-      <trans-unit id="132">
+      <trans-unit id="425">
         <source>Transaction #&lt;a href="%%url%%"&gt;%%tid%%&lt;/a&gt;</source>
         <target>Opération #&lt;a href="%%url%%"&gt;%%tid%%&lt;/a&gt;</target>
       </trans-unit>
-      <trans-unit id="133">
+      <trans-unit id="426">
         <source>Thanks &lt;a href="%%url%%"&gt;%%t%% %%f%% %%n%%&lt;/a&gt;</source>
         <target>Merci &lt;a href="%%url%%"&gt;%%t%% %%f%% %%n%%&lt;/a&gt;</target>
       </trans-unit>
-      <trans-unit id="134">
+      <trans-unit id="427">
         <source>&amp;lt;&amp;lt; &lt;a href="%%url%%"&gt;Back&lt;/a&gt; to a new transaction</source>
         <target>&amp;lt;&amp;lt; &lt;a href="%%url%%"&gt;Retour&lt;/a&gt; vers une nouvelle opération</target>
       </trans-unit>
-      <trans-unit id="135">
+      <trans-unit id="428">
         <source>&lt;span class="name inline-modifiable"&gt;Invoice&lt;/span&gt; #%%prefix%%&lt;span class="invoice_id"&gt;%%iid%%-%%version%%&lt;/span&gt;&lt;span class="transaction"&gt;, for transaction #&lt;span class="transaction_id inline-modifiable"&gt;%%tid%%&lt;/span&gt; from the &lt;span class="date inline-modifiable"&gt;%%d%%&lt;/span&gt;&lt;/span&gt;</source>
         <target>&lt;span class="name inline-modifiable"&gt;Facture&lt;/span&gt; #%%prefix%%&lt;span class="invoice_id"&gt;%%iid%%-%%version%%&lt;/span&gt;&lt;span class="transaction"&gt;, pour l'opération #&lt;span class="transaction_id inline-modifiable"&gt;%%tid%%&lt;/span&gt; du &lt;span class="date inline-modifiable"&gt;%%d%%&lt;/pan&gt;&lt;/span&gt;</target>
       </trans-unit>
-      <trans-unit id="136">
+      <trans-unit id="429">
         <source>Verify and validate</source>
         <target>Vérifier et valider</target>
       </trans-unit>
-      <trans-unit id="137">
+      <trans-unit id="430">
         <source>Single cash deal</source>
         <target>Opération de paiement simple</target>
       </trans-unit>
-      <trans-unit id="138">
+      <trans-unit id="431">
         <source>Transaction #%%id%%:</source>
         <target>Opération #%%id%%:</target>
       </trans-unit>
-      <trans-unit id="139">
+      <trans-unit id="432">
         <source>Invoice</source>
         <target>Facture</target>
       </trans-unit>
-      <trans-unit id="140">
+      <trans-unit id="433">
         <source>Unlock this transaction (only granted users).</source>
         <target>Débloquer cette opération (utilisateurs autorisés seulement)</target>
       </trans-unit>
-      <trans-unit id="141">
+      <trans-unit id="434">
         <source>Checkpoint: success.</source>
         <target>Contrôle: ok.</target>
       </trans-unit>
-      <trans-unit id="141">
+      <trans-unit id="435">
         <source>Checkpoint: failure!</source>
         <target>Contrôle: échec !</target>
       </trans-unit>
-      <trans-unit id="142">
+      <trans-unit id="436">
         <source>Get back for a new ticket...</source>
         <target>Revenir pour un nouveau billet...</target>
       </trans-unit>
-      <trans-unit id="143">
+      <trans-unit id="437">
         <source>&lt;span class="name inline-modifiable"&gt;Order&lt;/span&gt; #&lt;span class="order_id inline-modifiable"&gt;%%oid%%&lt;/span&gt;, for transaction #&lt;span class="transaction_id inline-modifiable"&gt;%%tid%%&lt;/span&gt;</source>
         <target>&lt;span class="name inline-modifiable"&gt;Bon de commande&lt;/span&gt; #&lt;span class="order_id inline-modifiable"&gt;%%oid%%&lt;/span&gt;, pour l'operation #&lt;span class="transaction_id inline-modifiable"&gt;%%tid%%&lt;/span&gt;</target>
       </trans-unit>
-      <trans-unit id="144">
+      <trans-unit id="438">
         <source>%%n%% free seats</source>
         <target>%%n%% places libres</target>
       </trans-unit>
-      <trans-unit id="145">
+      <trans-unit id="439">
         <source>%%n%% demanded tickets</source>
         <target>%%n%% billets demandés</target>
       </trans-unit>
-      <trans-unit id="146">
+      <trans-unit id="440">
         <source>%%n%% prebooked seats</source>
         <target>%%n%% billets pré-réservés</target>
       </trans-unit>
-      <trans-unit id="147">
+      <trans-unit id="441">
         <source>%%n%% booked tickets</source>
         <target>%%n%% billets réservés</target>
       </trans-unit>
-      <trans-unit id="148">
+      <trans-unit id="442">
         <source>%%n%% sold seats</source>
         <target>%%n%% billets vendus</target>
       </trans-unit>
-      <trans-unit id="149">
+      <trans-unit id="443">
         <source>%%n%% ordered seats</source>
         <target>%%n%% billets commandés</target>
       </trans-unit>
-      <trans-unit id="150">
+      <trans-unit id="444">
         <source>%%n%% demanded seats</source>
         <target>%%n%% billets demandés</target>
       </trans-unit>
-      <trans-unit id="151">
+      <trans-unit id="445">
         <source>Selling tickets</source>
         <target>Vente de billets</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="446">
         <source>Selling transaction #%%id%%</source>
         <target>Opération de vente #%%id%%</target>
       </trans-unit>
-      <trans-unit id="152">
+      <trans-unit id="447">
         <source>Transaction #%%id%%</source>
         <target>Opération #%%id%%</target>
       </trans-unit>
-      <trans-unit id="153">
+      <trans-unit id="448">
         <source>Checkpoint</source>
         <target>Point de contrôle</target>
       </trans-unit>
-      <trans-unit id="154">
+      <trans-unit id="449">
         <source>Comment</source>
         <target>Commentaire</target>
       </trans-unit>
-      <trans-unit id="155">
+      <trans-unit id="450">
         <source>Duplicata</source>
         <target>Duplicata</target>
       </trans-unit>
-      <trans-unit id="156">
+      <trans-unit id="451">
         <source>Seat n°%%s%%</source>
         <target>Place n°%%s%%</target>
       </trans-unit>
-      <trans-unit id="157">
+      <trans-unit id="452">
         <source>Keep it</source>
         <target>À conserver</target>
       </trans-unit>
-      <trans-unit id="158">
+      <trans-unit id="453">
         <source>Ticket canceled.</source>
         <target>Billet annulé.</target>
       </trans-unit>
-      <trans-unit id="159">
+      <trans-unit id="454">
         <source>Get back for a new cancellation...</source>
         <target>Revenir pour une nouvelle annulation...</target>
       </trans-unit>
-      <trans-unit id="160">
+      <trans-unit id="455">
         <source>Print ticket</source>
         <target>Imprimer le billet</target>
       </trans-unit>
-      <trans-unit id="161">
+      <trans-unit id="456">
         <source>Time</source>
         <target>Heure</target>
       </trans-unit>
-      <trans-unit id="162">
+      <trans-unit id="457">
         <source>Location</source>
         <target>Lieu</target>
       </trans-unit>
-      <trans-unit id="163">
+      <trans-unit id="458">
         <source>Postal code</source>
         <target>Code postal</target>
       </trans-unit>
-      <trans-unit id="164">
+      <trans-unit id="459">
         <source>Price</source>
         <target>Tarif</target>
       </trans-unit>
-      <trans-unit id="165">
+      <trans-unit id="460">
         <source>Unit TIP</source>
         <target>PU TTC</target>
       </trans-unit>
-      <trans-unit id="166">
+      <trans-unit id="461">
         <source>TIP</source>
         <target>TTC</target>
       </trans-unit>
-      <trans-unit id="167">
+      <trans-unit id="462">
         <source>VAT</source>
         <target>TVA</target>
       </trans-unit>
-      <trans-unit id="168">
+      <trans-unit id="463">
         <source>PET</source>
         <target>HT</target>
       </trans-unit>
-      <trans-unit id="169">
+      <trans-unit id="464">
         <source>Cancel order</source>
         <target>Annuler la comm.</target>
       </trans-unit>
-      <trans-unit id="170">
+      <trans-unit id="465">
         <source>Order</source>
         <target>Résa./Bon de comm.</target>
       </trans-unit>
-      <trans-unit id="171">
+      <trans-unit id="466">
         <source>Checkpoint failed !</source>
         <target>Echec du point de contrôle</target>
       </trans-unit>
-      <trans-unit id="172">
+      <trans-unit id="467">
         <source>Try again...</source>
         <target>Essayez à nouveau...</target>
       </trans-unit>
-      <trans-unit id="173">
+      <trans-unit id="468">
         <source>Add</source>
         <target>Ajouter</target>
       </trans-unit>
-      <trans-unit id="174">
+      <trans-unit id="469">
         <source>To pay</source>
         <target>À payer</target>
       </trans-unit>
-      <trans-unit id="175">
+      <trans-unit id="470">
         <source>Still missing</source>
         <target>Reste à payer</target>
       </trans-unit>
-      <trans-unit id="179">
+      <trans-unit id="471">
         <source>Give change</source>
         <target>À rendre</target>
       </trans-unit>
-      <trans-unit id="176">
+      <trans-unit id="472">
         <source>Total excl. tax:</source>
         <target>Total HT:</target>
       </trans-unit>
-      <trans-unit id="177">
+      <trans-unit id="473">
         <source>VAT %%p%%:</source>
         <target>TVA %%p%%:</target>
       </trans-unit>
-      <trans-unit id="178">
+      <trans-unit id="474">
         <source>Total incl. taxes:</source>
         <target>Total TTC:</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="475">
         <source>The VAT shown here has to be considered as an orientation... The final rate will be fixed after printing tickets or delivering products.</source>
         <target>La TVA indiquée ici doit être considérée comme une orientation... Le taux final sera fixé après l'impression des billets ou la délivrance des produits.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="476">
         <source>Prices</source>
         <target>Tarifs</target>
       </trans-unit>
-      <trans-unit id="71">
+      <trans-unit id="477">
         <source>Paid tickets</source>
         <target>Payants</target>
       </trans-unit>
-      <trans-unit id="72">
+      <trans-unit id="478">
         <source>Paid tickets average</source>
         <target>Moy. payants</target>
       </trans-unit>
-      <trans-unit id="73">
+      <trans-unit id="479">
         <source>Outcomes</source>
         <target>Décaiss.</target>
       </trans-unit>
-      <trans-unit id="74">
+      <trans-unit id="480">
         <source>Incomes</source>
         <target>Encaiss.</target>
       </trans-unit>
-      <trans-unit id="75">
+      <trans-unit id="481">
         <source>Qty</source>
         <target>Qté</target>
       </trans-unit>
-      <trans-unit id="76">
+      <trans-unit id="482">
         <source>Summary of prices</source>
         <target>Résumé par tarif</target>
       </trans-unit>
-      <trans-unit id="77">
+      <trans-unit id="483">
         <source>Entitled</source>
         <target>Intitulé</target>
       </trans-unit>
-      <trans-unit id="78">
+      <trans-unit id="484">
         <source>Payment modes</source>
         <target>Modes de paiement</target>
       </trans-unit>
-      <trans-unit id="79">
+      <trans-unit id="485">
         <source>Summary of values</source>
         <target>Résumé par prix de vente</target>
       </trans-unit>
-      <trans-unit id="80">
+      <trans-unit id="486">
         <source>Sales synthesis</source>
         <target>Synthèse de ventes</target>
       </trans-unit>
-      <trans-unit id="81">
+      <trans-unit id="487">
         <source>Quantity of products</source>
         <target>Nombre de produits</target>
       </trans-unit>
-      <trans-unit id="82">
+      <trans-unit id="488">
         <source>Average price by product</source>
         <target>Prix moyen par produit</target>
       </trans-unit>
-      <trans-unit id="83">
+      <trans-unit id="489">
         <source>Quantity of free products</source>
         <target>Nombre de produits gratuits</target>
       </trans-unit>
-      <trans-unit id="84">
+      <trans-unit id="490">
         <source>Quantity of paid products</source>
         <target>Nombre de produits payants</target>
       </trans-unit>
-      <trans-unit id="85">
+      <trans-unit id="491">
         <source>Average price for paid products</source>
         <target>Prix moyen pour les produits payants</target>
       </trans-unit>
-      <trans-unit id="86">
+      <trans-unit id="492">
         <source>Rating</source>
         <target>Pourcentage</target>
       </trans-unit>
-      <trans-unit id="87">
+      <trans-unit id="493">
         <source>Total: </source>
         <target>Total: </target>
       </trans-unit>
-      <trans-unit id="88">
+      <trans-unit id="494">
         <source>Free: </source>
         <target>Gratuits: </target>
       </trans-unit>
-      <trans-unit id="89">
+      <trans-unit id="495">
         <source>Sells: </source>
         <target>Vendus: </target>
       </trans-unit>
-      <trans-unit id="90">
+      <trans-unit id="496">
         <source>Orders: </source>
         <target>Commandés: </target>
       </trans-unit>
-      <trans-unit id="91">
+      <trans-unit id="497">
         <source>Demands: </source>
         <target>Demandes: </target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="498">
         <source>Number</source>
         <target>Nb</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="499">
         <source>Users' summary</source>
         <target>Récapitulatif par utilisateur</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="500">
         <source>Average</source>
         <target>Moyenne</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="501">
         <source>Free tickets</source>
         <target>Gratuits</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="502">
         <source>Modify on-the-fly</source>
         <target>Modifier le document</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="503">
         <source>Get a PDF</source>
         <target>Format PDF</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="504">
         <source>e.g.</source>
         <target>ex</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="505">
         <source>Users</source>
         <target>Utilisateurs</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="506">
         <source>Taxes list</source>
         <target>Liste des taxes additionnelles</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="507">
         <source>value</source>
         <target>valeur en euros</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="508">
         <source>percentage</source>
         <target>pourcentage</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="509">
         <source>New tax</source>
         <target>Nouvelle taxe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="510">
         <source>View Tax</source>
         <target>Voir la taxe</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="511">
         <source>Created_at</source>
         <target>Crée le</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="512">
         <source>Updated_at</source>
         <target>Mise à jour le</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="513">
         <source>Reload</source>
         <target>Recharger</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="514">
         <source>An error occurred during ticket #%%tid%% printing: %%err%%</source>
         <target>Une erreur est survenue durant l'impression du billet #%%tid%%: %%err%%</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="515">
         <source>Too soon for ticket #%%id%% (gates will open at %%datetime%%)</source>
         <target>Trop tôt pour le billet #%%id%% (ouverture du contrôle d'accès: %%datetime%%)</target>
       </trans-unit>      
-      <trans-unit>
+      <trans-unit id="516">
         <source>Too late for ticket #%%id%% (gates closed at %%datetime%%)</source>
         <target>Trop tard pour le billet #%%id%% (fermeture du contrôle d'accès: %%datetime%%)</target>
       </trans-unit>   
-      <trans-unit>
+      <trans-unit id="517">
         <source>A contact is needed for printing the ticket(s) if it is a delayed payment.</source>
         <target>Vous avez demandé l'impression de billet sans équilibrer l'opération. Pour effectuer un paiement différé, vous devez saisir un contact.</target>
       </trans-unit>   
+      <trans-unit id="518">
+        <source>Gift coupon</source>
+        <target>Bon cadeau</target>
+      </trans-unit>
+      <trans-unit id="519">
+        <source>Coupon code</source>
+        <target>Code du bon</target>
+      </trans-unit>
+      <trans-unit id="520">
+        <source>Gift coupon #%%mc%% successfully added to the current transaction.</source>
+        <target>Bon cadeau #%%mc%% ajouté avec succès à l'opération en cours.</target>
+      </trans-unit>
+      <trans-unit id="521">
+        <source>No MemberCard linked with this Payment whereas its Method requires it.</source>
+        <target>Carte avantage introuvable pour payer ce billet, alors que cela est nécessaire.</target>
+      </trans-unit>
+      <trans-unit id="522">
+        <source>Update</source>
+        <target>Mettre à jour</target>
+      </trans-unit>      
+      <trans-unit id="523">
+        <source>Selling screen configuration</source>
+        <target>Paramètrage de l'écran de vente</target>
+      </trans-unit>      
+      <trans-unit id="524">
+        <source>Force postal code</source>
+        <target>Imposer la saisie du code postal.</target>
+      </trans-unit>        
     </body>
   </file>
 </xliff>

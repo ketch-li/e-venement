@@ -63,34 +63,37 @@ do let "i++";  [ $i -eq 3 ] && NBTR=$elt; done
 
 read -p "Do you want to pull all your git submodules ? [Y/n] " subm
 if [ "$subm" != "n" ]; then
-  git submodule init
-  git submodule update
-  for elt in lib/vendor/externals/*; do
-    (cd $elt; git checkout -f origin/master; git pull origin master && git checkout master && git pull)
-  done
-  for elt in `find lib/vendor/externals/ -type d`; do chmod -R a+rx $elt; done
-  echo "If you had permissions errors previously, it probably means that you are not the file owner. Please execute 'sudo for elt in `find lib/vendor/externals/ -type d`; do chmod -R a+rx $elt; done'"
+  ./bin/update-submodules.sh
 fi
 
 echo ""
-read -p "Do you want to reset your dump & patch your database for e-venement v2.10 ? [Y/n] " dump
+read -p "Do you want to reset your dump & patch your database for e-venement v2.11 ? [Y/n] " dump
 if [ "$dump" != "n" ]; then
 
 name="$PGDATABASE"
 [ -z "$name" ] && name=db
 
+## preliminary modifications & backup
 echo "DUMPING DB..."
 [ -f  data/sql/$name-`date +%Y%m%d`.before.pgdump ] && \
 mv data/sql/$name-`date +%Y%m%d`.before.pgdump data/sql/$name-`date +%Y%m%d%H%M%s`.before.pgdump
 pg_dump -Fc > data/sql/$name-`date +%Y%m%d`.before.pgdump && echo "DB pre dumped"
 
-## preliminary modifications & backup
+echo 'DELETE FROM cache;' | psql
+## DO STUFF IN THE DB HERE
+
 psql <<EOF
 EOF
 echo "DUMPING DB..."
 pg_dump -Fc > data/sql/$name-`date +%Y%m%d`.pgdump && echo "DB dumped"
 
 fi #end of "allow dumps" condition
+
+echo ""
+echo ""
+echo "RESETTING YOUR BASE DOCTRINE FILES"
+rm -f lib/*/doctrine/base/*
+rm -f lib/*/doctrine/*/base/*
 
 echo ""
 echo ""
@@ -195,20 +198,10 @@ if [ "$add" != 'n' ]
 then
   echo "If you get Symfony errors in the next few actions, it is not a problem, the permissions simply exist already in the DB"
   echo ""
-  echo "Permissions & groups for the ws module (pub setup)"
-  ./symfony doctrine:data-load --append data/fixtures/11-permissions-v210-ws.yml
-  echo ""
-  echo "Permissions & groups for promo codes"
-  ./symfony doctrine:data-load --append data/fixtures/11-permissions-v210-promo.yml
-  echo ""
-  echo "Permissions & groups for common groups"
-  ./symfony doctrine:data-load --append data/fixtures/11-permissions-v210-groups.yml
-  # adding people from the pr-group-common into the pr-group-mod
-  echo "INSERT INTO sf_guard_user_group (user_id, group_id, created_at, updated_at)
-        (SELECT u.id, (SELECT gg.id FROM sf_guard_group gg WHERE gg.name = 'pr-group-mod'), now(), now()
-         FROM sf_guard_user u
-         WHERE u.id in (SELECT ug.user_id FROM sf_guard_user_group ug LEFT JOIN sf_guard_group g ON g.id = ug.group_id WHERE g.name = 'pr-group-common'))" \
-    | psql $db
+  #echo "Permission to access the colors of the pos module"
+  ./symfony doctrine:data-load --append data/fixtures/11-permissions-v211-pos.yml
+  echo 'INSERT INTO sf_guard_group_permission (group_id, permission_id, created_at, updated_at) (SELECT (SELECT id FROM sf_guard_group WHERE name = 'pos-admin'), (SELECT id FROM sf_guard_permission WHERE name = 'pos-admin-color'), now(), now());' | psql
+  #echo ""
 fi
 
 echo ''
@@ -243,7 +236,6 @@ echo ""
 echo ""
 echo "Don't forget to configure those extra features:"
 echo "- Check the different apps/*/config/*.yml.template to be sure that a apps/*/config/*.yml exists, create it if necessary"
-echo "- Online Sales (pub) + Paybox: you must check that 'app_payment_type' is set to 'paybox', or your 'pub' app will not be usable anymore."
 echo '- Auto control on exit, for museum: you must add the execution of "./symfony e-venement:garbage-collector museum" every minute (in your crontab?)'
 
 echo ""

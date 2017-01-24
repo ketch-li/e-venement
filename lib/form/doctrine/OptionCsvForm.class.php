@@ -138,6 +138,9 @@ class OptionCsvForm extends BaseOptionCsvForm
   	  '__Professionals__Groups__name' => "Professionals groups",
   	  'professional_important' => 'Close contact / Important organism',
     	'organism_address'    => 'Address',
+        'organism_address1'   => 'Address',
+    	  'organism_address2'   => 'Address',
+    	  'organism_address3'   => 'Address',        
 	    'organism_postalcode' => 'Postalcode',
   	  'organism_city'       => 'City',
     	'organism_country'    => 'Country',
@@ -177,6 +180,12 @@ class OptionCsvForm extends BaseOptionCsvForm
       $options['field'][] = 'address2';
       $options['field'][] = 'address3';
       $options['field'] = self::orderData($options['field']);
+      if ( ($i = array_search('organism_address', $options['field'])) !== false )
+        unset($options['field'][$i]);
+      $options['field'][] = 'organism_address1';
+      $options['field'][] = 'organism_address2';
+      $options['field'][] = 'organism_address3';
+      $options['field'] = self::orderData($options['field']);
     }
 
     return $options;
@@ -199,6 +208,9 @@ class OptionCsvForm extends BaseOptionCsvForm
       {
         $arr = array(
           'organism_address'    => 'address',
+          'organism_address1'   => 'address1',
+          'organism_address2'   => 'address2',
+          'organism_address3'   => 'address3',
           'organism_postalcode' => 'postalcode',
           'organism_city'       => 'city',
           'organism_country'    => 'country',
@@ -206,8 +218,8 @@ class OptionCsvForm extends BaseOptionCsvForm
         );
         foreach ( $arr as $origin => $target )
         {
-          $contact[$target] = $contact[$origin];
-          unset($contact[$origin]);
+            $contact[$target] = $contact[$origin];
+            //unset($contact[$origin]);
         }
       }
 
@@ -231,7 +243,7 @@ class OptionCsvForm extends BaseOptionCsvForm
         $contact['phonename']    = 'Professional';
         $contact['phonenumber']  = $contact['professional_number'];
       }
-      unset($contact['organism_phonename'], $contact['organism_phonenumber'], $contact['professional_number']);
+      //unset($contact['organism_phonename'], $contact['organism_phonenumber'], $contact['professional_number']);
 
       return $contact;
   }

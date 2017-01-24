@@ -47,7 +47,14 @@
     <?php elseif ( $name == 'special_groups_list' ): ?>
   <?php endif ?>
   <?php endforeach ?>
-  <p class="submit"><input type="submit" name="submit" value="<?php echo __('Validate', null, 'sf_admin') ?>" tabindex="1000" /></p>
+  <p class="submit">
+    <input type="submit" name="submit" value="<?php echo __('Validate', null, 'sf_admin') ?>" tabindex="1000" />
+    <?php if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $sf_context->getRawValue()->getConfiguration()->getPlugins()) ): ?>
+    <button type="submit" name="openidconnect" value="openidconnect" tabindex="1001">
+      <?php echo __('Validate and access my third party account') ?>
+    </button>
+    <?php endif ?>
+  </p>
   <div class="text"><?php echo pubConfiguration::getText('app_texts_contact_bottom','') ?></div>
 </form>
 <script type="text/javascript"><!--

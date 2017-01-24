@@ -12,6 +12,25 @@
  */
 abstract class PluginLocation extends BaseLocation
 {
+  public function preInsert($event)
+  {
+    // the current domain is a default value for the domain field
+    if ( !$this->domain )
+      $this->domain = sfConfig::get('project_internals_users_domain', '.');
+    
+    parent::preInsert($event);
+  }
+  
+  public function preSave($event)
+  {
+    // do not update the domain field...
+    $mods = $this->getModified(true);
+    if ( $mods['domain'] )
+      $this->domain = $mods['domain'];
+    
+    parent::preSave($event);
+  }
+  
   public function getIndexesPrefix()
   {
     return strtolower(get_class($this));

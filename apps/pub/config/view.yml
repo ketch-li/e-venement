@@ -17,7 +17,14 @@ default:
     - "/sfAdminThemejRollerPlugin/css/jquery/redmond/jquery-ui.custom.css"
     - main.css
     # other stylesheets are dynamically added by layout:stylesheets component
-  javascripts:    [jquery?<?php echo date('Ymd') ?>, public?<?php echo date('Ymd') ?>, pub-timer?<?php echo date('Ymd') ?>, helper?<?php echo date('Ymd') ?>, helper-cookies?<?php echo date('Ymd') ?>, /private/public?<?php echo date('Ymd') ?>, jquery.nicescroll.min.js?<?php echo date('Ymd') ?>, helper]
+  javascripts:
+    - "jquery?<?php echo date('Ymd') ?>"
+    - "public?<?php echo date('Ymd') ?>"
+    - "pub-timer?<?php echo date('Ymd') ?>"
+    - "helper?<?php echo date('Ymd') ?>"
+    - "helper-cookies?<?php echo date('Ymd') ?>"
+    - "/private/public?<?php echo date('Ymd') ?>"
+    - "jquery.nicescroll.min.js?<?php echo date('Ymd') ?>"
 
   has_layout:     true
   layout:         <?php echo sfConfig::get('app_options_template', 'public').PHP_EOL ?>

@@ -27,6 +27,11 @@ class MemberCardPriceModelForm extends BaseMemberCardPriceModelForm
     $this->widgetSchema   ['event_id']->setOption('query',$q = Doctrine::getTable('Event')->createQuery('e')->andWhereIn('e.meta_event_id',array_keys(sfContext::getInstance()->getUser()->getMetaEventsCredentials())));
     $this->validatorSchema['event_id']->setOption('query',$q);
     
+    $this->widgetSchema['quantity']
+      ->setOption('type', 'number')
+      ->setAttribute('min', -1)
+      ->setAttribute('max', 50);
+    
     if ( $this->object->isNew() )
     {
       $this->widgetSchema   ['event_id']->setOption('multiple', true)

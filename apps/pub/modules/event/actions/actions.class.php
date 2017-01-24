@@ -2,6 +2,7 @@
 
 require_once dirname(__FILE__).'/../lib/eventGeneratorConfiguration.class.php';
 require_once dirname(__FILE__).'/../lib/eventGeneratorHelper.class.php';
+require_once __DIR__.'/actionEvent.trait.php';
 
 /**
  * event actions.
@@ -13,6 +14,7 @@ require_once dirname(__FILE__).'/../lib/eventGeneratorHelper.class.php';
  */
 class eventActions extends autoEventActions
 {
+  use actionEvent;
   public function preExecute()
   {
     $this->dispatcher->notify(new sfEvent($this, 'pub.pre_execute', array('configuration' => $this->configuration)));
@@ -37,19 +39,19 @@ class eventActions extends autoEventActions
     }
     
     // if there is only one event...
-    if ( $this->pager->getQuery()->count() == 1 )
+    if ( $this->pager->getQuery()->count() == 1 && !$request->hasParameter('debug') )
     {
       foreach ( array('success', 'notice', 'error') as $type )
       if ( $this->getUser()->getFlash($type) )
         $this->getUser()->setFlash($type, $this->getUser()->getFlash($type));
+      
       $this->getUser()->getAttributeHolder()->remove('manifestation.filters');
       $this->getUser()->setAttribute('manifestation.filters', array('event_id' => $this->pager->getCurrent()->id), 'admin_module');
       $this->setFilters(array());
       $this->redirect('manifestation/index?id='.$this->pager->getCurrent()->id);
-    }else
-    {
-      $this->setFilters(array());
     }
+    else
+      $this->setFilters(array());
   }
   public function executeEdit(sfWebRequest $request)
   {

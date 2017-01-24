@@ -4,27 +4,27 @@
   <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2011-01-14T01:30:27Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit>
+      <trans-unit id="1">
         <source>Total: </source>
         <target>Total: </target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="2">
         <source>Seats: </source>
         <target>Placées: </target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="3">
         <source>Free: </source>
         <target>Libres: </target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="4">
         <source>Demands: </source>
         <target>Demandes: </target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="5">
         <source>Orders: </source>
         <target>Réservations: </target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="6">
         <source>Sells: </source>
         <target>Ventes: </target>
       </trans-unit>

@@ -24,8 +24,15 @@
   <?php if ( $sf_user->hasCredential(array('pos-product-category', 'pos-product-price'), false) ): ?>
           <li class="menu-setup-pos"><a><?php echo __('Store',array(),'menu') ?></a>
             <ul class="third">
+              <?php if ( $sf_user->hasCredential('pos-product-category') ): ?>
               <li><a href="<?php echo cross_app_url_for('pos','category/index') ?>"><?php echo __('Categories',array(),'menu') ?></a></li>
+              <?php endif ?>
+              <?php if ( $sf_user->hasCredential('pos-product-price') ): ?>
               <li><a href="<?php echo cross_app_url_for('pos','price/index') ?>"><?php echo __('Available prices',array(),'menu') ?></a></li>
+              <?php endif ?>
+              <?php if ( $sf_user->hasCredential('pos-admin-color') ): ?>
+              <li><a href="<?php echo cross_app_url_for('event','color') ?>"><?php echo __('Colors',array(),'menu') ?><$
+              <?php endif ?>
             </ul>
           </li>
   <?php endif ?>

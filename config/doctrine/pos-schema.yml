@@ -19,6 +19,14 @@
 #    Copyright (c) 2006-2015 Libre Informatique [http://www.libre-informatique.fr/]
 # 
 #**********************************************************************************/
+ColorProductCategory:
+  package: pos
+  inheritance:
+    extends: Color
+    type: column_aggregation
+    keyField: target
+    keyValue: 'product_category'
+
 ProductCategory:
   package: pos
   actAs:
@@ -53,6 +61,8 @@ ProductCategory:
       onDelete: CASCADE
       onUpdate: CASCADE
     Color:
+      class: ColorProductCategory
+      local: color_id
       foreignAlias: ProductCategories
       onDelete: SET NULL
       onUpdate: CASCADE

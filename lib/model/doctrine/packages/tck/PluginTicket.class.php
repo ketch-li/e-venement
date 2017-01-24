@@ -321,12 +321,10 @@ abstract class PluginTicket extends BaseTicket
     
     // only for normal tickets w/ member cards
     if ( $this->price_id && is_object($this->Price) && $this->Price->member_card_linked
-    && ( isset($mods['printed_at']) || isset($mods['integrated_at']) )
-    && ( $this->printed_at || $this->integrated_at )
+      && ( isset($mods['printed_at']) || isset($mods['integrated_at']) )
+      && ( $this->printed_at || $this->integrated_at )
     )
-    {
       $this->linkToMemberCard();
-    }
     
     parent::preUpdate($event);
   }
@@ -347,25 +345,46 @@ abstract class PluginTicket extends BaseTicket
       ->andWhere('mc.contact_id IS NOT NULL AND t.id = ? OR mc.transaction_id = ?',array($this->transaction_id, $this->transaction_id))
       ->leftJoin('mc.MemberCardPrices mcp')
       ->leftJoin('mcp.Event e')
-      ->leftJoin('e.Manifestations m')
       ->andWhere('mc.created_at <= ?',date('Y-m-d H:i:s'))
       ->andWhere('mc.expire_at >  ?',date('Y-m-d H:i:s'))
       ->andWhere('mc.active = ? OR mc.transaction_id = ?', array(true, $this->transaction_id))
-      ->andWhere('mcp.price_id = ?',$this->price_id)
       ->orderBy('mcp.event_id IS NULL, mc.expire_at');
     if ( $this->manifestation_id )
-      $q->andWhere('(mcp.event_id IS NULL OR m.id = ?)',$this->manifestation_id);
+      $q->leftJoin('e.Manifestations m WITH m.id = ?', $this->manifestation_id);
     elseif ( $this->gauge_id )
-      $q->leftJoin('m.Gauges g')
-        ->andWhere('(mcp.event_id IS NULL OR g.id = ?)',$this->gauge_id);
-    $card = $q->fetchOne();
+      $q->leftJoin('e.Manifestations m')
+        ->leftJoin('m.Gauges g WITH g.id = ?', $this->gauge_id);
+    $cards = $q->execute();
     
-    if ( $card && $card->MemberCardPrices->count() > 0 )
+    foreach ( $cards as $card )
+    foreach ( $card->MemberCardPrices as $i => $mcp )
     {
-      $card->MemberCardPrices[0]->delete();
-      $this->member_card_id = $card->id;
+      if ( $mcp->price_id != $this->price_id )
+        continue;
+      
+      if ( $this->manifestation_id && $mcp->Event->Manifestations->count() > 0
+          && $mcp->Event->Manifestations[0]->id == $this->manifestation_id
+        || $this->gauge_id && $mcp->Event->Manifestations->count() > 0 && $mcp->Event->Manifestations[0]->Gauges->count() > 0
+          && $mcp->Event->Manifestations[0]->Gauges[0]->id == $this->gauge_id
+      )
+      {
+        unset($card->MemberCardPrices[$i]);
+        $this->member_card_id = $card->id;
+        $card->save();
+        break(2);
+      }
+      
+      // event agnostic MemberCardPrice
+      if ( !$mcp->event_id )
+      {
+        unset($card->MemberCardPrices[$i]);
+        $this->member_card_id = $card->id;
+        $card->save();
+        break(2);
+      }
     }
-    else
+    
+    if ( !$this->member_card_id )
     {
       $this->printed_at = NULL;
       throw new liMemberCardException("No more ticket left on the contact's member card");

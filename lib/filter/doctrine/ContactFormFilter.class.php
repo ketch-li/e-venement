@@ -73,6 +73,14 @@ class ContactFormFilter extends BaseContactFormFilter
       'required' => false,
     ));
     
+    // Duplication names
+    $this->widgetSchema['duplicates'] = new sfWidgetFormInputCheckbox(array(
+      'value_attribute_value' => 1,
+    ));
+    $this->validatorSchema['duplicates'] = new sfValidatorBoolean(array(
+      'true_values' => array('1'),
+    ));
+    
     $this->widgetSchema   ['groups_intersection'] = new sfWidgetFormInputCheckbox(array(
       'value_attribute_value' => 1,
     ));
@@ -110,6 +118,9 @@ class ContactFormFilter extends BaseContactFormFilter
     // no newsletter ?
     $this->widgetSchema   ['email_newsletter'] = $this->widgetSchema   ['npai'];
     $this->validatorSchema['email_newsletter'] = $this->validatorSchema['npai'];
+    
+    $this->widgetSchema   ['mailing'] = $this->widgetSchema   ['npai'];
+    $this->validatorSchema['mailing'] = $this->validatorSchema['npai'];    
     
     // organism
     $this->widgetSchema   ['organism_id'] = new liWidgetFormDoctrineJQueryAutocompleter(array(
@@ -507,6 +518,27 @@ EOF;
        }     
        return $q;      
     }
+      
+  public function addDuplicatesColumnQuery(Doctrine_Query $q, $field, $value) {
+      $a = $q->getRootAlias();
+
+      if ($value) {          
+          $sq = new Doctrine_RawSql();
+          $sq->Select('{dup.id}')
+            ->from('Contact dup')
+            ->Where("Exists (SELECT cd.id, cd.firstname, cd.name FROM contact cd WHERE cd.confirmed = true AND cd.id <> dup.id AND lower(cd.firstname) = lower(dup.firstname) AND lower(cd.name) = lower(dup.name))")
+            ->addComponent('dup', 'contact')
+            ->addComponent('cd', 'contact');
+          $ids = $sq->execute()->toArray();
+
+          $params = array();
+          foreach ($ids as $key => $value)
+              $params[] = $value['id'];
+          $q->andWhereIn("$a.id", $params);          
+      }
+      
+      return $q;
+  }
       
   
   public function addAzColumnQuery(Doctrine_Query $q, $field, $value)
@@ -1021,6 +1053,17 @@ EOF;
       $value ? true : false,
     ));
   }
+  public function addMailingColumnQuery(Doctrine_Query $q, $field, $value)
+  {
+    if ( $value === '' )
+      return $q;
+      
+    $a = $q->getRootAlias();
+    if ( $value )
+      return $q->addWhere("$a.no_mailing = FALSE");
+    else
+      return $q->addWhere("$a.no_mailing = TRUE");
+  }  
   public function addEmailColumnQuery(Doctrine_Query $q, $field, $values)
   {
     $a = $q->getRootAlias();

@@ -71,6 +71,10 @@ Addressable:
       type: boolean
       notnull: true
       default: false
+    no_mailing:
+      type: boolean
+      notnull: true
+      default: false
     vcard_uid:
       type: string(255)
       unique: true
@@ -352,3 +356,21 @@ Domain:
       foreignAlias: Domain
       onDelete: CASCADE
       onUpdate: CASCADE
+
+Color:
+  package: generic
+  actAs: [Timestampable]
+  columns:
+    name:
+      type:     string(255)
+      notnull:  true
+      notblank: true
+    color:
+      type:     string(255)
+      notnull:  true
+      notblank: true
+    target:
+      type:     string(255)
+      notnull:  true
+      notblank: true
+      default:  'manifestation'

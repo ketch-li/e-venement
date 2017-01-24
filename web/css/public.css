@@ -457,13 +457,13 @@ tfoot, thead { font-weight: bold; }
 /* Member Cards */
 .mc_pending { text-align: center; }
 .mod-manifestation #promo-code { position: absolute; margin-top: -3em; width: 100%; text-align: center; }
-.mod-event.action-index #promo-code { position: absolute; top: 22px; text-align: center; width: 100%; z-index: -1; }
-.mod-event.action-index #promo-code label { display: inline; float: none; }
+.mod-visit.action-index #promo-code, .mod-event.action-index #promo-code { position: absolute; top: 22px; text-align: center; width: 100%; z-index: -1; }
+.mod-visit.action-index #promo-code label, .mod-event.action-index #promo-code label { display: inline; float: none; }
 @media screen and (max-width: 1250px) {
-.mod-event.action-index #promo-code { position: static; top: auto; margin-top: -45px; margin-bottom: 25px; }
+.mod-visit.action-index #promo-code, .mod-event.action-index #promo-code { position: static; top: auto; margin-top: -45px; margin-bottom: 25px; }
 }
 @media screen and (max-width: 920px) {
-.mod-event.action-index #promo-code { margin-top: 0; margin-bottom: 0; text-align: left; }
+.mod-visit.action-index #promo-code, .mod-event.action-index #promo-code { margin-top: 0; margin-bottom: 0; text-align: left; }
 .mod-manifestation #promo-code { position: static; margin-top: 0; margin-left: 2em; text-align: left; }
 }
 

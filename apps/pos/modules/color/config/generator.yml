@@ -1,0 +1,30 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           ColorProductCategory
+    theme:                 jroller
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          color
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+        list_color: { label: Color }
+      list:
+        display: [name, _list_color]
+        object_actions:
+          _delete: ~
+          _edit: ~
+      filter:
+        display: [name, color]
+      form:
+        display: [name, color, _show_color]
+      edit:
+        title: Edit Color "%%name%%" for product categories
+      new:     ~
+      show:    ~

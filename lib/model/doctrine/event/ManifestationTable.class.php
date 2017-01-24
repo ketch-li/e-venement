@@ -41,7 +41,8 @@ class ManifestationTable extends PluginManifestationTable
       $q = $this->createQuery('m');
     return $q
       ->removeDqlQueryPart('orderby')
-      ->andWhere('e.museum = ?', $museum);
+      ->andWhere('e.museum = ?', $museum)
+    ;
   }
   public function retrieveMuseumList($q)
   {
@@ -265,7 +266,8 @@ class ManifestationTable extends PluginManifestationTable
   
   public function retrievePublicList()
   {
-    return $this->retrieveList()
+    return $this->createQuery('m')
+      ->removeDqlQueryPart('orderby')
       ->andWhere('g.online = ?', true)
       ->andWhere('m.happens_at > NOW()')
       ->andWhere('e.display_by_default = ?', true)

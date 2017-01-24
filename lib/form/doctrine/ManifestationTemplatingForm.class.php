@@ -125,7 +125,7 @@ class ManifestationTemplatingForm extends BaseFormDoctrine
       {
          $q = new Doctrine_Query();
          $q->from('PriceGauge gp')
-           ->andWhere('gp.gauge_id', $manif->Gauges->getPrimaryKeys())
+           ->andWhereIn('gp.gauge_id', $manif->Gauges->getPrimaryKeys())
            ->delete()
            ->execute();
 

@@ -91,7 +91,7 @@ price_manifestation:
 color:
   class: sfDoctrineRouteCollection
   options:
-    model:                Color
+    model:                ColorManifestation
     module:               color
     prefix_path:          /color
     column:               id

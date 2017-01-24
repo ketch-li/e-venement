@@ -97,7 +97,7 @@ $(document).ready(function(){
   <?php endif ?>
   <td class="mod"><?php if ( $current_transaction ): ?>
     <?php echo link_to(__('modify'),'card/index') ?>
-    <?php echo link_to(__('delete'),'card/del?mct_id='.$mc->id) ?>
+    <?php echo link_to(__('delete'),'card/del?id='.$mc->id) ?>
   <?php endif ?></td>
 </tr>
 <?php endforeach ?>
@@ -204,12 +204,12 @@ $(document).ready(function(){
       <td></td>
     <?php endif ?>
     <td class="qty"><?php echo $total['qty'] ?></td>
-    <td class="total"><?php echo format_currency($recalculated['total'] - $recalculated['withmc'],$sf_context->getConfiguration()->getCurrency()); ?></td>
+    <td class="total"><?php echo format_currency($total['value'],$sf_context->getConfiguration()->getCurrency()); ?></td>
     <td class="extra-taxes"><?php echo format_currency($total['taxes'],$sf_context->getConfiguration()->getCurrency()); ?></td>
     <?php if ( sfConfig::get('app_options_synthetic_plans', false) && $current_transaction ): ?>
     <td class="linked-stuff"></td>
     <?php endif ?>
-    <td class="total-total"><?php echo format_currency($recalculated['total'] + $total['taxes'],$sf_context->getConfiguration()->getCurrency()); ?></td>
+    <td class="total-total"><?php echo format_currency($recalculated['total'],$sf_context->getConfiguration()->getCurrency()); ?></td>
   </tr>
 </tfoot>
 <thead>

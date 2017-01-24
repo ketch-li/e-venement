@@ -32,11 +32,12 @@ all:
       - Ludovic SOULIÉ
       - Ayoub HIDRI
       - Mick LOEFFEL
+      - Katell CHANTREAU
       - Très Tôt Théâtre
       - Le 3ème étage de l'Opéra de Paris
       - Symfony Team
       - #symfony-fr    
-    version: 2.10.1 Capirinha Kerlagatu
+    version: 2.11-dev Capirinha Kerlagatu
   internals:
     charset:
       old:    ISO-8859-1
