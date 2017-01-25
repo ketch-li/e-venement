@@ -104,7 +104,11 @@ $(document).ready(function(){
             }    
          ?>
     </p>    
-    <p class="logo"></p>
+    <p class="logo">
+    <?php if ( sfConfig::get('app_cards_logo', null) ): ?>
+      <img src="/private/<?php echo sfConfig::get('app_cards_logo', null) ?>" alt="logo">
+    <?php endif ?>    
+    </p>
   </div>
 </div>
 </div>
