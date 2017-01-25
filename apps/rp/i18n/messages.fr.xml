@@ -2064,6 +2064,10 @@
         <source>No mailing</source>
         <target>Pas de courrier postal</target>
       </trans-unit>      
+      <trans-unit id="516">
+        <source>No receiver address specififed</source>
+        <target>Aucun destinataire renseigné</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>
