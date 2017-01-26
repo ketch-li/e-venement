@@ -126,6 +126,7 @@ Organism:
     organism_category_id: integer
     administrative_number: string(255)
     professional_id: integer
+    siret: string(128)
   relations:
     Category:
       class: OrganismCategory
