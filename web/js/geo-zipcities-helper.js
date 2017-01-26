@@ -39,8 +39,10 @@
                     .find('option:first-child').attr('selected',true);
                 });
                 $('.field.cities select option, .sf_admin_form_field_cities select option').click(function(){
-                  $('.field.postalcode input, .sf_admin_form_field_postalcode input, .tdp-postalcode input').val($.trim($(this).val().replace(/.+ %%(\d+)%%$/,'$1')));
-                  $('.field.city input, .sf_admin_form_field_city input, .tdp-city input').val($.trim($(this).val().replace(/ %%\d+%%$/,'')));
+                  if ($(this).val() != '...') {
+                    $('.field.postalcode input, .sf_admin_form_field_postalcode input, .tdp-postalcode input').val($.trim($(this).val().replace(/.+ %%(\d+)%%$/,'$1')));
+                    $('.field.city input, .sf_admin_form_field_city input, .tdp-city input').val($.trim($(this).val().replace(/ %%\d+%%$/,'')));      
+                  }
                 }).parent().change();
                 
                 if ( LI.zipcitiesOnZipLoaded != undefined )
