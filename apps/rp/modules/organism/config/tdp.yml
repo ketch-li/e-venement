@@ -47,12 +47,12 @@ all:
           City:
             extra_class: vertical
             fields: [postalcode, _cities, city, country, _show_region]
-          Direct_Contact:
-            fields: [_form_phonenumbers_list]
           More:
             show_labels: true
             extra_class: tdp-vertical
-            fields: [administrative_number, npai, professional_id, email_npai, email_no_newsletter, no_mailing]
+            fields: [siret, administrative_number, npai, professional_id, email_npai, email_no_newsletter, no_mailing]
+          Direct_Contact:
+            fields: [_form_phonenumbers_list]            
           Correspondence:
             show_title: true
             fields: [description]
@@ -161,6 +161,7 @@ all:
       contact_email_npai: { label: Bad email }
       contact_email_no_newsletter: { label: No newsletter }
       administrative_number: { label: Admin. ID }
+      siret: { label: SIRET }
 
 dev:
   active: true
