@@ -50,6 +50,7 @@ class postalcodeActions extends autoPostalcodeActions
         ->andWhere('postalcode LIKE ?',$request->getParameter('q').'%');
       $postalcodes = $q->execute();
       
+      $this->postalcodes['...'] = '...';      
       foreach ( $postalcodes as $cp )
         $this->postalcodes[$cp->city.' %%'.$cp->postalcode.'%%'] = (string)$cp;
       return 'Success';
