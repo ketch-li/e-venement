@@ -118,7 +118,7 @@ $(document).ready(function(){
     $('.sf_admin_list tbody .sf_admin_list_td_month').each(function(){
       var evt = $(this).closest('.sf_admin_row');
       
-      $(this).find('.month:not(:first)').each(function(){
+      $(this).find('.month').each(function(){
         var nevt = evt.clone().insertAfter(evt);
         var month = evt.find('.month:last').clone().removeClass('month').prop('class');
         
@@ -132,10 +132,7 @@ $(document).ready(function(){
           arr.push(month);
       });
       
-      var month = '.'+evt.find('.month:first').clone().removeClass('month').prop('class');
-      $.each(LI.pub_month_classes, function(i, classname){
-        evt.find(classname+' li:not('+month+')').remove();
-      });
+      evt.remove();
     });
     
     // adding a class depending on current month on every event

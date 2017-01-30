@@ -50,7 +50,7 @@ class userPolicyActions extends sfActions
         $content = $content['file'];
         if ( $content['error'] == 0 ) 
         {            
-            $fname = 'bo:'.$upload;
+            $fname = 'bo_policy.pdf';
             Doctrine::getTable('Picture')->createQuery('f')
               ->delete()
               ->where('f.name = ?', $fname)
@@ -88,7 +88,7 @@ class userPolicyActions extends sfActions
     }
 
     private function getFileUrl() {
-        $file = Doctrine::getTable('Picture')->findOneByName('bo:policy');
+        $file = Doctrine::getTable('Picture')->findOneByName('bo_policy.pdf');
         if($file) {
             return $file->getUrl();
         } else {

@@ -1,7 +1,7 @@
 <?php
   $plans = array();
   foreach ( $manifestation->getRawValue()->Gauges as $gauge )
-  if ( $gauge->online )
+  if ( $gauge->online && $gauge->Workspace->seated )
   {
     $sp = $gauge->seated_plan;
     if (! $sp instanceof SeatedPlan )
@@ -15,6 +15,8 @@
     $plans[$sp->picture_id]['gauges'][] = $gauge;
   }
 ?>
+
+<?php if ( count($plans) > 0 ): ?>
 
 <?php use_stylesheet('/private/event-seated-plan') ?>
 <?php use_javascript('jquery.overscroll.min.js') ?>
@@ -43,3 +45,5 @@
   </div>
 </div>
 <div class="legend"><?php include_partial('show_plans_legend') ?></div>
+
+<?php endif ?>

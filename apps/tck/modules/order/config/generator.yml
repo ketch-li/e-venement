@@ -19,6 +19,7 @@ generator:
         event_name: { label: Name }
         manifestation_happens_at: { label: Date, type: date }
         manifestations_list: { label: Manifestations }
+        contact: { is_real: true }
       list:
         display: [_id,_transaction_id,_closed,_contact,_manifestations,_comment,created_at,User]
         table_method: doSelectIndex
