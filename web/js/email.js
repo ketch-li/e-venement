@@ -87,7 +87,10 @@ $('.attachment-new a').click(function(){
   
   // post data before loading the new URL 
   $.post($('form').prop('action'),$('form').serialize(),function(data){
-    window.location = $(link).prop('href');
+      window.location = $(link).parent().hasClass('attachment-new') == 0
+      ? $(link).prop('href')
+      : $($.parseHTML(data)).find('.attachment-new a').prop('href')
+    ;
   });
   return false;
 });
