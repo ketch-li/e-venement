@@ -153,19 +153,25 @@ class emailActions extends autoEmailActions
     $this->form = $this->configuration->getForm($this->email);
     $this->form->removeAlreadyKnownReceipientsList();
     
-    // not for real (test sending, attachment, content templating...)
-    if ( !(isset($email['test_address']) && $email['test_address'])
-      && !(isset($email['load']) && $email['load']) )
-    {
-      $this->form->getValidator('test_address')->setOption('required',false);
-      if ( !isset($email['attach']) )
-        $this->email->isATest(false);
-      else
-      {
-        unset($email['attach']);
-      }
+    if ( $request->getParameter('email-test-button') && empty($email['test_address']) ) {
+      $this->form->getValidator('test_address')->setOption('required', true);
     }
     
+    if ($request->getParameter('email-send-button')) {
+      $this->email->isATest(false);
+      
+      if ( empty($email['organisms_list']) 
+        && empty($email['contacts_list']) 
+        && empty($email['professionals_list'])
+        && $this->form->getObject()->Contacts->count() == 0 
+        && $this->form->getObject()->Organisms->count() == 0 
+        && $this->form->getObject()->Professionals->count() == 0 ) 
+      {
+        $this->getUser()->setFlash('error',__('No receiver address specififed'));
+        $this->redirect('email/edit?id='.$this->email->id);
+      }      
+    }
+
     // loading templates
     if ( $email['load'] )
     {

@@ -41,9 +41,9 @@ class geo_fr_street_baseActions extends autoGeo_fr_street_baseActions
     $q = Doctrine::getTable('GeoFrStreetBase')->createQuery('sb')
       ->andWhere('sb.zip = ?', $zip)
       ->andWhere('sb.city = ? OR sb.city = ?', array($city, $cityst))
-      ->orderBy('sb.address')
       ->limit($request->getParameter('limit', 30))
-      ->select('sb.address')
+      ->select("sb.address, CAST(Nullif(REGEXP_REPLACE(num, '[^0-9]+', ''), '') AS integer) AS stnum")
+      ->orderBy('stnum, sb.num, sb.address')      
     ;
     foreach ( $address as $elt )
       $q->andWhere(sprintf("TRANSLATE(sb.address, '%s', '%s') ILIKE ?", $transliterate['from'], $transliterate['to']), '%'.$elt.'%');

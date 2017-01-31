@@ -2104,6 +2104,14 @@
         <source>Force postal code</source>
         <target>Imposer la saisie du code postal.</target>
       </trans-unit>        
+      <trans-unit id="525">
+        <source>Excluded users</source>
+        <target>Utilisateurs exclus</target>
+      </trans-unit>        
+      <trans-unit id="526">
+        <source>Linked to the transaction</source>
+        <target>Lié à l'opération</target>
+      </trans-unit>        
     </body>
   </file>
 </xliff>
