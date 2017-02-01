@@ -1,4 +1,4 @@
-<?php if ( !$sf_user->hasCredential('pos-product-stats') ) return ?>
+cd /var/w<?php if ( !$sf_user->hasCredential('pos-product-stats') ) return ?>
 
 <?php use_javascript('pos-stocks') ?>
 
@@ -16,9 +16,9 @@
   // Scroll to declination (when coming from the quick search)
   $(document).ready(function(){
     if ( location.hash == '#sf_fieldset_declinations' ) {
-      var searchParams = new URLSearchParams(location.search);
-      var code = searchParams.get('scrolltocode');
+      var code = location.search.match(/scrolltocode=([a-zA-Z0-9]+)/);
       if ( code !== null ) {
+        code = code[1];
         var nbTextareas = $('textarea').filter(function(){
           return this.id.match(/^product_declinations_\d+_[a-z]+_description/);
         }).length;
@@ -40,6 +40,10 @@
 
         }
       }
+    }
+
+    function getScrolltocode() {
+
     }
   });
 
