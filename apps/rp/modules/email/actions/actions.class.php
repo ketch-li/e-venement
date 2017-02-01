@@ -152,11 +152,7 @@ class emailActions extends autoEmailActions
     $this->email = $this->getRoute()->getObject();
     $this->form = $this->configuration->getForm($this->email);
     $this->form->removeAlreadyKnownReceipientsList();
-    
-    if ( $request->getParameter('email-test-button') && empty($email['test_address']) ) {
-      $this->form->getValidator('test_address')->setOption('required', true);
-    }
-    
+        
     if ($request->getParameter('email-send-button')) {
       $this->email->isATest(false);
       
@@ -171,18 +167,6 @@ class emailActions extends autoEmailActions
         $this->redirect('email/edit?id='.$this->email->id);
       }      
     }
-
-    // loading templates
-    if ( $email['load'] )
-    {
-      $email['content'] = file_get_contents($email['load']);
-      unset($email['load'],$email['test_address']);
-      $request->setParameter('email',$email);
-    }
-    
-    // mailer
-    $this->email->setMailer($this->getMailer());
-    $this->email->test_address = $email['test_address'];
     
     if ( $this->email->sent )
     {
@@ -190,20 +174,7 @@ class emailActions extends autoEmailActions
       $this->redirect(url_for('email/show?id='.$this->email->id));
     }
     
-    $request->setParameter('email', $email);
-    try {
-      $this->processForm($request, $this->form);
-    }
-    catch(Swift_TransportException $e)
-    {
-      $this->getUser()->setFlash('error','An error occured sending the email (smtp unreachable)');
-      $this->redirect('email/edit?id='.$this->email->id);
-    }
-    catch(Swift_RfcComplianceException $e)
-    {
-      $this->getUser()->setFlash('error','An error occured sending the email ('.$e->getMessage().')');
-      $this->redirect('email/edit?id='.$this->email->id);
-    }
+    $this->saveEmail($request);
     
     $this->setTemplate('edit');
   }
@@ -217,16 +188,7 @@ class emailActions extends autoEmailActions
     if ( $this->getUser() instanceof sfGuardSecurityUser )
       $this->email->sf_guard_user_id = $this->getUser()->getId();
     
-    // loading templates
-    $email = $request->getParameter('email');
-    if ( $email['load'] )
-    {
-      $email['content'] = file_get_contents($email['load']);
-      unset($email['load'],$email['test_address']);
-      $request->setParameter('email',$email);
-    }
-    
-    $this->processForm($request, $this->form);
+    $this->saveEmail($request);
     
     $this->setTemplate('new');
   }
@@ -317,5 +279,40 @@ class emailActions extends autoEmailActions
     $this->form->removeAlreadyKnownReceipientsList();
     
     return $r;
+  }
+  
+  protected function saveEmail(sfWebRequest $request) {
+    
+    $email = $request->getParameter('email');
+    
+    if ( $request->getParameter('email-test-button') && empty($email['test_address']) ) {
+      $this->form->getValidator('test_address')->setOption('required', true);
+    }
+    
+    // loading templates    
+    if ( $email['load'] )
+    {
+      $email['content'] = file_get_contents($email['load']);
+      unset($email['load'],$email['test_address']);
+    }
+    
+    $this->email->setMailer($this->getMailer());
+    $this->email->test_address = $email['test_address'];
+    
+    $request->setParameter('email', $email);
+    try {
+      $this->processForm($request, $this->form);
+    }
+    catch(Swift_TransportException $e)
+    {
+      $this->getUser()->setFlash('error','An error occured sending the email (smtp unreachable)');
+      $this->redirect('email/edit?id='.$this->email->id);
+    }
+    catch(Swift_RfcComplianceException $e)
+    {
+      $this->getUser()->setFlash('error','An error occured sending the email ('.$e->getMessage().')');
+      $this->redirect('email/edit?id='.$this->email->id);
+    }
+    
   }
 }
