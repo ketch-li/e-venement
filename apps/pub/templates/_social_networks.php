@@ -11,9 +11,9 @@
     <a href="#" title="<?php echo __('Share this on %network%', array('%network%'=>'Google+')) ?>"></a>
     <span class="googleplus-count"></span>
   </li>
-</li>
+</ul>
 
-<script>
+<script type="text/javascript">
 $(document).ready(function(){
   var social_networks = <?php echo json_encode(sfConfig::get('app_social_media_networks', array()))  ?>;
   var url = window.location.href;

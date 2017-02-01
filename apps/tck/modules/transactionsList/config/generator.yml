@@ -43,9 +43,9 @@ generator:
         max_per_page: 50
       filter:
         display:
-          Internals:
+          Transaction:
             [closed, created_at, created_by, updated_at, sf_guard_user_id, transaction_id]
-          Externals:
+          Linked to the transaction:
             [contact_id, organism_id, manifestation_id, hold_id, state]
       form:    ~
       edit:    ~

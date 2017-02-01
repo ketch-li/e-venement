@@ -33,7 +33,7 @@
             if ( event.target.activeEditor.id.match(/^product_declinations_\d+_[a-z]+_description/) ) {
               nbTinyMCE += 1;
               if ( nbTinyMCE == nbTextareas ) {
-                setTimeout(function(){ $("html, body").animate({ scrollTop: $scrollElement.offset().top - 100 }, 'fast') }, 100);
+                setTimeout(function(){ $("html, body").animate({ scrollTop: $scrollElement.offset().top - 100 }, 'fast') }, 1000);
               }
             }
           }, true );

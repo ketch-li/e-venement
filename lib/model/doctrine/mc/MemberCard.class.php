@@ -64,6 +64,19 @@ class MemberCard extends PluginMemberCard
     return $this->value = $rec['value'] ? $rec['value'] : 0;
   }
   
+  /**
+   * @function that allows manipulating for fake the MemberCard value for local tests and checks
+   *
+   * @param $value    integer representing a new value
+   * @returns $this
+   *
+   **/
+  public function setValue($value)
+  {
+    $this->value = $value;
+    return $this;
+  }
+  
   public function delete(Doctrine_Connection $con = NULL)
   {
     if ( $this->Payments->count() == 0 )
