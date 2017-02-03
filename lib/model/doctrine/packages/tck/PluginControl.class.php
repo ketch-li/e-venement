@@ -30,7 +30,7 @@ abstract class PluginControl extends BaseControl
     if ( !in_array('id', $field) && !$this->force_ticket_id )
     {
       if ( !in_array('othercode', $field) && intval($this->ticket_id).'' === ''.$this->ticket_id )
-        $field = 'id';
+        $field = array('id');
       
       $past = sfConfig::get('app_control_past') ? sfConfig::get('app_control_past') : '6 hours';
       $future = sfConfig::get('app_control_future') ? sfConfig::get('app_control_future') : '1 day';
