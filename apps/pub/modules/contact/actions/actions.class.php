@@ -139,12 +139,25 @@ class contactActions extends sfActions
       ->andWhere('t.id = ? OR mc.active = ?', array($this->getUser()->getTransactionId(), true))
       ->andWhere('mc.contact_id = ?',$this->getUser()->getContact()->id)
       ->leftJoin('mc.MemberCardType mct')
-      ->leftJoin('mc.MemberCardPrices mcps')
-      ->leftJoin('mcps.Event e')
-      ->leftJoin('mcps.Price p')
       ->orderBy("mc.expire_at DESC, mc.created_at, mct.name")
-      ->execute();
+      ->execute();      
+    
+    $this->active_member_cards = array();
+    $this->used_member_cards = array();
+    
+    foreach ($this->member_cards as $mc) {
+        if ( strtotime($mc->expire_at) > strtotime('now') && $mc->active ) {
+            $this->active_member_cards[] = $mc;
+        } else {
+            $this->used_member_cards[] = $mc;
+        }
+    }
     
     $this->contact = $this->getUser()->getContact();
+  }  
+  
+  public function executeAjax(sfWebRequest $request) {
+    $this->mc = Doctrine::getTable('MemberCard')->find(intval($request->getParameter('membercard_id')));
+    return 'Success';    
   }
 }

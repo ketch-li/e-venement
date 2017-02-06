@@ -386,9 +386,14 @@ body.mod-manifestation.action-show .manifestation_bottom .social-description {
 
 /* Admin list */
 #sf_admin_content .sf_admin_list {
+  /*
+  table tbody tr.odd td {
+      background-color: lightgray;
+  }*/
   /* Pagination */ }
   #sf_admin_content .sf_admin_list table {
-    margin-bottom: 25px; }
+    border-collapse: separate;
+    border-spacing: 0 5px; }
   #sf_admin_content .sf_admin_list thead {
     display: none; }
   #sf_admin_content .sf_admin_list tr, #sf_admin_content .sf_admin_list td {
@@ -402,7 +407,8 @@ body.mod-manifestation.action-show .manifestation_bottom .social-description {
     background-color: white;
     border-radius: 3px;
     margin: 25px 0;
-    clear: both; }
+    clear: both;
+    padding: 2px; }
   #sf_admin_content .sf_admin_list td {
     display: none;
     background-color: white;
@@ -424,6 +430,12 @@ body.mod-manifestation.action-show .manifestation_bottom .social-description {
         text-transform: uppercase;
         color: white;
         background-color: #96bd67; }
+  #sf_admin_content .sf_admin_list td table td {
+    background-color: lightgray; }
+  #sf_admin_content .sf_admin_list td table tfoot td {
+    background-color: white; }
+  #sf_admin_content .sf_admin_list .pagination {
+    text-align: center; }
   #sf_admin_content .sf_admin_list tfoot tr {
     background-color: transparent;
     border-width: 0; }
