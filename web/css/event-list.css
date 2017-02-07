@@ -17,7 +17,7 @@
 .sf_admin_list .sf_admin_action_add_manif a.ui-state-active { background-image: url('../sfAdminThemejRollerPlugin/css/jquery/redmond/images/ui-icons_f9bd01_256x240.png') }
 
 #sf_admin_filter .sf_admin_date span { display: block; }
-#sf_admin_filter .sf_admin_date td + td { text-align: right; padding-right: 80px; }
+#sf_admin_filter .sf_admin_date td + td { text-align: left; }
 
 @media screen and (max-width: 1200px){
   .sf_admin_list_th_list_best_seats, .sf_admin_list_td_list_best_seats { display: none; }
