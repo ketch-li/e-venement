@@ -130,6 +130,8 @@ class ContactPublicForm extends ContactForm
       );
       if ( sfConfig::get('app_contact_newsletter', true) )
         $fields[] = 'newsletter';
+      if (pubConfiguration::getText('app_texts_terms_conditions'))
+        $fields[] = 'terms_conditions';
       $this->widgetSchema->setPositions($fields);
     
       if ( sfConfig::get('app_contact_modify_coordinates_first', false) )
