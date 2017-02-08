@@ -77,7 +77,7 @@ class gaugeActions extends autoGaugeActions
         ->andWhere('cp.type = ?', 'entrance')
         ->leftJoin('cp.Event e')
         ->leftJoin('e.Manifestations m')
-        ->leftJoin('m.Gauges g')
+        ->leftJoin('tck.Gauge g')
         ->andWhereIn('g.id', $ids)
         ->count();
       $exits = Doctrine::getTable('Ticket')->createQuery('tck')
@@ -86,7 +86,7 @@ class gaugeActions extends autoGaugeActions
         ->andWhere('cp.type = ?', 'exit')
         ->leftJoin('cp.Event e')
         ->leftJoin('e.Manifestations m')
-        ->leftJoin('m.Gauges g')
+        ->leftJoin('tck.Gauge g')
         ->andWhereIn('g.id', $ids)
         ->count();
       
