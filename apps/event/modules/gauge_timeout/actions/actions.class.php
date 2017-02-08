@@ -53,18 +53,14 @@ class gauge_timeoutActions extends sfActions
     
     // find out every checkpoint which has no exit sibling
     $q = Doctrine::getTable('Control')->createQuery('c')
-      ->leftJoin('c.Checkpoint cp')
-      ->andWhere('cp.type = ?', 'entrance')
-      
-      ->leftJoin('cp.Event e')
-      ->select('c.*, cp.*, e.*')
-      
+      ->leftJoin('c.Checkpoint cp WITH cp.type = ?', 'entrance')
+      ->leftJoin('cp.Event e')      
       ->leftJoin('c.Ticket tck')
       ->leftJoin('tck.Controls c2 WITH c2.id != c.id')
-      ->leftJoin('c2.Checkpoint cp2 WITH cp2.type = ?', 'exit')
-      
-      ->andWhere('cp2.id IS NULL AND c2.checkpoint_id = cp2.id')
+      ->leftJoin('c2.Checkpoint cp2 WITH cp2.type = ?', 'exit')      
+      ->andWhere('c2.id IS NULL')
       ->andWhere('c.created_at < ?', $since)
+      ->select('c.*, cp.*, e.*')
     ;
     
     foreach ( $q->execute() as $control )
