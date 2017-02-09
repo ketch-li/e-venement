@@ -4,7 +4,7 @@
   </div>
   <ul>
     <?php foreach ( sfConfig::get('app_email_codes') as $id => $rpcode ): ?>
-    <li><?php echo preg_replace('/(%.*%)(.*)/', '<strong>$1</strong>$2', $rpcode) ?></li>
+    <li><?php echo preg_replace('/(%.*%)(.*)/', '<strong>$1</strong>$2', __($rpcode)) ?></li>
     <?php endforeach ?>
   </ul>
 </div>
