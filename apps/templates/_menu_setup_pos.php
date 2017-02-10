@@ -31,7 +31,7 @@
               <li><a href="<?php echo cross_app_url_for('pos','price/index') ?>"><?php echo __('Available prices',array(),'menu') ?></a></li>
               <?php endif ?>
               <?php if ( $sf_user->hasCredential('pos-admin-color') ): ?>
-              <li><a href="<?php echo cross_app_url_for('event','color') ?>"><?php echo __('Colors',array(),'menu') ?><$
+              <li><a href="<?php echo cross_app_url_for('event','color') ?>"><?php echo __('Colors',array(),'menu') ?></a></li>
               <?php endif ?>
             </ul>
           </li>
