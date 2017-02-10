@@ -30,6 +30,7 @@ for dir in /var/www/*; do
     echo $dir
     touch $LOCKFILE
     ./symfony e-venement:garbage-collector event &
+    ./symfony e-venement:garbage-collector museum
     ./symfony e-venement:garbage-collector tck
     ./symfony e-venement:garbage-collector pub
     ./symfony e-venement:garbage-collector pos
