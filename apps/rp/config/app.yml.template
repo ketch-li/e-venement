@@ -30,15 +30,16 @@ all:
     #force_fields: [postalcode, city]
   email: 
     codes: 
-      - '%FIRSTNAME% : contact first name'
-      - '%NAME% : contact last name'
-      - '%ADDRESS% : contact address'
-      - '%POSTALCODE% : contact zip code'
-      - '%CITY% : contact city'
-      - '%COUNTRY% : contact country'
-      - '%FUNCTION% : contact function in the organism'
-      - '%ORGANISM% : organism name'
-      - '%EMAILADDRESS% : contact email'    
+      - '%%TITLE%% : contact title'
+      - '%%FIRSTNAME%% : contact first name'
+      - '%%NAME%% : contact last name'
+      - '%%ADDRESS%% : contact address'
+      - '%%POSTALCODE%% : contact zip code'
+      - '%%CITY%% : contact city'
+      - '%%COUNTRY%% : contact country'
+      - '%%FUNCTION%% : contact function in the organism'
+      - '%%ORGANISM%% : organism name'
+      - '%%EMAILADDRESS%% : contact email'    
   #controls:
   #  enable: true
   cards:
