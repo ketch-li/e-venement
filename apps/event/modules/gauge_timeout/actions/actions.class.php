@@ -83,6 +83,7 @@ class gauge_timeoutActions extends sfActions
         $checkpoint->name = __('Timeout');
         $checkpoint->description = __('This exit checkpoint has been created automatically after gauge timeout.');
         $checkpoint->save();
+        $control->Checkpoint->Event->Checkpoints->Add($checkpoint);
       }
       
       $c = new Control;
