@@ -24,9 +24,9 @@ class InvoiceFormFilter extends BaseInvoiceFormFilter
     ));
     
     $this->widgetSchema['created_at'] = new sfWidgetFormDateRange(array(
-      'from_date' => new liWidgetFormDateText(),
-      'to_date'   => new liWidgetFormDateText(),
-      'template'  => __('<span class="dates"><span>from %from_date%</span> <span>to %to_date%</span></span>'),
+      'from_date' => new liWidgetFormJQueryDateText(array('culture' => 'fr')),
+      'to_date'   => new liWidgetFormJQueryDateText(array('culture' => 'fr')),
+      'template'  => __('<span class="dates"><span>from %from_date%</span> <span>to %to_date%</span>', null, 'sf_admin'),
     ));
     
     $this->widgetSchema['transaction_id'] = new sfWidgetFormInputText();
