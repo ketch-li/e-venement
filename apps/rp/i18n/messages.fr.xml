@@ -2072,6 +2072,46 @@
         <source>Usable codes in the content of the email</source>
         <target>Codes utilisables dans le corps du courriel</target>
       </trans-unit>      
+      <trans-unit id="518">
+        <source>%%TITLE%% : contact title</source>
+        <target>%%TITLE%% : Titre du contact</target>
+      </trans-unit>
+      <trans-unit id="519">
+        <source>%%FIRSTNAME%% : contact first name</source>
+        <target>%%FIRSTNAME%% : Prénom du contact</target>
+      </trans-unit>
+      <trans-unit id="520">
+        <source>%%NAME%% : contact last name</source>
+        <target>%%NAME%% : Nom du contact</target>
+      </trans-unit>
+      <trans-unit id="521">
+        <source>%%ADDRESS%% : contact address</source>
+        <target>%%ADDRESS%% : Adresse du contact</target>
+      </trans-unit>
+      <trans-unit id="522">
+        <source>%%POSTALCODE%% : contact zip code</source>
+        <target>%%POSTALCODE%% : Code postal du contact</target>
+      </trans-unit>
+      <trans-unit id="523">
+        <source>%%CITY%% : contact city</source>
+        <target>%%CITY%% : Ville du contact</target>
+      </trans-unit>
+      <trans-unit id="524">
+        <source>%%COUNTRY%% : contact country</source>
+        <target>%%COUNTRY%% : Pays du contact</target>
+      </trans-unit>
+      <trans-unit id="525">
+        <source>%%FUNCTION%% : contact function in the organism</source>
+        <target>%%FUNCTION%% : Fonction du contact dans l'organisme</target>
+      </trans-unit>
+      <trans-unit id="526">
+        <source>%%ORGANISM%% : organism name</source>
+        <target>%%ORGANISM%% : Nom de l'organisme</target>
+      </trans-unit>
+      <trans-unit id="527">
+        <source>%%EMAILADDRESS%% : contact email</source>
+        <target>%%EMAILADDRESS%% : Email du contact</target>
+      </trans-unit>                                                        
     </body>
   </file>
 </xliff>
