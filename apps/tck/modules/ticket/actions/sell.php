@@ -46,7 +46,10 @@
         $this->dispatcher->notify(new sfEvent($this, 'tck.before_transaction_creation', array('transaction' => $this->transaction)));
         $this->transaction->save();
         $this->dispatcher->notify(new sfEvent($this, 'tck.after_transaction_creation', array('transaction' => $this->transaction)));
-        $this->redirect('ticket/sell?id='.$this->transaction->id.($request->hasParameter('hash') ? '#manifestations-'.$request->getParameter('hash') : ''));
+        $module = 'manifestations';
+        if ( $request->getParameter('type') == 'museum')
+          $module = 'museum';
+        $this->redirect('ticket/sell?id='.$this->transaction->id.($request->hasParameter('hash') ? '#'.$module.'-'.$request->getParameter('hash') : ''));
       }
     }
     
