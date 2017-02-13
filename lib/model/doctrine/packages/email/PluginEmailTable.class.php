@@ -26,7 +26,7 @@ class PluginEmailTable extends Doctrine_Table
     
     public function createQuery($alias = 'e')
     {
-      return $q = parent::createQuery($alias)
+      $q = parent::createQuery($alias)
         ->leftJoin("$alias.User u")
       ;
       
