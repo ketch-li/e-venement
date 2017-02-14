@@ -30,7 +30,7 @@
       </trans-unit>
       <trans-unit id="7">
         <source>Ability to modify the content (seats) of holds</source>
-        <target>Possibilité de modifié le contenu (places) d'une retenue</target>
+        <target>Possibilité de modifier le contenu (places) d'une retenue</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Ability to administrate holds (create, modify &amp; delete)</source>
@@ -251,6 +251,14 @@
       <trans-unit id="62">
         <source>Ability to access and edit museum parameters</source>
         <target>Capacité à voir et modifier le paramétrage du musée</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Ability to access the promo codes of member cards</source>
+        <target>Capacité à accéder aux fonctionnalité des codes promotionnels des cartes de membres</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Ability to get a full access on the promo codes of member cards</source>
+        <target>Capacité d'avoir accès au paramétrage et aux fonctionnalités des codes promotionnels des cartes de membres</target>
       </trans-unit>
     </body>
   </file>

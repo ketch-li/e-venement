@@ -38,7 +38,7 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Survey List</source>
-        <target>Liste des questionnnaires</target>
+        <target>Liste des questionnaires</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Search</source>
@@ -223,6 +223,10 @@
       <trans-unit id="55">
         <source>Typical answers</source>
         <target>Réponses types</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>New Survey</source>
+        <target>Nouveau questionnaire</target>
       </trans-unit>
     </body>
   </file>
