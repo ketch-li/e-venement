@@ -123,7 +123,7 @@ class EventFormFilter extends BaseEventFormFilter
     $this->widgetSchema   ['dates_range'] = new sfWidgetFormFilterDate(array(
       'from_date' => new liWidgetFormJQueryDateText(array('culture' => sfContext::getInstance()->getUser()->getCulture())),
       'to_date'   => new liWidgetFormJQueryDateText(array('culture' => sfContext::getInstance()->getUser()->getCulture())),
-      'template'  => '<span class="from">'.__('From %from_date%').'</span> <span class="to">'.__('to %to_date%').'</span>',
+      'template'  => '<span class="from">'.__('From %from_date%').'</span> <span class="to">'.__('to %to_date% excluded').'</span>',
       'with_empty'=> false,
     ));
     $this->validatorSchema['dates_range'] = new sfValidatorDateRange(array(

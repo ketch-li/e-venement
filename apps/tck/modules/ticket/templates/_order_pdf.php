@@ -16,7 +16,7 @@
     <div id="content">
       <?php
         $data = array();
-        foreach ( array('transaction', 'nocancel', 'tickets', 'invoice', 'totals', 'partial') as $var )
+        foreach ( array('transaction', 'nocancel', 'tickets', 'products', 'invoice', 'totals', 'partial') as $var )
         if ( isset($$var) )
           $data[$var] = $$var;
       ?>

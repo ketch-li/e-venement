@@ -31,7 +31,6 @@ all:
     #prefer_short_name: false
     online_users: [vel] # for stats
     #show_location_ajax: false
-    #stop_listing_after: 30 minutes
     #exit_on_timeout: false   # create exit checkpoints after timeout (museum setting)
   synchronization:
     #period:
@@ -56,5 +55,3 @@ all:
       #who: [organizers, applicant, location, admins] # default: [organizers, applicant, location]
   #cacher:
   #  timeout: 1 day ago
-  #gauge:
-    #enable_timeout: true

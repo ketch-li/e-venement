@@ -427,7 +427,7 @@
           $q = Doctrine::getTable('Product')->createQuery('p')
             ->leftJoin('p.Category c')
             ->leftJoin('c.Translation ct WITH ct.lang = ?', $this->getUser()->getCulture())
-            ->leftJoin('p.PriceProducts pp')
+            ->innerJoin('p.PriceProducts pp')
             ->leftJoin('pp.Price price WITH price.hide = ? AND price.id IN (SELECT up.price_id FROM UserPrice up WHERE up.sf_guard_user_id = ?)', array(false, $this->getUser()->getId()))
             ->leftJoin('price.Translation prt WITH prt.lang = ?', $this->getUser()->getCulture())
             ->orderBy("(SELECT count(bp.id) FROM BoughtProduct bp LEFT JOIN bp.Declination pd WHERE pd.product_id = p.id AND bp.integrated_at > NOW() - '2 weeks'::interval) DESC, pt.name, dt.name, prt.name")

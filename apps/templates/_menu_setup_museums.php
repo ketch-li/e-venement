@@ -21,7 +21,7 @@
 *
 ***********************************************************************************/
 ?>
-<?php if ( sfConfig::get('app_manifestation_exit_on_timeout', false) ): ?>
+<?php if ( sfConfig::get('project_museums_enable', false) ): ?>
 <?php if ( $sf_user->hasCredential('museum-gauge-timeout') ): ?>
   <li class="menu-setup-museum"><a><?php echo __('Museum',array(),'menu') ?></a>
     <ul class="third">

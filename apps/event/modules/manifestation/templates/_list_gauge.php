@@ -53,7 +53,7 @@
       ->andWhere('cp.type = ?', 'entrance')
       ->leftJoin('cp.Event e')
       ->leftJoin('e.Manifestations m')
-      ->andWhereIn('m.id', $manifestation->id)
+      ->andWhereIn('tck.manifestation_id', $manifestation->id)
       ->count();
     $exits = Doctrine::getTable('Ticket')->createQuery('tck')
       ->leftJoin('tck.Controls c')
@@ -61,7 +61,7 @@
       ->andWhere('cp.type = ?', 'exit')
       ->leftJoin('cp.Event e')
       ->leftJoin('e.Manifestations m')
-      ->andWhereIn('m.id', $manifestation->id)
+      ->andWhereIn('tck.manifestation_id', $manifestation->id)
       ->count();
     
     foreach ( $manifestation->Gauges as $gauge )

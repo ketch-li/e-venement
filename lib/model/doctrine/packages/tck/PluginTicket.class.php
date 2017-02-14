@@ -178,8 +178,13 @@ abstract class PluginTicket extends BaseTicket
       && ($this->printed_at || $this->integrated_at)                              // if $this is integrated or printed already
       && $this->Manifestation->Location->auto_control                             // if the location requires auto controls
       && in_array('entrance', $this->Manifestation->Event->Checkpoints->toKeyValueArray('id', 'type')) // if the event has an entrance
-      && !in_array('entrance', $this->Controls->toKeyValueArray('id', 'type')) )  // if $this has not been controled in an entrance already
+      )
     {
+      // if $this has not been controled in an entrance already
+      foreach ($this->Controls as $key => $ctrl)
+        if( $ctrl->Checkpoint->type == 'entrance' )
+          return parent::postSave($event);
+
       if ( sfConfig::get('sf_web_debug', false) )
         error_log('Ticket: controlling automatically the ticket #'.$this->id);
       
@@ -301,6 +306,7 @@ abstract class PluginTicket extends BaseTicket
         $ticket->price_name = $this->price_name;
         $ticket->transaction_id = $this->transaction_id;
         $ticket->sf_guard_user_id = $this->sf_guard_user_id;
+        $ticket->value = $this->value;
         $ticket->save();
         $this->Transaction->Tickets[] = $ticket;
       } catch ( Doctrine_Hydrator_Exception $e ) { error_log('PluginTicket: '.$e->getMessage()); } // it usually happens if no similar price is available in the depending manifestation

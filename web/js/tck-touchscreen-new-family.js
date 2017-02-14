@@ -90,22 +90,7 @@
             
             // show mini-gauge w/o selecting a new family
             $('#li_transaction_field_content .bunch .new-family select option').unbind('click').click(function(){
-              if ( !$(this).attr('data-gauge-url') )
-                return;
-              
-              var option = this;
-              $.get($(this).attr('data-gauge-url'), function(data){
-                $('#li_transaction_field_product_infos *').remove(); // cleaning products infos
-                
-                switch ( $(option).closest('[data-bunch-id]').attr('data-bunch-id') ) {
-                case 'store':
-                  LI.renderStocks(JSON.stringify(data));
-                  break;
-                default:
-                  LI.renderGauge(JSON.stringify(data), true);
-                  break;
-                }
-              });
+              LI.showGauge($(this));
             });
           }
         });
@@ -149,12 +134,19 @@
       
       if ( can_be_deleted )
       {
+        var family = $(this).closest('.family').find('.happens_at').text();
+        var gauge = $(this).closest('.family').find('.items .item:first .data .gauge.raw').prop('href');
+        
         $('<option></option>')
           .val($(this).closest('.family').attr('data-family-id'))
-          .html($(this).closest('.family').find('h3').text())
-          //.prop('title',$(this).closest('.family').find('h3').text().replace("\n",''))
+          .html(family)
+          .prop('title', family)
+          .attr('data-gauge-url', gauge.substr(gauge.indexOf('/pos')))
           .css('background-color', $(this).closest('.family').find('h3').css('background-color'))
-          .appendTo($(this).closest('.bunch').find('.new-family select'));
+          .appendTo($(this).closest('.bunch').find('.new-family select'))
+          .click(function(){
+            LI.showGauge($(this));
+          });
         if ( $('#li_transaction_field_new_transaction a.persistant').length == 1 )
         $('#li_transaction_field_new_transaction a.persistant').prop('href', $('#li_transaction_field_new_transaction a.persistant').prop('href').replace(
           '#'+$(this).closest('.bunch').prop('id').replace('li_transaction_','')+'-'+$(this).closest('.family').attr('data-family-id'),
@@ -242,5 +234,23 @@ LI.autoAddFamilies = function(form){
     setTimeout(function(){
       bunch.find('.families:not(.sample) .family:not(.total):last .item:first').click();
     }, 1000);
+  });
+}
+
+LI.showGauge = function(option){
+  if ( !option.attr('data-gauge-url') )
+    return;
+
+  $.get(option.attr('data-gauge-url'), function(data){
+    $('#li_transaction_field_product_infos *').remove(); // cleaning products infos
+    
+    switch ( option.closest('[data-bunch-id]').attr('data-bunch-id') ) {
+    case 'store':
+      LI.renderStocks(JSON.stringify(data));
+      break;
+    default:
+      LI.renderGauge(JSON.stringify(data), true);
+      break;
+    }
   });
 }

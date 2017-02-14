@@ -90,12 +90,13 @@ $(document).ready(function(){
   // removing the useless "my cart" buttons
   if ( $('.mod-manifestation.action-show .adding-tickets .gauge').length > 1 )
     $('.mod-manifestation.action-show .adding-tickets .gauge:not(:last) tfoot tr:last').hide();
-  
+
   // temporary flashes
   var time = $.trim($('.sf_admin_flashes').text()).length/18*1000;
+  LI.flash_timeout = LI.flash_timeout === undefined ? 5000 : LI.flash_timeout;
   setTimeout(function(){
-    $('.sf_admin_flashes > *').fadeOut(function(){ $(this).remove(); });
-  }, time < 5000 ? 5000 : time);
+  $('.sf_admin_flashes > *').fadeOut(function(){ $(this).remove(); });
+  }, time < LI.flash_timeout ? LI.flash_timeout : time);
   
   // focus on registering forms
   $('.mod-cart.action-register #login, #contact-form').focusin(function(){
