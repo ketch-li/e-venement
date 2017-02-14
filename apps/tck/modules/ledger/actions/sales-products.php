@@ -76,6 +76,14 @@
       }
     }
     
+    // per-domain restrictions
+    if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
+      if ( !$q->contains('LEFT JOIN t.Payments p') )
+        $q->leftJoin('t.Payments p');
+      $q->leftJoin('p.User pu')
+        ->leftJoin('pu.Domain d')
+        ->andWhere('d.name ILIKE ? OR d.name = ?', array('%.'.$dom, $dom));
+        
     // contact/organism
     foreach ( array('contact_id' => 'c.id', 'organism_id' => 'o.id') as $criteria => $field )
     if ( isset($criterias[$criteria]) && $criterias[$criteria] )
