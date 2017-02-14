@@ -191,6 +191,18 @@ class ContactPublicForm extends ContactForm
         $vs['password_again']
       );
     }
+    
+    if (isset($this->widgetSchema['password'])) {
+      $this->validatorSchema->setPostValidator(
+        new sfValidatorSchemaCompare(
+          'password_again',
+          sfValidatorSchemaCompare::EQUAL,
+          'password',
+          array(),
+          array('invalid' => __('Passwords do not match. Please try again.'))
+        )
+      );
+    }    
   }
   
   public function bind(array $taintedValues = NULL, array $taintedFiles = NULL)
@@ -210,9 +222,6 @@ class ContactPublicForm extends ContactForm
       foreach ( array('name', 'firstname', 'email') as $field )
         $q->andWhere("c.$field ILIKE ?",$this->getValue($field));
     }
-    
-    if ( $this->getValue('password') !== $this->getValue('password_again') )
-      $this->errorSchema->addError(new sfValidatorError($this->validatorSchema['password_again'],'Passwords do not match.'));
     
     // bind again for the new validators
     parent::bind($taintedValues, $taintedFiles);
