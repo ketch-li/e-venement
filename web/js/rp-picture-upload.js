@@ -71,9 +71,11 @@
       LI.ifMediaCaptureSupported(function(){
         $('.picture .webcam .start').click(function(){
           var input = this;
+          $('.live').show();
           $('.picture .current').hide();
           $(this).closest('.webcam').removeClass('small').find('.live').photobooth().on('image', function(event, data){
             LI.rpFileUpload(data, input);
+            $('.live').hide();
           });
           return false;
         });
