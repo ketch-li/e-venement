@@ -702,6 +702,18 @@ body > #client-infos {
   }
 }
 
+.picture .live {
+  width: 250px;
+  height: 250px;
+  display: none;
+}
+
+.picture .live ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 @media (min-width: $screen-sm-min) {
   #sf_admin_footer { 
     margin: 25px 0; 

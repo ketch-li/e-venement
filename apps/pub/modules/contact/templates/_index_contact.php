@@ -30,10 +30,10 @@
     <div class="webcam small">
       <div class="live"></div>
       <button class="start" data-post-url="<?php echo url_for($sf_context->getModuleName().'/newPicture') ?>">
-        <?php echo image_tag('camera.png') ?>
+        <?php echo image_tag('camera.png', array('alt' => 'Webcam', 'size' => '25x25')) ?>
       </button>
     </div>
-    <input class="file" type="file" name="file" />
+    <input class="file" type="file" name="file" data-post-url="<?php echo url_for($sf_context->getModuleName().'/newPicture') ?>" />
     <div class="current">
       <?php if ( $contact->picture_id ): ?>
         <?php echo $contact->getRawValue()->Picture->render(array('app' => 'pub')) ?>
