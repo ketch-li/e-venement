@@ -24,13 +24,14 @@ class ContactPublicForm extends ContactForm
         'shortname', 'involved_in_list', 'automatic',
         'familial_quotient_id', 'type_of_resources_id', 'familial_situation_id') as $field )
       if ( isset($this->widgetSchema[$field]) )
-      unset($this->widgetSchema[$field], $this->validatorSchema[$field]);
+        unset($this->widgetSchema[$field], $this->validatorSchema[$field]);
     
     $this->widgetSchema['title'] = new sfWidgetFormDoctrineChoice(array(
       'model' => 'TitleType',
       'add_empty' => true,
       'key_method' => 'getName',
     ));
+    
     $this->widgetSchema['phone_type'] = new sfWidgetFormDoctrineChoice(array(
       'model' => 'PhoneType',
       'key_method' => '__toString',
@@ -64,8 +65,30 @@ class ContactPublicForm extends ContactForm
       'title','name','firstname',
       'address','postalcode','city','country',
       'email','phone_type','phone_number',
-      'password','password_again',
     );
+    
+    $config = sfConfig::get('app_contact_organism', array());    
+    if ( $config['enable'] ) 
+    {
+      $this->widgetSchema['organism'] = new sfWidgetFormDoctrineJQueryAutocompleter(array(
+        'model' => 'Organism',
+        'url'   => cross_app_url_for('rp','organism/ajax'),
+      ));
+      $this->validatorSchema['organism'] = new sfValidatorDoctrineChoice(array(
+        'model' => 'Organism',
+        'required' => false,
+      ));
+      $fields[] = 'organism';
+
+      if ($this->object->Professionals->Count() > 0) 
+      {
+        $this->widgetSchema['organism']->setDefault($this->object->Professionals[0]->organism_id);
+        $this->widgetSchema['organism']->setAttribute('disabled', 'disabled');
+      }      
+    }
+    
+    array_push($fields, 'password', 'password_again');
+    
     if ( sfConfig::get('app_contact_newsletter', true) )
       $fields[] = 'newsletter';
       
@@ -244,6 +267,13 @@ class ContactPublicForm extends ContactForm
     
     if ( sfConfig::get('app_contact_newsletter', true) )
       $this->values['email_no_newsletter'] = !$this->values['newsletter'];
+    
+    if ( sfConfig::get('app_contact_organism', array())['enable'] && $this->getValue('organism') && $this->object->Professionals->Count() == 0 ) 
+    {
+      $pro = new Professional;
+      $pro->Organism = Doctrine::getTable('Organism')->findOneById($this->getValue('organism'));
+      $this->object->Professionals[] = $pro;
+    }
     
     if ( $this->getValue('phone_number') )
     {

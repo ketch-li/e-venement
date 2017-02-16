@@ -65,6 +65,11 @@ class contactActions extends sfActions
       try { $this->getUser()->getContact(); }
       catch ( liEvenementException $e )
       { $this->getUser()->setContact($this->form->getObject()); }
+
+      if ( sfConfig::get('app_contact_organism', array())['enable'] && $this->getUser()->getContact()->Professionals->Count() > 0 ) {
+        $this->getUser()->getTransaction()->Professional = $this->getUser()->getContact()->Professionals[0];
+        $this->getUser()->getTransaction()->save();
+      }
       
       if ( sfConfig::get('app_contact_modify_coordinates_first', false) )
         $this->redirect(sfConfig::get('app_options_home', 'event'));
@@ -102,6 +107,8 @@ class contactActions extends sfActions
       $pn = array_pop($pns);
       $this->form->setDefault('phone_type',$pn->name);
       $this->form->setDefault('phone_number',$pn->number);
+      
+      $this->contact = $this->getUser()->getContact();
     }
     catch ( liEvenementException $e )
     { $this->form = new ContactPublicForm; }
@@ -145,18 +152,29 @@ class contactActions extends sfActions
     $this->active_member_cards = array();
     $this->used_member_cards = array();
     
-    foreach ($this->member_cards as $mc) {
-        if ( strtotime($mc->expire_at) > strtotime('now') && $mc->active ) {
+    foreach ($this->member_cards as $mc)
+        if ( strtotime($mc->expire_at) > strtotime('now') && $mc->active )
             $this->active_member_cards[] = $mc;
-        } else {
+        else
             $this->used_member_cards[] = $mc;
-        }
-    }
     
     $this->contact = $this->getUser()->getContact();
   }  
   
-  public function executeAjax(sfWebRequest $request) {
+  public function executeDel(sfWebRequest $request)
+  {
+    $this->getContext()->getConfiguration()->loadHelpers('I18N');
+  
+    $this->getUser()->getContact()->Professionals[0]->delete();
+    $this->getUser()->getTransaction()->professional_id = null;
+    $this->getUser()->getTransaction()->save();
+    
+    $this->getUser()->setFlash('success', __('Link to organism successfully deleted.'));
+    $this->redirect('contact/edit');
+  }
+  
+  public function executeAjax(sfWebRequest $request) 
+  {
     $this->mc = Doctrine::getTable('MemberCard')->find(intval($request->getParameter('membercard_id')));
     return 'Success';    
   }
