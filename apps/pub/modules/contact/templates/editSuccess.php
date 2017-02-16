@@ -71,5 +71,6 @@
     $('#contact-form .field').click(function(){
       $(this).find('input, textarea, select').first().focus();
     });
+    $('.required').after('<span class="help required" title="<?php echo __('Required.') ?>">&nbsp;*&nbsp;</span>');
   });
 --></script>

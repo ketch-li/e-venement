@@ -200,6 +200,10 @@ class ContactPublicForm extends ContactForm
     if ( isset($this->validatorSchema[$field]) && !in_array($field, array('name', 'email')) )
       $this->validatorSchema[$field]->setOption('required', $required === true);
     
+    foreach ($this->validatorSchema->getFields() as $field => $validator)
+      if ( $this->validatorSchema[$field]->getOption('required') === true )
+        $this->widgetSchema[$field]->setAttribute('class', 'required');
+    
     // if the liOpenIDConnectPlugin is activated
     if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', sfContext::getInstance()->getConfiguration()->getPlugins()) )
     {
@@ -254,7 +258,7 @@ class ContactPublicForm extends ContactForm
   {
     // formatting central data
     foreach ( array('name', 'firstname') as $field )
-    $this->values[$field] = trim($this->values[$field]);
+      $this->values[$field] = trim($this->values[$field]);
     
     // formatting data
     if ( sfConfig::has('app_contact_capitalize') && is_array($fields = sfConfig::get('app_contact_capitalize')) )
