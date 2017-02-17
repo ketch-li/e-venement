@@ -65,7 +65,7 @@ class LoginForm extends BaseForm
     if ( $contact )
     {
       $sf_user = sfContext::getInstance()->getUser();
-      if ( (sfConfig::get('app_contact_professional', false) || sfConfig::get('app_contact_organism', array())['enable']) && $contact->Professionals->Count() > 0 )
+      if ( sfConfig::get('app_contact_professional', false) )
         $sf_user->getTransaction()->Professional = $contact->Professionals[0];
       $sf_user->setContact($contact);
     }
