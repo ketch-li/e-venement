@@ -21,8 +21,6 @@
 *
 ***********************************************************************************/
 ?>
-<?php use_javascript('/sfFormExtraPlugin/js/jquery.autocompleter.js'); ?>
-<?php use_stylesheet('/sfFormExtraPlugin/css/jquery.autocompleter.css'); ?>
 <?php include_partial('global/ariane',array('active' => 0)) ?>
 <h1><?php echo !$sf_user->hasContact() ? __('New account') : __('My account') ?></h1>
 <?php include_partial('edit_header') ?>
@@ -44,13 +42,6 @@
   <<?php echo $name != 'special_groups_list' ? 'p' : 'div' ?> class="<?php echo $name ?> field <?php if ( isset($errors[$name]) ) echo 'error' ?>">
     <?php echo $form[$name]->renderLabel() ?>
     <span class="<?php echo $name ?>"><?php echo $form[$name] ?></span>
-    <?php if ( $name == 'organism' ): ?>
-      <?php echo link_to(__('delete'),'contact/del?pro_id='.$contact->Professionals[0]->id) ?>
-      <span class="help" style="display:block;">
-        <span class="ui-icon ui-icon-help floatleft"></span>
-        <?php echo sfConfig::get('app_contact_organism', array())['help'] ?>
-      </span>
-    <?php endif ?>
     <span class="error"><?php if ( isset($errors[$name]) ) echo __($errors[$name]) ?></span>
   </<?php echo $name != 'special_groups_list' ? 'p' : 'div' ?>>
     <?php elseif ( $name == 'special_groups_list' ): ?>
