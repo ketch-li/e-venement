@@ -42,6 +42,12 @@
   <<?php echo $name != 'special_groups_list' ? 'p' : 'div' ?> class="<?php echo $name ?> field <?php if ( isset($errors[$name]) ) echo 'error' ?>">
     <?php echo $form[$name]->renderLabel() ?>
     <span class="<?php echo $name ?>"><?php echo $form[$name] ?></span>
+    <?php if ( $name == 'address' && sfConfig::get('app_contact_organism', false) ): ?>
+      <span class="help" style="display:block;">
+        <span class="ui-icon ui-icon-help floatleft"></span>
+        <?php echo sfConfig::get('app_contact_organism', '') ?>
+      </span>
+    <?php endif ?>
     <span class="error"><?php if ( isset($errors[$name]) ) echo __($errors[$name]) ?></span>
   </<?php echo $name != 'special_groups_list' ? 'p' : 'div' ?>>
     <?php elseif ( $name == 'special_groups_list' ): ?>
