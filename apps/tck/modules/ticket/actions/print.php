@@ -314,6 +314,31 @@
       $query = 'INSERT INTO ticket_version SELECT * FROM ticket WHERE id IN ('.implode(',',$ids).')';
       $stmt = $pdo->prepare($query);
       $stmt->execute();
+      
+      // bulk auto control for museum grouped tickets
+      $pdo = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
+      $q = "INSERT INTO control
+            (sf_guard_user_id, ticket_id, checkpoint_id, created_at, updated_at, version)
+            SELECT t.sf_guard_user_id, t.id, ck.id, Now(), Now(), 1
+            FROM ticket t
+            INNER JOIN manifestation m ON m.id = t.manifestation_id
+            INNER JOIN event e ON e.id = m.event_id
+            INNER JOIN location l ON l.id = m.location_id
+            INNER JOIN checkpoint ck ON ck.event_id = e.id 
+            LEFT JOIN control ce ON ce.ticket_id = t.id
+            WHERE e.museum = true
+            AND (t.printed_at IS NOT NULL OR t.integrated_at IS NOT NULL)
+            AND l.auto_control = true
+            AND ck.type = 'entrance'
+            AND t.id IN (".implode(',', $ids).")
+            AND Now() + INTERVAL '".sfConfig::get('app_control_future')."' > m.happens_at
+            AND Now() - INTERVAL '".sfConfig::get('app_control_past')."' < m.happens_at + INTERVAL '1 second' * m.duration
+            AND ce.id IS NULL
+            AND ck.created_at = (SELECT Min(created_at) FROM checkpoint WHERE event_id = e.id AND type = 'entrance')
+      ";
+      $stmt1 = $pdo->prepare($q);
+      $stmt1->execute();
+      
     }
 
     if ( count($this->tickets) <= 0 )
