@@ -31,6 +31,7 @@ class web_originActions extends autoWeb_originActions
     $previous = NULL;
     foreach ( $data as $date => $value )
     {
+      if ( $wich == 'evolution' )
       if ( $previous && strtotime($previous) < strtotime('-1 day', strtotime($date)) )
       {
         $tmp = strtotime($previous);
