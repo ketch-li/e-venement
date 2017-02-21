@@ -4,14 +4,9 @@
 #content .sf_admin_form_field_field_bcc textarea,
 #content .sf_admin_form_field_field_subject textarea { height: 1em; width: 420px; }
 
-.mod-email #sf_admin_content .sf_admin_actions_form li,
 .mod-email #sf_admin_content .sf_admin_actions_form.no-float {
   text-align: left;
   float: none;
-}
-.mod-email #sf_admin_content .sf_admin_actions_form li {
-  margin-left: 8px;
-  position: static;
 }
 
 .sf_admin_form_field_attachments .fg-button {
@@ -36,7 +31,7 @@
 .sf_admin_form_field_load_button input, .sf_admin_form_field_save_button input { margin-right: 1.5em; }
 .sf_admin_list table tbody tr.sf_admin_row .sf_admin_list_td_list_content .max-height { max-height: 3em; overflow: hidden; }
 
-.sf_admin_form_field_codes { position: absolute; top: 310px; left: 28px; width:24%; }
+.sf_admin_form_field_codes { position: absolute; top: 350px; left: 28px; width:24%; }
 .sf_admin_form_field_codes ul { list-style: none; text-align: right; }
 .sf_admin_form_field_codes li { padding: 5px 10px; }
 .sf_admin_form_field_codes strong { float: left; }
