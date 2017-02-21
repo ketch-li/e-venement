@@ -93,7 +93,7 @@
         <target>Expéditeur du courriel</target>
       </trans-unit>
       <trans-unit id="23">
-        <source>Alerts for member cards expirations</source>
+        <source>Alerts for member cards expiration</source>
         <target>Alertes liées aux expirations de cartes d'abo.</target>
       </trans-unit>
       <trans-unit id="24">
@@ -2111,6 +2111,10 @@
       <trans-unit id="527">
         <source>%%EMAILADDRESS%% : contact email</source>
         <target>%%EMAILADDRESS%% : Email du contact</target>
+      </trans-unit>                                                        
+      <trans-unit id="528">
+        <source>Save</source>
+        <target>Enregistrer</target>
       </trans-unit>                                                        
     </body>
   </file>
