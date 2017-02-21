@@ -62,9 +62,7 @@
   </div>
   <?php endif ?>
   <div class="clear"></div>
-  <div class="text_config manifestation_bottom synthetic_plans">
-    <?php echo nl2br(pubConfiguration::getText('app_texts_manifestation_bottom')) ?>
-  </div>
+  <?php include_partial('show_footer', array('manifestation' => $manifestation)) ?>
   <?php include_partial('global/show_links', array('objects' => $manifestation)) ?>
 
 </div>
