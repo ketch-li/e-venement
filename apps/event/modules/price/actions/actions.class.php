@@ -106,6 +106,8 @@ class priceActions extends autoPriceActions
   {
     $charset = sfConfig::get('software_internals_charset');
     $search  = iconv($charset['db'],$charset['ascii'],strtolower($request->getParameter('q')));
+    $transliterate = sfConfig::get('software_internals_transliterate');
+
     $this->json = array();
     
     if ( !$search )
@@ -116,7 +118,7 @@ class priceActions extends autoPriceActions
     
     $q = Doctrine::getTable('Price')->createQuery('p')
       ->andWhere('pt.lang = ?', $this->getUser()->getCulture())
-      ->andWhere('pt.name ILIKE ? OR pt.description ILIKE ?', array("%$search%", "%$search%"))
+      ->andWhere(str_replace(array('from', 'to'), array($transliterate['from'], $transliterate['to']), "Translate(pt.name, 'from', 'to') ILIKE ? OR Translate(pt.description, 'from', 'to') ILIKE ?"), array("%$search%", "%$search%"))
       ->orderBy('pt.name, pt.description')
       ->limit($request->getParameter('limit',$max));
     
