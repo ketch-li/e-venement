@@ -1074,6 +1074,10 @@ ou bien suivez ce lien&nbsp;:&lt;br/&gt;
         <source>Validate and access my third party account</source>
         <target>Valider et accéder à mon compte externe</target>
       </trans-unit>
+      <trans-unit id="266">
+        <source>No mailing</source>
+        <target>Pas de courrier postal</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

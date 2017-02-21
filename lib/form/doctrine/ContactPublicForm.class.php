@@ -19,7 +19,7 @@ class ContactPublicForm extends ContactForm
     foreach ( array(
         'sf_guard_user_id', 'back_relations_list', 'Relationships', 'YOBs',
         'YOBs_list', 'groups_list', 'emails_list', 'family_contact', 'relations_list',
-        'organism_category_id', 'description', 'password', 'email_no_newsletter', 'email_npai', 'npai', 'no_mailing', 'flash_on_control',
+        'organism_category_id', 'description', 'password', 'email_no_newsletter', 'email_npai', 'npai', 'flash_on_control',
         'last_accessor_id', 'slug', 'confirmed', 'version', 'culture', 'picture_id',
         'shortname', 'involved_in_list', 'automatic',
         'familial_quotient_id', 'type_of_resources_id', 'familial_situation_id') as $field )
@@ -68,6 +68,11 @@ class ContactPublicForm extends ContactForm
     );
     if ( sfConfig::get('app_contact_newsletter', true) )
       $fields[] = 'newsletter';
+      
+    if ( sfConfig::get('app_contact_mailing', false) )
+      $fields[] = 'no_mailing';
+    else
+      unset($this->widgetSchema['no_mailing'], $this->validatorSchema['no_mailing']);
       
     if (pubConfiguration::getText('app_texts_terms_conditions'))
     {
@@ -130,6 +135,8 @@ class ContactPublicForm extends ContactForm
       );
       if ( sfConfig::get('app_contact_newsletter', true) )
         $fields[] = 'newsletter';
+      if ( sfConfig::get('app_contact_mailing', false) )
+        $fields[] = 'no_mailing';
       if (pubConfiguration::getText('app_texts_terms_conditions'))
         $fields[] = 'terms_conditions';
       $this->widgetSchema->setPositions($fields);
