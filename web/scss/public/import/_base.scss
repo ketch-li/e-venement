@@ -309,7 +309,7 @@ body.mod-manifestation.action-show {
 /* Admin list */
 
 #sf_admin_content .sf_admin_list {
-  table { border-collapse: separate; border-spacing: 0 5px;}
+  table { margin-bottom: 25px; }
   thead { display: none; }
   tr, td {
     padding: 0;
@@ -323,7 +323,6 @@ body.mod-manifestation.action-show {
     border-radius: $box-border-radius;
     margin: 25px 0;
     clear: both;
-    padding: 2px;
   }
   td {
     display: none;
@@ -349,20 +348,18 @@ body.mod-manifestation.action-show {
       }
     }
   }
-  td table td {
+  
+  .sf_admin_list_td_list_prices table { border-collapse: separate; border-spacing: 0 5px; }
+  .sf_admin_list_td_list_prices table td {
     background-color: lightgray;
   }
-  td table tfoot td {
+  .sf_admin_list_td_list_prices table tfoot td {
     background-color: $event-bg-color;
   }
 
-  .pagination {
+  .sf_admin_list_td_list_prices .pagination {
     text-align: center;
   }
-  /*
-  table tbody tr.odd td {
-      background-color: lightgray;
-  }*/
   
   /* Pagination */
   tfoot {
