@@ -51,6 +51,15 @@ class MemberCard extends PluginMemberCard
     return $this->MemberCardType->name;
   }
   
+  public function copy($deep = FALSE)
+  {
+    $t = parent::copy($deep);
+    
+    $t->value = $this->value;
+    
+    return $t;
+  }
+  
   public function getValue()
   {
     if ( isset($this->value) )

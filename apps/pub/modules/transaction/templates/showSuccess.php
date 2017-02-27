@@ -155,8 +155,11 @@ $(document).ready(function(){
 <?php $recalculated = array(
     'total'     => $transaction->getPrice(true, true),
     'withmc'    => $transaction->getTicketsLinkedToMemberCardPrice(true),
+    'mc_qty'    => $transaction->getMCPaymentCount(true),
 ) ?>
 <tfoot>
+  <?php $total['value'] += $total['mc_value'] ?>
+  <?php $total['qty']   += $total['mc_qty'] ?>
   <?php if ( $total['mc_qty'] && ($total['mc_value'] < 0 || count($member_cards) == 0) ): ?>
   <tr class="total">
     <td class="picture"></td>
@@ -167,13 +170,14 @@ $(document).ready(function(){
       <td></td>
       <td></td>
     <?php endif ?>
-    <td class="qty"><?php echo $total['mc_qty'] + $total['qty'] ?></td>
-    <td class="total"><?php echo format_currency($recalculated['total'],$sf_context->getConfiguration()->getCurrency()); ?></td>
+    <td class="qty"><?php echo $total['qty'] ?></td>
+    <td class="total"><?php echo format_currency($total['value'],$sf_context->getConfiguration()->getCurrency()); ?></td>
     <?php if ( sfConfig::get('app_options_synthetic_plans', false) && $current_transaction ): ?>
     <td class="linked-stuff"></td>
     <?php endif ?>
     <td></td>
   </tr>
+  <?php if ( $recalculated['withmc'] > 0 ): ?>
   <tr class="mc">
     <td class="picture"></td>
     <td class="type"><?php echo __("Passed on member card") ?></td>
@@ -183,16 +187,14 @@ $(document).ready(function(){
       <td></td>
       <td></td>
     <?php endif ?>
-    <td class="qty"><?php echo $total['mc_qty'] ?></td>
-    <td class="total"><?php echo $total['mc_value'] = format_currency($recalculated['withmc'],$sf_context->getConfiguration()->getCurrency()); ?></td>
+    <td class="qty"><?php echo $recalculated['mc_qty'] ?></td>
+    <td class="total"><?php echo format_currency(-$recalculated['withmc'],$sf_context->getConfiguration()->getCurrency()); ?></td>
     <?php if ( sfConfig::get('app_options_synthetic_plans', false) && $current_transaction ): ?>
     <td class="linked-stuff"></td>
     <?php endif ?>
     <td></td>
   </tr>
-  <?php else: ?>
-    <?php $total['value'] += $total['mc_value'] ?>
-    <?php $total['qty']   += $total['mc_qty'] ?>
+  <?php endif ?>
   <?php endif ?>
   <tr class="topay">
     <td class="picture"></td>
@@ -203,8 +205,8 @@ $(document).ready(function(){
       <td></td>
       <td></td>
     <?php endif ?>
-    <td class="qty"><?php echo $total['qty'] ?></td>
-    <td class="total"><?php echo format_currency($total['value'],$sf_context->getConfiguration()->getCurrency()); ?></td>
+    <td class="qty"><?php echo $total['qty'] - $recalculated['mc_qty'] ?></td>
+    <td class="total"><?php echo format_currency($total['value'] - $recalculated['withmc'],$sf_context->getConfiguration()->getCurrency()); ?></td>
     <td class="extra-taxes"><?php echo format_currency($total['taxes'],$sf_context->getConfiguration()->getCurrency()); ?></td>
     <?php if ( sfConfig::get('app_options_synthetic_plans', false) && $current_transaction ): ?>
     <td class="linked-stuff"></td>
