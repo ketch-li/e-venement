@@ -169,6 +169,62 @@ class Transaction extends PluginTransaction
     return round($price,2);
   }
 
+  public function getMCPaymentCount($including_not_activated = false) 
+  {    
+      $count = 0;
+      $paid = $this->getPaid();
+      
+      // all member cards that counts
+      $mcs = new Doctrine_Collection('MemberCard');
+      foreach ( array($this->MemberCards, $this->contact_id ? $this->Contact->MemberCards : array()) as $m_c )
+      foreach ( $m_c as $mc )
+      if ( $including_not_activated === true && $mc->transaction_id == $this->id
+        || $mc->active && $mc->transaction_id != $this->id )
+      if ( $mc->value > 0 )
+      {
+        $mcs[$mc->id] = $mc->copy();
+        foreach ( $mc->MemberCardPrices as $mcp )
+          $mcs[$mc->id]->MemberCardPrices[] = $mcp->copy();
+      }
+
+      // creates the collection of tickets linked to a member card
+      $tickets = new Doctrine_Collection('Ticket');
+      foreach ( $this->Tickets as $ticket )
+      if ( $ticket->Price->member_card_linked || $ticket->member_card_id )
+        $tickets[] = $ticket;
+
+      // processing all tickets linked to a member card
+      foreach ( $tickets as $ticket )
+      if ( $ticket->member_card_id )
+      {
+        if ( isset($mcs[$ticket->member_card_id])
+          && $paid < $ticket->value
+          && $mcs[$ticket->member_card_id]->value >= $ticket->value )
+        {
+          $count++;
+          $paid = 0;
+        }
+      }
+      else
+      {
+        foreach ( $mcs as $mc )
+        foreach ( $mc->MemberCardPrices as $i => $mcp )
+        if ( $mcp->event_id )
+        {
+          if ( $mcp->event_id == $ticket->Manifestation->event_id
+            && $mcp->price_id == $ticket->price_id
+            && $mc->value >= $ticket->value )
+          {
+            $count++;
+            unset($mc->MemberCardPrices[$i]);
+            break(2);
+          }
+        }
+      }
+      
+      return $count;
+  }
+
   public function getTicketsLinkedToMemberCardPrice($including_not_activated = false)
   {
     $price = 0;
