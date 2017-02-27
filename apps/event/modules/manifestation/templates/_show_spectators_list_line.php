@@ -9,7 +9,7 @@
       }
     ?>
     <td class="name" title="<?php echo implode(', ', $arr) ?>">
-      <?php echo cross_app_link_to($contact['contact'],'rp','contact/show?id='.$contact['contact']->id) ?>
+      <?php if ( $contact['contact'] ) echo cross_app_link_to($contact['contact'],'rp','contact/show?id='.$contact['contact']->id ) ?>
       <span class="pictos"><?php if ( $contact['contact'] ) echo $sf_data->getRaw('transac')->Contact->groups_picto ?></span>
     </td>
     <td class="pro-groups"><?php echo $contact['pro'] ? $sf_data->getRaw('contact')['pro']->groups_picto : '' ?></td>
