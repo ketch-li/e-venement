@@ -13,4 +13,13 @@ require_once dirname(__FILE__).'/../lib/contact_phonenumberGeneratorHelper.class
  */
 class contact_phonenumberActions extends autoContact_phonenumberActions
 {
+  public function executeEdit(sfWebRequest $request) 
+  {
+    parent::executeEdit($request);
+    
+    $this->object = $this->form->getObject();
+    $type = Doctrine::getTable('PhoneType')->findOneByName($this->object->name);
+    
+    $this->form->getWidget('mask')->setOption('default', $type->mask);  
+  }    
 }

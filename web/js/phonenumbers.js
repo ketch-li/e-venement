@@ -5,6 +5,8 @@ function phonenumbers_add(data,beforethis)
   li = $('<li class="phonenumber phonenumber-'+$(data).find(pnid).val()+'"></li>')
     .append($(data).find('.sf_admin_form form').clone(true));
   
+  var mask = '';
+  
   if ( $(data).find(pnid).val() != '' )
   {
     // existing
@@ -12,6 +14,8 @@ function phonenumbers_add(data,beforethis)
       $('#content .form_phonenumbers').append(li);
     else
       li.insertBefore(beforethis);
+      
+    mask = $(data).find('input[name="contact_phonenumber[mask]"], input[name="organism_phonenumber[mask]"]').val();
   }
   else
   {
@@ -19,7 +23,10 @@ function phonenumbers_add(data,beforethis)
     $('#content .form_phonenumbers').append(li);
   }
   
-  $('.phonenumber-'+$(data).find(pnid).val()+' input[name="autocomplete_contact_phonenumber[name]"], .phonenumber-'+$(data).find(pnid).val()+' input[name="autocomplete_organism_phonenumber[name]"]')
+  var numid = $(data).find(pnid).val();
+  $('.phonenumber-'+numid+' input[name="contact_phonenumber[number]"], .phonenumber-'+numid+' input[name="organism_phonenumber[number]"]')
+    .mask(mask);
+  $('.phonenumber-'+numid+' input[name="autocomplete_contact_phonenumber[name]"], .phonenumber-'+numid+' input[name="autocomplete_organism_phonenumber[name]"]')    
     .change(function(){
       $(this).closest('form')
         .find('input[name="contact_phonenumber[name]"], input[name="organism_phonenumber[name]"]')
@@ -30,7 +37,7 @@ function phonenumbers_add(data,beforethis)
       parse:    function(data) {
         var parsed = [];
         for (key in data) {
-          parsed[parsed.length] = { data: [ data[key], data[key] ], value: data[key], result: data[key] };
+          parsed[parsed.length] = { data: [ data[key]['name'], data[key]['mask'] ], value: data[key]['name'], result: data[key]['name'] };
         }
         return parsed;
       }
@@ -38,8 +45,9 @@ function phonenumbers_add(data,beforethis)
     .result(function(event, data) {
       $(this).closest('form')
         .find('input[name="contact_phonenumber[name]"], input[name="organism_phonenumber[name]"]')
-        .val(data[1]);
-      console.error(data[1]);
+        .val(data[0]);
+      $(this).closest('form').find('input[name="contact_phonenumber[number]"], input[name="organism_phonenumber[number]"]').mask(data[1]);
+      console.error(data[0]);
     });
   
   // contact[id] | organism[id]

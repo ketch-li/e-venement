@@ -15,6 +15,13 @@ class ContactPhonenumberForm extends BaseContactPhonenumberForm
    */
   public function configure()
   {
+    sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
     parent::configure();
-  }
+    $this->widgetSchema['mask'] = new sfWidgetFormInputText(array(
+      'label' => __('Mask'), 
+    ));
+    $this->validatorSchema['mask'] = new sfValidatorString(array(
+      'required' => false
+    ));    
+  }    
 }

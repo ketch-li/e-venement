@@ -13,4 +13,13 @@ require_once dirname(__FILE__).'/../lib/organism_phonenumberGeneratorHelper.clas
  */
 class organism_phonenumberActions extends autoOrganism_phonenumberActions
 {
+  public function executeEdit(sfWebRequest $request)
+  {
+    parent::executeEdit($request);
+
+    $this->object = $this->form->getObject();
+    $type = Doctrine::getTable('PhoneType')->findOneByName($this->object->name);
+  
+    $this->form->getWidget('mask')->setOption('default', $type->mask);
+  }  
 }

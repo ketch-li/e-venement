@@ -38,17 +38,21 @@ class phone_typeActions extends autoPhone_typeActions
 {
   public function executeAjax(sfWebRequest $request)
   {
-    $this->getResponse()->setContentType('application/json');
+    //$this->getResponse()->setContentType('application/json');
     $request = Doctrine::getTable('PhoneType')->createQuery()
       ->where('name ILIKE ?',array('%'.$request->getParameter('q').'%'))
       ->limit($request->getParameter('limit'))
       ->execute()
       ->getData();
     
-    $titles = array();
-    foreach ( $request as $title )
-      $titles[$title->id] = (string) $title;
+    $this->titles = array();
+    foreach ( $request as $title ) {
+      $this->titles[$title->id] = array();
+      $this->titles[$title->id]['name'] = (string) $title;
+      $this->titles[$title->id]['mask'] = (string) $title->mask;
+    }
     
-    return $this->renderText(json_encode($titles));
+    //return $this->renderText(json_encode($titles));
+    return 'Json';
   }
 }

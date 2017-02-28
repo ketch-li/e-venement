@@ -17,9 +17,10 @@ generator:
       fields:
         name:   { label: Type }
         number: { label: Phonenumber }
+        mask: { label: Mask }
       list:    ~
       filter:  ~
       form:
-        display: [name, number, contact_id]
+        display: [name, number, mask, contact_id]
       edit:    ~
       new:     ~

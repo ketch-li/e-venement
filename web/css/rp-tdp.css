@@ -93,6 +93,7 @@ body #content { width: auto; }
 #tdp-content #sf_admin_content .direct_contact li { margin: 0; border: 0; padding: 0; }
 #tdp-content #sf_admin_content .direct_contact li + li { margin-top: 2px; }
 #tdp-content #sf_admin_content .direct_contact .sf_admin_form_field_organism_id,
+#tdp-content #sf_admin_content .direct_contact .sf_admin_form_field_mask,
 #tdp-content #sf_admin_content .direct_contact .sf_admin_form_field_contact_id,
 #tdp-content #sf_admin_content .direct_contact li + li label { display: none; }
 #tdp-content #sf_admin_content .direct_contact form > * { display: inline-block; }

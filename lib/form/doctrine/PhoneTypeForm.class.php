@@ -17,6 +17,16 @@ class PhoneTypeForm extends BasePhoneTypeForm
   {
     parent::configure();
     $this->validatorSchema['type']->setOption('required', false);
+    
+    $choices = array('' => '');
+    foreach (sfConfig::get('app_phone_mask') as $mask) {
+      $choices[$mask] = $mask;
+    }
+    
+    $this->widgetSchema['mask'] = new sfWidgetFormChoice(array(
+      'choices' => $choices,
+    ));
+    
   }
   public function preSave()
   {

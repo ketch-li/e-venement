@@ -22,7 +22,7 @@ generator:
       filter:
         display: [name]
       form:
-        display: [name]
+        display: [name<?php if ( sfConfig::get('app_phone_mask',false) ): ?>, mask<?php endif ?>]
       edit:
         title: Phone type "%%name%%"
       new:

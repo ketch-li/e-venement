@@ -320,6 +320,8 @@ PhoneType:
     type: column_aggregation
     keyField: type
     keyValue: 'phone'
+  columns:
+    mask: string(255)
 
 OptionCsv:
   package: rp

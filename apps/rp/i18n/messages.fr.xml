@@ -2116,6 +2116,10 @@
         <source>Save</source>
         <target>Enregistrer</target>
       </trans-unit>                                                        
+      <trans-unit id="529">
+        <source>Mask</source>
+        <target>Masque de saisie</target>
+      </trans-unit>   
     </body>
   </file>
 </xliff>

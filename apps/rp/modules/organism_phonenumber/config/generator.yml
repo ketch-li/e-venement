@@ -19,6 +19,6 @@ generator:
       list:    ~
       filter:  ~
       form:
-        display: [name, number, organism_id]
+        display: [name, number, mask, organism_id]
       edit:    ~
       new:     ~
