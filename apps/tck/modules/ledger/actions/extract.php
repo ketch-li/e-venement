@@ -119,7 +119,7 @@
       
       foreach ( $this->products as $pdt )
       {
-        if ( !isset($this->lines[$key = 'PDT '.$pdt->code.' . '.$pdt->name.' . '.$pdt->declination.' . '.$pdt->price_name.' || '.$pdt->sf_guard_user_id.' . '.$ticket->transaction_id]) )
+        if ( !isset($this->lines[$key = 'PDT '.$pdt->code.' . '.$pdt->name.' . '.$pdt->declination.' . '.$pdt->price_name.' || '.$pdt->sf_guard_user_id.' . '.$pdt->transaction_id]) )
           $this->lines[$key] = array(
             'event'         => (string)$pdt->name,
             'manifestation' => (string)$pdt->declination,
