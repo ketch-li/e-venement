@@ -22,11 +22,18 @@ class InvoiceTable extends PluginInvoiceTable
     }
     public function retrieveList()
     {
-      return $this->createQuery('i')
+      $q = $this->createQuery('i')
         ->leftJoin('i.Transaction t')
         ->leftJoin('t.Contact c')
         ->leftJoin('t.Professional p')
         ->leftJoin('p.Organism o')
       ;
+      
+      if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
+        $q->leftJoin("t.User tu ON tu.id = (SELECT tv.sf_guard_user_id FROM TransactionVersion tv WHERE tv.id = t.id AND tv.version = 1)")
+          ->leftJoin('tu.Domain d')
+          ->andWhere('d.name ILIKE ? OR d.name = ?', array('%.'.$dom, $dom));
+            
+      return $q;      
     }
 }

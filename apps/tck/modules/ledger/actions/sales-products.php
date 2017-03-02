@@ -56,7 +56,7 @@
     $q->andWhereIn('t.type',array('normal'));
     
     // restrict access to our own user
-    $q = $this->restrictQueryToCurrentUser($q);
+    $q = $this->restrictQueryToCurrentUser($q, 'u', 't');
     // the limitation due to user's credentials about workspaces and metaevents
     $q->leftJoin('bp.Declination pd')
       ->leftJoin('pd.Product pdt')

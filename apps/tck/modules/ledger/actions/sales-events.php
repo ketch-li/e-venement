@@ -69,7 +69,7 @@
     $q->andWhereIn('t.type',array('normal', 'cancellation'));
     
     // restrict access to our own user
-    $q = $this->restrictQueryToCurrentUser($q);
+    $q = $this->restrictQueryToCurrentUser($q, 'u', 't');
     
     if ( isset($criterias['users']) && is_array($criterias['users']) && $criterias['users'][0] )
     {

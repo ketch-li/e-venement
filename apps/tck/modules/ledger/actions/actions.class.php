@@ -191,12 +191,7 @@ class ledgerActions extends sfActions
         $dates[1],
       ));
     }
-    
-    // per-domain restrictions
-    if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
-      $q->leftJoin('u.Domain d')
-        ->andWhere('d.name ILIKE ? OR d.name = ?', array('%.'.$dom, $dom));
-    
+
     if ( isset($criterias['users']) && is_array($criterias['users']) && isset($criterias['users'][0]) )
       $q->andWhereIn('p.sf_guard_user_id',$criterias['users']);
     
@@ -205,16 +200,21 @@ class ledgerActions extends sfActions
       $q->andWhere($field.' = ?', $criterias[$criteria]);
     
     // restrict access to our own user
-    $q = $this->restrictQueryToCurrentUser($q);
+    $q = $this->restrictQueryToCurrentUser($q, 'u', 't');
     
     return $q;
   }
   
-  // restrict access to our own user
-  protected static function restrictQueryToCurrentUser($q, $alias = 'u')
+  // restrict access to our own user or the domain from the creator of the transaction
+  protected static function restrictQueryToCurrentUser($q, $alias = 'u', $tr = 'tr')
   {
     if ( !sfContext::getInstance()->getUser()->hasCredential('tck-ledger-all-users') )
-    $q->andWhere($alias.'.id = ?',sfContext::getInstance()->getUser()->getId());
+      $q->andWhere($alias.'.id = ?',sfContext::getInstance()->getUser()->getId());
+    else
+    if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' &&  !$q->contains('TransactionVersion tv') )
+      $q->leftJoin("$tr.User tvu ON tvu.id = (SELECT tv.sf_guard_user_id FROM TransactionVersion tv WHERE tv.id = $tr.id AND tv.version = 1)")
+        ->leftJoin('tvu.Domain uvd')
+        ->andWhere('uvd.name ILIKE ? OR uvd.name = ?', array('%.'.$dom, $dom));
     
     return $q;
   }

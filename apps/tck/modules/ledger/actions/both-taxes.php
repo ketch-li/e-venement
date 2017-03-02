@@ -29,6 +29,7 @@
       ->leftJoin('m.Gauges g')
       ->leftJoin('g.Tickets tck WITH tck.taxes != 0 AND (tck.printed_at IS NOT NULL OR tck.integrated_at IS NOT NULL OR tck.cancelling IS NOT NULL) AND tck.duplicating IS NULL') // AND tck.id NOT IN (SELECT c_tck.cancelling FROM Ticket c_tck WHERE c_tck.cancelling IS NOT NULL)')
       ->leftJoin('tck.User u')
+      ->leftJoin('tck.Transaction tr')
       ->orderBy('t.name')
     ;
     
