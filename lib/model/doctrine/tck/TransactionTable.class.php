@@ -57,6 +57,12 @@ class TransactionTable extends PluginTransactionTable
       ->leftJoin("$tck.Manifestation $m");
     if ( $with_products )
       $q->leftJoin("$a.BoughtProducts bp".(is_null($tickets) ? '' : ' WITH '.($tickets == 'asked' ? 'bp.integrated_at IS NULL' : 'bp.integrated_at IS NOT NULL')));
+      
+    if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
+      $q->leftJoin("$a.User tu ON tu.id = (SELECT tv.sf_guard_user_id FROM TransactionVersion tv WHERE tv.id = $a.id AND tv.version = 1)")
+        ->leftJoin('tu.Domain d')
+        ->andWhere('d.name ILIKE ? OR d.name = ?', array('%.'.$dom, $dom));
+    
     return $q;
   }
   public function createQueryForManifestations($alias = 't', $tickets = NULL, $with_products = false)
@@ -116,6 +122,12 @@ class TransactionTable extends PluginTransactionTable
       ->leftJoin('p.Organism o')
       ->leftJoin('t.Invoice i')
     ;
+    
+    if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
+      $q->leftJoin("t.User u ON u.id = (SELECT tv.sf_guard_user_id FROM TransactionVersion tv WHERE tv.id = t.id AND tv.version = 1)")
+        ->leftJoin('u.Domain d')
+        ->andWhere('d.name ILIKE ? OR d.name = ?', array('%.'.$dom, $dom));
+    
     $this->setDebtsListCondition($q);
     return $q;
   }
@@ -124,7 +136,7 @@ class TransactionTable extends PluginTransactionTable
     self::addDebtsListBaseSelect($q)
       ->addSelect(str_replace(array('%%tck%%', '%%pdt%%'), array('tck', 'pdt'), $outcomes = '((SELECT (CASE WHEN COUNT(%%tck%%.id) = 0 THEN 0 ELSE SUM(%%tck%%.value + CASE WHEN %%tck%%.taxes IS NULL THEN 0 ELSE %%tck%%.taxes END) END) FROM Ticket %%tck%% WHERE '.self::getDebtsListTicketsCondition('%%tck%%', $dates['to'], $dates['from']).') + (SELECT (CASE WHEN COUNT(%%pdt%%.id) = 0 THEN 0 ELSE SUM(%%pdt%%.value) END) FROM BoughtProduct %%pdt%% WHERE '.self::getDebtsListProductsCondition('%%pdt%%', $dates['to'], $dates['from']).'))').' AS outcomes')
       ->addSelect(str_replace('%%pp%%' , 'pp' , $incomes  = '(SELECT (CASE WHEN COUNT(%%pp%%.id)  = 0 THEN 0 ELSE SUM(%%pp%%.value) END) FROM Payment %%pp%% WHERE %%pp%%.transaction_id = t.id '.($dates['from'] ? " AND %%pp%%.created_at >= '".$dates['from']."'" : '').($dates['to'] ? " AND %%pp%%.created_at < '".$dates['to']."'" : '').')').' AS incomes')
-      ->where(str_replace(array('%%tck%%', '%%pdt%%'), array('tck2', 'pdt2'), $outcomes).' - '.str_replace('%%pp%%', 'p2', $incomes).' != 0');
+      ->andWhere(str_replace(array('%%tck%%', '%%pdt%%'), array('tck2', 'pdt2'), $outcomes).' - '.str_replace('%%pp%%', 'p2', $incomes).' != 0');
     return $q;
   }
   public static function getDebtsListTicketsCondition($table = 'tck', $date = NULL, $from = NULL)

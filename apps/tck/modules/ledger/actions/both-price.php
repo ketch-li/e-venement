@@ -25,6 +25,7 @@
     // by price / tickets
     $q = Doctrine::getTable('Price')->createQuery('p')
       ->leftJoin('p.Tickets t')
+      ->leftJoin('t.Transaction tr')
       ->leftJoin('t.Gauge g')
       ->leftJoin('t.User u')
       ->andWhere('t.printed_at IS NOT NULL OR t.cancelling IS NOT NULL OR t.integrated_at IS NOT NULL')
@@ -63,6 +64,7 @@
     {
       $q = Doctrine::getTable('Price')->createQuery('p')
         ->leftJoin('p.BoughtProducts t')
+        ->leftJoin('t.Transaction tr')
         ->leftJoin('t.User u')
         ->andWhere('t.integrated_at IS NOT NULL')
         ->orderBy('pt.name');

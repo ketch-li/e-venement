@@ -45,7 +45,7 @@
     }
     
     // restrict access to our own user
-    $q = $this->restrictQueryToCurrentUser($q);
+    $q = $this->restrictQueryToCurrentUser($q, 'u', 't');
     
     if ( isset($criterias['users']) && is_array($criterias['users']) && isset($criterias['users'][0]) && $criterias['users'][0] )
       $q->andWhereIn('u.id',$criterias['users']);

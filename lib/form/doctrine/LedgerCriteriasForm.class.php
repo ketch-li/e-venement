@@ -72,6 +72,8 @@ class LedgerCriteriasForm extends BaseForm
     
     $this->widgetSchema['workspaces'] = new sfWidgetFormDoctrineChoice(array(
       'model'     => 'Workspace',
+      'query' => $q = Doctrine::getTable('Workspace')->createQuery('ws')
+        ->andWhereIn('ws.id', array_keys(sfContext::getInstance()->getUser()->getWorkspacesCredentials())),
       'order_by'  => array('name',''),
       'multiple'  => true,
     ));
