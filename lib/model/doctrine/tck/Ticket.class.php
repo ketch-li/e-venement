@@ -209,13 +209,14 @@ EOF
       ? 'seat $seat / '
       : '';
     //return sprintf('%s<br/>%s %s (%s%s %s)',
-    return sprintf('<span class="batch-event">%s</span><br/><span class="batch-manifestation"><span class="batch-happens_at">%s</span> <span class="batch-location">%s</span></span><span class="batch-details">(<span class="seat">%s</span><span class="price">%s</span> <span class="amount">%s</span>)</span>',
+    return sprintf('<span class="batch-event">%s</span><br/><span class="batch-manifestation"><span class="batch-happens_at">%s</span> <span class="batch-location">%s</span></span><span class="batch-details">(<span class="seat">%s</span><span class="price">%s</span> <span class="amount">%s</span>)</span><span class="batch-gauges"><span class="workspace">%s</span></span>',
       $this->Manifestation->Event->short_name ? $this->Manifestation->Event->short_name : $this->Manifestation->Event,
       $this->Manifestation->mini_date,
       $this->Manifestation->Location,
       $seat,
       $this->Price,
-      format_currency($this->value, sfContext::hasInstance() ? sfContext::getInstance()->getConfiguration()->getCurrency() : '€')
+      format_currency($this->value, sfContext::hasInstance() ? sfContext::getInstance()->getConfiguration()->getCurrency() : '€'),
+      $this->category
     );
   }
   
