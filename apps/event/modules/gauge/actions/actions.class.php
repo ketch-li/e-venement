@@ -98,7 +98,7 @@ class gaugeActions extends autoGaugeActions
       
       $arr['id']   = $gauges->count() == 1 ? $gauges[0]->id : NULL;
       $arr['free'] = $arr['total'] + $exits - $entrances;
-      $arr['booked']['ordered'] = $entrances - $exits;
+      $arr['booked']['printed'] = $entrances - $exits;
     }
     else
     foreach ( $gauges as $gauge )
