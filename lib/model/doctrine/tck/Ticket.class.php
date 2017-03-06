@@ -178,7 +178,7 @@ EOF
       , __('Meta-event', null, 'li_tickets_email'), $this->Manifestation->Event->MetaEvent
       , __('Event', null, 'li_tickets_email'), nl2br($this->Manifestation->Event)
       , '', $this->Manifestation->Event->subtitle
-      , '', $this->Manifestation->Event->description
+      , '', $this->isNew() ? $this->Manifestation->Event->description : $this->description
       , __('Venue', null, 'li_tickets_email'), (string)$this->Manifestation->Location
       , __('Address', null, 'li_tickets_email'), (string)$this->Manifestation->Location->full_address
       //, __('Category', null, 'li_tickets_email'), $this->Gauge->Workspace->on_ticket ? $this->Gauge->Workspace->on_ticket : (string)$this->Gauge
@@ -216,7 +216,7 @@ EOF
       $seat,
       $this->Price,
       format_currency($this->value, sfContext::hasInstance() ? sfContext::getInstance()->getConfiguration()->getCurrency() : '€'),
-      $this->category
+      $this->Gauge->Workspace->on_ticket
     );
   }
   
