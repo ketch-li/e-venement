@@ -27,7 +27,9 @@ class member_card_alertsActions extends sfActions
       return $this->setTemplate('index');
     }
     
-    $cpt = $this->form->save();
+    $domain = sfConfig::get('project_internals_users_domain', false);
+
+    $cpt = $this->form->save(null, null, $domain);
     $this->getUser()->setFlash('notice',__('Your configuration has been updated with %i% option(s).',$arr = array('%i%' => $cpt)));
     $this->redirect('member_card_alerts/index');
   }
