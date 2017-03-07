@@ -20,20 +20,17 @@
       )) ?>
     </p>
     <div class="transaction_new">
-      <p><?php
-        echo __('&lt;&lt; <a href="%%url%%">Back</a> to a new transaction',array(
-          '%%url%%' => url_for('ticket/sell'),
-        ))
-      ?></p>
+      <p>
+        <input type="button" onclick="location.href='<?php echo url_for('ticket/sell'); ?>';" value="<?php echo __('New transaction'); ?>" />
+      </p>
       <?php
         $manifs = array();
         foreach ( $transaction->Tickets as $ticket )
           $manifs[$ticket->manifestation_id] = $ticket->manifestation_id;
       ?>
-      <p><?php echo __('&lt;&lt; <a href="%%url%%">Back</a> to a new transaction',array(
-        '%%url%%' => url_for('ticket/sell#manif-'.implode(',#manif-',$manifs)),
-        )) ?><br/><?php echo __('with the same initial selections')
-      ?></p>
+      <p>
+        <input type="button" onclick="location.href='<?php echo url_for('ticket/sell#manif-'.implode(',#manif-',$manifs)); ?>';" value="<?php echo __('New transaction with the same initial selections'); ?>" />
+      </p>
     </div>
   </div>
 </div>

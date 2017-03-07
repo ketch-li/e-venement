@@ -1257,8 +1257,8 @@
         <target>L'opération ne peut être validée, il reste des billets à imprimer...</target>
       </trans-unit>
       <trans-unit id="313">
-        <source>with the same initial selections</source>
-        <target>avec les mêmes sélections initiales</target>
+        <source>New transaction with the same initial selections</source>
+        <target>Nouvelle opération avec les mêmes sélections initiales</target>
       </trans-unit>
       <trans-unit id="314">
         <source>Transaction validated and closed</source>
