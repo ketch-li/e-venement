@@ -23,7 +23,7 @@ class OptionForm extends sfForm
     return $this->model;
   }
   
-  public function save($user_id = NULL, $params = NULL)
+  public function save($user_id = NULL, $params = NULL, $domain = NULL)
   {
     if ( !$this->model )
       throw new liEvenementException('No model given to the form');
@@ -34,6 +34,8 @@ class OptionForm extends sfForm
       ->delete($this->model);
     if ( $user_id )
       $q->where('sf_guard_user_id = ?',$user_id);
+    else if ( $domain )
+      $q->where('domain = ?', $domain);
     else
       $q->where('sf_guard_user_id IS NULL');
     if ( $this->db_type )
