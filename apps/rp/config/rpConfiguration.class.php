@@ -165,6 +165,13 @@ class rpConfiguration extends sfApplicationConfiguration
         ->andWhere('mc.expire_at >  ?', date('Y-m-d', strtotime(($options['delay_before']-1).' days')))
         ->andWhere('(SELECT COUNT(mmc.id) FROM MemberCard mmc WHERE mmc.member_card_type_id = mc.member_card_type_id AND mc.contact_id = mmc.contact_id AND mmc.expire_at > mc.expire_at) = 0')
       ;
+      // Domain segmentation
+      if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
+      $q->leftJoin("mc.Transaction tr")
+        ->leftJoin("tr.User tvu ON tvu.id = (SELECT tv.sf_guard_user_id FROM TransactionVersion tv WHERE tv.id = tr.id AND tv.version = 1)")
+        ->leftJoin('tvu.Domain uvd')
+        ->andWhere('uvd.name ILIKE ? OR uvd.name = ?', array('%.'.$dom, $dom));
+      
       $mcs->merge($q->execute());
       $this->stdout($section, 'Got '.($nb = $mcs->count()).' member cards that are going to expire.', 'COMMAND');
       
@@ -174,12 +181,19 @@ class rpConfiguration extends sfApplicationConfiguration
         ->andWhere('mc.expire_at <  ?', date('Y-m-d', strtotime(($options['delay_after']+1).' days')))
         ->andWhere('(SELECT COUNT(mmc.id) FROM MemberCard mmc WHERE mmc.member_card_type_id = mc.member_card_type_id AND mc.contact_id = mmc.contact_id AND mmc.expire_at > mc.expire_at) = 0')
       ;
+      // Domain segmentation
+      if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
+      $q->leftJoin("mc.Transaction tr")
+        ->leftJoin("tr.User tvu ON tvu.id = (SELECT tv.sf_guard_user_id FROM TransactionVersion tv WHERE tv.id = tr.id AND tv.version = 1)")
+        ->leftJoin('tvu.Domain uvd')
+        ->andWhere('uvd.name ILIKE ? OR uvd.name = ?', array('%.'.$dom, $dom));      
+        
       $mcs->merge($q->execute());
       $this->stdout($section, 'Got '.($mcs->count() - $nb).' member cards that have already expired.', 'COMMAND');
       
       $nb = 0;
       foreach ( $mcs as $mc )
-      if ( $mc->Contact->email )
+      if ( $mc->Contact && $mc->Contact->email )
       {
         $email = new Email;
         $email->field_from = $options['email_from'];

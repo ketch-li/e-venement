@@ -63,6 +63,13 @@ class gauge_timeoutActions extends sfActions
       ->select('c.*, cp.*, e.*')
     ;
     
+    // Domain segmentation
+    if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
+    $q->leftJoin("tck.Transaction tr")
+      ->leftJoin("tr.User tvu ON tvu.id = (SELECT tv.sf_guard_user_id FROM TransactionVersion tv WHERE tv.id = tr.id AND tv.version = 1)")
+      ->leftJoin('tvu.Domain uvd')
+      ->andWhere('uvd.name ILIKE ? OR uvd.name = ?', array('%.'.$dom, $dom));
+    
     foreach ( $q->execute() as $control )
     {
       // getting back the first exit checkpoint foundable

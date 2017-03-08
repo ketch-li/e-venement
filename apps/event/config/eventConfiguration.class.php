@@ -96,6 +96,15 @@ class eventConfiguration extends sfApplicationConfiguration
         ->andWhere("m.happens_at + (m.duration||' seconds')::interval > NOW() - '6 month'::interval")
         ->andWhere("m.happens_at < NOW() + '1 year'::interval")
         ->orderBy('m.happens_at');
+        
+      // Domain segmentation
+      if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
+      $q->leftJoin("m.Tickets tck")
+        ->leftJoin("tck.Transaction tr")
+        ->leftJoin("tr.User tvu ON tvu.id = (SELECT tv.sf_guard_user_id FROM TransactionVersion tv WHERE tv.id = tr.id AND tv.version = 1)")
+        ->leftJoin('tvu.Domain uvd')
+        ->andWhere('uvd.name ILIKE ? OR uvd.name = ?', array('%.'.$dom, $dom));
+                
       if ( $id )
         $q->andWhere('m.id = ?', $id);
       $nb = array();
