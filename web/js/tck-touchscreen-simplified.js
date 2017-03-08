@@ -291,17 +291,23 @@ LI.touchscreenSimplifiedLoadData = function(){
   LI.touchscreenSimplifiedData = {};
   
   // init:
+  var selected_id = $('#li_fieldset_simplified .products-types .selected').attr('data-bunch-id');
   $('#li_fieldset_simplified .bunch > :not(.search):not(.categories)').remove();
   $('#li_fieldset_simplified .bunch')
-    .attr('data-bunch-id', $('#li_fieldset_simplified .products-types .selected').attr('data-bunch-id'))
+    .attr('data-bunch-id', selected_id)
     .addClass('in-progress');
   
   // get back distant initial data
-  var form = $('#li_transaction_field_content [data-bunch-id="'+$('#li_fieldset_simplified .products-types .selected').attr('data-bunch-id')+'"] .new-family');
+  var form = $('#li_transaction_field_content [data-bunch-id="'+selected_id+'"] .new-family');
   var data = { simplified: 1, manifestation_id: [] /*, id: $('[name="transaction[close][id]"]').val() */ };
-  $(location.hash.split('#manifestations-')).each(function(key, value){
-    if ( value ) data.manifestation_id.push(value);
+
+  // Filter between museum and manifestation
+  $(location.hash.split('#')).each(function(key, value){
+    var sid = value.split('-');
+    if ( sid[0] == selected_id )
+    if ( sid[1] ) data.manifestation_id.push(sid[1]);
   });
+  
   $.ajax({
     url: $(form).prop('action'),
     type: $(form).prop('method'),
