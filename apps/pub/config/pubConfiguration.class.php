@@ -425,6 +425,17 @@ class pubConfiguration extends sfApplicationConfiguration
     return $orphans;
   }
 
+  protected function addDomainSegmentation($q) 
+  {    
+    // Domain segmentation
+    if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
+    $q->leftJoin("t.User tvu ON tvu.id = (SELECT tv.sf_guard_user_id FROM TransactionVersion tv WHERE tv.id = t.id AND tv.version = 1)")
+      ->leftJoin('tvu.Domain uvd')
+      ->andWhere('uvd.name ILIKE ? OR uvd.name = ?', array('%.'.$dom, $dom));
+    
+    return $q;    
+  }
+
   public function initGarbageCollectors(sfCommandApplicationTask $task = NULL)
   {
     $this->task = $task;
@@ -445,6 +456,9 @@ class pubConfiguration extends sfApplicationConfiguration
         ->andWhereIn('u.username', array_merge(array(sfConfig::get('app_user_templating', -1)), sfConfig::get('app_user_other_templates',array())))
         ->andWhere('bp.created_at < ?', $date = date('Y-m-d H:i:s', strtotime($cart_timeout.' ago')))
       ;
+      
+      $q = self::addDomainSegmentation($q);
+      
       $transactions = $q->execute();
       $nb = 0;
       foreach ( $transactions as $t )
@@ -476,6 +490,9 @@ class pubConfiguration extends sfApplicationConfiguration
         ->andWhere('u.username = ?', sfConfig::get('app_user_templating', -1))
         ->andWhere('t.created_at < ?', $date = date('Y-m-d H:i:s', strtotime($cart_timeout.' ago')))
       ;
+      
+      $q = self::addDomainSegmentation($q);
+
       $transactions = $q->execute();
       $nb = $transactions->count();
       foreach ( $transactions as $t )

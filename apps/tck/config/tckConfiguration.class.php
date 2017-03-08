@@ -172,9 +172,15 @@ class tckConfiguration extends sfApplicationConfiguration
         ->leftJoin('tck.Transaction t')
         ->leftJoin('t.Order o')
         ->andWhere('o.id IS NULL')
-        
-        ->execute()
       ;
+      
+      // Domain segmentation
+      if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
+      $tickets->leftJoin("t.User tvu ON tvu.id = (SELECT tv.sf_guard_user_id FROM TransactionVersion tv WHERE tv.id = t.id AND tv.version = 1)")
+        ->leftJoin('tvu.Domain uvd')
+        ->andWhere('uvd.name ILIKE ? OR uvd.name = ?', array('%.'.$dom, $dom));
+      
+      $tickets->execute();
       $nb = $tickets->count();
       foreach ( $tickets as $ticket )
       {
@@ -199,6 +205,9 @@ class tckConfiguration extends sfApplicationConfiguration
         ->andWhere('t.closed = ?', false)
         ->orderBy('t.id')
       ;
+      
+      // Domain segmentation already in the transaction query
+            
       $cpt = $closed = 0;
       foreach ( $q->execute() as $transaction )
       {
@@ -253,6 +262,13 @@ class tckConfiguration extends sfApplicationConfiguration
         ->andWhere('o.id IS NULL')
         ->select('tck.*')
       ;
+      
+      // Domain segmentation
+      if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
+      $q->leftJoin("t.User tvu ON tvu.id = (SELECT tv.sf_guard_user_id FROM TransactionVersion tv WHERE tv.id = t.id AND tv.version = 1)")
+        ->leftJoin('tvu.Domain uvd')
+        ->andWhere('uvd.name ILIKE ? OR uvd.name = ?', array('%.'.$dom, $dom));
+      
       $tickets = $q->execute();
       $nb = $tickets->count();
       foreach ( $tickets as $ticket )
@@ -276,6 +292,13 @@ class tckConfiguration extends sfApplicationConfiguration
         ->select('bp.id')->groupBy('bp.id')
         ->having('count(o.id) = 0')
       ;
+      
+      // Domain segmentation
+      if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
+      $q->leftJoin("t.User tvu ON tvu.id = (SELECT tv.sf_guard_user_id FROM TransactionVersion tv WHERE tv.id = t.id AND tv.version = 1)")
+        ->leftJoin('tvu.Domain uvd')
+        ->andWhere('uvd.name ILIKE ? OR uvd.name = ?', array('%.'.$dom, $dom));
+      
       $pdts = $q->execute();
       $nb = $pdts->count();
       $pdts->delete();
@@ -297,6 +320,9 @@ class tckConfiguration extends sfApplicationConfiguration
         ->groupBy('t.id, t.closed')
         ->having('count(tck.id) = 0 AND count(p.id) = 0 AND count(bp.id) = 0 AND count(o.id) = 0')
       ;
+      
+      // Domain segmentation already in th transaction query
+      
       $transactions = $q->execute();
       $cpt = 0;
       foreach ( $transactions as $transaction ) try
