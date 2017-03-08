@@ -691,7 +691,11 @@ LI.touchscreenContentLoad.push(function(data, type, reset){
           if ( window.location.hash == '#debug' )
             console.error('Simplified GUI: rendering item #'+pdt.id+' sold/to sell of type '+type+' with ids: '+price.ids.join()+'.');
           // if something needs to be displaid, display it one by one
+          var tcknum = '';
           $.each(price.ids, function(i, pdtid){
+            tcknum += '#'+pdtid+(price.numerotation[i] ? ' → '+price.numerotation[i] : '');
+            if ( i < price.ids.length-1 ) tcknum += ', ';
+          });
             var name; switch ( type ) {
             case 'store':
               name = pdt.name;
@@ -714,10 +718,10 @@ LI.touchscreenContentLoad.push(function(data, type, reset){
               .attr('data-state', price.state ? price.state : '')
               .attr('data-qty', price.qty)
               .attr('data-value', (price.pit + price['extra-taxes']) / price.qty)
-              .prop('title', '#'+pdtid+(price.numerotation[i] ? ' → '+price.numerotation[i] : ''))
+              .prop('title', tcknum)
               .append(left)
               .append(right)
-              .insertAfter($('#li_fieldset_simplified .cart .total'))
+              .insertAfter($('#li_fieldset_simplified .cart .topay'))
               .dblclick(function(){
                 if ( $(this).is('.sold') )
                   return;
@@ -738,11 +742,12 @@ LI.touchscreenContentLoad.push(function(data, type, reset){
               .append($('<span></span>').text(declination.name).addClass('declination').prop('title', declination.name))
             ;
             right
+              .append($('<span></span>').attr('data-qty', price.qty).html('x ' + price.qty).addClass('qty'))
+              .append(' ')
               .append($('<span></span>').attr('data-value', price.pit/price.qty).html(LI.format_currency(price.pit/price.qty)).addClass('value'))
               .append(' ')
               .append($('<span></span>').attr('data-extra-taxes', price['extra-taxes']/price.qty).html(LI.format_currency(price['extra-taxes'])).addClass('extra-taxes'))
             ;
-          });
         });
         
         // cancelling post-processing
@@ -781,9 +786,14 @@ LI.touchscreenFormComplete.push(function(data, index){
 LI.touchscreenSimplifiedTotal = function()
 {
   // qty
+  var qty = 0;
+  $('#li_fieldset_simplified .cart .item').each(function(id, item){
+    qty += parseInt($(item).attr('data-qty'));
+  });
+  
   $('#li_fieldset_simplified .cart .total .qty')
-    .attr('data-qty', $('#li_fieldset_simplified .cart .item').length)
-    .text($('#li_fieldset_simplified .cart .item').length)
+    .attr('data-qty', qty)
+    .text(qty)
   ;
   
   // value
@@ -797,7 +807,10 @@ LI.touchscreenSimplifiedTotal = function()
     var item = this;
     $('#li_fieldset_simplified .cart .total .value').each(function(){
       $(this)
-        .attr('data-value', parseFloat($(this).attr('data-value')) + parseFloat($(item).find('.value').attr('data-value')) + parseFloat($(item).find('.extra-taxes').attr('data-extra-taxes')))
+        .attr('data-value', 
+          parseFloat($(this).attr('data-value')) + 
+          (parseFloat($(item).find('.value').attr('data-value')) + parseFloat($(item).find('.extra-taxes').attr('data-extra-taxes')))
+          * parseFloat($(item).find('.qty').attr('data-qty')))
         .html(LI.format_currency($(this).attr('data-value')))
       ;
     });
