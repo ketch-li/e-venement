@@ -71,7 +71,7 @@
       $exits = $entrances = 0;
     
     $tickets['free'] = $tickets['total'] + $exits - $entrances;
-    $tickets['booked'] = $tickets['ordered'] = $entrances - $exits;
+    $tickets['booked'] = $tickets['printed'] = $entrances - $exits;
   }
   else
   foreach ( $manifestation->Gauges as $gauge )
