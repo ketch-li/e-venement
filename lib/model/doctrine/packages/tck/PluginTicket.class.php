@@ -306,7 +306,6 @@ abstract class PluginTicket extends BaseTicket
         $ticket->price_name = $this->price_name;
         $ticket->transaction_id = $this->transaction_id;
         $ticket->sf_guard_user_id = $this->sf_guard_user_id;
-        $ticket->value = $this->value;
         $ticket->save();
         $this->Transaction->Tickets[] = $ticket;
       } catch ( Doctrine_Hydrator_Exception $e ) { error_log('PluginTicket: '.$e->getMessage()); } // it usually happens if no similar price is available in the depending manifestation
