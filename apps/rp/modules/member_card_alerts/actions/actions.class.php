@@ -26,10 +26,8 @@ class member_card_alertsActions extends sfActions
       $this->getUser()->setFlash('error',__('Your form cannot be validated.'));
       return $this->setTemplate('index');
     }
-    
-    $domain = sfConfig::get('project_internals_users_domain', false);
 
-    $cpt = $this->form->save(null, null, $domain);
+    $cpt = $this->form->save(null, null);
     $this->getUser()->setFlash('notice',__('Your configuration has been updated with %i% option(s).',$arr = array('%i%' => $cpt)));
     $this->redirect('member_card_alerts/index');
   }
