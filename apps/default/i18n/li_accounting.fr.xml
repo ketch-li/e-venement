@@ -33,8 +33,8 @@
         <target>&lt;span class="name inline-modifiable"&gt;Facture&lt;/span&gt; #%%prefix%%&lt;span class="invoice_id"&gt;%%iid%%-%%version%%&lt;/span&gt;&lt;span class="transaction"&gt;, pour l'opération #&lt;span class="transaction_id"&gt;%%tid%%&lt;/span&gt; du &lt;span class="date"&gt;%%d%%&lt;/span&gt; &lt;span class="time"&gt;%%t%%&lt;/span&gt;&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="8">
-        <source>&lt;span class="name inline-modifiable"&gt;Order&lt;/span&gt; #&lt;span class="order_id"&gt;%%oid%%&lt;/span&gt;, for transaction #&lt;span class="transaction_id"&gt;%%tid%%&lt;/span&gt;</source>
-        <target>&lt;span class="name inline-modifiable"&gt;Bon de commande&lt;/span&gt; #&lt;span class="order_id"&gt;%%oid%%&lt;/span&gt;, pour l'opération #&lt;span class="transaction_id"&gt;%%tid%%&lt;/span&gt;</target>
+        <source>#&lt;span class="order_id"&gt;%%oid%%&lt;/span&gt;, for transaction #&lt;span class="transaction_id"&gt;%%tid%%&lt;/span&gt;</source>
+        <target>#&lt;span class="order_id"&gt;%%oid%%&lt;/span&gt;, pour l'opération #&lt;span class="transaction_id"&gt;%%tid%%&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="9">
         <source>TEP</source>
