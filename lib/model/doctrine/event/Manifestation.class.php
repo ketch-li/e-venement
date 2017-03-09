@@ -465,11 +465,11 @@ class Manifestation extends PluginManifestation implements liUserAccessInterface
       $v->addComponent($this->getIcalPartial($v->newComponent( 'vevent' ), $full, $options));
 
       if ( !file_exists($caldir) )
-        mkdir(dirname($caldir),0777,true);
+        mkdir($caldir,0777,true);
       if ( file_exists($caldir.'/'.$calfile) )
         unlink($caldir.'/'.$calfile);
 
-      $v->saveCalendar();
+      $v->saveCalendar($caldir, $calfile);
       chmod($caldir.'/'.$calfile,0777);
     }
 
