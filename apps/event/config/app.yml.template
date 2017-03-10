@@ -5,6 +5,7 @@
 #all:
 
 all:
+  #host: www.e-venement.net # used to build url in task
   ticketting:
     dematerialized: true
     #gauge_small: false

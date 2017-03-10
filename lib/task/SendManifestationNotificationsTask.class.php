@@ -41,8 +41,15 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
-    sfContext::createInstance($this->configuration, 'dev');
+    $context = sfContext::createInstance($this->configuration, 'dev');
     $databaseManager = new sfDatabaseManager($this->configuration);
+        
+    $routing = $context->getRouting();
+    $_options = $routing->getOptions();
+    $_options['context']['prefix'] = sfConfig::get('sf_no_script_name') ? '' : '/'.$this->configuration->getApplication().'_'.$this->configuration->getEnvironment().'.php';
+    $_options['context']['host'] = sfConfig::get('app_host');
+    $routing->initialize($this->dispatcher, $routing->getCache(), $_options);
+    $context->set('routing', $routing); 
     
     if(!class_exists('Manifestation'))
       throw new sfCommandException(sprintf('Model "%s" doesn\'t exist.', 'Manifestation'));
