@@ -257,6 +257,7 @@ LI.htmlEncode = function(str, with_spaces)
     return str;
   
   var result = "";
+  if ( str !== null )
   for( var i=0 ; i < str.length ; i++)
     result += trans[str.charCodeAt(i)] != undefined
       ? '&'+trans[str.charCodeAt(i)]+';'
