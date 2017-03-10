@@ -71,6 +71,8 @@ all:
       symbol: €
     plugins: []       # e.g. [liMemberCardPlugin]
     #users_domain: eve # to restrict the listing of users in this particular domain and its subdomain (this is not a DNS but an internal split only)
+    #host: www.your_back_office.net 
+    #host_pub: www.your_front.net 
     #pr_scope: none    # none (no limitation), permissive (I see my groups and orphan contacts), restrictive (I see my groups and that's all). Users from root domain can see everything, like "none"
     #usb:              # change things here only if you know exactly what you do, and refer to config/e-venement.yml params
     #  printers:
