@@ -47,7 +47,7 @@ EOF;
     $routing = $context->getRouting();
     $_options = $routing->getOptions();
     $_options['context']['prefix'] = sfConfig::get('sf_no_script_name') ? '' : '/'.$this->configuration->getApplication().'_'.$this->configuration->getEnvironment().'.php';
-    $_options['context']['host'] = sfConfig::get('app_host');
+    $_options['context']['host'] = sfConfig::get('project_internals_host');
     $routing->initialize($this->dispatcher, $routing->getCache(), $_options);
     $context->set('routing', $routing); 
     
