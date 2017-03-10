@@ -29,6 +29,7 @@ class pricesActions extends sfActions
       ->addUsersCriteria()
       ->addEventCriterias()
       ->addManifestationCriteria()
+      ->addWeekDayCriteria()
     ;
     if ( is_array($this->getUser()->getAttribute('stats.criterias',array(),'admin_module')) )
       $this->form->bind($this->getUser()->getAttribute('stats.criterias',array(),'admin_module'));
@@ -90,7 +91,9 @@ class pricesActions extends sfActions
       $q->andWhereIn('g.workspace_id',$criterias['workspaces_list']);
     if ( isset($criterias['meta_events_list']) && count($criterias['meta_events_list']) > 0 )
       $q->andWhereIn('e.meta_event_id',$criterias['meta_events_list']);
-
+    if ( isset($criterias['week_day']) && count($criterias['week_day']) > 0 )
+      $q->andWhereIn('extract(dow FROM m.happens_at)', $criterias['week_day']);
+      
     if ( !$all )
     {
       $q->andWhere($asked || $ordered ? 'NOT (t.printed_at IS NOT NULL OR t.integrated_at IS NOT NULL)' : '(t.printed_at IS NOT NULL OR t.integrated_at IS NOT NULL)');

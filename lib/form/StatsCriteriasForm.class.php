@@ -27,6 +27,34 @@ class StatsCriteriasForm extends BaseForm
     $this->disableCSRFProtection();
   }
   
+  public function addWeekDayCriteria()
+  {
+    sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
+    
+    $choices = array(
+      1 => __('Monday'), 
+      2 => __('Tuesday'), 
+      3 => __('Wednesday'), 
+      4 => __('Thursday'), 
+      5 => __('Friday'), 
+      6 => __('Saturday'), 
+      0 => __('Sunday')
+    );
+    
+    $this->widgetSchema['week_day'] = new sfWidgetFormChoice(array(
+      'choices' => $choices,
+      'multiple' => true,
+      'label' => 'Week day',
+    ));
+    $this->validatorSchema['week_day'] = new sfValidatorChoice(array(
+      'choices' => array_keys($choices),
+      'required' => false,
+      'multiple' => true,
+    ));
+    
+    return $this;
+  }
+  
   public function addManifestationCriteria()
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url','CrossAppLink'));
