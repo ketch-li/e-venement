@@ -688,6 +688,38 @@
         <source>If contextual details do not appear on hover, please try and use the filters to narrow the results down</source>
         <target>Si les informations contextuelles n'apparaissent pas au survol d'un point, veuillez utiliser les filtres afin de réduire le nombre de résultats</target>
       </trans-unit>
+      <trans-unit>
+        <source>Monday</source>
+        <target>Lundi</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>Tuesday</source>
+        <target>Mardi</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>Wednesday</source>
+        <target>Mercredi</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>Thursday</source>
+        <target>Jeudi</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>Friday</source>
+        <target>Vendredi</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>Saturday</source>
+        <target>Samedi</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>Sunday</source>
+        <target>Dimanche</target>
+      </trans-unit>      
+      <trans-unit>
+        <source>Week day</source>
+        <target>Jour de la semaine</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>

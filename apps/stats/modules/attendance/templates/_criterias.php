@@ -21,6 +21,12 @@
       <span><?php echo $form['dates'] ?></span>
     </li>
     <?php endif ?>
+    <?php if ( isset($form['week_day']) ): ?>
+    <li class="week_day">
+      <?php echo $form['week_day']->renderLabel() ?>
+      <span><?php echo $form['week_day'] ?></span>
+    </li>
+    <?php endif ?>
     <?php if ( isset($form['workspaces_list']) ): ?>
     <li class="workspaces_list">
       <?php echo $form['workspaces_list']->renderLabel() ?>

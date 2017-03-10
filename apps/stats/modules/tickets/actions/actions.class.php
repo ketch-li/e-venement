@@ -30,6 +30,10 @@ class ticketsActions extends sfActions
     $q->andWhere('(tck.printed_at IS NOT NULL AND tck.printed_at >= ? OR tck.integrated_at IS NOT NULL AND tck.integrated_at >= ?)',array($criterias['dates']['from'],$criterias['dates']['from']))
       ->andWhere('(tck.printed_at IS NOT NULL AND tck.printed_at <  ? OR tck.integrated_at IS NOT NULL AND tck.integrated_at <  ?)',array($criterias['dates']['to'],$criterias['dates']['to']));
     
+    // week days
+    if ( isset($criterias['week_day']) && count($criterias['week_day']) > 0 )
+      $q->andWhereIn('extract(dow FROM m.happens_at)', $criterias['week_day']);
+
     // workspaces
     if ( isset($criterias['workspaces_list']) && is_array($criterias['workspaces_list']) )
       $q->leftJoin('tck.Gauge g')
@@ -74,6 +78,7 @@ class ticketsActions extends sfActions
     $this->form
       ->addEventCriterias()
       ->addGroupsCriteria()
+      ->addWeekDayCriteria()
     ;
     if ( is_array($this->getUser()->getAttribute('stats.criterias',array(),'admin_module')) )
     {

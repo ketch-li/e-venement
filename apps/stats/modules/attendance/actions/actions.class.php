@@ -27,6 +27,7 @@ class attendanceActions extends sfActions
     $this->form = new StatsCriteriasForm();
     $this->form->addWithContactCriteria();
     $this->form->addEventCriterias();
+    $this->form->addWeekDayCriteria();
     if ( is_array($this->getUser()->getAttribute('stats.criterias',array(),'admin_module')) )
       $this->form->bind($this->getUser()->getAttribute('stats.criterias',array(),'admin_module'));
   }
@@ -155,6 +156,9 @@ class attendanceActions extends sfActions
     if( isset($criterias['events_list']) && $criterias['events_list'][0])
       $q->andWhereIn('e.id', $criterias['events_list']);
     
+    if ( isset($criterias['week_day']) && count($criterias['week_day']) > 0 )
+      $q->andWhereIn('extract(dow FROM m.happens_at)', $criterias['week_day']);
+
     return $type == 'array' ? $q->fetchArray() : $q->execute();
   }
 }
