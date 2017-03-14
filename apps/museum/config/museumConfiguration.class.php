@@ -48,8 +48,8 @@ class museumConfiguration extends sfApplicationConfiguration
       }
 
       // Get timeout value (in seconds)
-      $option = Doctrine_Query::create()->from('OptionGaugeTimeout ogt')
-        ->andWhere('ogt.type = ?', 'gauge_timeout')
+      $option = Doctrine::getTable('OptionGaugeTimeout')
+        ->createQuery('ogt')
         ->andWhere('ogt.name = ?', 'timeout')
         ->fetchOne();
       $timeout = $option ? (int)$option->getValue() * 60 : 0;
