@@ -820,7 +820,7 @@ ou bien suivez ce lien&nbsp;:&lt;br/&gt;
       </trans-unit>
       <trans-unit id="202">
         <source>Your cart is still empty, select tickets first...</source>
-        <target>Votre panier est toujours vide, sélectionnez d'abord des billets...</target>
+        <target>Votre panier est vide, sélectionnez d'abord des billets...</target>
       </trans-unit>
       <trans-unit id="203">
         <source>[1]There is one overloaded gauge, please review your command.|(1,+Inf]There are %%nb%% overloaded gauges, please review your command.</source>
