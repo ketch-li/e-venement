@@ -43,7 +43,16 @@ class attendanceActions extends sfActions
       $this->lines[$key]['name'] = (string)$manif;
       
       // free seats
-      $this->lines[$key]['free'] = $manif['gauge']-$manif['printed']-(sfConfig::get('project_tickets_count_demands',false) ? $manif['asked'] : 0)-$manif['ordered'];
+      $free = $manif['gauge']-$manif['printed']-(sfConfig::get('project_tickets_count_demands',false) ? $manif['asked'] : 0)-$manif['ordered'];
+      $over = $free;
+      if ( $free > 0 ) {
+        $this->lines[$key]['free'] = $free;
+        $this->lines[$key]['over'] = 0;  
+      }
+      else {
+        $this->lines[$key]['free'] = 0;
+        $this->lines[$key]['over'] = $over;
+      }
       
       // percentages
       $this->lines[$key]['printed_percentage'] = $manif['gauge'] > 0 ? format_number(round($manif['printed']*100/$manif['gauge'],0)) : 'N/A';

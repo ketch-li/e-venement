@@ -49,6 +49,7 @@ LI.stats.attendance = function () {
             var ordered = [];
             var printed = [];
             var labels = [];
+            var over = [];
             LI.stats.attendanceLegends = json.legends;
             LI.csvData[name].push(json.csvHeaders);
 
@@ -59,6 +60,7 @@ LI.stats.attendance = function () {
                     ordered.push(manif.ordered);
                     printed.push(manif.printed);
                     labels.push(manif.name);
+                    over.push(manif.over);
 
                     var csvData = [
                         manif.event_name,
@@ -75,6 +77,7 @@ LI.stats.attendance = function () {
                         manif.ordered,
                         manif.asked, 
                         manif.free,
+                        manif.over,
                         manif.printed_percentage,
                         manif.printed_with_payment_percentage,
                         manif.printed_gifts_percentage,
@@ -96,11 +99,17 @@ LI.stats.attendance = function () {
                 } 
             });
             
-            var barOptions = Object.keys(json).length < 5 ? { barWidth: 200} : {};
+            var barOptions = Object.keys(json).length < 5 ? { barWidth: 200 } : {};
+            barOptions['fillToZero'] = true;
 
-            var seriesLegend = [{label: json.legends.printed, color: "#FF0000"}, {label: json.legends.ordered, color: "#FFA500"}, {label: json.legends.available, color: "#00FF00"}];
+            var seriesLegend = [
+              { label: json.legends.printed, color: "#FF0000" }, 
+              { label: json.legends.ordered, color: "#FFA500" }, 
+              { label: json.legends.available, color: "#00FF00" },
+              { label: json.legends.over, color: "#666666" }
+            ];
 
-            var plot = $.jqplot(id, [printed, ordered, array], {
+            var plot = $.jqplot(id, [printed, ordered, array, over], {
                 height: 800,
                 stackSeries: true,
                 seriesDefaults: {
@@ -155,6 +164,9 @@ LI.stats.attendanceTooltips = function (str, seriesIndex, pointIndex, plot){
             break;
         case 1:
             label = LI.stats.attendanceLegends.ordered;
+            break;
+        case 3:
+            label = LI.stats.attendanceLegends.over;
             break;
         default:
             label = LI.stats.attendanceLegends.available;

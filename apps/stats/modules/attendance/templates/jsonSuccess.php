@@ -36,6 +36,7 @@ $json['csvHeaders'] = [
     __('Ordered'),
     __('Asked'),
     __('Free'),
+    __('Over'),
     __('Printed').' %',
     __('Printed with a payment').' %',
     __('Printed for free').' %',
@@ -58,7 +59,8 @@ $json['legends'] = array(
     'total'     => __('Total'), 
     'ordered'   => __('Ordered'),
     'printed'   => __('Printed'),
-    'available' => __('Available')
+    'available' => __('Available'),
+    'over'      => __('Over')
 );
 
 echo json_encode($json, sfConfig::get('sf_web_debug', false) ? JSON_PRETTY_PRINT : NULL);

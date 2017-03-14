@@ -720,6 +720,10 @@
         <source>Week day</source>
         <target>Jour de la semaine</target>
       </trans-unit>      
+      <trans-unit>
+        <source>Over</source>
+        <target>Dépassement</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
