@@ -25,7 +25,7 @@
 $result = false;
 $payments = array_keys(sfConfig::get('app_payments_list', array()));
 $options = array_values(sfConfig::get('app_payments_list', array()));
-  
+$current_transaction = $this->getUser()->getTransaction();
 
 for ( $i = -1 ; $i < count($options) ; $i++ )
 {
@@ -151,5 +151,7 @@ for ( $i = -1 ; $i < count($options) ; $i++ )
 }
 
 $this->oneShot();
+
+$this->getUser()->setTransaction($current_transaction);
 
 return sfView::NONE;

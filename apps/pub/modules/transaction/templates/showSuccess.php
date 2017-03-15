@@ -241,7 +241,7 @@ $(document).ready(function(){
 <?php include_partial('show_resend_email', array('transaction' => $transaction)) ?>
 <?php endif ?>
 
-<?php if ( $transaction->Order->count() > 0 || $transaction->Payments->count() > 0 ): ?>
+<?php if ( !$current_transaction ): ?>
 
 <div id="payments">
 <h3><?php echo __('Payment status') ?>:</h3>
@@ -265,7 +265,7 @@ $(document).ready(function(){
 <div id="cmd-links">
 <?php include_partial('global/show_links', array('objects' => $for_links)); ?>
 </div>
-
+<?php if ( $current_transaction ): ?>
 <?php include_partial('show_comment',array('transaction' => $transaction, 'form' => $form)) ?>
-
+<?php endif ?>
 <?php include_partial('show_bottom',array('end' => $end)) ?>

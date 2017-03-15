@@ -114,6 +114,21 @@ class transactionActions extends sfActions
   {
     return require(__DIR__.'/contacts.php');
   }
+
+  public function executeAjax(sfWebRequest $request) {
+      $this->paid = array();
+    
+      if ( Doctrine::getTable('Payment')->createQuery('p')
+        ->andWhere('p.transaction_id = ?', $request->getParameter('id'))
+        ->andWhere('p.payment_method_id = ?', sfConfig::get('app_tickets_payment_method_id',''))
+        ->count() > 0 ) {
+          $this->paid['payment'] = true;
+      } else {
+        $this->paid['payment'] = false;
+      }
+      
+      return 'Json';
+  }
   
   public function executeShow(sfWebRequest $request)
   {

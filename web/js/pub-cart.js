@@ -82,5 +82,30 @@
       
       $(pdt).removeClass('todo');
     }
+    
+    // Test if the paiement is received
+    var state = true;
+    var testp = 0;
+    
+    LI.pubTestPayment = function () {
+      $.ajax({
+        url: location.href.replace('show', 'ajax'),
+        method: 'post',
+        success: function(result){
+          if ( result['payment'] ) {
+            clearTimeout(testp);
+            if ( !state ) {
+              location.reload();
+            }
+          } else {
+            state = result['payment'];
+            testp = setTimeout(LI.pubTestPayment, 5000);
+          }
+        }
+      });
+    }
+    
+    LI.pubTestPayment();
+    
   });
 

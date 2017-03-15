@@ -142,6 +142,13 @@ class contactActions extends sfActions
       ->orderBy("mc.expire_at DESC, mc.created_at, mct.name")
       ->execute();      
     
+    $this->transactions = Doctrine::getTable('Transaction')->createQuery('t')
+      ->andWhere('t.contact_id = ?',$this->getUser()->getContact()->id)
+      ->orderBy("t.created_at DESC")
+      ->execute();
+    
+    $this->current_transaction = $this->getUser()->getTransaction()->id;
+    
     $this->active_member_cards = array();
     $this->used_member_cards = array();
     

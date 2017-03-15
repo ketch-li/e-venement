@@ -323,6 +323,8 @@
     }
     else
     {
+      $this->getUser()->saveCart();
+      
       // simple configuration
       if ( sfConfig::get('app_payment_type', false) )
       {
