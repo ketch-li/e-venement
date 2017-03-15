@@ -31,6 +31,7 @@ class myUser extends pubUser
   protected $metaevents = array();
   protected $workspaces = array();
   protected $transaction = NULL;
+  protected $cart = NULL;
   protected $auth_exceptions = array();
   protected $origin_id = NULL;
   
@@ -379,6 +380,26 @@ class myUser extends pubUser
   {
     $this->transaction = $transaction;
     $this->setAttribute('transaction_id',$this->transaction->id);
+  }
+  
+  public function saveCart() 
+  {
+    $this->cart = $this->transaction;
+    $this->setAttribute('cart_id', $this->transaction->id);
+
+    $this->resetTransaction();
+  }
+  
+  public function restoreCart() 
+  {
+    $this->cart = Doctrine_Query::create()
+      ->from('Transaction t')
+      ->andWhere('t.contact_id = ?',$this->getContact()->id)
+      ->andWhere('t.id = ?', $this->getAttribute('cart_id'))
+      ->fetchOne();
+
+    if ( $this->cart )
+      $this->setTransaction($this->cart);
   }
   
   public function resetTransaction()

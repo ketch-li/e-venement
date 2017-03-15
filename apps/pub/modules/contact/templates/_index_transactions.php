@@ -42,7 +42,7 @@
     </tfoot>
     <tbody>
       <?php $cpt = 0 ?>
-      <?php foreach ( $contact->Transactions as $t ): ?>
+      <?php foreach ( $transactions as $t ): ?>
       <?php
         // is related to a Hold
         if ( $t->getRaw('HoldTransaction') instanceof HoldTransaction && $t->HoldTransaction->id )
@@ -60,11 +60,11 @@
         if ( $cpt == 0 )
           continue;
       ?>
-      <?php if ( $t->Order->count() > 0 && $t->Tickets->count() > 0 || $cpt['sold'] > 0 || $t->getPrice() > 0 ): ?>
+      <?php if ( $t->Order->count() > 0 && $t->Tickets->count() > 0 || $cpt['sold'] > 0 || $t->getPrice() > 0  || ($t->closed == false && $current_transaction != $t->id) ): ?>
         <tr class="sf_admin_row <?php echo $cpt%2 == 0 ? '' : 'odd' ?> transaction-<?php echo $t->id ?>">
           <td class="sf_admin_text sf_admin_list_td_list_id">#<a href="<?php echo url_for('transaction/show?id='.$t->id) ?>" class="transaction"><?php echo $t->id ?></a></td>
           <td class="sf_admin_date sf_admin_list_td_list_date"><?php echo format_date($t->created_at) ?></td>
-        </li>
+        </tr>
         <?php $cpt++ ?>
       <?php endif ?>
       <?php endforeach ?>
