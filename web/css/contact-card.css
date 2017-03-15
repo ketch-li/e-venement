@@ -72,6 +72,8 @@ html body p { margin: 0; padding: 0 }
 .member_card .content .extra-date, .member_card .content .librinfo, .member_card .content .extra-card, .member_card .content .title { font-weight: normal; }
 .member_card .title:after { content: ' :'; }
 
+.member_card  .cardtype { display: none; }
+
 .member_card h2 { text-align: center; font-size: 13px; }
 .member_card .extra-date { font-size: 70%; }
 
