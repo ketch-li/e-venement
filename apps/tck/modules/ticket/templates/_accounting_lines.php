@@ -2,6 +2,7 @@
 <table id="lines">
 <thead><tr>
   <th class="event"><span><?php echo __('Product', null, 'li_accounting') ?></span></th>
+  <th class="category"><span><?php echo __('Category', null, 'li_accounting') ?></span></th>
   <th class="date"><span><?php echo __('Date', null, 'li_accounting') ?></span></th>
   <th class="time"><span><?php echo __('Time', null, 'li_accounting') ?></span></th>
   <th class="location"><span><?php echo __('Location', null, 'li_accounting') ?></span></th>
@@ -22,6 +23,7 @@
 <?php if ( $ticket->id > 0 ): ?>
   <tr class="ticket">
     <td class="event"><?php echo $ticket->Manifestation->Event ?></td>
+    <td class="category"><?php echo $ticket->Manifestation->Event->EventCategory->name ?></td>
     <td class="date"><?php echo format_date($ticket->Manifestation->happens_at) ?></td>
     <td class="time"><?php echo format_date($ticket->Manifestation->happens_at,'HH:mm') ?></td>
     <td class="location"><?php echo $ticket->Manifestation->Location ?></td>

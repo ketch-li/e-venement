@@ -140,6 +140,10 @@
         <source>You will find your invoice from %%seller%% in this email message as an attachment.</source>
         <target>Veuillez trouver ci-joint la facture de votre réservation pour %%seller%%.</target>
       </trans-unit>
+      <trans-unit id="35">
+        <source>Category</source>
+        <target>Catégorie</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
