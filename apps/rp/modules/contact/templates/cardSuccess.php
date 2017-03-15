@@ -79,6 +79,7 @@ $(document).ready(function(){
     </p>
   </div>
   <div class="content receipt">
+    <p class="cardtype"><?php echo(' '.$card->MemberCardType->name); ?></p>
     <p class="librinfo">Imprimé et géré par e-venement www.libre-informatique.fr</p>
     <p class="cardid"><span class="title"><?php echo __('N° mumber card') ?></span><?php echo(' '.$card->id); ?></p>
     <h2><?php echo __('Card receipt') ?></h2>
