@@ -48,3 +48,14 @@
 .ui-widget-content .show-header, .ui-widget-content .show-criterias { padding: 5px; margin: 5px 5px 0 5px; }
 .ui-widget-content .show-header p + p { margin-top: 0.5em; }
 .ui-widget-content .show-criterias ul { list-style: none; }
+
+.legendWrapper { 
+  position: relative;
+  overflow: auto;
+  float: right;
+  height: 265px;
+  width: 150px;
+  top: 1px;
+  right: 11px;
+}
+
