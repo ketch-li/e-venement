@@ -313,6 +313,9 @@ class ContactPublicForm extends ContactForm
     
     $object = sfConfig::get('app_contact_professional', false) ? $this->object->Professionals[0] : $this->object;
     
+    if ( !$object->isNew() )
+      return;
+    
     $q = Doctrine_Query::create()->from('Group g')
       ->andWhere('g.sf_guard_user_id IS NULL')
       ->leftJoin('g.Users u')
