@@ -478,11 +478,11 @@
       </trans-unit>
       <trans-unit id="118">
         <source>From %from_date%</source>
-        <target>Entre le %from_date%</target>
+        <target>Du %from_date%</target>
       </trans-unit>
       <trans-unit id="119">
-        <source>to %to_date%</source>
-        <target>et le %to_date%</target>
+        <source>to %to_date% excluded</source>
+        <target>au %to_date% exclu</target>
       </trans-unit>
       <trans-unit id="120">
         <source>You must seat all your tickets before print them, even partially</source>

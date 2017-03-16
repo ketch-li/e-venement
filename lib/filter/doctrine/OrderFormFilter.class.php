@@ -29,7 +29,7 @@ class OrderFormFilter extends BaseOrderFormFilter
     $this->widgetSchema   ['manifestation_happens_at'] = new sfWidgetFormFilterDate(array(
       'from_date' => new liWidgetFormJQueryDateText(array('culture' => 'fr')),
       'to_date'   => new liWidgetFormJQueryDateText(array('culture' => 'fr')),
-      'template'  => __('<span class="dates"><span>from %from_date%</span> <span>to %to_date%</span>', null, 'sf_admin'),
+      'template'  => '<span class="dates"><span>'.__('From %from_date%').'</span> <span>'.__('to %to_date% excluded').'</span>',
       'with_empty' => false,
     ));
     $this->validatorSchema['manifestation_happens_at'] = new sfValidatorDateRange(array(

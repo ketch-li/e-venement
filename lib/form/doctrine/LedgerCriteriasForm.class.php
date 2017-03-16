@@ -17,7 +17,7 @@ class LedgerCriteriasForm extends BaseForm
     $this->widgetSchema['dates'] = new sfWidgetFormDateRange(array(
       'from_date' => new liWidgetFormJQueryDateText(array('culture' => sfContext::getInstance()->getUser()->getCulture())),
       'to_date'   => new liWidgetFormJQueryDateText(array('culture' => sfContext::getInstance()->getUser()->getCulture())),
-      'template'  => 'du %from_date%<br/> au %to_date%',
+      'template'  => '<span class="dates"><span>'.__('From %from_date%').'</span><br><span>'.__('to %to_date% excluded').'</span></span>',
     ));
     $this->validatorSchema['dates'] = new sfValidatorDateRange(array(
       'from_date' => new sfValidatorDate(array('required' => false)),

@@ -22,7 +22,7 @@ class ManifestationFormFilter extends BaseManifestationFormFilter
       'url'   => url_for('event/ajax?with_meta_event=1'),
     ));
     
-    $this->widgetSchema['happens_at']->setOption('template', '<span class="from">'.__('From %from_date%').'</span> <span class="to">'.__('to %to_date%').'</span>');
+    $this->widgetSchema['happens_at']->setOption('template', '<span class="from">'.__('From %from_date%').'</span> <span class="to">'.__('to %to_date% excluded').'</span>');
     
     $this->widgetSchema['location_id']->setOption('order_by', array('l.place DESC, l.rank, l.name',''))
       ->setOption('query', Doctrine::getTable('Location')->retrievePlaces());
