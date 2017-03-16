@@ -89,6 +89,18 @@ LI.stats.prices = function(){
       });
 
       LI.stats.resizable(plot, name, id);
+            
+      // Fix legend when too much prices are displayed
+      var chartElement = $("#"+name+"_chart");
+      var legendTable = chartElement.find("table.jqplot-table-legend");
+      // Not in a class because they are overwritten by jquery.jqplot.css
+      legendTable.css({"margin": 0, "right": 0, "top": 0, "padding": "5px"});
+      
+      var legendWrapper = $(document.createElement("div"));
+      legendWrapper.addClass('legendWrapper');
+      legendTable.appendTo(legendWrapper);
+      legendWrapper.appendTo(chartElement);  
+      
     });
   });
 };
