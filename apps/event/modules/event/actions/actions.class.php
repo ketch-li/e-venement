@@ -242,8 +242,9 @@ class eventActions extends autoEventActions
   public function executeBatchMerge(sfWebRequest $request)
   {
     $ids = $request->getParameter('ids');
-
-    $events = Doctrine::getTable('Event')->retrieveList()->orderBy('e.updated_at DESC')
+    $musem = $this->getContext()->getConfiguration()->getApplication() == 'museum';
+    
+    $events = Doctrine::getTable('Event')->retrieveList(null, $museum)->orderBy('e.updated_at DESC')
       ->andWhereIn('e.id', $ids)
       ->execute();
     if ( $events->count() <= 1 )
@@ -290,8 +291,9 @@ class eventActions extends autoEventActions
     if ( $rc->implementsInterface('liDuplicable') )
     {
       $ids = $request->getParameter('ids');
+      $museum = $this->getContext()->getConfiguration()->getApplication() == 'museum';
 
-      $events = Doctrine::getTable($class)->retrieveList()->orderBy('e.updated_at DESC')
+      $events = Doctrine::getTable($class)->retrieveList(null, $museum)->orderBy('e.updated_at DESC')
         ->andWhereIn('e.id', $ids)
         ->execute();
 
