@@ -85,7 +85,27 @@ LI.stats.resizable = function(plot, name, id){
     $('#' + id).height($('#resizable-' + name).height()*0.96 -35);
     $('#' + id).width($('#resizable-' + name).width()*0.96);
     plot.replot( { resetAxes:true } );
+    LI.stats.fixLegends(plot, id);
   });
 
   $('#resizable-' + name).children('.actions').css('margin-top', '-15px');
+  LI.stats.fixLegends(plot, id);
 };
+
+LI.stats.fixLegends = function(plot, id) {
+  if ( plot.series[0]._type != 'pie' )
+    return;
+  
+  // Fix legend when too much prices are displayed
+  var chartElement = $('#'+id);
+  var legendTable = chartElement.find("table.jqplot-table-legend");
+  // Not in a class because they are overwritten by jquery.jqplot.css
+  legendTable.css({"margin": 0, "right" : 0, "top": 0, "padding": "5px"});
+  
+  var legendWrapper = $(document.createElement("div"));
+  legendWrapper.addClass('legendWrapper')
+    .height(chartElement.find(".jqplot-series-canvas").height()-2)
+    .width(legendTable.width()+12);
+  legendTable.appendTo(legendWrapper);
+  legendWrapper.appendTo(chartElement);  
+}
