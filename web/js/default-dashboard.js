@@ -104,10 +104,10 @@ LI.dashboardStats = function(){
         break;
       
       default:
-        $.jqplot(id, [array], {
+        var plot = $.jqplot(id, [array], {
           seriesDefaults: {
             rendererOptions: {
-              fill: false,
+              fill: true,
               showDataLabels: true,
               slideMargin: 4,
               lineWidth: 5
@@ -124,6 +124,8 @@ LI.dashboardStats = function(){
          },
           captureRightClick: true
         });
+        
+        LI.stats.fixLegends(plot, id);      
         break;
       }
     });
