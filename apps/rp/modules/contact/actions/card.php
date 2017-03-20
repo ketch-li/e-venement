@@ -113,6 +113,19 @@
             'member_card' => $this->card,
           )));
         }
+        
+        if ( sfConfig::get('project_cards_pdf', false) )
+        {
+          $pdf = new liPDFPlugin($this->getPartial('cardPDF', array('transaction' => $this->transaction, 'contact' => $this->contact)));
+          
+          $file = new Picture;
+          $file->name = 'db:'.('Membercard-'.$this->transaction->id.'-'.date('YmdHis').'.pdf');
+          $file->content = base64_encode($pdf->getPDF());
+          $file->type = 'application/pdf';
+          $file->save();
+          
+          $this->pdf_url = $file->getUrl();
+        }
       }
       else
       {
