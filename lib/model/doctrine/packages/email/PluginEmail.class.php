@@ -260,8 +260,10 @@ abstract class PluginEmail extends BaseEmail
     $this->message
       ->setFrom(array($this->field_from => $this->from_txt ? $this->from_txt : $this->field_from))
       ->setSubject($this->field_subject)
-      ->setReplyTo(sfConfig::get('project_email_replyto',''))
     ;
+    
+    if ( $reply = sfConfig::get('project_email_replyto', false) ) 
+      $this->message->setReplyTo($reply);
     
     if ( $this->read_receipt )
       $this->message->setReadReceiptTo($this->field_from);
