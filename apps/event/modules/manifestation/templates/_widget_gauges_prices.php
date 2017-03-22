@@ -20,7 +20,7 @@
   $order = array_keys($order + $others);
 ?>
 <table>
-  <body>
+  <tbody>
     <?php foreach ( $manifestation->Gauges as $gauge ): ?>
     <?php
       $prices = array();
