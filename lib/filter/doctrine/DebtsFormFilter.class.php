@@ -60,7 +60,7 @@ class DebtsFormFilter extends TransactionFormFilter
     if (!( is_array($values) && $values && $values['from'] && $values['to'] ))
       return $q;
     
-    $q->getRoot()->setDebtsListCondition($q, $values);
+    $q->getRoot()->setDebtsListCondition($q, $values, array('tck3', 'pdt3'));
     return $q;
   }
 
