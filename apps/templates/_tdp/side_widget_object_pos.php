@@ -37,17 +37,31 @@
     <?php foreach ( $objects as $obj ): ?>
     <?php $total = array('qty' => 0, 'value' => 0); ?>
     <?php $cpt++ ?>
-    <?php if ( $obj->Transactions->count() > 0 ): ?>
+    
+    <?php
+    $q = Doctrine::getTable('Transaction')->createQueryForStore('t', $sf_user->getCulture());
+    if ( $obj->getRawValue() instanceof Contact )
+      $q->andWhere('t.contact_id = ?', $obj->id)
+        ->andWhere('t.professional_id IS NULL');
+    else
+      $q->andWhere('t.professional_id = ?', $obj->id);
+
+    $transactions = $q->execute();
+    ?>
+    
+    <?php if ( $transactions->count() > 0 ): ?>
     <li class="pos-<?php echo $cpt == 1 ? 'object' : 'subobject-'.$obj->id ?>">
       <?php if ( count($objects) > 1 ): ?>
       <h3><?php echo $obj ?></h3>
       <?php endif ?>
       <?php
         $bps = $sort = array();
-        foreach ( $obj->Transactions as $transaction )
-        if ( is_null($transaction->professional_id) || $cpt > 1 )
-        foreach ( $transaction->BoughtProducts as $bp )
-          require(__DIR__.'/side_widget_object_pos_process_products.php');
+        foreach ( $transactions as $transaction )
+        {
+          //if ( is_null($transaction->professional_id) || $cpt > 1 )
+          foreach ( $transaction->BoughtProducts as $bp )
+            require(__DIR__.'/side_widget_object_pos_process_products.php');          
+        }
       ?>
       <ul>
         <li class="total">
