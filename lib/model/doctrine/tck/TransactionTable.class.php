@@ -131,12 +131,12 @@ class TransactionTable extends PluginTransactionTable
     $this->setDebtsListCondition($q);
     return $q;
   }
-  public static function setDebtsListCondition(Doctrine_Query $q, $dates = array('from' => NULL, 'to' => NULL))
+  public static function setDebtsListCondition(Doctrine_Query $q, $dates = array('from' => NULL, 'to' => NULL), $alias = array('tck2', 'pdt2'))
   {
     self::addDebtsListBaseSelect($q)
       ->addSelect(str_replace(array('%%tck%%', '%%pdt%%'), array('tck', 'pdt'), $outcomes = '((SELECT (CASE WHEN COUNT(%%tck%%.id) = 0 THEN 0 ELSE SUM(%%tck%%.value + CASE WHEN %%tck%%.taxes IS NULL THEN 0 ELSE %%tck%%.taxes END) END) FROM Ticket %%tck%% WHERE '.self::getDebtsListTicketsCondition('%%tck%%', $dates['to'], $dates['from']).') + (SELECT (CASE WHEN COUNT(%%pdt%%.id) = 0 THEN 0 ELSE SUM(%%pdt%%.value) END) FROM BoughtProduct %%pdt%% WHERE '.self::getDebtsListProductsCondition('%%pdt%%', $dates['to'], $dates['from']).'))').' AS outcomes')
       ->addSelect(str_replace('%%pp%%' , 'pp' , $incomes  = '(SELECT (CASE WHEN COUNT(%%pp%%.id)  = 0 THEN 0 ELSE SUM(%%pp%%.value) END) FROM Payment %%pp%% WHERE %%pp%%.transaction_id = t.id '.($dates['from'] ? " AND %%pp%%.created_at >= '".$dates['from']."'" : '').($dates['to'] ? " AND %%pp%%.created_at < '".$dates['to']."'" : '').')').' AS incomes')
-      ->andWhere(str_replace(array('%%tck%%', '%%pdt%%'), array('tck2', 'pdt2'), $outcomes).' - '.str_replace('%%pp%%', 'p2', $incomes).' != 0');
+      ->andWhere(str_replace(array('%%tck%%', '%%pdt%%'), $alias, $outcomes).' - '.str_replace('%%pp%%', 'p2', $incomes).' != 0');
     return $q;
   }
   public static function getDebtsListTicketsCondition($table = 'tck', $date = NULL, $from = NULL)
