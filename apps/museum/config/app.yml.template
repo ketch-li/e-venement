@@ -27,7 +27,7 @@ all:
     #extra_informations_enable: false
     #editable_in_calendar: false
     price_manifestations: true  # true by default
-    price_gauges: true          # false by default
+    #price_gauges: false          # false by default
     #prefer_short_name: false
     online_users: [vel] # for stats
     #show_location_ajax: false
