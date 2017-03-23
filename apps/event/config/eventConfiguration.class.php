@@ -112,6 +112,15 @@ class eventConfiguration extends sfApplicationConfiguration
       {
         foreach ( array('showTickets', 'showSpectators', 'statsFillingData',) as $action )
         {
+          // Update lock time for very long processes
+          if ( file_exists($lockfile) ) {
+            touch($lockfile);
+          }
+          else {
+            $this->stdout($section, 'No lock file. Stopping...', 'ERROR');
+            return $this;
+          }            
+          
           $context = sfContext::getInstance();
           // this is a workaround for some cases where the user is lost between actions ??...
           if ( !$context->getUser()->getId() )
