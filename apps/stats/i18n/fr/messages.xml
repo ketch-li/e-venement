@@ -724,6 +724,10 @@
         <source>Over</source>
         <target>Dépassement</target>
       </trans-unit>
+      <trans-unit>
+        <source>Organism Categories</source>
+        <target>Catégories d'organisme</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

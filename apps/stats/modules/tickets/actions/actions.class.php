@@ -43,7 +43,7 @@ class ticketsActions extends sfActions
     if ( isset($criterias['meta_events_list']) && is_array($criterias['meta_events_list']) )
       $q->andWhereIn('e.meta_event_id',$criterias['meta_events_list']);
     
-    // metaevents
+    // groups
     if ( isset($criterias['groups_list']) && is_array($criterias['groups_list']) )
     {
       if ( !$q->contains('FROM Professional p') )
@@ -60,7 +60,18 @@ class ticketsActions extends sfActions
         ->andWhere('TRUE)')
       ;
     }
-    
+
+    // Organism category
+    if ( isset($criterias['Organism_Category']) && is_array($criterias['Organism_Category']) && $pro ) 
+    {
+      if ( !$q->contains('FROM Professional p') )
+        $q->leftJoin('c.Professionals p WITH p.id = t.professional_id');
+      if ( !$q->contains('LEFT JOIN Organism o') )
+        $q->leftJoin('p.Organism o');
+      $q->leftJoin('o.Category oc')
+        ->andWhereIn('oc.id', $criterias['Organism_Category']);
+    }    
+
     return $q;
   }
   
@@ -79,6 +90,7 @@ class ticketsActions extends sfActions
       ->addEventCriterias()
       ->addGroupsCriteria()
       ->addWeekDayCriteria()
+      ->addOrganismCategoryCriteria()
     ;
     if ( is_array($this->getUser()->getAttribute('stats.criterias',array(),'admin_module')) )
     {
