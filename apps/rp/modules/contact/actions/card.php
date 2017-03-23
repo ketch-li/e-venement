@@ -116,7 +116,12 @@
         
         if ( sfConfig::get('project_cards_pdf', false) )
         {
-          $pdf = new liPDFPlugin($this->getPartial('cardPDF', array('transaction' => $this->transaction, 'contact' => $this->contact)));
+          $pdf = new liPDFPlugin();          
+          $pdf->setOption('margin-bottom', 0);
+          $pdf->setOption('margin-right', 0);
+          $pdf->setOption('margin-left', 0);
+          $pdf->setOption('margin-top', 0);
+          $pdf->setHtml($this->getPartial('cardPDF', array('transaction' => $this->transaction, 'contact' => $this->contact)));
           
           $file = new Picture;
           $file->name = 'db:'.('Membercard-'.$this->transaction->id.'-'.date('YmdHis').'.pdf');
