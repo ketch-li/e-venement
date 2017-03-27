@@ -19,7 +19,7 @@
   <?php
     $vat = array();
     $total = $sf_data->getRaw('total');
-
+    $superTotal = $total;
     $museum = false;
     require(__DIR__.'/_sales_events_prepare.php');
   ?>
@@ -54,6 +54,8 @@
 
 <table class="ui-widget-content ui-corner-all" id="ledger-visits">
   <?php
+    require(__DIR__.'/_calcTotal.php');
+  
     $vat = array();
     $total = $sf_data->getRaw('total');
 
@@ -91,6 +93,7 @@
 
 <?php use_helper('Slug'); ?>
 <?php
+  require(__DIR__.'/_calcTotal.php');
   $vat = $pdts = array();
   $total = $sf_data->getRaw('products_total');
   require(__DIR__.'/_sales_products_prepare.php');
@@ -119,6 +122,14 @@
   <thead><tr>
     <?php include_partial('sales_products_header', array('total' => $total)) ?>
   </tr></thead>
+</table>
+
+<?php require(__DIR__.'/_calcTotal.php'); ?>
+
+<table class="ui-widget-content ui-corner-all" id="supertotal">
+  <tfoot><tr class="total">
+    <?php include_partial('sales_total', array('total' => $superTotal)) ?>
+  </tr></tfoot>
 </table>
 
 <div class="clear"></div>
