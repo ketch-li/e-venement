@@ -93,6 +93,9 @@ class eventConfiguration extends sfApplicationConfiguration
       }
       
       $q = Doctrine_Query::create()->from('Manifestation m')
+        ->select('m.*')->distinct()
+        ->innerJoin('m.Gauges g')
+        ->innerJoin('m.Tickets t WITH t.gauge_id = g.id')
         ->andWhere("m.happens_at + (m.duration||' seconds')::interval > NOW() - '6 month'::interval")
         ->andWhere("m.happens_at < NOW() + '1 year'::interval")
         ->orderBy('m.happens_at');
@@ -104,6 +107,11 @@ class eventConfiguration extends sfApplicationConfiguration
         ->leftJoin("tr.User tvu ON tvu.id = (SELECT tv.sf_guard_user_id FROM TransactionVersion tv WHERE tv.id = tr.id AND tv.version = 1)")
         ->leftJoin('tvu.Domain uvd')
         ->andWhere('uvd.name ILIKE ? OR uvd.name = ?', array('%.'.$dom, $dom));
+            
+      $routing = null;
+      foreach ($context->getRouting()->getRoutes() as $key => $route)
+        if ( $key == 'manifestation_object' )
+          $routing = $route;
                 
       if ( $id )
         $q->andWhere('m.id = ?', $id);
@@ -136,12 +144,7 @@ class eventConfiguration extends sfApplicationConfiguration
           
           // preparing the fake request
           $request = new sfWebRequest($context->getEventDispatcher());
-          $request->setAttribute('sf_route', new sfDoctrineRoute(
-            'manifestation/'.$action,
-            array(),
-            array(),
-            array('model' => 'Manifestation', 'type' => 'object')
-          ));
+          $request->setAttribute('sf_route', $routing);
           foreach ( $params = array(
             'id' => $manifestation->id,
             //'refresh' => 1,
