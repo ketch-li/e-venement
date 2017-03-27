@@ -51,5 +51,8 @@
       <?php if ( isset($criterias['groups_list']) && count($criterias['groups_list']) > 0 ): ?>
       <li class="workspaces"><?php echo __('%%nb%% group(s)',array( '%%nb%%' => count($criterias['groups_list']) )) ?></li>
       <?php endif ?>
+      <?php if ( isset($criterias['Organism_Category']) && count($criterias['Organism_Category']) > 0 ): ?>
+      <li class="organism_category"><?php echo __('%%nb%% categori(es)',array( '%%nb%%' => count($criterias['Organism_Category']) )) ?></li>
+      <?php endif ?>
     </ul>
   </div>

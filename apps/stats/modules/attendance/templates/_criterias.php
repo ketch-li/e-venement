@@ -95,6 +95,12 @@
       <span><?php echo $form['groups_list'] ?></span>
     </li>
     <?php endif ?>
+    <?php if ( isset($form['Organism_Category']) ): ?>
+    <li class="interval">
+      <?php echo $form['Organism_Category']->renderLabel() ?>
+      <span><?php echo $form['Organism_Category'] ?></span>
+    </li>
+    <?php endif ?>
     <li class="submit">
       <span><input type="submit" name="s" value="ok" /></span>
     </li>

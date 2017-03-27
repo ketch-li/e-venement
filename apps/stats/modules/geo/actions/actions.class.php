@@ -31,7 +31,9 @@ class geoActions extends sfActions
       ->addEventCriterias()
       ->addLocationsCriteria()
       ->addManifestationCriteria()
-      ->addGroupsCriteria();
+      ->addGroupsCriteria()
+      ->addOrganismCategoryCriteria()
+    ;
     if ( is_array($this->getCriterias()) )
       $this->form->bind($this->getCriterias());
   }
@@ -76,6 +78,7 @@ class geoActions extends sfActions
         ->leftJoin('t.Professional pro')
       )
       ->leftJoin('pro.Organism o')
+      ->leftJoin('o.Category oc')
       ->leftJoin('t.Tickets tck')
       ->andWhere('tck.printed_at IS NOT NULL OR tck.integrated_at IS NOT NULL')
       ->andWhere('tck.cancelling IS NULL AND tck.id NOT IN (SELECT tck2.cancelling FROM Ticket tck2 WHERE cancelling IS NOT NULL)')
@@ -128,7 +131,9 @@ class geoActions extends sfActions
     if ( isset($criterias['locations_list']) && is_array($criterias['locations_list']) )
       $q->andWhereIn('m.location_id', $criterias['locations_list']);
     if ( isset($criterias['manifestations_list']) && is_array($criterias['manifestations_list']) )
-      $q->andWhereIn('m.id', $criterias['manifestations_list']);
+      $q->andWhereIn('m.id', $criterias['manifestations_list']);    
+    if ( isset($criterias['Organism_Category']) && is_array($criterias['Organism_Category']) ) 
+      $q->andWhereIn('oc.id', $criterias['Organism_Category']);
     
     if ( isset($criterias['dates']) && is_array($criterias['dates']) )
     {

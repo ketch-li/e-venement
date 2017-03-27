@@ -27,6 +27,23 @@ class StatsCriteriasForm extends BaseForm
     $this->disableCSRFProtection();
   }
   
+  public function addOrganismCategoryCriteria() 
+  {
+    $this->widgetSchema['Organism_Category'] = new sfWidgetFormDoctrineChoice(array(
+      'model' => 'OrganismCategory',
+      'order_by' => array('name'),
+      'multiple' => true,
+      'label' => 'Organism Categories',
+    ));
+    $this->validatorSchema['Organism_Category'] = new sfValidatorDoctrineChoice(array(
+      'model' => 'OrganismCategory',
+      'multiple' => true,
+      'required' => false,
+    ));
+    
+    return $this;
+  }
+  
   public function addWeekDayCriteria()
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
