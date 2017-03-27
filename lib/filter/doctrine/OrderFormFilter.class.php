@@ -206,9 +206,9 @@ class OrderFormFilter extends BaseOrderFormFilter
   {
     if ( !trim($value) )
       return $q;
-    if ( !$q->contains('LEFT JOIN p.Organism o') )
-      $q->leftJoin('p.Organism o');
-    $q->andWhere('o.id = ?', $value);
+    if ( !$q->contains('LEFT JOIN p.Organism org') )
+      $q->leftJoin('p.Organism org');
+    $q->andWhere('org.id = ?', $value);
     
     return $q;
   }
