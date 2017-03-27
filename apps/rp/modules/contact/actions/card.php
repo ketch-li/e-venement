@@ -113,24 +113,6 @@
             'member_card' => $this->card,
           )));
         }
-        
-        if ( sfConfig::get('project_cards_pdf', false) )
-        {
-          $pdf = new liPDFPlugin();          
-          $pdf->setOption('margin-bottom', 0);
-          $pdf->setOption('margin-right', 0);
-          $pdf->setOption('margin-left', 0);
-          $pdf->setOption('margin-top', 0);
-          $pdf->setHtml($this->getPartial('cardPDF', array('transaction' => $this->transaction, 'contact' => $this->contact)));
-          
-          $file = new Picture;
-          $file->name = 'db:'.('Membercard-'.$this->transaction->id.'-'.date('YmdHis').'.pdf');
-          $file->content = base64_encode($pdf->getPDF());
-          $file->type = 'application/pdf';
-          $file->save();
-          
-          $this->pdf_url = $file->getUrl();
-        }
       }
       else
       {
@@ -161,6 +143,28 @@
         $this->dispatcher->notify(new sfEvent($this, 'mc.member_card.created', array(
           'member_card' => $this->card,
         )));
+      }
+      
+      if ( sfConfig::get('project_cards_pdf', false) )
+      {
+        $fileName = 'db:'.('Membercard-'.$this->transaction->id.'-'.date('YmdHis').'.pdf');
+        
+        if ( !($file = Doctrine::getTable('Picture')->findOneByName($fileName)) ) {
+          $pdf = new liPDFPlugin();          
+          $pdf->setOption('margin-bottom', 0);
+          $pdf->setOption('margin-right', 0);
+          $pdf->setOption('margin-left', 0);
+          $pdf->setOption('margin-top', 0);
+          $pdf->setHtml($this->getPartial('cardPDF', array('transaction' => $this->transaction, 'contact' => $this->contact)));
+          
+          $file = new Picture;
+          $file->name = $fileName;
+          $file->content = base64_encode($pdf->getPDF());
+          $file->type = 'application/pdf';
+          $file->save();          
+        } 
+        
+        $this->pdf_url = $file->getUrl();
       }
       
       $this->setLayout('nude');
