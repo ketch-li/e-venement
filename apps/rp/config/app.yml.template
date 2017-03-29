@@ -28,6 +28,7 @@ all:
     force_uppercase: [city]
     force_ucfirst: [name]
     #force_fields: [postalcode, city]
+    #siret: '*** *** *** *****'
   #phone:
   #  mask: [99 99 99 99 99, (+33) 9 99 99 99 99]    
   email: 

@@ -57,6 +57,11 @@ class OrganismForm extends BaseOrganismForm
         $this->validatorSchema[$field]->setOption('required', true);
     }
 
+    $this->widgetSchema   ['siret_mask'] = new sfWidgetFormInputHidden();
+    $this->validatorSchema['siret_mask'] = new sfValidatorPass(array('required' => false));
+    $this->widgetSchema   ['siret_mask']->setDefault(sfConfig::get('app_organism_siret'));
+
+
     parent::configure();
   }
   
