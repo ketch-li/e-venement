@@ -55,18 +55,25 @@ class activityActions extends sfActions
     case 'hour':
       $q = "SELECT COUNT(DISTINCT tck.id) AS nb, date_part('hour', CASE WHEN tck.printed_at IS NOT NULL THEN tck.printed_at ELSE CASE WHEN tck.integrated_at IS NOT NULL THEN tck.integrated_at ELSE o.created_at END END) AS hour
             FROM ticket tck
-            LEFT JOIN order_table o ON o.transaction_id = tck.transaction_id";
+            LEFT JOIN order_table o ON o.transaction_id = tck.transaction_id
+            LEFT JOIN manifestation m ON m.id = tck.manifestation_id";
       
       $subfrom = $subwhere = '';
       if ( isset($criterias['meta_events_list']) && $criterias['meta_events_list'] )
       {
-        $subfrom = ' LEFT JOIN manifestation m ON m.id = tck.manifestation_id LEFT JOIN event e ON e.id = m.event_id';
+        $subfrom = ' LEFT JOIN event e ON e.id = m.event_id';
         $subwhere = ' AND e.meta_event_id IN ('.implode(',', $criterias['meta_events_list']).')';
       }
       
       $q .= $subfrom;
-      $q .= " WHERE tck.printed_at IS NOT NULL OR tck.integrated_at IS NOT NULL OR o.created_at IS NOT NULL";
+      $q .= " WHERE (tck.printed_at IS NOT NULL OR tck.integrated_at IS NOT NULL OR o.created_at IS NOT NULL)";
       $q .= $subwhere;
+      
+      if ( $dates['from'] )
+        $q .= " AND m.happens_at >= '".date('Y-m-d', $dates['from'])."' ";
+      if ( $dates['to'] )
+        $q .= " AND m.happens_at < '".date('Y-m-d', $dates['to'])."' ";
+      
       
       $q .= " GROUP BY date_part('hour', CASE WHEN tck.printed_at IS NOT NULL THEN tck.printed_at ELSE CASE WHEN tck.integrated_at IS NOT NULL THEN tck.integrated_at ELSE o.created_at END END)
               ORDER BY date_part('hour', CASE WHEN tck.printed_at IS NOT NULL THEN tck.printed_at ELSE CASE WHEN tck.integrated_at IS NOT NULL THEN tck.integrated_at ELSE o.created_at END END)";
