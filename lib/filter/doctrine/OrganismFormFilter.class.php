@@ -227,6 +227,11 @@ class OrganismFormFilter extends BaseOrganismFormFilter
       $q->andWhere("$c.postalcode LIKE ?",$value['text'].'%');
     }
     
+    if ( $value['is_empty'] )
+    {
+      $q->andWhere("$c.postalcode IS NULL or $c.postalcode = ''");
+    }
+    
     return $q;
   }
   
