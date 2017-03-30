@@ -28,6 +28,7 @@
     />
 
     <ul class="prices ui-widget-content ui-corner-all">
+      <li class="value qty"><input type="number" min="0" max="250" name="simplified[qty]" placeholder="<?php echo __('Quantity') ?>" /></li>
     </ul>
     <ul class="payments ui-widget-content ui-corner-all">
       <li class="value"><input type="number" name="simplified[payment_value]" value="" placeholder="<?php echo __('Value') ?>" /></li>

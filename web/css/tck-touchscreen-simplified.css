@@ -31,6 +31,7 @@
 
 #li_fieldset_simplified .prices button, #li_fieldset_simplified .payments button { width: 100%; min-height: 2.5em; }
 #li_fieldset_simplified .prices li:not(:last-child) button, #li_fieldset_simplified .payments li:not(:last-child) button { margin-bottom: 5px; }
+#li_fieldset_simplified .prices .value input { width: calc(100% - 11px); margin-bottom: 5px; }
 #li_fieldset_simplified .payments input { width: 95%; margin-bottom: 5px; text-align: center; }
 #li_fieldset_simplified .payments .gift_coupon { display: none; }
 

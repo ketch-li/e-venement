@@ -456,7 +456,7 @@ LI.touchscreenSimplifiedStockCache = {};
 LI.touchscreenSimplifiedBehavior = function(type){
   // opens gauges for manifestation or equivalent
   $('#li_fieldset_simplified .bunch[data-bunch-id="'+type+'"] > li:not(.search):not(.categories) > :not(ul)').unbind('click').click(function(){
-    $('#li_fieldset_simplified .prices > *').remove();
+    $('#li_fieldset_simplified .prices > *:not(.value)').remove();
     var ul = $(this).closest('li').find('ul').slideToggle('fast');
     ul
       .find('.selected').removeClass('selected')
@@ -574,7 +574,7 @@ LI.touchscreenSimplifiedBehavior = function(type){
 
 LI.touchscreenSimplifiedPrices = function(gauge, data){
   var target = $('#li_fieldset_simplified .prices');
-  target.find('> li').remove();
+  target.find('> li:not(.value)').remove();
   var declinations_name = data[$(gauge).closest('[data-family-id]').attr('data-family-id')].declinations_name;
   var prices = data[$(gauge).closest('[data-family-id]').attr('data-family-id')][declinations_name][$(gauge).attr('data-'+declinations_name.slice(0,-1)+'-id')].available_prices;
   if ( prices == undefined )
@@ -610,6 +610,7 @@ LI.touchscreenSimplifiedPrices = function(gauge, data){
     $(form).find('[name="transaction[price_new][price_id]"]').val($(this).val());
     $(form).find('[name="transaction[price_new][declination_id]"]').val($('#li_fieldset_simplified .bunch :checked').val());
     $(form).find('[name="transaction[price_new][type]"]').val(declname);
+    $(form).find('[name="transaction[price_new][qty]"]').val($('[name="simplified[qty]"]').val());
     $(form).submit();
     return false;
   });
