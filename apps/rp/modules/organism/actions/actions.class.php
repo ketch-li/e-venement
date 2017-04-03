@@ -38,6 +38,24 @@ class organismActions extends autoOrganismActions
 {
   private $force_classic_template_dir = false;
   
+  public function executeDuplicate(sfWebRequest $request)
+  {
+    $this->executeShow($request);
+    
+    $organism = new Organism;
+    $organism->name = $this->organism->name;
+    $organism->address = $this->organism->address;
+    $organism->postalcode = $this->organism->postalcode;
+    $organism->city = $this->organism->city;
+    $organism->country = $this->organism->country;
+    foreach ( $this->organism->Phonenumbers as $pn )
+      $organism->Phonenumbers[] = $pn->copy();
+    
+    $organism->save();
+    $this->getUser()->setFlash('notice', 'The item was created successfully.');
+    $this->redirect('organism/edit?id='.$organism->id);
+  }
+  
   public function postExecute()
   {
     $this->addExtraRequirements();
