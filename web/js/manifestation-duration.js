@@ -112,6 +112,7 @@ LI.manifestation_duration = function(duration = null)
   
   // converting seconds into HH:ii
   $('.sf_admin_form_field_duration input[type=text]').each(function(){
+    if ( $(this).val().indexOf(':') < 0 )
     if ( !isNaN(parseInt($(this).val(),10)) ) // if is a number
       $(this).val(Math.floor(parseInt($(this).val(),10)/3600)+':'+('0'+Math.floor(parseInt($(this).val(),10)%3600/60)).slice(-2));
   });
