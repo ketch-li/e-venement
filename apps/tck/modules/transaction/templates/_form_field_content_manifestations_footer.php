@@ -2,6 +2,7 @@
 
 <script>
   LI.printingNeedsZipCode = <?php echo sfConfig::get('app_transaction_OptionTck', false) ? 'true' : 'false'; ?>;
+  LI.forceContact = <?php echo sfConfig::get('app_transaction_force_contact', false) ? 'true' : 'false'; ?>;
 </script>
 
 <div class="ui-corner-all ui-widget-content">
