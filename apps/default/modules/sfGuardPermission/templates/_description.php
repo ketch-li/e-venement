@@ -1,0 +1,1 @@
+<?php echo __($sf_guard_permission->description, null, 'sf_guard') ?>

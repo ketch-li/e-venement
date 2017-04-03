@@ -252,6 +252,22 @@
         <source>Ability to access and edit museum parameters</source>
         <target>Capacité à voir et modifier le paramétrage du musée</target>
       </trans-unit>
+      <trans-unit id="63">
+        <source>Permission to a basic access to taxes</source>
+        <target>Accès aux taxes</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Permission to delete taxes</source>
+        <target>Suppression des taxes</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Permission to edit taxes</source>
+        <target>Modification des taxes</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Permission to add taxes</source>
+        <target>Ajout de taxes</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

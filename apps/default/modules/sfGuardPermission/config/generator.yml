@@ -13,7 +13,7 @@ generator:
     config:
       list:
         title: Permission list
-        display: [=name, description, created_at, updated_at]
+        display: [=name, _description, created_at, updated_at]
         sort: [name, '']
         object_actions:
           _edit: ~

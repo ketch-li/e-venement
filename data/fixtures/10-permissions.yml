@@ -190,22 +190,22 @@ sfGuardPermission:
     created_at: '2014-08-13 19:36:26.864353'
     updated_at: '2014-08-13 19:36:26.864353'
   sfGuardPermission_115:
-    name: tck-tax
+    name: tck-taxes
     description: 'Permission to a basic access to taxes'
     created_at: '2014-08-27 09:36:26.864353'
     updated_at: '2014-08-27 09:36:26.864353'
   sfGuardPermission_116:
-    name: tck-tax-edit
+    name: tck-taxes-edit
     description: 'Permission to edit taxes'
     created_at: '2014-08-27 09:36:26.864353'
     updated_at: '2014-08-27 09:36:26.864353'
   sfGuardPermission_117:
-    name: tck-tax-new
+    name: tck-taxes-new
     description: 'Permission to add taxes'
     created_at: '2014-08-27 09:36:26.864353'
     updated_at: '2014-08-27 09:36:26.864353'
   sfGuardPermission_118:
-    name: tck-tax-del
+    name: tck-taxes-del
     description: 'Permission to delete taxes'
     created_at: '2014-08-27 09:36:26.864353'
     updated_at: '2014-08-27 09:36:26.864353'
