@@ -1,4 +1,4 @@
-Transaction API
+Cart API
 ================
 
 These endpoints will allow you to manage transactions and transaction items. Base URI is `/api/v2/carts/`.
