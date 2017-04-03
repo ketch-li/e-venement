@@ -296,7 +296,8 @@ class organismActions extends autoOrganismActions
   {
     $charset = sfConfig::get('software_internals_charset');
     $this->filters = true; // hack Beaulieu du 30/09/2013 à valider avant commit
-    $search  = iconv($charset['db'],$charset['ascii'],$request->getParameter('q'));
+
+    $search = $this->sanitizeSearch($request->getParameter('q'));
     
     $q = Doctrine::getTable('Organism')
       ->createQuery()
