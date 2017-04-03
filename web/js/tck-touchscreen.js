@@ -369,6 +369,15 @@ $(document).ready(function(){
   // DISPLAYS A WARNING MESSAGE WHEN THE WINDOW ATTEMPS TO BE CLOSED
   $(window).on('beforeunload', LI.closeTransaction);
 
+  // Before new transaction
+  if ( LI.forceContact )
+  $('#li_transaction_field_new_transaction a').unbind('click').click(function(){    
+    if ( !$('#transaction_contact_id').attr('value') ) {
+      LI.alert($('#li_transaction_field_close .print .force-contact').html());
+      return false;
+    }
+  });
+
   // RESPONSIVE DESIGN
   LI.responsiveDesign();
 

@@ -2112,6 +2112,10 @@
         <source>Linked to the transaction</source>
         <target>Lié à l'opération</target>
       </trans-unit>        
+      <trans-unit id="527">
+        <source>A contact is needed before closing the transaction.</source>
+        <target>Vous devez saisir un contact avant de fermer l'opération.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
