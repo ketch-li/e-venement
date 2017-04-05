@@ -46,7 +46,7 @@ optional:
   if ( !isset($name) ) $name = '';
 ?>
 
-<div id="resizable-<?php echo $id ?>" class="<?php echo $id ?> jqplot ui-widget ui-corner-all ui-widget-content <?php echo $class ?>">
+<div id="resizable-<?php echo $id ?>" class="<?php echo $id ?> jqplot ui-widget ui-corner-all ui-widget-content <?php echo isset($class) ? $class : "" ?>">
   <a name="<?php echo $id ?>_chart"></a>
   <?php if (isset($label)): ?>
     <div class="ui-widget-header ui-corner-all fg-toolbar">
