@@ -44,11 +44,11 @@ class web_originActions extends autoWeb_originActions
 
     foreach ( $this->lines as $line )
         $total += $line;
-      
+    
     foreach ( $this->lines as $key => $line )
       $this->lines[$key] = array(
         'value'   => $line,
-        'percent' => number_format(round($line*100/$total,2))
+        'percent' => number_format($total == 0 ? 0 : round($line*100/$total,2))
       );
   }
 

@@ -36,7 +36,7 @@
     <?php echo $client['name'] ?>
   </p>
 
-  <?php if ( $client['address'] ): ?>
+  <?php if ( isset($client['address']) && $client['address'] ): ?>
   <p class="address">
     <?php echo nl2br($client['address']) ?>
   </p>

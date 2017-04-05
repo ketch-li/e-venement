@@ -54,7 +54,7 @@ class geoActions extends sfActions
       {
         $this->lines[$i][$key] = array(
           'value' => $value,
-          'percent' => number_format(round($value*100/$total,2))
+          'percent' => number_format($total == 0 ? 0 : round($value*100/$total,2))
         );
       }
     }
