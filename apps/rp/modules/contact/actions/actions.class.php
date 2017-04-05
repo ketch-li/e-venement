@@ -348,6 +348,7 @@ class contactActions extends autoContactActions
 
   public function executeArchives(sfWebRequest $request)
   {
+    die('deprecated');
     $this->executeEdit($request);
     $this->setTemplate('edit');
     $this->contact->Professionals = $this->contact->ProfessionalArchives;
