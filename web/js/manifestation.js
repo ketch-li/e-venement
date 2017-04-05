@@ -174,6 +174,12 @@ $(document).ready(function(){
     }
     click_gauge();
   }
+  
+  // Submit prices modification
+  $('#form_prices #price_manifestation_value').focusout(function() {
+    $(this).closest('form').submit();
+  });
+  
 });
 
 if ( LI == undefined )
