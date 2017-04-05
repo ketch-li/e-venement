@@ -29,7 +29,7 @@
 <div class="tdp-submenu">
 <?php
   echo link_to(__('Versions'), $sf_context->getModuleName().'/version?id='.$object->id.'&v='.($object->version == 1 ? 1 : $object->version-1));
-  echo link_to(__('Archives'), $sf_context->getModuleName().'/archives?id='.$object->id);
+  //echo link_to(__('Archives'), $sf_context->getModuleName().'/archives?id='.$object->id);
   if ( $sf_user->hasCredential('pr-contact-csv') )
     echo link_to(__('vCard'), $sf_context->getModuleName().'/vcf?id='.$object->id, array('target' => '_blank'));
   if ( $sf_user->hasCredential('pr-contact-new') )
