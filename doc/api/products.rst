@@ -85,7 +85,7 @@ Exemplary Response
                 "description":"Perfect not only for your coffee, but also as tea or infusion mug."
             }
         },
-        "declinations": [
+        "declinations":[
             {
                 "id":59,
                 "code":99823300,
