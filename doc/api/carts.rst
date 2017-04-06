@@ -8,10 +8,10 @@ These endpoints will allow you to manage transactions and transaction items. Bas
     Remember that a **Transaction** in e-venement is called here a **Cart** that becomes an **Order** as soon
     as it is validated, probably through a payment receipt.
 
-Transaction API response structure
------------------------------------
+Cart API response structure
+----------------------------
 
-If you request a transaction via API, you will receive an object with the following fields:
+If you request a cart via API, you will receive an object with the following fields:
 
 +-------------------+---------------------------------------------------------------------------------------+
 | Field             | Description                                                                           |
