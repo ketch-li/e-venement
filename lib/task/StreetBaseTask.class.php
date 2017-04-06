@@ -218,7 +218,7 @@ class StreetBaseTask  extends sfBaseTask
   protected function parseCSVline($line, $type)
   {
     foreach($line as $k => $d)
-      $line[$k] = trim(utf8_encode($d));  // data must latin1
+      $line[$k] = trim($d);
 
     $sb_array = array();
     switch ($type) {
