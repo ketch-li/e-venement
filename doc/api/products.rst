@@ -67,53 +67,53 @@ Exemplary Response
 
 .. code-block:: json
 
-{
-    "id":123,
-    "category":{
-        "id":12,
-        "translations":{
-            "en_US":{
-                "id":12,
-                "name":"cups-and-mugs"
-            }
-        }
-    },
-    "translations":{
-        "en_US":{
-            "id":123,
-            "name":"The VIm Mug",
-            "description":"Perfect not only for your coffee, but also as tea or infusion mug."
-        }
-    },
-    "declinations": [
-        {
-            "id":59,
-            "code":99823300,
-            "weight":650,
+    {
+        "id":123,
+        "category":{
+            "id":12,
             "translations":{
                 "en_US":{
-                    "id":59,
-                    "name":"The Black VIm Mug",
-                    "description":"A great VIm Mug in black."
+                    "id":12,
+                    "name":"cups-and-mugs"
                 }
             }
         },
-        {
-            "id":60,
-            "code":99823301,
-            "weight":650,
-            "translations":{
-                "en_US":{
-                    "id":59,
-                    "name":"The Orange VIm Mug",
-                    "description":"A great VIm Mug in orange."
+        "translations":{
+            "en_US":{
+                "id":123,
+                "name":"The VIm Mug",
+                "description":"Perfect not only for your coffee, but also as tea or infusion mug."
+            }
+        },
+        "declinations": [
+            {
+                "id":59,
+                "code":99823300,
+                "weight":650,
+                "translations":{
+                    "en_US":{
+                        "id":59,
+                        "name":"The Black VIm Mug",
+                        "description":"A great VIm Mug in black."
+                    }
+                }
+            },
+            {
+                "id":60,
+                "code":99823301,
+                "weight":650,
+                "translations":{
+                    "en_US":{
+                        "id":59,
+                        "name":"The Orange VIm Mug",
+                        "description":"A great VIm Mug in orange."
+                    }
                 }
             }
-        }
-    ],
-    "image":"vimmug.png",
-    "price":15
-}
+        ],
+        "image":"vimmug.png",
+        "price":15
+    }
 
 
 Collection of products
@@ -196,7 +196,7 @@ Exemplary Response
                             "description":"Perfect not only for your coffee, but also as tea or infusion mug."
                         }
                     },
-                    "declinations": [
+                    "declinations":[
                         {
                             "id":59,
                             "code":99823300,
@@ -231,7 +231,7 @@ Exemplary Response
                             "description":"The Arch Linux Mug, an awesome ceramic mug printed on both sides with the Arch Linux logo."
                         }
                     },
-                    "declinations": [
+                    "declinations":[
                         {
                             "id":66,
                             "code":99823312,
