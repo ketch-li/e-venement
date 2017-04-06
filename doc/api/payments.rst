@@ -117,49 +117,49 @@ Exemplary Response
     
 .. code-block:: json
 
-{
-    "page":1,
-    "limit":2,
-    "pages":10,
-    "total":20,
-    "_links":{
-        "self":{
-            "href":"\/api\/v1\/payments\/?page=1&limit=2"
+    {
+        "page":1,
+        "limit":2,
+        "pages":10,
+        "total":20,
+        "_links":{
+            "self":{
+                "href":"\/api\/v1\/payments\/?page=1&limit=2"
+            },
+            "first":{
+                "href":"\/api\/v1\/payments\/?page=1&limit=2"
+            },
+            "last":{
+                "href":"\/api\/v1\/payments\/?page=10&limit=2"
+            },
+            "next":{
+                "href":"\/api\/v1\/payments\/?page=2&limit=2"
+            }
         },
-        "first":{
-            "href":"\/api\/v1\/payments\/?page=1&limit=2"
-        },
-        "last":{
-            "href":"\/api\/v1\/payments\/?page=10&limit=2"
-        },
-        "next":{
-            "href":"\/api\/v1\/payments\/?page=2&limit=2"
+        "_embedded":{
+            "items":[
+                {
+                    "id":20,
+                    "method":"bank_transfer",
+                    "amount":4507,
+                    "state":"new",
+                    "_links":{
+                        "order":{
+                            "href":"\/api\/v1\/orders\/21"
+                        }
+                    }
+                },
+                {
+                    "id":21,
+                    "method":"bank_transfer",
+                    "amount":3812,
+                    "state":"new",
+                    "_links":{
+                        "order":{
+                            "href":"\/api\/v1\/orders\/22"
+                        }
+                    }
+                },
+            ]
         }
-    },
-    "_embedded":{
-        "items":[
-            {
-                "id":20,
-                "method":"bank_transfer",
-                "amount":4507,
-                "state":"new",
-                "_links":{
-                    "order":{
-                        "href":"\/api\/v1\/orders\/21"
-                    }
-                }
-            },
-            {
-                "id":21,
-                "method":"bank_transfer",
-                "amount":3812,
-                "state":"new",
-                "_links":{
-                    "order":{
-                        "href":"\/api\/v1\/orders\/22"
-                    }
-                }
-            },
-        ]
     }
-}
