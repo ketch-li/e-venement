@@ -13,7 +13,7 @@ When you get a collection of resources, "Default" serialization group will be us
 +==================+==============================================+
 | id               | Id of the product                            |
 +------------------+----------------------------------------------+
-| category         | Category object serialized                   |
+| category         | Category of the product                      |
 +------------------+----------------------------------------------+
 | translations     | Collection of translations                   |
 +------------------+----------------------------------------------+
@@ -69,15 +69,7 @@ Sample Response
 
     {
         "id":123,
-        "category":{
-            "id":12,
-            "translations":{
-                "en_US":{
-                    "id":12,
-                    "name":"cups-and-mugs"
-                }
-            }
-        },
+        "category":"cups-and-mugs",
         "translations":{
             "en_US":{
                 "id":123,
@@ -180,15 +172,7 @@ Sample Response
             "items":[
                 {
                     "id":123,
-                    "category":{
-                        "id":12,
-                        "translations":{
-                            "en_US":{
-                                "id":12,
-                                "name":"cups-and-mugs"
-                            }
-                        }
-                    },
+                    "category":"cups-and-mugs",
                     "translations":{
                         "en_US":{
                             "id":123,
@@ -215,15 +199,7 @@ Sample Response
                 },
                 {
                     "id":124,
-                    "category":{
-                        "id":13,
-                        "translations":{
-                            "en_US":{
-                                "id":13,
-                                "name":"cups-and-mugs"
-                            }
-                        }
-                    },
+                    "category":"cups-and-mugs",
                     "translations":{
                         "en_US":{
                             "id":124,

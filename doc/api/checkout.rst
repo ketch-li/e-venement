@@ -101,6 +101,7 @@ Sample Response
         "items":[
             {
                 "id":74,
+                "type":"ticket",
                 "quantity":1,
                 "unitPrice":100000,
                 "total":100000,
@@ -331,6 +332,7 @@ To check the fully constructed cart with `id = 21`, use the following command:
         "items":[
             {
                 "id":74,
+                "type":"tickets",
                 "quantity":1,
                 "unitPrice":100000,
                 "total":100000,

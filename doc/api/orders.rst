@@ -150,6 +150,7 @@ Sample Response
             "items":[
                 {
                     "id":21,
+                    "type":"ticket",
                     "itemsTotal":100000,
                     "adjustmentsTotal":8787,
                     "total":108787,
@@ -160,6 +161,7 @@ Sample Response
                 },
                 {
                     "id":22,
+                    "type":"ticket",
                     "itemsTotal":100000,
                     "adjustmentsTotal":5656,
                     "total":105656,
@@ -219,6 +221,7 @@ Sample Response
         "items":[
             {
                 "id":74,
+                "type":"ticket",
                 "quantity":1,
                 "unitPrice":100000,
                 "total":100000,
