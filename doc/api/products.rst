@@ -19,7 +19,7 @@ When you get a collection of resources, "Default" serialization group will be us
 +------------------+----------------------------------------------+
 | prices           | Collection of Prices                         |
 +------------------+----------------------------------------------+
-| image            | Image (URI) of the product                   |
+| imageURL         | Image (URI) of the product                   |
 +------------------+----------------------------------------------+
 | declinations     | Collection of the product declinations       |
 +------------------+----------------------------------------------+
@@ -103,7 +103,7 @@ Sample Response
                 }
             }
         ],
-        "image":"vimmug.png",
+        "imageURL":"vimmug.png",
         "price":15
     }
 
@@ -194,7 +194,7 @@ Sample Response
                             }
                         }
                     ],
-                    "image":"vimmug.png",
+                    "imageURL":"vimmug.png",
                     "price":15
                 },
                 {
@@ -221,7 +221,7 @@ Sample Response
                             }
                         }
                     ],
-                    "image":"vimmug.png",
+                    "imageURL":"vimmug.png",
                     "price":15
                 }
             ]

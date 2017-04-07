@@ -19,9 +19,7 @@ When you get a collection of resources, "Default" serialization group will be us
 +------------------+----------------------------------------------+
 | translations     | Collection of translations                   |
 +------------------+----------------------------------------------+
-| length           | Length of the event                          |
-+------------------+----------------------------------------------+
-| billing          | URI of the event's image                     |
+| imageURL         | URI of the image of the event                |
 +------------------+----------------------------------------------+
 
 If you request for more detailed data, you will receive an object with the following fields:
@@ -37,9 +35,7 @@ If you request for more detailed data, you will receive an object with the follo
 +------------------+------------------------------------------------+
 | translations     | Collection of translations                     |
 +------------------+------------------------------------------------+
-| length           | Length of the event                            |
-+------------------+------------------------------------------------+
-| billing          | URI of the event's image                       |
+| imageURL          | URI of the event's image                      |
 +------------------+------------------------------------------------+
 | minAge           | Minimum authorized age for participating       |
 +------------------+------------------------------------------------+
@@ -70,6 +66,12 @@ Definition
 .. code-block:: text
 
     GET /api/v2/events
+
++---------------+----------------+-------------------------------------------------------------------+
+| Parameter     | Parameter type | Description                                                       |
++===============+================+===================================================================+
+| Authorization | header         | Token received during authentication                              |
++---------------+----------------+-------------------------------------------------------------------+
 
 Example
 ^^^^^^^
@@ -131,8 +133,7 @@ Sample Response
                             "description":"Beautiful. Not beautiful. So is the Paloma's world."
                         }
                     },
-                    "length":"00:55",
-                    "billing":"shootup.png"
+                    "imageURL":"shootup.png"
                 },
                 {
                     "id":124,
@@ -154,8 +155,7 @@ Sample Response
                             "description":"Welcome to the teenage years 2.0."
                         }
                     },
-                    "length":"01:00",
-                    "billing":"onlinelife.png"
+                    "imageURL":"onlinelife.png"
                 }
             ]
         }
@@ -172,6 +172,14 @@ Definition
 .. code-block:: text
 
     GET /api/v2/events/{id}
+
++---------------+----------------+-------------------------------------------------------------------+
+| Parameter     | Parameter type | Description                                                       |
++===============+================+===================================================================+
+| Authorization | header         | Token received during authentication                              |
++---------------+----------------+-------------------------------------------------------------------+
+| id            | query          | Id of the event                                                   |
++---------------+----------------+-------------------------------------------------------------------+
 
 Example
 ^^^^^^^
@@ -212,8 +220,7 @@ Sample Response
                 "description":"Beautiful. Not beautiful. So is the Paloma's world."
             }
         },
-        "length":"0:55",
-        "billing":"shootup.png",
+        "imageURL":"shootup.png",
         "minAge":7,
         "maxAge":77,
         "manifestations": [
