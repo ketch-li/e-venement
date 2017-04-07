@@ -62,9 +62,6 @@ Available actions to interact with an event
 Collection of events
 --------------------
 
-Getting a single event
-----------------------
-
 To retrieve a collection of events you will need to call the /api/v2/events endpoint with the GET method.
 
 Definition
@@ -238,46 +235,27 @@ Sample Response
                         "city":"Kemper",
                         "country":"France"
                     }
-                },
-                "gauges": [
-                    {
-                        "id":1085,
-                        "translations":{
-                            "en_US":{
-                                "id":1085,
-                                "name":"General field"
-                            }
-                        },
-                        "gauge":240,
-                        "sold":180,
-                        "ordered":12,
-                        "free":48,
-                        "prices": [
-                            {
-                                "id":3,
-                                "translations":{
-                                    "en_US":{
-                                        "id":3,
-                                        "name":"Free",
-                                        "description":"Free price"
-                                    }
-                                },
-                                "value":0.00
-                            },
-                            {
-                                "id":4,
-                                "translations":{
-                                    "en_US":{
-                                        "id":4,
-                                        "name":"Individual",
-                                        "description":"Full price"
-                                    }
-                                },
-                                "value":6.00
-                            }
-                        ]
+                }
+            },
+            {
+                "id":838,
+                "startsAt":"2017-05-05T10:00:00+0100",
+                "endsAt":"2017-05-05T10:55:00+0100",
+                "location":{
+                    "id":20,
+                    "translations":{
+                        "en_US":{
+                            "id":20,
+                            "name":"Auditorium"
+                        }
+                    },
+                    "address":{
+                        "street":"22 acacia avenue",
+                        "zip":"29000",
+                        "city":"Kemper",
+                        "country":"France"
                     }
-                ]
+                }
             }
         ]
     }
