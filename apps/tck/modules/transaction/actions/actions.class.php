@@ -574,12 +574,15 @@ class transactionActions extends autoTransactionActions
 
   public function executeNewJson(sfWebRequest $request)
   {  
-    $this->getResponse()->setContentType('application/json');
-
-    $trans = new Transaction();
-    $trans->save();
-
-    $this->jsonTransId = $trans->id;
+    $this->transaction = new Transaction();
+    $this->transaction->save();
+  }
+  
+  public function executeGetCSRFToken(sfWebRequest $request)
+  {
+    $this->getContext()->getConfiguration()->loadHelpers(array('CrossAppLink','I18N'));
+    $form = new sfForm();
+    $this->csrfToken = $form->getCSRFToken();
   }
 
   public function executeShow(sfWebRequest $request)

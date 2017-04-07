@@ -50,4 +50,10 @@ registerError:
   has_layout: false
   http_metas:
     content-type: application/json
+newJson:
+  http_metas:
+    content_type: application/json
+getCSRFToken: 
+  http_metas:
+    content_type: application/json
 
