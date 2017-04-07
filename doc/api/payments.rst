@@ -52,7 +52,7 @@ To retrieve the payment 20, the following snippet can be used:
         -H "Content-Type: application/json" \
         -X POST \
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -108,7 +108,7 @@ To see the first page of the paginated list of payments with two payments on eac
         -H "Content-Type: application/json" \
         -X POST \
         
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text

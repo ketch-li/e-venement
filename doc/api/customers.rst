@@ -101,7 +101,7 @@ Example
             }
         '
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -135,7 +135,7 @@ Example
         -H "Content-Type: application/json" \
         -X POST
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -197,7 +197,7 @@ Example
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -250,7 +250,7 @@ Example
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -437,7 +437,7 @@ Example
             }
         '
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -490,7 +490,7 @@ Example
         -X PATCH \
         --data '{"firstName": "Joe"}'
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -525,7 +525,7 @@ Example
         -H "Accept: application/json" \
         -X DELETE
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -563,7 +563,7 @@ Example
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text

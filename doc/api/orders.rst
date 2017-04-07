@@ -118,7 +118,7 @@ To retrieve the orders of the customer 214, the following snippet can be used:
             }
         '
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -205,7 +205,7 @@ To retrieve the order 21, the following snippet can be used:
         -H "Content-Type: application/json" \
 
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -330,7 +330,7 @@ To cancel the order 21, the following snippet can be used:
         -H "Content-Type: application/json" \
 
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -370,7 +370,7 @@ To ship the order 21, the following snippet can be used:
         -H "Content-Type: application/json" \
 
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -409,7 +409,7 @@ To complete the order 21, the following snippet can be used:
         -H "Content-Type: application/json" \
 
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text

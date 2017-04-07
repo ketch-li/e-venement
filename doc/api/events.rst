@@ -84,7 +84,7 @@ Example
         -H "Content-Type: application/json" \
         -X GET \
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -186,7 +186,7 @@ Example
         -H "Content-Type: application/json" \
         -X GET \
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
