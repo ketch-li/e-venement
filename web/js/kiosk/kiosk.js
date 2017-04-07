@@ -12,22 +12,98 @@ LI.kiosk.cart = {
 LI.kiosk.products = {};
 
 $(document).ready(function(){
+	LI.kiosk.urls = $('#kiosk-urls').data();
 	LI.kiosk.init();
 });
 
+/********************* INIT ***********************/
 LI.kiosk.init = function(){
 	LI.kiosk.utils.showLoader();
 	LI.kiosk.initPlugins();
 	LI.kiosk.addListeners();
-	LI.kiosk.getTransaction();
 
-	$.when(LI.kiosk.getManifestations(), LI.kiosk.getMuseum(), LI.kiosk.getStore())
-     .then(LI.kiosk.menu, LI.kiosk.menu);
+	$.when(LI.kiosk.getTransaction(), LI.kiosk.getManifestations(), LI.kiosk.getMuseum(), LI.kiosk.getStore())
+     .then(function(){
+     	LI.kiosk.menu();
+     	LI.kiosk.getCSRF();
+     })
     ;
 }
 
+LI.kiosk.initPlugins = function(){
+	Waves.attach('.waves-effect');
+	Waves.init();
+	LI.kiosk.cacheTemplates();
+	toastr.options = {
+		positionClass: 'toast-bottom-full-width',
+		closeButton: true,
+		timeOut: 0
+	};
+}
+
+LI.kiosk.addListeners = function(){
+	
+	$('#info-fab').click(function(){
+		$('#info-panel').show(500);
+		setTimeout(function(){
+			$('#info-panel').hide(500)
+		}, 10000);
+	});
+	
+	$('#products-list').on('click', '.product', function(event){
+		var productCard = $(event.currentTarget);
+		var type = productCard.data('type');
+		var id = productCard.data('id');
+
+	  	LI.kiosk.showDetails(LI.kiosk.products[type][id], $(this));
+	});
+
+	$('#confirm-btn').click(function(){
+		LI.kiosk.checkout();
+	});
+}
+
+LI.kiosk.getTransaction = function(){
+	return $.get(LI.kiosk.urls.getNewTransaction, function(data){
+		LI.kiosk.transaction.id = data;
+	});
+}
+
+LI.kiosk.getCSRF = function() {
+	return $.get(LI.kiosk.urls.getCsrf, function(token) {
+		LI.kiosk.CSRF = token;
+	});
+}
+
+LI.kiosk.getManifestations = function(){
+	return $.ajax({
+	    url: LI.kiosk.urls.getManifestations,
+	    type: 'GET',
+	    success: LI.kiosk.cacheManifestations,
+	    error: LI.kiosk.utils.error
+  	});
+}
+
+LI.kiosk.getStore = function(){
+	return $.ajax({
+	    url: LI.kiosk.urls.getStore,
+	    type: 'GET',
+	    success: LI.kiosk.cacheStore,
+	    error: LI.kiosk.utils.error
+  	});
+}
+
+LI.kiosk.getMuseum = function(){
+	return $.ajax({
+	    url: LI.kiosk.urls.getMuseum,
+	    type: 'GET',
+	    success: LI.kiosk.cacheMuseum,
+	    error: LI.kiosk.utils.error
+  	});
+}
+
+/********************* MENU ***********************/
 LI.kiosk.menu = function(){
-	    console.log(LI.kiosk.products['store']);
 	var lists = {};
 
 	$.each(LI.kiosk.products, function(key, productList){
@@ -63,69 +139,85 @@ LI.kiosk.utils.setUpMenu = function(productLists){
 	});
 }
 
-LI.kiosk.addListeners = function(){
+LI.kiosk.insertProducts = function(type){
+
+	var cardTemplate = LI.kiosk.templates['productCard'][type];
+
+	if(cardTemplate == null)
+		cardTemplate = LI.kiosk.templates['productCard']['manifestations'];
+
+	$('#products-list').empty();
 	
-	$('#info-fab').click(function(){
-		$('#info-panel').show(500);
-		setTimeout(function(){
-			$('#info-panel').hide(500)
-		}, 10000);
-	});
-	
-	$('#products-list').on('click', '.product', function(event){
-		var productCard = $(event.currentTarget);
-		var type = productCard.data('type');
-		var id = productCard.data('id');
-
-	  	LI.kiosk.showDetails(LI.kiosk.products[type][id], $(this));
+	$.each(LI.kiosk.products[type], function(key, product){
+		var template = Handlebars.compile(cardTemplate);
+		$('#products-list').append(template(product));
 	});
 }
 
-LI.kiosk.getTransaction = function(){
+/******************** DETAILS ******************************/
+LI.kiosk.showDetails = function(product, card){
+	var detailsTemplate = Handlebars.compile(LI.kiosk.templates.productDetails);
 
-	$.get('/tck.php/transaction/newJson', function(data){
-		LI.kiosk.transaction.id = data;
+	// insert manif info
+	$('#product-details-card').html(detailsTemplate(product));
+
+	if( Object.keys(product.declinations).length > 1 ){
+
+		var declinationTemplate = Handlebars.compile(LI.kiosk.templates.declinationCard);
+		
+		$.each(product.declinations, function(id, declination){
+			$('#product-details-card #declinations').append(declinationTemplate(declination));
+		});
+
+		$('#declinations').css('display', 'flex');
+
+		$('.declination').click(function(event){
+			var declination = product.declinations[$(event.currentTarget.children).attr('id')];
+
+			$('#declinations').hide();
+			$('#declination-name').text(declination.name);
+			LI.kiosk.insertPrices(product, declination);
+		});
+	}else{
+		LI.kiosk.insertPrices(product, Object.values(product.declinations)[0]);
+	}
+
+	//show details panel
+	LI.kiosk.utils.switchPanels();
+}
+
+LI.kiosk.insertPrices = function(product, declination){
+	var priceTemplate = $('#price-card-template').html();
+	var prices = declination.available_prices;
+
+	for(key in prices){
+		var template = Handlebars.compile(priceTemplate);
+		$('#product-details-card #prices').append(template(prices[key]));
+	}
+
+	LI.kiosk.addPriceListener(product, declination);
+
+	$('#declination-back').click(function(){
+
+		$('#prices').off().children('.price').remove();
+		$('#prices').hide();
+		$('#declinations').show();
+	});
+
+	$('#prices').css('display', 'flex');
+
+}
+
+LI.kiosk.addPriceListener = function(product, declination){
+	$('#prices').on('click', '.price', function(event){
+		var id = $(event.currentTarget).attr('id');
+
+		LI.kiosk.cart.addItem(product, product.prices[$(event.currentTarget.children).attr('id')], declination);
 	});
 }
 
-LI.kiosk.getManifestations = function(){
-
-	return $.ajax({
-	    url: '/tck.php/transaction/getManifestations',
-	    type: 'GET',
-	    data: { simplified: 1 },
-	    dataType: 'json',
-	    success: LI.kiosk.cacheManifestations,
-	    error: LI.kiosk.utils.error
-  	});
-}
-
-LI.kiosk.getStore = function(){
-
-	return $.ajax({
-	    url: '/tck.php/transaction/getStore',
-	    type: 'GET',
-	    data: { simplified: 1 },
-	    dataType: 'json',
-	    success: LI.kiosk.cacheStore,
-	    error: LI.kiosk.utils.error
-  	});
-}
-
-LI.kiosk.getMuseum = function(){
-
-	return $.ajax({
-	    url: '/tck.php/transaction/getPeriods',
-	    type: 'GET',
-	    data: { simplified: 1 },
-	    dataType: 'json',
-	    success: LI.kiosk.cacheMuseum,
-	    error: LI.kiosk.utils.error
-  	});
-}
-
+/********************* CACHE **************************/
 LI.kiosk.rearrangeProperties = function(product){
-	
 	var productDate = new Date(product.happens_at.replace(' ', 'T'));
 	var endDate = new Date(product.ends_at);
 
@@ -158,7 +250,7 @@ LI.kiosk.rearrangeProperties = function(product){
 	});
 }
 
-LI.kiosk.cacheManifestations = function(data){
+LI.kiosk.cacheManifestations = function(data) {
 
 	LI.kiosk.products.manifestations = {};
 	var type = 'manifestations';
@@ -174,8 +266,7 @@ LI.kiosk.cacheManifestations = function(data){
 	});
 }
 
-LI.kiosk.cacheMuseum = function(data){
-
+LI.kiosk.cacheMuseum = function(data) {
 	var type = 'museum';
 	LI.kiosk.products.museum = {};
 
@@ -191,8 +282,7 @@ LI.kiosk.cacheMuseum = function(data){
 	});
 }
 
-LI.kiosk.cacheStore = function(data){
-
+LI.kiosk.cacheStore = function(data) {
 	var type = 'store';
 	LI.kiosk.products.store = {};
 
@@ -225,43 +315,8 @@ LI.kiosk.cacheStore = function(data){
 	});
 }
 
-LI.kiosk.insertProducts = function(type){
-
-	var cardTemplate = LI.kiosk.templates['productCard'][type];
-
-	if((cardTemplate == null))
-		cardTemplate = LI.kiosk.templates['productCard']['manifestations'];
-
-	$('#products-list').empty();
-	
-	$.each(LI.kiosk.products[type], function(key, product){
-		var template = Handlebars.compile(cardTemplate);
-		$('#products-list').append(template(product));
-	});
-}
-
-LI.kiosk.utils.error = function(error){
-	console.error(error);
-}
-
-LI.kiosk.utils.showLoader = function(){
-	$('#spinner').addClass('is-active');
-	$('#spinner').css('display', 'block');
-}
-
-LI.kiosk.utils.hideLoader = function(){
-	$('#spinner').removeClass('is-active');
-	$('#spinner').css('display', 'none');
-}
-
-LI.kiosk.utils.flash = function(selector){
-	Waves.attach(selector);
-	Waves.init();
-	Waves.ripple(selector);
-}
-
-LI.kiosk.cacheTemplates = function(){
-	//make mustache cache the templates for quicker future uses
+LI.kiosk.cacheTemplates = function() {
+	//make handlebars cache the templates for quicker future uses
 	$('script[type="text/x-handlebars-template"]').each(function(id, template){
 		var templateType = $(template).data('template-type');
 		var productType = $(template).data('product-type');
@@ -277,86 +332,44 @@ LI.kiosk.cacheTemplates = function(){
 	});
 }
 
-LI.kiosk.showDetails = function(product, card){
+/******************** CART ****************************/
+LI.kiosk.cart.insertLine = function(line, item, price, declination) {
+	var lineTemplate = Handlebars.compile(LI.kiosk.templates.cartLine);
 
-	console.log(product);
-	var detailsTemplate = Handlebars.compile(LI.kiosk.templates.productDetails);
-
-	// insert manif info
-	$('#product-details-card').html(detailsTemplate(product));
-
-	if( Object.keys(product.declinations).length > 1 ){
-
-		var declinationTemplate = Handlebars.compile(LI.kiosk.templates.declinationCard);
-		
-		$.each(product.declinations, function(id, declination){
-			$('#product-details-card #declinations').append(declinationTemplate(declination));	
-		});
-
-		$('#declinations').css('display', 'flex');
-
-		$('.declination').click(function(event){
-			var declination = product.declinations[$(event.currentTarget.children).attr('id')];
-
-			$('#declinations').hide();
-			$('#declination-name').text(declination.name);
-			LI.kiosk.insertPrices(product, product.declinations[$(event.currentTarget.children).attr('id')].available_prices);
-		});
-	}else{
-		LI.kiosk.insertPrices(product, Object.values(product.declinations)[0].available_prices);
-	}
-
-	//show details panel
-	LI.kiosk.utils.switchPanels();
-}
-
-LI.kiosk.insertPrices = function(product, prices){
-	var priceTemplate = $('#price-card-template').html();
-
-	for(key in prices){
-		var template = Handlebars.compile(priceTemplate);
-		$('#product-details-card #prices').append(template(prices[key]));
-	}
-
-	LI.kiosk.addPriceListener(product);
-
-	$('#declination-back').click(function(){
-		$('#prices').hide();
-		$('#declinations').show();
-	});
-
-	$('#prices').css('display', 'flex');
-
-}
-
-LI.kiosk.addPriceListener = function(product){
-	$('#prices').on('click', '.price', function(event){
-		var id = $(event.currentTarget).attr('id');
-		
-		LI.kiosk.cart.addItem(product, product.prices[$(event.currentTarget.children).attr('id')])
+	$('#cart-lines').append(lineTemplate(line));
+	$('#' + line.id + ' .remove-item').click(function(){
+		LI.kiosk.cart.removeItem(line.id, item);
 	});
 }
 
-LI.kiosk.initPlugins = function(){
-	Waves.attach('.waves-effect');
-	Waves.init();
-	LI.kiosk.cacheTemplates();
-	toastr.options = {
-		positionClass: 'toast-bottom-full-width',
-		closeButton: true,
-		timeOut: 0
-	};
+LI.kiosk.cart.removeLine = function(htmlLine) {
+	$(htmlLine).hide(500).remove();
 }
 
-LI.kiosk.cart.addItem = function(item, price){
+LI.kiosk.cart.lineTotal = function(line) {
+	line.total = LI.format_currency(line.price.raw_value * line.qty, false);
+}
+
+LI.kiosk.cart.cartTotal = function() {
+
+	var total = 0;
+
+	$.each(LI.kiosk.cart.lines, function(key, line) {
+		total += parseFloat(line.total);
+	});
+
+	$('#cart-total-value').text(LI.format_currency(total, false));
+}
+
+LI.kiosk.cart.addItem = function(item, price, declination) {
 
 	var newLine;
 	var lineId;
 	var exists = false;
 
-	$.each(LI.kiosk.cart.lines, function(key, line){
+	$.each(LI.kiosk.cart.lines, function(key, line) {
 		
-		if(line.productId == item.id && line.price.id == price.id){
+		if(line.product.id == item.id && line.price.id == price.id && line.declination.id == declination.id){
 			var htmlLine = $('#' + line.id);
 			line.qty++;
 			LI.kiosk.cart.lineTotal(line);
@@ -368,32 +381,57 @@ LI.kiosk.cart.addItem = function(item, price){
 		}
 	});
 
-	if(!exists){
+	if(!exists) {
 		var newLine = {
 			id: LI.kiosk.utils.generateUUID(),
 			name: item.name,
-			productId: item.id,
+			product: item,
 			value: price.value,
 			price: price,
+			declination: declination,
 			qty: 1,
 			total: price.value
 		};
 
 		LI.kiosk.cart.lines[newLine.id] = newLine;
-		LI.kiosk.cart.insertLine(LI.kiosk.cart.lines[newLine.id]);
+		LI.kiosk.cart.insertLine(LI.kiosk.cart.lines[newLine.id], item);
 		LI.kiosk.utils.flash('#' + newLine.id);
 		lineId = newLine.id;
 	}
 
-	$('#cart').show(500);
-	$('#cart').css('display', 'flex');
 	LI.kiosk.cart.cartTotal();
 
-	if(item.gauge_url !== undefined)
+	if(!$('#cart').is(':visible')) {
+		$('#cart').show(500);
+		$('#cart').css('display', 'flex');
+    }
+
+	if(item.gauge_url !== undefined )
 		LI.kiosk.checkAvailability(item.gauge_url, lineId, item.id);
+    
+         $.ajax({
+		    url: '/tck.php/transaction/' + LI.kiosk.transaction.id + '/complete',
+		    type: 'get',
+		    data: { 
+		    	transaction: {
+		    		price_new: {
+		    			_csrf_token: LI.kiosk.CSRF,
+		    			price_id: price.id,
+		    			declination_id: declination.id,
+		    			type: item.type == 'store' ? 'declination' : 'gauge',
+		    			bunch: item.type,
+		    			id: LI.kiosk.transaction.id,
+		    			state: '',
+		    			qty: '1'
+		    		}
+		        }
+		    },
+		    error: LI.kiosk.utils.error
+		});
+    ;
 }
 
-LI.kiosk.cart.removeItem = function(lineId) {
+LI.kiosk.cart.removeItem = function(lineId, item) {
 	var line = LI.kiosk.cart.lines[lineId];
 	var htmlLine = $('#' + lineId);
 
@@ -401,15 +439,33 @@ LI.kiosk.cart.removeItem = function(lineId) {
 	LI.kiosk.cart.lineTotal(line);
 
 	if(line.qty == 0){
-
 		delete LI.kiosk.cart.lines[lineId]
 		LI.kiosk.cart.removeLine(htmlLine);
 	}else{
-
 		LI.kiosk.cart.lines[lineId] = line;
 		htmlLine.find('.line-qty').text(line.qty);
 		htmlLine.find('.line-total').text(line.total);
 	}
+
+	$.ajax({
+	    url: '/tck.php/transaction/' + LI.kiosk.transaction.id + '/complete',
+	    type: 'get',
+	    data: { 
+	    	transaction: {
+	    		price_new: {
+	    			_csrf_token: LI.kiosk.CSRF,
+	    			price_id: line.price.id,
+	    			declination_id: line.declination.id,
+	    			type: item.type == 'store' ? 'declination' : 'gauge',
+	    			bunch: item.type,
+	    			id: LI.kiosk.transaction.id,
+	    			state: '',
+	    			qty: '-1'
+	    		}
+	        }
+	    },
+	    error: LI.kiosk.utils.error
+	});	
 
 	LI.kiosk.cart.cartTotal();
 
@@ -417,6 +473,33 @@ LI.kiosk.cart.removeItem = function(lineId) {
 		$('#cart').hide(200);
 }
 
+LI.kiosk.checkAvailability = function(gaugeUrl, lineId, productId){
+	var qty = 0;
+	var available = true;
+
+	$.each(LI.kiosk.cart.lines, function(key, line){
+		if(line.product.id == productId)
+			qty += line.qty;
+	});
+
+	$.get(gaugeUrl, function(data){
+
+		if(data.free < qty){
+			available = false;
+			$('#' + lineId + ' .remove-item').click();
+			toastr.info('The last item added to the cart was removed as it wasn\'t available anymore');
+		}
+	});
+
+	return available;
+}
+
+/************** CHECKOUT *******************************/
+LI.kiosk.checkout = function() {
+
+}
+
+/********************* UTILS *************************/
 LI.kiosk.utils.generateUUID = function(){
 
     var d = new Date().getTime();
@@ -485,85 +568,62 @@ LI.kiosk.utils.switchPanels = function(){
 
 LI.kiosk.utils.switchMenuPanels = function(type){
 		
-		$('#product-menu').effect('slide', {
-			direction: 'left', 
+	$('#product-menu').effect('slide', {
+		direction: 'left', 
+		mode: 'hide', 
+		duration: '300',
+		complete: function(){
+
+			LI.kiosk.insertProducts(type);
+
+			$('#products').effect('slide', {
+				direction: 'right', 
+				mode: 'show',
+				duration: '300'
+			});
+		}
+	});
+	
+	$('#back-fab').unbind('click').click(function(){
+		$(this).hide();
+
+		$('#products').effect('slide', {
+			direction: 'right', 
 			mode: 'hide', 
 			duration: '300',
 			complete: function(){
 
-				LI.kiosk.insertProducts(type);
-
-				$('#products').effect('slide', {
-					direction: 'right', 
-					mode: 'show',
+				$('#product-menu').effect('slide', {
+					direction: 'left', 
+					mode: 'show', 
 					duration: '300'
 				});
 			}
 		});
 		
-		$('#back-fab').unbind('click').click(function(){
-
-			$(this).hide();
-
-			$('#products').effect('slide', {
-				direction: 'right', 
-				mode: 'hide', 
-				duration: '300',
-				complete: function(){
-
-					$('#product-menu').effect('slide', {
-						direction: 'left', 
-						mode: 'show', 
-						duration: '300'
-					});
-				}
-			});
-			
-		}).show();
-	}
-
-LI.kiosk.cart.insertLine = function(line){
-	var lineTemplate = Handlebars.compile(LI.kiosk.templates.cartLine);
-console.log(line);
-	$('#cart-lines').append(lineTemplate(line ));
-	$('#' + line.id + ' .remove-item').click(function(){
-		LI.kiosk.cart.removeItem(line.id);
-	});
+	}).show();
 }
 
-LI.kiosk.cart.removeLine = function(htmlLine){
-	$(htmlLine).hide(500).remove();
+LI.kiosk.utils.error = function(error){
+	console.error(error);
 }
 
-LI.kiosk.cart.lineTotal = function(line){
-	line.total = LI.format_currency(line.price.raw_value * line.qty, false);
+LI.kiosk.utils.showLoader = function(){
+	$('#spinner')
+	    .addClass('is-active')
+	    .css('display', 'block')
+	;
 }
 
-LI.kiosk.cart.cartTotal = function(){
-
-	var total = 0;
-
-	$.each(LI.kiosk.cart.lines, function(key, line){
-		total += parseFloat(line.total);
-	});
-
-	$('#cart-total-value').text(LI.format_currency(total, false));
+LI.kiosk.utils.hideLoader = function(){
+	$('#spinner')
+	    .removeClass('is-active')
+	    .css('display', 'none')
+	;
 }
 
-LI.kiosk.checkAvailability = function(gaugeUrl, lineId, productId){
-
-	var qty = 0;
-
-	$.each(LI.kiosk.cart.lines, function(key, lineObject){
-		if(lineObject.productId == productId)
-			qty += lineObject.qty;
-	});
-
-	$.get(gaugeUrl, function(data){
-
-		if(data.free < qty){
-			$('#' + lineId + ' .remove-item').click();
-			toastr.info('The last item added to the cart was removed as it wasn\'t available anymore');
-		}
-	});
+LI.kiosk.utils.flash = function(selector){
+	Waves.attach(selector);
+	Waves.init();
+	Waves.ripple(selector);
 }

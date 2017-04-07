@@ -173,9 +173,6 @@ ul {
   margin: 0;
   padding-bottom: 30px; }
 
-#declination-back {
-  display: none; }
-
 /* PRICE CARD */
 .price {
   margin: 5px; }
@@ -248,7 +245,7 @@ ul {
   margin: 2px;
   padding: 16px 16px 0 16px;
   max-height: 100px;
-  /* Remove buttons */ }
+  /* Add and Remove buttons */ }
   .cart-line .line-main {
     flex-basis: 80%; }
   .cart-line .line-second {
@@ -258,11 +255,15 @@ ul {
   .cart-line .line-third {
     margin-left: auto;
     font-size: 1.8em; }
-  .cart-line .remove-item {
+  .cart-line .remove-item, .cart-line .add-item {
     height: 45px;
     width: 45px;
     margin: 0 10px 0 0;
     min-width: 45px; }
+  .cart-line .cart-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between; }
 
 /* TOASTS */
 #toast-container.toast-bottom-full-width {

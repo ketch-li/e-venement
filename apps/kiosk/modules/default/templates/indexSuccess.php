@@ -1,4 +1,4 @@
-<?php use_helper('I18N') ?>
+<?php use_helper('I18N', 'CrossAppLink') ?>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <?php use_stylesheet('material.min.css') ?>
 <?php use_stylesheet('kiosk/waves.css') ?>
@@ -12,7 +12,6 @@
 <?php use_javascript('/js/handlebars/handlebars-v4.0.5.js') ?>
 <?php use_javascript('/js/material/material.min.js') ?>
 <?php use_javascript('/js/kiosk/kiosk.js') ?>
-
 <?php use_stylesheet('/private/kiosk.css') ?>
 <?php use_javascript('/private/kiosk.js') ?>
 
@@ -21,23 +20,6 @@
 		<div class="mdl-layout__header-row">
 			<span class="mdl-layout-title"><img src="images/logo-evenement-small.png" alt="logo"/></span>
 			<div class="mdl-layout-spacer"></div>
-			<!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-				<label class="mdl-button mdl-js-button mdl-button--icon" for="search" id="search-label">
-					<i class="material-icons">search</i>
-				</label>
-				<div class="mdl-textfield__expandable-holder">
-					<input class="mdl-textfield__input" type="text" id="search">
-					<label class="mdl-textfield__label mdl" for="search" id="search-bottom-line">Enter your query...</label>
-				</div>
-			</div>
-			<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
-				<i class="material-icons">more_vert</i>
-			</button>
-			<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-				<li class="mdl-menu__item">About</li>
-				<li class="mdl-menu__item">Contact</li>
-				<li class="mdl-menu__item">Legal information</li>
-			</ul> -->
 		</div>
 	</header>
 	<!-- <div class="app-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
@@ -132,6 +114,17 @@
 		</div>	
 	</main>
 </div>
+
+<!-- JS DATA -->
+<div class="js-data" id="kiosk-urls"
+  data-get-new-transaction="<?php echo cross_app_url_for('tck', 'transaction/newJson') ?>"
+  data-get-csrf="<?php echo cross_app_url_for('tck', 'transaction/getCSRFToken') ?>"
+  data-complete-transaction="<?php echo cross_app_url_for('tck', 'transaction/complete?id=-666') ?>"
+  data-get-manifestations="<?php echo cross_app_url_for('tck', 'transaction/getManifestations?simplified=1') ?>"
+  data-get-store="<?php echo cross_app_url_for('tck', 'transaction/getStore?simplified=1') ?>"
+  data-get-museum="<?php echo cross_app_url_for('tck', 'transaction/getPeriods?simplified=1') ?>"
+></div>
+
 <!-- JS I18N -->
 <div class="js-i18n" data-source="manifestations" data-target="<?php echo kioskConfiguration::getText('app_texts_menu_manifestation', 'Manifestations') ?>"></div>
 <div class="js-i18n" data-source="museum" data-target="<?php echo kioskConfiguration::getText('app_texts_menu_museum', 'Museum') ?>"></div>
@@ -241,19 +234,26 @@
 	<!-- cart line -->
 <script id="cart-line-template" type="text/x-handlebars-template" data-template-type="cartLine">
 	<li class="cart-line mdl-color--blue-grey-800" id="{{ id }}" style="border-right: 5px solid {{ color }};">
-		<button class="remove-item mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-  			<i class="material-icons light">remove</i>
-		</button>
-		<p class="line-main">
-			<span class="line-qty">{{ qty }}</span>
-			<span class="line-multiplier"> x </span>
-			<span class="line-name">{{ name }}</span>
-		<p>
-		<p class="line-second">
-			<span class="line-price">{{ name }} ({{value}})</span>
-		</p>
-		<p class="line-third">
-			<span class="line-total">{{ total }}</span>
-		</p>
+		<div class="cart-controls">
+			<button class="remove-item cart-control mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+	  			<i class="material-icons light">remove</i>
+			</button>
+			<button class="add-item cart-control mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+	  			<i class="material-icons light">add</i>
+			</button>
+	    </div>
+	    <div class="cart-values">
+			<p class="line-main">
+				<span class="line-qty">{{ qty }}</span>
+				<span class="line-multiplier"> x </span>
+				<span class="line-name">{{ name }}</span>
+			<p>
+			<p class="line-second">
+				<span class="line-price">{{ name }} ({{value}})</span>
+			</p>
+			<p class="line-third">
+				<span class="line-total">{{ total }}</span>
+			</p>
+		</div>
   	</li>
 </script>

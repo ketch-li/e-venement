@@ -199,7 +199,7 @@ ul{
 }
 
 #declination-back {
-  display: none;
+  // display: none;
 }
 
 /* PRICE CARD */
@@ -287,12 +287,18 @@ ul{
     font-size: 1.8em;
   }
 
-  /* Remove buttons */
-  .remove-item {
+  /* Add and Remove buttons */
+  .remove-item, .add-item {
     height: 45px;
     width: 45px;
     margin: 0 10px 0 0;
     min-width: 45px;
+  }
+
+  .cart-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
   }
 }
 
@@ -308,7 +314,6 @@ ul{
   align-self: center;
   z-index: 999;
 }
-
 
 
 /* THEME CSSS */
