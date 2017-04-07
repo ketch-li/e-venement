@@ -8,10 +8,10 @@ These endpoints will allow you to manage transactions and transaction items. Bas
     Remember that a **Transaction** in e-venement is called here a **Cart** that becomes an **Order** as soon
     as it is validated, probably through a payment receipt.
 
-Transaction API response structure
------------------------------------
+Cart API response structure
+----------------------------
 
-If you request a transaction via API, you will receive an object with the following fields:
+If you request a cart via API, you will receive an object with the following fields:
 
 +-------------------+---------------------------------------------------------------------------------------+
 | Field             | Description                                                                           |
@@ -43,13 +43,15 @@ Each CartItem in an API response will be build as follows:
 +===================+============================================================================================+
 | id                | Id of the cart item                                                                        |
 +-------------------+--------------------------------------------------------------------------------------------+
+| type              | Type of item (can be ticket, product or pass)                                              |
++-------------------+--------------------------------------------------------------------------------------------+
 | quantity          | Quantity of item units                                                                     |
 +-------------------+--------------------------------------------------------------------------------------------+
 | declination       | Item family declination                                                                    |
 +-------------------+--------------------------------------------------------------------------------------------+
-| price             | Price of each item unit                                                                    |
+| totalAmount       | Total amount for this item                                                                 |
 +-------------------+--------------------------------------------------------------------------------------------+
-| unitPrice         | Price of each item unit                                                                    |
+| unitAmount        | Price of each item unit                                                                    |
 +-------------------+--------------------------------------------------------------------------------------------+
 | total             | Sum of units total and adjustments total of that cart item                                 |
 +-------------------+--------------------------------------------------------------------------------------------+
@@ -57,7 +59,7 @@ Each CartItem in an API response will be build as follows:
 +-------------------+--------------------------------------------------------------------------------------------+
 | units             | A collection of units related to the cart item                                             |
 +-------------------+--------------------------------------------------------------------------------------------+
-| unitsTotal        | Sum of all units prices of the cart item                                                   |
+| unitsTotal        | Sum of all units of the cart item                                                          |
 +-------------------+--------------------------------------------------------------------------------------------+
 | adjustments       | List of adjustments related to the cart item                                               |
 +-------------------+--------------------------------------------------------------------------------------------+
@@ -104,26 +106,7 @@ And each Adjustment will be build as follows:
 
     An Adjustment can be VAT, shipping fees, promotion, etc.
     
-Product API response structure
----------------------------------
-
-And each Product will be build as follows:
-
-+--------+----------------------------------------------------------+
-| Field  | Description                                              |
-+========+==========================================================+
-| id     | Id of the product                                        |
-+--------+----------------------------------------------------------+
-| type   | Category of the product                                  |
-+--------+----------------------------------------------------------+
-| label  | Label of the product                                     |
-+--------+----------------------------------------------------------+
-
-.. note::
-
-    An Adjustment can be VAT, shipping fees, promotion, etc.
-
-Creating a transaction
+Creating a cart
 -----------------------
 
 To create a new cart you will need to call the ``/api/v2/carts/`` endpoint with the ``POST`` method.
@@ -146,11 +129,11 @@ Definition
 Example
 ^^^^^^^
 
-To create a new cart for the ``shop@example.com`` user in the ``US_WEB`` channel with the ``en_US`` locale use the below method:
+To create a new cart for the ``shop@example.com`` user with the ``en_US`` locale use the below method:
 
 .. code-block:: bash
 
-    $ curl http://demo.sylius.org/api/v2/transaction/ \
+    $ curl http://demo.sylius.org/api/v2/cart/ \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST \
@@ -160,7 +143,7 @@ To create a new cart for the ``shop@example.com`` user in the ``US_WEB`` channel
             }
         '
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -189,7 +172,7 @@ Exemplary Response
 
 .. note::
 
-    A currency code will be added automatically based on the channel settings. Read more about channels :doc:`here </book/configuration/channels>`.
+    A currency code will be added automatically based on the application settings.
 
 .. warning::
 
@@ -205,7 +188,7 @@ Example
         -H "Content-Type: application/json" \
         -X POST
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -261,7 +244,7 @@ To see the first page of the paginated carts collection use the below method:
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -354,7 +337,7 @@ To see details of the cart with ``id = 21`` use the below method:
     The *21* value was taken from the previous create response. Your value can be different.
     Check in the list of all carts if you are not sure which id should be used.
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -393,45 +376,7 @@ Exemplary Response
 Deleting a Cart
 ---------------
 
-To delete a cart you will need to call the ``/api/v2/carts/{id}`` endpoint with the ``DELETE`` method.
-
-Definition
-^^^^^^^^^^
-
-.. code-block:: text
-
-    DELETE /api/v2/carts/{id}
-
-+---------------+----------------+--------------------------------------+
-| Parameter     | Parameter type | Description                          |
-+===============+================+======================================+
-| Authorization | header         | Token received during authentication |
-+---------------+----------------+--------------------------------------+
-| id            | url attribute  | Id of the requested cart             |
-+---------------+----------------+--------------------------------------+
-
-Example
-^^^^^^^
-
-To delete the cart with ``id = 21`` use the below method:
-
-.. code-block:: bash
-
-    $ curl http://e-venement.local/api/v2/carts/21 \
-        -H "Authorization: Bearer SampleToken" \
-        -H "Accept: application/json" \
-        -X DELETE
-
-.. note::
-
-    Remember the *21* value comes from the previous example. Here we are deleting a previously fetched cart, so it is the same id.
-
-Exemplary Response
-^^^^^^^^^^^^^^^^^^
-
-.. code-block:: text
-
-    STATUS: 204 No Content
+A cart cannot be deleted. It simply has to be abandonned if needed.
 
 Creating a Cart Item
 --------------------
@@ -454,10 +399,14 @@ Definition
 +---------------+----------------+----------------------------------------------------------------+
 | declinationId | request        | Code of the item you want to add to the cart                   |
 +---------------+----------------+----------------------------------------------------------------+
+| type          | request        | Type of item to add (can be ticket, product or pass)           |
++---------------+----------------+----------------------------------------------------------------+
 | quantity      | request        | Amount of variants you want to add to the cart (cannot be < 1) |
 +---------------+----------------+----------------------------------------------------------------+
+| priceId       | request        | Price aimed for the item                                       |
++---------------+----------------+----------------------------------------------------------------+
 | numerotations | request        | An array of specific items of the requested declinations (optional) |
-+---------------+----------------+--------------------------------------------------------------+
++---------------+----------------+----------------------------------------------------------------+
 
 Example
 ^^^^^^^
@@ -473,12 +422,14 @@ previous example) use the below method:
         -X POST \
         --data '
             {
+                "type": "ticket",
                 "declinationId: 52,
-                "quantity": 1
+                "quantity": 1,
+                "priceId": 3
             }
         '
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -489,8 +440,9 @@ Exemplary Response
 
     {
         "id":57,
+        "type": "ticket",
         "quantity":1,
-        "unitPrice":250,
+        "unitAmount":250,
         "total":250,
         "units":[
             {
@@ -579,7 +531,7 @@ To change the quantity of the cart item with ``id = 57`` in the cart of ``id = 2
     If you are not sure where does the value **58** come from, check the previous response, and look for the cart item id.
 
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -594,7 +546,7 @@ Now we can check how does the cart look like after changing the quantity of a ca
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -608,8 +560,9 @@ Exemplary Response
         "items":[
             {
                 "id":57,
+                "type": "ticket",
                 "quantity":3,
-                "unitPrice":250,
+                "unitAmount":250,
                 "total":750,
                 "units":[
                     {
@@ -660,13 +613,7 @@ Exemplary Response
                             "name":"Medium Mug"
                         }
                     },
-                    "tracked":false,
-                    "channelPricings":{
-                        "US_WEB": {
-                            "channelCode": "US_WEB",
-                            "price":250
-                        }
-                    }
+                    "tracked":false
                 },
                 "_links":{
                     "order":{
@@ -705,14 +652,6 @@ Exemplary Response
             "_links":{
                 "self":{
                     "href":"\/api\/v1\/customers\/1"
-                }
-            }
-        },
-        "channel":{
-            "code":"US_WEB",
-            "_links":{
-                "self":{
-                    "href":"\/api\/v1\/channels\/US_WEB"
                 }
             }
         },
@@ -759,7 +698,7 @@ Example
         -H "Accept: application/json" \
         -X DELETE
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text

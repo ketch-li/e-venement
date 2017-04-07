@@ -523,7 +523,6 @@ DirectPrint:
   columns:
     transaction_id:
       type: integer
-      notnull: true
     printer:
       type: string(255)
       notblank: true

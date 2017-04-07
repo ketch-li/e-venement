@@ -190,10 +190,11 @@ class cartActions extends sfActions
     if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $this->getContext()->getConfiguration()->getPlugins()) )
     {
       // The sales conditions have been accepted before coming here
-      if ( $this->getUser()->hasContact() )
-        $this->redirect('cart/order');
-      else
-        $this->redirect('login/index');
+      if ( !$this->getUser()->hasContact() ) 
+      {
+        $url = $this->generateUrl('default', array('module' => 'login', 'action' => 'index', 'register' => true));
+        $this->redirect($url);
+      }
     }
 
     // already done first

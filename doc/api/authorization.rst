@@ -29,7 +29,7 @@ Use e-venement command:
 
 You will receive client public id and client secret
 
-Exemplary Result
+Sample Result
 ''''''''''''''''
 
 .. code-block:: bash
@@ -86,7 +86,7 @@ Example
 
     You have to use your user data (``username`` and ``password``)and replace client id and client secret with data generated in a previous step.
 
-Exemplary Response
+Sample Response
 ''''''''''''''''''
 
 .. code-block:: json
@@ -157,7 +157,7 @@ Example
         -d "grant_type"=refresh_token \
         -d "refresh_token"=MDk2ZmIwODBkYmE3YjNjZWQ4ZTk2NTk2N2JmNjkyZDQ4NzA3YzhiZDQzMjJjODI5MmQ4ZmYxZjlkZmU1ZDNkMQ
 
-Exemplary Response
+Sample Response
 ''''''''''''''''''
 
 You can now use new token to send requests

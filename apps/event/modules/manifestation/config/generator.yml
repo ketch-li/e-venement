@@ -84,8 +84,8 @@ generator:
             ui-icon: closethick
         batch_actions:
           _delete: ~
-          _bestFreeSeat:
-            label: Best free seat
+          #_bestFreeSeat:
+          #  label: Best free seat
           _periodicity: ~
           _changeEvent:
             label: Change event

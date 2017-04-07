@@ -67,7 +67,7 @@ To address the cart to the customer 214, the following snippet can be used:
             }
         '
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -87,7 +87,7 @@ To check the checkout process state for the cart with `id = 21`, we need to exec
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -101,6 +101,7 @@ Exemplary Response
         "items":[
             {
                 "id":74,
+                "type":"ticket",
                 "quantity":1,
                 "unitPrice":100000,
                 "total":100000,
@@ -278,7 +279,7 @@ To choose the ``Bank transfer`` method for our shipment, simply use the followin
             }
         '
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -331,6 +332,7 @@ To check the fully constructed cart with `id = 21`, use the following command:
         "items":[
             {
                 "id":74,
+                "type":"tickets",
                 "quantity":1,
                 "unitPrice":100000,
                 "total":100000,
@@ -461,7 +463,7 @@ To finalize the previously built order, execute the following command:
         -H "Content-Type: application/json" \
         -X POST
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -489,7 +491,7 @@ To finalize the previously built order (assuming that, the previous example has 
             }
         '
 
-Exemplary Response
+Sample Response
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
