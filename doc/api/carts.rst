@@ -75,15 +75,18 @@ CartItemUnit API response structure
 
 Each CartItemUnit API response will be build as follows:
 
-+-------------------+------------------------------------------+
-| Field             | Description                              |
-+===================+==========================================+
-| id                | Id of the cart item unit                 |
-+-------------------+------------------------------------------+
-| adjustments       | List of adjustments related to the unit  |
-+-------------------+------------------------------------------+
-| adjustmentsTotal  | Sum of all units adjustments of the unit |
-+-------------------+------------------------------------------+
++-------------------+-----------------------------------------------+
+| Field             | Description                                   |
++===================+===============================================+
+| id                | Id of the cart item unit                      |
++-------------------+-----------------------------------------------+
+| adjustments       | List of adjustments related to the unit       |
++-------------------+-----------------------------------------------+
+| adjustmentsTotal  | Sum of all units adjustments of the unit      |
++-------------------+-----------------------------------------------+
+| _link[pdf]        | *(optional)* URL of a PDF version of the item |
++-------------------+-----------------------------------------------+
+
 
 Adjustment API response structure
 ---------------------------------
@@ -450,7 +453,10 @@ Sample Response
                 "adjustments":[
 
                 ],
-                "adjustmentsTotal":0
+                "adjustmentsTotal":0,
+                "link":{
+                    "pdf":"/api/v2/carts/57/item/165/pdf"
+                }
             }
         ],
         "unitsTotal":250,
@@ -570,21 +576,24 @@ Sample Response
                         "adjustments":[
 
                         ],
-                        "adjustmentsTotal":0
+                        "adjustmentsTotal":0,
+                        "pdf":"/api/v2/carts/57/item/165/pdf"
                     },
                     {
                         "id":166,
                         "adjustments":[
 
                         ],
-                        "adjustmentsTotal":0
+                        "adjustmentsTotal":0,
+                        "pdf":"/api/v2/carts/57/item/166/pdf"
                     },
                     {
                         "id":167,
                         "adjustments":[
 
                         ],
-                        "adjustmentsTotal":0
+                        "adjustmentsTotal":0,
+                        "pdf":"/api/v2/carts/57/item/167/pdf"
                     }
                 ],
                 "unitsTotal":750,

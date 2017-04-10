@@ -4,7 +4,7 @@ Manifestations API
 These endpoints will allow you to manage manifestations. Base URI is '/api/v2/manifestations'.
 
 Manifestations API response structure
------------------------------
+--------------------------------------
 
 When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
 
@@ -21,6 +21,42 @@ When you get a collection of resources, "Default" serialization group will be us
 +------------------+----------------------------------------------+
 | gauges           | Collection of gauges object serialized       |
 +------------------+----------------------------------------------+
+
+Gauges API response structure
+------------------------------
+
+When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
+
++------------------+--------------------------------------------------------------------------+
+| Field            | Description                                                              |
++==================+==========================================================================+
+| id               | Id of the gauge                                                          |
++------------------+--------------------------------------------------------------------------+
+| translations     | Collection of translations                                               |
++------------------+--------------------------------------------------------------------------+
+| availableUnits   | The available space in this gauge                                        |
+|                  | To avoid information leaks, if more space is available than the maximum  |
+|                  | configured, the maximum is exposed instead of the really available space |
++------------------+--------------------------------------------------------------------------+
+| prices           | Collection of Prices                                                     |
++------------------+--------------------------------------------------------------------------+
+
+Prices API response structure
+------------------------------
+
+When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
+
++------------------+--------------------------------------------------------------------------+
+| Field            | Description                                                              |
++==================+==========================================================================+
+| id               | Id of the price                                                          |
++------------------+--------------------------------------------------------------------------+
+| translations     | Collection of translations                                               |
++------------------+--------------------------------------------------------------------------+
+| value            | Amount of the price in the current currency                              |
++------------------+--------------------------------------------------------------------------+
+| currencyCode     | Currency of the cart                                                     |
++------------------+--------------------------------------------------------------------------+
 
 Available actions to interact with a manifestation
 --------------------------------------------------
@@ -91,10 +127,7 @@ Sample Response
                         "name":"General field"
                     }
                 },
-                "gauge":240,
-                "sold":180,
-                "ordered":12,
-                "free":48,
+                "availableUnits":10,
                 "prices": [
                     {
                         "id":3,
@@ -105,7 +138,8 @@ Sample Response
                                 "description":"Free price"
                             }
                         },
-                        "value":0.00
+                        "value":0.00,
+                        "currencyCode":"EUR"
                     },
                     {
                         "id":4,
@@ -116,7 +150,8 @@ Sample Response
                                 "description":"Full price"
                             }
                         },
-                        "value":6.00
+                        "value":6.00,
+                        "currencyCode":"EUR"
                     }
                 ]
             }
