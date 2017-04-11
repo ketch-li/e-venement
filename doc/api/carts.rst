@@ -75,15 +75,18 @@ CartItemUnit API response structure
 
 Each CartItemUnit API response will be build as follows:
 
-+-------------------+------------------------------------------+
-| Field             | Description                              |
-+===================+==========================================+
-| id                | Id of the cart item unit                 |
-+-------------------+------------------------------------------+
-| adjustments       | List of adjustments related to the unit  |
-+-------------------+------------------------------------------+
-| adjustmentsTotal  | Sum of all units adjustments of the unit |
-+-------------------+------------------------------------------+
++-------------------+-----------------------------------------------+
+| Field             | Description                                   |
++===================+===============================================+
+| id                | Id of the cart item unit                      |
++-------------------+-----------------------------------------------+
+| adjustments       | List of adjustments related to the unit       |
++-------------------+-----------------------------------------------+
+| adjustmentsTotal  | Sum of all units adjustments of the unit      |
++-------------------+-----------------------------------------------+
+| _link[pdf]        | *(optional)* URL of a PDF version of the item |
++-------------------+-----------------------------------------------+
+
 
 Adjustment API response structure
 ---------------------------------
@@ -133,7 +136,7 @@ To create a new cart for the ``shop@example.com`` user with the ``en_US`` locale
 
 .. code-block:: bash
 
-    $ curl http://demo.sylius.org/api/v2/cart/ \
+    $ curl http://e-venement.local/api/v2/cart/ \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST \
@@ -183,7 +186,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://demo.sylius.org/api/v1/carts/ \
+    $ curl http://e-venement.local/api/v1/carts/ \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST
@@ -450,7 +453,10 @@ Sample Response
                 "adjustments":[
 
                 ],
-                "adjustmentsTotal":0
+                "adjustmentsTotal":0,
+                "link":{
+                    "pdf":"/api/v2/carts/57/item/165/pdf"
+                }
             }
         ],
         "unitsTotal":250,
@@ -482,9 +488,6 @@ Sample Response
         }
     }
 .. tip::
-
-    In Sylius the prices are stored as an integers (``1059`` represents ``10.59$``).
-    So in order to present a proper amount to the end user, you should divide price by 100 by default.
 
 Updating a Cart Item
 --------------------
@@ -570,21 +573,24 @@ Sample Response
                         "adjustments":[
 
                         ],
-                        "adjustmentsTotal":0
+                        "adjustmentsTotal":0,
+                        "pdf":"/api/v2/carts/57/item/165/pdf"
                     },
                     {
                         "id":166,
                         "adjustments":[
 
                         ],
-                        "adjustmentsTotal":0
+                        "adjustmentsTotal":0,
+                        "pdf":"/api/v2/carts/57/item/166/pdf"
                     },
                     {
                         "id":167,
                         "adjustments":[
 
                         ],
-                        "adjustmentsTotal":0
+                        "adjustmentsTotal":0,
+                        "pdf":"/api/v2/carts/57/item/167/pdf"
                     }
                 ],
                 "unitsTotal":750,

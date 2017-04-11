@@ -37,7 +37,7 @@ If you request for a more detailed data, you will receive an object with followi
 +------------------+----------------------------------------------+
 | customer         | Customer detail serialization                |
 +------------------+----------------------------------------------+
-| items            | List of items related to the order           |
+| items            | :doc:`List of items related to the order</api/carts>`|
 +------------------+----------------------------------------------+
 | itemsTotal       | Sum of all item prices                       |
 +------------------+----------------------------------------------+

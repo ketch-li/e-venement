@@ -3,8 +3,8 @@ Products API
 
 These endpoints will allow you to manage products. Base URI is '/api/v2/products'.
 
-Product API response structure
-------------------------------
+Products API response structure
+--------------------------------
 
 When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
 
@@ -23,6 +23,44 @@ When you get a collection of resources, "Default" serialization group will be us
 +------------------+----------------------------------------------+
 | declinations     | Collection of the product declinations       |
 +------------------+----------------------------------------------+
+
+Declination API response structure
+-----------------------------------
+
+When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
+
++------------------+--------------------------------------------------------------------------+
+| Field            | Description                                                              |
++==================+==========================================================================+
+| id               | Id of the product declination                                            |
++------------------+--------------------------------------------------------------------------+
+| code             | Code of the declination (can be a barcode)                               |
++------------------+--------------------------------------------------------------------------+
+| weight           | Weight of the declination (in grams)                                     |
++------------------+--------------------------------------------------------------------------+
+| availableUnits   | The available quantity of this declination                               |
+|                  | To avoid information leaks, if more units are available than the maximum |
+|                  | configured, the maximum is exposed instead of the really available stock |
++------------------+--------------------------------------------------------------------------+
+| prices           | Collection of Prices                                                     |
++------------------+--------------------------------------------------------------------------+
+
+Prices API response structure
+------------------------------
+
+When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
+
++------------------+--------------------------------------------------------------------------+
+| Field            | Description                                                              |
++==================+==========================================================================+
+| id               | Id of the price                                                          |
++------------------+--------------------------------------------------------------------------+
+| translations     | Collection of translations                                               |
++------------------+--------------------------------------------------------------------------+
+| value            | Amount of the price in the current currency                              |
++------------------+--------------------------------------------------------------------------+
+| currencyCode     | Currency of the cart                                                     |
++------------------+--------------------------------------------------------------------------+
 
 Available actions to interact with a product
 --------------------------------------------
@@ -82,25 +120,47 @@ Sample Response
                 "id":59,
                 "code":99823300,
                 "weight":650,
+                "availableUnits":10,
                 "translations":{
                     "en_US":{
                         "id":59,
                         "name":"The Black VIm Mug",
                         "description":"A great VIm Mug in black."
                     }
-                }
+                },
+                "prices":[
+                    "id":4,
+                    "translations:{
+                        "en_US":{
+                            "name":"Normal"
+                        }
+                    },
+                    "value":12,
+                    "currencyCode":"EUR",
+                ]
             },
             {
                 "id":60,
                 "code":99823301,
                 "weight":650,
+                "availableUnits":8,
                 "translations":{
                     "en_US":{
                         "id":59,
                         "name":"The Orange VIm Mug",
                         "description":"A great VIm Mug in orange."
                     }
-                }
+                },
+                "prices":[
+                    "id":4,
+                    "translations:{
+                        "en_US":{
+                            "name":"Normal"
+                        }
+                    },
+                    "value":12,
+                    "currencyCode":"EUR",
+                ]
             }
         ],
         "imageURL":"vimmug.png",
@@ -185,13 +245,24 @@ Sample Response
                             "id":59,
                             "code":99823300,
                             "weight":650,
+                            "availableUnits":10,
                             "translations":{
                                 "en_US":{
                                     "id":59,
                                     "name":"The Black VIm Mug",
                                     "description":"A great VIm Mug in black."
                                 }
-                            }
+                            },
+                            "prices":[
+                                "id":4,
+                                "translations:{
+                                    "en_US":{
+                                        "name":"Normal"
+                                    }
+                                },
+                                "value":12,
+                                "currencyCode":"EUR",
+                            ]
                         }
                     ],
                     "imageURL":"vimmug.png",
@@ -212,13 +283,24 @@ Sample Response
                             "id":66,
                             "code":99823312,
                             "weight":650,
+                            "availableUnits":10,
                             "translations":{
                                 "en_US":{
                                     "id":66,
                                     "name":"Arch Linux Coffee Mug",
                                     "description":"The Arch Linux Mug, an awesome ceramic mug printed on both sides with the Arch Linux logo."
                                 }
-                            }
+                            },
+                            "prices":[
+                                "id":4,
+                                "translations:{
+                                    "en_US":{
+                                        "name":"Normal"
+                                    }
+                                },
+                                "value":12,
+                                "currencyCode":"EUR",
+                            ]
                         }
                     ],
                     "imageURL":"vimmug.png",
