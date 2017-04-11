@@ -234,26 +234,26 @@
 	<!-- cart line -->
 <script id="cart-line-template" type="text/x-handlebars-template" data-template-type="cartLine">
 	<li class="cart-line mdl-color--blue-grey-800" id="{{ id }}" style="border-right: 5px solid {{ color }};">
-		<div class="cart-controls">
-			<button class="remove-item cart-control mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+		<div class="line-controls">
+			<button class="remove-item line-control mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
 	  			<i class="material-icons light">remove</i>
 			</button>
-			<button class="add-item cart-control mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+			<button class="add-item line-control mdl-button mdl-js-button mdl-button--fab mdl-color--pink-300">
 	  			<i class="material-icons light">add</i>
 			</button>
 	    </div>
-	    <div class="cart-values">
+	    <div class="line-details">
 			<p class="line-main">
 				<span class="line-qty">{{ qty }}</span>
 				<span class="line-multiplier"> x </span>
 				<span class="line-name">{{ name }}</span>
 			<p>
 			<p class="line-second">
-				<span class="line-price">{{ name }} ({{value}})</span>
-			</p>
-			<p class="line-third">
-				<span class="line-total">{{ total }}</span>
+				<span class="line-price">{{ price.name }} ({{ value }})</span>
 			</p>
 		</div>
+		<div class="line-value">
+			<span class="line-total">{{ total }}</span>
+	    </div>
   	</li>
 </script>

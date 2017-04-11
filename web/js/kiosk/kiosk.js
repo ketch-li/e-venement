@@ -337,8 +337,13 @@ LI.kiosk.cart.insertLine = function(line, item, price, declination) {
 	var lineTemplate = Handlebars.compile(LI.kiosk.templates.cartLine);
 
 	$('#cart-lines').append(lineTemplate(line));
+	
 	$('#' + line.id + ' .remove-item').click(function(){
 		LI.kiosk.cart.removeItem(line.id, item);
+	});
+
+	$('#' + line.id + ' .add-item').click(function(){
+		LI.kiosk.cart.addItem(item, price, declination);
 	});
 }
 
@@ -394,7 +399,7 @@ LI.kiosk.cart.addItem = function(item, price, declination) {
 		};
 
 		LI.kiosk.cart.lines[newLine.id] = newLine;
-		LI.kiosk.cart.insertLine(LI.kiosk.cart.lines[newLine.id], item);
+		LI.kiosk.cart.insertLine(LI.kiosk.cart.lines[newLine.id], item, price, declination);
 		LI.kiosk.utils.flash('#' + newLine.id);
 		lineId = newLine.id;
 	}
