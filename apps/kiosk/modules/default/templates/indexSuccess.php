@@ -2,6 +2,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <?php use_stylesheet('material.min.css') ?>
 <?php use_stylesheet('kiosk/waves.css') ?>
+<?php use_stylesheet('kiosk/animate.css') ?>
+
 <?php use_stylesheet('kiosk/kiosk.css') ?>
 <?php use_stylesheet('kiosk/toastr.min.css') ?>
 
@@ -15,7 +17,7 @@
 <?php use_stylesheet('/private/kiosk.css') ?>
 <?php use_javascript('/private/kiosk.js') ?>
 
-<div class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<div id="app" class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 	<header class="app-header mdl-layout__header mdl-color--blue-grey-800">
 		<div class="mdl-layout__header-row">
 			<span class="mdl-layout-title"><img src="images/logo-evenement-small.png" alt="logo"/></span>
@@ -60,8 +62,8 @@
   			<i class="material-icons light">keyboard_backspace</i>
 		</button>
 		<!-- info fab -->
-		<button id="info-fab" class="mdl-button mdl-js-button mdl-button--fab waves-effect">
-  			<i class="material-icons light mdl-color-text--light-blue-300">info_outline</i>
+		<button id="access-fab" class="mdl-button mdl-js-button mdl-button--fab mdl-color--light-blue-300 waves-effect">
+  			<i class="material-icons light">accessible</i>
 		</button>
 		<div id="info-panel" class="mdl-card__supporting-text mdl-shadow--6dp mdl-color--light-blue-300">
 			<p>

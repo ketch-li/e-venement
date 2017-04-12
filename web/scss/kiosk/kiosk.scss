@@ -48,19 +48,18 @@ header {
 }
 
 /* INFO BUTTON */
-#info-fab {
+#access-fab {
   height: 80px;
   width: 80px;
   z-index: 998;
   position: absolute;
   bottom: 20px;
   left: 35px;
-  background-color: transparent;
 
   .waves-ripple { border-radius: 50px; }
   i {
-    font-size: 93px;
-    margin-left: -35px;
+    font-size: 55px;
+    margin-left: -15px;
   }
 }
 
@@ -187,6 +186,10 @@ ul{
   #declination-name {
     color: #fff;
   }
+}
+
+#snackbar , #product-menu{
+  display: none;
 }
 
 /* DECLINATIONS and PRICES */

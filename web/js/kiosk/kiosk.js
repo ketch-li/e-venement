@@ -43,11 +43,24 @@ LI.kiosk.initPlugins = function(){
 
 LI.kiosk.addListeners = function(){
 	
-	$('#info-fab').click(function(){
-		$('#info-panel').show(500);
-		setTimeout(function(){
-			$('#info-panel').hide(500)
-		}, 10000);
+	$('#access-fab').click(function(){
+
+		if($('#app').css('marginTop') == '0px'){
+			$('#app').css({
+				'height': '50vh',
+				'margin-top': '50vh'
+			});
+		}else{
+			$('#app').css({
+				'height': '100vh',
+				'margin-top': '0'
+			});
+		}
+		
+		// $('#info-panel').show(500);
+		// setTimeout(function(){
+		// 	$('#info-panel').hide(500)
+		// }, 10000);
 	});
 	
 	$('#products-list').on('click', '.product', function(event){
@@ -119,6 +132,7 @@ LI.kiosk.menu = function(){
 		LI.kiosk.insertProducts(Object.keys(lists)[0]);
 
 	LI.kiosk.utils.hideLoader();
+	$('#product-menu').show();
 }
 
 LI.kiosk.utils.setUpMenu = function(productLists){
@@ -593,14 +607,14 @@ LI.kiosk.utils.switchMenuPanels = function(type){
 		$(this).hide();
 
 		$('#products').effect('slide', {
-			direction: 'right', 
-			mode: 'hide', 
+			direction: 'right',
+			mode: 'hide',
 			duration: '300',
 			complete: function(){
 
 				$('#product-menu').effect('slide', {
-					direction: 'left', 
-					mode: 'show', 
+					direction: 'left',
+					mode: 'show',
 					duration: '300'
 				});
 			}
