@@ -9,13 +9,27 @@ class ProductCategoryTable extends PluginProductCategoryTable
 {
   public function createQuery($alias = 'pc')
   {
-    return parent::createQuery($alias)
+    $q = parent::createQuery($alias)
       ->leftJoin("$alias.Translation pct")
       ->leftJoin("$alias.Parent ppc")
       ->select('*')
       ->addSelect('(CASE WHEN ppc.id IS NULL THEN pct.name ELSE (SELECT ppct.name FROM ProductCategoryTranslation ppct WHERE ppct.lang = pct.lang AND ppct.id = ppc.id) END) AS parent_name')
     ;
+    
+    return $this->addDomainRestriction($q, $alias);
   }
+  
+  public function addDomainRestriction($q, $alias) 
+  {
+    return $q->andWhere("$alias.domain = ? OR $alias.domain = ?", sfConfig::get('project_internals_users_domain', '') && sfConfig::get('project_internals_users_domain', '') != '.'
+      ? array(
+          $domain = preg_replace('/\.$/', '', sfConfig::get('project_internals_users_domain', '')),
+          $domain.'.',
+        )
+      : array('', '.')
+    );
+  }
+  
   public static function getInstance()
   {
     return Doctrine_Core::getTable('ProductCategory');

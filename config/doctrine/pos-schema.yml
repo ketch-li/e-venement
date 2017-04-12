@@ -50,6 +50,10 @@ ProductCategory:
     product_category_id: integer
     shipping_fees: string
     color_id: integer
+    domain:
+      type: string
+      notnull: true
+      default: ''
   relations:
     Vat:
       foreignAlias: ProductCategories
