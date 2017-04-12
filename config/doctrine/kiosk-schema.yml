@@ -1,0 +1,7 @@
+OptionKioskTexts:
+  package: kiosk
+  inheritance:
+    extends: Option
+    type: column_aggregation
+    keyField: type
+    keyValue: 'kiosk-texts'

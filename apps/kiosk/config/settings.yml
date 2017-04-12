@@ -33,3 +33,19 @@ all:
 
     # Enable the database manager
     use_database:           true
+    
+    i18n:  on      # Enable interface translation. Set to off if your application should not be translated.
+    default_culture: fr       # Default user culture
+
+    standard_helpers: [I18N, Partial, Cache, CrossAppLink]
+    enabled_modules:  [sfGuardAuth]
+    
+    login_module:           sfGuardAuth
+    login_action:           signin
+    
+    secure_module:          sfGuardAuth
+    secure_action:          secure
+    
+  .actions:
+    error_404_module:       default
+    error_404_action:       error404

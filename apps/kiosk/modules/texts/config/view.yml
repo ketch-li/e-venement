@@ -1,0 +1,5 @@
+default:
+  stylesheets: [/sfAdminThemejRollerPlugin/css/reset.css, main: { media: all }, menu, content, ws-pub-texts: { position: last }]
+  javascripts:    [menu, helper]
+  has_layout:     true
+  layout:         layout
