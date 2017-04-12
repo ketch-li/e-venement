@@ -44,6 +44,7 @@
 .control .contacts .image { float: left; margin-right: 10px; width: 150px; }
 .control .contacts .image img { max-width: 150px; }
 #checkpoint .control .errors { margin: 10px 0 0 0; padding: 0; }
+.message .people { font-size: 200%; }
 
 @media screen and (min-width: 1000px) {
   .control .contacts { position: absolute; margin-top: 0; top: 5px; right: 5px; width: calc(100% - 700px); }
