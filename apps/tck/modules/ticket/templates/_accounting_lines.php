@@ -25,7 +25,7 @@
     <td class="event"><?php echo $ticket->Manifestation->Event ?></td>
     <td class="category"><?php echo $ticket->Manifestation->Event->EventCategory->name ?></td>
     <td class="date"><?php echo format_date($ticket->Manifestation->happens_at) ?></td>
-    <td class="time"><?php echo format_date($ticket->Manifestation->happens_at,'HH:mm') ?></td>
+    <td class="time"><?php echo __('From %%from%% to %%to%%', array('%%from%%' => format_date($ticket->Manifestation->happens_at,'HH:mm'), '%%to%%' => format_date($ticket->Manifestation->ends_at,'HH:mm'))) ?></td>
     <td class="location"><?php echo $ticket->Manifestation->Location ?></td>
     <td class="postalcode"><?php echo $ticket->Manifestation->Location->postalcode ?></td>
     <td class="city "><?php echo $ticket->Manifestation->Location->city ?></td>
