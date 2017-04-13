@@ -1,4 +1,6 @@
 all:
+  #rp:
+  #  list_country: true
   cards:
     enable: true
     #pdf: true
