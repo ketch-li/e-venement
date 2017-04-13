@@ -21,15 +21,10 @@
 *
 ***********************************************************************************/
 ?>
-<?php include_partial('global/assets') ?>
-<div class="sf_admin_form ui-widget-content ui-corner-all sf_admin_edit full-lines" id="sf_admin_container">
-  <div class="fg-toolbar ui-widget-header ui-corner-all">
-    <h1><?php echo __('Kiosk app texts') ?></h1>
-  </div>
-  <?php include_partial('form_header', array('form' => $form)); ?>
-  <?php include_partial('global/flashes') ?>
-  <form action="<?php echo url_for('texts/update') ?>" method="post" class="data" enctype="multipart/form-data">
-    <?php include_partial('global/option_form',array('form' => $form,)); ?>
-    <?php include_partial('form_save', array('form' => $form)); ?>
-  </form>
-</div>
+<?php if ( $sf_user->hasCredential('kiosk-texts') ): ?>
+  <li class="menu-setup-groups"><a><?php echo __('Kiosk',null,'menu')?></a>
+    <ul class="third">
+	  <li><a href="<?php echo cross_app_url_for('kiosk','texts/index') ?>"><?php echo __('Texts',array(),'menu') ?></a></li>
+    </ul>
+  </li>
+<?php endif ?>
