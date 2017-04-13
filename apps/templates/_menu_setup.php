@@ -21,35 +21,36 @@
 *
 ***********************************************************************************/
 ?>
-      <li class="menu-setup">
-        <ul class="second">
-          <?php include_partial('global/menu_setup_general') ?>
-          <?php if ( $sf_user->hasCredential('admin-csv')
-                  || $sf_user->hasCredential('admin-labels')
-                  || $sf_user->hasCredential('admin-titles')
-                  || $sf_user->hasCredential('admin-phone')
-                  || $sf_user->hasCredential('admin-pro')
-                  || $sf_user->hasCredential('admin-org')
-                ): ?>
-            <?php include_partial('global/menu_setup_pr') ?>
-          <?php endif ?>
-          <?php include_partial('global/menu_setup_events') ?>
-          <?php if ( sfConfig::get('project_museums_enable', false) ): ?>
-          <?php if ( $sf_user->hasCredential('museum-gauge-timeout') ): ?>
-            <?php include_partial('global/menu_setup_museums') ?>
-          <?php endif ?>
-          <?php endif ?>
-          <?php include_partial('global/menu_setup_pos') ?>
-          <?php if ( $sf_user->hasCredential('tck-admin-payment')
-                  || $sf_user->hasCredential('event-admin-price')
-                  || $sf_user->hasCredential('tck-transaction') ): ?>
-          <?php include_partial('global/menu_setup_ticketting') ?>
-          <?php endif ?>
-          <?php include_partial('global/menu_setup_groups') ?>
-          <?php include_partial('global/menu_setup_mc') ?>
-          <?php include_partial('global/menu_setup_surveys') ?>
-          <?php include_partial('global/menu_setup_online') ?>
-          <?php include_partial('global/menu_extra', array('name' => 'setup')) ?>
-        </ul>
-        <span class="title"><?php echo __('Settings',array(),'menu') ?></span>
-      </li>
+<li class="menu-setup">
+  <ul class="second">
+    <?php include_partial('global/menu_setup_general') ?>
+    <?php if ( $sf_user->hasCredential('admin-csv')
+            || $sf_user->hasCredential('admin-labels')
+            || $sf_user->hasCredential('admin-titles')
+            || $sf_user->hasCredential('admin-phone')
+            || $sf_user->hasCredential('admin-pro')
+            || $sf_user->hasCredential('admin-org')
+          ): ?>
+      <?php include_partial('global/menu_setup_pr') ?>
+    <?php endif ?>
+    <?php include_partial('global/menu_setup_events') ?>
+    <?php if ( sfConfig::get('project_museums_enable', false) ): ?>
+      <?php if ( $sf_user->hasCredential('museum-gauge-timeout') ): ?>
+        <?php include_partial('global/menu_setup_museums') ?>
+      <?php endif ?>
+    <?php endif ?>
+    <?php include_partial('global/menu_setup_pos') ?>
+    <?php if ( $sf_user->hasCredential('tck-admin-payment')
+            || $sf_user->hasCredential('event-admin-price')
+            || $sf_user->hasCredential('tck-transaction') ): ?>
+      <?php include_partial('global/menu_setup_ticketting') ?>
+    <?php endif ?>
+    <?php include_partial('global/menu_setup_groups') ?>
+    <?php include_partial('global/menu_setup_mc') ?>
+    <?php include_partial('global/menu_setup_surveys') ?>
+    <?php include_partial('global/menu_setup_online') ?>
+    <?php include_partial('global/menu_extra', array('name' => 'setup')) ?>
+    <?php include_partial('global/menu_setup_kiosk')?>
+  </ul>
+  <span class="title"><?php echo __('Settings',array(),'menu') ?></span>
+</li>
