@@ -78,7 +78,10 @@ $(document).ready(function(){
           }
           
           // displaying the message (success/error)
-          $('<p></p>').addClass('message').text(json.message+(json.tickets.length > 1 ? ' x '+json.tickets.length : ''))
+          $('<p></p>').addClass('message')
+            .append($('<span></span>').text(json.message))
+            .append(' ')
+            .append($('<span></span>').addClass('people').text(' x '+json.tickets.length))
             .insertAfter(control.find('h2'));
           
           // the transaction

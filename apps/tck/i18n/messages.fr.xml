@@ -2120,6 +2120,10 @@
         <source>Updated by</source>
         <target>Modifié par</target>
       </trans-unit>
+      <trans-unit id="529">
+        <source>From %%from%% to %%to%%</source>
+        <target>De %%from%% à %%to%%</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
