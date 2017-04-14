@@ -156,6 +156,7 @@
   data-get-store="<?php echo cross_app_url_for('tck', 'transaction/getStore?simplified=1') ?>"
   data-get-museum="<?php echo cross_app_url_for('tck', 'transaction/getPeriods?simplified=1') ?>"
 ></div>
+<div class="js-data" id="user-culture" data-culture="<?php echo sfContext::getInstance()->getUser()->getCulture(); ?>"></div>
 
 <!-- JS I18N -->
 <div class="js-i18n" data-source="manifestations" data-target="<?php echo kioskConfiguration::getText('app_texts_menu_manifestation', 'Manifestations') ?>"></div>

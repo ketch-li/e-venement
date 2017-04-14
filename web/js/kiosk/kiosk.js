@@ -32,9 +32,9 @@ LI.kiosk.cart = {
 };
 LI.kiosk.products = {};
 
-
 $(document).ready(function(){
 	LI.kiosk.urls = $('#kiosk-urls').data();
+	$('a.culture-' + $('#user-culture').data('culture')).hide();
 	LI.kiosk.init();
 });
 
