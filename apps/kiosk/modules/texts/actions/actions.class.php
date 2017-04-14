@@ -1,4 +1,8 @@
 <?php
+
+//require_once dirname(__FILE__).'/../lib/textsGeneratorConfiguration.class.php';
+//require_once dirname(__FILE__).'/../lib/textsGeneratorHelper.class.php';
+
 /**
  * texts actions.
  *

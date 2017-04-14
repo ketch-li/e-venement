@@ -53,7 +53,6 @@ class OptionKioskTextsForm extends BaseOptionKioskTextsForm
     $helpers = $this->getHelpers();
     $this->widgets = array();
     $Options = $this->getDBOptions();
-
     foreach ( $Options as $key => $text )
     {
       $struct = $this->getStructuredFromRawName($key);
@@ -66,7 +65,9 @@ class OptionKioskTextsForm extends BaseOptionKioskTextsForm
       $helperContent = isset($helpers[$struct['name']]) ? $helpers[$struct['name']] : null;
       
       if ( strpos($struct['name'], '_file') !== false )
+      {
           $helperContent .= '<br>'.$Options[str_replace('_file', '', $key)];
+      }
       
       $this->widgets[$name][$key] = array(
         'label' => strtoupper($lang),
@@ -113,17 +114,15 @@ class OptionKioskTextsForm extends BaseOptionKioskTextsForm
   protected static function getStructuredFromRawName($name)
   {
     preg_match('/^(.+)\(\((\w+)\)\)/', $name, $matches);
+    
     return array('lang' => $matches[2], 'name' => $matches[1]);
   }
   
   public static function getHelpers()
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
-    return array(
-      'payment_onthespot_info'     => __("Content of the popup which appears after a 'on site' payment"),
-      'terms_conditions_file'      => __("Adding a file here will overwrite your Terms & Conditions text..."),
-      // TODO: complete, if necessary, with other params
-    );
+    
+    return array();
   }
   
   public static function getDefaultValues()
@@ -166,12 +165,6 @@ class OptionKioskTextsForm extends BaseOptionKioskTextsForm
       ksort($terms[$lang]);
     }
     $langs = array_keys($langs);
-
-    $stack = sfContext::getInstance()->getActionStack();
-    $env = sfContext::getInstance()->getConfiguration()->getEnvironment();
-    $context = !sfContext::hasInstance('kiosk')
-      ? sfContext::createInstance(ProjectConfiguration::getApplicationConfiguration('kiosk', $env, sfConfig::get('sf_web_debug')), 'kiosk')
-      : sfContext::getInstance('kiosk');
     
     $defaults = array();
     foreach ( $terms as $lang => $texts )
@@ -184,13 +177,6 @@ class OptionKioskTextsForm extends BaseOptionKioskTextsForm
         $defaults["$key(($lang))"] = isset($tmp[$lang]) ? $tmp[$lang] : $text;
       else
         $defaults["$key(($lang))"] = $lang == $langs[0] ? $tmp : $text;
-    }
-    
-    if ( sfContext::getInstance()->getActionStack()->getSize() != $stack->getSize() )
-    {
-      while ( sfContext::getInstance()->getActionStack()->popEntry() );
-      while ( $entry = $stack->popEntry() )
-        sfContext::getInstance()->getActionStack()->addEntry($entry->getModuleName(), $entry->getActionName(), $entry);
     }
     
     return $defaults;

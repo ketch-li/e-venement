@@ -1,3 +1,27 @@
+<?php
+/**********************************************************************************
+*
+*	    This file is part of e-venement.
+*
+*    e-venement is free software; you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation; either version 2 of the License.
+*
+*    e-venement is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with e-venement; if not, write to the Free Software
+*    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*
+*    Copyright (c) 2006-2011 Baptiste SIMON <baptiste.simon AT e-glop.net>
+*    Copyright (c) 2006-2011 Romain SANCHEZ <romain.sanchez AT libre-informatique.fr>
+*    Copyright (c) 2006-2011 Libre Informatique [http://www.libre-informatique.fr/]
+*
+***********************************************************************************/
+?>
 <?php use_helper('I18N', 'CrossAppLink') ?>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <?php use_stylesheet('material.min.css') ?>
@@ -22,6 +46,12 @@
 		<div class="mdl-layout__header-row">
 			<span class="mdl-layout-title"><img src="images/logo-evenement-small.png" alt="logo"/></span>
 			<div class="mdl-layout-spacer"></div>
+			<a href="/kiosk_dev.php/default/culture/lang/fr" class="culture-fr" title="Français">
+			  <img src="<?php echo image_path('kiosk/flags/france-64.png') ?>" class="culture-img" alt="Français">
+            </a>
+            <a href="/kiosk_dev.php/default/culture/lang/en" class="culture-en" title="English">
+			  <img src="<?php echo image_path('kiosk/flags/uk-64.png') ?>" class="culture-img" alt="English">
+            </a>
 		</div>
 	</header>
 	<!-- <div class="app-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
