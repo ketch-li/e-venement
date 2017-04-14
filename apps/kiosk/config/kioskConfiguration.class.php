@@ -10,11 +10,16 @@ class kioskConfiguration extends sfApplicationConfiguration
 
   public static function getText($var, $default = '')
   { 
+    // DB loading
+    if ( !sfConfig::has($var) )
+    foreach ( OptionKioskTextsForm::getStructuredDBOptions() as $name => $value )
+      sfConfig::set('app_texts_'.$name, $value);
+    
     $txt = sfConfig::get($var, $default);
     $culture = sfContext::hasInstance() && sfContext::getInstance()->getUser() instanceof sfUser
       ? sfContext::getInstance()->getUser()->getCulture()
       : false;
-    
+
     // no translation
     if ( !is_array($txt) )
       return $txt;

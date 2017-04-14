@@ -1,5 +1,4 @@
 <?php
-
 /**
  * texts actions.
  *
@@ -15,7 +14,7 @@ class textsActions extends sfActions
   *
   * @param sfRequest $request A request object
   */
-    public function executeIndex(sfWebRequest $request)
+  public function executeIndex(sfWebRequest $request)
   {
     $this->form = new OptionKioskTextsForm();
   }
@@ -24,38 +23,14 @@ class textsActions extends sfActions
   {
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
     $values = $request->getPostParameters();
-    
-    // terms & conditions
-    foreach ( $request->getFiles() as $upload => $content )
-    {
-      if ( $content['error'] == 0 ) 
-      {            
-          $fname = 'pub:'.$upload;
-          
-          // cleaning the DB
-          Doctrine::getTable('Picture')->createQuery('f')
-            ->delete()
-            ->where('f.name = ?', $fname)
-            ->execute();
-          
-          $file = new Picture;
-          $file->name = $fname;
-          $file->content = base64_encode(file_get_contents($content['tmp_name']));
-          $file->type = $content['type'];
-          $file->save();
-          $values[$upload] = $fname;
-          $values[str_replace('_file((', '_url((', $upload)] = $file->getUrl(array('app' => 'pub'));
-          
-          $values[str_replace('_file((', '((', $upload)] = '<a href="'.$file->getUrl(array('app' => 'pub')).'" target="_blank">'.__('Terms & Conditions').'</a>';
-          //$values[str_replace('_file((', '((', $upload)] = $file->getUrl(array('app' => 'pub'));
-        }
-    }
-    
-    $this->form = new OptionPubTextsForm();
+
+    $this->form = new OptionKioskTextsForm();
     $this->form->bind($values, array());
-    
+    // var_dump($this->form->getCSRFToken());
+    // var_dump($values);
     if ( !$this->form->isValid() )
     {
+      //var_dump($this->form->getGlobalErrors());
       $this->getUser()->setFlash('error',__('Your form cannot be validated.'));
       return $this->setTemplate('index');
     }
@@ -64,6 +39,7 @@ class textsActions extends sfActions
     
     $cpt = $this->form->save($user_id);
     $this->getUser()->setFlash('notice',__('Your configuration has been updated with %i% option(s).',$arr = array('%i%' => $cpt)));
+    
     $this->redirect('texts/index');
   }
 }
