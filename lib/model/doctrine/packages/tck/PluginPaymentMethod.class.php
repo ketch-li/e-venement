@@ -12,4 +12,16 @@
  */
 abstract class PluginPaymentMethod extends BasePaymentMethod
 {
+  public function postInsert($event)
+  {
+    $rank = new PaymentMethodRank;
+    $rank->rank = $this->id;
+    $rank->payment_method_id = $this->id;
+    $rank->domain = sfConfig::get('project_internals_users_domain', '');
+    $rank->save();      
+    
+    $this->Ranks[0] = $rank;
+  
+    return parent::postInsert($event);
+  }
 }

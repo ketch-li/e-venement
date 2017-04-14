@@ -20,4 +20,9 @@ class PaymentMethod extends PluginPaymentMethod
   {
     return $this->ept ? '_EPT_'.$this->name : $this->name;
   }
+  
+  public function getRank() {
+    return $this->Ranks[0]->rank;
+  }
+  
 }

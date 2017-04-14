@@ -354,6 +354,26 @@ PaymentMethodUser:
       foreignAlias: PaymentMethodUsers
       onDelete: CASCADE
       onUpdate: CASCADE      
+PaymentMethodRank:
+  package: tck
+  columns:
+    payment_method_id:
+      type: integer
+      notnull: true
+    domain:
+      type: string(255)
+      notnull: true
+      default: ''
+    rank:
+      type: integer
+      notnull: true
+      default: 0
+  relations:
+    PaymentMethod:
+      foreignAlias: Ranks
+      onDelete: CASCADE
+      onUpdate: CASCADE
+      
 Payment:
   package: tck
   inheritance:

@@ -16,4 +16,18 @@ class PluginPaymentMethodTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('PluginPaymentMethod');
     }
+    
+    public function createQuery($alias = 'pm')
+    {
+      $q = parent::createQuery($alias);
+      
+      if ( $dom = sfConfig::get('project_internals_users_domain', null) )
+        $q->leftJoin("$alias.Ranks pmr WITH pmr.domain ILIKE ? OR pmr.domain = ?", array('%.'.$dom, $dom));
+      else
+        $q->leftJoin("$alias.Ranks pmr");
+        
+      $q->orderBy("pmr.rank, $alias.id");      
+
+     return $q;
+    }
 }

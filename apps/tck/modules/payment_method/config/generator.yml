@@ -19,7 +19,7 @@ generator:
         Picture: { label: Pictogram, help: 32 x 32px }
         list_picture: { label: Pictogram }
       list:
-        display: [name, account, display, member_card_linked, ept, _list_picture]
+        display: [name, account, display, member_card_linked, ept, _list_picture, rank]
       filter:  ~
       show:
         display:
