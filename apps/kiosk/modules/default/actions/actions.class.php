@@ -17,6 +17,8 @@ class defaultActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
+  	if( !sfContext::getInstance()->getUser()->getId() )
+  		$this->dispatcher->notify(new sfEvent($this, 'kiosk.init'));
   }
 
   public function executeCulture(sfWebRequest $request)
@@ -32,7 +34,7 @@ class defaultActions extends sfActions
     
     if ( !$this->getUser()->getAttribute('global_culture_forced', false) )
     {
-      // all the browser's languages
+      // all browser languages
       $user_langs = array();
       foreach ( $request->getLanguages() as $lang )
       if ( !isset($user_lang[substr($lang, 0, 2)]) )
