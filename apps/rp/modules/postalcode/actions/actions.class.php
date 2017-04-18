@@ -60,5 +60,34 @@ class postalcodeActions extends autoPostalcodeActions
     return 'Success';
   }
 
+  public function executeAjaxPub(sfWebRequest $request)
+    {
+      $this->setTemplate('ajax');
+      $this->postalcodes = array();
+      if ( strlen($request->getParameter('q')) > 2 )
+      {
+        $charset = sfConfig::get('software_internals_charset');
+        $search  = iconv($charset['db'],$charset['ascii'],$request->getParameter('q'));
+        
+        $q = Doctrine::getTable('Postalcode')
+          ->createQuery('p')
+          ->select('p.postalcode, trim(p.city) as city, (SELECT count(*) FROM geoFrStreetBase s WHERE s.city = trim(p.city) AND s.zip = p.postalcode) as nb_streets')
+          ->orderBy('p.city')
+          ->andWhere('p.postalcode LIKE ?',$request->getParameter('q').'%');
+        $postalcodes = $q->execute();
+        
+        $this->postalcodes['...'] = '...';
+        foreach ( $postalcodes as $cp ) {
+          $this->postalcodes[$key = sprintf('[%s][%s][%s]', $cp->city, $cp->postalcode, $cp->nb_streets)] = $cp->city;
+        }
 
+        if ($request->hasParameter('debug')) {
+          $this->getResponse()->setContentType('text/html');
+          sfConfig::set('sf_debug',true);
+          $this->setLayout('layout');
+        }
+      }
+
+      return 'Success';
+    }
 }

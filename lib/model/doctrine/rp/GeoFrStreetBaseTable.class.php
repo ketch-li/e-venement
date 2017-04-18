@@ -16,4 +16,15 @@ class GeoFrStreetBaseTable extends PluginGeoFrStreetBaseTable
     {
         return Doctrine_Core::getTable('GeoFrStreetBase');
     }
+    
+    public function createQueryStreetName($address, $zip, $city) {
+      $q = Doctrine::getTable('GeoFrStreetBase')->createQuery('sb')
+        ->select("CAST(Nullif(REGEXP_REPLACE(sb.num, '[^0-9]+', ''), '') AS integer) AS streetnum, trim(REGEXP_REPLACE(sb.address, sb.num, '')) AS streetname")
+        ->andWhere('sb.zip = ?', $zip)
+        ->andWhere('sb.city = ?', $city)
+        ->andWhere('lower(sb.address) = lower(?)', $address)
+      ;
+      
+      return $q;
+    }
 }

@@ -62,6 +62,7 @@ class liValidatorDoctrineGeoFrStreetBase extends sfValidatorString
     if ( $q->count() == 0 )
       return $value;
     
+    $value = '';
     $tmp  = explode("\n", $address);
     $address = array_pop($tmp);
     $personaladdr = implode("\n", $tmp);
@@ -73,8 +74,12 @@ class liValidatorDoctrineGeoFrStreetBase extends sfValidatorString
       ->andWhere('LOWER(sb.address) = ?', $address)
       ->limit(1)
     ;
+    
+    if ( $personaladdr )
+      $value = $personaladdr."\n";
+
     if ( $sb = $q->fetchOne() )
-      return $personaladdr."\n".$sb->address;
+      return $value.$sb->address;
     
     // no luck...
     throw new sfValidatorError($this, 'invalid', array('value' => $value));

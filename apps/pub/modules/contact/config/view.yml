@@ -1,5 +1,5 @@
 all:
-  javascripts: [jquery?<?php echo date('Ymd') ?>, public, pub-contact?<?php echo date('Ymd') ?>, geo-street-base?<?php echo date('Ymd') ?>, geo-zipcities-helper?<?php echo date('Ymd') ?>]
+  javascripts: [jquery?<?php echo date('Ymd') ?>, public, pub-contact?<?php echo date('Ymd') ?>, pub-geo-street-base?<?php echo date('Ymd') ?>, pub-geo-zipcities-helper?<?php echo date('Ymd') ?>]
   stylesheets: [pub-contact?<?php echo date('Ymd') ?>]
 indexSuccess:
   #stylesheets: [/sfDoctrinePlugin/css/global.css, /sfDoctrinePlugin/css/default.css, /sfAdminThemejRollerPlugin/css/jroller.css, /sfAdminThemejRollerPlugin/css/jquery/redmond/jquery-ui.custom.css]

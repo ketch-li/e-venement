@@ -1078,6 +1078,14 @@ ou bien suivez ce lien&nbsp;:&lt;br/&gt;
         <source>No mailing</source>
         <target>Pas de courrier postal</target>
       </trans-unit>
+      <trans-unit id="267">
+        <source>Street name</source>
+        <target>Nom de la voie</target>
+      </trans-unit>                                                        
+      <trans-unit id="268">
+        <source>Street number</source>
+        <target>Numéro de la voie</target>
+      </trans-unit>        
     </body>
   </file>
 </xliff>

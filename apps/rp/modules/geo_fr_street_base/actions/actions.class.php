@@ -51,6 +51,51 @@ class geo_fr_street_baseActions extends autoGeo_fr_street_baseActions
       $this->addresses[] = $sb['address'];
   }
   
+  public function executeAjaxPub(sfWebRequest $request)
+  {
+    $this->setTemplate('ajax');
+    if ( $request->hasParameter('debug') && sfConfig::get('sf_web_debug', false) )
+    {
+      $this->getResponse()->setContentType('text/html');
+      $this->setLayout('nude');
+    }
+    else
+    {
+      sfConfig::set('sf_web_debug',false);
+      sfConfig::set('sf_escaping_strategy', false);
+    }
+
+    $transliterate = sfConfig::get('software_internals_transliterate');
+    
+    $this->addresses = array();
+    $address = $this->sanitizeSearch($request->getParameter('address'));
+    $city    = strtoupper(str_replace(array(' '), array('-'), $this->sanitizeSearch($request->getParameter('city'))));
+    $cityst  = str_replace(array('STE-', 'ST-'), array('SAINTE-', 'SAINT-'), $city); // a french specificity
+    $zip  = preg_replace('/\s+/','',$this->sanitizeSearch($request->getParameter('zip')));
+    
+    if ( !$zip || !$city /*|| mb_strlen($address) < 5 */)
+      return 'Success';
+    
+    $q = Doctrine::getTable('GeoFrStreetBase')->createQuery('sb')
+      ->andWhere('sb.zip = ?', $zip)
+      ->andWhere('sb.city = ? OR sb.city = ?', array($city, $cityst))
+      ->andWhere(sprintf("TRANSLATE(trim(REGEXP_REPLACE(sb.address, sb.num, '')), '%s', '%s') ILIKE ?", $transliterate['from'], $transliterate['to']), '%'.$address.'%')
+    ;
+    
+    if ($request->hasParameter('number')) {
+      $q->select("CAST(Nullif(REGEXP_REPLACE(sb.num, '[^0-9]+', ''), '') AS integer) AS stnum, sb.num AS streetname, sb.address")->distinct()
+        ->orderBy('stnum, streetname')      
+      ;
+    } else {
+      $q->select("trim(REGEXP_REPLACE(sb.address, sb.num, '')) AS streetname")->distinct()
+        ->orderBy('streetname')      
+      ;
+    }
+
+    foreach ( $q->fetchArray() as $sb )
+      $this->addresses[] = $sb['streetname'];
+  }
+  
   public function executeDistricts(sfWebRequest $request)
   {
     if ( $request->hasParameter('debug') && sfConfig::get('sf_web_debug', false) )
