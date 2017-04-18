@@ -17,4 +17,4 @@ default:
   javascripts:    [helper]
 
   has_layout:     true
-  layout: layout
+  layout: empty_layout
