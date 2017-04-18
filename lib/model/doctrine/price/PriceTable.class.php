@@ -35,6 +35,13 @@ class PriceTable extends PluginPriceTable
       $q->andWhere("$alias.id IN (SELECT up.price_id FROM UserPrice up WHERE up.sf_guard_user_id = ?) OR (SELECT count(up2.price_id) FROM UserPrice up2 WHERE up2.sf_guard_user_id = ?) = 0",array($user->getId(),$user->getId()));
     $q->leftJoin("$alias.Translation pt");
     
+    if ( $dom = sfConfig::get('project_internals_users_domain', null) )
+      $q->leftJoin("$alias.Ranks pr WITH pr.domain ILIKE ? OR pr.domain = ?", array('%.'.$dom, $dom));
+    else
+      $q->leftJoin("$alias.Ranks pr");
+      
+    $q->orderBy("pr.rank, $alias.id"); 
+    
     return $q;
   }
   

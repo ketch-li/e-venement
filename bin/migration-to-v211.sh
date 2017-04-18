@@ -171,6 +171,51 @@ fi
 # final data modifications
 
 echo ''
+read -p "Do you want to fix price ranking ? [Y/n]" price
+if [ "$price" != 'n' ]
+then
+  psql $db <<EOF
+  -- Créer un index sur la colonne rank
+      CREATE INDEX rank_index ON price(rank);
+  -- Réorganiser la table en fonction de l'index
+      CLUSTER price USING rank_index;
+  -- Créer une séquence pour la nouvelle valeur de rank
+      CREATE SEQUENCE seqPriceRank START 1;
+  -- Actualiser la colonne rank
+      UPDATE price p
+      SET rank = n.irank
+      FROM (
+        SELECT id, nextval('seqPriceRank') AS irank
+        FROM price
+      ) n
+      WHERE p.id = n.id;
+  -- Supprimer la séquence
+      DROP SEQUENCE seqPriceRank;
+  -- Supprimer l'index
+      DROP INDEX rank_index;
+EOF
+fi
+
+echo ''
+read -p "Do you want to move price ranking into the new table ? [Y/n]" rank
+if [ "$rank" != 'n' ]
+then
+  # include parse_yaml function
+  . $(dirname "$0")/parse_yml.sh
+  # read yaml file
+  eval $(parse_yaml $(dirname "$0")/../config/project.yml "project_")
+  
+  psql $db <<EOF
+  -- Déplacement de la colonne rank dans la nouvelle table price_rank
+      INSERT INTO price_rank (price_id, domain, rank)
+      (
+        SELECT id, '$project_all_internals_users_domain', rank
+        FROM price
+      );
+EOF
+fi
+
+echo ''
 echo "Changing (or not) file permissions for the e-venement Messaging Network ..."
 chmod -R 777 web/liJappixPlugin/store web/liJappixPlugin/tmp web/liJappixPlugin/log &> /dev/null
 echo "... done."

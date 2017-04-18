@@ -90,6 +90,26 @@ Price:
       local: price_id
       foreign: member_card_id
 
+PriceRank:
+  package: price
+  columns:
+    price_id:
+      type: integer
+      notnull: true
+    domain:
+      type: string(255)
+      notnull: true
+      default: ''
+    rank:
+      type: integer
+      notnull: true
+      default: 0
+  relations:
+    Price:
+      foreignAlias: Ranks
+      onDelete: CASCADE
+      onUpdate: CASCADE
+
 UserPrice:
   package: price
   indexes:
