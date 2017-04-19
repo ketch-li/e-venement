@@ -41,7 +41,7 @@
 <?php use_stylesheet('/private/kiosk.css') ?>
 <?php use_javascript('/private/kiosk.js') ?>
 
-<div id="app" class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<div id="app" class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-color--blue-grey-800">
 	<header class="app-header mdl-layout__header mdl-color--blue-grey-800">
 		<div class="mdl-layout__header-row">
 			<span class="mdl-layout-title"><img src="images/logo-evenement-small.png" alt="logo"/></span>
@@ -54,6 +54,7 @@
             </a>
 		</div>
 	</header>
+	<div id="breadcrumbs" class="mdl-shadow--2dp"></div>
 	<!-- <div class="app-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
 		<header class="app-drawer-header">
 			<div class="app-logo-dropdown">
@@ -141,7 +142,7 @@
 				<span id="confirm-btn-wrapper">
 					<i class="material-icons light">check</i><?php echo __('Valider') ?>
 					</button>
-				</span>
+				
 			</div>
 		</div>	
 	</main>
@@ -168,7 +169,7 @@
 	<!-- menu item -->
 <script id="menu-item-template" type="text/x-handlebars-template" data-template-type="menuItem">
 	<li class="menu-item" data-type="{{ type }}">
-		<div id="" class="menu-item-card mdl-card mdl-shadow--2dp waves-effect">
+		<div id="" class="menu-item-card mdl-card mdl-shadow--4dp waves-effect">
   			<div class="mdl-card__title mdl-card--expand" style="background-color: {{ color }};">
     			{{ name }}
     		</div>
@@ -197,7 +198,7 @@
 <!-- store card -->
 <script id="store-card-template" type="text/x-handlebars-template"  data-template-type="productCard" data-product-type="store">
 <li class="product" data-type="{{ type }}" data-id="{{ id }}"> 
-	<div class="manif-card mdl-card mdl-shadow--2dp waves-effect" id="{{ id }}">
+	<div class="manif-card mdl-card mdl-shadow--4dp waves-effect" id="{{ id }}">
 		<div class="mdl-card__title manif-title" style="{{ background }};">
 			<p class="mdl-card__title-text manif-name">{{ name }}</p>
 			<!-- <p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ start }}</p>
@@ -245,7 +246,7 @@
 	<!-- declination card -->
 <script id="declination-card-template" type="text/x-handlebars-template" data-template-type="declinationCard">
 	<li class="declination">
-		<div id="{{ id }}" class="declination-card mdl-card mdl-shadow--2dp waves-effect">
+		<div id="{{ id }}" class="declination-card mdl-card mdl-shadow--4dp waves-effect">
 			<div class="mdl-card__title mdl-card--expand" style="background-color: {{ color }};">
 				{{ name }}
 			</div>
@@ -268,11 +269,11 @@
 <script id="cart-line-template" type="text/x-handlebars-template" data-template-type="cartLine">
 	<li class="cart-line mdl-color--blue-grey-800" id="{{ id }}" style="border-right: 5px solid {{ color }};">
 		<div class="line-controls">
-			<button class="remove-item line-control mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-	  			<i class="material-icons light">remove</i>
-			</button>
 			<button class="add-item line-control mdl-button mdl-js-button mdl-button--fab mdl-color--pink-300">
 	  			<i class="material-icons light">add</i>
+			</button>
+			<button class="remove-item line-control mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+	  			<i class="material-icons light">remove</i>
 			</button>
 	    </div>
 	    <div class="line-details">
