@@ -12,4 +12,9 @@
  */
 abstract class PluginColor extends BaseColor
 {
+  public function preSave($event)
+  {
+    parent::preSave($event);
+    $this->domain = sfConfig::get('project_internals_users_domain', '');
+  }
 }

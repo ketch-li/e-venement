@@ -387,3 +387,7 @@ Color:
       notnull:  true
       notblank: true
       default:  'manifestation'
+    domain:
+      type: string(255)
+      notnull: true
+      default: ''
