@@ -2,3 +2,5 @@ all:
   credentials: super-admin
 ajax:
   is_secure: false
+ajaxPub:
+  is_secure: false
