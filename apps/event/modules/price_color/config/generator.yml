@@ -1,0 +1,29 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           ColorPrice
+    theme:                 jroller
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          color_price
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+        list_color: { label: Color }
+      list:
+        display: [name, _list_color]
+        object_actions:
+          _delete: ~
+          _edit: ~
+      filter:  ~
+      form:
+        display: [name, color, _show_color]
+      edit:
+        title: Edit Color "%%name%%" for prices
+      new:     ~
+      show:    ~

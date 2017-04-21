@@ -587,6 +587,7 @@
               'value' => format_currency($pp->value,$this->getContext()->getConfiguration()->getCurrency()),
               'raw_value' => floatval($pp->value),
               'currency' => $this->getContext()->getConfiguration()->getCurrency(),
+              'color' => $pp->Price->color_id ? $pp->Price->Color->color : '0'
             );
           }
           ksort($this->json[$product->ordering_key][$this->json[$product->ordering_key]['declinations_name']][$declination->id]['available_prices']);

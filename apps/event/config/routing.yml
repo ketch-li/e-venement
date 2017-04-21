@@ -1,3 +1,12 @@
+color_price:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                ColorPrice
+    module:               price_color
+    prefix_path:          /price_color
+    column:               id
+    with_wildcard_routes: true
+
 hold:
   class: sfDoctrineRouteCollection
   options:

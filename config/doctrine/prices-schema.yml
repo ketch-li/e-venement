@@ -19,7 +19,13 @@
 #    Copyright (c) 2006-2014 Libre Informatique [http://www.libre-informatique.fr/]
 # 
 #**********************************************************************************/
-
+ColorPrice:
+  package: price
+  inheritance:
+    extends: Color
+    type: column_aggregation
+    keyField: target
+    keyValue: 'price'
 Price:
   package: price
   actAs:
@@ -64,6 +70,8 @@ Price:
       type: float
       notnull: true
       default: 65536
+    color_id:
+      type: integer
   relations:
     Manifestations:
       class: Manifestation
@@ -89,6 +97,12 @@ Price:
       foreignAlias: Prices
       local: price_id
       foreign: member_card_id
+    Color:
+      class: ColorPrice
+      local: color_id
+      foreignAlias: Prices
+      onDelete: SET NULL
+      onUpdate: CASCADE
 
 PriceRank:
   package: price

@@ -30,6 +30,10 @@ class PriceForm extends BasePriceForm
        array('happens_at, e.name','')
     );
 
+    $this->widgetSchema['color_id']
+      ->setOption('order_by',array('name',''))
+      ->setOption('method', 'getName');
+    
     $this->widgetSchema['rank'] = new sfWidgetFormInputHidden;
     $this->widgetSchema['manifestations_list']
       ->setOption('renderer_class','sfWidgetFormSelectDoubleList');
