@@ -134,8 +134,11 @@ ul{
 }
 
 /* MANIF DETAILS */
-#product-details-card {
+#product-details {
+  display: flex;
   display: none;
+  flex-direction: column;
+  align-items: center;
   height: 80%;
   width: 60%;
   margin: 30px 40px 30px 150px;
@@ -161,12 +164,6 @@ ul{
   #details-content, #prices, #declinations, #declination-name {
     background: rgba(255, 255, 255, 0.85);
   }
-}
-
-#product-details {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
   #details-name {
     font-weight: bold;
@@ -187,6 +184,7 @@ ul{
     color: #fff;
   }
 }
+
 
 #snackbar , #product-menu{
   display: none;

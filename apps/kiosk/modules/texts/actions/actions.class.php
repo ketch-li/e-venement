@@ -30,11 +30,9 @@ class textsActions extends sfActions
 
     $this->form = new OptionKioskTextsForm();
     $this->form->bind($values, array());
-    // var_dump($this->form->getCSRFToken());
-    // var_dump($values);
+    
     if ( !$this->form->isValid() )
     {
-      //var_dump($this->form->getGlobalErrors());
       $this->getUser()->setFlash('error',__('Your form cannot be validated.'));
       return $this->setTemplate('index');
     }
