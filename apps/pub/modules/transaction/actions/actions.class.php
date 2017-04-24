@@ -136,6 +136,9 @@ class transactionActions extends sfActions
     
     try {
     
+    $config = sfConfig::get('app_tickets_vel', array());
+    $this->auto_add_id = isset($config['auto_add_one_ticket_for_manifid']) ? $config['auto_add_one_ticket_for_manifid'] : 0;
+    
     $this->errors = array();
     
     if ( intval($request->getParameter('id')).'' !== $request->getParameter('id').'' )
