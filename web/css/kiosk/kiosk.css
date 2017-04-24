@@ -123,46 +123,46 @@ ul {
   margin-bottom: 5px; }
 
 /* MANIF DETAILS */
-#product-details-card {
-  display: none;
-  height: 80%;
-  width: 60%;
-  margin: 30px 40px 30px 150px;
-  overflow-y: auto;
-  background-color: #f2f2f2; }
-  #product-details-card .mdl-card__title {
-    height: 150px; }
-  #product-details-card #details-content {
+#details {
+  display: none; }
+  #details #product-details-card {
+    height: 80%;
+    width: 60%;
+    margin: 30px 40px 30px 150px;
+    overflow-y: auto;
+    background-color: #f2f2f2; }
+    #details #product-details-card .mdl-card__title {
+      height: 150px; }
+    #details #product-details-card #details-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 98%; }
+    #details #product-details-card #product-background {
+      background-repeat: no-repeat;
+      background-size: 100%;
+      width: 100%;
+      height: 100%; }
+    #details #product-details-card #details-content, #details #product-details-card #prices, #details #product-details-card #declinations, #details #product-details-card #declination-name {
+      background: rgba(255, 255, 255, 0.85); }
+  #details #product-details {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 98%; }
-  #product-details-card #product-background {
-    background-repeat: no-repeat;
-    background-size: 100%;
-    width: 100%;
-    height: 100%; }
-  #product-details-card #details-content, #product-details-card #prices, #product-details-card #declinations, #product-details-card #declination-name {
-    background: rgba(255, 255, 255, 0.85); }
-
-#product-details {
-  display: flex;
-  flex-direction: column;
-  align-items: center; }
-  #product-details #details-name {
-    font-weight: bold;
-    font-size: 1.5em;
-    padding: 0;
-    margin: 10px 0 10px 0; }
-  #product-details #details-description {
-    width: 60%;
-    margin: 5px; }
-  #product-details #details-time {
-    font-size: 1.2em;
-    margin: 5px; }
-  #product-details #declination-name {
-    color: #fff; }
+    align-items: center; }
+    #details #product-details #details-name {
+      font-weight: bold;
+      font-size: 1.5em;
+      padding: 0;
+      margin: 10px 0 10px 0; }
+    #details #product-details #details-description {
+      width: 60%;
+      margin: 5px; }
+    #details #product-details #details-time {
+      font-size: 1.2em;
+      margin: 5px; }
+    #details #product-details #declination-name {
+      color: #fff; }
 
 #snackbar, #product-menu {
   display: none; }

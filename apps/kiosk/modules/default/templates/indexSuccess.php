@@ -26,7 +26,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <?php use_stylesheet('material.min.css') ?>
 <?php use_stylesheet('kiosk/waves.css') ?>
-<?php use_stylesheet('kiosk/animate.css') ?>
 
 <?php use_stylesheet('kiosk/kiosk.css') ?>
 <?php use_stylesheet('kiosk/toastr.min.css') ?>
@@ -121,11 +120,22 @@
 		<div id="product-menu">
 			<ul id="product-menu-items" class="flex-list"></ul>
 		</div>
-		<!-- product details panel -->
-		<div id="product-details-card" class="mdl-card mdl-shadow--2dp"></div>
-		<!-- products list -->
+		<!-- product list -->
 		<div id="products">
-			<ul id="products-list" class="flex-list"></ul>
+			<ul id="product-list" class="flex-list"></ul>
+		</div>
+		<!-- product details panel -->
+		<div id="details">
+			<div id="product-details-card" class="mdl-card mdl-shadow--2dp"></div>
+			<ul id="declinations" class="flex-list"></ul>
+			<p id="declination-name"></p>
+			<ul id="prices" class="flex-list">
+				<li>
+					<button id="declination-back" class="mdl-button mdl-js-button">
+						<i class="material-icons">keyboard_backspace</i>
+					</button>
+				</li>
+			</ul>
 		</div>
 		<!-- cart panel -->
 		<div id="cart" class="mdl-color--blue-grey-600">
@@ -231,15 +241,6 @@
 		    	</div>
 	    	</div>
 		</div>
-		<ul id="declinations" class="flex-list"></ul>
-		<p id="declination-name"></p>
-		<ul id="prices" class="flex-list">
-			<li>
-				<button id="declination-back" class="mdl-button mdl-js-button">
-					<i class="material-icons">keyboard_backspace</i>
-				</button>
-			</li>
-		</ul> 
 	</div>
 </script>
 
