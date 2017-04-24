@@ -61,11 +61,14 @@
           continue;
       ?>
       <?php if ( $t->Order->count() > 0 && $t->Tickets->count() > 0 || $cpt['sold'] > 0 || $t->getPrice() > 0  || ($t->closed == false && $current_transaction != $t->id) ): ?>
-        <tr class="sf_admin_row <?php echo $cpt%2 == 0 ? '' : 'odd' ?> transaction-<?php echo $t->id ?>">
-          <td class="sf_admin_text sf_admin_list_td_list_id">#<a href="<?php echo url_for('transaction/show?id='.$t->id) ?>" class="transaction"><?php echo $t->id ?></a></td>
-          <td class="sf_admin_date sf_admin_list_td_list_date"><?php echo format_date($t->created_at) ?></td>
-        </tr>
-        <?php $cpt++ ?>
+        <?php $config = sfConfig::get('app_tickets_vel', array()) ?>
+        <?php if ( !(isset($config['auto_add_one_ticket_for_manifid']) && $t->Tickets->count() == 1 && $t->Tickets[0]->manifestation_id == $config['auto_add_one_ticket_for_manifid']) ): ?>
+          <tr class="sf_admin_row <?php echo $cpt%2 == 0 ? '' : 'odd' ?> transaction-<?php echo $t->id ?>">
+            <td class="sf_admin_text sf_admin_list_td_list_id">#<a href="<?php echo url_for('transaction/show?id='.$t->id) ?>" class="transaction"><?php echo $t->id ?></a></td>
+            <td class="sf_admin_date sf_admin_list_td_list_date"><?php echo format_date($t->created_at) ?></td>
+          </tr>
+          <?php $cpt++ ?>
+        <?php endif ?>
       <?php endif ?>
       <?php endforeach ?>
     </tbody>
