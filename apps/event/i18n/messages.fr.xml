@@ -2266,6 +2266,10 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>Current domain</source>
         <target>Domaine courant</target>
       </trans-unit>
+      <trans-unit id="566">
+        <source>Price color List</source>
+        <target>Liste des couleurs des tarifs</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

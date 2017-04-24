@@ -26,8 +26,10 @@ generator:
         x_days_valid:   { label: Validity, help: days }
         workspaces_list: { help: Related to... }
         not_workspaces_list: { label: Workspaces list, help: Not related to... }
+        color_id: { label: Color }    
+        color_name: { label: name }
       list:
-        display: [name, description, value, online, hide, member_card_linked, <?php if ( sfConfig::get('project_museums_enable', false) ): ?>_list_validity,<?php endif ?> rank]
+        display: [_color_name, description, value, online, hide, member_card_linked, <?php if ( sfConfig::get('project_museums_enable', false) ): ?>_list_validity,<?php endif ?> rank]
         sort: ['hide, pt.name', '']
         object_actions:
           _edit: ~
@@ -41,7 +43,7 @@ generator:
       form:
         display:
           General: [name, description, value]
-          Options: [online, hide, member_card_linked, x_days_valid]
+          Options: [online, hide, member_card_linked, color_id, x_days_valid]
           Permissions: [workspaces_list, users_list]
       edit:
         title: Price "%%name%%"

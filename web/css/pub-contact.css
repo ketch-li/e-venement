@@ -2,3 +2,5 @@
 #contact-form .field.cities select { width: calc(30em + 4px); }
 #contact-form input[type=submit], #contact-form button { width: 15em; height: 4em; vertical-align: bottom; }
 #contact-form .help.required { color: red; }
+#contact-form .addresses { position: relative; left: 200px; display: block; }
+#contact-form .lock { color: gray; }

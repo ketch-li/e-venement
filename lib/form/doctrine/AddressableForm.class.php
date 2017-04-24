@@ -28,5 +28,19 @@ class AddressableForm extends BaseAddressableForm
       'form'      => $this,
       'required' => $this->validatorSchema['address']->getOption('required'),
     ));
+    
+    if ( sfConfig::get('project_rp_list_country', false) )
+    {
+      $this->widgetSchema['country'] = new sfWidgetFormDoctrineChoice(array(
+        'query' => Doctrine::getTable('Country')->createQuery('c')
+          ->leftJoin("c.Translation ct WITH ct.lang = ?", sfContext::getInstance()->getUser()->getCulture())
+          ->orderBy('ct.name'),
+        'model' => 'Country', 
+        'add_empty' => true,
+        'key_method' => 'getName'
+      ));
+      
+      $this->setDefault('country', 'FRANCE');  
+    }
   }
 }

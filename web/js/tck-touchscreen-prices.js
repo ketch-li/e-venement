@@ -56,6 +56,8 @@
         $('<button name="price_new[id]"></button>')
           .val(price.id)
           .html(price.name)
+          //.addClass('ui-widget-content ui-state-default ui-corner-all ui-widget fg-button')
+          .css('color', price.color)
           .prop('title', (price.value !== null ? price.value : $('#li_transaction_field_close .prices .free-price').text())+' - '+price.description)
           .attr('data-'+$(item).attr('data-type')+'-id', $(item).attr('data-'+$(item).attr('data-type')+'-id'))
           .attr('data-type', $(item).attr('data-type'))

@@ -28,6 +28,7 @@
               <?php endif ?>
               <?php if ( $sf_user->hasCredential('event-admin-price') ): ?>
               <li><a href="<?php echo cross_app_url_for('event','@price') ?>"><?php echo __('Prices',array(),'menu') ?></a></li>
+              <li><a href="<?php echo cross_app_url_for('event','@color_price') ?>"><?php echo __('Colors',array(),'menu') ?></a></li>
               <?php endif ?>
               <?php if ( $sf_user->hasCredential('tck-taxes') ): ?>
               <li><a href="<?php echo cross_app_url_for('tck','@tax') ?>"><?php echo __('Extra taxes',array(),'menu') ?></a></li>

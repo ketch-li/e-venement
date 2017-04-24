@@ -106,6 +106,19 @@ Postalcode:
       notnull: true
       notblank: true
 
+Country:
+  package: generic
+  actAs:
+    I18n:
+      fields: [name]
+  columns:
+    name:
+      type: string(255)
+      notnull: true
+      notblank: true
+    codeiso2:
+      type: string(2)
+
 Traceable:
   package: generic
   actAs:
@@ -374,3 +387,7 @@ Color:
       notnull:  true
       notblank: true
       default:  'manifestation'
+    domain:
+      type: string(255)
+      notnull: true
+      default: ''

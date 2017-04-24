@@ -276,6 +276,18 @@
         <source>Manage texts for the kiosk app</source>
         <target>Gérer les textes de l'applicaiton kiosk</target>
       </trans-unit>
+      <trans-unit id="69">
+        <source>Ability to access the promo codes of member cards</source>
+        <target>Capacité d'accèder à la fonctionnalité code promo des cartes d'abo.</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Possibility to add different manifestations into a single entry</source>
+        <target>Possiblité d'ajouter plusieurs manifestations en une fois</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Ability to get a full access on the promo codes of member cards</source>
+        <target>Accès complet à la fonctionnalité code promo des cartes d'abo.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

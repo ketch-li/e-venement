@@ -236,6 +236,22 @@ class pubConfiguration extends sfApplicationConfiguration
       throw new liOnlineSaleException('Checking the cart integrity is not possible.');
     $sf_action = sfContext::getInstance()->getActionStack()->getLastEntry()->getActionInstance();
     $sf_action->getContext()->getConfiguration()->loadHelpers('I18N');
+
+    $transaction = $sf_action->getUser()->getTransaction();
+    $config = sfConfig::get('app_tickets_vel', array());
+    $null_auto_add = false;
+    if (isset($config['auto_add_one_ticket_for_manifid']))
+      $null_auto_add = $transaction->Tickets[0]->manifestation_id == $config['auto_add_one_ticket_for_manifid'];
+
+    if ( 
+      ( $transaction->Tickets->count() == 0 || ($transaction->Tickets->count() == 1 && $null_auto_add) )
+      && $transaction->MemberCards->count() == 0
+      && $transaction->BoughtProducts->count() == 0 
+    )
+    {
+      $sf_action->getUser()->setFlash('notice',__('Your cart is still empty, select tickets first...'));
+      $sf_action->redirect('@homepage');
+    }
     
     // the global timeout (item timeout is done by the garbage collector)
     $timeout = sfConfig::get('app_timeout_global', '30 minutes');

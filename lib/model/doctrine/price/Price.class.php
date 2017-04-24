@@ -24,6 +24,10 @@ class Price extends PluginPrice implements liUserAccessInterface
     return $this->description.' ('.$this->name.'), '.format_currency($this->value,sfContext::hasInstance() ? sfContext::getInstance()->getConfiguration()->getCurrency() : '€');
   }
   
+  public function getRank() {
+    return $this->Ranks[0]->rank;
+  }
+  
   public function getWorkspaceIds()
   {
     return array_keys($this->Workspaces->getPrimaryKeys());

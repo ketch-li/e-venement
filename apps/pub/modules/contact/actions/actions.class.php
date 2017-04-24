@@ -92,16 +92,24 @@ class contactActions extends sfActions
 */
     
     try {
-      $this->form = new ContactPublicForm($this->getUser()->getContact());
-      
+      $contact = $this->getUser()->getContact();
+      $this->form = new ContactPublicForm($contact);
       $pns = array();
-      foreach ( $this->getUser()->getContact()->Phonenumbers as $pn )
+      foreach ( $contact->Phonenumbers as $pn )
         $pns[$pn->updated_at.' '.$pn->id] = $pn;
       ksort($pns);
       
       $pn = array_pop($pns);
       $this->form->setDefault('phone_type',$pn->name);
       $this->form->setDefault('phone_number',$pn->number);
+      
+      $q = Doctrine::getTable('GeoFrStreetBase')->createQueryStreetName($contact->address, $contact->postalcode, $contact->city);
+      $address = $q->fetchOne();
+      
+      if ( $address ) {
+        $this->form->setDefault('street_name', $address->streetname);
+        $this->form->setDefault('street_number', $address->streetnum);
+      }
     }
     catch ( liEvenementException $e )
     { $this->form = new ContactPublicForm; }

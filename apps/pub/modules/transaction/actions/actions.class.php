@@ -132,9 +132,14 @@ class transactionActions extends sfActions
   
   public function executeShow(sfWebRequest $request)
   {
-    $this->getContext()->getConfiguration()->hardenIntegrity();
+    
+    if ( $this->getUser()->getTransactionId() == $request->getParameter('id') )
+      $this->getContext()->getConfiguration()->hardenIntegrity();
     
     try {
+    
+    $config = sfConfig::get('app_tickets_vel', array());
+    $this->auto_add_id = isset($config['auto_add_one_ticket_for_manifid']) ? $config['auto_add_one_ticket_for_manifid'] : 0;
     
     $this->errors = array();
     

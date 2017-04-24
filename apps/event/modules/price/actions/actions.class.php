@@ -42,16 +42,21 @@ class priceActions extends autoPriceActions
     if ( intval($request->getParameter($param)).'' !== ''.$request->getParameter($param) )
       $request->setParameter($param, 0);
     
+    $max = Doctrine::getTable('Price')->count();
+    
     $this->prices = Doctrine::getTable('Price')->createQuery('e')
       ->andWhereIn('e.id', array($request->getParameter('id'), $request->getParameter('smaller_than'), $request->getParameter('bigger_than')))
       ->execute();
     $this->forward404Unless($this->prices && $this->prices->count() > 1);
     
-    $before = new Price;
+    $dom = sfConfig::get('project_internals_users_domain', false);
+    
+    $before = new PriceRank;
     $before->rank = 0;
-    $after = new Price;
-    $after->rank = 0xFFFFFFFF;
+    $after = new PriceRank;
+    $after->rank = $max+1;
     $newRank = 0;
+    $update = false;
     
     $prices = array(
       'current' => NULL,
@@ -61,6 +66,10 @@ class priceActions extends autoPriceActions
     
     foreach ( $this->prices as $price )
     {
+        if ( $price->Ranks[0]->rank == 0 ) {
+          $price->Ranks[0]->rank = $price->id;
+          $price->Ranks[0]->save();
+        }
         switch ( $price->id ) {
         case $request->getParameter('smaller_than'):
           $prices['after'] = $price;
@@ -75,7 +84,7 @@ class priceActions extends autoPriceActions
     }
     
     $q = Doctrine_Query::create()
-        ->from('Price p')
+        ->from('PriceRank pr')
         ->update();
 
     // Id previous price rank > selected price rank, the price went down in the list (the rank has risen)
@@ -84,19 +93,25 @@ class priceActions extends autoPriceActions
         $newRank = $prices['before']->rank;        
         $q->set('rank', 'rank - 1')
           ->where('rank BETWEEN ? AND ?', array($prices['current']->rank, $prices['before']->rank));
+        $update = true;
     }
     // If next price rank < selected price rank, the price went up in the list (the rank has lowered)
     if ($prices['after']->rank < $prices['current']->rank) 
     {
         $newRank = $prices['after']->rank;
         $q->set('rank', 'rank + 1')
-          ->where('rank BETWEEN ? AND ?', array($prices['after']->rank, $prices['current']->rank));           
+          ->where('rank BETWEEN ? AND ?', array($prices['after']->rank, $prices['current']->rank));
+          $update = true;
     }
 
-    $q->execute();
+    if ( $dom && $dom != '.' )
+      $q->andWhere('pr.domain ILIKE ? OR pr.domain = ?', array('%.'.$dom, $dom));
+
+    if ( $update )
+      $q->execute();
     
-    $prices['current']->rank = $newRank;
-    $prices['current']->save();
+    $prices['current']->Ranks[0]->rank = $newRank;
+    $prices['current']->Ranks[0]->save();
     
     $this->price  = $prices['current'];
     $this->reload = false;

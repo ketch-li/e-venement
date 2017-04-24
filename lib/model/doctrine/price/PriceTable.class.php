@@ -33,8 +33,13 @@ class PriceTable extends PluginPriceTable
     if ( sfContext::hasInstance() && ($user = sfContext::getInstance()->getUser()) && $user->getId()
       && (!$override_credentials || !$user->isSuperAdmin() && !$user->hasCredential('event-admin-price')) )
       $q->andWhere("$alias.id IN (SELECT up.price_id FROM UserPrice up WHERE up.sf_guard_user_id = ?) OR (SELECT count(up2.price_id) FROM UserPrice up2 WHERE up2.sf_guard_user_id = ?) = 0",array($user->getId(),$user->getId()));
-    $q->leftJoin("$alias.Translation pt");
+    $q->leftJoin("$alias.Translation pt")
+      ->leftJoin("$alias.Ranks pr")
+      ->orderBy("pr.rank, $alias.id");
     
+    if ( $dom = sfConfig::get('project_internals_users_domain', null) )
+      $q->andWhere('pr.domain ILIKE ? OR pr.domain = ?', array('%.'.$dom, $dom));
+
     return $q;
   }
   

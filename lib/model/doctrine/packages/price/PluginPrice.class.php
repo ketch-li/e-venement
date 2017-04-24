@@ -24,8 +24,13 @@ abstract class PluginPrice extends BasePrice
 
   public function postInsert($event)
   {      
-    $this->rank = $this->id;
-    $this->save();
+    $rank = new PriceRank;
+    $rank->rank = $this->id;
+    $rank->price_id = $this->id;
+    $rank->domain = sfConfig::get('project_internals_users_domain', '');
+    $rank->save();      
+    
+    $this->Ranks[0] = $rank;
     
     return parent::postInsert($event);
   }

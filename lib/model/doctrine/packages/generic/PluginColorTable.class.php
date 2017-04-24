@@ -16,4 +16,15 @@ class PluginColorTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('PluginColor');
     }
+    
+    public function createQuery($alias = 'col') 
+    {
+      $q = parent::createQuery($alias);
+      
+      if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
+        $q->andWhere("$alias.domain = ? OR $alias.domain LIKE ?", array('%.'.$dom, $dom));
+        
+      return $q;
+    }
+    
 }
