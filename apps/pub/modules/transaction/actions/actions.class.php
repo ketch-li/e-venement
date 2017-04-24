@@ -132,7 +132,9 @@ class transactionActions extends sfActions
   
   public function executeShow(sfWebRequest $request)
   {
-    $this->getContext()->getConfiguration()->hardenIntegrity();
+    
+    if ( $this->getUser()->getTransactionId() == $request->getParameter('id') )
+      $this->getContext()->getConfiguration()->hardenIntegrity();
     
     try {
     

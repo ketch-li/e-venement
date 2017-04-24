@@ -239,14 +239,12 @@ class pubConfiguration extends sfApplicationConfiguration
 
     $transaction = $sf_action->getUser()->getTransaction();
     $config = sfConfig::get('app_tickets_vel', array());
+    $null_auto_add = false;
     if (isset($config['auto_add_one_ticket_for_manifid']))
+      $null_auto_add = $transaction->Tickets[0]->manifestation_id == $config['auto_add_one_ticket_for_manifid'];
 
     if ( 
-      ($transaction->Tickets->count() == 0 
-        || ($transaction->Tickets->count() == 1 
-          && $transaction->Tickets[0]->manifestation_id == $config['auto_add_one_ticket_for_manifid']
-        )
-      )
+      ( $transaction->Tickets->count() == 0 || ($transaction->Tickets->count() == 1 && $null_auto_add) )
       && $transaction->MemberCards->count() == 0
       && $transaction->BoughtProducts->count() == 0 
     )
