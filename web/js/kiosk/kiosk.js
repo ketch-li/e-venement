@@ -31,6 +31,7 @@ LI.kiosk = {
 	templates: {},
 	transaction: {},
 	products: {},
+	urls: {},
 	init: function() {
 		LI.kiosk.utils.showLoader();
 		LI.kiosk.urls = $('#kiosk-urls').data();
@@ -130,7 +131,7 @@ LI.kiosk = {
 			})
 			.on('prices:unmount', function(e) {
 				if(e.mode == 'direct') {
-					LI.kiosk.pricesToProducts(e.product.type, 'forth');
+					LI.kiosk.pricesToProducts(e.product.type, 'back');
 				} else {
 					LI.kiosk.pricesToDeclinations(e.product);
 				}
@@ -151,11 +152,11 @@ LI.kiosk = {
 		});
 
 		//cart validation clicks
-		$('#confirm-btn').click(function(){
+		$('#confirm-btn').click(function() {
 			LI.kiosk.checkout();
 		});
 	},
-	getTransaction: function(){
+	getTransaction: function() {
 		return $.get(LI.kiosk.urls.getNewTransaction, function(data) {
 			LI.kiosk.transaction.id = data;
 		});
@@ -165,7 +166,7 @@ LI.kiosk = {
 			LI.kiosk.CSRF = token;
 		});
 	},
-	getManifestations: function(){
+	getManifestations: function() {
 		return $.ajax({
 		    url: LI.kiosk.urls.getManifestations,
 		    type: 'GET',
@@ -173,7 +174,7 @@ LI.kiosk = {
 		    error: LI.kiosk.utils.error
 	  	});
 	},
-	getStore: function(){
+	getStore: function() {
 		return $.ajax({
 		    url: LI.kiosk.urls.getStore,
 		    type: 'GET',
@@ -181,7 +182,7 @@ LI.kiosk = {
 		    error: LI.kiosk.utils.error
 	  	});
 	},
-	getMuseum: function(){
+	getMuseum: function() {
 		return $.ajax({
 		    url: LI.kiosk.urls.getMuseum,
 		    type: 'GET',
@@ -193,8 +194,9 @@ LI.kiosk = {
 		LI.kiosk.utils.resetBackFab();
 
 		if( !$('#product-menu-items').children().length > 0 ) {
+			var template = Handlebars.compile(LI.kiosk.templates.menuItem);
+
 			$.each(LI.kiosk.products, function(type, length){	
-				var template = Handlebars.compile(LI.kiosk.templates.menuItem);
 				var item = {
 					name: $('[data-source="' + type + '"]').data('target'),
 					type: type
@@ -203,7 +205,7 @@ LI.kiosk = {
 				$('#product-menu-items').append(template(item));
 			});
 
-			$('.menu-item').click(function(){
+			$('.menu-item').click(function() {
 				$(document).trigger({
 					type: 'menu:unmount',
 					productType: $(this).data('type')
@@ -235,23 +237,23 @@ LI.kiosk = {
 		var direction = mode == 'back' ? 'left': 'right';
 
 		LI.kiosk.utils.resetBackFab();
+		
+		$('#back-fab')
+			.click(function() {
+				$(document).trigger({
+					type: 'product-list:unmount',
+					mode: 'back'
+				});
+			})
+			.show()
+		;
+
 		LI.kiosk.insertProducts(type);
 
 		$('#products').effect('slide', {
 			direction: direction, 
 			mode: 'show',
-			duration: '300',
-			complete: function() {
-				$('#back-fab')
-					.click(function() {
-						$(document).trigger({
-							type: 'product-list:unmount',
-							mode: 'back'
-						});
-					})
-					.show()
-				;
-			}
+			duration: '300'
 		});
 	},
 	listToProduct: function(product) {
@@ -291,18 +293,7 @@ LI.kiosk = {
 		$('#details').effect('slide', {
 			direction: 'right',
 			mode: 'show',
-			duration: '300',
-			complete: function() {
-				$('#back-fab')
-					.click(function() {
-						$(document).trigger({
-							type: 'product-details:unmount',
-							productType: product.type
-						});
-					})
-					.show()
-				;
-			}
+			duration: '300'
 		});
 	},
 	productToList: function(productType) {
@@ -330,6 +321,16 @@ LI.kiosk = {
 		$.each(product.declinations, function(id, declination) {
 			declinationList.append(declinationTemplate(declination));
 		});
+
+		$('#back-fab')
+			.click(function() {
+				$(document).trigger({
+					type: 'product-details:unmount',
+					productType: product.type
+				})
+			})
+			.show();
+		;
 
 		$('.declination').off('click').click(function(event) {
 			var declination = product.declinations[$(event.currentTarget.children).attr('id')];
@@ -365,23 +366,22 @@ LI.kiosk = {
 	mountPrices: function(product, declination, mode) {
 		LI.kiosk.insertPrices(product, declination);
 
+		$('#back-fab')
+			.click(function() {
+				$(document).trigger({
+					type: 'prices:unmount',
+					mode: mode,
+					product: product,
+					declination: declination
+				})
+			})
+			.show();
+		;
+
 		$('#prices').effect('slide', {
-			direction: 'left',
+			direction: 'right',
 			mode: 'show',
-			duration: '150',
-			complete: function() {
-				$('#back-fab')
-					.click(function() {
-						$(document).trigger({
-							type: 'prices:unmount',
-							mode: mode,
-							product: product,
-							declination: declination
-						})
-					})
-					.show();
-				;
-			}
+			duration: '150'
 		});
 	},
 	pricesToProducts: function(productType, mode) {
@@ -423,9 +423,9 @@ LI.kiosk = {
 
 		$('#product-list').empty();
 		
-		$.each(LI.kiosk.products[type], function(key, product){
-			var template = Handlebars.compile(cardTemplate);
+		var template = Handlebars.compile(cardTemplate);
 
+		$.each(LI.kiosk.products[type], function(key, product){
 			$('#product-list').append(template(product));
 		});
 	},
@@ -451,28 +451,29 @@ LI.kiosk = {
 	insertStoreProductDetails:  function(product) {
 	 
 	},
-	insertPrices: function(product, declination){
+	insertPrices: function(product, declination) {
 		var priceTemplate = $('#price-card-template').html();
 		var prices = declination.available_prices;
 
 		$('#prices').empty();
 
+		var template = Handlebars.compile(priceTemplate);
+
 		for(key in prices){
-			var template = Handlebars.compile(priceTemplate);
 			$('#prices').append(template(prices[key]));
 		}
 
 		LI.kiosk.addPriceListener(product, declination);
 	},
-	addPriceListener: function(product, declination){
-		$('#prices').off('click').on('click', '.price', function(event){
+	addPriceListener: function(product, declination) {
+		$('#prices').off('click').on('click', '.price', function(event) {
 			var id = $(event.currentTarget).attr('id');
 
 			LI.kiosk.cart.addItem(product, product.prices[$(event.currentTarget.children).attr('id')], declination);
 		});
 	},
 	/********************* CACHE **************************/
-	rearrangeProperties: function(product){
+	rearrangeProperties: function(product) {
 		var productDate = new Date(product.happens_at.replace(' ', 'T'));
 		var endDate = new Date(product.ends_at);
 
@@ -483,7 +484,7 @@ LI.kiosk = {
 		product.name = product.name == null ? product.category : product.name;
 
 		if(product.image_id != undefined)
-			product.background = 'background-image: url("' + product.image_url + '"); background-size: cover;' ;
+			product.background = 'background-image: url("' + product.image_url + '"); background-size: cover;';
 		else
 			product.background = 'background-color: ' + product.color;
 
@@ -508,7 +509,7 @@ LI.kiosk = {
 		LI.kiosk.products.manifestations = {};
 		var type = 'manifestations';
 
-		$.each(data.success.success_fields[type].data.content, function(key, manif){
+		$.each(data.success.success_fields[type].data.content, function(key, manif) {
 			
 			if ( window.location.hash == '#debug' )
 				console.log('Loading an item (#' + manif.id + ') from the ' + type);
@@ -522,7 +523,7 @@ LI.kiosk = {
 		var type = 'museum';
 		LI.kiosk.products.museum = {};
 
-		$.each(data.success.success_fields[type].data.content, function(key, manif){
+		$.each(data.success.success_fields[type].data.content, function(key, manif) {
 			
 			if ( window.location.hash == '#debug' )
 				console.log('Loading an item (#' + manif.id + ') from the ' + type);
@@ -537,7 +538,7 @@ LI.kiosk = {
 		var type = 'store';
 		LI.kiosk.products.store = {};
 
-		$.each(data.success.success_fields[type].data.content, function(key, product){
+		$.each(data.success.success_fields[type].data.content, function(key, product) {
 			
 			if ( window.location.hash == '#debug' )
 				console.log('Loading an item (#' + product.id + ') from the ' + type);
@@ -545,14 +546,14 @@ LI.kiosk = {
 			product.prices = {};
 			product.type = type;
 
-			$.each(product.declinations, function(i, declination){
+			$.each(product.declinations, function(i, declination) {
 
 				var color = '#4FC3F7';
 
 				if ( declination.color == undefined )
 					declination.color = color;
 
-				$.each(declination.available_prices, function(key, price){
+				$.each(declination.available_prices, function(key, price) {
 					if( price.color == undefined )
 						price.color = color;
 
@@ -567,7 +568,7 @@ LI.kiosk = {
 	},
 	cacheTemplates: function() {
 		//make handlebars cache the templates for quicker future uses
-		$('script[type="text/x-handlebars-template"]').each(function(id, template){
+		$('script[type="text/x-handlebars-template"]').each(function(id, template) {
 			var templateType = $(template).data('template-type');
 			var productType = $(template).data('product-type');
 			var html = $(template).html();
@@ -581,16 +582,16 @@ LI.kiosk = {
 				LI.kiosk.templates[templateType] = html;
 		});
 	},
-	checkAvailability: function(gaugeUrl, lineId, productId){
+	checkAvailability: function(gaugeUrl, lineId, productId) {
 		var qty = 0;
 		var available = true;
 
-		$.each(LI.kiosk.cart.lines, function(key, line){
+		$.each(LI.kiosk.cart.lines, function(key, line) {
 			if(line.product.id == productId)
 				qty += line.qty;
 		});
 
-		$.get(gaugeUrl, function(data){
+		$.get(gaugeUrl, function(data) {
 
 			if(data.free < qty){
 				available = false;
@@ -748,7 +749,7 @@ LI.kiosk = {
 	},
 	/********************* UTILS *************************/
 	utils: {
-		generateUUID: function(){
+		generateUUID: function() {
 		    var d = new Date().getTime();
 		    //Force letter as first character to avoid selector issues
 		    var uuid = 'Axxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -759,22 +760,22 @@ LI.kiosk = {
 
 		    return uuid.toUpperCase();
 		},
-		error: function(error){
+		error: function(error) {
 			console.error(error);
 		},
-		showLoader: function(){
+		showLoader: function() {
 			$('#spinner')
 			    .addClass('is-active')
 			    .css('display', 'block')
 			;
 		},
-		hideLoader: function(){
+		hideLoader: function() {
 			$('#spinner')
 			    .removeClass('is-active')
 			    .css('display', 'none')
 			;
 		},
-		flash: function(selector){
+		flash: function(selector) {
 			Waves.attach(selector);
 			Waves.init();
 			Waves.ripple(selector);
