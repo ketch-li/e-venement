@@ -125,7 +125,7 @@
 			<ul id="product-list" class="flex-list"></ul>
 		</div>
 		<!-- product details panel -->
-		<div id="product-details">
+		<div id="details">
 			<div id="product-details-card" class="mdl-card mdl-shadow--2dp"></div>
 			<ul id="declinations" class="flex-list"></ul>
 			<p id="declination-name"></p>
