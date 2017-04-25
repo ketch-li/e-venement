@@ -236,7 +236,7 @@ class cartActions extends sfActions
 
   public function executeShow(sfWebRequest $request)
   {
-    $this->dispatcher->notify(new sfEvent($this, 'pub.transaction_show', array(
+    $this->dispatcher->notify(new sfEvent($this, 'pub.cart_show', array(
       'transaction' => $this->getUser()->getTransaction(),
       'user' => $this->getUser(),
     )));
