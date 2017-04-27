@@ -181,5 +181,11 @@ select[disabled] { color: #444; }
 #seats .name, #seats .rank { font-weight: bold; text-align: right; }
 #seats h2 .close { float: right; text-decoration: none; border: 1px solid white; border-radius: 2px; padding: 2px 5px; margin-top: -3px; }
 
+.manifestation_files, .event_files { border: 1px solid #a6c9e2; border-radius: 5px; width: 290px; }
+.manifestation_files li, .event_files li { list-style: none; margin: 5px; }
+.manifestation_files .fg-button { height: 16px; width: 16px; font-size: 0; float: right; }
+.manifestation_files a, .event_files a { text-decoration: none; }
+.manifestation_files a:hover, .event_files a:hover { color: #2e6e9e; }
+
 #more .list { margin-bottom: -29px; margin-top: 4px; float:right; }
 body #more { max-width: 700px; }

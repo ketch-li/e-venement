@@ -1,9 +1,27 @@
+event_picture:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                EventPicture
+    module:               event_files
+    prefix_path:          /event_files
+    column:               id
+    with_wildcard_routes: true
+
 color_price:
   class: sfDoctrineRouteCollection
   options:
     model:                ColorPrice
     module:               price_color
     prefix_path:          /price_color
+    column:               id
+    with_wildcard_routes: true
+
+manifestation_files:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                ManifestationPicture
+    module:               manifestation_files
+    prefix_path:          /manifestation_files
     column:               id
     with_wildcard_routes: true
 

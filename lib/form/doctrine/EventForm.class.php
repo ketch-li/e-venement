@@ -110,6 +110,8 @@ class EventForm extends BaseEventForm
       unset($this->widgetSchema[$field], $this->validatorSchema[$field]);
     }
     
+    unset($this->widgetSchema['files_list'], $this->validatorSchema['files_list']);
+    
     parent::configure();
   }
   

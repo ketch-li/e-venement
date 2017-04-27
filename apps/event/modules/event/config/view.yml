@@ -16,7 +16,7 @@ updateSuccess:
   javascripts: [event, checkpoint<?php if ( sfConfig::get('app_ticketting_gauge_small',true) ): ?>, event-gauge-small<?php endif ?>]
 editSuccess:
   stylesheets: [view, event, checkpoint, /private/event.css<?php if ( sfConfig::get('app_ticketting_gauge_small',true) ): ?>, event-gauge-small<?php endif ?>]
-  javascripts: [event, /private/event-edit.js, checkpoint<?php if ( sfConfig::get('app_ticketting_gauge_small',true) ): ?>, event-gauge-small<?php endif ?>]
+  javascripts: [event, /private/event-edit.js, event-files, checkpoint<?php if ( sfConfig::get('app_ticketting_gauge_small',true) ): ?>, event-gauge-small<?php endif ?>]
 showSuccess:
   stylesheets: [view, event, /private/event.css<?php if ( sfConfig::get('app_ticketting_gauge_small',true) ): ?>, event-gauge-small<?php endif ?>]
   javascripts: [event<?php if ( sfConfig::get('app_ticketting_gauge_small',true) ): ?>, event-gauge-small<?php endif ?>]
