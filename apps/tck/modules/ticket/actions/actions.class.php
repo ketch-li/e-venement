@@ -267,6 +267,14 @@ class ticketActions extends sfActions
   {
     return require('control.php');
   }
+  public function executeGetControlCSRF(sfWebRequest $request) 
+  {
+    $this->form = new ControlForm();
+
+    echo $this->form->getCSRFToken();
+    
+    return sfView::NONE;
+  }
   public function executeCheckpointAjax(sfWebRequest $request)
   {
     return require('checkpoint-ajax.php');
