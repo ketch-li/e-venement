@@ -1031,6 +1031,14 @@
         <source>Connection</source>
         <target>Kevreañ</target>
       </trans-unit>
+      <trans-unit id="258">
+        <source>Search</source>
+        <target>klask</target>
+      </trans-unit>
+      <trans-unit id="259">
+        <source>Events</source>
+        <target>Degouezhadenn</target>
+      </trans-unit>                                                   
     </body>
   </file>
 </xliff>
