@@ -70,6 +70,7 @@ class BasesfGuardAuthActions extends sfActions
 
   public function executeSignout($request)
   {
+    die('sdfg');
     $this->getUser()->signOut();
 
     $signoutUrl = sfConfig::get('app_sf_guard_plugin_success_signout_url', $request->getReferer());
@@ -85,5 +86,15 @@ class BasesfGuardAuthActions extends sfActions
   public function executePassword($request)
   {
     throw new sfException('This method is not yet implemented.');
+  }
+
+  public function executeGetLoginCSRF()
+  {
+    $class = sfConfig::get('app_sf_guard_plugin_signin_form', 'sfGuardFormSignin'); 
+    $this->form = new $class();
+
+    die( $this->form->getCSRFToken());
+
+    return sfView::NONE;
   }
 }

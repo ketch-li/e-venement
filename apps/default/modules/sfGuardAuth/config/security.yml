@@ -6,3 +6,6 @@ signin:
 
 signout:
   is_secure: false
+
+getLoginCSRF:
+  is_secure: false
