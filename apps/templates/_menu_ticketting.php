@@ -21,12 +21,21 @@
 *
 ***********************************************************************************/
 ?>
+    <?php $menu = 'ticketting' ?>
+    <?php
+      $appendedCredential = false;
+      foreach ( $sf_context->getConfiguration()->getAppendedMenus($menu) as $submenu )
+      if ( isset($submenu['credential']) && $submenu['credential'] )
+      if ( $sf_user->hasCredential($submenu['credential']) )
+        $appendedCredential = true;
+    ?>
     <?php if ( $sf_user->hasCredential('tck-transaction')
             || $sf_user->hasCredential('tck-unblock')
             || $sf_user->hasCredential('tck-control')
             || $sf_user->hasCredential('tck-cancel')
-            || $sf_user->hasCredential('tck-print-ticket') ): ?>
-      <li class="menu-ticketting">
+            || $sf_user->hasCredential('tck-print-ticket')
+            || $appendedCredential ): ?>
+      <li class="menu-<?php echo $menu ?>">
         <ul class="second">
           <?php if ( $sf_user->hasCredential('tck-transaction') ): ?>
           <li class="spaced"><a href="<?php echo cross_app_url_for('tck','transaction/new') ?>"><?php echo __('New transaction',array(),'menu') ?></a></li>
@@ -47,7 +56,15 @@
           <?php if ( $sf_user->hasCredential('tck-control') ): ?>
           <li class="spaced"><a href="<?php echo cross_app_url_for('tck','ticket/control') ?>"><?php echo __('Ticket control',array(),'menu') ?></a></li>
           <?php endif ?>
-          <?php include_partial('global/menu_extra', array('name' => 'ticketting')) ?>
+          
+          <?php
+            // submenus added through a plugin
+            $submenus = $sf_data->getRaw('sf_context')->getConfiguration()->getAppendedMenus($menu);
+            foreach ( $submenus as $label => $submenu )
+              $submenus[$label]['url'] = cross_app_url_for($submenu['url']['app'], $submenu['route']['route']);
+            sfConfig::set('project_menu_'.$menu, array_merge(sfConfig::get('project_menu_'.$menu, array()), $submenus));
+          ?>
+          <?php include_partial('global/menu_extra', array('name' => $menu)) ?>
         </ul>
         <span class="title"><?php echo __('Ticketing',array(),'menu') ?></span>
       </li>

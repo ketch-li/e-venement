@@ -52,6 +52,8 @@ class defaultConfiguration extends sfApplicationConfiguration
   
   public function initialize()
   {
+    if (!( sfContext::hasInstance() && get_class(sfContext::getInstance()->getConfiguration()) != get_class($this) ))
+      $this->enableSecondWavePlugins($arr = sfConfig::get('app_options_plugins', array()));
     ProjectConfiguration::initialize();
   }
 }
