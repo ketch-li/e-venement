@@ -14,7 +14,7 @@ class ContactPublicForm extends ContactForm
   {
     parent::configure();
     
-    $this->disableCSRFProtection();
+    $this->disableLocalCSRFProtection();
     
     foreach ( array(
         'sf_guard_user_id', 'back_relations_list', 'Relationships', 'YOBs',
