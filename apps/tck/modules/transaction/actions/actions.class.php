@@ -274,6 +274,23 @@ class transactionActions extends autoTransactionActions
       'max_length' => 32,
     ));
 
+    $this->form['country'] = new sfForm;
+    $ws = $this->form['country']->getWidgetSchema()->setNameFormat('transaction[%s]');
+    $vs = $this->form['country']->getValidatorSchema();
+    $this->form['country']->setDefault('country', $this->transaction->country);  
+    $ws['country'] = new sfWidgetFormDoctrineChoice(array(
+      'query' => Doctrine::getTable('Country')->createQuery('c')
+        ->leftJoin("c.Translation ct WITH ct.lang = ?", sfContext::getInstance()->getUser()->getCulture())
+        ->orderBy('ct.name'),
+      'model' => 'Country', 
+      'add_empty' => true,
+      'key_method' => 'getName'
+    ));
+    $vs['country'] = new sfValidatorString(array(
+      'required' => false
+    ));
+    
+
     // Deposit + Shipment (calling the "more" template)
     $this->form['more'] = new sfForm;
     $ws = $this->form['more']->getWidgetSchema()->setNameFormat('transaction[%s]');

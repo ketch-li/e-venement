@@ -102,7 +102,7 @@
     );
     
     // direct transaction's fields
-    foreach ( array('contact_id', 'professional_id', 'postalcode', 'description', 'deposit', 'with_shipment') as $form )
+    foreach ( array('contact_id', 'professional_id', 'postalcode', 'country', 'description', 'deposit', 'with_shipment') as $form )
     if ( isset($params[$form]) && (isset($this->form[$form]) || $this->form['more']->getWidgetSchema()->offsetExists($form)) )
     {
       $field = $form;

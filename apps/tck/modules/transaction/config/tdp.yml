@@ -11,6 +11,8 @@ all:
           class: board-alpha highlight
         postalcode:
           class: board-alpha highlight
+        country:
+          class: board-alpha highlight
         more:
           class: highlight
         description:

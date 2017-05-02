@@ -270,10 +270,14 @@ $(document).ready(function(){
   $('#li_transaction_field_postalcode input').change(function(){
     $(this).closest('form').submit();
   });
+  // autosubmit direct country
+  $('#li_transaction_field_country select').change(function(){
+    $(this).closest('form').submit();
+  });
   
   // vCard & co
-  $('#li_transaction_field_professional_id, #li_transaction_field_postalcode, #li_transaction_field_contact_id, #li_transaction_field_more').click(function(){
-    $('#li_transaction_field_professional_id, #li_transaction_field_postalcode, #li_transaction_field_contact_id, #li_transaction_field_more').addClass('ui-state-highlight');
+  $('#li_transaction_field_professional_id, #li_transaction_field_postalcode, #li_transaction_field_country, #li_transaction_field_contact_id, #li_transaction_field_more').click(function(){
+    $('#li_transaction_field_professional_id, #li_transaction_field_postalcode, #li_transaction_field_country, #li_transaction_field_contact_id, #li_transaction_field_more').addClass('ui-state-highlight');
     if ( $('#li_transaction_field_contact_id .data a').length > 0
       && $('#li_transaction_field_informations .vcard').length == 0 )
     {
@@ -641,12 +645,14 @@ LI.initTouchscreen = function(elt)
     {
       $(elt+' .data a').remove();
       $('#li_transaction_field_postalcode').fadeIn().css("display","inline-block");
+      $('#li_transaction_field_country').fadeIn().css("display","inline-block");
       $('#li_transaction_field_contact_id').removeClass('loaded'); 
     }
     else
     {
       $(elt+' .data a').prepend('<span class="ui-icon ui-icon-person"></span>');
       $('#li_transaction_field_postalcode').fadeOut();
+      $('#li_transaction_field_country').fadeOut();
       if($('#li_transaction_field_contact_id').hasClass('simplified')) 
       {
           $('#li_transaction_field_contact_id').addClass('loaded');    

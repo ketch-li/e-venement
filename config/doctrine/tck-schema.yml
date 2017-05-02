@@ -55,6 +55,8 @@ Transaction:
       default: true
       notnull: true
     postalcode: string(32)
+    country:
+      type: string(255)
   relations:
     Contact:
       foreignAlias: Transactions
