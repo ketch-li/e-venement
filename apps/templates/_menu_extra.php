@@ -1,5 +1,4 @@
 <?php $extras = sfConfig::get('project_menu_'.$name, array()) ?>
-<?php var_dump($extras) ?>
 <?php foreach ( $extras as $label => $props ): ?>
   <?php if ( !isset($props['credential']) || isset($props['credential']) && $sf_user->hasCredential($props['credential']) ): ?>
   <li <?php if ( isset($props['extra_properties']) && is_array($props['extra_properties']) ) foreach ( $props['extra_properties'] as $name => $value ): ?>
