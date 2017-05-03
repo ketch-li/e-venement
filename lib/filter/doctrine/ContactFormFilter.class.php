@@ -154,6 +154,13 @@ class ContactFormFilter extends BaseContactFormFilter
     ));
     
     // professional type
+    $this->widgetSchema   ['is_professional'] = new sfWidgetFormInputCheckbox(array(
+      'value_attribute_value' => 1,
+    ));
+    $this->validatorSchema['is_professional'] = new sfValidatorBoolean(array(
+      'true_values' => array('1'),
+    ));
+    
     $this->widgetSchema   ['professional_type_id'] = new sfWidgetFormDoctrineChoice(array(
       'model'     => 'ProfessionalType',
       'multiple'  => true,
@@ -1067,6 +1074,17 @@ EOF;
       $this->setProfessionalData(true);
       $q->andWhereIn('pt.id',$value);
     }
+    return $q;
+  }
+  
+  public function addIsProfessionalColumnQuery(Doctrine_Query $q, $field, $value)
+  {
+    if ( $value )
+    {
+      $this->setProfessionalData(true);
+      $q->andWhere('p.id IS NOT NULL');
+    }
+    
     return $q;
   }
   public function addHasProfessionalTypeIdColumnQuery(Doctrine_Query $q, $field, $value)
