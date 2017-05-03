@@ -372,6 +372,10 @@
         <source>Edit Color "%%name%%" for product categories</source>
         <target>Modification de la couleur "%%name%%" pour les catégories de produit</target>
       </trans-unit>      
+      <trans-unit id="199">
+        <source>Product price List</source>
+        <target>Tarifs pour les produits</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>

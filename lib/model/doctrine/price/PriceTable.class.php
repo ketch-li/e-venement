@@ -26,9 +26,10 @@ class PriceTable extends PluginPriceTable
     return $q;
   }
   
-  public function createQuery($alias = 'p', $override_credentials = true)
+  public function createQuery($alias = 'p', $override_credentials = true, $target = 'event')
   {
-    $q = parent::createQuery($alias);
+    $q = parent::createQuery($alias)
+      ->andWhere("$alias.target = ?", $target);
     
     if ( sfContext::hasInstance() && ($user = sfContext::getInstance()->getUser()) && $user->getId()
       && (!$override_credentials || !$user->isSuperAdmin() && !$user->hasCredential('event-admin-price')) )
