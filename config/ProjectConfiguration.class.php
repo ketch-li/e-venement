@@ -134,7 +134,7 @@ class ProjectConfiguration extends sfProjectConfiguration implements liGarbageCo
   public function loadSecondWavePlugins()
   {
     $this->pluginPaths = array();
-    foreach ( $paths = parent::getPluginPaths() as $path ) // so weird why $this->getPluginPaths() can be called only once whereas parent::getPluginPaths() is ok
+    foreach ( $paths = parent::getPluginPaths() as $path ) // so weird that $this->getPluginPaths() can be called only once whereas parent::getPluginPaths() is ok
     {
       if ( $plugin = array_search($path, $this->overriddenPluginPaths) === false )
         $plugin = basename($path);
