@@ -2120,6 +2120,10 @@
         <source>Mask</source>
         <target>Masque de saisie</target>
       </trans-unit>   
+      <trans-unit id="530">
+        <source>Is professional</source>
+        <target>Contact pro ?</target>
+      </trans-unit>   
     </body>
   </file>
 </xliff>
