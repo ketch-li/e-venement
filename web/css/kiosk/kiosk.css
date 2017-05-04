@@ -1,19 +1,9 @@
 header {
   height: 62px; }
-
-#info-panel {
-  display: flex;
-  display: none;
-  align-items: center;
-  position: absolute;
-  left: 120px;
-  bottom: 30px;
-  width: 62%;
-  padding: 10px;
-  z-index: 999;
-  border-radius: 15px; }
-  #info-panel p, #info-panel a {
-    color: #fff; }
+  header a.culture {
+    margin: 5px;
+    text-decoration: none;
+    font-weight: bold; }
 
 /* MAIN */
 #content {
@@ -26,6 +16,7 @@ header {
 .material-icons.light {
   color: #fff; }
 
+/* BREADCRUMBS */
 /* BACK BUTTON */
 #back-fab {
   display: none;
@@ -53,6 +44,15 @@ header {
   #access-fab i {
     font-size: 55px;
     margin-left: -15px; }
+
+/* INFO BUTTON */
+#info-btn {
+  height: 45px;
+  width: 70px;
+  z-index: 998;
+  background-color: transparent; }
+  #info-btn i {
+    font-size: 2em; }
 
 /* MENU BAR */
 #search-label {
@@ -124,11 +124,13 @@ ul {
 
 /* MANIF DETAILS */
 #details {
-  display: none; }
+  display: none;
+  height: 95vh;
+  width: 60%;
+  margin: 30px 0 0 146px; }
   #details #product-details-card {
-    height: 80%;
-    width: 60%;
-    margin: 30px 40px 30px 150px;
+    width: 100%;
+    height: 50%;
     overflow-y: auto;
     background-color: #f2f2f2; }
     #details #product-details-card .mdl-card__title {
@@ -137,8 +139,7 @@ ul {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      width: 98%; }
+      justify-content: center; }
     #details #product-details-card #product-background {
       background-repeat: no-repeat;
       background-size: 100%;
@@ -146,6 +147,8 @@ ul {
       height: 100%; }
     #details #product-details-card #details-content, #details #product-details-card #prices, #details #product-details-card #declinations, #details #product-details-card #declination-name {
       background: rgba(255, 255, 255, 0.85); }
+    #details #product-details-card #declination-name {
+      display: none; }
   #details #product-details {
     display: flex;
     flex-direction: column;
@@ -170,23 +173,20 @@ ul {
 /* DECLINATIONS and PRICES */
 #prices, #declinations {
   display: flex;
-  display: none;
-  max-height: 100%;
-  margin: 0;
-  padding-bottom: 30px; }
+  display: none; }
 
-/* PRICE CARD */
-.price {
+.price, .declination {
   margin: 5px; }
 
-.price-card-square.mdl-card {
+/* PRICE CARD */
+.price-card-square.mdl-card, .declination-card {
   display: flex;
   justify-content: center;
   width: 120px;
   height: 120px;
   min-height: 50px;
   border-radius: 5px; }
-  .price-card-square.mdl-card .mdl-card__title {
+  .price-card-square.mdl-card .mdl-card__title, .declination-card .mdl-card__title {
     color: #fff;
     font-weight: bold; }
 
@@ -269,6 +269,17 @@ ul {
 #toast-container.toast-bottom-full-width {
   width: 60%; }
 
+#info-panel {
+  display: flex;
+  display: none;
+  align-items: center;
+  width: 62%;
+  padding: 10px;
+  z-index: 999;
+  border-radius: 15px; }
+  #info-panel p, #info-panel a {
+    color: #fff; }
+
 /* LOADER */
 #spinner {
   height: 150px;
@@ -276,6 +287,9 @@ ul {
   align-self: center;
   margin: auto;
   z-index: 999; }
+
+.js-data, .js-i18n {
+  display: none; }
 
 /* THEME CSSS */
 .app-layout .app-header .mdl-textfield {

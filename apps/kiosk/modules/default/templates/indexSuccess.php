@@ -45,45 +45,39 @@
 		<div class="mdl-layout__header-row">
 			<span class="mdl-layout-title"><img src="images/logo-evenement-small.png" alt="logo"/></span>
 			<div class="mdl-layout-spacer"></div>
-			<a href="/kiosk_dev.php/default/culture/lang/fr" class="culture-fr" title="Français">
-			  <img src="<?php echo image_path('kiosk/flags/france-64.png') ?>" class="culture-img" alt="Français">
-            </a>
-            <a href="/kiosk_dev.php/default/culture/lang/en" class="culture-en" title="English">
-			  <img src="<?php echo image_path('kiosk/flags/uk-64.png') ?>" class="culture-img" alt="English">
-            </a>
+			<!-- I18N LINKS -->
+			<i class="material-icons">language</i>
+			<?php foreach(sfConfig::get('project_internals_cultures', array('fr' => 'Français')) as $key => $culture): ?>
+				<a href="/kiosk_dev.php/default/culture/lang/<?php echo $key ?>" class="culture mdl-color-text--white" data-culture="<?php echo $key ?>">
+				  <?php echo $culture ?>
+	            </a>
+	        <?php endforeach ?>
+	        <div class="mdl-layout-spacer"></div>
+	        <!-- INFO -->
+	        <div id="info-panel" class="mdl-card__supporting-text mdl-shadow--6dp mdl-color--light-blue-300">
+				<p>
+					<a href="http://www.e-venement.org/">e-venement</a>
+					<span>la billetterie informatique, libre et open source - © 2006-2016</span>
+					<a href="http://www.libre-informatique.fr/">Libre Informatique</a>
+					<br>
+					<span>Publié sous licence</span>
+					<a href="http://www.gnu.org/licenses/gpl.html">GNU/GPL</a>
+					<span>- Renforcé par</span>
+					<a href="http://www.symfony-project.org/">Symfony</a>
+					,
+					<a href="http://www.php.net/">PHP</a>
+					,
+					<a href="http://www.postgresql.org/">PostgreSQL</a>
+				</p>
+			</div>
+            <button id="info-btn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color-text--light-blue-300">
+            	<i class="material-icons">info_outline</i>
+          	</button>
 		</div>
 	</header>
+	<!-- breadcrumbs -->
 	<div id="breadcrumbs" class="mdl-shadow--2dp"></div>
-	<!-- <div class="app-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-		<header class="app-drawer-header">
-			<div class="app-logo-dropdown">
-				<span>hello@example.com</span>
-				<div class="mdl-layout-spacer"></div>
-				<button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-					<i class="material-icons" role="presentation">arrow_drop_down</i>
-					<span class="visuallyhidden">Accounts</span>
-				</button>
-				<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-					<li class="mdl-menu__item">hello@example.com</li>
-					<li class="mdl-menu__item">info@example.com</li>
-					<li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
-				</ul>
-			</div>
-		</header>
-		<nav class="app-navigation mdl-navigation mdl-color--blue-grey-800">
-			<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
-			<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Inbox</a>
-			<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Trash</a>
-			<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">report</i>Spam</a>
-			<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Forums</a>
-			<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">flag</i>Updates</a>
-			<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">local_offer</i>Promos</a>
-			<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Purchases</a>
-			<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Social</a>
-			<div class="mdl-layout-spacer"></div>
-			<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span>Help</span></a>
-		</nav>
-	</div> -->
+
 	<main id="content" class="mdl-layout__content mdl-color--blue-grey-800">
 		<!-- loader -->
 		<div class="mdl-spinner mdl-js-spinner is-active" id="spinner"></div>
@@ -91,26 +85,10 @@
 		<button id="back-fab" class="mdl-button mdl-js-button mdl-button--fab mdl-color--light-blue-300 waves-effect">
   			<i class="material-icons light">keyboard_backspace</i>
 		</button>
-		<!-- info fab -->
+		<!-- access fab -->
 		<button id="access-fab" class="mdl-button mdl-js-button mdl-button--fab mdl-color--light-blue-300 waves-effect">
   			<i class="material-icons light">accessible</i>
 		</button>
-		<div id="info-panel" class="mdl-card__supporting-text mdl-shadow--6dp mdl-color--light-blue-300">
-			<p>
-				<a href="http://www.e-venement.org/">e-venement</a>
-				<span>la billetterie informatique, libre et open source - © 2006-2016</span>
-				<a href="http://www.libre-informatique.fr/">Libre Informatique</a>
-				<br>
-				<span>Publié sous licence</span>
-				<a href="http://www.gnu.org/licenses/gpl.html">GNU/GPL</a>
-				<span>- Renforcé par</span>
-				<a href="http://www.symfony-project.org/">Symfony</a>
-				,
-				<a href="http://www.php.net/">PHP</a>
-				,
-				<a href="http://www.postgresql.org/">PostgreSQL</a>
-			</p>
-		</div>
 		<!-- Snackbar -->
 		<div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
   			<div class="mdl-snackbar__text"></div>
@@ -128,14 +106,8 @@
 		<div id="details">
 			<div id="product-details-card" class="mdl-card mdl-shadow--2dp"></div>
 			<ul id="declinations" class="flex-list"></ul>
-			<p id="declination-name"></p>
-			<ul id="prices" class="flex-list">
-				<li>
-					<button id="declination-back" class="mdl-button mdl-js-button">
-						<i class="material-icons">keyboard_backspace</i>
-					</button>
-				</li>
-			</ul>
+			
+			<ul id="prices" class="flex-list"></ul>
 		</div>
 		<!-- cart panel -->
 		<div id="cart" class="mdl-color--blue-grey-600">
@@ -149,10 +121,11 @@
 			<!-- confirm button -->
 			<div id="cart-confirm" class="">
 				<button id="confirm-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-color--teal-600 waves-effect">
-				<span id="confirm-btn-wrapper">
-					<i class="material-icons light">check</i><?php echo __('Valider') ?>
-					</button>
-				
+					<span id="confirm-btn-wrapper">
+						<i class="material-icons light">check</i>
+						<?php echo __('Valider') ?>
+					</span>
+				</button>
 			</div>
 		</div>	
 	</main>
@@ -221,7 +194,7 @@
 </li>
 </script>
 
-	<!-- manif details -->
+	<!-- product details -->
 <script id="product-details-template" type="text/x-handlebars-template" data-template-type="productDetails">
 	<div id="product-background" style="{{ background }};">
 		<div class="mdl-card__title"></div>
@@ -247,7 +220,7 @@
 	<!-- declination card -->
 <script id="declination-card-template" type="text/x-handlebars-template" data-template-type="declinationCard">
 	<li class="declination">
-		<div id="{{ id }}" class="declination-card mdl-card mdl-shadow--4dp waves-effect">
+		<div id="{{ id }}" class="declination-card mdl-card mdl-shadow--2dp waves-effect">
 			<div class="mdl-card__title mdl-card--expand" style="background-color: {{ color }};">
 				{{ name }}
 			</div>

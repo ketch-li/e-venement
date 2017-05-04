@@ -20,7 +20,7 @@
 *
 ***********************************************************************************/
 $(document).ready(function() {
-	$('a.culture-' + $('#user-culture').data('culture')).hide();
+	$('.culture[data-culture="' + $('#user-culture').data('culture') + '"]').hide();
 	LI.kiosk.init();
 });
 
@@ -33,6 +33,7 @@ LI.kiosk = {
 	products: {},
 	urls: {},
 	init: function() {
+
 		LI.kiosk.utils.showLoader();
 		LI.kiosk.urls = $('#kiosk-urls').data();
 		LI.kiosk.initPlugins();
@@ -80,22 +81,6 @@ LI.kiosk = {
 		};
 	},
 	addListeners: function() {
-		//accessibility mode
-		$('#access-fab').click(function() {
-
-			if($('#app').css('marginTop') == '0px'){
-				$('#app').css({
-					'height': '50vh',
-					'margin-top': '50vh'
-				});
-			}else{
-				$('#app').css({
-					'height': '100vh',
-					'margin-top': '0'
-				});
-			}
-		});
-
 		//UI transitions
 		$(document)
 			.on('menu:mount', function() {
@@ -137,6 +122,30 @@ LI.kiosk = {
 				}
 			})
 		;
+
+		//accessibility mode
+		$('#access-fab').click(function() {
+
+			if($('#app').css('marginTop') == '0px'){
+				$('#app').css({
+					'height': '50vh',
+					'margin-top': '50vh'
+				});
+			}else{
+				$('#app').css({
+					'height': '100vh',
+					'margin-top': '0'
+				});
+			}
+		});
+
+		//info button
+		$('#info-btn').click(function() {
+			$('#info-panel').toggle(500);
+			setTimeout(function() {
+				$('#info-panel').hide(500)
+			}, 10000);
+		});
 
 		//product clicks
 		$('#product-list').on('click', '.product', function(event) {
@@ -345,7 +354,7 @@ LI.kiosk = {
 			$('#declination-name').text(declination.name);
 		});
 
-		$('#declinations').show();
+		$('#declinations').css('display', 'flex');
 	},
 	declinationsToPrices: function(product, declination) {
 		LI.kiosk.utils.resetBackFab();
@@ -377,12 +386,8 @@ LI.kiosk = {
 			})
 			.show();
 		;
-
-		$('#prices').effect('slide', {
-			direction: 'right',
-			mode: 'show',
-			duration: '150'
-		});
+		
+		$('#prices').css('display', 'flex');
 	},
 	pricesToProducts: function(productType, mode) {
 		LI.kiosk.utils.resetBackFab();
@@ -449,7 +454,11 @@ LI.kiosk = {
 		}
 	},
 	insertStoreProductDetails:  function(product) {
-	 
+	 	var detailsTemplate = Handlebars.compile(LI.kiosk.templates.productDetails);
+
+	 	$('#product-details-card').html(detailsTemplate(product));
+
+
 	},
 	insertPrices: function(product, declination) {
 		var priceTemplate = $('#price-card-template').html();
@@ -496,7 +505,7 @@ LI.kiosk = {
 				gauge.color = color;
 
 			$.each(gauge.available_prices, function(key, price){
-				if( price.color == undefined )
+				if( price.color == undefined || price.color == '0')
 					price.color = color;
 
 				product.prices[price.id] = price;
@@ -550,7 +559,7 @@ LI.kiosk = {
 
 				var color = '#4FC3F7';
 
-				if ( declination.color == undefined )
+				if ( declination.color == undefined || declination.color == '0')
 					declination.color = color;
 
 				$.each(declination.available_prices, function(key, price) {
