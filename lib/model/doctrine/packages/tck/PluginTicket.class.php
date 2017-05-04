@@ -367,10 +367,9 @@ abstract class PluginTicket extends BaseTicket
       if ( $mcp->price_id != $this->price_id )
         continue;
       
-      if ( $this->manifestation_id && $mcp->Event->Manifestations->count() > 0
-          && $mcp->Event->Manifestations[0]->id == $this->manifestation_id
-        || $this->gauge_id && $mcp->Event->Manifestations->count() > 0 && $mcp->Event->Manifestations[0]->Gauges->count() > 0
-          && $mcp->Event->Manifestations[0]->Gauges[0]->id == $this->gauge_id
+      if ( $this->manifestation_id 
+        && $mcp->Event->Manifestations->count() > 0
+        && in_array($this->manifestation_id, $mcp->Event->Manifestations->getPrimaryKeys())
       )
       {
         unset($card->MemberCardPrices[$i]);
@@ -378,6 +377,22 @@ abstract class PluginTicket extends BaseTicket
         $card->save();
         break(2);
       }
+
+      if ( $this->gauge_id 
+        && $mcp->Event->Manifestations->count() > 0
+      )
+        foreach ($mcp->Event->Manifestations as $manifestation) 
+        {
+          if ( $manifestation->Gauges->count() > 0
+            && in_array($this->gauge_id, $manifestation->Gauges->getPrimaryKeys())
+          )
+          {
+            unset($card->MemberCardPrices[$i]);
+            $this->member_card_id = $card->id;
+            $card->save();
+            break(3);
+          }
+        }
       
       // event agnostic MemberCardPrice
       if ( !$mcp->event_id )
