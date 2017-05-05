@@ -123,20 +123,23 @@ LI.formSubmit = function(){
         case 'museum_price':
         case 'store_price':
           var reset = value.remote_content.load.reset;
-          $.ajax({
-            url: value.remote_content.load.url,
-            complete: function(data){
-              form.pending = undefined;
-              $(form).find('[name="transaction[price_new][state]"]').val('');
-            },
-            success: function(data){
-              if ( data.error[0] ) { LI.alert(data.error[1],'error'); return; }
-              if (!( data.success.error_fields !== undefined && data.success.error_fields.manifestations === undefined )) { LI.alert(data.success.error_fields.manifestations,'error'); return; }
-              
-              var type = value.remote_content.load.type.replace(/_price$/, '');
-              if ( data.success.success_fields[type] !== undefined && data.success.success_fields[type].data !== undefined )
-                LI.completeContent(data.success.success_fields[type].data.content, type, reset);
-            }
+          $.each([LI.urls['manifestations'], LI.urls['museum']], function(id, url) {
+            $.ajax({
+              url: url,
+              complete: function(data){
+                form.pending = undefined;
+                $(form).find('[name="transaction[price_new][state]"]').val('');
+              },
+              success: function(data){
+                if ( data.error[0] ) { LI.alert(data.error[1],'error'); return; }
+                if (!( data.success.error_fields !== undefined && data.success.error_fields.manifestations === undefined )) { LI.alert(data.success.error_fields.manifestations,'error'); return; }
+                
+                $.each(data.success.success_fields, function(type, obj) {
+                  if ( data.success.success_fields[type] !== undefined && data.success.success_fields[type].data !== undefined )
+                    LI.completeContent(data.success.success_fields[type].data.content, type, reset);
+                });
+              }
+            })
           });
           break;
         case 'payments':
