@@ -58,7 +58,12 @@ class ProjectConfiguration extends sfProjectConfiguration implements liGarbageCo
     for ( $i = 0 ; $i < 80 ; $i++ )
       $this->yob[date('Y')-$i] = date('Y') - $i;
     
-    $this->enablePlugins(array(
+    // trick to add plugins from an outside-of-the-versioned-project file
+    $extraPlugins = is_readable(__DIR__.'/extra-plugins.php') ? require(__DIR__.'/extra-plugins.php') : array();
+    if ( !is_array($extraPlugins) )
+      $extraPlugins = array();
+    
+    $this->enablePlugins(array_merge(array(
       'sfDoctrineMasterSlavePlugin',
       'sfDoctrinePlugin',
       'sfFormExtraPlugin',
@@ -71,7 +76,7 @@ class ProjectConfiguration extends sfProjectConfiguration implements liGarbageCo
       'sfiCalCreatorPlugin',
       'liOfcPlugin',
       'nvDoctrineSessionStoragePlugin',
-    ));
+    ), $extraPlugins));
     
     $this->loadProjectConfiguration();
     

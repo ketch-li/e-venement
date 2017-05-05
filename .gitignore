@@ -43,6 +43,7 @@
 /config/project.yml
 /config/properties.ini
 /config/private
+/config/extra-plugins.php
 
 /nbproject
 
