@@ -33,6 +33,7 @@
 /apps/stats/config/factories.yml
 /apps/tck/config/app.yml
 /apps/tck/config/factories.yml
+/apps/tck/config/extra-modules.php
 /apps/ws/config/app.yml
 /apps/ws/config/factories.yml
 /apps/srv/config/factories.yml
