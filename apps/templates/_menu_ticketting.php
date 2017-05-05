@@ -61,7 +61,12 @@
             // submenus added through a plugin
             $submenus = $sf_data->getRaw('sf_context')->getConfiguration()->getAppendedMenus($menu);
             foreach ( $submenus as $label => $submenu )
-              $submenus[$label]['url'] = cross_app_url_for($submenu['url']['app'], $submenu['url']['route']);
+            {
+              $submenus[$i18n=__($label,null,isset($submenu['i18n']) ? $submenu['i18n'] : null)]['url']
+                = cross_app_url_for($submenu['url']['app'], $submenu['url']['route']);
+              if ( $label != $i18n )
+                unset($submenus[$label]);
+            }
             sfConfig::set('project_menu_'.$menu, array_merge(sfConfig::get('project_menu_'.$menu, array()), $submenus));
           ?>
           <?php include_partial('global/menu_extra', array('name' => $menu)) ?>
