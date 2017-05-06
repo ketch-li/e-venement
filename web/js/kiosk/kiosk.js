@@ -257,6 +257,8 @@ LI.kiosk = {
 			.show()
 		;
 
+		$('#products-breadcrumb').css('display', 'inline-block');
+
 		LI.kiosk.insertProducts(type);
 
 		$('#products').effect('slide', {
@@ -283,6 +285,8 @@ LI.kiosk = {
 	listToMenu: function() {
 		LI.kiosk.utils.resetBackFab();
 
+		$('#products-breadcrumb').hide();
+
 		$('#products').effect('slide', {
 			direction: 'right',
 			mode: 'hide',
@@ -302,11 +306,20 @@ LI.kiosk = {
 		$('#details').effect('slide', {
 			direction: 'right',
 			mode: 'show',
-			duration: '300'
+			duration: '300',
+			complete: function() {
+				$('#details-breadcrumb a')
+					.html(product.name)
+					.parent()
+					.css('display', 'inline-block')
+				;
+			}
 		});
 	},
 	productToList: function(productType) {
 		LI.kiosk.utils.resetBackFab();
+
+		$('#details-breadcrumb').hide();
 
 		$('#details').effect('slide', {
 			direction: 'right',

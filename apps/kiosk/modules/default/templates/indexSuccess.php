@@ -41,7 +41,7 @@
 <?php use_javascript('/private/kiosk.js') ?>
 
 <div id="app" class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-color--blue-grey-800">
-	<header class="app-header mdl-layout__header mdl-color--blue-grey-800">
+	<header class="app-header mdl-layout__header mdl-color--blue-grey-800 mdl-shadow--4dp">
 		<div class="mdl-layout__header-row">
 			<span class="mdl-layout-title"><img src="images/logo-evenement-small.png" alt="logo"/></span>
 			<div class="mdl-layout-spacer"></div>
@@ -75,39 +75,53 @@
           	</button>
 		</div>
 	</header>
-	<!-- breadcrumbs -->
-	<div id="breadcrumbs" class="mdl-shadow--2dp"></div>
 
-	<main id="content" class="mdl-layout__content mdl-color--blue-grey-800">
-		<!-- loader -->
-		<div class="mdl-spinner mdl-js-spinner is-active" id="spinner"></div>
-		<!-- back fab -->
-		<button id="back-fab" class="mdl-button mdl-js-button mdl-button--fab mdl-color--light-blue-300 waves-effect">
-  			<i class="material-icons light">keyboard_backspace</i>
-		</button>
-		<!-- access fab -->
-		<button id="access-fab" class="mdl-button mdl-js-button mdl-button--fab mdl-color--light-blue-300 waves-effect">
-  			<i class="material-icons light">accessible</i>
-		</button>
-		<!-- Snackbar -->
-		<div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
-  			<div class="mdl-snackbar__text"></div>
-  			<button class="mdl-snackbar__action" type="button"></button>
-		</div>
-		<!-- menu panel -->
-		<div id="product-menu">
-			<ul id="product-menu-items" class="flex-list"></ul>
-		</div>
-		<!-- product list -->
-		<div id="products">
-			<ul id="product-list" class="flex-list"></ul>
-		</div>
-		<!-- product details panel -->
-		<div id="details">
-			<div id="product-details-card" class="mdl-card mdl-shadow--2dp"></div>
-			<ul id="declinations" class="flex-list"></ul>
-			
-			<ul id="prices" class="flex-list"></ul>
+	<main id="main" class="mdl-layout__content mdl-color--blue-grey-800">
+		<div id="content">
+			<!-- breadcrumbs -->
+			<div id="breadcrumbs-wrapper" class="">
+				<ul id="breadcrumbs" class="mdl-shadow--2dp mdl-color--light-blue-300">
+					<li id="home-breadcrumb" class="breadcrumb">
+						<a href="#">Accueil</a>
+					</li>
+					<li id="products-breadcrumb" class="breadcrumb">
+						<a href="#">Liste des produits</a>
+					</li>
+					<li id="details-breadcrumb" class="breadcrumb">
+						<a href="#"></a>
+					</li>
+				</ul>
+			</div>
+			<!-- loader -->
+			<div class="mdl-spinner mdl-js-spinner is-active" id="spinner"></div>
+			<!-- back fab -->
+			<button id="back-fab" class="mdl-button mdl-js-button mdl-button--fab mdl-color--light-blue-300 waves-effect">
+	  			<i class="material-icons light">keyboard_backspace</i>
+			</button>
+			<!-- access fab -->
+			<button id="access-fab" class="mdl-button mdl-js-button mdl-button--fab mdl-color--light-blue-300 waves-effect">
+	  			<i class="material-icons light">accessible</i>
+			</button>
+			<!-- Snackbar -->
+			<div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
+	  			<div class="mdl-snackbar__text"></div>
+	  			<button class="mdl-snackbar__action" type="button"></button>
+			</div>
+			<!-- menu panel -->
+			<div id="product-menu">
+				<ul id="product-menu-items" class="flex-list"></ul>
+			</div>
+			<!-- product list -->
+			<div id="products">
+				<ul id="product-list" class="flex-list"></ul>
+			</div>
+			<!-- product details panel -->
+			<div id="details">
+				<div id="product-details-card" class="mdl-card mdl-shadow--2dp"></div>
+				<ul id="declinations" class="flex-list"></ul>
+				
+				<ul id="prices" class="flex-list"></ul>
+			</div>
 		</div>
 		<!-- cart panel -->
 		<div id="cart" class="mdl-color--blue-grey-600">
