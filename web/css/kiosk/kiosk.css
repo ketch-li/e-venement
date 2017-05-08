@@ -6,17 +6,49 @@ header {
     font-weight: bold; }
 
 /* MAIN */
-#content {
+#main {
   display: flex;
   align-items: flex-start;
   justify-content: center;
   overflow: hidden; }
+
+#content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; }
 
 /* ICONS */
 .material-icons.light {
   color: #fff; }
 
 /* BREADCRUMBS */
+#breadcrumbs-wrapper {
+  height: 7%;
+  margin: 10px 10px 0 285px;
+  width: 70%; }
+  #breadcrumbs-wrapper #breadcrumbs {
+    margin: 0; }
+    #breadcrumbs-wrapper #breadcrumbs .breadcrumb:not(#home-breadcrumb) {
+      display: none; }
+  #breadcrumbs-wrapper .breadcrumb {
+    display: inline-block;
+    padding: 5px;
+    background-color: #4fc3f7;
+    border-radius: 3px; }
+    #breadcrumbs-wrapper .breadcrumb a {
+      text-decoration: none;
+      font-size: 20px;
+      color: white; }
+      #breadcrumbs-wrapper .breadcrumb a::after {
+        content: '\E5CC';
+        vertical-align: top;
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 25px;
+        margin: 0 10px 0 8px; }
+
 /* BACK BUTTON */
 #back-fab {
   display: none;
@@ -126,12 +158,12 @@ ul {
 #details {
   display: none;
   height: 95vh;
-  width: 60%;
-  margin: 30px 0 0 146px; }
+  width: 83%;
+  margin: 30px 0 0 145px;
+  overflow-y: auto; }
   #details #product-details-card {
     width: 100%;
     height: 50%;
-    overflow-y: auto;
     background-color: #f2f2f2; }
     #details #product-details-card .mdl-card__title {
       height: 150px; }
@@ -139,7 +171,8 @@ ul {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center; }
+      justify-content: center;
+      width: 100%; }
     #details #product-details-card #product-background {
       background-repeat: no-repeat;
       background-size: 100%;
@@ -159,7 +192,6 @@ ul {
       padding: 0;
       margin: 10px 0 10px 0; }
     #details #product-details #details-description {
-      width: 60%;
       margin: 5px; }
     #details #product-details #details-time {
       font-size: 1.2em;
@@ -285,7 +317,7 @@ ul {
   height: 150px;
   width: 150px;
   align-self: center;
-  margin: auto;
+  margin-top: 200px;
   z-index: 999; }
 
 .js-data, .js-i18n {

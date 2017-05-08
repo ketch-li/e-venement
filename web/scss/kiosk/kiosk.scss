@@ -10,11 +10,18 @@ header {
 }
 
 /* MAIN */
-#content {
+#main {
   display: flex;
   align-items: flex-start;
   justify-content: center;
   overflow: hidden;
+}
+
+#content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 /* ICONS */
@@ -23,6 +30,41 @@ header {
 }
 
 /* BREADCRUMBS */
+#breadcrumbs-wrapper {
+  height: 7%;
+  margin: 10px 10px 0 285px;
+  width: 70%;
+
+  #breadcrumbs {
+    margin: 0;
+    .breadcrumb:not(#home-breadcrumb) {
+      display: none;
+    }
+  }
+
+  .breadcrumb {
+    display: inline-block;
+    padding: 5px;
+    background-color: #4fc3f7;
+    border-radius: 3px;
+
+    a {
+      text-decoration: none;
+      font-size: 20px;
+      color: white;
+
+      &::after {
+        content: '\E5CC';
+        vertical-align: top;
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 25px;
+        margin: 0 10px 0 8px;
+      }
+    }
+  }
+}
 
 /* BACK BUTTON */
 #back-fab {
@@ -142,13 +184,13 @@ ul{
 #details {
   display: none;
   height: 95vh;
-  width: 60%;
-  margin: 30px 0 0 146px;
+  width: 83%;
+  margin: 30px 0 0 145px;
+  overflow-y: auto;
 
   #product-details-card {
     width: 100%;
     height: 50%;
-    overflow-y: auto;
     background-color: #f2f2f2;
 
     .mdl-card__title { height: 150px; }
@@ -157,6 +199,7 @@ ul{
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      width: 100%;
     }
 
     #product-background {
@@ -187,7 +230,7 @@ ul{
       margin: 10px 0 10px 0;
     }
     #details-description { 
-      width: 60%;
+      //width: 60%;
       margin: 5px; 
     }
     #details-time { 
@@ -344,7 +387,7 @@ ul{
   height: 150px;
   width: 150px;
   align-self: center;
-  margin: auto;
+  margin-top: 200px;
   z-index: 999;
 }
 

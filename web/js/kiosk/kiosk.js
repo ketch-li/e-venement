@@ -410,6 +410,8 @@ LI.kiosk = {
 			mode: 'hide',
 			duration: '300',
 			complete: function() {
+				$('#details').hide();
+				
 				$(document).trigger({
 					type: 'product-list:mount',
 					productType: productType,

@@ -80,14 +80,14 @@
 		<div id="content">
 			<!-- breadcrumbs -->
 			<div id="breadcrumbs-wrapper" class="">
-				<ul id="breadcrumbs" class="mdl-shadow--2dp mdl-color--light-blue-300">
-					<li id="home-breadcrumb" class="breadcrumb">
+				<ul id="breadcrumbs" class="">
+					<li id="home-breadcrumb" class="breadcrumb mdl-shadow--2dp">
 						<a href="#">Accueil</a>
 					</li>
-					<li id="products-breadcrumb" class="breadcrumb">
+					<li id="products-breadcrumb" class="breadcrumb mdl-shadow--2dp">
 						<a href="#">Liste des produits</a>
 					</li>
-					<li id="details-breadcrumb" class="breadcrumb">
+					<li id="details-breadcrumb" class="breadcrumb mdl-shadow--2dp">
 						<a href="#"></a>
 					</li>
 				</ul>
@@ -119,7 +119,6 @@
 			<div id="details">
 				<div id="product-details-card" class="mdl-card mdl-shadow--2dp"></div>
 				<ul id="declinations" class="flex-list"></ul>
-				
 				<ul id="prices" class="flex-list"></ul>
 			</div>
 		</div>
