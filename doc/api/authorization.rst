@@ -78,7 +78,7 @@ Example
 
 .. tip::
 
-    You have to use your user data (``username`` and ``password``)and replace client id and client secret with data generated in a previous step.
+    You have to use your user data (``username`` and ``password``) and replace client id and client secret with data generated in a previous step.
 
 Sample Response
 ''''''''''''''''''
@@ -92,6 +92,8 @@ Sample Response
         "scope": null,
         "refresh_token": "cDk2ZmIwODBkYmE3YjNjZWQ4ZTk2NTk2N2JmNjkyZDQ4NzA3YzhiZDQzMjJjODI5MmQ4ZmYxZjlkZmU1ZDNkMQ"
     }
+
+On failure, a HTTP UNAUTHORIZED empty response is sent (401).
 
 Request for a resource
 ^^^^^^^^^^^^^^^^^^^^^^
