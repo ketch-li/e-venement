@@ -6,3 +6,5 @@ all:
   parameters:
     
   services:
+    dummy:
+      abstract: true

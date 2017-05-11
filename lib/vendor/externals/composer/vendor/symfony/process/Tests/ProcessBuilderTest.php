@@ -11,9 +11,10 @@
 
 namespace Symfony\Component\Process\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\ProcessBuilder;
 
-class ProcessBuilderTest extends \PHPUnit_Framework_TestCase
+class ProcessBuilderTest extends TestCase
 {
     public function testInheritEnvironmentVars()
     {
@@ -215,7 +216,7 @@ class ProcessBuilderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Symfony\Component\Process\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Symfony\Component\Process\ProcessBuilder::setInput only accepts strings, Traversable objects or stream resources.
+     * @expectedExceptionMessage Symfony\Component\Process\ProcessBuilder::setInput only accepts strings or stream resources.
      */
     public function testInvalidInput()
     {
