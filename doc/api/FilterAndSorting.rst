@@ -187,6 +187,10 @@ Search options
 - not empty
 - in
 - not in
+- greater
+- greater or equal
+- lesser
+- lesser or equal
 
 Example
 ^^^^^^^
