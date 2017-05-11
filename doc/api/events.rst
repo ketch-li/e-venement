@@ -8,19 +8,21 @@ Events API response structure
 
 When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
 
-+------------------+----------------------------------------------+
-| Field            | Description                                  |
-+==================+==============================================+
-| id               | Id of the event                              |
-+------------------+----------------------------------------------+
-| metaEvent        | Meta-event object serialized                 |
-+------------------+----------------------------------------------+
-| category         | Category of the event                        |
-+------------------+----------------------------------------------+
-| translations     | Collection of translations                   |
-+------------------+----------------------------------------------+
-| imageURL         | URI of the image of the event                |
-+------------------+----------------------------------------------+
++------------------+------------------------------------------------+
+| Field            | Description                                    |
++==================+================================================+
+| id               | Id of the event                                |
++------------------+------------------------------------------------+
+| metaEvent        | Meta-event object serialized                   |
++------------------+------------------------------------------------+
+| category         | Category of the event                          |
++------------------+------------------------------------------------+
+| translations     | Collection of translations                     |
++------------------+------------------------------------------------+
+| imageURL         | URI of the image of the event                  |
++------------------+------------------------------------------------+
+| manifestations   | Collection of manifestations object serialized |
++------------------+------------------------------------------------+
 
 If you request for more detailed data, you will receive an object with the following fields:
 
@@ -133,7 +135,19 @@ Sample Response
                             "description":"Beautiful. Not beautiful. So is the Paloma's world."
                         }
                     },
-                    "imageURL":"shootup.png"
+                    "imageURL":"shootup.png",
+                    "manifestations": [
+                        {
+                            "id":837,
+                            "startsAt":"2017-04-05T10:00:00+0100",
+                            "endsAt":"2017-04-05T10:55:00+0100"
+                        },
+                        {
+                            "id":838,
+                            "startsAt":"2017-05-05T10:00:00+0100",
+                            "endsAt":"2017-05-05T10:55:00+0100"
+                        }
+                    ]
                 },
                 {
                     "id":124,
@@ -155,7 +169,14 @@ Sample Response
                             "description":"Welcome to the teenage years 2.0."
                         }
                     },
-                    "imageURL":"onlinelife.png"
+                    "imageURL":"onlinelife.png",
+                    "manifestations": [
+                        {
+                            "id":840,
+                            "startsAt":"2017-04-11T10:00:00+0100",
+                            "endsAt":"2017-04-11T10:55:00+0100"
+                        }
+                    ]
                 }
             ]
         }
