@@ -3,5 +3,3 @@
 
 all:
   is_secure: true
-default:
-  is_secure: true
