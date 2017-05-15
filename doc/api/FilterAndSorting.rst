@@ -22,7 +22,7 @@ Definition
 +---------------+----------------+-------------------------------------------------------------------+
 | nameOfField   | query          | *(required)* Name of field by which the resource will be sorted   |
 +---------------+----------------+-------------------------------------------------------------------+
-| direction     | query          | *(required)* Define a direction of ordering                       |
+| direction     | query          | *(required)* Define a direction of ordering  (desc|asc)           |
 +---------------+----------------+-------------------------------------------------------------------+
 | limit         | query          | *(optional)* Number of items to display per page, by default = 10 |
 +---------------+----------------+-------------------------------------------------------------------+
