@@ -239,7 +239,7 @@ Definition
 
 .. code-block:: text
 
-    GET /api/v2/customers/
+    GET /api/v2/customers
 
 +---------------+----------------+-------------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                       |
@@ -552,7 +552,7 @@ Definition
 
 .. code-block:: text
 
-    GET /api/v2/customers/{id}/orders/
+    GET /api/v2/customers/{id}/orders
 
 +---------------+----------------+-------------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                       |

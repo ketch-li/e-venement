@@ -224,7 +224,7 @@ Definition
 
 .. code-block:: text
 
-    GET /api/v2/carts/
+    GET /api/v2/carts
 
 +---------------+----------------+------------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                      |
