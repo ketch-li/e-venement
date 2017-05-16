@@ -45,7 +45,7 @@
     if ( $this->transaction->Order->count() == 0 )
     {
       $this->transaction->Order[] = new Order;
-      $this->createPaymentsDoneByMemberCards();
+      //$this->createPaymentsDoneByMemberCards();
       $this->transaction->save();
     }
     
