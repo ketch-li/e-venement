@@ -36,7 +36,7 @@ When you get a collection of resources, "Default" serialization group will be us
 +==================+==========================================================================+
 | id               | Id of the gauge                                                          |
 +------------------+--------------------------------------------------------------------------+
-| translations     | Collection of translations                                               |
+| name             | Name of the current Gauge (through its Workspace)                        |
 +------------------+--------------------------------------------------------------------------+
 | availableUnits   | The available space in this gauge                                        |
 |                  | To avoid information leaks, if more space is available than the maximum  |
