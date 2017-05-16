@@ -136,7 +136,7 @@ To create a new cart for the ``shop@example.com`` user with the ``en_US`` locale
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/cart/ \
+    $ curl http://e-venement.local/api/v2/carts \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST \
@@ -186,7 +186,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v1/carts/ \
+    $ curl http://e-venement.local/api/v1/carts \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST
@@ -243,7 +243,7 @@ To see the first page of the paginated carts collection use the below method:
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/carts/ \
+    $ curl http://e-venement.local/api/v2/carts \
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
 
@@ -419,7 +419,7 @@ previous example) use the below method:
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/carts/21/items/ \
+    $ curl http://e-venement.local/api/v2/carts/21/items \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST \

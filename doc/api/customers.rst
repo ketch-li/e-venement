@@ -92,7 +92,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/customers/ \
+    $ curl http://e-venement.local/api/v2/customers \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST \
@@ -140,7 +140,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/customers/ \
+    $ curl http://e-venement.local/api/v2/customers \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST
@@ -256,7 +256,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/customers/ \
+    $ curl http://e-venement.local/api/v2/customers \
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
 
@@ -569,7 +569,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/customers/7/orders/ \
+    $ curl http://e-venement.local/api/v2/customers/7/orders \
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
 
