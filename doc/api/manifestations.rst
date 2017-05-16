@@ -72,6 +72,109 @@ Available actions to interact with a manifestation
 +------------------+----------------------------------------------+
 
 
+Getting a collection of manifestations
+---------------------------------------
+
+To retrieve the full customers list, you will need to call the /api/v2/manifestations/{id} endpoint with the GET method.
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    GET /api/v2/manifestations
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/manifestations \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Content-Type: application/json" \
+        -X GET \
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 200 OK
+
+.. code-block:: json
+
+    [
+        {
+            "id": 112,
+            "startsAt": "2016-07-22 21:00:00",
+            "endsAt": "2016-07-22 22:30:00",
+            "metaEvent": [
+                {}
+            ],
+            "location": {
+                "id": 4,
+                "name": "Th\u00e9\u00e2tre de Cornouaille",
+                "address": "1 Esplanade Fran\u00e7ois Mitterrand",
+                "zip": "29000",
+                "city": "QUIMPER",
+                "country": "France"
+            },
+            "gauges": [
+                {
+                    "id": 290,
+                    "name": "Placement libre assis",
+                    "availableUnits": 10,
+                    "prices": {
+                        "id": 27,
+                        "value": "20.000",
+                        "currencyCode": 978,
+                        "translations": {
+                            "fr": {
+                                "name": "TP",
+                                "description": "Tarif Plein"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": 127,
+            "startsAt": "2017-07-27 21:00:00",
+            "endsAt": "2017-07-27 22:30:00",
+            "metaEvent": [
+                {}
+            ],
+            "location": {
+                "id": 13,
+                "name": "Novomax",
+                "address": "2 Boulevard Dupleix",
+                "zip": "29000",
+                "city": "QUIMPER",
+                "country": "FRANCE"
+            },
+            "gauges": [
+                {
+                    "id": 321,
+                    "name": "Placement libre assis",
+                    "availableUnits": 10,
+                    "prices": {
+                        "id": 27,
+                        "value": "20.000",
+                        "currencyCode": 978,
+                        "translations": {
+                            "fr": {
+                                "name": "TP",
+                                "description": "Tarif Plein"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+
+
 Getting a single manifestation
 ------------------------------
 
@@ -104,58 +207,36 @@ Sample Response
 .. code-block:: json
 
     {
-        "id":837,
-        "startsAt":"2017-04-05T10:00:00+0100",
-        "endsAt":"2017-04-05T10:55:00+0100",
-        "location":{
-            "id":20,
-            "translations":{
-                "en_US":{
-                    "id":20,
-                    "name":"Auditorium"
-                }
-            },
-            "address":"22 acacia avenue",
-            "zip":"29000",
-            "city":"Kemper",
-            "country":"France"
+        "id": 112,
+        "startsAt": "2016-07-22 21:00:00",
+        "endsAt": "2016-07-22 22:30:00",
+        "metaEvent": [
+            {}
+        ],
+        "location": {
+            "id": 4,
+            "name": "Th\u00e9\u00e2tre de Cornouaille",
+            "address": "1 Esplanade Fran\u00e7ois Mitterrand",
+            "zip": "29000",
+            "city": "QUIMPER",
+            "country": "France"
         },
         "gauges": [
             {
-                "id":1085,
-                "translations":{
-                    "en_US":{
-                        "id":1085,
-                        "name":"General field"
+                "id": 290,
+                "name": "Placement libre assis",
+                "availableUnits": 10,
+                "prices": {
+                    "id": 27,
+                    "value": "20.000",
+                    "currencyCode": 978,
+                    "translations": {
+                        "fr": {
+                            "name": "TP",
+                            "description": "Tarif Plein"
+                        }
                     }
-                },
-                "availableUnits":10,
-                "prices": [
-                    {
-                        "id":3,
-                        "translations":{
-                            "en_US":{
-                                "id":3,
-                                "name":"Free",
-                                "description":"Free price"
-                            }
-                        },
-                        "value":0.00,
-                        "currencyCode":"EUR"
-                    },
-                    {
-                        "id":4,
-                        "translations":{
-                            "en_US":{
-                                "id":4,
-                                "name":"Individual",
-                                "description":"Full price"
-                            }
-                        },
-                        "value":6.00,
-                        "currencyCode":"EUR"
-                    }
-                ]
+                }
             }
         ]
     }
