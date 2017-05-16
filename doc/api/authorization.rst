@@ -78,7 +78,7 @@ Example
 
 .. tip::
 
-    You have to use your user data (``username`` and ``password``) and replace client id and client secret with data generated in a previous step.
+    Replace client data (``client_id`` and ``client_secret``) with data generated in the previous step (``e-venement:create-api-client``).
 
 Sample Response
 ''''''''''''''''''
