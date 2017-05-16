@@ -105,76 +105,190 @@ Sample Response
 
 .. code-block:: json
 
-    [
-        {
-            "id": 112,
-            "startsAt": "2016-07-22 21:00:00",
-            "endsAt": "2016-07-22 22:30:00",
-            "metaEvent": [
-                {}
-            ],
-            "location": {
-                "id": 4,
-                "name": "Th\u00e9\u00e2tre de Cornouaille",
-                "address": "1 Esplanade Fran\u00e7ois Mitterrand",
-                "zip": "29000",
-                "city": "QUIMPER",
-                "country": "France"
+    {
+        "page": 1,
+        "limit": 10,
+        "pages": 147,
+        "total": 1463,
+        "_links": {
+            "self": {
+                "href": "\/tck_dev.php\/api\/v2\/events?limit=10"
             },
-            "gauges": [
-                {
-                    "id": 290,
-                    "name": "Placement libre assis",
-                    "availableUnits": 10,
-                    "prices": {
-                        "id": 27,
-                        "value": "20.000",
-                        "currencyCode": 978,
-                        "translations": {
-                            "fr": {
-                                "name": "TP",
-                                "description": "Tarif Plein"
-                            }
-                        }
-                    }
-                }
-            ]
+            "first": {
+                "href": "\/tck_dev.php\/api\/v2\/events?limit=10&page=1"
+            },
+            "last": {
+                "href": "\/tck_dev.php\/api\/v2\/events?limit=10&page=147"
+            },
+            "next": {
+                "href": "\/tck_dev.php\/api\/v2\/events?limit=10&page=2"
+            }
         },
-        {
-            "id": 127,
-            "startsAt": "2017-07-27 21:00:00",
-            "endsAt": "2017-07-27 22:30:00",
-            "metaEvent": [
-                {}
-            ],
-            "location": {
-                "id": 13,
-                "name": "Novomax",
-                "address": "2 Boulevard Dupleix",
-                "zip": "29000",
-                "city": "QUIMPER",
-                "country": "FRANCE"
-            },
-            "gauges": [
+        "_embedded": {
+            "items": [
                 {
-                    "id": 321,
-                    "name": "Placement libre assis",
-                    "availableUnits": 10,
-                    "prices": {
-                        "id": 27,
-                        "value": "20.000",
-                        "currencyCode": 978,
+                    "id": 1,
+                    "metaEvent": {
+                        "id": 3,
                         "translations": {
+                            "en": {
+                                "name": "Talents en Sc\u00e8ne 2012",
+                                "description": ""
+                            },
                             "fr": {
-                                "name": "TP",
-                                "description": "Tarif Plein"
+                                "name": "Talents en Sc\u00e8ne 2012 ",
+                                "description": " "
                             }
                         }
-                    }
+                    },
+                    "category": null,
+                    "translations": {
+                        "fr": {
+                            "name": "Talents en Sc\u00e8ne",
+                            "subtitle": null,
+                            "short_name": "",
+                            "description": "",
+                            "extradesc": "",
+                            "extraspec": ""
+                        }
+                    },
+                    "imageURL": "\/pub_dev.php\/picture\/1\/display",
+                    "manifestations": [
+                        {
+                            "id": 123,
+                            "startsAt": "2016-07-23 15:00:00",
+                            "endsAt": "2016-07-23 16:30:00",
+                            "event_id": 115,
+                            "event": {
+                                "fr": {
+                                    "name": "Sadorn Ar Vugale",
+                                    "subtitle": "",
+                                    "short_name": "",
+                                    "description": "",
+                                    "extradesc": "",
+                                    "extraspec": ""
+                                }
+                            },
+                            "metaEvent": {
+                                "fr": {
+                                    "name": "Cornouaille 2016",
+                                    "description": ""
+                                }
+                            },
+                            "location": {
+                                "id": 11,
+                                "name": "Cour du Coll\u00e8ge La Tour d'Auvergne",
+                                "address": "",
+                                "zip": "",
+                                "city": "",
+                                "country": "France"
+                            },
+                            "gauges": [
+                                {
+                                    "id": 314,
+                                    "name": "Placement libre assis",
+                                    "availableUnits": 10,
+                                    "prices": [
+                                        {
+                                            "id": 27,
+                                            "value": "20.000",
+                                            "currencyCode": 978,
+                                            "translations": {
+                                                "fr": {
+                                                    "name": "TP",
+                                                    "description": "Tarif Plein"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "metaEvent": {
+                        "id": 2,
+                        "translations": {
+                            "en": {
+                                "name": "Da\u00f1s 2012",
+                                "description": ""
+                            },
+                            "fr": {
+                                "name": "Da\u00f1s 2012 ",
+                                "description": " "
+                            }
+                        }
+                    },
+                    "category": "Danse traditionnelle",
+                    "translations": {
+                        "fr": {
+                            "name": "FESTIVAL DA\u00d1S ",
+                            "subtitle": null,
+                            "short_name": "",
+                            "description": "",
+                            "extradesc": "",
+                            "extraspec": ""
+                        }
+                    },
+                    "imageURL": "\/pub_dev.php\/picture\/2\/display",
+                    "manifestations": [
+                        {
+                            "id": 123,
+                            "startsAt": "2016-07-23 15:00:00",
+                            "endsAt": "2016-07-23 16:30:00",
+                            "event_id": 115,
+                            "event": {
+                                "fr": {
+                                    "name": "Sadorn Ar Vugale",
+                                    "subtitle": "",
+                                    "short_name": "",
+                                    "description": "",
+                                    "extradesc": "",
+                                    "extraspec": ""
+                                }
+                            },
+                            "metaEvent": {
+                                "fr": {
+                                    "name": "Cornouaille 2016",
+                                    "description": ""
+                                }
+                            },
+                            "location": {
+                                "id": 11,
+                                "name": "Cour du Coll\u00e8ge La Tour d'Auvergne",
+                                "address": "",
+                                "zip": "",
+                                "city": "",
+                                "country": "France"
+                            },
+                            "gauges": [
+                                {
+                                    "id": 314,
+                                    "name": "Placement libre assis",
+                                    "availableUnits": 10,
+                                    "prices": [
+                                        {
+                                            "id": 27,
+                                            "value": "20.000",
+                                            "currencyCode": 978,
+                                            "translations": {
+                                                "fr": {
+                                                    "name": "TP",
+                                                    "description": "Tarif Plein"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         }
-    ]
+    }
 
 
 Getting a single manifestation
@@ -209,36 +323,52 @@ Sample Response
 .. code-block:: json
 
     {
-        "id": 112,
-        "startsAt": "2016-07-22 21:00:00",
-        "endsAt": "2016-07-22 22:30:00",
-        "metaEvent": [
-            {}
-        ],
+        "id": 123,
+        "startsAt": "2016-07-23 15:00:00",
+        "endsAt": "2016-07-23 16:30:00",
+        "event_id": 115,
+        "event": {
+            "fr": {
+                "name": "Sadorn Ar Vugale",
+                "subtitle": "",
+                "short_name": "",
+                "description": "",
+                "extradesc": "",
+                "extraspec": ""
+            }
+        },
+        "metaEvent": {
+            "fr": {
+                "name": "Cornouaille 2016",
+                "description": ""
+            }
+        },
         "location": {
-            "id": 4,
-            "name": "Th\u00e9\u00e2tre de Cornouaille",
-            "address": "1 Esplanade Fran\u00e7ois Mitterrand",
-            "zip": "29000",
-            "city": "QUIMPER",
+            "id": 11,
+            "name": "Cour du Coll\u00e8ge La Tour d'Auvergne",
+            "address": "",
+            "zip": "",
+            "city": "",
             "country": "France"
         },
         "gauges": [
             {
-                "id": 290,
+                "id": 314,
                 "name": "Placement libre assis",
                 "availableUnits": 10,
-                "prices": {
-                    "id": 27,
-                    "value": "20.000",
-                    "currencyCode": 978,
-                    "translations": {
-                        "fr": {
-                            "name": "TP",
-                            "description": "Tarif Plein"
+                "prices": [
+                    {
+                        "id": 27,
+                        "value": "20.000",
+                        "currencyCode": 978,
+                        "translations": {
+                            "fr": {
+                                "name": "TP",
+                                "description": "Tarif Plein"
+                            }
                         }
                     }
-                }
+                ]
             }
         ]
     }
