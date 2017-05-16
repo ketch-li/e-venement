@@ -648,7 +648,7 @@ Sample Response
                             }
                         }
                     ],
-                    "currencyCode":"EUR",
+                    "currencyCode":"978",
                     "localeCode":"en_US",
                     "checkoutState":"completed"
                 }

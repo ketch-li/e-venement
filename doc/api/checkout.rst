@@ -175,7 +175,7 @@ Sample Response
                 "state":"cart"
             }
         ],
-        "currencyCode":"EUR",
+        "currencyCode":"978",
         "localeCode":"en_US",
         "checkoutState":"addressed"
     }
@@ -427,7 +427,7 @@ To check the fully constructed cart with `id = 21`, use the following command:
                 }
             }
         ],
-        "currencyCode":"EUR",
+        "currencyCode":"978",
         "localeCode":"en_US",
         "checkoutState":"payment_selected"
     }

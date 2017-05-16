@@ -136,7 +136,7 @@ Sample Response
                         }
                     },
                     "value":12,
-                    "currencyCode":"EUR",
+                    "currencyCode":"978",
                 ]
             },
             {
@@ -159,7 +159,7 @@ Sample Response
                         }
                     },
                     "value":12,
-                    "currencyCode":"EUR",
+                    "currencyCode":"978",
                 ]
             }
         ],
@@ -261,7 +261,7 @@ Sample Response
                                     }
                                 },
                                 "value":12,
-                                "currencyCode":"EUR",
+                                "currencyCode":"978",
                             ]
                         }
                     ],
@@ -299,7 +299,7 @@ Sample Response
                                     }
                                 },
                                 "value":12,
-                                "currencyCode":"EUR",
+                                "currencyCode":"978",
                             ]
                         }
                     ],

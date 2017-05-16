@@ -168,7 +168,7 @@ Sample Response
         "total":0,
         "customer":{},
         "_links":{},
-        "currencyCode":"EUR",
+        "currencyCode":"978",
         "localeCode":"en_US",
         "checkoutState":"cart"
     }
@@ -296,7 +296,7 @@ Sample Response
                             }
                         }
                     },
-                    "currencyCode":"EUR",
+                    "currencyCode":"978",
                     "localeCode":"en_US",
                     "checkoutState":"cart"
                 }
@@ -371,7 +371,7 @@ Sample Response
                 }
             }
         },
-        "currencyCode":"EUR",
+        "currencyCode":"978",
         "localeCode":"en_US",
         "checkoutState":"cart"
     }
