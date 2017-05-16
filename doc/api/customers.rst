@@ -59,7 +59,7 @@ Definition
 
 .. code-block:: text
 
-    POST /api/v2/customers/
+    POST /api/v2/customers
 
 +--------------------------+----------------+-------------------------------------------+
 | Parameter                | Parameter type | Description                               |

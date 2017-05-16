@@ -119,7 +119,7 @@ Definition
 
 .. code-block:: text
 
-    POST /api/v2/transaction/
+    POST /api/v2/transaction
 
 +---------------+----------------+----------------------------------------------------------+
 | Parameter     | Parameter type | Description                                              |
@@ -391,7 +391,7 @@ Definition
 
 .. code-block:: text
 
-    POST /api/v2/carts/{cartId}/items/
+    POST /api/v2/carts/{cartId}/items
 
 +---------------+----------------+----------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                    |

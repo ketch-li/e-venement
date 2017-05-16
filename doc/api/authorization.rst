@@ -111,7 +111,7 @@ Example
 
 .. code-block:: bash
 
-    curl http://e-venement.local/api/v2/users/
+    curl http://e-venement.local/api/v2/users
         -H "Authorization: Bearer NzFiYTM4ZTEwMjcwZTcyZWIzZTA0NmY3NjE3MTIyMjM1Y2NlMmNlNWEyMTAzY2UzYmY0YWIxYmUzNTkyMDcyNQ"
 
 .. note::
