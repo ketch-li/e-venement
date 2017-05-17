@@ -144,12 +144,24 @@ Sample Response
                         {
                             "id":837,
                             "startsAt":"2017-04-05T10:00:00+0100",
-                            "endsAt":"2017-04-05T10:55:00+0100"
+                            "endsAt":"2017-04-05T10:55:00+0100",
+                            "timeSlots": [{
+                                "id":10001,
+                                "title": "Paloma's morning",
+                                "startsAt": "2017-04-05T09:00:00+0100",
+                                "endsAt":"2017-04-05T13:00:00+0100"
+                            }]
                         },
                         {
                             "id":838,
-                            "startsAt":"2017-05-05T10:00:00+0100",
-                            "endsAt":"2017-05-05T10:55:00+0100"
+                            "startsAt":"2017-05-05T13:30:00+0100",
+                            "endsAt":"2017-05-05T16:30:00+0100",
+                            "timeSlots": [{
+                                "id":10002,
+                                "title": "Paloma's afternoon",
+                                "startsAt": "2017-04-05T13:00:00+0100",
+                                "endsAt":"2017-04-05T18:00:00+0100"
+                            }]
                         }
                     ]
                 },
@@ -178,7 +190,13 @@ Sample Response
                         {
                             "id":840,
                             "startsAt":"2017-04-11T10:00:00+0100",
-                            "endsAt":"2017-04-11T10:55:00+0100"
+                            "endsAt":"2017-04-11T10:55:00+0100",
+                            "timeSlots": [{
+                                "id":10003,
+                                "title": "Teenage morning",
+                                "startsAt": "2017-04-11T09:00:00+0100",
+                                "endsAt":"2017-04-11T13:00:00+0100"
+                            }]
                         }
                     ]
                 }
@@ -267,7 +285,13 @@ Sample Response
                         "city":"Kemper",
                         "country":"France"
                     }
-                }
+                },
+                "timeSlots": [{
+                    "id":10003,
+                    "title": "Teenage morning",
+                    "startsAt": "2017-04-05T09:00:00+0100",
+                    "endsAt":"2017-04-05T13:00:00+0100"
+                }]
             },
             {
                 "id":838,
@@ -287,7 +311,13 @@ Sample Response
                         "city":"Kemper",
                         "country":"France"
                     }
-                }
+                },
+                "timeSlots": [{
+                    "id":10001,
+                    "title": "Paloma's morning",
+                    "startsAt": "2017-04-05T09:00:00+0100",
+                    "endsAt":"2017-04-05T13:00:00+0100"
+                }]
             }
         ]
     }

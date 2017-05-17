@@ -27,6 +27,8 @@ When you get a collection of resources, "Default" serialization group will be us
 +------------------+----------------------------------------------------------------------------------------------------------+
 | gauges           | Collection of gauges object serialized                                                                   |
 +------------------+----------------------------------------------------------------------------------------------------------+
+| timeSlots        | Collection of timeslot objects serialized                                                                |
++------------------+----------------------------------------------------------------------------------------------------------+
 
 Gauges API response structure
 ------------------------------
@@ -62,6 +64,23 @@ When you get a collection of resources, "Default" serialization group will be us
 | value            | Amount of the price in the current currency                              |
 +------------------+--------------------------------------------------------------------------+
 | currencyCode     | Currency of the cart                                                     |
++------------------+--------------------------------------------------------------------------+
+
+TimeSlots API response structure
+--------------------------------
+
+When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
+
++------------------+--------------------------------------------------------------------------+
+| Field            | Description                                                              |
++==================+==========================================================================+
+| id               | Id of the timeslot                                                       |
++------------------+--------------------------------------------------------------------------+
+| title            | Title of the timeslot                                                    |
++------------------+--------------------------------------------------------------------------+
+| startsAt         | Start date of timeslot                                                   |
++------------------+--------------------------------------------------------------------------+
+| endsAt           | End date of timeslot                                                     |
 +------------------+--------------------------------------------------------------------------+
 
 Available actions to interact with a manifestation
@@ -202,6 +221,14 @@ Sample Response
                                         }
                                     ]
                                 }
+                            ],
+                            "timeSlots": [
+                                {
+                                    "id":10001,
+                                    "title": "Créneau de l'après midi",
+                                    "startsAt": "2016-07-23 14:00:00",
+                                    "endsAt": "2016-07-23 18:00:00"
+                                }
                             ]
                         }
                     ]
@@ -281,6 +308,14 @@ Sample Response
                                             }
                                         }
                                     ]
+                                }
+                            ],
+                            "timeSlots": [
+                                {
+                                    "id":10002,
+                                    "title": "Début du festival",
+                                    "startsAt": "2016-07-23 15:00:00",
+                                    "endsAt": "2016-07-23 19:00:00"
                                 }
                             ]
                         }
@@ -369,6 +404,14 @@ Sample Response
                         }
                     }
                 ]
+            }
+        ],
+        "timeSlots": [
+            {
+                "id":10001,
+                "title": "Créneau de l'après midi",
+                "startsAt": "2016-07-23 14:00:00",
+                "endsAt": "2016-07-23 18:00:00"
             }
         ]
     }
