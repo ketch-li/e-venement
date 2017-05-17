@@ -1,4 +1,4 @@
-cd /var/w<?php if ( !$sf_user->hasCredential('pos-product-stats') ) return ?>
+<?php if ( !$sf_user->hasCredential('pos-product-stats') ) return ?>
 
 <?php use_javascript('pos-stocks') ?>
 
