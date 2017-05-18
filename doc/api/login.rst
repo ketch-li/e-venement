@@ -142,3 +142,44 @@ Sample Response
           "code": 401,
           "message": "Verification failed"
       }
+      
+Logout Process
+--------------
+      
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    POST /api/v2/logout
+
++--------------------------+----------------+-------------------------------------------+
+| Parameter                | Parameter type | Description                               |
++==========================+================+===========================================+
+| Authorization            | header         | Token received during authentication      |
++--------------------------+----------------+-------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/logout \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Content-Type: application/json" \
+        -X POST \
+        --data '{}'
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 200 Success
+
+.. code-block:: json
+
+    {
+        "code": 200,
+        "message": "Loggout successful"
+    }
