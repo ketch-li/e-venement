@@ -21,6 +21,8 @@
 # 
 #**********************************************************************************/
 
+Dummy:
+    package: generic
 Addressable:
   package: generic
   actAs: 
