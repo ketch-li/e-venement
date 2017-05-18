@@ -24,7 +24,7 @@ If you request a cart via API, you will receive an object with the following fie
 +-------------------+---------------------------------------------------------------------------------------+
 | total             | Sum of items total and adjustments total                                              |
 +-------------------+---------------------------------------------------------------------------------------+
-| customer          | :doc:`The customer object serialized with the default data </api/customers>` for transaction |
+| customer          | The customer object serialized with the default data </api/customers> for transaction |
 +-------------------+---------------------------------------------------------------------------------------+
 | currencyCode      | Currency of the cart                                                                  |
 +-------------------+---------------------------------------------------------------------------------------+
