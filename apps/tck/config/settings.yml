@@ -41,6 +41,8 @@ all:
         $modules = require($file);
       if ( !is_array($modules) )
         $modules = array();
+      if ( isset($modules['modules']) )
+        $modules = $modules['modules'];
       echo PHP_EOL;
     ?>
     enabled_modules:  [sfGuardAuth<?php echo count($modules) > 0 ? ','.implode(',', $modules) : '' ?>]

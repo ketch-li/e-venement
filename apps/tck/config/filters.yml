@@ -7,6 +7,22 @@ security:  ~
 remember_me:
   class: sfGuardRememberMeFilter
 
+  <?php
+    $modules = array();
+    if ( is_readable($file = __DIR__.'/extra-modules.php') )
+      $modules = require($file);
+    if ( !is_array($modules) )
+      $modules = array();
+    if ( !is_array($modules['filters']) )
+      $modules['filters'] = array();
+    $filters = $modules['filters'];
+    echo PHP_EOL;
+  ?>
+
+<?php foreach ( $filters as $filter => $option ): ?>
+<?php echo "$filter: $option".PHP_EOL ?>
+<?php endforeach; echo PHP_EOL; ?>
+
 # insert your own filters here
 
 cache:     ~
