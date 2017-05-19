@@ -435,70 +435,10 @@ Example
         --data '
             {
                 "firstName": "John",
-                "lastName": "Diggle",
-                "email": "john.diggle@yahoo.com",
                 "address": "7b, Sunset St.",
-                "zip": "F-29000",
-                "city": "Quimper",
-                "country": "France",
-                "phoneNumber": "+123456789",
-                "subscribedToNewsletter": "",
                 "password": "secret"
             }
         '
-
-Sample Response
-^^^^^^^^^^^^^^^^^^
-
-.. code-block:: text
-
-    STATUS: 204 No Content
-
-In order to perform a partial update, you should use a POST method.
-
-Definition
-^^^^^^^^^^
-
-.. code-block:: text
-
-    POST /api/v2/customers/{id}
-
-+--------------------------+----------------+--------------------------------------------------+
-| Parameter                | Parameter type | Description                                      |
-+==========================+================+==================================================+
-| Authorization            | header         | Token received during authentication             |
-+--------------------------+----------------+--------------------------------------------------+
-| id                       | url attribute  | Id of the requested resource                     |
-+--------------------------+----------------+--------------------------------------------------+
-| email                    | request        | *(optional)* **(unique)** Customers email        |
-+--------------------------+----------------+--------------------------------------------------+
-| firstName                | request        | *(optional)* Customers first name                |
-+--------------------------+----------------+--------------------------------------------------+
-| lastName                 | request        | *(optional)* Customers last name                 |
-+--------------------------+----------------+--------------------------------------------------+
-| groups                   | request        | *(optional)* Array of groups customer belongs to |
-+--------------------------+----------------+--------------------------------------------------+
-| gender                   | request        | *(optional)* Customers gender                    |
-+--------------------------+----------------+--------------------------------------------------+
-| birthday                 | request        | *(optional)* Customers birthday                  |
-+--------------------------+----------------+--------------------------------------------------+
-| user[plainPassword]      | request        | *(optional)* Users plain password.               |
-+--------------------------+----------------+--------------------------------------------------+
-| user[authorizationRoles] | request        | *(optional)* Array of users roles.               |
-+--------------------------+----------------+--------------------------------------------------+
-| user[enabled]            | request        | *(optional)* Flag set if user is enabled.        |
-+--------------------------+----------------+--------------------------------------------------+
-
-Example
-^^^^^^^
-
-.. code-block:: bash
-
-    $ curl http://e-venement.local/api/v2/customers/399 \
-        -H "Authorization: Bearer SampleToken" \
-        -H "Content-Type: application/json" \
-        -X PATCH \
-        --data '{"firstName": "Joe"}'
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
