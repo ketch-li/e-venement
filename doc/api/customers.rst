@@ -445,7 +445,22 @@ Sample Response
 
 .. code-block:: text
 
-    STATUS: 204 No Content
+    STATUS: 200 OK
+
+.. code-block:: json
+
+    {
+        "id":399,
+        "email":"jean.martin@linux.fr",
+        "firstName":"John",
+        "lastName":"Martin",
+        "address": "7b, Sunset St.",
+        "zip": "F-29000",
+        "city": "Quimper",
+        "country": "France",
+        "phoneNumber": "+987654321",
+        "subscribedToNewsletter": "yes"
+    }
 
 Deleting a Customer
 -------------------
