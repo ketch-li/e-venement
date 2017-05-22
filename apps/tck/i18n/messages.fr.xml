@@ -2124,6 +2124,14 @@
         <source>From %%from%% to %%to%%</source>
         <target>De %%from%% à %%to%%</target>
       </trans-unit>
+      <trans-unit id="530">
+        <source>Edit Member card price model</source>
+        <target>Modification du modèle de carte d'abonnement</target>
+      </trans-unit>                       
+      <trans-unit id="531">
+        <source>View Payment method</source>
+        <target>Fiche de méthode de paiement</target>
+      </trans-unit>                       
     </body>
   </file>
 </xliff>

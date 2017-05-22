@@ -224,6 +224,10 @@
         <source>Typical answers</source>
         <target>Réponses types</target>
       </trans-unit>
+      <trans-unit id="55">
+        <source>New Survey</source>
+        <target>Nouveau questionnaire</target>
+      </trans-unit>                       
     </body>
   </file>
 </xliff>
