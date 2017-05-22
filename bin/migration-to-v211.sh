@@ -175,13 +175,13 @@ read -p "Do you want to fix price ranking ? [Y/n]" price
 if [ "$price" != 'n' ]
 then
   psql $db <<EOF
-  -- Créer un index sur la colonne rank
+  -- Create an index on the rank column
       CREATE INDEX rank_index ON price(rank);
-  -- Réorganiser la table en fonction de l'index
+  -- Sort the table with the index
       CLUSTER price USING rank_index;
-  -- Créer une séquence pour la nouvelle valeur de rank
+  -- Create a sequence for the rank column
       CREATE SEQUENCE seqPriceRank START 1;
-  -- Actualiser la colonne rank
+  -- Update rank column
       UPDATE price p
       SET rank = n.irank
       FROM (
@@ -189,9 +189,9 @@ then
         FROM price
       ) n
       WHERE p.id = n.id;
-  -- Supprimer la séquence
+  -- Delete sequence
       DROP SEQUENCE seqPriceRank;
-  -- Supprimer l'index
+  -- Delete index
       DROP INDEX rank_index;
 EOF
 fi
@@ -206,7 +206,12 @@ then
   eval $(parse_yaml $(dirname "$0")/../config/project.yml "project_")
   
   psql $db <<EOF
-  -- Déplacement de la colonne rank dans la nouvelle table price_rank
+  DELETE FROM price_rank
+  WHERE domain = '$project_all_internals_users_domain';
+EOF
+  
+  psql $db <<EOF
+  -- Move the rank column into a new table price_rank
       INSERT INTO price_rank (price_id, domain, rank)
       (
         SELECT id, '$project_all_internals_users_domain', rank
@@ -214,6 +219,15 @@ then
       );
 EOF
 fi
+
+echo ''
+echo "Separating product and event prices"
+psql $db <<EOF
+-- Fill the new target column
+    UPDATE price 
+    SET target = 'event'
+    WHERE target IS NULL;
+EOF
 
 echo ''
 echo "Changing (or not) file permissions for the e-venement Messaging Network ..."
