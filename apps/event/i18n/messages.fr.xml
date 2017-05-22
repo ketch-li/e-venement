@@ -2298,6 +2298,14 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>Files</source>
         <target>Fichiers</target>
       </trans-unit>
+      <trans-unit id="574">
+        <source>Edit Color "%%name%%" for prices</source>
+        <target>Modification de la couleur "%%name%%" pour les tarifs</target>
+      </trans-unit>
+      <trans-unit id="575">
+        <source>New Price color</source>
+        <target>Nouvelle couleur pour les tarifs</target>
+      </trans-unit>                       
     </body>
   </file>
 </xliff>
