@@ -25,5 +25,7 @@ remember_me:
 
 # insert your own filters here
 
+exceptionCatcherFilter: ~
+
 cache:     ~
 execution: ~
