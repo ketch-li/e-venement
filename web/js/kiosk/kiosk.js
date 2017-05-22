@@ -351,7 +351,7 @@ LI.kiosk = {
 					productType: product.type
 				})
 			})
-			.show();
+			.show()
 		;
 
 		$('.declination').off('click').click(function(event) {
@@ -404,6 +404,8 @@ LI.kiosk = {
 	},
 	pricesToProducts: function(productType, mode) {
 		LI.kiosk.utils.resetBackFab();
+
+		$('#details-breadcrumb').hide();
 
 		$('#prices').effect('slide', {
 			direction: 'right',
