@@ -656,47 +656,6 @@ LI.kiosk = {
 				LI.kiosk.templates[templateType] = html;
 		});
 	},
-	checkAvailability: function(gaugeUrl, lineId, productId) {
-		var qty = 0;
-		var available = true;
-
-		$.each(LI.kiosk.cart.lines, function(key, line) {
-			if(line.product.id == productId)
-				qty += line.qty;
-		});
-
-		$.get(gaugeUrl, function(data) {
-
-			if(data.free < qty){
-				available = false;
-				$('#' + lineId + ' .remove-item').click();
-				toastr.info('The last item added to the cart was removed as it wasn\'t available anymore');
-			}
-		});
-
-		return available;
-	},
-	updateTransaction: function(item, price, declination, quantity) {
-		$.ajax({
-		    url: '/tck.php/transaction/' + LI.kiosk.transaction.id + '/complete',
-		    type: 'get',
-		    data: { 
-		    	transaction: {
-		    		price_new: {
-		    			_csrf_token: LI.kiosk.CSRF,
-		    			price_id: price.id,
-		    			declination_id: declination.id,
-		    			type: item.type == 'store' ? 'declination' : 'gauge',
-		    			bunch: item.type,
-		    			id: LI.kiosk.transaction.id,
-		    			state: '',
-		    			qty: quantity
-		    		}
-		        }
-		    },
-		    error: LI.kiosk.utils.error
-		});
-	},
 	/******************** CART ****************************/
 	cart: {
 		lines: {},
@@ -774,13 +733,17 @@ LI.kiosk = {
 
 		    var available = false;
 			
+		    if(item.type == 'store') {
+		    	available = true;
+		    }
+
 			if(item.gauge_url !== undefined ) {
-				available = LI.kiosk.checkAvailability(item.gauge_url, lineId, item.id);
+				available = LI.kiosk.cart.checkAvailability(item.gauge_url, lineId, item.id);
 			}
 		    	
 		    
 			if(available) {
-		    	LI.kiosk.updateTransaction(item, price, declination, '1');
+		    	LI.kiosk.cart.updateTransaction(item, price, declination, '1');
 			}
 		},
 		removeItem: function(lineId, item) {
@@ -799,12 +762,53 @@ LI.kiosk = {
 				htmlLine.find('.line-total').text(line.total);
 			}
 
-			LI.kiosk.updateTransaction(item, line.price, line.declination, '-1');
+			LI.kiosk.cart.updateTransaction(item, line.price, line.declination, '-1');
 
 			LI.kiosk.cart.cartTotal();
 
 			if(Object.keys(LI.kiosk.cart.lines) < 1)
 				$('#cart').hide(200);
+		},
+		checkAvailability: function(gaugeUrl, lineId, productId) {
+			var qty = 0;
+			var available = true;
+
+			$.each(LI.kiosk.cart.lines, function(key, line) {
+				if(line.product.id == productId)
+					qty += line.qty;
+			});
+
+			$.get(gaugeUrl, function(data) {
+
+				if(data.free < qty){
+					available = false;
+					$('#' + lineId + ' .remove-item').click();
+					toastr.info('The last item added to the cart was removed as it wasn\'t available anymore');
+				}
+			});
+
+			return available;
+		},
+		updateTransaction: function(item, price, declination, quantity) {
+			$.ajax({
+			    url: LI.kiosk.urls.completeTransaction.replace('-666', LI.kiosk.transaction.id),
+			    type: 'get',
+			    data: { 
+			    	transaction: {
+			    		price_new: {
+			    			_csrf_token: LI.kiosk.CSRF,
+			    			price_id: price.id,
+			    			declination_id: declination.id,
+			    			type: item.type == 'store' ? 'declination' : 'gauge',
+			    			bunch: item.type,
+			    			id: LI.kiosk.transaction.id,
+			    			state: '',
+			    			qty: quantity
+			    		}
+			        }
+			    },
+			    error: LI.kiosk.utils.error
+			});
 		}
 	},
 	/************** CHECKOUT *******************************/
