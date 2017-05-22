@@ -20,7 +20,6 @@
 *
 ***********************************************************************************/
 $(document).ready(function() {
-	$('.culture[data-culture="' + $('#user-culture').data('culture') + '"]').hide();
 	LI.kiosk.init();
 });
 
@@ -32,7 +31,10 @@ LI.kiosk = {
 	transaction: {},
 	products: {},
 	urls: {},
+	currentPanel: {},
 	init: function() {
+
+		$('.culture[data-culture="' + $('#user-culture').data('culture') + '"]').hide();
 
 		LI.kiosk.utils.showLoader();
 		LI.kiosk.urls = $('#kiosk-urls').data();
@@ -144,8 +146,33 @@ LI.kiosk = {
 			$('#info-panel').toggle(500);
 
 			setTimeout(function() {
-				$('#info-panel').hide(500)
+				$('#info-panel').hide(500);
 			}, 10000);
+		});
+
+		//breadcrumbs clicks
+		$('.breadcrumb').not(':last-child').click(function() {
+			var id = $(this).prop('id');
+			var target = $(this).data('target');
+
+			$('.breadcrumb')
+				.not($(this))
+				.not('#home-breadcrumb')
+				.hide()
+			;
+
+			$('.panel:visible').effect('slide', {
+				direction: 'right',
+				mode: 'hide',
+				duration: 500,
+				complete: function() {
+					$('#' + target).effect('slide', {
+						direction: 'left',
+						mode: 'show',
+						duration: 500
+					});
+				}
+			});
 		});
 
 		//product clicks
@@ -223,7 +250,9 @@ LI.kiosk = {
 			});
 		}
 
-		$('#product-menu').effect('slide', {
+		LI.kiosk.currentPanel = $('#product-menu');
+
+		LI.kiosk.currentPanel.effect('slide', {
 			direction: 'left',
 			mode: 'show',
 			duration: '300'
@@ -262,7 +291,9 @@ LI.kiosk = {
 
 		LI.kiosk.insertProducts(type);
 
-		$('#products').effect('slide', {
+		LI.kiosk.currentPanel = $('#products');
+
+		LI.kiosk.currentPanel.effect('slide', {
 			direction: direction, 
 			mode: 'show',
 			duration: '300'
@@ -304,7 +335,9 @@ LI.kiosk = {
 			LI.kiosk.insertProductDetails(product);
 		}
 
-		$('#details').effect('slide', {
+		LI.kiosk.currentPanel = $('#details');
+
+		LI.kiosk.currentPanel.effect('slide', {
 			direction: 'right',
 			mode: 'show',
 			duration: '300',
@@ -643,6 +676,27 @@ LI.kiosk = {
 
 		return available;
 	},
+	updateTransaction: function(item, price, declination, quantity) {
+		$.ajax({
+		    url: '/tck.php/transaction/' + LI.kiosk.transaction.id + '/complete',
+		    type: 'get',
+		    data: { 
+		    	transaction: {
+		    		price_new: {
+		    			_csrf_token: LI.kiosk.CSRF,
+		    			price_id: price.id,
+		    			declination_id: declination.id,
+		    			type: item.type == 'store' ? 'declination' : 'gauge',
+		    			bunch: item.type,
+		    			id: LI.kiosk.transaction.id,
+		    			state: '',
+		    			qty: quantity
+		    		}
+		        }
+		    },
+		    error: LI.kiosk.utils.error
+		});
+	},
 	/******************** CART ****************************/
 	cart: {
 		lines: {},
@@ -718,29 +772,16 @@ LI.kiosk = {
 				$('#cart').css('display', 'flex');
 		    }
 
-			if(item.gauge_url !== undefined )
-				LI.kiosk.checkAvailability(item.gauge_url, lineId, item.id);
+		    var available = false;
+			
+			if(item.gauge_url !== undefined ) {
+				available = LI.kiosk.checkAvailability(item.gauge_url, lineId, item.id);
+			}
+		    	
 		    
-		         $.ajax({
-				    url: '/tck.php/transaction/' + LI.kiosk.transaction.id + '/complete',
-				    type: 'get',
-				    data: { 
-				    	transaction: {
-				    		price_new: {
-				    			_csrf_token: LI.kiosk.CSRF,
-				    			price_id: price.id,
-				    			declination_id: declination.id,
-				    			type: item.type == 'store' ? 'declination' : 'gauge',
-				    			bunch: item.type,
-				    			id: LI.kiosk.transaction.id,
-				    			state: '',
-				    			qty: '1'
-				    		}
-				        }
-				    },
-				    error: LI.kiosk.utils.error
-				});
-		    ;
+			if(available) {
+		    	LI.kiosk.updateTransaction(item, price, declination, '1');
+			}
 		},
 		removeItem: function(lineId, item) {
 			var line = LI.kiosk.cart.lines[lineId];
@@ -758,25 +799,7 @@ LI.kiosk = {
 				htmlLine.find('.line-total').text(line.total);
 			}
 
-			$.ajax({
-			    url: '/tck.php/transaction/' + LI.kiosk.transaction.id + '/complete',
-			    type: 'get',
-			    data: { 
-			    	transaction: {
-			    		price_new: {
-			    			_csrf_token: LI.kiosk.CSRF,
-			    			price_id: line.price.id,
-			    			declination_id: line.declination.id,
-			    			type: item.type == 'store' ? 'declination' : 'gauge',
-			    			bunch: item.type,
-			    			id: LI.kiosk.transaction.id,
-			    			state: '',
-			    			qty: '-1'
-			    		}
-			        }
-			    },
-			    error: LI.kiosk.utils.error
-			});	
+			LI.kiosk.updateTransaction(item, line.price, line.declination, '-1');
 
 			LI.kiosk.cart.cartTotal();
 
