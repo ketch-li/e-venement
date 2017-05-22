@@ -499,7 +499,7 @@ Definition
 
 .. code-block:: text
 
-    PUT /api/v1/carts/{cartId}/items/{cartItemId}
+    POST /api/v1/carts/{cartId}/items/{cartItemId}
 
 +---------------+----------------+--------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                  |
@@ -526,7 +526,7 @@ To change the quantity of the cart item with ``id = 57`` in the cart of ``id = 2
     $ curl http://e-venement.local/api/v2/carts/21/items/57 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X PUT \
+        -X POST \
         --data '{"quantity": 3}'
 
 .. tip::
