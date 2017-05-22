@@ -231,7 +231,7 @@
         $cancontrol = $checkpoint instanceof Checkpoint;
         if ( !$cancontrol )
           $this->errors[] = __('The ticket #%%id%% is unfoundable in the list of available tickets', array('%%id%%' => implode(', #', $params['ticket_id'])));
-        elseif ( $checkpoint->type == 'entrance' )
+        else 
         {
           $q = Doctrine::getTable('Ticket')->createQuery('tck')
             ->leftJoin('tck.Controls c WITH c.checkpoint_id = ?', $params['checkpoint_id'])
@@ -246,54 +246,68 @@
             $q->orWhereIn("tck.$f IS NOT NULL AND tck.$f", $params['ticket_id']);
           $q->andWhere('TRUE)');
           
-          $cancontrol = false;
-          $this->controls       = new Doctrine_Collection('Control');
           foreach ( $q->execute() as $ticket )
-          // the ticket is in its duration of validity
-          if ( $ticket->Price->x_days_valid > 0
-            && $ticket->Controls->count() > 0
-            && $ticket->Controls[0]->created_at >= date('Y-m-d', strtotime(($control->Ticket->Price->x_days_valid-1).' days ago')) )
-            ; // nothing to do, just ignore this control
-          elseif ( $ticket->Controls->count() > 0 )
-          foreach ( $ticket->Controls as $control )
           {
-            $this->error_tickets[] = $ticket;
-            $this->errors[] = __('The ticket #%%id%% has been already controlled on this checkpoint before (%%datetime%% by %%user%%)', array(
-              '%%id%%' => $ticket->id,
-              '%%datetime%%' => $control->created_at,
-              '%%user%%' => (string)$control->User,
-            ));
-            
-            // adding a failure in the control log if a ticket is being controled twice
-            $failure = new FailedControl;
-            $params['ticket_id'] = $ticket->id;
-            $failure->complete($params);
-          }
-          elseif ( $ticket->Manifestation->happens_at > date('Y-m-d H:i',strtotime('now + '.$past)) )
-          {
-            // It's too soon pal !
-            $this->error_tickets[] = $ticket;
-            $this->errors[] = __('Too soon for ticket #%%id%% (gates will open at %%datetime%%)', array(
-              '%%id%%' => $ticket->id,
-              '%%datetime%%' => date('Y-m-d H:i',strtotime($ticket->Manifestation->happens_at . ' - ' .$past))
-            ));
-          }
-          elseif ( $ticket->Manifestation->happens_at < date('Y-m-d H:i',strtotime('now - '.$future)) )
-          {
-             // It's too late man !
-             $this->error_tickets[] = $ticket;
-             $this->errors[] = __('Too late for ticket #%%id%% (gates closed at %%datetime%%)', array(
-               '%%id%%' => $ticket->id,
-               '%%datetime%%' => date('Y-m-d H:i',strtotime($ticket->Manifestation->happens_at . ' + ' .$future))
-             ));
-          }
-          else
-          {
-            $cancontrol = true;
-            $this->tickets[$ticket->id] = $ticket;
+            if ( $ticket->Manifestation->happens_at > date('Y-m-d H:i',strtotime('now + '.$past)) )
+            {
+              // It's too soon pal !
+              $this->error_tickets[] = $ticket;
+              $this->errors[] = __('Too soon for ticket #%%id%% (gates will open at %%datetime%%)', array(
+                '%%id%%' => $ticket->id,
+                '%%datetime%%' => date('Y-m-d H:i',strtotime($ticket->Manifestation->happens_at . ' - ' .$past))
+              ));
+            }
+            elseif ( $ticket->Manifestation->happens_at < date('Y-m-d H:i',strtotime('now - '.$future)) )
+            {
+               // It's too late man !
+               $this->error_tickets[] = $ticket;
+               $this->errors[] = __('Too late for ticket #%%id%% (gates closed at %%datetime%%)', array(
+                 '%%id%%' => $ticket->id,
+                 '%%datetime%%' => date('Y-m-d H:i',strtotime($ticket->Manifestation->happens_at . ' + ' .$future))
+               ));
+            }
+            else 
+            {
+              switch ($checkpoint->type)
+              {
+                case 'entrance':
+                  $cancontrol = false;
+                  $this->controls       = new Doctrine_Collection('Control');
+                  
+                  // the ticket is in its duration of validity
+                  if ( $ticket->Price->x_days_valid > 0
+                    && $ticket->Controls->count() > 0
+                    && $ticket->Controls[0]->created_at >= date('Y-m-d', strtotime(($control->Ticket->Price->x_days_valid-1).' days ago')) )
+                    ; // nothing to do, just ignore this control
+                  elseif ( $ticket->Controls->count() > 0 )
+                  foreach ( $ticket->Controls as $control )
+                  {
+                    $this->error_tickets[] = $ticket;
+                    $this->errors[] = __('The ticket #%%id%% has been already controlled on this checkpoint before (%%datetime%% by %%user%%)', array(
+                      '%%id%%' => $ticket->id,
+                      '%%datetime%%' => $control->created_at,
+                      '%%user%%' => (string)$control->User,
+                    ));
+                    
+                    // adding a failure in the control log if a ticket is being controled twice
+                    $failure = new FailedControl;
+                    $params['ticket_id'] = $ticket->id;
+                    $failure->complete($params);
+                  }
+                  else
+                  {
+                    $cancontrol = true;
+                    $this->tickets[$ticket->id] = $ticket;
+                  }
+                  break;
+                case 'info':
+                  $cancontrol = true;
+                  $this->tickets[$ticket->id] = $ticket;
+                  break;
+              }
+            }
           }
         }
-        
         $this->getUser()->setAttribute('control.checkpoint_id',$params['checkpoint_id']);
         
         $comments = array();
