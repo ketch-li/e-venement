@@ -91,14 +91,16 @@ Sample Response
                                 }
                             },
                             "prices": [
-                                "id":4,
-                                "translations: {
-                                    "en_US": {
-                                        "name":"Normal"
-                                    }
-                                },
-                                "value":12,
-                                "currencyCode":"978",
+                                {
+                                    "id":4,
+                                    "translations": {
+                                        "en_US": {
+                                            "name":"Normal"
+                                        }
+                                    },
+                                    "value":12,
+                                    "currencyCode":"978"
+                                }
                             ]
                         }
                     ],
@@ -131,7 +133,7 @@ Sample Response
                             "prices": [
                                 {
                                     "id":4,
-                                    "translations: {
+                                    "translations": {
                                         "en_US": {
                                             "name":"Normal"
                                         }
@@ -259,7 +261,7 @@ Sample Response
                             "prices": [
                                 {
                                     "id":4,
-                                    "translations: {
+                                    "translations": {
                                         "en_US": {
                                             "name":"Normal"
                                         }
