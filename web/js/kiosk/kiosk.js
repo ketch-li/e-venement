@@ -142,6 +142,7 @@ LI.kiosk = {
 		//info button
 		$('#info-btn').click(function() {
 			$('#info-panel').toggle(500);
+
 			setTimeout(function() {
 				$('#info-panel').hide(500)
 			}, 10000);
@@ -354,18 +355,27 @@ LI.kiosk = {
 			.show()
 		;
 
-		$('.declination').off('click').click(function(event) {
-			var declination = product.declinations[$(event.currentTarget.children).attr('id')];
+		if(product.type !== 'store') {
+			$('.declination').off('click').click(function(event) {
+				var declination = product.declinations[$(event.currentTarget.children).attr('id')];
 
-			$(document).trigger({
-				type: 'declinations:unmount',
-				product: product,
-				declination: declination
+				$(document).trigger({
+					type: 'declinations:unmount',
+					product: product,
+					declination: declination
+				});
+
+				declinationList.hide();
+				$('#declination-name').text(declination.name);
 			});
-
-			declinationList.hide();
-			$('#declination-name').text(declination.name);
-		});
+		}else {
+			$('.declination').off('click').click(function(event) {
+				var declination = product.declinations[$(event.currentTarget.children).attr('id')];
+				var price = declination.available_prices[Object.keys(declination.available_prices)[0]];
+				
+				LI.kiosk.cart.addItem(product, price, declination);
+			});
+		}
 
 		$('#declinations').css('display', 'flex');
 	},
@@ -453,6 +463,8 @@ LI.kiosk = {
 	},
 	insertProductDetails: function(product) {
 		var detailsTemplate = Handlebars.compile(LI.kiosk.templates.productDetails);
+
+		$('#declinations').empty();
 		// insert manif info
 		$('#product-details-card').html(detailsTemplate(product));
 
@@ -461,7 +473,7 @@ LI.kiosk = {
 				type: 'declinations:mount',
 				product: product
 			});
-		}else{
+		}else {
 			$(document).trigger({
 				type: 'prices:mount',
 				product: product,
@@ -475,7 +487,10 @@ LI.kiosk = {
 
 	 	$('#product-details-card').html(detailsTemplate(product));
 
-
+ 		$(document).trigger({
+ 			type: 'declinations:mount',
+ 			product: product
+ 		});
 	},
 	insertPrices: function(product, declination) {
 		var priceTemplate = $('#price-card-template').html();
