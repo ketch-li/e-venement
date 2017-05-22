@@ -492,7 +492,7 @@ Sample Response
 Updating a Cart Item
 --------------------
 
-To change the quantity of a cart item you will need to call the ``/api/v1/carts/{cartId}/items/{cartItemId}`` endpoint with the ``PUT`` or ``PATCH`` method.
+To change the quantity of a cart item you will need to call the ``/api/v1/carts/{cartId}/items/{cartItemId}`` endpoint with the ``POST``  method.
 
 Definition
 ^^^^^^^^^^
@@ -531,7 +531,7 @@ To change the quantity of the cart item with ``id = 57`` in the cart of ``id = 2
 
 .. tip::
 
-    If you are not sure where does the value **58** come from, check the previous response, and look for the cart item id.
+    If you are not sure where does the value **57** come from, check the previous response, and look for the cart item id.
 
 
 Sample Response
