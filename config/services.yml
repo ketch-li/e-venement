@@ -8,3 +8,7 @@ all:
   services:
     dummy:
       abstract: true
+    manifestations_service:
+      class: ManifestationsService
+
+
