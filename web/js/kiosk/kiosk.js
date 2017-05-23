@@ -129,17 +129,7 @@ LI.kiosk = {
 
 		//accessibility mode
 		$('#access-fab').click(function() {
-			if($('#app').css('marginTop') == '0px'){
-				$('#app').css({
-					'height': '50vh',
-					'margin-top': '50vh'
-				});
-			}else{
-				$('#app').css({
-					'height': '100vh',
-					'margin-top': '0'
-				});
-			}
+			$('#access-fab, #app, #back-fab, .panel, #product-details-card').toggleClass('a11y');
 		});
 
 		//info button
