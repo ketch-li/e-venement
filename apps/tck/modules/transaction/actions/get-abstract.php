@@ -374,26 +374,9 @@
         case 'museum':
         case 'manifestations':
           $subobj = 'Gauge';
-          $q = Doctrine::getTable('Manifestation')->createQuery('m',true)
-            ->leftJoin('m.PriceManifestations pm')
-            ->leftJoin('pm.Price pmp WITH pmp.hide = ?', false)
-            //->leftJoin('pmp.Translation pmpt WITH pmpt.lang = ?', $this->getUser()->getCulture())
-            ->leftJoin('m.Gauges g WITH g.onsite = TRUE OR g.id IN (SELECT tck.gauge_id FROM Ticket tck WHERE tck.transaction_id = ?)', $request->getParameter('id',0))
-            ->leftJoin('g.PriceGauges pg')
-            ->leftJoin('pg.Price pgp WITH pgp.hide = ?', false)
-            //->leftJoin('pgp.Translation pgpt WITH pgpt.lang = ?', $this->getUser()->getCulture())
-            ->leftJoin('g.Workspace w')
-            ->leftJoin('w.Order wuo ON wuo.workspace_id = w.id AND wuo.sf_guard_user_id = ?',$this->getUser()->getId())
-            //->orderBy('et.name, me.name, m.happens_at, m.duration, wuo.rank, w.name, pmpt.name, pgpt.name') // BUG 2015-05-13 3è étage: selecting translations from PriceGauges & PriceManifestations is impossible: Couldn't hydrate. Found non-unique key mapping named 'lang'.
-            ->orderBy('et.name, met.name, m.happens_at, m.duration, wuo.rank, w.name, m.id')
-            ->leftJoin('pmp.WorkspacePrices pmpwp WITH pmpwp.workspace_id = w.id')
-            ->leftJoin('pmp.UserPrices      pmpup WITH pmpup.sf_guard_user_id = ?',$this->getUser()->getId())
-            ->leftJoin('pgp.WorkspacePrices pgpwp WITH pgpwp.workspace_id = w.id')
-            ->leftJoin('pgp.UserPrices      pgpup WITH pgpup.sf_guard_user_id = ?',$this->getUser()->getId())
-            ->leftJoin('w.WorkspaceUsers wsu WITH wsu.sf_guard_user_id = ?',$this->getUser()->getId())
-            ->andWhere('wsu.sf_guard_user_id IS NOT NULL')
-            ->andWhere('m.id = ?',$id)
-          ;
+          $manifService = $this->getContext()->getContainer()->get('manifestations_service');
+          $q = $manifService->buildQuery($this->getUser()->getGuardUser(), $request->getParameter('id',0))
+            ->andWhere('m.id = ?',$id);
           
           if ( $gid = $request->getParameter('gauge_id', false) )
             $q->leftJoin('m.IsNecessaryTo n')
