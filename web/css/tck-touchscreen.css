@@ -128,7 +128,7 @@
 
 /* payments & prices */
 #li_fieldset_payments { clear: both; }
-#li_fieldset_payments #li_transaction_field_gift_coupon { position: absolute; margin-top: 110px; margin-left: 199px; border: 0; display: none; background: transparent; }
+#li_fieldset_payments #li_transaction_field_gift_coupon { position: absolute; margin-top: 145px; margin-left: 199px; border: 0; display: none; background: transparent; }
 #li_fieldset_payments #li_transaction_field_gift_coupon button { display: none; }
 #li_fieldset_payments #li_transaction_field_gift_coupon input { width: 107px; text-align: center; }
 #li_fieldset_payments #li_transaction_field_payment_new { width: 44%; height:210px; }
