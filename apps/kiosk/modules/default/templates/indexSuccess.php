@@ -216,17 +216,20 @@
 		<div id="details-content" class="mdl-card__supporting-text">
 			<div id="product-details">
 	    		<div id="details-name">{{ name }}</div>
+
 	    		<div id="details-description">{{{ description }}}</div>
-	    		<div id="details-time">
-		    		<span>
-		    			<i class="material-icons" role="presentation">access_time</i>
-		    			<span class="mdl-color-text--pink">{{ start }} - {{ end }}</span>
-		    		</span>
-		    		<span>
-		    			<i class="material-icons" role="presentation">location_on</i>
-		    			<span>{{ location }}</span>
-		    		</span>
-		    	</div>
+	    		{{#unless store}}
+		    		<div id="details-time">
+			    		<span>
+			    			<i class="material-icons" role="presentation">access_time</i>
+			    			<span class="mdl-color-text--pink">{{ start }} - {{ end }}</span>
+			    		</span>
+			    		<span>
+			    			<i class="material-icons" role="presentation">location_on</i>
+			    			<span>{{ location }}</span>
+			    		</span>
+			    	</div>
+			    {{/unless}}
 	    	</div>
 		</div>
 	</div>

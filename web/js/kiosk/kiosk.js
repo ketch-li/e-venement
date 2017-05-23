@@ -584,6 +584,7 @@ LI.kiosk = {
 
 			product.prices = {};
 			product.type = type;
+			product.store = true;
 
 			$.each(product.declinations, function(i, declination) {
 
