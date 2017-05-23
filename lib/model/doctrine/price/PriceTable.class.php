@@ -28,18 +28,20 @@ class PriceTable extends PluginPriceTable
   
   public function createQuery($alias = 'p', $override_credentials = true, $target = 'event')
   {
-    $q = parent::createQuery($alias)
-      ->andWhere("$alias.target = ?", $target);
+    $q = parent::createQuery($alias);
     
     if ( sfContext::hasInstance() && ($user = sfContext::getInstance()->getUser()) && $user->getId()
       && (!$override_credentials || !$user->isSuperAdmin() && !$user->hasCredential('event-admin-price')) )
       $q->andWhere("$alias.id IN (SELECT up.price_id FROM UserPrice up WHERE up.sf_guard_user_id = ?) OR (SELECT count(up2.price_id) FROM UserPrice up2 WHERE up2.sf_guard_user_id = ?) = 0",array($user->getId(),$user->getId()));
-    $q->leftJoin("$alias.Translation pt")
-      ->leftJoin("$alias.Ranks pr")
-      ->orderBy("pr.rank, $alias.id");
+    $q->leftJoin("$alias.Translation pt");
     
     if ( $dom = sfConfig::get('project_internals_users_domain', null) )
-      $q->andWhere('pr.domain ILIKE ? OR pr.domain = ?', array('%.'.$dom, $dom));
+      $q->leftJoin("$alias.Ranks pr WITH pr.domain ILIKE ? OR pr.domain = ?", array('%.'.$dom, $dom));
+    else
+      $q->leftJoin("$alias.Ranks pr");
+      
+    $q->andWhere("$alias.target = '$target'") // use of ? is buggy. Parameters are misplaced
+      ->orderBy("pr.rank, $alias.id");
 
     return $q;
   }

@@ -22,6 +22,10 @@ If you request a cart via API, you will receive an object with the following fie
 +-------------------+----------------------------------------------------------------------------------------------+
 | itemsTotal        | Sum of all items prices                                                                      |
 +-------------------+----------------------------------------------------------------------------------------------+
+| adjustments       | List of adjustments related to the cart                                                      |
++-------------------+----------------------------------------------------------------------------------------------+
+| adjustmentsTotal  | Sum of all cart adjustments values                                                           |
++-------------------+----------------------------------------------------------------------------------------------+
 | total             | Sum of items total and adjustments total                                                     |
 +-------------------+----------------------------------------------------------------------------------------------+
 | customer          | :doc:`The customer object serialized with the default data </api/customers>` for transaction |
@@ -49,9 +53,7 @@ Each CartItem in an API response will be build as follows:
 +-------------------+--------------------------------------------------------------------------------------------+
 | declination       | Item family declination                                                                    |
 +-------------------+--------------------------------------------------------------------------------------------+
-| totalAmount       | Total amount for this item                                                                 |
-+-------------------+--------------------------------------------------------------------------------------------+
-| unitAmount        | Price of each item unit                                                                    |
+| unitPrice         | Price of each item unit                                                                    |
 +-------------------+--------------------------------------------------------------------------------------------+
 | total             | Sum of units total and adjustments total of that cart item                                 |
 +-------------------+--------------------------------------------------------------------------------------------+
@@ -59,7 +61,7 @@ Each CartItem in an API response will be build as follows:
 +-------------------+--------------------------------------------------------------------------------------------+
 | units             | A collection of units related to the cart item                                             |
 +-------------------+--------------------------------------------------------------------------------------------+
-| unitsTotal        | Sum of all units of the cart item                                                          |
+| unitsTotal        | Sum of all unit prices of the cart item                                                          |
 +-------------------+--------------------------------------------------------------------------------------------+
 | adjustments       | List of adjustments related to the cart item                                               |
 +-------------------+--------------------------------------------------------------------------------------------+
