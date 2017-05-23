@@ -53,13 +53,13 @@
 #li_transaction_field_content .footer > .ui-widget-content > form:first-child + form { text-align: center; }
 #li_transaction_field_content .footer > .ui-widget-content > form:last-child { text-align: right; }
 #li_transaction_field_content .new-family { margin-bottom: 5px; height: 1.8em; padding: 3px; transition-duration: 1s; overflow: hidden; }
-#li_transaction_field_content .new-family.ui-state-highlight { height: 10em; transition-duration: 1s; }
+#li_transaction_field_content .new-family.ui-state-highlight { height: 13em; transition-duration: 1s; }
 #li_transaction_field_content .new-family input, #li_transaction_field_content .new-family select { vertical-align: top; }
 #li_transaction_field_content .new-family input { width: 14%; }
 #li_transaction_field_content .new-family select { height: 10em; margin-top: 0; width: 75%; max-width: 500px;}
 #li_transaction_field_content .new-family select option { font-size: 1.3em; }
 #li_transaction_field_content .new-family input[type=submit] { float: right; width: auto; }
-#li_transaction_field_content .new-family button[name=date] { bottom: 30px; position: relative; }
+#li_transaction_field_content .new-family button[name=date] { bottom: 0px; position: relative; }
 #li_transaction_field_content > #li_transaction_store .new-family button[name=date] { display: none; }
 
 #li_transaction_manifestations .footer .price { width: 45px; }
