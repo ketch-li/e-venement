@@ -29,7 +29,9 @@
 
 <?php use_stylesheet('kiosk/kiosk.css') ?>
 <?php use_stylesheet('kiosk/toastr.min.css') ?>
-
+<?php use_javascript('/js/EveConnector/web/js/socket.io.js') ?>
+<?php use_javascript('/js/EveConnector/web/js/eve-connector.js') ?>
+<?php use_javascript('/js/EveConnector/web/js/concert-protocol.js') ?>
 <?php use_javascript('jquery') ?>
 <?php use_javascript('/sfAdminThemejRollerPlugin/js/jquery-ui.custom.min.js') ?>
 <?php use_javascript('/js/kiosk/toastr.min.js') ?>

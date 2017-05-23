@@ -34,6 +34,7 @@ LI.kiosk = {
 	currentPanel: {},
 	config: {},
 	init: function() {
+		//hide current culture from menu
 		$('.culture[data-culture="' + $('#user-culture').data('culture') + '"]').hide();
 		
 		LI.kiosk.utils.showLoader();
@@ -303,6 +304,8 @@ LI.kiosk = {
 			mode: 'show',
 			duration: '300',
 			complete: function() {
+				console.log(product.name);
+				console.log($('#details-breadcrumb'));
 				$('#details-breadcrumb a')
 					.html(product.name)
 					.parent()
@@ -774,7 +777,38 @@ LI.kiosk = {
 	},
 	/************** CHECKOUT *******************************/
 	checkout: function() {
-		alert('');
+		var eveconn = new EveConnector('https://localhost:8164');
+
+		var device = {
+			type: 'serial',
+			params: {
+				baudrate: 1200,
+				comName: '/dev/ttyACM0',
+				databits: 7,
+				parity: 'even',
+				pnpId: 'usb-079b_0028-if00'
+			}
+		};
+
+		var msgOpts = {
+		    amount: '00000800',
+		    delay: 'A010',
+		    version: 'E+'
+		};
+
+		var message = new ConcertProtocolMessage(msgOpts);
+
+		var cp_device = new ConcertProtocolDevice(device, eveconn);
+
+		cp_device
+			.doTransaction(message)
+			.then(function(res){
+	        	alert(res.stat + ' ' + res.getStatusText());
+	    	})
+	    	.catch(function(err){
+	        	console.error(err);
+	    	})
+	    ;
 	},
 	/********************* UTILS *************************/
 	utils: {
