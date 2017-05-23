@@ -140,6 +140,10 @@ class OptionKioskTextsForm extends BaseOptionKioskTextsForm
         'menu_manifestation' => '',
         'menu_museum'        => '',
         'menu_store'         => '',
+        'breadcrumb_home'    => '',
+        'breadcrumb_products'=> '',
+        'cart_total'         => '',
+        'cart_validate'      => '',
 
 //         'email_confirmation'      => '
 // Voici le récapitulatif de votre commande en date du %%DATE%% :

@@ -82,10 +82,10 @@
 			<div id="breadcrumbs-wrapper" class="">
 				<ul id="breadcrumbs" class="">
 					<li id="home-breadcrumb" class="breadcrumb mdl-shadow--2dp" data-target="product-menu">
-						<a href="#">Accueil</a>
+						<a href="#"><?php echo kioskConfiguration::getText('app_texts_breadcrumb_home', 'Home') ?></a>
 					</li>
 					<li id="products-breadcrumb" class="breadcrumb mdl-shadow--2dp" data-target="products">
-						<a href="#">Liste des produits</a>
+						<a href="#"><?php echo kioskConfiguration::getText('app_texts_breadcrumb_products', 'Products') ?></a>
 					</li>
 					<li id="details-breadcrumb" class="breadcrumb mdl-shadow--2dp" data-target="product-details">
 						<a href="#"></a>
@@ -128,7 +128,7 @@
 			<ul id="cart-lines"></ul>
 			<!-- total -->
 			<div id="cart-total" class="mdl-color--blue-grey-800">
-				<span id="cart-total-label"><?php echo __('TOTAL') . ': ' ?></span>
+				<span id="cart-total-label"><?php echo kioskConfiguration::getText('app_texts_cart_total', 'Total') ?></span>
 				<span id="cart-total-value"></span>
 			</div>
 			<!-- confirm button -->
@@ -136,7 +136,7 @@
 				<button id="confirm-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-color--teal-600 waves-effect">
 					<span id="confirm-btn-wrapper">
 						<i class="material-icons light">check</i>
-						<?php echo __('Valider') ?>
+						<?php echo kioskConfiguration::getText('app_texts_cart_validate', 'Checkout') ?>
 					</span>
 				</button>
 			</div>

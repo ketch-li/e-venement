@@ -22,3 +22,15 @@ all:
     menu_store: 
       fr: 'Boutique'
       en: 'Store'
+    breadcrumb_home:
+      fr: 'Accueil'
+      en: 'Home'
+    breadcrumb_products:
+      fr: 'Liste des produits'
+      en: 'Products'
+    cart_total:
+      fr: 'Total'
+      en: 'Total'
+    cart_validate:
+      fr: 'Valider'
+      en: 'Checkout' 
