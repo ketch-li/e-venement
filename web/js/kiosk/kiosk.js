@@ -32,14 +32,16 @@ LI.kiosk = {
 	products: {},
 	urls: {},
 	currentPanel: {},
+	config: {},
 	init: function() {
-
 		$('.culture[data-culture="' + $('#user-culture').data('culture') + '"]').hide();
-
+		
 		LI.kiosk.utils.showLoader();
+		LI.kiosk.config = $('#config').data();
 		LI.kiosk.urls = $('#kiosk-urls').data();
 		LI.kiosk.initPlugins();
 		LI.kiosk.addListeners();
+
 		// retrieve data then display menu
 		$.when(
 			LI.kiosk.getCSRF(),
@@ -127,7 +129,6 @@ LI.kiosk = {
 
 		//accessibility mode
 		$('#access-fab').click(function() {
-
 			if($('#app').css('marginTop') == '0px'){
 				$('#app').css({
 					'height': '50vh',
@@ -161,17 +162,12 @@ LI.kiosk = {
 				.hide()
 			;
 
-			$('.panel:visible').effect('slide', {
-				direction: 'right',
-				mode: 'hide',
-				duration: 500,
-				complete: function() {
-					$('#' + target).effect('slide', {
-						direction: 'left',
-						mode: 'show',
-						duration: 500
-					});
-				}
+			LI.kiosk.utils.switchPanels('right', function() {
+				$('#' + target).effect('slide', {
+					direction: 'left',
+					mode: 'show',
+					duration: 500
+				});
 			});
 		});
 
@@ -250,26 +246,19 @@ LI.kiosk = {
 			});
 		}
 
-		LI.kiosk.currentPanel = $('#product-menu');
-
-		LI.kiosk.currentPanel.effect('slide', {
+		$('#product-menu').effect('slide', {
 			direction: 'left',
 			mode: 'show',
 			duration: '300'
 		});
 	},
 	menuToList: function(productType) {
-		$('#product-menu').effect('slide', {
-			direction: 'left',
-			mode: 'hide',
-			duration: '300',
-			complete: function() {
-				$(document).trigger({
-					type: 'product-list:mount',
-					productType: productType,
-					mode: 'forth'
-				});
-			}
+		LI.kiosk.utils.switchPanels('left', function() {
+			$(document).trigger({
+				type: 'product-list:mount',
+				productType: productType,
+				mode: 'forth'
+			});
 		});
 	},
 	mountProductList: function(type, mode) {
@@ -289,43 +278,27 @@ LI.kiosk = {
 
 		$('#products-breadcrumb').css('display', 'inline-block');
 
-		LI.kiosk.insertProducts(type);
+		LI.kiosk.insertProducts(type); 
 
-		LI.kiosk.currentPanel = $('#products');
-
-		LI.kiosk.currentPanel.effect('slide', {
+		$('#products').effect('slide', {
 			direction: direction, 
 			mode: 'show',
 			duration: '300'
 		});
 	},
 	listToProduct: function(product) {
-		LI.kiosk.utils.resetBackFab();
-
-		$('#products').effect('slide', {
-			direction: 'left',
-			mode: 'hide',
-			duration: '300',
-			complete: function() {
-				$(document).trigger({
-					type: 'product-details:mount',
-					product: product
-				});
-			}
+		LI.kiosk.utils.switchPanels('left', function() {
+			$(document).trigger({
+				type: 'product-details:mount',
+				product: product
+			});
 		});
 	},
 	listToMenu: function() {
-		LI.kiosk.utils.resetBackFab();
-
 		$('#products-breadcrumb').hide();
 
-		$('#products').effect('slide', {
-			direction: 'right',
-			mode: 'hide',
-			duration: '300',
-			complete: function() {
-				$(document).trigger('menu:mount');
-			}
+		LI.kiosk.utils.switchPanels('right', function() {
+			$(document).trigger('menu:mount');
 		});
 	},
 	mountProductDetails: function(product) {
@@ -335,9 +308,7 @@ LI.kiosk = {
 			LI.kiosk.insertProductDetails(product);
 		}
 
-		LI.kiosk.currentPanel = $('#details');
-
-		LI.kiosk.currentPanel.effect('slide', {
+		$('#details').effect('slide', {
 			direction: 'right',
 			mode: 'show',
 			duration: '300',
@@ -351,21 +322,14 @@ LI.kiosk = {
 		});
 	},
 	productToList: function(productType) {
-		LI.kiosk.utils.resetBackFab();
-
 		$('#details-breadcrumb').hide();
 
-		$('#details').effect('slide', {
-			direction: 'right',
-			mode: 'hide',
-			duration: '300',
-			complete: function() {
-				$(document).trigger({
-					type: 'product-list:mount',
-					mode: 'back',
-					productType: productType
-				});
-			}
+		LI.kiosk.utils.switchPanels('right', function() {
+			$(document).trigger({
+				type: 'product-list:mount',
+				mode: 'back',
+				productType: productType
+			});
 		});
 	},
 	mountDeclinations: function(product) {
@@ -405,7 +369,7 @@ LI.kiosk = {
 			$('.declination').off('click').click(function(event) {
 				var declination = product.declinations[$(event.currentTarget.children).attr('id')];
 				var price = declination.available_prices[Object.keys(declination.available_prices)[0]];
-				
+			
 				LI.kiosk.cart.addItem(product, price, declination);
 			});
 		}
@@ -446,8 +410,6 @@ LI.kiosk = {
 		$('#prices').css('display', 'flex');
 	},
 	pricesToProducts: function(productType, mode) {
-		LI.kiosk.utils.resetBackFab();
-
 		$('#details-breadcrumb').hide();
 
 		$('#prices').effect('slide', {
@@ -541,8 +503,6 @@ LI.kiosk = {
 	},
 	addPriceListener: function(product, declination) {
 		$('#prices').off('click').on('click', '.price', function(event) {
-			var id = $(event.currentTarget).attr('id');
-
 			LI.kiosk.cart.addItem(product, product.prices[$(event.currentTarget.children).attr('id')], declination);
 		});
 	},
@@ -570,8 +530,13 @@ LI.kiosk = {
 				gauge.color = color;
 
 			$.each(gauge.available_prices, function(key, price){
-				if( price.color == undefined || price.color == '0')
+				if( price.color == undefined || price.color == '0') {
 					price.color = color;
+				}
+
+				if(LI.kiosk.config.uiLabels.price !== undefined) {
+					price.name = price[LI.kiosk.config.uiLabels.price]
+				}
 
 				product.prices[price.id] = price;
 			});
@@ -628,8 +593,13 @@ LI.kiosk = {
 					declination.color = color;
 
 				$.each(declination.available_prices, function(key, price) {
-					if( price.color == undefined )
+					if( price.color == undefined || price.color == '0') {
 						price.color = color;
+					}
+
+					if(LI.kiosk.config.uiLabels.price !== undefined) {
+						price.name = price[LI.kiosk.config.uiLabels.price]
+					}
 
 					product.prices[price.id] = price;
 				});
@@ -850,6 +820,16 @@ LI.kiosk = {
 		},
 		resetBackFab: function() {
 			$('#back-fab').off('click').hide();
+		},
+		switchPanels: function(direction, callback) {
+			LI.kiosk.utils.resetBackFab();
+
+			$('.panel:visible').effect('slide', {
+				'direction': direction,
+				mode: 'hide',
+				duration: 500,
+				complete: callback
+			});
 		}
 	}
 }

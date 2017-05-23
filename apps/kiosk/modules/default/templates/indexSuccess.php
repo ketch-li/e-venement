@@ -81,13 +81,13 @@
 			<!-- breadcrumbs -->
 			<div id="breadcrumbs-wrapper" class="">
 				<ul id="breadcrumbs" class="">
-					<li id="home-breadcrumb" class="breadcrumb mdl-shadow--2dp">
+					<li id="home-breadcrumb" class="breadcrumb mdl-shadow--2dp" data-target="product-menu">
 						<a href="#">Accueil</a>
 					</li>
-					<li id="products-breadcrumb" class="breadcrumb mdl-shadow--2dp">
+					<li id="products-breadcrumb" class="breadcrumb mdl-shadow--2dp" data-target="products">
 						<a href="#">Liste des produits</a>
 					</li>
-					<li id="details-breadcrumb" class="breadcrumb mdl-shadow--2dp">
+					<li id="details-breadcrumb" class="breadcrumb mdl-shadow--2dp" data-target="product-details">
 						<a href="#"></a>
 					</li>
 				</ul>
@@ -108,15 +108,15 @@
 	  			<button class="mdl-snackbar__action" type="button"></button>
 			</div>
 			<!-- menu panel -->
-			<div id="product-menu">
+			<div id="product-menu" class="panel">
 				<ul id="product-menu-items" class="flex-list"></ul>
 			</div>
 			<!-- product list -->
-			<div id="products">
+			<div id="products" class="panel">
 				<ul id="product-list" class="flex-list"></ul>
 			</div>
 			<!-- product details panel -->
-			<div id="details">
+			<div id="details" class="panel">
 				<div id="product-details-card" class="mdl-card mdl-shadow--2dp"></div>
 				<ul id="declinations" class="flex-list"></ul>
 				<ul id="prices" class="flex-list"></ul>
@@ -154,6 +154,9 @@
   data-get-museum="<?php echo cross_app_url_for('tck', 'transaction/getPeriods?simplified=1') ?>"
 ></div>
 <div class="js-data" id="user-culture" data-culture="<?php echo sfContext::getInstance()->getUser()->getCulture(); ?>"></div>
+<div class="js-data" id="config" 
+  data-ui-labels="<?php echo htmlspecialchars(json_encode(sfConfig::get('app_ui_labels'))) ?>"
+ ></div>
 
 <!-- JS I18N -->
 <div class="js-i18n" data-source="manifestations" data-target="<?php echo kioskConfiguration::getText('app_texts_menu_manifestation', 'Manifestations') ?>"></div>
@@ -161,7 +164,6 @@
 <div class="js-i18n" data-source="store" data-target="<?php echo kioskConfiguration::getText('app_texts_menu_store', 'Store') ?>"></div>
 
 <!-- HANDLEBARS TEMPLATES -->
-
 	<!-- menu item -->
 <script id="menu-item-template" type="text/x-handlebars-template" data-template-type="menuItem">
 	<li class="menu-item" data-type="{{ type }}">
@@ -268,9 +270,9 @@
 				<span class="line-qty">{{ qty }}</span>
 				<span class="line-multiplier"> x </span>
 				<span class="line-name">{{ name }}</span>
-			<p>
+			</p>
 			<p class="line-second">
-				<span class="line-price">{{ price.name }} ({{ value }})</span>
+				<span class="line-price">{{ price.description }} ({{ value }})</span>
 			</p>
 		</div>
 		<div class="line-value">
