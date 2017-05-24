@@ -58,4 +58,11 @@ class defaultActions extends sfActions
     $this->redirect($request->getReferer());
   }
 
+  public function executeGetCountries(sfWebRequest $request)
+  {
+    $countryService = sfContext::getInstance()->getContainer()->get('app_country_service');
+
+    $this->countries = $countryService->getAllCountries($request->getParameter('culture'));
+  }
+
 }
