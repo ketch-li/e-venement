@@ -129,7 +129,7 @@ class GroupForm extends BaseGroupForm
     
     // pictures & co
     $this->embedRelation('Picture');
-    foreach ( array('name', 'type', 'version', 'height', 'width',) as $fieldName )
+    foreach ( array('name', 'type', 'version', 'height', 'width', 'events_list', 'manifestations_list') as $fieldName )
       unset($this->widgetSchema['Picture'][$fieldName], $this->validatorSchema['Picture'][$fieldName]);
     $this->validatorSchema['Picture']['content_file']->setOption('required',false);
     unset($this->widgetSchema['picture_id'], $this->validatorSchema['picture_id']);

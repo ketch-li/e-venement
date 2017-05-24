@@ -23,7 +23,7 @@ class MetaEventForm extends BaseMetaEventForm
       $q->andWhere('u.is_active = ?', true);
     
     $this->embedRelation('Picture');
-    foreach ( array('name', 'type', 'version', 'height', 'width', 'content_encoding') as $fieldName )
+    foreach ( array('name', 'type', 'version', 'height', 'width', 'content_encoding', 'events_list', 'manifestations_list') as $fieldName )
       unset($this->widgetSchema['Picture'][$fieldName], $this->validatorSchema['Picture'][$fieldName]);
     $this->validatorSchema['Picture']['content_file']->setOption('required',false);
     unset($this->widgetSchema['picture_id'], $this->validatorSchema['picture_id']);

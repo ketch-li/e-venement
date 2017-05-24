@@ -68,7 +68,7 @@ class SeatedPlanForm extends BaseSeatedPlanForm
     foreach ( array('picture_id' => 'Picture', 'online_picture_id' => 'OnlinePicture') as $field => $rel )
     {
       $this->embedRelation($rel);
-      foreach ( array('name', 'type', 'version', 'height', 'width', 'content_encoding') as $fieldName )
+      foreach ( array('name', 'type', 'version', 'height', 'width', 'content_encoding', 'events_list', 'manifestations_list') as $fieldName )
         unset($this->widgetSchema[$rel][$fieldName], $this->validatorSchema[$rel][$fieldName]);
       $this->validatorSchema[$rel]['content_file']->setOption('required',false);
       unset($this->widgetSchema[$field], $this->validatorSchema[$field]);

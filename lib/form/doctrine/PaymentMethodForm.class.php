@@ -16,7 +16,7 @@ class PaymentMethodForm extends BasePaymentMethodForm
     foreach ( array('picture_id' => 'Picture') as $field => $rel )
     {
       $this->embedRelation($rel);
-      foreach ( array('name', 'type', 'version', 'height', 'width', 'content_encoding') as $fieldName )
+      foreach ( array('name', 'type', 'version', 'height', 'width', 'content_encoding', 'manifestations_list', 'events_list') as $fieldName )
         unset($this->widgetSchema[$rel][$fieldName], $this->validatorSchema[$rel][$fieldName]);
       $this->validatorSchema[$rel]['content_file']->setOption('required',false);
       unset($this->widgetSchema[$field], $this->validatorSchema[$field]);
