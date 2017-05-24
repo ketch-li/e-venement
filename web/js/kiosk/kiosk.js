@@ -304,8 +304,6 @@ LI.kiosk = {
 			mode: 'show',
 			duration: '300',
 			complete: function() {
-				console.log(product.name);
-				console.log($('#details-breadcrumb'));
 				$('#details-breadcrumb a')
 					.html(product.name)
 					.parent()
@@ -622,6 +620,7 @@ LI.kiosk = {
 	},
 	/******************** CART ****************************/
 	cart: {
+		total: 0,
 		lines: {},
 		insertLine: function(line, item, price, declination) {
 			var lineTemplate = Handlebars.compile(LI.kiosk.templates.cartLine);
@@ -643,13 +642,13 @@ LI.kiosk = {
 			line.total = LI.format_currency(line.price.raw_value * line.qty, false);
 		},
 		cartTotal: function() {
-			var total = 0;
+			LI.kiosk.cart.total = 0;
 
 			$.each(LI.kiosk.cart.lines, function(key, line) {
-				total += parseFloat(line.total);
+				LI.kiosk.cart.total += line.price.raw_value * line.qty;
 			});
 
-			$('#cart-total-value').text(LI.format_currency(total, false));
+			$('#cart-total-value').text(LI.format_currency(LI.kiosk.cart.total, false));
 		},
 		addItem: function(item, price, declination) {
 			var newLine;
@@ -777,7 +776,7 @@ LI.kiosk = {
 	},
 	/************** CHECKOUT *******************************/
 	checkout: function() {
-		var eveconn = new EveConnector('https://localhost:8164');
+		var connector = new EveConnector('https://localhost:8164');
 
 		var device = {
 			type: 'serial',
@@ -790,17 +789,17 @@ LI.kiosk = {
 			}
 		};
 
-		var msgOpts = {
-		    amount: '00000800',
+		var options = {
+		    amount: LI.kiosk.cart.total * 100,
 		    delay: 'A010',
 		    version: 'E+'
 		};
 
-		var message = new ConcertProtocolMessage(msgOpts);
+		var message = new ConcertProtocolMessage(options);
 
-		var cp_device = new ConcertProtocolDevice(device, eveconn);
+		var device = new ConcertProtocolDevice(device, connector);
 
-		cp_device
+		device
 			.doTransaction(message)
 			.then(function(res){
 	        	alert(res.stat + ' ' + res.getStatusText());
