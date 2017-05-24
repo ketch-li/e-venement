@@ -234,6 +234,11 @@ Event:
       foreignType: one
       onDelete: SET NULL
       onUpdate: CASCADE
+    Files:
+      class: Picture
+      refClass: EventPicture
+      foreignAlias: Events
+
 EventCompany:
   package: event
   columns:
@@ -429,6 +434,12 @@ Manifestation:
       foreignAlias: InvolvedIn
       onDelete: SET NULL
       onUpdate: CASCADE
+    Files:
+      class: Picture
+      refClass: ManifestationPicture
+      foreignAlias: Manifestations
+      onDelete: SET NULL
+      onUpdate: CASCADE
 ManifestationContact:
   package: event
   columns:
@@ -438,6 +449,51 @@ ManifestationContact:
     manifestation_id:
       type: integer
       notnull: true
+ManifestationPicture:
+  package: event
+  columns:
+    manifestation_id: 
+      type: integer
+      notnull: true
+    picture_id:
+      type: integer
+      notnull: true
+  relations:
+    Manifestation:
+      foreignAlias: ManifestationPictures
+      local: manifestation_id
+      foreign: id
+      onDelete: CASCADE
+      onUpdate: CASCADE
+    Picture:
+      foreignAlias: ManifestationPictures
+      local: picture_id
+      foreign: id
+      onDelete: CASCADE
+      onUpdate: CASCADE
+EventPicture:
+  package: event
+  columns:
+    event_id: 
+      type: integer
+      notnull: true
+    picture_id:
+      type: integer
+      notnull: true
+  relations:
+    Event:
+      foreignAlias: EventPictures
+      local: event_id
+      foreign: id
+      onDelete: CASCADE
+      onUpdate: CASCADE
+    Picture:
+      foreignAlias: EventPictures
+      local: picture_id
+      foreign: id
+      onDelete: CASCADE
+      onUpdate: CASCADE
+
 
 LocationBooking:
   package: event

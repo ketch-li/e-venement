@@ -61,10 +61,6 @@ Definition
 +---------------+----------------+--------------------------------------------------------------------------------------------------+
 | grant_type    | query          | We will use 'password' to authorize as user. Other available options are token and refresh-token |
 +---------------+----------------+--------------------------------------------------------------------------------------------------+
-| username      | query          | User name                                                                                        |
-+---------------+----------------+--------------------------------------------------------------------------------------------------+
-| password      | query          | User password                                                                                    |
-+---------------+----------------+--------------------------------------------------------------------------------------------------+
 
 .. note::
 
@@ -78,13 +74,11 @@ Example
     curl http://e-venement.local/api/oauth/v2/token \
         -d "client_id"=demo_client \
         -d "client_secret"=secret_demo_client \
-        -d "grant_type"=password \
-        -d "username"=vel \
-        -d "password"=eve-vel
+        -d "grant_type"=password
 
 .. tip::
 
-    You have to use your user data (``username`` and ``password``)and replace client id and client secret with data generated in a previous step.
+    Replace client data (``client_id`` and ``client_secret``) with data generated in the previous step (``e-venement:create-api-client``).
 
 Sample Response
 ''''''''''''''''''
@@ -98,6 +92,8 @@ Sample Response
         "scope": null,
         "refresh_token": "cDk2ZmIwODBkYmE3YjNjZWQ4ZTk2NTk2N2JmNjkyZDQ4NzA3YzhiZDQzMjJjODI5MmQ4ZmYxZjlkZmU1ZDNkMQ"
     }
+
+On failure, a HTTP UNAUTHORIZED empty response is sent (401).
 
 Request for a resource
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -115,7 +111,7 @@ Example
 
 .. code-block:: bash
 
-    curl http://e-venement.local/api/v2/users/
+    curl http://e-venement.local/api/v2/users
         -H "Authorization: Bearer NzFiYTM4ZTEwMjcwZTcyZWIzZTA0NmY3NjE3MTIyMjM1Y2NlMmNlNWEyMTAzY2UzYmY0YWIxYmUzNTkyMDcyNQ"
 
 .. note::

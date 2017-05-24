@@ -306,7 +306,7 @@
       }
       
       $transaction->Order[] = new Order;
-      $this->createPaymentsDoneByMemberCards();
+      //$this->createPaymentsDoneByMemberCards();
       $transaction->save();
       
       $this->sendConfirmationEmails($transaction, $this);

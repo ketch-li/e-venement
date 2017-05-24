@@ -13,25 +13,29 @@ Cart API response structure
 
 If you request a cart via API, you will receive an object with the following fields:
 
-+-------------------+---------------------------------------------------------------------------------------+
-| Field             | Description                                                                           |
-+===================+=======================================================================================+
-| id                | Id of the transaction                                                                 |
-+-------------------+---------------------------------------------------------------------------------------+
-| items             | List of items in the cart                                                             |
-+-------------------+---------------------------------------------------------------------------------------+
-| itemsTotal        | Sum of all items prices                                                               |
-+-------------------+---------------------------------------------------------------------------------------+
-| total             | Sum of items total and adjustments total                                              |
-+-------------------+---------------------------------------------------------------------------------------+
++-------------------+----------------------------------------------------------------------------------------------+
+| Field             | Description                                                                                  |
++===================+==============================================================================================+
+| id                | Id of the transaction                                                                        |
++-------------------+----------------------------------------------------------------------------------------------+
+| items             | List of items in the cart                                                                    |
++-------------------+----------------------------------------------------------------------------------------------+
+| itemsTotal        | Sum of all items prices                                                                      |
++-------------------+----------------------------------------------------------------------------------------------+
+| adjustments       | List of adjustments related to the cart                                                      |
++-------------------+----------------------------------------------------------------------------------------------+
+| adjustmentsTotal  | Sum of all cart adjustments values                                                           |
++-------------------+----------------------------------------------------------------------------------------------+
+| total             | Sum of items total and adjustments total                                                     |
++-------------------+----------------------------------------------------------------------------------------------+
 | customer          | :doc:`The customer object serialized with the default data </api/customers>` for transaction |
-+-------------------+---------------------------------------------------------------------------------------+
-| currencyCode      | Currency of the cart                                                                  |
-+-------------------+---------------------------------------------------------------------------------------+
-| localeCode        | Locale of the cart (by default, the locale set in the API)                            |
-+-------------------+---------------------------------------------------------------------------------------+
-| checkoutState     | State of the checkout process of the cart (cart -> new -> fulfilled or cancelled      |
-+-------------------+---------------------------------------------------------------------------------------+
++-------------------+----------------------------------------------------------------------------------------------+
+| currencyCode      | Currency of the cart                                                                         |
++-------------------+----------------------------------------------------------------------------------------------+
+| localeCode        | Locale of the cart (by default, the locale set in the API)                                   |
++-------------------+----------------------------------------------------------------------------------------------+
+| checkoutState     | State of the checkout process of the cart (cart -> new -> fulfilled or cancelled             |
++-------------------+----------------------------------------------------------------------------------------------+
 
 CartItem API response structure
 -------------------------------
@@ -49,9 +53,7 @@ Each CartItem in an API response will be build as follows:
 +-------------------+--------------------------------------------------------------------------------------------+
 | declination       | Item family declination                                                                    |
 +-------------------+--------------------------------------------------------------------------------------------+
-| totalAmount       | Total amount for this item                                                                 |
-+-------------------+--------------------------------------------------------------------------------------------+
-| unitAmount        | Price of each item unit                                                                    |
+| unitPrice         | Price of each item unit                                                                    |
 +-------------------+--------------------------------------------------------------------------------------------+
 | total             | Sum of units total and adjustments total of that cart item                                 |
 +-------------------+--------------------------------------------------------------------------------------------+
@@ -59,7 +61,7 @@ Each CartItem in an API response will be build as follows:
 +-------------------+--------------------------------------------------------------------------------------------+
 | units             | A collection of units related to the cart item                                             |
 +-------------------+--------------------------------------------------------------------------------------------+
-| unitsTotal        | Sum of all units of the cart item                                                          |
+| unitsTotal        | Sum of all unit prices of the cart item                                                          |
 +-------------------+--------------------------------------------------------------------------------------------+
 | adjustments       | List of adjustments related to the cart item                                               |
 +-------------------+--------------------------------------------------------------------------------------------+
@@ -119,7 +121,7 @@ Definition
 
 .. code-block:: text
 
-    POST /api/v2/transaction/
+    POST /api/v2/transaction
 
 +---------------+----------------+----------------------------------------------------------+
 | Parameter     | Parameter type | Description                                              |
@@ -136,7 +138,7 @@ To create a new cart for the ``shop@example.com`` user with the ``en_US`` locale
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/cart/ \
+    $ curl http://e-venement.local/api/v2/carts \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST \
@@ -168,7 +170,7 @@ Sample Response
         "total":0,
         "customer":{},
         "_links":{},
-        "currencyCode":"EUR",
+        "currencyCode":"978",
         "localeCode":"en_US",
         "checkoutState":"cart"
     }
@@ -186,7 +188,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v1/carts/ \
+    $ curl http://e-venement.local/api/v1/carts \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST
@@ -224,7 +226,7 @@ Definition
 
 .. code-block:: text
 
-    GET /api/v2/carts/
+    GET /api/v2/carts
 
 +---------------+----------------+------------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                      |
@@ -243,7 +245,7 @@ To see the first page of the paginated carts collection use the below method:
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/carts/ \
+    $ curl http://e-venement.local/api/v2/carts \
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
 
@@ -296,7 +298,7 @@ Sample Response
                             }
                         }
                     },
-                    "currencyCode":"EUR",
+                    "currencyCode":"978",
                     "localeCode":"en_US",
                     "checkoutState":"cart"
                 }
@@ -371,7 +373,7 @@ Sample Response
                 }
             }
         },
-        "currencyCode":"EUR",
+        "currencyCode":"978",
         "localeCode":"en_US",
         "checkoutState":"cart"
     }
@@ -391,7 +393,7 @@ Definition
 
 .. code-block:: text
 
-    POST /api/v2/carts/{cartId}/items/
+    POST /api/v2/carts/{cartId}/items
 
 +---------------+----------------+----------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                    |
@@ -419,7 +421,7 @@ previous example) use the below method:
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/carts/21/items/ \
+    $ curl http://e-venement.local/api/v2/carts/21/items \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST \
@@ -492,14 +494,14 @@ Sample Response
 Updating a Cart Item
 --------------------
 
-To change the quantity of a cart item you will need to call the ``/api/v1/carts/{cartId}/items/{cartItemId}`` endpoint with the ``PUT`` or ``PATCH`` method.
+To change the quantity of a cart item you will need to call the ``/api/v1/carts/{cartId}/items/{cartItemId}`` endpoint with the ``POST``  method.
 
 Definition
 ^^^^^^^^^^
 
 .. code-block:: text
 
-    PUT /api/v1/carts/{cartId}/items/{cartItemId}
+    POST /api/v1/carts/{cartId}/items/{cartItemId}
 
 +---------------+----------------+--------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                  |
@@ -526,12 +528,12 @@ To change the quantity of the cart item with ``id = 57`` in the cart of ``id = 2
     $ curl http://e-venement.local/api/v2/carts/21/items/57 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X PUT \
+        -X POST \
         --data '{"quantity": 3}'
 
 .. tip::
 
-    If you are not sure where does the value **58** come from, check the previous response, and look for the cart item id.
+    If you are not sure where does the value **57** come from, check the previous response, and look for the cart item id.
 
 
 Sample Response

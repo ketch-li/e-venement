@@ -1,0 +1,10 @@
+<?php
+// this file template file can be ignored if nothing to do is required
+
+return [
+
+  // add extra plugins that need to be loaded in the first pass here, one by line
+  //'liOnlineChoicesPlugin',
+
+
+];

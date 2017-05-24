@@ -41,7 +41,8 @@ class pubConfiguration extends sfApplicationConfiguration
     $this->dispatcher->connect('pub.transaction_respawning', array($this, 'recordWebOrigin'));
     //$this->dispatcher->connect('pub.transaction_respawning', array($this, 'autoAddOneTicketForAManifestation'));
     $this->dispatcher->connect('pub.transaction_before_ordering', array($this, 'autoAddOneTicketForAManifestation'));
-    $this->dispatcher->connect('pub.transaction_show', array($this, 'autoAddOneTicketForAManifestation'));
+    //$this->dispatcher->connect('pub.transaction_show', array($this, 'autoAddOneTicketForAManifestation'));
+    $this->dispatcher->connect('pub.cart_show', array($this, 'autoAddOneTicketForAManifestation'));
   }
   public function initialize()
   {

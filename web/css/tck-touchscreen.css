@@ -10,11 +10,14 @@
 #sf_admin_content .li_table > * > * > *:not(:last-child) { padding-right: 10px; }
 
 /* specific */
-#li_transaction_field_more, #li_transaction_field_postalcode, #li_transaction_field_contact_id, #li_transaction_field_professional_id { width: 20.5em; white-space: nowrap; position: relative; }
-#sf_admin_content .li_fieldset #li_transaction_field_postalcode, #sf_admin_content .li_fieldset #li_transaction_field_professional_id { top: -1em; margin-left: calc(-21.5em - 8px); border-top: 0; border-bottom: 0; border-top-right-radius: 0; border-top-left-radius: 0; height: 2.5em; text-align: center; padding-top: 0; }
-#sf_admin_content .li_fieldset #li_transaction_field_postalcode { text-align: left; }
+#li_transaction_field_more, #li_transaction_field_postalcode, #li_transaction_field_country, #li_transaction_field_contact_id, #li_transaction_field_professional_id { width: 20.5em; white-space: nowrap; position: relative; }
+#sf_admin_content .li_fieldset #li_transaction_field_postalcode, #sf_admin_content .li_fieldset #li_transaction_field_country, #sf_admin_content .li_fieldset #li_transaction_field_professional_id { margin-left: calc(-21.5em - 8px); border-top: 0; border-bottom: 0; border-top-right-radius: 0; border-top-left-radius: 0; height: 2.5em; text-align: center; padding-top: 0; }
+#sf_admin_content .li_fieldset #li_transaction_field_postalcode { top: -3.7em; text-align: left; }
 #sf_admin_content .li_fieldset #li_transaction_field_postalcode input { text-align: center; }
-#sf_admin_content .li_fieldset #li_transaction_field_contact_id { top: -3.8em; border-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; padding-bottom: 0; }
+#sf_admin_content .li_fieldset #li_transaction_field_country { top: -1.5em; text-align: left; }
+#sf_admin_content .li_fieldset #li_transaction_field_country select { width: 16em; }
+#sf_admin_content .li_fieldset #li_transaction_field_professional_id { top: -4em; }
+#sf_admin_content .li_fieldset #li_transaction_field_contact_id { top: -0.6em; height:8em; border-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; padding-bottom: 0; }
 .inner-edition { position: absolute; top: 51px; right: 20px; width: 810px; bottom: 20px; }
 .inner-edition iframe { width: 100%; height: 100%; }
 #sf_admin_content .li_fieldset #li_transaction_field_more { top: 0.4em; margin-left: calc(-21.5em - 8px); border-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
@@ -23,12 +26,12 @@
 #li_transaction_field_professional_id select { max-width: 230px; }
 #sf_admin_content .li_fieldset #li_transaction_field_more #transaction_deposit, #sf_admin_content .li_fieldset #li_transaction_field_more label[for=transaction_deposit] { display: none; }
 
-#li_transaction_field_description textarea { height: 3.3em; width: 18.5em; }
+#li_transaction_field_description textarea { height: 6.3em; width: 18.5em; }
 #li_transaction_field_professional_id label, #li_transaction_field_description label { display: none; }
 #li_transaction_field_new_transaction { width: 8.65em; text-align: center; }
 #li_transaction_field_new_transaction a { display: block; width: 1.5em; height: 3em; margin-bottom: -0.7em; }
 
-#sf_admin_content #li_transaction_field_informations { max-width: 19em; height: 5em; overflow-y: auto; white-space: nowrap; }
+#sf_admin_content #li_transaction_field_informations { max-width: 19em; height: 8em; overflow-y: auto; white-space: nowrap; }
 #sf_admin_content #li_transaction_field_informations .form_field_id { font-weight: bold; }
 #sf_admin_content #li_transaction_field_informations .form_field_id .cancellation { font-weight: normal; margin-left: 20px; }
 #sf_admin_content #li_transaction_field_informations .vcard { display: block; margin-bottom: 20px; }
@@ -53,13 +56,13 @@
 #li_transaction_field_content .footer > .ui-widget-content > form:first-child + form { text-align: center; }
 #li_transaction_field_content .footer > .ui-widget-content > form:last-child { text-align: right; }
 #li_transaction_field_content .new-family { margin-bottom: 5px; height: 1.8em; padding: 3px; transition-duration: 1s; overflow: hidden; }
-#li_transaction_field_content .new-family.ui-state-highlight { height: 10em; transition-duration: 1s; }
+#li_transaction_field_content .new-family.ui-state-highlight { height: 13em; transition-duration: 1s; }
 #li_transaction_field_content .new-family input, #li_transaction_field_content .new-family select { vertical-align: top; }
 #li_transaction_field_content .new-family input { width: 14%; }
 #li_transaction_field_content .new-family select { height: 10em; margin-top: 0; width: 70%; max-width: 500px;}
 #li_transaction_field_content .new-family select option { font-size: 1.3em; }
 #li_transaction_field_content .new-family input[type=submit] { float: right; width: auto; }
-#li_transaction_field_content .new-family button[name=date] { bottom: 30px; position: relative; }
+#li_transaction_field_content .new-family button[name=date] { bottom: 0px; position: relative; }
 #li_transaction_field_content > #li_transaction_store .new-family button[name=date] { display: none; }
 
 #li_transaction_manifestations .footer .price { width: 45px; }
@@ -128,12 +131,12 @@
 
 /* payments & prices */
 #li_fieldset_payments { clear: both; }
-#li_fieldset_payments #li_transaction_field_gift_coupon { position: absolute; margin-top: 110px; margin-left: 199px; border: 0; display: none; background: transparent; }
+#li_fieldset_payments #li_transaction_field_gift_coupon { position: absolute; margin-top: 145px; margin-left: 199px; border: 0; display: none; background: transparent; }
 #li_fieldset_payments #li_transaction_field_gift_coupon button { display: none; }
 #li_fieldset_payments #li_transaction_field_gift_coupon input { width: 107px; text-align: center; }
 #li_fieldset_payments #li_transaction_field_payment_new { width: 44%; height:210px; }
 #li_fieldset_payments #li_transaction_field_payments_list { width: 50.5%; overflow-y: scroll; height: 120px; }
-#sf_admin_content #li_transaction_field_price_new { position: absolute; display: none; z-index: 1; overflow-y: auto; right: 11px; top: 320px; width: 35%; height: 170px; background: url("images/ui-bg_flat_55_fbec88_40x100.png") repeat-x scroll 50% 50% #FBEC88; }
+#sf_admin_content #li_transaction_field_price_new { position: absolute; display: none; z-index: 1; overflow-y: auto; right: 11px; top: 359px; width: 35%; height: 170px; background: url("images/ui-bg_flat_55_fbec88_40x100.png") repeat-x scroll 50% 50% #FBEC88; }
 #sf_admin_content #li_transaction_field_price_new button {vertical-align: top; width: 83px; text-overflow: ellipsis; }
 #li_transaction_field_price_new, #li_transaction_field_payment_new { width: 440px; }
 #li_transaction_field_price_new .ui-icon-left { font-size: 0; }

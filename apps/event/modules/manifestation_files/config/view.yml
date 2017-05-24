@@ -1,0 +1,8 @@
+addSuccess:
+  has_layout: false
+  http_metas:
+    content-type: application/json
+delSuccess:
+  has_layout: false
+  http_metas:
+    content-type: application/json

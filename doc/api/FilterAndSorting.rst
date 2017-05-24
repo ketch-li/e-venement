@@ -22,7 +22,7 @@ Definition
 +---------------+----------------+-------------------------------------------------------------------+
 | nameOfField   | query          | *(required)* Name of field by which the resource will be sorted   |
 +---------------+----------------+-------------------------------------------------------------------+
-| direction     | query          | *(required)* Define a direction of ordering                       |
+| direction     | query          | *(required)* Define a direction of ordering  (desc|asc)           |
 +---------------+----------------+-------------------------------------------------------------------+
 | limit         | query          | *(optional)* Number of items to display per page, by default = 10 |
 +---------------+----------------+-------------------------------------------------------------------+
@@ -91,14 +91,16 @@ Sample Response
                                 }
                             },
                             "prices": [
-                                "id":4,
-                                "translations: {
-                                    "en_US": {
-                                        "name":"Normal"
-                                    }
-                                },
-                                "value":12,
-                                "currencyCode":"EUR",
+                                {
+                                    "id":4,
+                                    "translations": {
+                                        "en_US": {
+                                            "name":"Normal"
+                                        }
+                                    },
+                                    "value":12,
+                                    "currencyCode":"978"
+                                }
                             ]
                         }
                     ],
@@ -131,13 +133,13 @@ Sample Response
                             "prices": [
                                 {
                                     "id":4,
-                                    "translations: {
+                                    "translations": {
                                         "en_US": {
                                             "name":"Normal"
                                         }
                                     },
                                     "value":12,
-                                    "currencyCode":"EUR",
+                                    "currencyCode":"978",
                                 }
                             ]
                         }
@@ -187,6 +189,10 @@ Search options
 - not empty
 - in
 - not in
+- greater
+- greater or equal
+- lesser
+- lesser or equal
 
 Example
 ^^^^^^^
@@ -255,13 +261,13 @@ Sample Response
                             "prices": [
                                 {
                                     "id":4,
-                                    "translations: {
+                                    "translations": {
                                         "en_US": {
                                             "name":"Normal"
                                         }
                                     },
                                     "value":12,
-                                    "currencyCode":"EUR",
+                                    "currencyCode":"978",
                                 }
                             ]
                         }

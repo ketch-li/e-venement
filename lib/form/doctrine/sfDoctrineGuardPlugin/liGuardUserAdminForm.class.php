@@ -69,6 +69,7 @@ class liGuardUserAdminForm extends sfGuardUserAdminForm
       $this->widgetSchema['prices_list']->setOption('query',
         Doctrine::getTable('Price')->createQuery('p')
           ->andWhere('pt.lang = ?', $user->getCulture())
+          ->orderBy('pt.name')
       );
     }
     $this->widgetSchema['groups_list']

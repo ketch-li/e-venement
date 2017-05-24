@@ -2270,6 +2270,42 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>Price color List</source>
         <target>Liste des couleurs des tarifs</target>
       </trans-unit>
+      <trans-unit id="567">
+        <source>Manifestation files</source>
+        <target>Fichiers de la manifestation</target>
+      </trans-unit>
+      <trans-unit id="568">
+        <source>Add a file</source>
+        <target>Ajouter un fichier</target>
+      </trans-unit>
+      <trans-unit id="569">
+        <source>Delete file</source>
+        <target>Supprimer le fichier</target>
+      </trans-unit>
+      <trans-unit id="570">
+        <source>Delete</source>
+        <target>Supprimer</target>
+      </trans-unit>
+      <trans-unit id="571">
+        <source>Maximum size: 2MB</source>
+        <target>Taille maximale : 2Mo</target>
+      </trans-unit>
+      <trans-unit id="572">
+        <source>Event files</source>
+        <target>Fichiers de l'évènement</target>
+      </trans-unit>
+      <trans-unit id="573">
+        <source>Files</source>
+        <target>Fichiers</target>
+      </trans-unit>
+      <trans-unit id="574">
+        <source>Edit Color "%%name%%" for prices</source>
+        <target>Modification de la couleur "%%name%%" pour les tarifs</target>
+      </trans-unit>
+      <trans-unit id="575">
+        <source>New Price color</source>
+        <target>Nouvelle couleur pour les tarifs</target>
+      </trans-unit>                       
     </body>
   </file>
 </xliff>

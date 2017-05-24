@@ -428,8 +428,8 @@ class geoActions extends sfActions
       $contacts = array();
       foreach ( $this->buildQuery()
         ->select('t.id, c.id AS contact_id')
-        ->addSelect('(CASE WHEN pro.id IS NOT NULL THEN o.country ELSE c.country END) AS country')
-        ->addSelect('count(DISTINCT tck.id) AS qty')
+        ->addSelect('(CASE WHEN pro.id IS NOT NULL THEN o.country WHEN c.id IS NOT NULL THEN c.country ELSE t.country END) AS country')
+        ->addSelect('count(DISTINCT t.country) AS qty')
         ->addSelect('sum(tck.value) AS sum')
         ->groupBy('t.id, c.id, c.country, pro.id, o.country')
         ->fetchArray() as $pc )

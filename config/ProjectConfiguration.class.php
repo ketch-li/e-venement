@@ -34,6 +34,7 @@ class ProjectConfiguration extends sfProjectConfiguration implements liGarbageCo
   public $overload_config_file;
 
   protected $routings = array();
+  protected $extraMenus = array();
   
   public function setup()
   {
@@ -57,7 +58,12 @@ class ProjectConfiguration extends sfProjectConfiguration implements liGarbageCo
     for ( $i = 0 ; $i < 80 ; $i++ )
       $this->yob[date('Y')-$i] = date('Y') - $i;
     
-    $this->enablePlugins(array(
+    // trick to add plugins from an outside-of-the-versioned-project file
+    $extraPlugins = is_readable(__DIR__.'/extra-plugins.php') ? require(__DIR__.'/extra-plugins.php') : array();
+    if ( !is_array($extraPlugins) )
+      $extraPlugins = array();
+    
+    $this->enablePlugins(array_merge(array(
       'sfDoctrineMasterSlavePlugin',
       'sfDoctrinePlugin',
       'sfFormExtraPlugin',
@@ -70,7 +76,7 @@ class ProjectConfiguration extends sfProjectConfiguration implements liGarbageCo
       'sfiCalCreatorPlugin',
       'liOfcPlugin',
       'nvDoctrineSessionStoragePlugin',
-    ));
+    ), $extraPlugins));
     
     $this->loadProjectConfiguration();
     
@@ -100,6 +106,7 @@ class ProjectConfiguration extends sfProjectConfiguration implements liGarbageCo
     $this->loadSecondWavePlugins();
     $this->failover();
     if ( sfConfig::get('project_network_proxy', false) )
+    {
       stream_context_set_default($var = array(
         'http'  => array(
           'proxy' => sfConfig::get('project_network_proxy'),
@@ -111,6 +118,7 @@ class ProjectConfiguration extends sfProjectConfiguration implements liGarbageCo
         ),
         'ssl' => array('SNI_enabled' => false), // Disable SNI for https over http proxies
       ));
+    }
   }
   
   // pass-by the native symfony restriction, if and only if the plugin developper knows what's going on
@@ -131,7 +139,7 @@ class ProjectConfiguration extends sfProjectConfiguration implements liGarbageCo
   public function loadSecondWavePlugins()
   {
     $this->pluginPaths = array();
-    foreach ( $paths = parent::getPluginPaths() as $path ) // so weird why $this->getPluginPaths() can be called only once whereas parent::getPluginPaths() is ok
+    foreach ( $paths = parent::getPluginPaths() as $path ) // so weird that $this->getPluginPaths() can be called only once whereas parent::getPluginPaths() is ok
     {
       if ( $plugin = array_search($path, $this->overriddenPluginPaths) === false )
         $plugin = basename($path);
@@ -148,8 +156,31 @@ class ProjectConfiguration extends sfProjectConfiguration implements liGarbageCo
       else
         $configuration = new sfPluginConfigurationGeneric($this, $path, $plugin);
 
-       $this->pluginConfigurations[$plugin] = $configuration;
+      $this->pluginConfigurations[$plugin] = $configuration;
+      
+      // initialize plugin configuration objects
+      if ( false === $configuration->initialize() && is_readable($config = $configuration->getRootDir().'/config/config.php') )
+        require $config;
     }
+  }
+  
+  /**
+   * @function preparing extra submenus coming from plugins (for instance)
+   *
+   * @param $menus  array  representing a new menu ex: array('ticketting' => array('Label' => array('url' => array('app' => 'tck', 'route' => 'oc_group/index'), 'credentials' => array('oc-group'),)))
+   * @return $this
+   *
+   **/
+  public function appendMenus(array $menus)
+  {
+    $this->extraMenus = array_merge($menus, $this->extraMenus);
+    return $this;
+  }
+  public function getAppendedMenus($menu = NULL)
+  {
+    if ( is_null($menu) || !(string)$menu )
+      return $this->extraMenus;
+    return $this->extraMenus[$menu];
   }
   
   public function failover()

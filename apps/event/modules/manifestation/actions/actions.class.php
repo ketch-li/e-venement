@@ -270,14 +270,25 @@ class manifestationActions extends autoManifestationActions
     $date = preg_replace('!.*('.$regexp.').*!', '\1', $pre_search);
     $date = preg_match('!'.$regexp.'!', $date) ? $date : null;
 
-    $museum  = $this->getContext()->getConfiguration()->getApplication() == 'museum';
+    //$museum  = $this->getContext()->getConfiguration()->getApplication() == 'museum';
+    $module = $request->getParameter('type');
+  
+    $moduleFilter = 'true';
+    switch($module) {
+      case 'museum' :
+        $moduleFilter = 'e.museum = true';
+        break;
+      case 'event' :
+        $moduleFilter = 'e.museum = false';
+        break;
+    }
 
     $eids = array();
     if ( $search )
     {
       $e = Doctrine_Core::getTable('Event')->search($search.'*',
         Doctrine::getTable('Event')->createQuery('e')
-          ->andWhere('e.museum = ?', $museum)
+          ->andWhere($moduleFilter)
           ->andWhereIn('e.meta_event_id', array_keys($this->getUser()->getMetaEventsCredentials()))
       );
       foreach ( $e->execute() as $event )
@@ -291,7 +302,7 @@ class manifestationActions extends autoManifestationActions
     }
 
     $q = Doctrine::getTable('Manifestation')->createQuery('m')
-      ->andWhere('e.museum = ?', $museum)
+      ->andWhere($moduleFilter)
       ->leftJoin('m.Color c')
       ->orderBy('m.happens_at')
       ->limit($request->getParameter('limit',$max));

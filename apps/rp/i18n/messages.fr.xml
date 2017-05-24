@@ -2120,6 +2120,14 @@
         <source>Mask</source>
         <target>Masque de saisie</target>
       </trans-unit>   
+      <trans-unit id="530">
+        <source>Is professional</source>
+        <target>Contact pro ?</target>
+      </trans-unit>   
+      <trans-unit id="531">
+        <source>Alerts for member cards expirations</source>
+        <target>Alertes d'expiration de carte d'abonnement</target>
+      </trans-unit>  
     </body>
   </file>
 </xliff>

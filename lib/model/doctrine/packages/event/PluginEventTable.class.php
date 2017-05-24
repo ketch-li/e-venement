@@ -32,6 +32,7 @@ class PluginEventTable extends Doctrine_Table implements CompositeSearchableTabl
       elseif (!( sfContext::hasInstance()
         && sfContext::getInstance()->getActionName()
         && in_array(sfContext::getInstance()->getActionName(), array('edit', 'update'))
+        && class_exists('jsonActions') && sfContext::getInstance()->getActionStack()->getLastEntry() instanceof jsonActions
       ))
       {
         $culture = sfContext::hasInstance() ? sfContext::getInstance()->getUser()->getCulture() : 'fr';

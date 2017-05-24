@@ -40,13 +40,15 @@ If you request for a more detailed data, you will receive an object with followi
 +-------------------------+-------------------------------------------------------------------------------------+
 | country                 | Customers country                                                                   |
 +-------------------------+-------------------------------------------------------------------------------------+
-| phonenumber             | Customers phone number                                                              |
+| phoneNumber             | Customers phone number                                                              |
 +-------------------------+-------------------------------------------------------------------------------------+
 | datesOfBirth            | Dates of birth (`ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`)|
 +-------------------------+-------------------------------------------------------------------------------------+
 | locale                  | Spoken language                                                                     |
 +-------------------------+-------------------------------------------------------------------------------------+
 | uid                     | Unique Identifier                                                                   |
++-------------------------+-------------------------------------------------------------------------------------+
+| subscribedToNewsletter  | Whether or not the customer is subscribed to newsletter                             |
 +-------------------------+-------------------------------------------------------------------------------------+
 
 Creating a Customer
@@ -57,7 +59,7 @@ Definition
 
 .. code-block:: text
 
-    POST /api/v2/customers/
+    POST /api/v2/customers
 
 +--------------------------+----------------+-------------------------------------------+
 | Parameter                | Parameter type | Description                               |
@@ -90,7 +92,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/customers/ \
+    $ curl http://e-venement.local/api/v2/customers \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST \
@@ -138,7 +140,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/customers/ \
+    $ curl http://e-venement.local/api/v2/customers \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST
@@ -237,7 +239,7 @@ Definition
 
 .. code-block:: text
 
-    GET /api/v2/customers/
+    GET /api/v2/customers
 
 +---------------+----------------+-------------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                       |
@@ -254,7 +256,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/customers/ \
+    $ curl http://e-venement.local/api/v2/customers \
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
 
@@ -433,14 +435,7 @@ Example
         --data '
             {
                 "firstName": "John",
-                "lastName": "Diggle",
-                "email": "john.diggle@yahoo.com",
                 "address": "7b, Sunset St.",
-                "zip": "F-29000",
-                "city": "Quimper",
-                "country": "France",
-                "phoneNumber": "+123456789",
-                "subscribedToNewsletter": "",
                 "password": "secret"
             }
         '
@@ -450,60 +445,22 @@ Sample Response
 
 .. code-block:: text
 
-    STATUS: 204 No Content
+    STATUS: 200 OK
 
-In order to perform a partial update, you should use a POST method.
+.. code-block:: json
 
-Definition
-^^^^^^^^^^
-
-.. code-block:: text
-
-    POST /api/v2/customers/{id}
-
-+--------------------------+----------------+--------------------------------------------------+
-| Parameter                | Parameter type | Description                                      |
-+==========================+================+==================================================+
-| Authorization            | header         | Token received during authentication             |
-+--------------------------+----------------+--------------------------------------------------+
-| id                       | url attribute  | Id of the requested resource                     |
-+--------------------------+----------------+--------------------------------------------------+
-| email                    | request        | *(optional)* **(unique)** Customers email        |
-+--------------------------+----------------+--------------------------------------------------+
-| firstName                | request        | *(optional)* Customers first name                |
-+--------------------------+----------------+--------------------------------------------------+
-| lastName                 | request        | *(optional)* Customers last name                 |
-+--------------------------+----------------+--------------------------------------------------+
-| groups                   | request        | *(optional)* Array of groups customer belongs to |
-+--------------------------+----------------+--------------------------------------------------+
-| gender                   | request        | *(optional)* Customers gender                    |
-+--------------------------+----------------+--------------------------------------------------+
-| birthday                 | request        | *(optional)* Customers birthday                  |
-+--------------------------+----------------+--------------------------------------------------+
-| user[plainPassword]      | request        | *(optional)* Users plain password.               |
-+--------------------------+----------------+--------------------------------------------------+
-| user[authorizationRoles] | request        | *(optional)* Array of users roles.               |
-+--------------------------+----------------+--------------------------------------------------+
-| user[enabled]            | request        | *(optional)* Flag set if user is enabled.        |
-+--------------------------+----------------+--------------------------------------------------+
-
-Example
-^^^^^^^
-
-.. code-block:: bash
-
-    $ curl http://e-venement.local/api/v2/customers/399 \
-        -H "Authorization: Bearer SampleToken" \
-        -H "Content-Type: application/json" \
-        -X PATCH \
-        --data '{"firstName": "Joe"}'
-
-Sample Response
-^^^^^^^^^^^^^^^^^^
-
-.. code-block:: text
-
-    STATUS: 204 No Content
+    {
+        "id":399,
+        "email":"jean.martin@linux.fr",
+        "firstName":"John",
+        "lastName":"Martin",
+        "address": "7b, Sunset St.",
+        "zip": "F-29000",
+        "city": "Quimper",
+        "country": "France",
+        "phoneNumber": "+987654321",
+        "subscribedToNewsletter": "yes"
+    }
 
 Deleting a Customer
 -------------------
@@ -550,7 +507,7 @@ Definition
 
 .. code-block:: text
 
-    GET /api/v2/customers/{id}/orders/
+    GET /api/v2/customers/{id}/orders
 
 +---------------+----------------+-------------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                       |
@@ -567,7 +524,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/customers/7/orders/ \
+    $ curl http://e-venement.local/api/v2/customers/7/orders \
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
 
@@ -646,7 +603,7 @@ Sample Response
                             }
                         }
                     ],
-                    "currencyCode":"EUR",
+                    "currencyCode":"978",
                     "localeCode":"en_US",
                     "checkoutState":"completed"
                 }

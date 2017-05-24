@@ -34,7 +34,7 @@ $(document).ready(function(){
       {
         workspaces = trs.eq(i).closest('tbody').find('tr.workspace');
         for ( j = 0 ; j < workspaces.length ; j++ )
-        if ( workspaces.eq(j).find('.name').html() == trs.eq(i).find('.workspace').html() )
+        if ( workspaces.eq(j).find('.name').html().trim() == trs.eq(i).find('.workspace').html().trim() )
         {
           trs.eq(i).insertAfter(workspaces.eq(j));
           for ( k = trs.eq(i).find('.tickets .tickets').length - 1 ; k >= 0 ; k-- )

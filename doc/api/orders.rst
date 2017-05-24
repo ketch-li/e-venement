@@ -155,7 +155,7 @@ Sample Response
                     "adjustmentsTotal":8787,
                     "total":108787,
                     "state":"fulfilled",
-                    "currencyCode":"EUR",
+                    "currencyCode":"978",
                     "localeCode":"en_US",
                     "checkoutState":"completed"
                 },
@@ -166,7 +166,7 @@ Sample Response
                     "adjustmentsTotal":5656,
                     "total":105656,
                     "state":"cancelled",
-                    "currencyCode":"EUR",
+                    "currencyCode":"978",
                     "localeCode":"en_US",
                     "checkoutState":"addressed"
                 }
@@ -295,7 +295,7 @@ Sample Response
                 "state":"cart"
             }
         ],
-        "currencyCode":"EUR",
+        "currencyCode":"978",
         "localeCode":"en_US",
         "checkoutState":"addressed"
     }

@@ -11,7 +11,7 @@ showSuccess:
   javascripts: [event-seated-plan, event-gauge?<?php echo date('Ymd') ?>, helper?<?php echo date('Ymd') ?>]
 editSuccess:
   stylesheets: [manifestation-view,view, event-seated-plan]
-  javascripts: [event-seated-plan]
+  javascripts: [event-seated-plan, event-files]
 newSuccess:
   stylesheets: [manifestation-view,view]
   javascripts: [event-seated-plan]

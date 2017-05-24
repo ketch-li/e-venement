@@ -10,6 +10,13 @@ class ComposerStaticInit57d1f49e09d98bfbf3b5564273d83ced
         'S' => 
         array (
             'Symfony\\Component\\Process\\' => 26,
+            'Symfony\\Component\\Filesystem\\' => 29,
+            'Symfony\\Component\\DependencyInjection\\' => 38,
+            'Symfony\\Component\\Config\\' => 25,
+        ),
+        'C' => 
+        array (
+            'Composer\\Installers\\' => 20,
         ),
     );
 
@@ -17,6 +24,22 @@ class ComposerStaticInit57d1f49e09d98bfbf3b5564273d83ced
         'Symfony\\Component\\Process\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/process',
+        ),
+        'Symfony\\Component\\Filesystem\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/filesystem',
+        ),
+        'Symfony\\Component\\DependencyInjection\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/dependency-injection',
+        ),
+        'Symfony\\Component\\Config\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/config',
+        ),
+        'Composer\\Installers\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
         ),
     );
 

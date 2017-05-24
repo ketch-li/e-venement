@@ -1,0 +1,14 @@
+# config/services.yml
+dev:
+  parameters:
+
+all:
+  parameters:
+    
+  services:
+    dummy:
+      abstract: true
+    manifestations_service:
+      class: ManifestationsService
+
+

@@ -728,6 +728,18 @@
         <source>Organism Categories</source>
         <target>Catégories d'organisme</target>
       </trans-unit>
+      <trans-unit>
+        <source>New Web origin ip</source>
+        <target>Nouveau alias d'adresses IP</target>
+      </trans-unit>                       
+      <trans-unit>
+        <source>Edit Web origin ip</source>
+        <target>Modification d'alias d'adresses IP</target>
+      </trans-unit>
+      <trans-unit>
+        <source>View Web origin ip</source>
+        <target>Fiche d'alias d'adresses IP</target>
+      </trans-unit>                       
     </body>
   </file>
 </xliff>

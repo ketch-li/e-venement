@@ -1,5 +1,5 @@
 <div id="customer">
-  <p class="name inline-modifiable"><?php echo $transaction->Contact ?></p>
+  <p class="name inline-modifiable"><?php echo $transaction->Contact->getNameWithTitle() ?></p>
   <p class="phonenumber inline-modifiable"><?php
     echo is_null($transaction->professional_id)
     ? ($transaction->Contact->Phonenumbers->count() > 0 ? $transaction->Contact->Phonenumbers[0]->number : '')

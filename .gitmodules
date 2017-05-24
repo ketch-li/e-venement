@@ -31,3 +31,9 @@
 [submodule "lib/vendor/externals/EveConnector"]
 	path = lib/vendor/externals/EveConnector
 	url = https://github.com/libre-informatique/EveConnector.git
+[submodule "plugins/liOnlineChoicesPlugin"]
+	path = plugins/liOnlineChoicesPlugin
+	url = https://github.com/betaglop/liOnlineChoicesPlugin
+[submodule "plugins/sfDependencyInjectionPlugin"]
+	path = plugins/sfDependencyInjectionPlugin
+	url = https://github.com/issei-m/sfDependencyInjectionPlugin

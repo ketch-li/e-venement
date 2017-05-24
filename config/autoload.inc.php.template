@@ -25,6 +25,7 @@
 
 require_once dirname(__FILE__).'/../lib/vendor/symfony/lib/autoload/sfCoreAutoload.class.php';
 sfCoreAutoload::register();
+require_once dirname(__FILE__).'/../lib/vendor/externals/composer/vendor/autoload.php';
 require_once dirname(__FILE__).'/../lib/vendor/symfony/lib/config/sfProjectConfiguration.class.php';
 require_once dirname(__FILE__).'/../lib/config/liGarbageCollectorInterface.class.php';
 
