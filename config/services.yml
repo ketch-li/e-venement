@@ -10,5 +10,7 @@ all:
       abstract: true
     manifestations_service:
       class: ManifestationsService
+    app_country_service:
+      class: CountryService
 
 
