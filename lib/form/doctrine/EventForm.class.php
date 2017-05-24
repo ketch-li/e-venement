@@ -104,7 +104,7 @@ class EventForm extends BaseEventForm
     foreach ( array('picture_id' => 'Picture') as $field => $rel )
     {
       $this->embedRelation($rel);
-      foreach ( array('name', 'type', 'version', 'height', 'width', 'content_encoding') as $fieldName )
+      foreach ( array('name', 'type', 'version', 'height', 'width', 'content_encoding', 'events_list', 'manifestations_list') as $fieldName )
         unset($this->widgetSchema[$rel][$fieldName], $this->validatorSchema[$rel][$fieldName]);
       $this->validatorSchema[$rel]['content_file']->setOption('required',false);
       unset($this->widgetSchema[$field], $this->validatorSchema[$field]);

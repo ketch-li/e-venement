@@ -23,7 +23,7 @@ class ProductForm extends BaseProductForm
     
     $this->embedRelation('PriceProducts AS prices');
     $this->embedRelation('Picture AS picture');
-    foreach ( array('name', 'type', 'version', 'height', 'width', 'content_encoding') as $fieldName )
+    foreach ( array('name', 'type', 'version', 'height', 'width', 'content_encoding', 'events_list', 'manifestations_list') as $fieldName )
       unset($this->widgetSchema['picture'][$fieldName], $this->validatorSchema['picture'][$fieldName]);
     $this->validatorSchema['picture']['content_file']->setOption('required',false);
     unset($this->widgetSchema['picture_id'], $this->validatorSchema['picture_id']);
