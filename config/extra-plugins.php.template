@@ -1,10 +1,16 @@
 <?php
 // this file template file can be ignored if nothing to do is required
 
-return [
+return array(
 
-  // add extra plugins that need to be loaded in the first pass here, one by line
-  //'liOnlineChoicesPlugin',
+  'plugins' => array(
+    // add extra plugins that need to be loaded in the first pass here, one by line
+    //'liOnlineChoicesPlugin',
+  ),
+  
+  'filters' => array(
+    // add extra filters here
+    //'name_of_filter' => 'options',
+  ),
 
-
-];
+);

@@ -61,7 +61,9 @@ class ProjectConfiguration extends sfProjectConfiguration implements liGarbageCo
     // trick to add plugins from an outside-of-the-versioned-project file
     $extraPlugins = is_readable(__DIR__.'/extra-plugins.php') ? require(__DIR__.'/extra-plugins.php') : array();
     if ( !is_array($extraPlugins) )
-      $extraPlugins = array();
+      $extraPlugins = array('plugins' => array());
+    if (!( isset($extraPlugins['plugins']) && is_array($extraPlugins['plugins']) ))
+      $extraPlugins['plugins'] = array();
     
     $this->enablePlugins(array_merge(array(
       'sfDoctrineMasterSlavePlugin',
@@ -76,7 +78,7 @@ class ProjectConfiguration extends sfProjectConfiguration implements liGarbageCo
       'sfiCalCreatorPlugin',
       'liOfcPlugin',
       'nvDoctrineSessionStoragePlugin',
-    ), $extraPlugins));
+    ), $extraPlugins['plugins']));
     
     $this->loadProjectConfiguration();
     
