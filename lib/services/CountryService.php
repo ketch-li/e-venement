@@ -14,8 +14,11 @@ class CountryService extends EvenementService
 {
     public function getAllCountries($culture)
     {
-        $q = Doctrine::getTable('Country')->createQuery('c', true)->leftJoin('CountryTranslation ct')->where("ct.lang ='$culture'");
-    
+        $q = Doctrine::getTable('Country')->createQuery('c')
+          ->leftJoin("c.Translation ct WITH ct.lang = ?", $culture)
+          ->orderBy('ct.name')
+        ;
+
         return $q->fetchArray();
     }
 }
