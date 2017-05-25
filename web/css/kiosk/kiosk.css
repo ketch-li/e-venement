@@ -338,6 +338,21 @@ ul {
   margin-top: 30vh;
   z-index: 999; }
 
+/* LOCATION DIALOG */
+#location-dialog {
+  width: 60%;
+  height: 85%; }
+  #location-dialog #keypad {
+    width: 30%; }
+    #location-dialog #keypad .submit {
+      display: none; }
+    #location-dialog #keypad .key {
+      height: 80px;
+      width: 80px;
+      font-size: 3em;
+      border-radius: 15px;
+      margin: 10px; }
+
 .js-data, .js-i18n {
   display: none; }
 

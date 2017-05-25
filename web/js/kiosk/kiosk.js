@@ -27,21 +27,23 @@ if ( LI === undefined )
   var LI = {};
 
 LI.kiosk = {
+	culture: 'fr',
 	templates: {},
 	transaction: {},
 	products: {},
 	urls: {},
 	currentPanel: {},
 	config: {},
+	countries: {},
 	init: function() {
-		//hide current culture from menu
-		$('.culture[data-culture="' + $('#user-culture').data('culture') + '"]').hide();
-		
 		LI.kiosk.utils.showLoader();
 		LI.kiosk.config = $('#config').data();
 		LI.kiosk.urls = $('#kiosk-urls').data();
 		LI.kiosk.initPlugins();
 		LI.kiosk.addListeners();
+
+		//hide current culture from menu
+		$('.culture[data-culture="' + LI.kiosk.config.culture + '"]').hide();
 
 		// retrieve data then display menu
 		$.when(
@@ -72,6 +74,10 @@ LI.kiosk = {
 			}
 
 			LI.kiosk.utils.hideLoader();
+
+			if(LI.kiosk.config.showLocationPrompt) {
+				LI.kiosk.getCountries();
+			}
 		 })
 		;
 	},
@@ -177,7 +183,11 @@ LI.kiosk = {
 
 		//cart validation clicks
 		$('#confirm-btn').click(function() {
-			LI.kiosk.checkout();
+			if(LI.kiosk.config.showLocationPrompt) {
+				LI.kiosk.utils.showLocationPrompt();
+			} else {
+				LI.kiosk.checkout();
+			}
 		});
 	},
 	getTransaction: function() {
@@ -188,6 +198,11 @@ LI.kiosk = {
 	getCSRF: function() {
 		return $.get(LI.kiosk.urls.getCsrf, function(token) {
 			LI.kiosk.CSRF = token;
+		});
+	},
+	getCountries: function() {
+		return $.get(LI.kiosk.urls.getCountries + '?culture=' + LI.kiosk.config.culture, function(data) {
+			LI.kiosk.countries = JSON.parse(data);
 		});
 	},
 	getManifestations: function() {
@@ -706,7 +721,20 @@ LI.kiosk = {
 		    	
 		    
 			if(available) {
-		    	LI.kiosk.cart.updateTransaction(item, price, declination, '1');
+		    	LI.kiosk.cart.updateTransaction({ 
+			    	transaction: {
+			    		price_new: {
+			    			_csrf_token: LI.kiosk.CSRF,
+			    			price_id: price.id,
+			    			declination_id: declination.id,
+			    			type: item.type == 'store' ? 'declination' : 'gauge',
+			    			bunch: item.type,
+			    			id: LI.kiosk.transaction.id,
+			    			state: '',
+			    			qty: '1'
+			    		}
+			        }
+			    });
 			}
 		},
 		removeItem: function(lineId, item) {
@@ -725,7 +753,20 @@ LI.kiosk = {
 				htmlLine.find('.line-total').text(line.total);
 			}
 
-			LI.kiosk.cart.updateTransaction(item, line.price, line.declination, '-1');
+			LI.kiosk.cart.updateTransaction({ 
+			    	transaction: {
+			    		price_new: {
+			    			_csrf_token: LI.kiosk.CSRF,
+			    			price_id: price.id,
+			    			declination_id: declination.id,
+			    			type: item.type == 'store' ? 'declination' : 'gauge',
+			    			bunch: item.type,
+			    			id: LI.kiosk.transaction.id,
+			    			state: '',
+			    			qty: '-1'
+			    		}
+			        }
+			    });
 
 			LI.kiosk.cart.cartTotal();
 
@@ -752,24 +793,11 @@ LI.kiosk = {
 
 			return available;
 		},
-		updateTransaction: function(item, price, declination, quantity) {
+		updateTransaction: function(data) {
 			$.ajax({
 			    url: LI.kiosk.urls.completeTransaction.replace('-666', LI.kiosk.transaction.id),
 			    type: 'get',
-			    data: { 
-			    	transaction: {
-			    		price_new: {
-			    			_csrf_token: LI.kiosk.CSRF,
-			    			price_id: price.id,
-			    			declination_id: declination.id,
-			    			type: item.type == 'store' ? 'declination' : 'gauge',
-			    			bunch: item.type,
-			    			id: LI.kiosk.transaction.id,
-			    			state: '',
-			    			qty: quantity
-			    		}
-			        }
-			    },
+			    data: data,
 			    error: LI.kiosk.utils.error
 			});
 		}
@@ -854,6 +882,69 @@ LI.kiosk = {
 				duration: 500,
 				complete: callback
 			});
+		},
+		showLocationPrompt: function() {
+			var dialog = $('#location-dialog').get(0);
+
+			if (! dialog.showModal) {
+      			dialogPolyfill.registerDialog(dialog);
+    		}
+
+    		dialog.showModal();
+
+			LI.kiosk.utils.setupCountryField();    		
+    		LI.kiosk.utils.setupKeyPad();
+    		LI.kiosk.utils.addDialogListeners(dialog);
+		},
+		setupKeyPad: function() {
+			$('#keypad').keypad({
+        		inputField: $('#postcode'),
+        		deleteButtonText: '<i class="material-icons">keyboard_backspace</i>',
+        		deleteButtonClass: 'mdl-cell--8-col',
+        		buttonTemplate: '<button class="key mdl-button mdl-js-button mdl-button--raised waves-effect mdl-cell--4-col"></button>'
+    		});
+		},
+		addDialogListeners: function(dialog) {
+			$(dialog).on('close', function() {
+    			console.log($('#postcode').val());
+    			console.log($('#countries').val());
+
+    			LI.kiosk.cart.updateTransaction({ 
+			    	transaction: {
+			    		_csrf_token: LI.kiosk.CSRF,
+			    		postalcode: $('#postcode').val(),
+			    		country: $('#countries').val()
+			        }
+				});
+    		});
+
+    		$('#countries').change(function() {
+    			$('#postcode').prop('disabled', true);
+    		});
+
+    		$('#postcode').change(function() {
+    			$('#countries').val('FR');
+    		});
+		},
+		setupCountryField: function() {
+			if(LI.kiosk.countries.length == 0) {
+				LI.kiosk.getCountries();
+			}
+
+			$.each(LI.kiosk.countries, function(key, country) {
+    			if(undefined !== country.Translation[LI.kiosk.culture]) {
+	    			$('<option>')
+	    				.addClass('country')
+	    				.prop('id', country.codeiso2.toLowerCase())
+	    				.val(country.codeiso2)
+	    				.html(country.Translation[LI.kiosk.culture].name)
+	    				.appendTo('#countries')
+	    			;
+    			}
+    		});
+
+    		$('#' + LI.kiosk.culture).prop('selected', true);
 		}
+
 	}
 }

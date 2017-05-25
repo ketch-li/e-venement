@@ -26,13 +26,16 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <?php use_stylesheet('material.min.css') ?>
 <?php use_stylesheet('kiosk/waves.css') ?>
-
+<?php use_stylesheet('kiosk/dialog-polyfill.css') ?>
 <?php use_stylesheet('kiosk/kiosk.css') ?>
 <?php use_stylesheet('kiosk/toastr.min.css') ?>
+
 <?php use_javascript('/js/EveConnector/web/js/socket.io.js') ?>
 <?php use_javascript('/js/EveConnector/web/js/eve-connector.js') ?>
 <?php use_javascript('/js/EveConnector/web/js/concert-protocol.js') ?>
 <?php use_javascript('jquery') ?>
+<?php use_javascript('/js/kiosk/keypad.js') ?>
+<?php use_javascript('/js/kiosk/dialog-polyfill.js') ?>
 <?php use_javascript('/sfAdminThemejRollerPlugin/js/jquery-ui.custom.min.js') ?>
 <?php use_javascript('/js/kiosk/toastr.min.js') ?>
 <?php use_javascript('/js/kiosk/waves.js') ?>
@@ -142,22 +145,43 @@
 					</span>
 				</button>
 			</div>
-		</div>	
+		</div>
 	</main>
 </div>
+
+<!-- LOCATION DIALOG -->
+<dialog id="location-dialog" class="mdl-dialog">
+  <form id="location" method="dialog">
+    <p class="mdl-dialog__title">Please enter your post code or country</p>
+    <div class="mdl-dialog__content">
+	    <select id="countries"></select>
+	    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+	    	<input type="text" id="postcode" name="postcode" class="mdl-textfield__input" placeholder="">
+	    	<label class="mdl-textfield__label" for="postcode">Post code</label>
+	    	<span class="mdl-textfield__error">Post code should be all numbers</span>
+	    </div>
+	</div>
+	<div class="mdl-dialog__actions mdl-dialog__actions">
+    	<button class="mdl-button" type="submit">Continue to payment</button>
+    </div>
+  </form>
+  <div id="keypad" class="mdl-grid"></div>
+</dialog>
 
 <!-- JS DATA -->
 <div class="js-data" id="kiosk-urls"
   data-get-new-transaction="<?php echo cross_app_url_for('tck', 'transaction/newJson') ?>"
   data-get-csrf="<?php echo cross_app_url_for('tck', 'transaction/getCSRFToken') ?>"
+  data-get-countries="<?php echo cross_app_url_for('kiosk', 'default/getCountries') ?>"
   data-complete-transaction="<?php echo cross_app_url_for('tck', 'transaction/complete?id=-666') ?>"
   data-get-manifestations="<?php echo cross_app_url_for('tck', 'transaction/getManifestations?simplified=1') ?>"
   data-get-store="<?php echo cross_app_url_for('tck', 'transaction/getStore?simplified=1') ?>"
   data-get-museum="<?php echo cross_app_url_for('tck', 'transaction/getPeriods?simplified=1') ?>"
 ></div>
-<div class="js-data" id="user-culture" data-culture="<?php echo sfContext::getInstance()->getUser()->getCulture(); ?>"></div>
-<div class="js-data" id="config" 
+<div class="js-data" id="config"
+  data-culture="<?php echo sfContext::getInstance()->getUser()->getCulture(); ?>"
   data-ui-labels="<?php echo htmlspecialchars(json_encode(sfConfig::get('app_ui_labels'))) ?>"
+  data-show-location-prompt="<?php echo sfConfig::get('app_location_prompt') ?>"
  ></div>
 
 <!-- JS I18N -->
