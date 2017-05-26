@@ -48,7 +48,7 @@ LI.kiosk = {
 		// retrieve data then display menu
 		$.when(
 			LI.kiosk.getCSRF(),
-			LI.kiosk.getTransaction(), 
+			LI.kiosk.getTransaction(),
 			LI.kiosk.getManifestations(),
 			LI.kiosk.getMuseum(),
 			LI.kiosk.getStore()
@@ -347,8 +347,17 @@ LI.kiosk = {
 		var declinationTemplate = Handlebars.compile(LI.kiosk.templates.declinationCard);
 		
 		declinationList.empty();
+		$('#prices')
+			.empty()
+			.hide()
+		;
 
 		$.each(product.declinations, function(id, declination) {
+			if(product.type == 'store') {
+				declination.store = true;
+				declination.value = declination.available_prices[Object.keys(declination.available_prices)[0]].value;
+			}
+
 			declinationList.append(declinationTemplate(declination));
 		});
 
@@ -373,7 +382,6 @@ LI.kiosk = {
 				});
 
 				declinationList.hide();
-				$('#declination-name').text(declination.name);
 			});
 		}else {
 			$('.declination').off('click').click(function(event) {
@@ -501,7 +509,10 @@ LI.kiosk = {
 		var priceTemplate = $('#price-card-template').html();
 		var prices = declination.available_prices;
 
-		$('#prices').empty();
+		$('#prices #declinations')
+			.empty()
+			.hide()
+		;
 
 		var template = Handlebars.compile(priceTemplate);
 

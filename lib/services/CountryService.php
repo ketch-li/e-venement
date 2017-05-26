@@ -8,7 +8,7 @@
 /**
  * Description of ManifestationService
  *
- * @author Baptiste SIMON <baptiste.simon@libre-informatique.fr>
+ * @author Romain SANCHEZ <romain.sanchez@libre-informatique.fr>
  */
 class CountryService extends EvenementService
 {

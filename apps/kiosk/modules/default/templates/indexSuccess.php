@@ -225,8 +225,6 @@
 	<div class="manif-card mdl-card mdl-shadow--4dp waves-effect" id="{{ id }}">
 		<div class="mdl-card__title manif-title" style="{{ background }};">
 			<p class="mdl-card__title-text manif-name">{{ name }}</p>
-			<!-- <p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ start }}</p>
-			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ location }}</p> -->
 		</div>
 		<div class="mdl-card__supporting-text manif-description">
 			{{{ description }}}
@@ -265,9 +263,16 @@
 <script id="declination-card-template" type="text/x-handlebars-template" data-template-type="declinationCard">
 	<li class="declination">
 		<div id="{{ id }}" class="declination-card mdl-card mdl-shadow--2dp waves-effect">
-			<div class="mdl-card__title mdl-card--expand" style="background-color: {{ color }};">
-				{{ name }}
-			</div>
+			{{#if store}}
+				<div class="mdl-card__title mdl-card--expand" style="background-color: {{ color }};">
+					<p>{{ name }}</p>
+					<p>{{ value }}</p>
+				</div>
+			{{else}}
+				<div class="mdl-card__title mdl-card--expand" style="background-color: {{ color }};">
+					{{ name }}
+				</div>
+			{{/if}}
 		</div>
 	</li>
 </script>
@@ -276,8 +281,9 @@
 <script id="price-card-template" type="text/x-handlebars-template" data-template-type="priceCard">
 	<li class="price">
 		<div id="{{ id }}" class="price-card-square mdl-card mdl-shadow--2dp waves-effect">
-			<div class="mdl-card__title mdl-card--expand" style="background-color: {{ color }};">
-				{{ name }}
+			<div class="mdl-card__title mdl-card--expand price-content" style="background-color: {{ color }};">	
+				<p>{{ name }}</p>
+				<p>{{ value }}</p>
 			</div>
 		</div>
 	</li>
