@@ -282,7 +282,11 @@ LI.kiosk = {
 			.show()
 		;
 
-		$('#products-breadcrumb').css('display', 'inline-block');
+		$('#products-breadcrumb a')
+			.html($('[data-source="' + type + '"]').data('target'))
+			.parent()
+			.css('display', 'inline-block')
+		;
 
 		LI.kiosk.insertProducts(type); 
 
