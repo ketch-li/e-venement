@@ -36,4 +36,4 @@
 	url = https://github.com/betaglop/liOnlineChoicesPlugin
 [submodule "plugins/sfDependencyInjectionPlugin"]
 	path = plugins/sfDependencyInjectionPlugin
-	url = https://github.com/issei-m/sfDependencyInjectionPlugin
+	url = https://github.com/betaglop/sfDependencyInjectionPlugin.git
