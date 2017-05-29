@@ -9,7 +9,21 @@ remember_me:
 
 # insert your own filters here
 
-exceptionCatcherFilter: ~
+  <?php
+    $plugins = array();
+    if ( is_readable($file = sfConfig::get('sf_config_dir').'/extra-plugins.php') )
+      $plugins = require($file);
+    if ( !is_array($plugins) )
+      $plugins = array();
+    if ( !is_array($plugins['filters']) )
+      $plugins['filters'] = array();
+    $filters = $plugins['filters'];
+    echo PHP_EOL;
+  ?>
+
+<?php foreach ( $filters as $filter => $option ): ?>
+<?php echo "$filter: $option".PHP_EOL ?>
+<?php endforeach; echo PHP_EOL; ?>
 
 cache:     ~
 execution: ~

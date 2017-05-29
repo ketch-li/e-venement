@@ -7,25 +7,23 @@ security:  ~
 remember_me:
   class: sfGuardRememberMeFilter
 
+# insert your own filters here
+
   <?php
-    $modules = array();
-    if ( is_readable($file = __DIR__.'/extra-modules.php') )
-      $modules = require($file);
-    if ( !is_array($modules) )
-      $modules = array();
-    if ( !is_array($modules['filters']) )
-      $modules['filters'] = array();
-    $filters = $modules['filters'];
+    $plugins = array();
+    if ( is_readable($file = sfConfig::get('sf_config_dir').'/extra-plugins.php') )
+      $plugins = require($file);
+    if ( !is_array($plugins) )
+      $plugins = array();
+    if ( !is_array($plugins['filters']) )
+      $plugins['filters'] = array();
+    $filters = $plugins['filters'];
     echo PHP_EOL;
   ?>
 
 <?php foreach ( $filters as $filter => $option ): ?>
 <?php echo "$filter: $option".PHP_EOL ?>
 <?php endforeach; echo PHP_EOL; ?>
-
-# insert your own filters here
-
-exceptionCatcherFilter: ~
 
 cache:     ~
 execution: ~

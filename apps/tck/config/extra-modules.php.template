@@ -2,8 +2,10 @@
 // this template is useless until you want to enable extra-modules in this application
 // this usually goes into the settings.yml file, .settings > enabled_modules > []
 
-return [
+return array(
+  
+  'modules' => array(
+    //'ocSetup',
+  ),
 
-  //'ocSetup',
-
-];
+);

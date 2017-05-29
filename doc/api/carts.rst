@@ -121,7 +121,7 @@ Definition
 
 .. code-block:: text
 
-    POST /api/v2/transaction
+    POST /api/v2/carts
 
 +---------------+----------------+----------------------------------------------------------+
 | Parameter     | Parameter type | Description                                              |
