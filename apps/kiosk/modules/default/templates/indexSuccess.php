@@ -150,8 +150,8 @@
 </div>
 
 <!-- LOCATION DIALOG -->
-<dialog id="location-dialog" class="mdl-dialog">
-  <form id="location" method="dialog">
+<dialog id="location" class="mdl-dialog">
+  <form id="location-form" method="dialog">
     <p class="mdl-dialog__title">Please enter your post code or country</p>
     <div class="mdl-dialog__content">
 	    <select id="countries"></select>
@@ -168,6 +168,11 @@
   <div id="keypad" class="mdl-grid"></div>
 </dialog>
 
+<!-- STATUS DIALOG -->
+<dialog id="status" class="mdl-dialog">
+  <p></p>
+</dialog>
+
 <!-- JS DATA -->
 <div class="js-data" id="kiosk-urls"
   data-get-new-transaction="<?php echo cross_app_url_for('tck', 'transaction/newJson') ?>"
@@ -177,6 +182,7 @@
   data-get-manifestations="<?php echo cross_app_url_for('tck', 'transaction/getManifestations?simplified=1') ?>"
   data-get-store="<?php echo cross_app_url_for('tck', 'transaction/getStore?simplified=1') ?>"
   data-get-museum="<?php echo cross_app_url_for('tck', 'transaction/getPeriods?simplified=1') ?>"
+  data-print-tickets="<?php echo cross_app_url_for('tck', 'ticket/print?id=-666') ?>"
 ></div>
 <div class="js-data" id="config"
   data-culture="<?php echo sfContext::getInstance()->getUser()->getCulture(); ?>"

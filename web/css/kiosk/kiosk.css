@@ -350,14 +350,14 @@ ul {
   z-index: 999; }
 
 /* LOCATION DIALOG */
-#location-dialog {
+#location {
   width: 60%;
   height: 85%; }
-  #location-dialog #keypad {
+  #location #keypad {
     width: 30%; }
-    #location-dialog #keypad .submit {
+    #location #keypad .submit {
       display: none; }
-    #location-dialog #keypad .key {
+    #location #keypad .key {
       height: 80px;
       width: 80px;
       font-size: 3em;
