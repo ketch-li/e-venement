@@ -51,7 +51,7 @@
 			<span class="mdl-layout-title"><img src="images/logo-evenement-small.png" alt="logo"/></span>
 			<div class="mdl-layout-spacer"></div>
 			<!-- I18N LINKS -->
-			<i class="material-icons">language</i>
+			<i class="material-icons culture">language</i>
 			<?php foreach(sfConfig::get('project_internals_cultures', array('fr' => 'Français')) as $key => $culture): ?>
 				<a href="/kiosk_dev.php/default/culture/lang/<?php echo $key ?>" class="culture mdl-color-text--white" data-culture="<?php echo $key ?>">
 				  <?php echo $culture ?>

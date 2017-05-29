@@ -27,7 +27,6 @@ if ( LI === undefined )
   var LI = {};
 
 LI.kiosk = {
-	culture: 'fr',
 	templates: {},
 	transaction: {},
 	products: {},
@@ -99,6 +98,7 @@ LI.kiosk = {
 			})
 			.on('menu:unmount', function(e) {
 				LI.kiosk.menuToList(e.productType);
+				$('.culture').hide();
 			})
 			.on('product-list:mount', function(e) {
 				LI.kiosk.mountProductList(e.productType, e.mode);
@@ -769,19 +769,19 @@ LI.kiosk = {
 			}
 
 			LI.kiosk.cart.updateTransaction({ 
-			    	transaction: {
-			    		price_new: {
-			    			_csrf_token: LI.kiosk.CSRF,
-			    			price_id: price.id,
-			    			declination_id: declination.id,
-			    			type: item.type == 'store' ? 'declination' : 'gauge',
-			    			bunch: item.type,
-			    			id: LI.kiosk.transaction.id,
-			    			state: '',
-			    			qty: '-1'
-			    		}
-			        }
-			    });
+		    	transaction: {
+		    		price_new: {
+		    			_csrf_token: LI.kiosk.CSRF,
+		    			price_id: line.price.id,
+		    			declination_id: line.declination.id,
+		    			type: item.type == 'store' ? 'declination' : 'gauge',
+		    			bunch: item.type,
+		    			id: LI.kiosk.transaction.id,
+		    			state: '',
+		    			qty: '-1'
+		    		}
+		        }
+		    });
 
 			LI.kiosk.cart.cartTotal();
 
@@ -947,7 +947,7 @@ LI.kiosk = {
 			}
 
 			$.each(LI.kiosk.countries, function(key, country) {
-    			if(undefined !== country.Translation[LI.kiosk.culture]) {
+    			if(undefined !== country.Translation[LI.kiosk.config.culture]) {
 	    			$('<option>')
 	    				.addClass('country')
 	    				.prop('id', country.codeiso2.toLowerCase())
