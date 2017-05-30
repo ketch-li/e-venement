@@ -63,7 +63,7 @@ class ManifestationsService extends EvenementService
                 ->orWhere('pmp.member_card_linked = FALSE');
             if ( $contact_id ) {
               $q->orWhere('pgp.id IN (SELECT mcp1.price_id FROM MemberCardPrice mcp1 LEFT JOIN mcp1.MemberCard mc1 LEFT JOIN mc1.Contact cc1 WHERE cc1.id = ?)', $contact_id)
-                ->orWhere('pmp.id IN (SELECT mcp2.price_id FROM MemberCardPrice mcp2 LEFT JOIN mcp2.MemberCard mc2 LEFT JOIN mc2.Contact cc2 WHERE cc2.id = ?)', $contact_id);
+                ->orWhere('pmpwp.workspace_id IS NOT NULL AND pmp.id IN (SELECT mcp2.price_id FROM MemberCardPrice mcp2 LEFT JOIN mcp2.MemberCard mc2 LEFT JOIN mc2.Contact cc2 WHERE cc2.id = ?)', $contact_id);
             }
             $q->orWhere('FALSE)')
             
