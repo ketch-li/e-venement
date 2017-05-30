@@ -5,7 +5,7 @@ printSuccess:
   javascripts: [-*, jquery, /private/print-tickets.js?<?php echo date('Ymd') ?>, print-tickets]
   stylesheets: [-*, print-tickets.default.css: {media: all}, print-tickets.<?php echo sfConfig::get('app_tickets_type', 'boca') ?>.css: { media: all }, /private/print-tickets.css?<?php echo date('Ymd') ?>: {media: all}]
 printDirect:
-  javascripts: [-*, jquery, /private/print-tickets.js?<?php echo date('Ymd') ?>, print-tickets]
+  javascripts: [-*, /private/print-tickets.js?<?php echo date('Ymd') ?>, print-tickets]
   stylesheets: [-*, print-tickets.default.css: {media: all}, print-tickets.<?php echo sfConfig::get('app_tickets_type', 'boca') ?>.css: { media: all }, /private/print-tickets.css?<?php echo date('Ymd') ?>: {media: all}]
   has_layout: false
 printSimplified:
