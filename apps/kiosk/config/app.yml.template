@@ -4,6 +4,7 @@
 # default values
 all:
   open: true
+  location_prompt: true #display a popup asking for customer geo origin on checkout
   user:
     templating: kiosk
     #other_templates: []
