@@ -17,6 +17,25 @@ class transactionsListActions extends autoTransactionsListActions
   {
     $this->redirect('transaction/new');
   }
+  
+  public function executeBatchSendEmails(sfWebRequest $request)
+  {
+    $q = Doctrine::getTable('Transaction')->createQuery('t', 'booked', true)
+        ->leftJoin('t.Payments p')
+        ->select('t.id')
+        ->andWhereIn('t.id', $request->getParameter('ids'))
+        ->groupBy('t.id')
+        ->having('count(tck.id) > 0 OR count(bp.id) > 0 OR count(p.id) > 0')
+    ;
+    $transactions = $q->fetchArray();
+    
+    $this->transactions = [];
+    foreach ( $transactions as $transaction ) {
+        $this->transactions[] = $transaction['id'];
+    }
+    
+    return 'SendEmailsSuccess';
+  }
   public function executeBatchPrintTickets(sfWebRequest $request)
   {
     $this->error = $this->success = array();

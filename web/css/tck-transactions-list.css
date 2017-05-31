@@ -21,6 +21,8 @@
 .sf_admin_list_td_list_details .tickets tbody .id:before, .sf_admin_list_td_list_details .member_cards tbody .id:before { content: '#'; }
 .sf_admin_list_td_list_details .products tbody .value_txt, .sf_admin_list_td_list_details .products tbody .taxes_txt, .sf_admin_list_td_list_details .products tbody .vat_txt { color: silver; }
 
+#transactions_id { display: none; }
+
 @media screen and (max-width: 1500px) {
   .sf_admin_list .sf_admin_list_td_description, .sf_admin_list .sf_admin_list_th_description,
   .sf_admin_list .sf_admin_list_td_list_nb_tickets, .sf_admin_list .sf_admin_list_th_list_nb_tickets { display: none; }

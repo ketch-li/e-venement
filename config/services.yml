@@ -12,5 +12,6 @@ all:
       class: ManifestationsService
     app_country_service:
       class: CountryService
-
+    pub_service:
+      class: PubService
 
