@@ -64,6 +64,9 @@ all:
   #messaging:
   #  enable: true
   #  chatrooms: [e-venement-public@conference.jabber.libre-informatique.fr]
+  #password:
+  #  encryption_service: password_md5_service
+  #  salt: ThisIsMyPasswordEncryptionSalt-ChangeIt!!!
 
   internals:
     cultures:
@@ -76,8 +79,8 @@ all:
       symbol: €
     plugins: []       # e.g. [liMemberCardPlugin]
     #users_domain: eve # to restrict the listing of users in this particular domain and its subdomain (this is not a DNS but an internal split only)
-    #host: www.your_back_office.net 
-    #host_pub: www.your_front.net 
+    #host: www.your_back_office.net
+    #host_pub: www.your_front.net
     #pr_scope: none    # none (no limitation), permissive (I see my groups and orphan contacts), restrictive (I see my groups and that's all). Users from root domain can see everything, like "none"
     #usb:              # change things here only if you know exactly what you do, and refer to config/e-venement.yml params
     #  printers:
@@ -104,7 +107,7 @@ all:
       design:
         background_color: rgb(60, 65, 76)
         logo_text: e-venement, the best ticketting system ever
-  anti_brute_force:  # If there was more than login_threshold or ip_threshold login attempts in less than time_threshold minutes, login is denied without checking credentials  
+  anti_brute_force:  # If there was more than login_threshold or ip_threshold login attempts in less than time_threshold minutes, login is denied without checking credentials
     #time_threshold:  30 # (default: 30 minutes) ex: 20 minutes, 2 hours, ...
     #login_threshold: 5 # Number of attempts with the same username (default: 5)
     #ip_threshold: 20 # Number of attempts with the same ip (default: 20)
