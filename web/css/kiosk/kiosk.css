@@ -86,12 +86,12 @@ header {
     margin-left: -15px; }
 
 /* INFO BUTTON */
-#info-btn {
+#info-btn, #reset-btn {
   height: 45px;
   width: 70px;
   z-index: 998;
   background-color: transparent; }
-  #info-btn i {
+  #info-btn i, #reset-btn i {
     font-size: 2em; }
 
 /* MENU BAR */

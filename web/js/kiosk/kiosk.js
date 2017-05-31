@@ -148,6 +148,11 @@ LI.kiosk = {
 			$('#access-fab, #app, #back-fab, .panel, #product-details-card').toggleClass('a11y');
 		});
 
+		$('#reset-btn').click(function() {
+			LI.kiosk.utils.showLoader();
+			location.reload();
+		});
+
 		//info button
 		$('#info-btn').click(function() {
 			$('#info-panel').toggle(500);
@@ -261,7 +266,7 @@ LI.kiosk = {
 		}
 
 		LI.kiosk.utils.hideLoader();
-	}
+	},
 	getTransaction: function() {
 		return $.get(LI.kiosk.urls.getNewTransaction, function(data) {
 			LI.kiosk.transaction.id = data;

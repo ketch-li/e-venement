@@ -59,6 +59,10 @@
 	            </a>
 	        <?php endforeach ?>
 	        <div class="mdl-layout-spacer"></div>
+			<!-- RESET -->
+	        <button id="reset-btn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color-text--light-blue-300">
+            	<i class="material-icons">replay</i>
+          	</button>
 	        <!-- INFO -->
 	        <div id="info-panel" class="mdl-card__supporting-text mdl-shadow--6dp mdl-color--light-blue-300">
 				<p>
