@@ -53,7 +53,7 @@
 			<!-- I18N LINKS -->
 			<i class="material-icons culture">language</i>
 			<?php foreach(sfConfig::get('project_internals_cultures', array('fr' => 'Français')) as $key => $culture): ?>
-				<a href="/kiosk_dev.php/default/culture/lang/<?php echo $key ?>" class="culture mdl-color-text--white" data-culture="<?php echo $key ?>">
+	            <a href="<?php echo cross_app_url_for('kiosk', 'default/culture') ?>/lang/<?php echo $key ?>" class="culture mdl-color-text--white" data-culture="<?php echo $key ?>">
 				  <?php echo $culture ?>
 	            </a>
 	        <?php endforeach ?>
