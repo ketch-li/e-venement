@@ -14,8 +14,8 @@ all:
       class: CountryService
     pub_service:
       class: PubService
-#    password_plain_text_service:
-#      class: PasswordPlainTextService
-#    password_md5_service:
-#      class: PasswordMD5Service
+    password_plain_text_service:
+      class: PasswordPlainTextService
+    password_md5_service:
+      class: PasswordMD5Service
 
