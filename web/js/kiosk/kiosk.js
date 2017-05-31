@@ -206,7 +206,6 @@ LI.kiosk = {
 	},
 	checkDevices: function() {
 		var ept = false;
-		var ticketPrinter = false;
 
 		var query = {
             type: LI.kiosk.devices.ept.type,
@@ -231,19 +230,13 @@ LI.kiosk = {
 
             LI.kiosk.connector.areDevicesAvailable(query).then(
                 function(response) {
-                    if (response.params.length) {
-                    	ticketPrinter = true;
+                    if (!(response.params.length && ept)) {
+                    	LI.kiosk.utils.showHardwarePrompt();
                     }
                 },
                 function(error) { console.error("areDevicesAvailable() error:", error); }
             );
-        })
-        .then(function() {
-        	if(!(ept && ticketPrinter)) {
-        		LI.kiosk.utils.showHardwarePrompt();
-        	}
-        })
-        ;
+        });
 	},
 	menu: function() {
 		//check if product type menu is needed
@@ -905,31 +898,31 @@ LI.kiosk = {
 	},
 	/************** CHECKOUT *******************************/
 	checkout: function() {
-		LI.kiosk.utils.showPaymentPrompt();
+		// LI.kiosk.utils.showPaymentPrompt();
 
-		var eptOptions = {
-		    amount: LI.kiosk.cart.total * 100,
-		    delay: 'A010',
-		    version: 'E+'
-		};
+		// var eptOptions = {
+		//     amount: LI.kiosk.cart.total * 100,
+		//     delay: 'A010',
+		//     version: 'E+'
+		// };
 
-		var message = new ConcertProtocolMessage(eptOptions);
+		// var message = new ConcertProtocolMessage(eptOptions);
 
-		var device = new ConcertProtocolDevice(LI.kiosk.devices.ept, LI.kiosk.connector);
+		// var device = new ConcertProtocolDevice(LI.kiosk.devices.ept, LI.kiosk.connector);
 
-		device
-			.doTransaction(message)
-			.then(function(res) {
-	        	if(res.stat === '0') {
+		// device
+		// 	.doTransaction(message)
+		// 	.then(function(res) {
+	 //        	if(res.stat === '0') {
 	        		LI.kiosk.finalize();
-	        	} else {
-	        		console.error(res.stat + ' ' + res.getStatusText());
-	        		LI.kiosk.utils.showFailurePrompt();
-	        	}
-	    	})
-	    	.catch(function(err) {
-	        	console.error(err);
-	    	})
+	     //    	} else {
+	     //    		console.error(res.stat + ' ' + res.getStatusText());
+	     //    		LI.kiosk.utils.showFailurePrompt();
+	     //    	}
+	    	// })
+	    	// .catch(function(err) {
+	     //    	console.error(err);
+	    	// })
 	    ;
 	},
 	finalize: function() {
@@ -967,7 +960,11 @@ LI.kiosk = {
 		            }
 		            
 		            LI.kiosk.connector.sendData(LI.kiosk.devices.ticketPrinter, data).then(
-			            function(response) {
+			            function() {
+			            	LI.kiosk.connector.readData(device).then(function(response) {
+			            		console.log(response);
+			            	});
+
 			            	LI.kiosk.utils.showFinalPrompt();
 			            },
 			            LI.kiosk.utils.error
