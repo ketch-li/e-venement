@@ -184,6 +184,27 @@
   data-get-museum="<?php echo cross_app_url_for('tck', 'transaction/getPeriods?simplified=1') ?>"
   data-print-tickets="<?php echo cross_app_url_for('tck', 'ticket/print?id=-666') ?>"
 ></div>
+
+<div class="js-data" id="devices" data-devices="<?php echo htmlspecialchars(json_encode(sfConfig::get('app_io_devices',[
+		'ept' => [
+			'type' => 'serial',
+			'params' => [
+				'baudrate' => 1200,
+				'comName' => '/dev/ttyACM0',
+				'databits' => 7,
+				'parity' => 'even',
+				'pnpId' => 'usb-079b_0028-if00'
+			]
+		],
+		'ticketPrinter' => [
+			'type' => 'usb',
+			'params' => [
+				'pid' => '1',
+				'vid' => '1305'
+			]
+		]
+]))) ?>"></div>
+
 <div class="js-data" id="config"
   data-culture="<?php echo sfContext::getInstance()->getUser()->getCulture(); ?>"
   data-ui-labels="<?php echo htmlspecialchars(json_encode(sfConfig::get('app_ui_labels'))) ?>"

@@ -10,6 +10,21 @@ all:
     #other_templates: []
     must_authenticate: false
     #session_ns: ''
+  io:
+    devices: 
+      ept:
+        type: 'serial'
+        params:
+          baudrate: 1200
+          comName: '/dev/ttyACM0'
+          databits: 7,
+          parity: 'even'
+          pnpId: 'usb-079b_0028-if00'
+      ticketPrinter:
+        type: 'usb'
+        params:
+          pid: 1,
+          vid: '1305'
   ui:
     labels: 
       price: 'name'
