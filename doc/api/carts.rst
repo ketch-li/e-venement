@@ -737,8 +737,7 @@ Definition
 Example
 ^^^^^^^
 
-To add a new item of a product to the cart with id = 21 (assuming, that we didn't remove it in the
-previous example) use the below method:
+To reorder cart items 465, 466, 467 in cart id = 21 use the below method:
 
 .. code-block:: bash
 
