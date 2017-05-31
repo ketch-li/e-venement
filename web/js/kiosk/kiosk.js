@@ -43,6 +43,7 @@ LI.kiosk = {
 		LI.kiosk.urls = $('#kiosk-urls').data();
 		LI.kiosk.devices = $('#devices').data('devices');
 		LI.kiosk.initPlugins();
+		LI.kiosk.checkDevices();
 		LI.kiosk.addListeners();
 
 		//hide current culture from menu
@@ -83,6 +84,10 @@ LI.kiosk = {
 			}
 		 })
 		;
+	},
+	reset: function() {
+		$(document).off();
+		LI.kiosk.utils.hideLoader();
 	},
 	initPlugins: function() {
 		Waves.attach('.waves-effect');
@@ -201,6 +206,47 @@ LI.kiosk = {
 				LI.kiosk.checkout();
 			}
 		});
+	},
+	checkDevices: function() {
+		var ept = false;
+		var ticketPrinter = false;
+
+		var query = {
+            type: LI.kiosk.devices.ept.type,
+            params: [{pnpId: LI.kiosk.devices.ept.params.pnpId}]
+        };
+
+		LI.kiosk.connector.areDevicesAvailable(query).then(
+            function(response) {
+                if (response.params.length) {
+                    ept = true;
+                }
+            },
+            function(error) { console.error("areDevicesAvailable() error:", error); }
+        ).then(function(){
+            query = {
+            	type: LI.kiosk.devices.ticketPrinter.type, 
+            	params: [{
+            		vid: LI.kiosk.devices.ticketPrinter.params.vid,
+					pid: LI.kiosk.devices.ticketPrinter.params.pid
+            	}] 
+            };
+
+            LI.kiosk.connector.areDevicesAvailable(query).then(
+                function(response) {
+                    if (response.params.length) {
+                    	ticketPrinter = true;
+                    }
+                },
+                function(error) { console.error("areDevicesAvailable() error:", error); }
+            );
+        })
+        .then(function() {
+        	if(!(ept && ticketPrinter)) {
+        		LI.kiosk.utils.showHardwarePrompt();
+        	}
+        })
+        ;
 	},
 	getTransaction: function() {
 		return $.get(LI.kiosk.urls.getNewTransaction, function(data) {
@@ -842,13 +888,13 @@ LI.kiosk = {
 	checkout: function() {
 		LI.kiosk.utils.showPaymentPrompt();
 
-		var etpOptions = {
+		var eptOptions = {
 		    amount: LI.kiosk.cart.total * 100,
 		    delay: 'A010',
 		    version: 'E+'
 		};
 
-		var message = new ConcertProtocolMessage(etpOptions);
+		var message = new ConcertProtocolMessage(eptOptions);
 
 		var device = new ConcertProtocolDevice(LI.kiosk.devices.ept, LI.kiosk.connector);
 
@@ -1052,6 +1098,15 @@ LI.kiosk = {
 			;
 
 			LI.kiosk.dialogs.status.showModal();
+		},
+		showHardwarePrompt: function() {
+			$(LI.kiosk.dialogs.status)
+				.find('p')
+				.html('Out of service')
+			;
+
+			LI.kiosk.dialogs.status.showModal();
+			LI.kiosk.reset();
 		}
 	}
 }
