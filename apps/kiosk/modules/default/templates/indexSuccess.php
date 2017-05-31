@@ -34,6 +34,7 @@
 <?php use_javascript('/js/EveConnector/web/js/eve-connector.js') ?>
 <?php use_javascript('/js/EveConnector/web/js/concert-protocol.js') ?>
 <?php use_javascript('jquery') ?>
+<?php use_javascript('/js/kiosk/jquery.idle.min.js') ?>
 <?php use_javascript('/js/kiosk/keypad.js') ?>
 <?php use_javascript('/js/kiosk/dialog-polyfill.js') ?>
 <?php use_javascript('/sfAdminThemejRollerPlugin/js/jquery-ui.custom.min.js') ?>
@@ -207,6 +208,7 @@
 
 <div class="js-data" id="config"
   data-culture="<?php echo sfContext::getInstance()->getUser()->getCulture(); ?>"
+  data-idle-time="<?php echo sfConfig::get('app_idle_time', false); ?>"
   data-ui-labels="<?php echo htmlspecialchars(json_encode(sfConfig::get('app_ui_labels'))) ?>"
   data-show-location-prompt="<?php echo sfConfig::get('app_location_prompt') ?>"
  ></div>

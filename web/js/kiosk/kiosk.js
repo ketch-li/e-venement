@@ -58,27 +58,19 @@ LI.kiosk = {
 			LI.kiosk.getStore()
 		 )
 	     .then(function() {
-	     	//check if product type menu is needed
-	     	var lists = {};
+	  		LI.kiosk.menu();
 
-			$.each(LI.kiosk.products, function(key, productList) {
-				var listLength = Object.keys(productList).length;
-
-				if( listLength > 0)
-					lists[key] = listLength;
-			});
-
-			if(Object.keys(lists).length > 1) {
-				$(document).trigger('menu:mount');
-			}else {
-				$(document).trigger({
-					type: 'product-list:mount',
-					productType: Object.keys(lists)[0]
+			//handle idle user
+			if(LI.kiosk.config.idleTime) {
+				$(this).idle({
+			  		onIdle: function(){
+			    		$('.culture[data-culture="fr"]').trigger('click').get(0).click();
+			  		},
+			  		idle: LI.kiosk.config.idleTime
 				});
 			}
 
-			LI.kiosk.utils.hideLoader();
-
+			//Retrieve country list for location prompt
 			if(LI.kiosk.config.showLocationPrompt) {
 				LI.kiosk.getCountries();
 			}
@@ -248,6 +240,28 @@ LI.kiosk = {
         })
         ;
 	},
+	menu: function() {
+		//check if product type menu is needed
+     	var lists = {};
+
+		$.each(LI.kiosk.products, function(key, productList) {
+			var listLength = Object.keys(productList).length;
+
+			if( listLength > 0)
+				lists[key] = listLength;
+		});
+
+		if(Object.keys(lists).length > 1) {
+			$(document).trigger('menu:mount');
+		}else {
+			$(document).trigger({
+				type: 'product-list:mount',
+				productType: Object.keys(lists)[0]
+			});
+		}
+
+		LI.kiosk.utils.hideLoader();
+	}
 	getTransaction: function() {
 		return $.get(LI.kiosk.urls.getNewTransaction, function(data) {
 			LI.kiosk.transaction.id = data;

@@ -4,6 +4,7 @@
 # default values
 all:
   open: true
+  idle_time: 60000 #allowed idle time in milliseconds before reset (default: 90000, set to false to disable)
   location_prompt: true #display a popup asking for customer geo origin on checkout
   user:
     templating: kiosk
