@@ -2132,6 +2132,18 @@
         <source>View Payment method</source>
         <target>Fiche de méthode de paiement</target>
       </trans-unit>                       
+      <trans-unit id="532">
+        <source>[0]No transaction needed to be confirmed|[1]1 transaction has been confirmed by email to its backer|(1,+Inf]%%nb%% transactions have been confirmed by email to their backers</source>
+        <target>[0]Aucune confirmation n'a été nécessaire|[1]Une opération a été confirmée par courriel à son commanditaire|(1,+Inf]%%nb%% opérations ont été confirmées par courriel à leur commanditaires</target>
+      </trans-unit>                       
+      <trans-unit id="533">
+        <source>Program #%%tid%%</source>
+        <target>Programme #%%tid%%</target>
+      </trans-unit>                       
+      <trans-unit id="534">
+        <source>List of transactions to be confirmed by email</source>
+        <target>Liste des opérations à confirmer par email</target>
+      </trans-unit>                       
     </body>
   </file>
 </xliff>

@@ -35,11 +35,16 @@
     
     sfApplicationConfiguration::getActive()->loadHelpers(array('Date','Number','I18N', 'Url'));
     
-    // command is not yet i18n, only french
     $command = __('Order #%%tid%%', array('%%tid%%' => $transaction->id));
+    $program = __('Program #%%tid%%', array('%%tid%%' => $transaction->id));
     if ( $transaction->Contact )
-      $command .= ' '.__('for %%contact%%', array('%%contact%%' => $transaction->Contact));
+    {
+      $str = ' '.__('for %%contact%%', array('%%contact%%' => $transaction->Contact));
+      $command .= $str;
+      $program .= $str;
+    }
     $command .= "\n";
+    $program .= "\n";
     
     // tickets
     $tickets = array();
@@ -68,11 +73,14 @@
     
     foreach ( $tickets as $event )
     {
-      $command .= "\n".$event['event'].": \n";
+      $command .= "\n*".$event['event'].": \n";
+      $program .= "\n* ".$event['event']." ";
       unset($event['event']);
       foreach ( $event as $manif )
       {
-        $command .= "&nbsp;&nbsp;".__('at %%date%%', array('%%date%%' => $manif['manif']->getShortenedDate()), 'li_tickets_email').", ".$manif['manif']->Location.(($sp = $ticket->Manifestation->Location->getWorkspaceSeatedPlan($ticket->Gauge->workspace_id)) ? '*' : '')."\n";
+        $str = "&nbsp;&nbsp;".__('at %%date%%', array('%%date%%' => $manif['manif']->getShortenedDate()), 'li_tickets_email').", ".$manif['manif']->Location.(($sp = $ticket->Manifestation->Location->getWorkspaceSeatedPlan($ticket->Gauge->workspace_id)) ? '*' : '')."\n";
+        $command .= $str;
+        $program .= $str;
         unset($manif['manif']);
         foreach ( $manif as $tickets )
         {
@@ -162,6 +170,7 @@
       '%%TRANSACTION_ID%%' => $transaction->id,
       '%%SELLER%%' => sfConfig::get('app_informations_title'),
       '%%COMMAND%%' => $command,
+      '%%PROGRAM%%' => $program,
       '%%NOTICES%%' => '* '.sfConfig::get('app_text_email_seated_tickets', __('All lines marked with an wildcard concern a seated venue. You will receive a new email as soon as a change is done in the seat allocation for your tickets.')),
     );
     

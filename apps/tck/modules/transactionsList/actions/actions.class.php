@@ -34,7 +34,11 @@ class transactionsListActions extends autoTransactionsListActions
         $this->transactions[] = $transaction['id'];
     }
     
-    return 'SendEmailsSuccess';
+    if ( count($this->transactions) > 0 ) {
+        $this->getContext()->getConfiguration()->loadHelpers('I18N');
+        $this->getUser()->setFlash('notice', format_number_choice('[0]No transaction needed to be confirmed|[1]1 transaction has been confirmed by email to its backer|(1,+Inf]%%nb%% transactions have been confirmed by email to their backers', array('%%nb%%' => count($this->transactions)), count($this->transactions)));
+        return 'SendEmailsSuccess';
+    }
   }
   public function executeBatchPrintTickets(sfWebRequest $request)
   {
