@@ -712,38 +712,27 @@ LI.kiosk = {
 		addItem: function(item, price, declination) {
 			var newLine;
 			var lineId;
-			var exists = false;
+			var lineExists = false;
 
 			$.each(LI.kiosk.cart.lines, function(key, line) {
-				
 				if(line.product.id == item.id && line.price.id == price.id && line.declination.id == declination.id){
 					var htmlLine = $('#' + line.id);
+
 					line.qty++;
-					LI.kiosk.cart.lineTotal(line);
 					exists = true;
+					LI.kiosk.cart.lineTotal(line);
+					
 					htmlLine.find('.line-total').text(line.total);
 					htmlLine.find('.line-qty').text(line.qty);
 					LI.kiosk.utils.flash('#' + line.id);
-					lineId = line.id;
+
+					newLine = line;
 				}
 			});
 
-			if(!exists) {
-				var newLine = {
-					id: LI.kiosk.utils.generateUUID(),
-					name: item.name,
-					product: item,
-					value: price.value,
-					price: price,
-					declination: declination,
-					qty: 1,
-					total: price.value
-				};
-
-				LI.kiosk.cart.lines[newLine.id] = newLine;
-				LI.kiosk.cart.insertLine(LI.kiosk.cart.lines[newLine.id], item, price, declination);
+			if(!lineExists) {
+				newLine = LI.kiosk.cart.newLine(item, price, declination); 
 				LI.kiosk.utils.flash('#' + newLine.id);
-				lineId = newLine.id;
 			}
 
 			LI.kiosk.cart.cartTotal();
@@ -753,33 +742,7 @@ LI.kiosk = {
 				$('#cart').css('display', 'flex');
 		    }
 
-		    var available = false;
-			
-		    if(item.type == 'store') {
-		    	available = true;
-		    }
-
-			if(item.gauge_url !== undefined ) {
-				available = LI.kiosk.cart.checkAvailability(item.gauge_url, lineId, item.id);
-			}
-		    	
-		    
-			if(available) {
-		    	LI.kiosk.cart.updateTransaction({ 
-			    	transaction: {
-			    		price_new: {
-			    			_csrf_token: LI.kiosk.CSRF,
-			    			price_id: price.id,
-			    			declination_id: declination.id,
-			    			type: item.type == 'store' ? 'declination' : 'gauge',
-			    			bunch: item.type,
-			    			id: LI.kiosk.transaction.id,
-			    			state: '',
-			    			qty: '1'
-			    		}
-			        }
-			    });
-			}
+		    LI.kiosk.cart.validateItem(newLine);
 		},
 		removeItem: function(lineId, item) {
 			var line = LI.kiosk.cart.lines[lineId];
@@ -816,6 +779,51 @@ LI.kiosk = {
 
 			if(Object.keys(LI.kiosk.cart.lines) < 1)
 				$('#cart').hide(200);
+		},
+		newLine: function(item, price, declination) {
+			var newLine = {
+				id: LI.kiosk.utils.generateUUID(),
+				name: item.name,
+				product: item,
+				value: price.value,
+				price: price,
+				declination: declination,
+				qty: 1,
+				total: price.value
+			};
+
+			LI.kiosk.cart.lines[newLine.id] = newLine;
+			LI.kiosk.cart.insertLine(LI.kiosk.cart.lines[newLine.id], item, price, declination);
+
+			return newLine;
+		},
+		validateItem: function(line) {
+			var available = false;
+			
+		    if(line.product.type == 'store') {
+		    	available = true;
+		    }
+
+			if(line.product.gauge_url !== undefined ) {
+				available = LI.kiosk.cart.checkAvailability(line.product.gauge_url, line.id, line.product.id);
+			}
+		    	
+			if(available) {
+		    	LI.kiosk.cart.updateTransaction({
+			    	transaction: {
+			    		price_new: {
+			    			_csrf_token: LI.kiosk.CSRF,
+			    			price_id: line.price.id,
+			    			declination_id: line.declination.id,
+			    			type: line.product.type == 'store' ? 'declination' : 'gauge',
+			    			bunch: line.product.type,
+			    			id: LI.kiosk.transaction.id,
+			    			state: '',
+			    			qty: '1'
+			    		}
+			        }
+			    });
+			}
 		},
 		checkAvailability: function(gaugeUrl, lineId, productId) {
 			var qty = 0;
