@@ -169,6 +169,26 @@ var StarPrinter = function(device, connector){
     });
   };
 
+  this.pollPrint = function(data) {
+    var printer = this;
+    var connector = this.connector;
+    var device = this.device;
+    
+    return new Promise(function(resolve, reject){
+      connector.startPoll(device, function(response) {
+        if(printer.getStatuses(atob(response)).length > 0) {
+          connector.stopPoll(device);
+          reject('' + printer.getStatuses(atob(response)));
+        }
+      });
+
+      connector.sendData(device, data).then(function(){
+        connector.stopPoll(device);
+        resolve('ok');
+      });
+    });
+  };
+
 };  // END StarPrinter()
 
 
