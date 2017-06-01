@@ -29,12 +29,14 @@
 <?php use_stylesheet('kiosk/dialog-polyfill.css') ?>
 <?php use_stylesheet('kiosk/kiosk.css') ?>
 <?php use_stylesheet('kiosk/toastr.min.css') ?>
+<?php use_stylesheet('/private/kiosk.css') ?>
 
 <?php use_javascript('/js/EveConnector/web/js/socket.io.js') ?>
 <?php use_javascript('/js/EveConnector/web/js/eve-connector.js') ?>
 <?php use_javascript('/js/EveConnector/web/js/concert-protocol.js') ?>
 <?php use_javascript('jquery') ?>
 <?php use_javascript('/js/kiosk/jquery.idle.min.js') ?>
+<?php use_javascript('/js/tck-devices.js') ?>
 <?php use_javascript('/js/kiosk/keypad.js') ?>
 <?php use_javascript('/js/kiosk/dialog-polyfill.js') ?>
 <?php use_javascript('/sfAdminThemejRollerPlugin/js/jquery-ui.custom.min.js') ?>
@@ -43,7 +45,6 @@
 <?php use_javascript('/js/handlebars/handlebars-v4.0.5.js') ?>
 <?php use_javascript('/js/material/material.min.js') ?>
 <?php use_javascript('/js/kiosk/kiosk.js') ?>
-<?php use_stylesheet('/private/kiosk.css') ?>
 <?php use_javascript('/private/kiosk.js') ?>
 
 <div id="app" class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-color--blue-grey-800">
