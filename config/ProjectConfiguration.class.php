@@ -180,7 +180,7 @@ class ProjectConfiguration extends sfProjectConfiguration implements liGarbageCo
   }
   public function getAppendedMenus($menu = NULL)
   {
-    if ( is_null($menu) || !(string)$menu )
+    if ( is_null($menu) || !(string)$menu || count($this->extraMenus) == 0 )
       return $this->extraMenus;
     return $this->extraMenus[$menu];
   }
