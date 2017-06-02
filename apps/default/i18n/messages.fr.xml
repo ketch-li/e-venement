@@ -206,7 +206,7 @@
       </trans-unit>
       <trans-unit id="51">
         <source>A software malfunction occured</source>
-        <target>Un disfonctionnement du logiciel s'est produit.</target>
+        <target>Un dysfonctionnement du logiciel s'est produit.</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Possible causes:</source>
@@ -218,11 +218,11 @@
       </trans-unit>
       <trans-unit id="54">
         <source>You tried to add an element that already exists (eg: create a product with the same code as an existing one).</source>
-        <target>Vous avez essayé d'ajouter un élément déjà éxistant (ex: un produit ayant le même code q'un produit éxistant déjà en base).</target>
+        <target>Vous avez essayé d'ajouter un élément déjà existant (ex: un produit ayant le même code qu'un produit éxistant déjà en base).</target>
       </trans-unit>                            
       <trans-unit id="55">
         <source>Please try again. If the problem persists, contact your administrator at:</source>
-        <target>Veuillez réessayer. Si le problème persiste, veuillez contacter votre administrateur à l'adresse :</target>
+        <target>Veuillez réessayer. Si le problème persiste, veuillez contacter votre gestionnaire d'application.</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Workspaces list</source>
