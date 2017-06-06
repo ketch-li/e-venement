@@ -24,7 +24,7 @@
       type="hidden"
       name="manifestations-display-interval"
       value="<?php echo date('Y-m-d H:i:s', strtotime(!isset($conf['display_time_limit']) ? '+1 month' : $conf['display_time_limit'])); ?>"
-      data-conf="<?php echo $conf['display_time_limit'] ?>"
+      data-conf="<?php echo strtotime(!isset($conf['display_time_limit']) ? '+1 month' : $conf['display_time_limit']) ?>"
     />
 
     <ul class="prices ui-widget-content ui-corner-all">

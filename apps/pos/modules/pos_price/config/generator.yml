@@ -1,23 +1,19 @@
 generator:
   class: sfDoctrineGenerator
   param:
-    model_class:           ProductPrice
+    model_class:           Price
     theme:                 jroller
     non_verbose_templates: true
     with_show:             false
     singular:              ~
     plural:                ~
-    route_prefix:          product_price
+    route_prefix:          pos_price
     with_doctrine_route:   true
     actions_base_class:    sfActions
 
     config:
       actions: ~
       fields:
-        member_card_linked: { label: "Linked w/ MC", credentials: [tck-admin-member-cards] }
-        manifestations_list: { label: Manifestations }
-        gauges_list: { label: Gauges }
-        member_cards_list: { label: Member cards }
         products_list: { label: Products }
         linked_products_list: { label: Linked products }
         taxes_list: { label: Taxes }
@@ -27,23 +23,30 @@ generator:
         workspaces_list: { help: Related to... }
         not_workspaces_list: { label: Workspaces list, help: Not related to... }
         color_id: { label: Color }    
-        color_name: { label: Name }
+        color_name: { label: name }
       list:
-        display: [_color_name, description, value, online, hide]
+        display: [_color_name, description, value, online, hide, rank]
         sort: ['hide, pt.name', '']
         object_actions:
           _edit: ~
           _delete: ~
         max_per_page: 50
+        table_method: getPosPrice
       filter:
         display:
-          Price: [name, description, value, online, hide, member_card_linked, x_days_valid]
-          Links: [manifestations_list, member_cards_list, products_list, linked_products_list, taxes_list]
+          Price: [name, description, value, online, hide]
+          Links: [products_list, linked_products_list, taxes_list]
           Permissions: [users_list, workspaces_list, not_workspaces_list]
       form:
         display:
           General: [name, description, value]
-          Options: [online, hide, member_card_linked, color_id, x_days_valid]
+          Options: [online, hide, color_id]
           Permissions: [workspaces_list, users_list]
-      edit:    ~
+      edit:
+        title: Price "%%name%%"
       new:     ~
+      show:
+        display:
+          General: [name, description, value]
+          Options: [online, hide]
+          #Permissions: [workspaces_list, users_list]

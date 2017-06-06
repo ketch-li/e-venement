@@ -28,7 +28,7 @@
               <li><a href="<?php echo cross_app_url_for('pos','category/index') ?>"><?php echo __('Categories',array(),'menu') ?></a></li>
               <?php endif ?>
               <?php if ( $sf_user->hasCredential('pos-product-price') ): ?>
-              <li><a href="<?php echo cross_app_url_for('pos','product_price/index') ?>"><?php echo __('Prices',array(),'menu') ?></a></li>
+              <li><a href="<?php echo cross_app_url_for('pos','pos_price/index') ?>"><?php echo __('Available prices',array(),'menu') ?></a></li>
               <?php endif ?>
               <?php if ( $sf_user->hasCredential('pos-admin-color') ): ?>
               <li><a href="<?php echo cross_app_url_for('pos','color') ?>"><?php echo __('Colors',array(),'menu') ?></a></li>

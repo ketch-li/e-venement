@@ -12,12 +12,6 @@
  */
 abstract class PluginPrice extends BasePrice
 {
-  public function preSave($event)
-  {
-    if ( !$this->target )
-      $this->target = 'event';
-    parent::preSave($event);
-  }
   public function actAs($tpl, array $options = array())
   {
     $options['table'] = $this->getTable();
@@ -37,6 +31,14 @@ abstract class PluginPrice extends BasePrice
     $rank->save();      
     
     $this->Ranks[0] = $rank;
+    
+    if ( sfContext::hasInstance()
+      && sfContext::getInstance()->getConfiguration()->getApplication() == 'pos' )
+    {
+      $pricePOS = new PricePOS();
+      $pricePOS->Price = $this;
+      $pricePOS->save();
+    }
     
     return parent::postInsert($event);
   }

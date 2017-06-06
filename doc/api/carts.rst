@@ -501,7 +501,7 @@ Definition
 
 .. code-block:: text
 
-    POST /api/v1/carts/{cartId}/items/{cartItemId}
+    POST /api/v2/carts/{cartId}/items/{cartItemId}
 
 +---------------+----------------+--------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                  |
@@ -712,3 +712,59 @@ Sample Response
 .. code-block:: text
 
     STATUS: 204 No Content
+
+Reordering Cart Items
+---------------------
+
+To reorder cart items you can call the ``/api/v2/carts/{cartId}/items/reorder`` endpoint with the ``POST`` method.
+All the cart items you are reordering must belong to the same time slot.
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    POST /api/v2/carts/{cartId}/items/reorder
+
++---------------+----------------+----------------------------------------------------------------+
+| Parameter     | Parameter type | Description                                                    |
++===============+================+================================================================+
+| Authorization | header         | Token received during authentication                           |
++---------------+----------------+----------------------------------------------------------------+
+| cartId        | url attribute  | Id of the requested cart                                       |
++---------------+----------------+----------------------------------------------------------------+
+
+Example
+^^^^^^^
+
+To reorder cart items 465, 466, 467 in cart id = 21 use the below method:
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/carts/21/items/reorder \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Content-Type: application/json" \
+        -X POST \
+        --data '
+            [
+                {
+                    "cartItemId": 465,
+                    "rank": 1
+                },
+                {
+                    "cartItemId": 466,
+                    "rank": 3
+                },	
+                {
+                    "cartItemId": 467,
+                    "rank": 2
+                }                
+            ]
+        '
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 200 OK

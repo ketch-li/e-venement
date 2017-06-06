@@ -29,7 +29,7 @@ class ProductForm extends BaseProductForm
     unset($this->widgetSchema['picture_id'], $this->validatorSchema['picture_id']);
     
     $this->widgetSchema   ['prices_list']
-      ->setOption('query', $q = Doctrine::getTable('ProductPrice')->createQuery('p')
+      ->setOption('query', $q = Doctrine::getTable('Price')->createQuery('p')
         ->leftJoin('p.PricePOS pos')
         ->andWhere('pos.id IS NOT NULL OR pdt.id IS NOT NULL')
         ->leftJoin('p.Products pdt WITH pdt.id = ?', $this->object->id)

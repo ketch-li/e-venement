@@ -1,12 +1,3 @@
-product_price:
-  class: sfDoctrineRouteCollection
-  options:
-    model:                ProductPrice
-    module:               product_price
-    prefix_path:          /product_price
-    column:               id
-    with_wildcard_routes: true
-
 product_declination:
   class: sfDoctrineRouteCollection
   options:
@@ -22,6 +13,14 @@ price_pos:
     model:                PricePOS
     module:               price
     prefix_path:          /price
+    column:               id
+    with_wildcard_routes: true
+pos_price:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Price
+    module:               pos_price
+    prefix_path:          /pos_price
     column:               id
     with_wildcard_routes: true
 

@@ -19,7 +19,7 @@
  * @param boolean $debug
  * @return string
  */
-function cross_app_url_for($appname, $url, $absolute = false, $env = null, $debug = false)
+function cross_app_url_for($appname, $url, $absolute = false, $env = null, $debug = NULL)
 {
   $initial_app = sfContext::getInstance()->getConfiguration()->getApplication();
   $initial_web_controler = basename(sfContext::getInstance()->getRequest()->getScriptName());
@@ -32,10 +32,17 @@ function cross_app_url_for($appname, $url, $absolute = false, $env = null, $debu
     $env = sfContext::getInstance()->getConfiguration()->getEnvironment();
   }
   
+  // get the debug context
+  if ( $debug === NULL )
+  {
+    $debug = sfConfig::get('sf_debug', false);
+  }
+  
   // context creation
   if (!sfContext::hasInstance($appname))
   {
     $context = sfContext::createInstance(ProjectConfiguration::getApplicationConfiguration($appname, $env, $debug), $appname);
+    $context->getEventdispatcher()->notify(new sfEvent($context, 'context.load_factories'));
   }
   else
   {

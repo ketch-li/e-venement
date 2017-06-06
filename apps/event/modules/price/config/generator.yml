@@ -35,6 +35,7 @@ generator:
           _edit: ~
           _delete: ~
         max_per_page: 50
+        table_method: getEventPrice
       filter:
         display:
           Price: [name, description, value, online, hide, member_card_linked, x_days_valid]

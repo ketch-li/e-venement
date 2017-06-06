@@ -377,7 +377,7 @@
         <target>Tarifs des produits</target>
       </trans-unit>      
       <trans-unit id="200">
-        <source>New Product price</source>
+        <source>New Pos price</source>
         <target>Nouveau tarif des produits</target>
       </trans-unit> 
       <trans-unit id="201">

@@ -4,7 +4,7 @@ dev:
 
 all:
   parameters:
-    
+
   services:
     dummy:
       abstract: true
@@ -12,5 +12,10 @@ all:
       class: ManifestationsService
     app_country_service:
       class: CountryService
-
+    pub_service:
+      class: PubService
+    password_plain_text_service:
+      class: PasswordPlainTextService
+    password_md5_service:
+      class: PasswordMD5Service
 

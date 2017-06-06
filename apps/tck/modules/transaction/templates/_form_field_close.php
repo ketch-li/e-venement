@@ -1,3 +1,4 @@
+<?php $tokenService = $sf_context->getContainer()->get('pub_service') ?>
 <?php echo $form->renderFormTag(url_for('transaction/complete?id='.$transaction->id), array(
   'method' => 'get',
   'target' => '_blank',
@@ -59,7 +60,7 @@
 ><span class="ui-icon ui-icon-trash"></span></a>
 <a
   class="ui-widget-content ui-state-default ui-corner-all ui-widget fg-button"
-  href="<?php echo cross_app_url_for('pub','transaction/sendEmail?id='.$transaction->id.'&token='.md5($transaction->id.'|*|*|'.sfConfig::get('project_eticketting_salt', 'e-venement'))) ?>"
+  href="<?php echo cross_app_url_for('pub','transaction/sendEmail?id='.$transaction->id.'&token='.$tokenService->getToken($transaction->id)) ?>"
   title="<?php echo __('Resend confirmation email') ?>"
   id="resend-email"
   target="_blank"
@@ -67,7 +68,7 @@
 ><span class="ui-icon ui-icon-mail-closed"></span></a>
 <a
   class="ui-widget-content ui-state-default ui-corner-all ui-widget fg-button"
-  href="<?php echo cross_app_url_for('pub','cart/order?transaction_id='.$transaction->id.'&token='.md5($transaction->id.'|*|*|'.sfConfig::get('project_eticketting_salt', 'e-venement'))) ?>"
+  href="<?php echo cross_app_url_for('pub','cart/order?transaction_id='.$transaction->id.'&token='.$tokenService->getToken($transaction->id)) ?>"
   title="<?php echo __('Pay by card online (only efficient if this transaction has a contact)') ?>"
   data-text-prefix="<?php echo __('This is the URL to use: ') ?>"
   id="pay-online"
