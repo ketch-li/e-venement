@@ -26,13 +26,6 @@ ColorPrice:
     type: column_aggregation
     keyField: target
     keyValue: 'price'
-ProductPrice:
-  package: price
-  inheritance:
-    extends: Price
-    type: column_aggregation
-    keyField: target
-    keyValue: 'pos'
 Price:
   package: price
   actAs:

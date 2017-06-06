@@ -12,12 +12,6 @@
  */
 abstract class PluginPrice extends BasePrice
 {
-  public function preSave($event)
-  {
-    if ( !$this->target )
-      $this->target = 'event';
-    parent::preSave($event);
-  }
   public function actAs($tpl, array $options = array())
   {
     $options['table'] = $this->getTable();

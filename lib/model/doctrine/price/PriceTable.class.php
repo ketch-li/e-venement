@@ -26,7 +26,7 @@ class PriceTable extends PluginPriceTable
     return $q;
   }
   
-  public function createQuery($alias = 'p', $override_credentials = true, $target = 'event')
+  public function createQuery($alias = 'p', $override_credentials = true)
   {
     $q = parent::createQuery($alias);
     
@@ -40,8 +40,7 @@ class PriceTable extends PluginPriceTable
     else
       $q->leftJoin("$alias.Ranks pr");
       
-    $q->andWhere("$alias.target = '$target'") // use of ? is buggy. Parameters are misplaced
-      ->orderBy("pr.rank, $alias.id");
+    $q->orderBy("pr.rank, $alias.id");
 
     return $q;
   }

@@ -221,15 +221,6 @@ EOF
 fi
 
 echo ''
-echo "Separating product and event prices"
-psql $db <<EOF
--- Fill the new target column
-    UPDATE price 
-    SET target = 'event'
-    WHERE target IS NULL;
-EOF
-
-echo ''
 echo "Changing (or not) file permissions for the e-venement Messaging Network ..."
 chmod -R 777 web/liJappixPlugin/store web/liJappixPlugin/tmp web/liJappixPlugin/log &> /dev/null
 echo "... done."
