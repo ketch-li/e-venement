@@ -32,6 +32,14 @@ abstract class PluginPrice extends BasePrice
     
     $this->Ranks[0] = $rank;
     
+    if ( sfContext::hasInstance()
+      && sfContext::getInstance()->getConfiguration()->getApplication() == 'pos' )
+    {
+      $pricePOS = new PricePOS();
+      $pricePOS->Price = $this;
+      $pricePOS->save();
+    }
+    
     return parent::postInsert($event);
   }
 

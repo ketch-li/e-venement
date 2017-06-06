@@ -45,6 +45,27 @@ class PriceTable extends PluginPriceTable
     return $q;
   }
   
+  public function getEventPrice()
+  {
+    $q = $this->createQuery();
+    $root = $q->getRootAlias();
+
+    $q->leftJoin("$root.PricePOS pos")
+      ->andWhere('pos.id IS NULL');
+
+    return $q;
+  }
+  
+  public function getPosPrice()
+  {
+    $q = $this->createQuery();
+    $root = $q->getRootAlias();
+
+    $q->innerJoin("$root.PricePOS pos");
+
+    return $q;
+  }
+  
   public function fetchOneByName($name)
   {
     $q = $this->createQuery('p')->andWhere('pt.name = ?',$name);

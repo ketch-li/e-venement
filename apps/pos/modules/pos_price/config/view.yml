@@ -1,0 +1,12 @@
+indexSuccess:
+  javascripts: [list-scroll, event-price?<?php echo date('Ymd') ?>]
+  stylesheets: [event-price?<?php echo date('Ymd') ?>]
+
+ajaxJson:
+  has_layout: false
+  http_metas:
+    content-type: application/json
+changeRankSuccess:
+  has_layout: false
+  http_metas:
+    content-type: application/json
