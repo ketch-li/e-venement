@@ -176,14 +176,16 @@
 
 <!-- STATUS DIALOG -->
 <dialog id="status" class="mdl-dialog">
-  <h4 id="status-title" class="mdl-dialog__title"></h4>
-    <div id="status-content" class="mdl-dialog__content">
-      <p id="status-details"></p>
-    </div>
-    <div class="status-actions">
-      <button type="button" class="mdl-button">Retry</button>
-      <button type="button" class="mdl-button close">Cancel</button>
-    </div>
+  <form id="status-form" method="dialog">
+	  <h4 id="status-title" class="mdl-dialog__title"></h4>
+	  <div id="status-content" class="mdl-dialog__content">
+  	  	<p id="status-details"></p>
+	  </div>
+	  <div id="status-actions">
+  		<button type="submit" class="mdl-button" value="true">Retry</button>
+  	    <button type="submit" class="mdl-button close" value="false">Cancel</button>
+	  </div>
+  </form>
 </dialog>
 
 <!-- JS DATA -->

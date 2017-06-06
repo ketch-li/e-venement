@@ -101,6 +101,19 @@ header {
 #search-bottom-line::after {
   background-color: white; }
 
+/* DIALOGS */
+#status {
+  height: 70vh;
+  width: 70vw; }
+  #status form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%; }
+    #status form #status-actions, #status form #status-arrow {
+      display: none; }
+
 /* LISTS */
 ul {
   list-style-type: none; }
@@ -347,7 +360,7 @@ ul {
   width: 25vh;
   align-self: center;
   margin-top: 30vh;
-  z-index: 999; }
+  z-index: 3000; }
 
 /* LOCATION DIALOG */
 #location {

@@ -213,6 +213,10 @@ LI.kiosk = {
             params: [{pnpId: LI.kiosk.devices.ept.params.pnpId}]
         };
 
+        if(!LI.kiosk.connector.isConnected()) {
+        	LI.kiosk.utils.showHardwarePrompt('connector');
+        }
+
 		LI.kiosk.connector.areDevicesAvailable(query).then(
             function(response) {
                 if (!response.params.length) {
@@ -933,7 +937,7 @@ LI.kiosk = {
 	    ;
 	},
 	finalize: function() {
-		LI.kiosk.utils.showPaymentSuccessPrompt();
+		LI.kiosk.print();
 
 		LI.kiosk.updateTransaction({
 			transaction: {
@@ -945,6 +949,9 @@ LI.kiosk = {
 				}
 			}
 		});
+	},
+	print: function() {
+		LI.kiosk.utils.showPaymentSuccessPrompt();
 
 		if(LI.kiosk.printTickets()) {
 			LI.kiosk.close();
@@ -1003,7 +1010,7 @@ LI.kiosk = {
 		;
 	},
 	handlePrintFailure: function(error, printer) {
-		LI.kiosk.connector.resetData(LI.kiosk.devices.ticketPrinter)
+		LI.kiosk.connector.resetData(LI.kiosk.devices.ticketPrinter);
 		LI.kiosk.utils.showTicketFailurePrompt(error, printer);
 	},
 	logPrintFailure: function(error, printer) {
@@ -1032,7 +1039,8 @@ LI.kiosk = {
 
 	},
 	close: function() {
-		LI.kiosk.updateTransaction({
+		console.log('close');
+		LI.kiosk.cart.updateTransaction({
 
 		});
 	},
@@ -1137,55 +1145,89 @@ LI.kiosk = {
     		$('#' + LI.kiosk.culture).prop('selected', true);
 		},
 		showPaymentPrompt: function() {
-			$(LI.kiosk.dialogs.status)
-				.find('p')
-				.html('Please follow payment terminal instructions')
-			;
+			LI.kiosk.utils.closeStatusDialog();
 
-			LI.kiosk.dialogs.status.showModal();
+			$('#status-title').html('Please follow payment terminal instructions');
+			$('#status-arrow').show();
+
+			LI.kiosk.utils.showStatusDialog();
 		},
 		showPaymentFailurePrompt: function() {
-			LI.kiosk.dialogs.status.close();
+			LI.kiosk.utils.closeStatusDialog();
 
-			$(LI.kiosk.dialogs.status)
-				.find('p')
-				.html('Payment failed, retry ?')
-			;
+			$('#status-title').text('Payment failed');
+			$('#status-actions').show();
 
-			LI.kiosk.dialogs.status.showModal();
+			$(LI.kiosk.dialogs.status).on('close', function() {
+    			if(LI.kiosk.dialogs.status.returnValue == 'true') {
+    				LI.kiosk.checkout();
+    			} else {
+    				LI.kiosk.close();
+    			}
+    		});
+
+			LI.kiosk.utils.showStatusDialog();
 		},
 		showPaymentSuccessPrompt: function() {
-			//LI.kiosk.dialogs.status.close();
+			LI.kiosk.utils.closeStatusDialog();
 
-			$(LI.kiosk.dialogs.status)
-				.find('p')
-				.html('Please wait for your tickets to be printed')
-			;
-
-			LI.kiosk.dialogs.status.showModal();
+			$('#status-title').text('Payment successful');
+			$('#status-details').text('Please wait while your tickets are being printed');
+			
+			LI.kiosk.utils.showStatusDialog();
+			LI.kiosk.utils.showLoader();
 		},
 		showFinalPrompt: function() {
-			LI.kiosk.dialogs.status.close();
+			LI.kiosk.utils.closeStatusDialog();
 
-			$(LI.kiosk.dialogs.status)
-				.find('p')
-				.html('Thank you, come again')
-			;
+			$('#status-title').text('Thank you, come again');
 
-			LI.kiosk.dialogs.status.showModal();
+			LI.kiosk.utils.showStatusDialog();
 		},
 		showHardwarePrompt: function(device) {
+			LI.kiosk.utils.closeStatusDialog();
+
 			$('#status-title').text('OUT OF ORDER');
 			$('#status-details').text(device + ' Error');
 			$('#status-actions').hide();
 
-			LI.kiosk.dialogs.status.showModal();
+			LI.kiosk.utils.showStatusDialog();
+			
 			LI.kiosk.reset();
 		},
 		showTicketFailurePrompt: function(error, printer) {
+			LI.kiosk.utils.closeStatusDialog();
+
 			error.duplicate = true;
 
+			$('#status-title').text('Ticket printing failed');
+			$('#status-actions').show();
+
+			$(LI.kiosk.dialogs.status).on('close', function() {
+    			if(LI.kiosk.dialogs.status.returnValue == 'true') {
+    				LI.kiosk.print();
+    			} else {
+    				LI.kiosk.close();
+    			}
+    		});
+
 			LI.kiosk.logPrintFailure(error, printer);
+
+			LI.kiosk.utils.showStatusDialog();
+		},
+		showStatusDialog: function() {
+			if(!LI.kiosk.dialogs.status.open) {
+				LI.kiosk.dialogs.status.showModal();
+			}
+		},
+		closeStatusDialog: function() {
+			LI.kiosk.utils.hideLoader();
+			$('#status-actions').hide();
+			$('#status-arrow').hide();
+
+			if(LI.kiosk.dialogs.status.open) {
+				LI.kiosk.dialogs.status.close();
+			}
 		}
 	}
 }
