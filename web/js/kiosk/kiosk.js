@@ -215,11 +215,14 @@ LI.kiosk = {
 
 		LI.kiosk.connector.areDevicesAvailable(query).then(
             function(response) {
-                if (response.params.length) {
-                    ept = true;
+                if (!response.params.length) {
+                	LI.kiosk.utils.showHardwarePrompt('ept');
                 }
             },
-            function(error) { console.error("areDevicesAvailable() error:", error); }
+            function(error) { 
+            	LI.kiosk.utils.showHardwarePrompt('ept');
+            	console.error("areDevicesAvailable() error:", error); 
+            }
         ).then(function(){
             query = {
             	type: LI.kiosk.devices.ticketPrinter.type, 
@@ -231,11 +234,14 @@ LI.kiosk = {
 
             LI.kiosk.connector.areDevicesAvailable(query).then(
                 function(response) {
-                    if (!(response.params.length && ept)) {
-                    	LI.kiosk.utils.showHardwarePrompt();
+                    if (!response.params.length) {
+                    	LI.kiosk.utils.showHardwarePrompt('tickerPrinter');
                     }
                 },
-                function(error) { console.error("areDevicesAvailable() error:", error); }
+                function(error) { 
+                	LI.kiosk.utils.showHardwarePrompt('ticketPrinter');
+                	console.error("areDevicesAvailable() error:", error); 
+                }
             );
         });
 	},
@@ -1168,11 +1174,10 @@ LI.kiosk = {
 
 			LI.kiosk.dialogs.status.showModal();
 		},
-		showHardwarePrompt: function() {
-			$(LI.kiosk.dialogs.status)
-				.find('p')
-				.html('Out of service')
-			;
+		showHardwarePrompt: function(device) {
+			$('#status-title').text('OUT OF ORDER');
+			$('#status-details').text(device + ' Error');
+			$('#status-actions').hide();
 
 			LI.kiosk.dialogs.status.showModal();
 			LI.kiosk.reset();

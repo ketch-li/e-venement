@@ -176,7 +176,14 @@
 
 <!-- STATUS DIALOG -->
 <dialog id="status" class="mdl-dialog">
-  <p></p>
+  <h4 id="status-title" class="mdl-dialog__title"></h4>
+    <div id="status-content" class="mdl-dialog__content">
+      <p id="status-details"></p>
+    </div>
+    <div class="status-actions">
+      <button type="button" class="mdl-button">Retry</button>
+      <button type="button" class="mdl-button close">Cancel</button>
+    </div>
 </dialog>
 
 <!-- JS DATA -->
@@ -192,7 +199,8 @@
   data-log-print-failure="<?php echo cross_app_url_for('tck', 'transaction/directPrintLog?id=-666') ?>"
 ></div>
 
-<div class="js-data" id="devices" data-devices="<?php echo htmlspecialchars(json_encode(sfConfig::get('app_io_devices',[
+<div class="js-data" id="devices" data-devices="<?php echo htmlspecialchars(json_encode(sfConfig::get('app_io_devices',
+	[
 		'ept' => [
 			'type' => 'serial',
 			'params' => [
@@ -210,7 +218,8 @@
 				'vid' => '1305'
 			]
 		]
-]))) ?>"></div>
+	]
+))) ?>"></div>
 
 <div class="js-data" id="config"
   data-culture="<?php echo sfContext::getInstance()->getUser()->getCulture(); ?>"
