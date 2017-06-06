@@ -73,6 +73,9 @@ if [ "$dump" != "n" ]; then
 name="$PGDATABASE"
 [ -z "$name" ] && name=db
 
+## Deleting unwanted column
+echo 'ALTER TABLE price DROP COLUMN IF EXISTS target;' | psql
+
 ## preliminary modifications & backup
 echo "DUMPING DB..."
 [ -f  data/sql/$name-`date +%Y%m%d`.before.pgdump ] && \
