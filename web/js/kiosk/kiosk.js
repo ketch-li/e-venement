@@ -929,7 +929,19 @@ LI.kiosk = {
 	finalize: function() {
 		LI.kiosk.utils.showPaymentSuccessPrompt();
 
+		LI.kiosk.updateTransaction({
+			transaction: {
+				payment_new: {
+					_csrf_token: LI.kiosk.CSRF,
+					id: LI.kiosk.transaction.id,
+					value: LI.kiosk.cart.total,
+					payment_method: LI.kiosk.config.paymentMethod
+				}
+			}
+		});
+
 		if(LI.kiosk.printTickets()) {
+			LI.kiosk.close();
 			LI.kiosk.printReceipt();
 		}
 	},
@@ -1012,6 +1024,11 @@ LI.kiosk = {
 	},
 	printReceipt: function() {
 
+	},
+	close: function() {
+		LI.kiosk.updateTransaction({
+
+		});
 	},
 	/********************* UTILS *************************/
 	utils: {
