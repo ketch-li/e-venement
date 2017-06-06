@@ -27,6 +27,7 @@ if ( LI === undefined )
   var LI = {};
 
 LI.kiosk = {
+	debug: window.location.hash == '#debug',
 	connector: new EveConnector('https://localhost:8164'),
 	devices: {},
 	templates: {},
@@ -641,7 +642,7 @@ LI.kiosk = {
 
 		$.each(data.success.success_fields[type].data.content, function(key, manif) {
 			
-			if ( window.location.hash == '#debug' )
+			if (LI.kiosk.debug)
 				console.log('Loading an item (#' + manif.id + ') from the ' + type);
 
 			manif.type = type;
@@ -655,7 +656,7 @@ LI.kiosk = {
 
 		$.each(data.success.success_fields[type].data.content, function(key, manif) {
 			
-			if ( window.location.hash == '#debug' )
+			if (LI.kiosk.debug)
 				console.log('Loading an item (#' + manif.id + ') from the ' + type);
 
 			manif.type = type;
@@ -670,7 +671,7 @@ LI.kiosk = {
 
 		$.each(data.success.success_fields[type].data.content, function(key, product) {
 			
-			if ( window.location.hash == '#debug' )
+			if (LI.kiosk.debug)
 				console.log('Loading an item (#' + product.id + ') from the ' + type);
 
 			product.prices = {};
@@ -917,7 +918,7 @@ LI.kiosk = {
 	        		LI.kiosk.finalize();
 	        	} else {
 	        		console.error(res.stat + ' ' + res.getStatusText());
-	        		LI.kiosk.utils.showFailurePrompt();
+	        		LI.kiosk.utils.showPaymentFailurePrompt();
 	        	}
 	    	})
 	    	.catch(function(err) {
@@ -926,7 +927,7 @@ LI.kiosk = {
 	    ;
 	},
 	finalize: function() {
-		LI.kiosk.utils.showSuccessPrompt();
+		LI.kiosk.utils.showPaymentSuccessPrompt();
 
 		if(LI.kiosk.printTickets()) {
 			LI.kiosk.printReceipt();
@@ -965,12 +966,15 @@ LI.kiosk = {
 		           	ticketPrinter.pollPrint(data).then(
 		           		function(result) {
 		            		console.log('printResult: ' + result);
+
+		            		LI.kiosk.utils.showFinalPrompt();
+
 		            		return true;
 		            	},
-		            	function(result) {
-		            		console.log('printResult: ' + result);
+		            	function(error) {
+		            		console.error('printResult: ' + error);
 
-		            		LI.kiosk.handlePrintFailure();
+		            		LI.kiosk.handlePrintFailure(error, ticketPrinter);
 
 		            		return false;
 		            	}
@@ -980,8 +984,31 @@ LI.kiosk = {
 		 })
 		;
 	},
-	handlePrintFailure: function() {
-		console.log('printing canceled');
+	handlePrintFailure: function(error, printer) {
+		LI.kiosk.connector.resetData(LI.kiosk.devices.ticketPrinter)
+		LI.kiosk.utils.showTicketFailurePrompt(error, printer);
+	},
+	logPrintFailure: function(error, printer) {
+		var data = {
+			printer: printer.vendor + ' ' + printer.model,
+			status: error.statuses.join(' | '),
+			raw_status: error.raw_status,
+			duplicate: error.duplicate,
+			error: true
+		};
+
+		$.ajax({
+			type: 'GET',
+			url: LI.kiosk.urls.logPrintFailure.replace('-666', LI.kiosk.transaction.id),
+			data: { directPrint: data },
+			dataType: 'json',
+			success: function(response) {
+				if (LI.kiosk.debug) {
+					console.log(response);
+				}
+			},
+			error: LI.kiosk.utils.error
+		});
 	},
 	printReceipt: function() {
 
@@ -1094,7 +1121,7 @@ LI.kiosk = {
 
 			LI.kiosk.dialogs.status.showModal();
 		},
-		showFailurePrompt: function() {
+		showPaymentFailurePrompt: function() {
 			LI.kiosk.dialogs.status.close();
 
 			$(LI.kiosk.dialogs.status)
@@ -1104,7 +1131,7 @@ LI.kiosk = {
 
 			LI.kiosk.dialogs.status.showModal();
 		},
-		showSuccessPrompt: function() {
+		showPaymentSuccessPrompt: function() {
 			//LI.kiosk.dialogs.status.close();
 
 			$(LI.kiosk.dialogs.status)
@@ -1132,6 +1159,11 @@ LI.kiosk = {
 
 			LI.kiosk.dialogs.status.showModal();
 			LI.kiosk.reset();
+		},
+		showTicketFailurePrompt: function(error, printer) {
+			error.duplicate = true;
+
+			LI.kiosk.logPrintFailure(error, printer);
 		}
 	}
 }

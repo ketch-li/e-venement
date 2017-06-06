@@ -189,6 +189,7 @@
   data-get-store="<?php echo cross_app_url_for('tck', 'transaction/getStore?simplified=1') ?>"
   data-get-museum="<?php echo cross_app_url_for('tck', 'transaction/getPeriods?simplified=1') ?>"
   data-print-tickets="<?php echo cross_app_url_for('tck', 'ticket/print?id=-666') ?>"
+  data-log-print-failure="<?php echo cross_app_url_for('tck', 'transaction/directPrintLog?id=-666') ?>"
 ></div>
 
 <div class="js-data" id="devices" data-devices="<?php echo htmlspecialchars(json_encode(sfConfig::get('app_io_devices',[
