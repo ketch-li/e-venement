@@ -178,12 +178,17 @@ var StarPrinter = function(device, connector){
       connector.startPoll(device, function(response) {
         if(printer.getStatuses(atob(response)).length > 0) {
           connector.stopPoll(device);
-          reject('' + printer.getStatuses(atob(response)));
+
+          reject({
+            statuses: printer.getStatuses(atob(response)),
+            raw_status: response
+          });
         }
       });
 
       connector.sendData(device, data).then(function(){
         connector.stopPoll(device);
+        
         resolve('ok');
       });
     });
