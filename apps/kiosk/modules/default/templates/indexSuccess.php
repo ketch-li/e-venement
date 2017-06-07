@@ -23,7 +23,6 @@
 ***********************************************************************************/
 ?>
 <?php use_helper('I18N', 'CrossAppLink') ?>
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <?php use_stylesheet('material.min.css') ?>
 <?php use_stylesheet('kiosk/waves.css') ?>
 <?php use_stylesheet('kiosk/dialog-polyfill.css') ?>
