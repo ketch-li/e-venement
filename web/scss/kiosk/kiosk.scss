@@ -131,24 +131,6 @@ header {
 	background-color: white;
 }
 
-/* DIALOGS */
-#status {
-  height: 70vh;
-  width: 70vw;
-
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    height: 100%;
-
-    #status-actions, #status-arrow {
-      display: none;
-    }
-  }
-}
-
 /* LISTS */
 ul{
   list-style-type: none;
@@ -445,15 +427,39 @@ ul{
 
 
 /* LOADER */
+dialog {
+  z-index: 1000;
+}
 #spinner {
   height: 25vh;
   width: 25vh;
   align-self: center;
   margin-top: 30vh;
-  z-index: 3000;
+  z-index: 1100;
 }
 
-/* LOCATION DIALOG */
+/* DIALOGS */
+#status {
+  height: 70vh;
+  width: 70vw;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+
+    #status-actions, #status-arrow {
+      display: none;
+    }
+  }
+}
+
+.backdrop {
+  z-index: 1000;
+}
+
 #location {
   width: 60%;
   height: 85%;
@@ -474,29 +480,6 @@ ul{
     }
   }
 }
-
-// /* LOCATION MODAL */
-// .modal-overlay {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   z-index: 1100;
-//   width: 100%;
-//   height: 100%;
-//   background-color: black;
-//   opacity: 0.5;
-// }
-
-// .location-modal {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   margin: auto;
-//   z-index: 1101;
-//   width: 50%;
-//   height: 80%;
-//   background-color: yellow;
-// }
 
 .js-data, .js-i18n {
   display: none;
