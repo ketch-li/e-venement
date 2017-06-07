@@ -1160,7 +1160,7 @@ LI.kiosk = {
 			LI.kiosk.utils.resetStatusDialog();
 
 			$('#status-title').html('Please follow payment terminal instructions');
-			$('#status-arrow').show();
+			$('#status-ept').show();
 
 			LI.kiosk.utils.showStatusDialog();
 		},
@@ -1242,8 +1242,7 @@ LI.kiosk = {
 		},
 		resetStatusDialog: function() {
 			LI.kiosk.utils.hideLoader();
-			$('#status-actions').hide();
-			$('#status-arrow').hide();
+			$('#status-actions, #status-ept').hide();
 			$('#status-details, #status-title').text('');
 
 			$(LI.kiosk.dialogs.status).off('close');

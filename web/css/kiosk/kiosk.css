@@ -362,7 +362,7 @@ dialog {
     align-items: center;
     justify-content: space-around;
     height: 100%; }
-    #status form #status-actions, #status form #status-arrow {
+    #status form #status-actions, #status form #status-ept {
       display: none; }
 
 .backdrop {

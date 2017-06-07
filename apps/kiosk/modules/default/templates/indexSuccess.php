@@ -180,6 +180,7 @@
 	  <h4 id="status-title" class="mdl-dialog__title"></h4>
 	  <div id="status-content" class="mdl-dialog__content">
   	  	<p id="status-details"></p>
+  	  	<img id="status-ept" src="/images/kiosk/ept.png" alt="<?php echo kioskConfiguration::getText('app_texts_ept_img', 'Payment terminal') ?>">
 	  </div>
 	  <div id="status-actions">
   		<button type="submit" class="mdl-button" value="true">Retry</button>
