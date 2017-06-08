@@ -933,7 +933,7 @@ LI.kiosk = {
 			.doTransaction(message)
 			.then(function(res) {
 	        	if(res.stat === '0') {
-	         		LI.kiosk.finalize();
+	      		LI.kiosk.finalize();
 	        	} else {
 	        		console.error(res.stat + ' ' + res.getStatusText());
 	        		LI.kiosk.utils.showPaymentFailurePrompt();
@@ -951,9 +951,8 @@ LI.kiosk = {
 			transaction: {
 				payment_new: {
 					_csrf_token: LI.kiosk.CSRF,
-					id: LI.kiosk.transaction.id,
 					value: LI.kiosk.cart.total,
-					payment_method: LI.kiosk.config.paymentMethod
+					payment_method_id: LI.kiosk.config.paymentMethod
 				}
 			}
 		});
@@ -1049,11 +1048,15 @@ LI.kiosk = {
 
 	},
 	close: function() {
-		console.log('close');
 		LI.kiosk.utils.showFinalPrompt();
 		LI.kiosk.printReceipt();
 		LI.kiosk.cart.updateTransaction({
-			// TODO : close transaction
+			transaction: {
+				close: {
+					_csrf_token: LI.kiosk.CSRF,
+					id: LI.kiosk.transaction.id
+				}
+			}
 		});
 	},
 	/********************* UTILS *************************/
@@ -1154,7 +1157,7 @@ LI.kiosk = {
     			}
     		});
 
-    		$('#' + LI.kiosk.culture).prop('selected', true);
+    		$('#' + LI.kiosk.config.culture).prop('selected', true);
 		},
 		showPaymentPrompt: function() {
 			LI.kiosk.utils.resetStatusDialog();
