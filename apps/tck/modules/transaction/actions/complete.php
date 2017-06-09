@@ -358,6 +358,8 @@
           $mc->Transaction = $this->transaction;
           $mc->save();
           $this->json['success']['success_fields'][$field]['data']['type'] = $field;
+          $this->json['success']['success_fields'][$field]['data']['id'] = $id;
+          $this->json['success']['success_fields'][$field]['data']['name'] = $mc->name;
           $this->json['success']['success_fields'][$field]['data']['alert'] = __('Gift coupon #%%mc%% successfully added to the current transaction.', array('%%mc%%' => $id));
         }
         break;
