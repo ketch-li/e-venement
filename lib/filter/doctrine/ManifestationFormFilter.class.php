@@ -207,6 +207,8 @@ class ManifestationFormFilter extends BaseManifestationFormFilter
   // improving how happens_at values are used to be consistent w/ other filters of the software
   public function addHappensAtColumnQuery(Doctrine_Query $q, $field, $value)
   {
+    $a = $q->getRootAlias();
+    
     if (!( isset($value) && is_array($value) && (isset($value['from']) && $value['from'] || isset($value['to']) && $value['to']) ))
       return $q;
     
