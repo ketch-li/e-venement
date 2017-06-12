@@ -128,16 +128,16 @@ Sample Response
                         "description":"A great VIm Mug in black."
                     }
                 },
-                "prices":[
+                "prices":{
                     "id":4,
-                    "translations:{
+                    "translations":{
                         "en_US":{
                             "name":"Normal"
                         }
                     },
                     "value":12,
                     "currencyCode":"978",
-                ]
+                }
             },
             {
                 "id":60,
@@ -151,21 +151,21 @@ Sample Response
                         "description":"A great VIm Mug in orange."
                     }
                 },
-                "prices":[
+                "prices":{
                     "id":4,
-                    "translations:{
+                    "translations":{
                         "en_US":{
                             "name":"Normal"
                         }
                     },
                     "value":12,
                     "currencyCode":"978",
-                ]
+                }
             }
         ],
         "imageURL":"vimmug.png",
         "price":15
-    }
+   }
 
 
 Collection of products
@@ -209,7 +209,7 @@ Sample Response
 
 .. code-block:: json
 
-    {
+     {
         "page":1,
         "limit":10,
         "pages":21,
@@ -253,16 +253,16 @@ Sample Response
                                     "description":"A great VIm Mug in black."
                                 }
                             },
-                            "prices":[
+                            "prices":{
                                 "id":4,
-                                "translations:{
+                                "translations":{
                                     "en_US":{
                                         "name":"Normal"
                                     }
                                 },
                                 "value":12,
                                 "currencyCode":"978",
-                            ]
+                            }
                         }
                     ],
                     "imageURL":"vimmug.png",
@@ -291,21 +291,20 @@ Sample Response
                                     "description":"The Arch Linux Mug, an awesome ceramic mug printed on both sides with the Arch Linux logo."
                                 }
                             },
-                            "prices":[
+                            "prices":{
                                 "id":4,
-                                "translations:{
+                                "translations":{
                                     "en_US":{
                                         "name":"Normal"
                                     }
                                 },
                                 "value":12,
                                 "currencyCode":"978",
-                            ]
+                            }
                         }
                     ],
                     "imageURL":"vimmug.png",
                     "price":15
-                }
-            ]
-        }
-    }
+               }
+          ]
+     }

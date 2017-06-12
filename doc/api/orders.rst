@@ -30,33 +30,33 @@ When you get a collection of resources, "Default" serialization group will be us
 
 If you request for a more detailed data, you will receive an object with following fields:
 
-+------------------+----------------------------------------------+
-| Field            | Description                                  |
-+==================+==============================================+
-| id               | Id of order                                  |
-+------------------+----------------------------------------------+
-| customer         | Customer detail serialization                |
-+------------------+----------------------------------------------+
++------------------+------------------------------------------------------+
+| Field            | Description                                          |
++==================+======================================================+
+| id               | Id of order                                          |
++------------------+------------------------------------------------------+
+| customer         | Customer detail serialization                        |
++------------------+------------------------------------------------------+
 | items            | :doc:`List of items related to the order</api/carts>`|
-+------------------+----------------------------------------------+
-| itemsTotal       | Sum of all item prices                       |
-+------------------+----------------------------------------------+
-| adjustments      | List of adjustments related to the order     |
-+------------------+----------------------------------------------+
-| adjustmentsTotal | Sum of all order adjustments                 |
-+------------------+----------------------------------------------+
-| total            | Sum of all items total and adjustments total |
-+------------------+----------------------------------------------+
-| state            | State of the order                           |
-+------------------+----------------------------------------------+
-| payments         | Detailed serialization of payments           |
-+------------------+----------------------------------------------+
-| currencyCode     | Currency of the order                        |
-+------------------+----------------------------------------------+
-| localeCode       |                                              |
-+------------------+----------------------------------------------+
-| checkoutState    | State of the checkout process                |
-+------------------+----------------------------------------------+
++------------------+------------------------------------------------------+
+| itemsTotal       | Sum of all item prices                               |
++------------------+------------------------------------------------------+
+| adjustments      | List of adjustments related to the order             |
++------------------+------------------------------------------------------+
+| adjustmentsTotal | Sum of all order adjustments                         |
++------------------+------------------------------------------------------+
+| total            | Sum of all items total and adjustments total         |
++------------------+------------------------------------------------------+
+| state            | State of the order                                   |
++------------------+------------------------------------------------------+
+| payments         | Detailed serialization of payments                   |
++------------------+------------------------------------------------------+
+| currencyCode     | Currency of the order                                |
++------------------+------------------------------------------------------+
+| localeCode       |                                                      |
++------------------+------------------------------------------------------+
+| checkoutState    | State of the checkout process                        |
++------------------+------------------------------------------------------+
 
 Available actions to interact with a product
 --------------------------------------------
@@ -188,11 +188,11 @@ Definition
     GET /api/v2/orders/{id}
 
 +------------------------------+----------------+---------------------------------------+
-| Parameter                    | Parameter type | Description                    
+| Parameter                    | Parameter type | Description                           |
 +==============================+================+=======================================+
-| Authorization                | header         | Token received during authentication  
+| Authorization                | header         | Token received during authentication  |
 +------------------------------+----------------+---------------------------------------+
-| id                           | url attribute  | Id of the requested resource          
+| id                           | url attribute  | Id of the requested resource          |
 +------------------------------+----------------+---------------------------------------+
 
 Example
