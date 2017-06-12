@@ -34,6 +34,9 @@
 [submodule "plugins/liOnlineChoicesPlugin"]
 	path = plugins/liOnlineChoicesPlugin
 	url = https://github.com/betaglop/liOnlineChoicesPlugin
+[submodule "plugins/liLibsApiPlugin"]
+	path = plugins/liLibsApiPlugin
+	url = https://github.com/betaglop/liOnlineChoicesPlugin
 [submodule "plugins/sfDependencyInjectionPlugin"]
 	path = plugins/sfDependencyInjectionPlugin
 	url = https://github.com/betaglop/sfDependencyInjectionPlugin.git
