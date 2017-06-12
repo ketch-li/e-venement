@@ -13,9 +13,9 @@ When you get a collection of resources, "Default" serialization group will be us
 +==================+==========================================================================================================+
 | id               | Id of the manifestation                                                                                  |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| startsAt         | Date when the manifestation starts (`ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`) |
+| startsAt         | Date when the manifestation starts [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601)   |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| endsAt           | Date when the manifestation ends (`ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`)   |
+| endsAt           | Date when the manifestation ends  [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601)    |
 +------------------+----------------------------------------------------------------------------------------------------------+
 | location         | Location object serialized                                                                               |
 +------------------+----------------------------------------------------------------------------------------------------------+
@@ -96,7 +96,7 @@ Available actions to interact with a manifestation
 Getting a collection of manifestations
 ---------------------------------------
 
-To retrieve the full customers list, you will need to call the /api/v2/manifestations/{id} endpoint with the GET method.
+To retrieve the full customers list, you will need to call the /api/v2/manifestations endpoint with the GET method.
 
 Definition
 ^^^^^^^^^^
@@ -113,7 +113,12 @@ Example
     $ curl http://e-venement.local/api/v2/manifestations \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X GET \
+        -X GET \'
+         {
+             'criteria[metaEvents.id][type]': 'equals',
+             'criteria[metaEvents.id][value]': app.config.metaEventId,
+             'limit': 100
+        }'
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -124,206 +129,171 @@ Sample Response
 
 .. code-block:: json
 
-    {
-        "page": 1,
-        "limit": 10,
-        "pages": 147,
-        "total": 1463,
-        "_links": {
-            "self": {
-                "href": "\/tck_dev.php\/api\/v2\/events?limit=10"
-            },
-            "first": {
-                "href": "\/tck_dev.php\/api\/v2\/events?limit=10&page=1"
-            },
-            "last": {
-                "href": "\/tck_dev.php\/api\/v2\/events?limit=10&page=147"
-            },
-            "next": {
-                "href": "\/tck_dev.php\/api\/v2\/events?limit=10&page=2"
-            }
+   {
+    "page": 1,
+    "limit": 10,
+    "pages": 6,
+    "total": 53,
+    "_links": {
+        "self": {
+            "href": "\/tck.php\/api\/v2\/manifestations?limit=10"
         },
-        "_embedded": {
-            "items": [
-                {
-                    "id": 1,
-                    "metaEvent": {
-                        "id": 3,
-                        "translations": {
-                            "en": {
-                                "name": "Talents en Sc\u00e8ne 2012",
-                                "description": ""
-                            },
-                            "fr": {
-                                "name": "Talents en Sc\u00e8ne 2012 ",
-                                "description": " "
-                            }
-                        }
-                    },
-                    "category": null,
-                    "translations": {
-                        "fr": {
-                            "name": "Talents en Sc\u00e8ne",
-                            "subtitle": null,
-                            "short_name": "",
-                            "description": "",
-                            "extradesc": "",
-                            "extraspec": ""
-                        }
-                    },
-                    "imageURL": "\/pub_dev.php\/picture\/1\/display",
-                    "manifestations": [
-                        {
-                            "id": 123,
-                            "startsAt": "2016-07-23 15:00:00",
-                            "endsAt": "2016-07-23 16:30:00",
-                            "event_id": 115,
-                            "event": {
-                                "fr": {
-                                    "name": "Sadorn Ar Vugale",
-                                    "subtitle": "",
-                                    "short_name": "",
-                                    "description": "",
-                                    "extradesc": "",
-                                    "extraspec": ""
-                                }
-                            },
-                            "metaEvent": {
-                                "fr": {
-                                    "name": "Cornouaille 2016",
-                                    "description": ""
-                                }
-                            },
-                            "location": {
-                                "id": 11,
-                                "name": "Cour du Coll\u00e8ge La Tour d'Auvergne",
-                                "address": "",
-                                "zip": "",
-                                "city": "",
-                                "country": "France"
-                            },
-                            "gauges": [
-                                {
-                                    "id": 314,
-                                    "name": "Placement libre assis",
-                                    "availableUnits": 10,
-                                    "prices": [
-                                        {
-                                            "id": 27,
-                                            "value": "20.000",
-                                            "currencyCode": 978,
-                                            "translations": {
-                                                "fr": {
-                                                    "name": "TP",
-                                                    "description": "Tarif Plein"
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                            ],
-                            "timeSlots": [
-                                {
-                                    "id":10001,
-                                    "title": "Créneau de l'après midi",
-                                    "startsAt": "2016-07-23 14:00:00",
-                                    "endsAt": "2016-07-23 18:00:00"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "metaEvent": {
-                        "id": 2,
-                        "translations": {
-                            "en": {
-                                "name": "Da\u00f1s 2012",
-                                "description": ""
-                            },
-                            "fr": {
-                                "name": "Da\u00f1s 2012 ",
-                                "description": " "
-                            }
-                        }
-                    },
-                    "category": "Danse traditionnelle",
-                    "translations": {
-                        "fr": {
-                            "name": "FESTIVAL DA\u00d1S ",
-                            "subtitle": null,
-                            "short_name": "",
-                            "description": "",
-                            "extradesc": "",
-                            "extraspec": ""
-                        }
-                    },
-                    "imageURL": "\/pub_dev.php\/picture\/2\/display",
-                    "manifestations": [
-                        {
-                            "id": 123,
-                            "startsAt": "2016-07-23 15:00:00",
-                            "endsAt": "2016-07-23 16:30:00",
-                            "event_id": 115,
-                            "event": {
-                                "fr": {
-                                    "name": "Sadorn Ar Vugale",
-                                    "subtitle": "",
-                                    "short_name": "",
-                                    "description": "",
-                                    "extradesc": "",
-                                    "extraspec": ""
-                                }
-                            },
-                            "metaEvent": {
-                                "fr": {
-                                    "name": "Cornouaille 2016",
-                                    "description": ""
-                                }
-                            },
-                            "location": {
-                                "id": 11,
-                                "name": "Cour du Coll\u00e8ge La Tour d'Auvergne",
-                                "address": "",
-                                "zip": "",
-                                "city": "",
-                                "country": "France"
-                            },
-                            "gauges": [
-                                {
-                                    "id": 314,
-                                    "name": "Placement libre assis",
-                                    "availableUnits": 10,
-                                    "prices": [
-                                        {
-                                            "id": 27,
-                                            "value": "20.000",
-                                            "currencyCode": 978,
-                                            "translations": {
-                                                "fr": {
-                                                    "name": "TP",
-                                                    "description": "Tarif Plein"
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                            ],
-                            "timeSlots": [
-                                {
-                                    "id":10002,
-                                    "title": "Début du festival",
-                                    "startsAt": "2016-07-23 15:00:00",
-                                    "endsAt": "2016-07-23 19:00:00"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+        "first": {
+            "href": "\/tck.php\/api\/v2\/manifestations?limit=10&page=1"
+        },
+        "last": {
+            "href": "\/tck.php\/api\/v2\/manifestations?limit=10&page=6"
+        },
+        "next": {
+            "href": "\/tck.php\/api\/v2\/manifestations?limit=10&page=2"
         }
+    },
+    "_embedded": {
+        "items": [
+            {
+                "id": 14,
+                "startsAt": "20170801T124500+02:00",
+                "endsAt": "20170801T144500+02:00",
+                "event": {
+                    "id": 8,
+                    "metaEvent": {
+                        "id": 1,
+                        "translations": {
+                            "fr": {
+                                "name": "Tournoi Foot saison 2000",
+                                "description": "Tournoi Foot saison 2000"
+                            }
+                        }
+                    },
+                    "category": "Moins de 18 ans",
+                    "translations": {
+                        "fr": {
+                            "name": "Tour 1",
+                            "subtitle": "",
+                            "short_name": "Tour 1",
+                            "description": "",
+                            "extradesc": "",
+                            "extraspec": ""
+                        }
+                    },
+                    "imageId": null,
+                    "imageURL": null
+                },
+                "location": {
+                    "id": 3,
+                    "name": "Terrain 10",
+                    "address": "",
+                    "zip": "",
+                    "city": "",
+                    "country": ""
+                },
+                "gauges": [
+                    {
+                        "id": 14,
+                        "name": "Tournoi Foot saison 2000",
+                        "availableUnits": 10,
+                        "prices": [
+                            {
+                                "id": 1,
+                                "value": "0.000",
+                                "currencyCode": 978,
+                                "translations": {
+                                    "en": {
+                                        "name": "Invitation",
+                                        "description": ""
+                                    },
+                                    "fr": {
+                                        "name": "Invitation",
+                                        "description": ""
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "timeSlots": [
+                    {
+                        "id": 5,
+                        "name": "Moins de 18 ans",
+                        "startsAt": "20170801T124500+02:00",
+                        "endsAt": "20170801T144500+02:00"
+                    }
+                ]
+            },
+            {
+                "id": 20,
+                "startsAt": "20170803T124500+02:00",
+                "endsAt": "20170803T144500+02:00",
+                "event": {
+                    "id": 8,
+                    "metaEvent": {
+                        "id": 1,
+                        "translations": {
+                            "fr": {
+                                "name": "Tournoi Foot saison 2000",
+                                "description": "Tournoi Foot saison 2000"
+                            }
+                        }
+                    },
+                    "category": "Moins de 18 ans",
+                    "translations": {
+                        "fr": {
+                            "name": "Tour 1",
+                            "subtitle": "",
+                            "short_name": "Tour 1",
+                            "description": "",
+                            "extradesc": "",
+                            "extraspec": ""
+                        }
+                    },
+                    "imageId": null,
+                    "imageURL": null
+                },
+                "location": {
+                    "id": 3,
+                    "name": "Terrain 10",
+                    "address": "",
+                    "zip": "",
+                    "city": "",
+                    "country": ""
+                },
+                "gauges": [
+                    {
+                        "id": 20,
+                        "name": "Tournoi Foot saison 2000",
+                        "availableUnits": 10,
+                        "prices": [
+                            {
+                                "id": 1,
+                                "value": "0.000",
+                                "currencyCode": 978,
+                                "translations": {
+                                    "en": {
+                                        "name": "Invitation",
+                                        "description": ""
+                                    },
+                                    "fr": {
+                                        "name": "Invitation",
+                                        "description": ""
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "timeSlots": [
+                    {
+                        "id": 9,
+                        "name": "Présentation du tournoi",
+                        "startsAt": "20170802T081500+02:00",
+                        "endsAt": "20180802T084500+02:00"
+                    }
+                ]
+            }
+        ]
     }
+}
+
 
 
 Getting a single manifestation
@@ -343,7 +313,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/manifestations/837 \
+    $ curl http://e-venement.local/api/v2/manifestations/13 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X GET \
@@ -357,49 +327,62 @@ Sample Response
 
 .. code-block:: json
 
+   [
     {
-        "id": 123,
-        "startsAt": "2016-07-23 15:00:00",
-        "endsAt": "2016-07-23 16:30:00",
-        "event_id": 115,
+        "id": 13,
+        "startsAt": "20170801T173000+02:00",
+        "endsAt": "20170801T181500+02:00",
         "event": {
-            "fr": {
-                "name": "Sadorn Ar Vugale",
-                "subtitle": "",
-                "short_name": "",
-                "description": "",
-                "extradesc": "",
-                "extraspec": ""
-            }
-        },
-        "metaEvent": {
-            "fr": {
-                "name": "Cornouaille 2016",
-                "description": ""
-            }
+            "id": 13,
+            "metaEvent": {
+                "id": 1,
+                "translations": {
+                    "fr": {
+                        "name": "Tournoi Foot saison 2000",
+                        "description": "Tournoi Foot saison 2000"
+                    }
+                }
+            },
+            "category": "Moins de 20 ans",
+            "translations": {
+                "fr": {
+                    "name": "Tour 4",
+                    "subtitle": "",
+                    "short_name": "Tour 4",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                }
+            },
+            "imageId": null,
+            "imageURL": null
         },
         "location": {
-            "id": 11,
-            "name": "Cour du Coll\u00e8ge La Tour d'Auvergne",
+            "id": 4,
+            "name": "Terrain 12",
             "address": "",
             "zip": "",
             "city": "",
-            "country": "France"
+            "country": ""
         },
         "gauges": [
             {
-                "id": 314,
-                "name": "Placement libre assis",
+                "id": 13,
+                "name": "Tournoi Foot saison 2000",
                 "availableUnits": 10,
                 "prices": [
                     {
-                        "id": 27,
-                        "value": "20.000",
+                        "id": 1,
+                        "value": "0.000",
                         "currencyCode": 978,
                         "translations": {
+                            "en": {
+                                "name": "Invitation",
+                                "description": ""
+                            },
                             "fr": {
-                                "name": "TP",
-                                "description": "Tarif Plein"
+                                "name": "Invitation",
+                                "description": ""
                             }
                         }
                     }
@@ -408,10 +391,11 @@ Sample Response
         ],
         "timeSlots": [
             {
-                "id":10001,
-                "title": "Créneau de l'après midi",
-                "startsAt": "2016-07-23 14:00:00",
-                "endsAt": "2016-07-23 18:00:00"
+                "id": 7,
+                "name": "Présentation du tournoi",
+                "startsAt": "20170801T173000+02:00",
+                "endsAt": "20170801T181500+02:00"
             }
         ]
     }
+  ]

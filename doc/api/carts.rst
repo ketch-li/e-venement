@@ -61,7 +61,7 @@ Each CartItem in an API response will be build as follows:
 +-------------------+--------------------------------------------------------------------------------------------+
 | units             | A collection of units related to the cart item                                             |
 +-------------------+--------------------------------------------------------------------------------------------+
-| unitsTotal        | Sum of all unit prices of the cart item                                                          |
+| unitsTotal        | Sum of all unit prices of the cart item                                                    |
 +-------------------+--------------------------------------------------------------------------------------------+
 | adjustments       | List of adjustments related to the cart item                                               |
 +-------------------+--------------------------------------------------------------------------------------------+
@@ -188,7 +188,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v1/carts \
+    $ curl http://e-venement.local/api/v2/carts \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST
@@ -228,15 +228,15 @@ Definition
 
     GET /api/v2/carts
 
-+---------------+----------------+------------------------------------------------------------------+
-| Parameter     | Parameter type | Description                                                      |
-+===============+================+==================================================================+
-| Authorization | header         | Token received during authentication                             |
-+---------------+----------------+------------------------------------------------------------------+
-| page          | query          | *(optional)* Number of the page, by default = 1                  |
-+---------------+----------------+------------------------------------------------------------------+
++---------------+----------------+-----------------------------------------------------------------------------+
+| Parameter     | Parameter type | Description                                                                 |
++===============+================+=============================================================================+
+| Authorization | header         | Token received during authentication                                        |
++---------------+----------------+-----------------------------------------------------------------------------+
+| page          | query          | *(optional)* Number of the page, by default = 1                             |
++---------------+----------------+-----------------------------------------------------------------------------+
 | paginate      | query          | *(optional)* Number of carts displayed per page, by default = 10, max = 100 |
-+---------------+----------------+------------------------------------------------------------------+
++---------------+----------------+-----------------------------------------------------------------------------+
 
 Example
 ^^^^^^^
@@ -258,53 +258,42 @@ Sample Response
 
 .. code-block:: json
 
-    {
-        "page":1,
-        "limit":10,
-        "pages":1,
-        "total":1,
-        "_links":{
-            "self":{
-                "href":"\/api\/v2\/carts\/?page=1&limit=10"
-            },
-            "first":{
-                "href":"\/api\/v2\/carts\/?page=1&limit=10"
-            },
-            "last":{
-                "href":"\/api\/v2\/carts\/?page=1&limit=10"
-            }
+   {
+    "page": 1,
+    "limit": 10,
+    "pages": 23,
+    "total": 222,
+    "_links": {
+        "self": {
+            "href": "\/tck.php\/api\/v2\/carts?limit=10"
         },
-        "_embedded":{
-            "items":[
-                {
-                    "id":20535,
-                    "items":[
-
-                    ],
-                    "itemsTotal":0,
-                    "adjustments":[
-
-                    ],
-                    "adjustmentsTotal":0,
-                    "total":0,
-                    "customer":{
-                        "id":1,
-                        "email":"georges@example.com",
-                        "firstName":"Georges",
-                        "lastName":"MARTIN",
-                        "_links":{
-                            "self":{
-                                "href":"\/api\/v2\/customers\/1"
-                            }
-                        }
-                    },
-                    "currencyCode":"978",
-                    "localeCode":"en_US",
-                    "checkoutState":"cart"
-                }
-            ]
+        "first": {
+            "href": "\/tck.php\/api\/v2\/carts?limit=10&page=1"
+        },
+        "last": {
+            "href": "\/tck.php\/api\/v2\/carts?limit=10&page=23"
+        },
+        "next": {
+            "href": "\/tck.php\/api\/v2\/carts?limit=10&page=2"
         }
-    }
+    },
+    "_embedded": {
+        "items": [
+            {
+                "id": 963,
+                "checkoutState": "cart",
+                "customer": {},
+                "items": [],
+                "itemsTotal": 0,
+                "adjustments": [],
+                "adjustmentsTotal": 0,
+                "total": 0,
+                "currencyCode": 978
+            }
+        ]
+     }
+  }
+
 
 Getting a Single Cart
 ---------------------
@@ -329,17 +318,17 @@ Definition
 Example
 ^^^^^^^
 
-To see details of the cart with ``id = 21`` use the below method:
+To see details of the cart with ``id = 822`` use the below method:
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/carts/21 \
+    $ curl http://e-venement.local/api/v2/carts/822 \
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
 
 .. note::
 
-    The *21* value was taken from the previous create response. Your value can be different.
+    The *822* value was taken from the previous create response. Your value can be different.
     Check in the list of all carts if you are not sure which id should be used.
 
 Sample Response
@@ -351,32 +340,161 @@ Sample Response
 
 .. code-block:: json
 
+      [
     {
-        "id":21,
-        "items":[
-
-        ],
-        "itemsTotal":0,
-        "adjustments":[
-
-        ],
-        "adjustmentsTotal":0,
-        "total":0,
-        "customer":{
-            "id":1,
-            "email":"georges@example.com",
-            "firstName":"Georges",
-            "lastName":"MARTIN",
-            "_links":{
-                "self":{
-                    "href":"\/api\/v2\/customers\/1"
-                }
-            }
+        "id": 822,
+        "checkoutState": "cart",
+        "customer": {
+            "id": 74,
+            "email": "zamou45@yahoo.fr",
+            "firstName": "Bob",
+            "lastName": "Zamou",
+            "shortName": "Coco",
+            "address": "36 rue Bobo",
+            "zip": "29970",
+            "city": "Bordeaux",
+            "country": "FRANCE",
+            "phoneNumber": "0645877344",
+            "datesOfBirth": null,
+            "locale": "fr",
+            "uid": null,
+            "subscribedToNewsletter": true
         },
-        "currencyCode":"978",
-        "localeCode":"en_US",
-        "checkoutState":"cart"
+        "items": [
+            {
+                "id": 538,
+                "unitPrice": "0.00",
+                "rank": 1,
+                "state": "none",
+                "type": "ticket",
+                "quantity": 1,
+                "declination": {
+                    "id": 9,
+                    "code": "TODO",
+                    "position": "TODO",
+                    "translations": "TODO"
+                },
+                "units": [
+                    {
+                        "id": "XXX",
+                        "adjustments": [],
+                        "adjustmentsTotal": 0
+                    }
+                ],
+                "unitsTotal": 0,
+                "adjustments": [],
+                "adjustmentsTotal": 0,
+                "total": 0
+            },
+            {
+                "id": 707,
+                "unitPrice": "0.00",
+                "rank": 1,
+                "state": "none",
+                "type": "ticket",
+                "quantity": 1,
+                "declination": {
+                    "id": 13,
+                    "code": "TODO",
+                    "position": "TODO",
+                    "translations": "TODO"
+                },
+                "units": [
+                    {
+                        "id": "XXX",
+                        "adjustments": [],
+                        "adjustmentsTotal": 0
+                    }
+                ],
+                "unitsTotal": 0,
+                "adjustments": [],
+                "adjustmentsTotal": 0,
+                "total": 0
+            },
+            {
+                "id": 708,
+                "unitPrice": "0.00",
+                "rank": 1,
+                "state": "none",
+                "type": "ticket",
+                "quantity": 1,
+                "declination": {
+                    "id": 6,
+                    "code": "TODO",
+                    "position": "TODO",
+                    "translations": "TODO"
+                },
+                "units": [
+                    {
+                        "id": "XXX",
+                        "adjustments": [],
+                        "adjustmentsTotal": 0
+                    }
+                ],
+                "unitsTotal": 0,
+                "adjustments": [],
+                "adjustmentsTotal": 0,
+                "total": 0
+            },
+            {
+                "id": 709,
+                "unitPrice": "0.00",
+                "rank": 1,
+                "state": "none",
+                "type": "ticket",
+                "quantity": 1,
+                "declination": {
+                    "id": 15,
+                    "code": "TODO",
+                    "position": "TODO",
+                    "translations": "TODO"
+                },
+                "units": [
+                    {
+                        "id": "XXX",
+                        "adjustments": [],
+                        "adjustmentsTotal": 0
+                    }
+                ],
+                "unitsTotal": 0,
+                "adjustments": [],
+                "adjustmentsTotal": 0,
+                "total": 0
+            },
+            {
+                "id": 710,
+                "unitPrice": "0.00",
+                "rank": 1,
+                "state": "none",
+                "type": "ticket",
+                "quantity": 1,
+                "declination": {
+                    "id": 11,
+                    "code": "TODO",
+                    "position": "TODO",
+                    "translations": "TODO"
+                },
+                "units": [
+                    {
+                        "id": "XXX",
+                        "adjustments": [],
+                        "adjustmentsTotal": 0
+                    }
+                ],
+                "unitsTotal": 0,
+                "adjustments": [],
+                "adjustmentsTotal": 0,
+                "total": 0
+            }
+        ],
+        "itemsTotal": 0,
+        "adjustments": [],
+        "adjustmentsTotal": 0,
+        "total": 0,
+        "currencyCode": 978
     }
+]
+
 
 Deleting a Cart
 ---------------
@@ -395,43 +513,43 @@ Definition
 
     POST /api/v2/carts/{cartId}/items
 
-+---------------+----------------+----------------------------------------------------------------+
-| Parameter     | Parameter type | Description                                                    |
-+===============+================+================================================================+
-| Authorization | header         | Token received during authentication                           |
-+---------------+----------------+----------------------------------------------------------------+
-| cartId        | url attribute  | Id of the requested cart                                       |
-+---------------+----------------+----------------------------------------------------------------+
-| declinationId | request        | Code of the item you want to add to the cart                   |
-+---------------+----------------+----------------------------------------------------------------+
-| type          | request        | Type of item to add (can be ticket, product or pass)           |
-+---------------+----------------+----------------------------------------------------------------+
-| quantity      | request        | Amount of variants you want to add to the cart (cannot be < 1) |
-+---------------+----------------+----------------------------------------------------------------+
-| priceId       | request        | Price aimed for the item                                       |
-+---------------+----------------+----------------------------------------------------------------+
++---------------+----------------+---------------------------------------------------------------------+
+| Parameter     | Parameter type | Description                                                         |
++===============+================+=====================================================================+
+| Authorization | header         | Token received during authentication                                |
++---------------+----------------+---------------------------------------------------------------------+
+| cartId        | url attribute  | Id of the requested cart                                            |
++---------------+----------------+---------------------------------------------------------------------+
+| declinationId | request        | Code of the item you want to add to the cart                        |
++---------------+----------------+---------------------------------------------------------------------+
+| type          | request        | Type of item to add (can be ticket, product or pass)                |
++---------------+----------------+---------------------------------------------------------------------+
+| quantity      | request        | Amount of variants you want to add to the cart (cannot be < 1)      |
++---------------+----------------+---------------------------------------------------------------------+
+| priceId       | request        | Price aimed for the item                                            |
++---------------+----------------+---------------------------------------------------------------------+
 | numerotations | request        | An array of specific items of the requested declinations (optional) |
-+---------------+----------------+----------------------------------------------------------------+
++---------------+----------------+---------------------------------------------------------------------+
 
 Example
 ^^^^^^^
 
-To add a new item of a product to the cart with id = 21 (assuming, that we didn't remove it in the
+To add a new item of a product to the cart with id = 822 (assuming, that we didn't remove it in the
 previous example) use the below method:
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/carts/21/items \
+    $ curl http://e-venement.local/api/v2/carts/822/items \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST \
         --data '
             {
                 "type": "ticket",
-                "declinationId: 52,
+                "declinationId": itemId,
                 "quantity": 1,
-                "priceId": 3
-            }
+                "priceId": priceId
+          }
         '
 
 Sample Response
@@ -443,52 +561,32 @@ Sample Response
 
 .. code-block:: json
 
-    {
-        "id":57,
-        "type": "ticket",
-        "quantity":1,
-        "unitAmount":250,
-        "total":250,
-        "units":[
-            {
-                "id":165,
-                "adjustments":[
-
-                ],
-                "adjustmentsTotal":0,
-                "link":{
-                    "pdf":"/api/v2/carts/57/item/165/pdf"
-                }
-            }
-        ],
-        "unitsTotal":250,
-        "adjustments":[
-
-        ],
-        "adjustmentsTotal":0,
-        "declination":{
-            "id": 52,
-            "code": "3156844564",
-            "position":2,
-            "translations":{
-                "en_US":{
-                    "id":331,
-                    "name":"Medium Mug"
-                }
-            },
-        },
-        "_links":{
-            "order":{
-                "href":"\/api\/v2\/carts\/21"
-            },
-            "declination":{
-                "href":"\/api\/v2\/products\52"
-            },
-            "product":{
-                "href":"\/api\/v2\/products\58"
-            },
+   {
+    "id": 711,
+    "unitPrice": "0.00",
+    "rank": 1,
+    "state": "none",
+    "type": "ticket",
+    "quantity": 1,
+    "declination": {
+        "id": 14,
+        "code": "TODO",
+        "position": "TODO",
+        "translations": "TODO"
+    },
+    "units": [
+        {
+            "id": "XXX",
+            "adjustments": [],
+            "adjustmentsTotal": 0
         }
-    }
+    ],
+    "unitsTotal": 0,
+    "adjustments": [],
+    "adjustmentsTotal": 0,
+    "total": 0
+  }
+
 .. tip::
 
 Updating a Cart Item
@@ -503,37 +601,37 @@ Definition
 
     POST /api/v2/carts/{cartId}/items/{cartItemId}
 
-+---------------+----------------+--------------------------------------------------------------+
-| Parameter     | Parameter type | Description                                                  |
-+===============+================+==============================================================+
-| Authorization | header         | Token received during authentication                         |
-+---------------+----------------+--------------------------------------------------------------+
-| cartId        | url attribute  | Id of the requested cart                                     |
-+---------------+----------------+--------------------------------------------------------------+
-| declinationId | url attribute  | Id of the requested declination                              |
-+---------------+----------------+--------------------------------------------------------------+
-| quantity      | request        | Amount of items you want to have in the cart (cannot be < 1) |
-+---------------+----------------+--------------------------------------------------------------+
++---------------+----------------+---------------------------------------------------------------------+
+| Parameter     | Parameter type | Description                                                         |
++===============+================+=====================================================================+
+| Authorization | header         | Token received during authentication                                |
++---------------+----------------+---------------------------------------------------------------------+
+| cartId        | url attribute  | Id of the requested cart                                            |
++---------------+----------------+---------------------------------------------------------------------+
+| declinationId | url attribute  | Id of the requested declination                                     |
++---------------+----------------+---------------------------------------------------------------------+
+| quantity      | request        | Amount of items you want to have in the cart (cannot be < 1)        |
++---------------+----------------+---------------------------------------------------------------------+
 | numerotations | request        | An array of specific items of the requested declinations (optional) |
-+---------------+----------------+--------------------------------------------------------------+
++---------------+----------------+---------------------------------------------------------------------+
 
 Example
 ^^^^^^^
 
-To change the quantity of the cart item with ``id = 57`` in the cart of ``id = 21`` to 3 use the below method:
+To change the rank of the cart item with ``id = 710`` in the cart of ``id = 822`` to 3 use the below method:
 
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/carts/21/items/57 \
+    $ curl http://e-venement.local/api/v2/carts/822/items/710 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST \
-        --data '{"quantity": 3}'
+        --data '{"rank": 3}'
 
 .. tip::
 
-    If you are not sure where does the value **57** come from, check the previous response, and look for the cart item id.
+    If you are not sure where does the value **710** come from, check the previous response, and look for the cart item id.
 
 
 Sample Response
@@ -541,13 +639,20 @@ Sample Response
 
 .. code-block:: text
 
-    STATUS: 204 No Content
+    STATUS: 200 OK
+    
+.. code-block:: json
 
-Now we can check how does the cart look like after changing the quantity of a cart item.
+   {
+    "code": 200,
+    "message": "Update successful"
+   }
+
+Now we can check how does the cart look like after changing the rank of a cart item.
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/carts/21 \
+    $ curl http://e-venement.local/api/v2/carts/822 \
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
 
@@ -560,113 +665,186 @@ Sample Response
 
 .. code-block:: json
 
+      [
     {
-        "id":21,
-        "items":[
-            {
-                "id":57,
-                "type": "ticket",
-                "quantity":3,
-                "unitAmount":250,
-                "total":750,
-                "units":[
-                    {
-                        "id":165,
-                        "adjustments":[
-
-                        ],
-                        "adjustmentsTotal":0,
-                        "pdf":"/api/v2/carts/57/item/165/pdf"
-                    },
-                    {
-                        "id":166,
-                        "adjustments":[
-
-                        ],
-                        "adjustmentsTotal":0,
-                        "pdf":"/api/v2/carts/57/item/166/pdf"
-                    },
-                    {
-                        "id":167,
-                        "adjustments":[
-
-                        ],
-                        "adjustmentsTotal":0,
-                        "pdf":"/api/v2/carts/57/item/167/pdf"
-                    }
-                ],
-                "unitsTotal":750,
-                "adjustments":[
-
-                ],
-                "adjustmentsTotal":0,
-                "declination":{
-                    "id":331,
-                    "code":"MEDIUM_MUG_CUP",
-                    "optionValues":[
-                        {
-                            "code":"mug_type_medium",
-                            "translations":{
-                                "en_US":{
-                                    "id":1,
-                                    "value":"Medium mug"
-                                }
-                            }
-                        }
-                    ],
-                    "position":2,
-                    "translations":{
-                        "en_US":{
-                            "id":331,
-                            "name":"Medium Mug"
-                        }
-                    },
-                    "tracked":false
-                },
-                "_links":{
-                    "order":{
-                        "href":"\/api\/v1\/orders\/21"
-                    },
-                    "product":{
-                        "href":"\/api\/v1\/products\/07f2044a-855d-3c56-9274-b5167c2d5809"
-                    },
-                    "variant":{
-                        "href":"\/api\/v1\/products\/07f2044a-855d-3c56-9274-b5167c2d5809\/variants\/MEDIUM_MUG_CUP"
-                    }
-                }
-            }
-        ],
-        "itemsTotal":750,
-        "adjustments":[
-            {
-                "id":181,
-                "type":"shipping",
-                "label":"UPS",
-                "amount":157
-            }
-        ],
-        "adjustmentsTotal":157,
-        "total":907,
-        "customer":{
-            "id":1,
-            "email":"shop@example.com",
-            "firstName":"John",
-            "lastName":"Doe",
-            "user":{
-                "id":1,
-                "username":"shop@example.com",
-                "usernameCanonical":"shop@example.com"
-            },
-            "_links":{
-                "self":{
-                    "href":"\/api\/v1\/customers\/1"
-                }
-            }
+        "id": 822,
+        "checkoutState": "cart",
+        "customer": {
+            "id": 74,
+            "email": "zamou45@yahoo.fr",
+            "firstName": "Bob",
+            "lastName": "Zamou",
+            "shortName": "Coco",
+            "address": "36 rue Bobo",
+            "zip": "29970",
+            "city": "Bordeaux",
+            "country": "FRANCE",
+            "phoneNumber": "0645877344",
+            "datesOfBirth": null,
+            "locale": "fr",
+            "uid": null,
+            "subscribedToNewsletter": true
         },
-        "currencyCode":"USD",
-        "localeCode":"en_US",
-        "checkoutState":"cart"
+        "items": [
+            {
+                "id": 710,
+                "unitPrice": "0.00",
+                "rank": 3,
+                "state": "none",
+                "type": "ticket",
+                "quantity": 1,
+                "declination": {
+                    "id": 11,
+                    "code": "TODO",
+                    "position": "TODO",
+                    "translations": "TODO"
+                },
+                "units": [
+                    {
+                        "id": "XXX",
+                        "adjustments": [],
+                        "adjustmentsTotal": 0
+                    }
+                ],
+                "unitsTotal": 0,
+                "adjustments": [],
+                "adjustmentsTotal": 0,
+                "total": 0
+            },
+            {
+                "id": 712,
+                "unitPrice": "0.00",
+                "rank": 1,
+                "state": "none",
+                "type": "ticket",
+                "quantity": 1,
+                "declination": {
+                    "id": 14,
+                    "code": "TODO",
+                    "position": "TODO",
+                    "translations": "TODO"
+                },
+                "units": [
+                    {
+                        "id": "XXX",
+                        "adjustments": [],
+                        "adjustmentsTotal": 0
+                    }
+                ],
+                "unitsTotal": 0,
+                "adjustments": [],
+                "adjustmentsTotal": 0,
+                "total": 0
+            },
+            {
+                "id": 709,
+                "unitPrice": "0.00",
+                "rank": 1,
+                "state": "none",
+                "type": "ticket",
+                "quantity": 1,
+                "declination": {
+                    "id": 15,
+                    "code": "TODO",
+                    "position": "TODO",
+                    "translations": "TODO"
+                },
+                "units": [
+                    {
+                        "id": "XXX",
+                        "adjustments": [],
+                        "adjustmentsTotal": 0
+                    }
+                ],
+                "unitsTotal": 0,
+                "adjustments": [],
+                "adjustmentsTotal": 0,
+                "total": 0
+            },
+            {
+                "id": 708,
+                "unitPrice": "0.00",
+                "rank": 1,
+                "state": "none",
+                "type": "ticket",
+                "quantity": 1,
+                "declination": {
+                    "id": 6,
+                    "code": "TODO",
+                    "position": "TODO",
+                    "translations": "TODO"
+                },
+                "units": [
+                    {
+                        "id": "XXX",
+                        "adjustments": [],
+                        "adjustmentsTotal": 0
+                    }
+                ],
+                "unitsTotal": 0,
+                "adjustments": [],
+                "adjustmentsTotal": 0,
+                "total": 0
+            },
+            {
+                "id": 707,
+                "unitPrice": "0.00",
+                "rank": 1,
+                "state": "none",
+                "type": "ticket",
+                "quantity": 1,
+                "declination": {
+                    "id": 13,
+                    "code": "TODO",
+                    "position": "TODO",
+                    "translations": "TODO"
+                },
+                "units": [
+                    {
+                        "id": "XXX",
+                        "adjustments": [],
+                        "adjustmentsTotal": 0
+                    }
+                ],
+                "unitsTotal": 0,
+                "adjustments": [],
+                "adjustmentsTotal": 0,
+                "total": 0
+            },
+            {
+                "id": 538,
+                "unitPrice": "0.00",
+                "rank": 1,
+                "state": "none",
+                "type": "ticket",
+                "quantity": 1,
+                "declination": {
+                    "id": 9,
+                    "code": "TODO",
+                    "position": "TODO",
+                    "translations": "TODO"
+                },
+                "units": [
+                    {
+                        "id": "XXX",
+                        "adjustments": [],
+                        "adjustmentsTotal": 0
+                    }
+                ],
+                "unitsTotal": 0,
+                "adjustments": [],
+                "adjustmentsTotal": 0,
+                "total": 0
+            }
+        ],
+        "itemsTotal": 0,
+        "adjustments": [],
+        "adjustmentsTotal": 0,
+        "total": 0,
+        "currencyCode": 978
     }
+]
+
 
 .. tip::
 
@@ -701,7 +879,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/items/58 \
+    $ curl http://e-venement.local/api/v2/carts/21/items/58 \
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json" \
         -X DELETE
@@ -711,7 +889,15 @@ Sample Response
 
 .. code-block:: text
 
-    STATUS: 204 No Content
+    STATUS: 200 OK
+    
+.. code-block:: json
+
+   {
+    "code": 200,
+    "message": "Delete successful"
+   }
+
 
 Reordering Cart Items
 ---------------------
@@ -768,3 +954,10 @@ Sample Response
 .. code-block:: text
 
     STATUS: 200 OK
+    
+.. code-block:: json
+
+   {
+    "code": 200,
+    "message": "Update successful"
+   }
