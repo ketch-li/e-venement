@@ -40,3 +40,6 @@
 [submodule "plugins/sfDependencyInjectionPlugin"]
 	path = plugins/sfDependencyInjectionPlugin
 	url = https://github.com/betaglop/sfDependencyInjectionPlugin.git
+[submodule "plugins/liOnlineSalesPlugin"]
+	path = plugins/liOnlineSalesPlugin
+	url = https://github.com/betaglop/liOnlineSalesPlugin
