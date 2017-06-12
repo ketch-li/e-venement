@@ -445,8 +445,7 @@ class transactionActions extends autoTransactionActions
     $vs['member_card_id'] = new sfValidatorDoctrineChoice(array(
       'model' => 'MemberCard',
       'query' => Doctrine::getTable('MemberCard')->createQuery('mc')
-        ->andWhere('mc.expire_at > NOW()')
-        ->andWhere('mc.contact_id = ?', $this->transaction->contact_id),
+        ->andWhere('mc.expire_at > NOW()'),
       'required' => false,
     ));
     $ws['value'] = new sfWidgetFormInput(array(), array('pattern' => '-{0,1}\d+[,\.]{0,1}\d{0,2}'));

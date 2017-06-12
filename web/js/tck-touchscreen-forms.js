@@ -93,6 +93,14 @@ LI.formSubmit = function(){
         case 'gift_coupon':
           LI.alert(value.data.alert, 'success');
           $('#li_transaction_field_gift_coupon input[type=text]').val('');
+          $('#li_transaction_field_payment_new [name="transaction[payment_new][member_card_id]"]').remove();
+          
+          var mcid = $('<input type="hidden">')
+          .prop('name', 'transaction[payment_new][member_card_id]')
+          .val(value.data.id);
+          
+          $('<p class="field_mc"></p>').append(mcid)
+            .appendTo($('#li_transaction_field_payment_new form'));
           break;
         case 'choose_mc':
           $('#li_transaction_field_payment_new [name="transaction[payment_new][member_card_id]"]').remove();
