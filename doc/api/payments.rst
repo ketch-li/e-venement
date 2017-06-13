@@ -15,6 +15,8 @@ Product API response structure
 +------------------+----------------------------------------------------------------------------------------------------+
 | amount           | The amount of payment                                                                              |
 +------------------+----------------------------------------------------------------------------------------------------+
+| orderId          | The linked order                                                                                   |
++------------------+----------------------------------------------------------------------------------------------------+
 | state            | State of the payment process (pending, "completed" is the only implementated state yet)            |
 +------------------+----------------------------------------------------------------------------------------------------+
 | createAt         | The date and time of creation [ISO 8601 Extended Format](https://fr.wikipedia.org/wiki/ISO_8601)   |
@@ -67,6 +69,7 @@ Sample Response
         "id":20,
         "method":"bank_transfer",
         "amount":4507,
+        "orderId": 5432,
         "state":"completed",
         "createdAt":"2017-04-07T12:42:02Z",
         "_links":{
@@ -145,6 +148,7 @@ Sample Response
                     "id":20,
                     "method":"bank_transfer",
                     "amount":4507,
+                    "orderId": 5432,
                     "createdAt":"2017-04-07T12:42:02Z",
                     "state":"completed",
                     "_links":{
@@ -157,6 +161,7 @@ Sample Response
                     "id":21,
                     "method":"bank_transfer",
                     "amount":3812,
+                    "orderId": 5432,
                     "createdAt":"2017-03-05T10:01:04Z",
                     "state":"completed",
                     "_links":{
