@@ -88,6 +88,7 @@ LI.kiosk = {
 	},
 	reset: function() {
 		$(document).off();
+		$('body').css('pointer-events', 'none');
 		LI.kiosk.utils.hideLoader();
 	},
 	initPlugins: function() {
@@ -779,7 +780,7 @@ LI.kiosk = {
 					var htmlLine = $('#' + line.id);
 
 					line.qty++;
-					exists = true;
+					lineExists = true;
 					LI.kiosk.cart.lineTotal(line);
 					
 					htmlLine.find('.line-total').text(line.total);
