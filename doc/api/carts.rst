@@ -508,7 +508,7 @@ A cart cannot be deleted. It simply has to be abandonned if needed.
 Creating a Cart Item
 --------------------
 
-To add a new cart item to an existing cart you will need to call the ``/api/v2/carts/{cartId}/items/`` endpoint with ``POST`` method.
+To add a new cart item to an existing cart you will need to call the ``/api/v2/carts/{cartId}/items`` endpoint with ``POST`` method.
 
 Definition
 ^^^^^^^^^^
@@ -907,7 +907,7 @@ Reordering Cart Items
 ---------------------
 
 To reorder cart items you can call the ``/api/v2/carts/{cartId}/items/reorder`` endpoint with the ``POST`` method.
-All the cart items you are reordering must belong to the same time slot.
+All the cart items you are reordering must belong to the same time slot. This feature is optional and can be unavailable, depending on business logic.
 
 Definition
 ^^^^^^^^^^
