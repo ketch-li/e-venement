@@ -614,6 +614,8 @@ Definition
 +---------------+----------------+---------------------------------------------------------------------+
 | declinationId | url attribute  | Id of the requested declination                                     |
 +---------------+----------------+---------------------------------------------------------------------+
+| type          | request        | Type of item to be updated (ticket, pass, product)                  |
++---------------+----------------+---------------------------------------------------------------------+
 | quantity      | request        | Amount of items you want to have in the cart (cannot be < 1)        |
 +---------------+----------------+---------------------------------------------------------------------+
 | numerotations | request        | An array of specific items of the requested declinations (optional) |
@@ -631,7 +633,7 @@ To change the rank of the cart item with ``id = 710`` in the cart of ``id = 822`
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST \
-        --data '{"rank": 3}'
+        --data '{"rank": 3, "type": "ticket"}'
 
 .. tip::
 
