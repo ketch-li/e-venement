@@ -73,7 +73,7 @@ Each CartItem in an API response will be build as follows:
 +-------------------+--------------------------------------------------------------------------------------------+
 | rank              | Rank of item in the cart (*optional*, can be null)                                         |
 +-------------------+--------------------------------------------------------------------------------------------+
-| state             | State of the item (*optional*, can be null or a string depending on business logic         |
+| state             | State of the item (*optional*, can be null or a string depending on business logic)        |
 +-------------------+--------------------------------------------------------------------------------------------+
 
 CartItemUnit API response structure
