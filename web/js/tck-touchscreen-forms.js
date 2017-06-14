@@ -130,8 +130,25 @@ LI.formSubmit = function(){
         case 'manifestations_price':
         case 'museum_price':
         case 'store_price':
+        
+          $.ajax({
+            url: value.remote_content.load.url,
+            complete: function(data){
+              form.pending = undefined;
+              $(form).find('[name="transaction[price_new][state]"]').val('');
+            },
+            success: function(data){
+              if ( data.error[0] ) { LI.alert(data.error[1],'error'); return; }
+              if (!( data.success.error_fields !== undefined && data.success.error_fields.manifestations === undefined )) { LI.alert(data.success.error_fields.manifestations,'error'); return; }
+              
+              var type = value.remote_content.load.type.replace(/_price$/, '');
+              if ( data.success.success_fields[type] !== undefined && data.success.success_fields[type].data !== undefined )
+                LI.completeContent(data.success.success_fields[type].data.content, type, reset);
+            }
+          });
+        /*
           var reset = value.remote_content.load.reset;
-          $.each([LI.urls['manifestations'], LI.urls['museum']], function(id, url) {
+          $.each([LI.urls['manifestations'], LI.urls['museum'], LI.urls['store']], function(id, url) {
             $.ajax({
               url: url,
               complete: function(data){
@@ -149,6 +166,8 @@ LI.formSubmit = function(){
               }
             })
           });
+          */
+          
           break;
         case 'payments':
           $('#li_transaction_field_payment_new [name="transaction[payment_new][member_card_id]"]').remove();
@@ -185,6 +204,12 @@ LI.formSubmit = function(){
           if ( sel != elt ) LI.initTouchscreen(sel);
           
           break;
+          case 'member_card':
+            $('#member_card__csrf_token').val($('.store-mc-print').attr('data-token'));
+            $('#member_card_contact_id').val($('#transaction_contact_id').val());
+            $('#member_card_member_card_type_id').val(value.remote_content.load.data.member_card_type_id);
+            $('.store-mc-print').unbind('submit').submit();
+            break;
         }
         
         LI.initTouchscreen(elt);

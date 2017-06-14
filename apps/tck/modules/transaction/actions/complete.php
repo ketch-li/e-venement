@@ -277,6 +277,13 @@
             'user'        => $this->getUser(),
           )));
         
+        // MemberCard created
+        if ( $bp->member_card_id )
+        {
+          $this->json['success']['success_fields']['member_card']['remote_content']['load']['type'] = 'member_card';
+          $this->json['success']['success_fields']['member_card']['remote_content']['load']['data']['member_card_type_id'] = $bp->MemberCard->member_card_type_id;
+        }
+        
         if ( $error_stock > 0 )
           $this->json['error'] = array(
             true,

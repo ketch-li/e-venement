@@ -27,7 +27,7 @@
     $this->useClassicTemplateDir(true);
     
     $params = $request->getParameter('member_card');
-    if ( $params['created_at']['year'] && $params['created_at']['month'] && $params['created_at']['day'] )
+    if ( array_key_exists('created_at', $params) && $params['created_at']['year'] && $params['created_at']['month'] && $params['created_at']['day'] )
       $params['created_at'] = $params['created_at']['year'].'-'.$params['created_at']['month'].'-'.$params['created_at']['day'];
     else
       $params['created_at'] = date('Y-m-d H:i:s');
@@ -168,7 +168,7 @@
       }
       
       $this->setLayout('nude');
-      return 'Success';
+      return $request->hasParameter('selling') ? 'Selling' : 'Success';
     }
     else
     {
