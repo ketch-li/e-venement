@@ -877,6 +877,8 @@ To delete the cart item with ``id = 58`` from the cart with ``id = 21`` use the 
 +---------------+----------------+--------------------------------------+
 | cartItemId    | url attribute  | Id of the requested cart item        |
 +---------------+----------------+--------------------------------------+
+| type          | request        | Type of item (ticket, product, pass) |
++---------------+----------------+--------------------------------------+
 
 Example
 ^^^^^^^
@@ -887,6 +889,7 @@ Example
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json" \
         -X DELETE
+        --data '{ "type": "ticket" }
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
