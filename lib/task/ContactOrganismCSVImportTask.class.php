@@ -27,7 +27,7 @@
     * ENCODING: UTF-8
     * SEPARATOR: ,
     * CONTENT STRUCTURE:
-    * Id,Nom,Prénom,Adresse1,Adresse2,CP,Ville,Pays,Type Tel1,Tel1,Type Tel2,Tel2,email_perso,no_newsletter,Mémo,org_id,Organisme,Type_Organisme,admin_number,site_web,Adresse CP,Ville,Pays,org_type_tel1,org_tel1,org_type_tel2,org_tel2,org_email,org_no_newsletter,Fonction_Type,Fonction_libellé,Service,pro_tel,pro_email,pro_no_newsletter
+    * Id,Nom,Prénom,Adresse1,Adresse2,CP,Ville,Pays,Type Tel1,Tel1,Type Tel2,Tel2,email_perso,no_newsletter,Mémo,org_id,Organisme,Type_Organisme,admin_number,site_web,Address,CP,Ville,Pays,org_type_tel1,org_tel1,org_type_tel2,org_tel2,org_email,org_no_newsletter,Fonction_Type,Fonction_libellé,Service,pro_tel,pro_email,pro_no_newsletter
     *
     **/
 ?>
@@ -87,8 +87,9 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
         $contact = new Contact;
       if ( trim($line[$i++]) )
         $contact->id = trim($line[$i-1]);
-      foreach ( array('name', 'firstname', 'address', 'postalcode', 'city', 'country') as $field )
+      foreach ( array('name', 'firstname', 'address', 'address', 'postalcode', 'city', 'country') as $field )
         $contact->$field = trim($line[$i++]);
+      $contact->address = trim($line[3].($line[4] ? "\n".$line[4] : ''));
 
       for ( $j = 0 ; $j < 2 ; $j++ )
       {
@@ -151,7 +152,7 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
           $organism->Phonenumbers[] = $pn;
       }
 
-      $organism->email = trim($line[$i++]);
+      $organism->email = $email = trim($line[$i++]);
       $organism->email_no_newsletter = trim($line[$i++]) ? true : false;
 
       if ( trim($line[$orgrank]) )
@@ -161,7 +162,7 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
           $organism->save();
           $organisms[$organism->id] = $organism;
         }
-        $this->logSection('Organism', $organism.' added or updated with id #'.$organism->id);
+        $this->logSection('Organism', $organism.' added or updated with id #'.$organism->id.' and '.$organism->email);
       }
 
       // there is a professional
