@@ -57,8 +57,6 @@ Each CartItem in an API response will be build as follows:
 +-------------------+--------------------------------------------------------------------------------------------+
 | total             | Sum of units total and adjustments total of that cart item                                 |
 +-------------------+--------------------------------------------------------------------------------------------+
-| vat               | The VAT specific value of this item                                                        |
-+-------------------+--------------------------------------------------------------------------------------------+
 | units             | A collection of units related to the cart item                                             |
 +-------------------+--------------------------------------------------------------------------------------------+
 | unitsTotal        | Sum of all unit prices of the cart item                                                    |
