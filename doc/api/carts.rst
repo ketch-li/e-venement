@@ -71,6 +71,10 @@ Each CartItem in an API response will be build as follows:
 +-------------------+--------------------------------------------------------------------------------------------+
 | _link[order]      | Relative link to order                                                                     |
 +-------------------+--------------------------------------------------------------------------------------------+
+| rank              | Rank of item in the cart (*optional*, can be null)                                         |
++-------------------+--------------------------------------------------------------------------------------------+
+| state             | State of the item (*optional*, can be null or a string depending on business logic)        |
++-------------------+--------------------------------------------------------------------------------------------+
 
 CartItemUnit API response structure
 -----------------------------------
@@ -504,7 +508,7 @@ A cart cannot be deleted. It simply has to be abandonned if needed.
 Creating a Cart Item
 --------------------
 
-To add a new cart item to an existing cart you will need to call the ``/api/v2/carts/{cartId}/items/`` endpoint with ``POST`` method.
+To add a new cart item to an existing cart you will need to call the ``/api/v2/carts/{cartId}/items`` endpoint with ``POST`` method.
 
 Definition
 ^^^^^^^^^^
@@ -610,6 +614,8 @@ Definition
 +---------------+----------------+---------------------------------------------------------------------+
 | declinationId | url attribute  | Id of the requested declination                                     |
 +---------------+----------------+---------------------------------------------------------------------+
+| type          | request        | Type of item to be updated (ticket, pass, product)                  |
++---------------+----------------+---------------------------------------------------------------------+
 | quantity      | request        | Amount of items you want to have in the cart (cannot be < 1)        |
 +---------------+----------------+---------------------------------------------------------------------+
 | numerotations | request        | An array of specific items of the requested declinations (optional) |
@@ -627,7 +633,7 @@ To change the rank of the cart item with ``id = 710`` in the cart of ``id = 822`
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST \
-        --data '{"rank": 3}'
+        --data '{"rank": 3, "type": "ticket"}'
 
 .. tip::
 
@@ -873,6 +879,8 @@ To delete the cart item with ``id = 58`` from the cart with ``id = 21`` use the 
 +---------------+----------------+--------------------------------------+
 | cartItemId    | url attribute  | Id of the requested cart item        |
 +---------------+----------------+--------------------------------------+
+| type          | request        | Type of item (ticket, product, pass) |
++---------------+----------------+--------------------------------------+
 
 Example
 ^^^^^^^
@@ -883,6 +891,7 @@ Example
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json" \
         -X DELETE
+        --data '{ "type": "ticket" }
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -903,7 +912,7 @@ Reordering Cart Items
 ---------------------
 
 To reorder cart items you can call the ``/api/v2/carts/{cartId}/items/reorder`` endpoint with the ``POST`` method.
-All the cart items you are reordering must belong to the same time slot.
+All the cart items you are reordering must belong to the same time slot. This feature is optional and can be unavailable, depending on business logic.
 
 Definition
 ^^^^^^^^^^

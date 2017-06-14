@@ -131,7 +131,7 @@ LI.formSubmit = function(){
         case 'museum_price':
         case 'store_price':
           var reset = value.remote_content.load.reset;
-          $.each([LI.urls['manifestations'], LI.urls['museum']], function(id, url) {
+          $.each([LI.urls['manifestations'], LI.urls['museum'], LI.urls['store']], function(id, url) {
             $.ajax({
               url: url,
               complete: function(data){
@@ -185,6 +185,12 @@ LI.formSubmit = function(){
           if ( sel != elt ) LI.initTouchscreen(sel);
           
           break;
+          case 'member_card':
+            $('#member_card__csrf_token').val($('.store-mc-print').attr('data-token'));
+            $('#member_card_contact_id').val($('#transaction_contact_id').val());
+            $('#member_card_member_card_type_id').val(value.remote_content.load.data.member_card_type_id);
+            $('.store-mc-print').unbind('submit').submit();
+            break;
         }
         
         LI.initTouchscreen(elt);
