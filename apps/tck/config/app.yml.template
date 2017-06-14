@@ -23,6 +23,8 @@ all:
     #  max_display: 20
     #museum:
     #  max_display: 20
+    membercard:
+      integrate: false
     touchscreen:
       prices_max_display: 13
       manifs_max_display: 12
