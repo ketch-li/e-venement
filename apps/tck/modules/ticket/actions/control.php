@@ -101,7 +101,20 @@
             if ( is_null($price)
               || !is_null($price) && $pg->value > $price->value && $pg->price_id == $price->price_id )
               $price = $pg;
+
+            $existing_ticket =  Doctrine::getTable('Ticket')->createQuery('t')
+              ->andWhere('t.printed_at IS NOT NULL OR t.integrated_at IS NOT NULL OR t.cancelling IS NOT NULL')
+              ->andWhere('t.duplicating IS NULL')
+              ->andWhere('t.member_card_id = ?', $card->id)
+              ->andWhere('t.manifestation_id = ?', $manifestation->id)
+              ->orderBy('t.created_at DESC')
+              ->fetchOne();
             
+            if ( $existing_ticket )
+            {
+              $params['ticket_id'] = $existing_ticket->id;
+            }
+            else 
             if ( $price )
             {
               $ticket = new Ticket;
@@ -109,6 +122,7 @@
               $ticket->integrated_at = date('Y-m-d H:i:s');
               $ticket->automatic = true;
               $ticket->Manifestation = $manifestation;
+              $ticket->MemberCard = $card;
               
               $ticket->price_id = $price->price_id;
               $ticket->value = $price->value;

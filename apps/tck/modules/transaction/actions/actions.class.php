@@ -413,6 +413,21 @@ class transactionActions extends autoTransactionActions
       ->setDefault('force', null)
     ;
 
+    // MemberCard
+    $this->form['content']['store']->member_card = new sfForm;
+    $ws = $this->form['content']['store']->member_card->getWidgetSchema()->setNameFormat('member_card[%s]');
+    $vs = $this->form['content']['store']->member_card->getValidatorSchema();
+    $msf = new MemberCardForm();
+    $this->form['content']['store']->member_card->_csrf_token = $msf->getCSRFToken();
+
+    $ws['contact_id'] = new sfWidgetFormInputHidden;
+    $vs['contact_id'] = new sfValidatorPass(array('required' => false,));
+    
+    $ws['member_card_type_id'] = new sfWidgetFormInputHidden;
+    $vs['member_card_type_id'] = new sfValidatorPass(array('required' => false,));
+    
+    $ws['contact_id']->setDefault($this->transaction->contact_id);
+
     // GIFT COUPON
     $this->form['gift_coupon'] = new sfForm;
     $ws = $this->form['gift_coupon']->getWidgetSchema()->setNameFormat('transaction[gift_coupon][%s]');
@@ -445,8 +460,7 @@ class transactionActions extends autoTransactionActions
     $vs['member_card_id'] = new sfValidatorDoctrineChoice(array(
       'model' => 'MemberCard',
       'query' => Doctrine::getTable('MemberCard')->createQuery('mc')
-        ->andWhere('mc.expire_at > NOW()')
-        ->andWhere('mc.contact_id = ?', $this->transaction->contact_id),
+        ->andWhere('mc.expire_at > NOW()'),
       'required' => false,
     ));
     $ws['value'] = new sfWidgetFormInput(array(), array('pattern' => '-{0,1}\d+[,\.]{0,1}\d{0,2}'));

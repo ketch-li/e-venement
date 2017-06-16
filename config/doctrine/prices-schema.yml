@@ -54,6 +54,10 @@ Price:
       type: boolean
       notnull: true
       default: false
+    onkiosk:
+      type: boolean
+      default: false
+      notnull: true
     hide:
       type: boolean
       notnull: true

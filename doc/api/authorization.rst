@@ -1,6 +1,3 @@
-.. index::
-   single: Authorization
-
 Authorization
 =============
 

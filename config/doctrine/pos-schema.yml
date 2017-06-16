@@ -47,6 +47,10 @@ ProductCategory:
       type: boolean
       default: false
       notnull: true
+    onkiosk:
+      type: boolean
+      default: false
+      notnull: true
     product_category_id: integer
     shipping_fees: string
     color_id: integer
@@ -107,6 +111,10 @@ Product:
       type: boolean
       default: true
       notnull: true
+    onkiosk:
+      type: boolean
+      default: false
+      notnull: true    
     use_stock:
       type: boolean
       default: true

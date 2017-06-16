@@ -122,6 +122,17 @@ EOF;
         }
         if ( $manif->Location->email )
           $emails[$manif->Location->email] = $manif->Location->email;
+          
+        // Related to the resources
+        if ( in_array('resources', $who) && $manif->LocationBookings->count() > 0 )
+        {
+          foreach ($manif->LocationBookings as $resource)
+          {
+            if ( $resource->Location->email )
+              $emails[$resource->Location->email] = $resource->Location->email;
+          }
+        }
+          
         // the global admins
         if ( in_array('admins', $who) )
         {

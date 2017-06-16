@@ -277,6 +277,14 @@
             'user'        => $this->getUser(),
           )));
         
+        // MemberCard created
+        $mc_conf = sfConfig::get('app_transaction_membercard', array('integrate' => false));
+        if ( $bp->member_card_id && $mc_conf['integrate'] )
+        {
+          $this->json['success']['success_fields']['member_card']['remote_content']['load']['type'] = 'member_card';
+          $this->json['success']['success_fields']['member_card']['remote_content']['load']['data']['member_card_type_id'] = $bp->MemberCard->member_card_type_id;
+        }
+        
         if ( $error_stock > 0 )
           $this->json['error'] = array(
             true,
@@ -358,6 +366,8 @@
           $mc->Transaction = $this->transaction;
           $mc->save();
           $this->json['success']['success_fields'][$field]['data']['type'] = $field;
+          $this->json['success']['success_fields'][$field]['data']['id'] = $id;
+          $this->json['success']['success_fields'][$field]['data']['name'] = $mc->name;
           $this->json['success']['success_fields'][$field]['data']['alert'] = __('Gift coupon #%%mc%% successfully added to the current transaction.', array('%%mc%%' => $id));
         }
         break;

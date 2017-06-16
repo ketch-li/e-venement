@@ -36,7 +36,7 @@ class PriceTable extends PluginPriceTable
     $q->leftJoin("$alias.Translation pt");
     
     if ( $dom = sfConfig::get('project_internals_users_domain', null) )
-      $q->leftJoin("$alias.Ranks pr WITH pr.domain ILIKE ? OR pr.domain = ?", array('%.'.$dom, $dom));
+      $q->leftJoin("$alias.Ranks pr WITH pr.domain ILIKE '%$dom' OR pr.domain = '$dom'");
     else
       $q->leftJoin("$alias.Ranks pr");
       

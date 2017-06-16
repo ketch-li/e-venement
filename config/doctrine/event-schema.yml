@@ -560,6 +560,10 @@ Gauge:
       type: boolean
       default: true
       notnull: true
+    onkiosk:
+      type: boolean
+      default: false
+      notnull: true
     group_name: string(255)
   relations:
     Manifestation:

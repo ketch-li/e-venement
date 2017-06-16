@@ -99,108 +99,193 @@ Sample Response
 .. code-block:: json
 
     {
-        "page": 1,
-        "limit": 4,
-        "pages": 16,
-        "total": 63,
-        "_links": {
-            "self": {
-                "href": "\/api\/v1\/events\/?page=1&limit=4"
-            },
-            "first": {
-                "href": "\/api\/v1\/events\/?page=1&limit=4"
-            },
-            "last": {
-                "href": "\/api\/v1\/events\/?page=16&limit=4"
-            },
-            "next": {
-                "href": "\/api\/v1\/events\/?page=2&limit=4"
-            }
+    "page": 1,
+    "limit": 10,
+    "pages": 2,
+    "total": 14,
+    "_links": {
+        "self": {
+            "href": "\/tck.php\/api\/v2\/events?limit=10"
         },
-        "_embedded": {
-            "items": [
-                {
-                    "id":123,
-                    "metaEvent":{
-                        "id":12,
-                        "translations":{
-                            "en_US":{
-                                "id":12,
-                                "name":"2017 Season",
-                                "decription":"Performances for 2017"
-                            }
+        "first": {
+            "href": "\/tck.php\/api\/v2\/events?limit=10&page=1"
+        },
+        "last": {
+            "href": "\/tck.php\/api\/v2\/events?limit=10&page=2"
+        },
+        "next": {
+            "href": "\/tck.php\/api\/v2\/events?limit=10&page=2"
+        }
+    },
+    "_embedded": {
+        "items": [
+            {
+                "id": 6,
+                "metaEvent": {
+                    "id": 1,
+                    "translations": {
+                        "fr": {
+                            "name": "Jeux Olympiques 2020",
+                            "description": "Jeux Olympiques 2020"
                         }
-                    },
-                    "category":"Theater",
-                    "translations":{
-                        "en_US":{
-                            "id":123,
-                            "name":"Shoot up",
-                            "description":"Beautiful. Not beautiful. So is the Paloma's world."
-                        }
-                    },
-                    "imageURL":"shootup.png",
-                    "manifestations": [
-                        {
-                            "id":837,
-                            "startsAt":"2017-04-05T10:00:00+0100",
-                            "endsAt":"2017-04-05T10:55:00+0100",
-                            "timeSlots": [{
-                                "id":10001,
-                                "title": "Paloma's morning",
-                                "startsAt": "2017-04-05T09:00:00+0100",
-                                "endsAt":"2017-04-05T13:00:00+0100"
-                            }]
-                        },
-                        {
-                            "id":838,
-                            "startsAt":"2017-05-05T13:30:00+0100",
-                            "endsAt":"2017-05-05T16:30:00+0100",
-                            "timeSlots": [{
-                                "id":10002,
-                                "title": "Paloma's afternoon",
-                                "startsAt": "2017-04-05T13:00:00+0100",
-                                "endsAt":"2017-04-05T18:00:00+0100"
-                            }]
-                        }
-                    ]
+                    }
                 },
-                {
-                    "id":124,
-                    "metaEvent":{
-                        "id":12,
-                        "translations":{
-                            "en_US":{
-                                "id":12,
-                                "name":"2017 Season",
-                                "decription":"Performances for 2017"
+                "category": "Hommes/Femmes",
+                "translations": {
+                    "fr": {
+                        "name": "Présentation des pays",
+                        "subtitle": "",
+                        "short_name": "Zone Nord",
+                        "description": "",
+                        "extradesc": "",
+                        "extraspec": ""
+                    }
+                },
+                "imageURL": "\/tck.php\/api\/v2\/picture\/6",
+                "manifestations": [
+                    {
+                        "id": 14,
+                        "startsAt": "20170801T124500+02:00",
+                        "endsAt": "20170801T144500+02:00",
+                        "event": {
+                            "id": 8,
+                            "metaEvent": {
+                                "id": 1,
+                                "translations": {
+                                    "fr": {
+                                        "name": "Jeux Olympiques 2020",
+                                        "description": "Jeux Olympiques 2020"
+                                    }
+                                }
+                            },
+                            "category": "Femmes",
+                            "translations": {
+                                "fr": {
+                                    "name": "Natation",
+                                    "subtitle": "",
+                                    "short_name": "Natation",
+                                    "description": "",
+                                    "extradesc": "",
+                                    "extraspec": ""
+                                }
+                            },
+                            "imageId": null,
+                            "imageURL": null
+                        },
+                        "location": {
+                            "id": 3,
+                            "name": "Piscine 1",
+                            "address": "",
+                            "zip": "",
+                            "city": "",
+                            "country": ""
+                        },
+                        "gauges": [
+                            {
+                                "id": 14,
+                                "name": "Jeux Olympiques 2020",
+                                "availableUnits": 10,
+                                "prices": [
+                                    {
+                                        "id": 1,
+                                        "value": "0.000",
+                                        "currencyCode": 978,
+                                        "translations": {
+                                            "en": {
+                                                "name": "Invitation",
+                                                "description": ""
+                                            },
+                                            "fr": {
+                                                "name": "Invitation",
+                                                "description": ""
+                                            }
+                                        }
+                                    }
+                                ]
                             }
-                        }
+                        ],
+                        "timeSlots": [
+                            {
+                                "id": 5,
+                                "name": "Natation",
+                                "startsAt": "20170801T124500+02:00",
+                                "endsAt": "20170801T144500+02:00"
+                            }
+                        ]
                     },
-                    "category":"Show",
-                    "translations":{
-                        "en_US":{
-                            "id":124,
-                            "name":"Online life",
-                            "description":"Welcome to the teenage years 2.0."
-                        }
-                    },
-                    "imageURL":"onlinelife.png",
-                    "manifestations": [
-                        {
-                            "id":840,
-                            "startsAt":"2017-04-11T10:00:00+0100",
-                            "endsAt":"2017-04-11T10:55:00+0100",
-                            "timeSlots": [{
-                                "id":10003,
-                                "title": "Teenage morning",
-                                "startsAt": "2017-04-11T09:00:00+0100",
-                                "endsAt":"2017-04-11T13:00:00+0100"
-                            }]
-                        }
-                    ]
-                }
-            ]
+                    {
+                        "id": 20,
+                        "startsAt": "20170803T124500+02:00",
+                        "endsAt": "20170803T144500+02:00",
+                        "event": {
+                            "id": 8,
+                            "metaEvent": {
+                                "id": 1,
+                                "translations": {
+                                    "fr": {
+                                        "name": "Jeux Olympiques 2020",
+                                        "description": "Jeux Olympiques 2020"
+                                    }
+                                }
+                            },
+                            "category": "Hommes",
+                            "translations": {
+                                "fr": {
+                                    "name": "Atletisme",
+                                    "subtitle": "",
+                                    "short_name": "Atletisme",
+                                    "description": "",
+                                    "extradesc": "",
+                                    "extraspec": ""
+                                }
+                            },
+                            "imageId": null,
+                            "imageURL": null
+                        },
+                        "location": {
+                            "id": 3,
+                            "name": "Stade Louis II",
+                            "address": "",
+                            "zip": "",
+                            "city": "",
+                            "country": ""
+                        },
+                        "gauges": [
+                            {
+                                "id": 20,
+                                "name": "Jeux Olympiques 2020",
+                                "availableUnits": 10,
+                                "prices": [
+                                    {
+                                        "id": 1,
+                                        "value": "0.000",
+                                        "currencyCode": 978,
+                                        "translations": {
+                                            "en": {
+                                                "name": "Invitation",
+                                                "description": ""
+                                            },
+                                            "fr": {
+                                                "name": "Invitation",
+                                                "description": ""
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "timeSlots": [
+                            {
+                                "id": 9,
+                                "name": "Atletisme",
+                                "startsAt": "20170802T081500+02:00",
+                                "endsAt": "20180802T084500+02:00"
+                            }
+                        ]
+                    }
+                ]
+             }
+          ]
         }
     }
 
@@ -243,82 +328,101 @@ Sample Response
 
 .. code-block:: json
 
+   [
     {
-        "id":123,
-        "metaEvent":{
-            "id":12,
-            "translations":{
-                "en_US":{
-                    "id":12,
-                    "name":"2017 Season",
-                    "decription":"Performances for 2017"
+        "id": 123,
+        "metaEvent": {
+            "id": 1,
+            "translations": {
+                "fr": {
+                    "name": "Jeux Olympiques 2020",
+                    "description": "Jeux Olympiques 2020"
                 }
             }
         },
-        "category":"Theater",
-        "translations":{
-            "en_US":{
-                "id":123,
-                "name":"Shoot up",
-                "description":"Beautiful. Not beautiful. So is the Paloma's world."
+        "category": "Hommes",
+        "translations": {
+            "fr": {
+                "name": "tenis",
+                "subtitle": "",
+                "short_name": "Seniors",
+                "description": "",
+                "extradesc": "",
+                "extraspec": ""
             }
         },
-        "imageURL":"shootup.png",
-        "minAge":7,
-        "maxAge":77,
+        "imageURL": "\/tck.php\/api\/v2\/picture\/6",
         "manifestations": [
             {
-                "id":837,
-                "startsAt":"2017-04-05T10:00:00+0100",
-                "endsAt":"2017-04-05T10:55:00+0100",
-                "location":{
-                    "id":20,
-                    "translations":{
-                        "en_US":{
-                            "id":20,
-                            "name":"Auditorium"
+                "id": 14,
+                "startsAt": "20170801T124500+02:00",
+                "endsAt": "20170801T144500+02:00",
+                "event": {
+                    "id": 8,
+                    "metaEvent": {
+                        "id": 1,
+                        "translations": {
+                            "fr": {
+                                "name": "Jeux Olympiques 2020",
+                                "description": "Jeux Olympiques 2020"
+                            }
                         }
                     },
-                    "address":{
-                        "street":"22 acacia avenue",
-                        "zip":"29000",
-                        "city":"Kemper",
-                        "country":"France"
-                    }
-                },
-                "timeSlots": [{
-                    "id":10003,
-                    "title": "Teenage morning",
-                    "startsAt": "2017-04-05T09:00:00+0100",
-                    "endsAt":"2017-04-05T13:00:00+0100"
-                }]
-            },
-            {
-                "id":838,
-                "startsAt":"2017-05-05T10:00:00+0100",
-                "endsAt":"2017-05-05T10:55:00+0100",
-                "location":{
-                    "id":20,
-                    "translations":{
-                        "en_US":{
-                            "id":20,
-                            "name":"Auditorium"
+                    "category": "Pays Sud",
+                    "translations": {
+                        "fr": {
+                            "name": "Groupe H",
+                            "subtitle": "",
+                            "short_name": "Seniors",
+                            "description": "",
+                            "extradesc": "",
+                            "extraspec": ""
                         }
                     },
-                    "address":{
-                        "street":"22 acacia avenue",
-                        "zip":"29000",
-                        "city":"Kemper",
-                        "country":"France"
-                    }
+                    "imageId": null,
+                    "imageURL": null
                 },
-                "timeSlots": [{
-                    "id":10001,
-                    "title": "Paloma's morning",
-                    "startsAt": "2017-04-05T09:00:00+0100",
-                    "endsAt":"2017-04-05T13:00:00+0100"
-                }]
+                "location": {
+                    "id": 3,
+                    "name": "Rolans Garros",
+                    "address": "",
+                    "zip": "",
+                    "city": "",
+                    "country": ""
+                },
+                "gauges": [
+                    {
+                        "id": 14,
+                        "name": "Jeux Olympiques 2020",
+                        "availableUnits": 10,
+                        "prices": [
+                            {
+                                "id": 1,
+                                "value": "0.000",
+                                "currencyCode": 978,
+                                "translations": {
+                                    "en": {
+                                        "name": "Invitation",
+                                        "description": ""
+                                    },
+                                    "fr": {
+                                        "name": "Invitation",
+                                        "description": ""
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "timeSlots": [
+                    {
+                        "id": 5,
+                        "name": "Remise des medailles",
+                        "startsAt": "20170801T124500+02:00",
+                        "endsAt": "20170801T144500+02:00"
+                    }
+                ]
             }
-        ]
-    }
-
+         ]
+      }
+  ]

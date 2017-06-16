@@ -37,7 +37,7 @@ Example
         -X POST \
         --data '
             {
-                "email": "john.diggle@yahoo.com",
+                "email": "laurent.martin@yahoo.com",
                 "password": "secret"
             }
         '
@@ -51,24 +51,29 @@ Sample Response
 
 .. code-block:: json
 
-    {
-        "code": 200,
-        "message": "Verification successful",
-        "success": {
-            "customer": {
-                "id":399,
-                "email":"john.diggle@yahoo.com",
-                "firstName":"John",
-                "lastName":"Diggle",
-                "address": "55, Sunrise St.",
-                "zip": "F-29000",
-                "city": "Quimper",
-                "country": "France",
-                "phoneNumber": "+987654321",
-                "subscribedToNewsletter": true
-            }
+     {
+    "code": 200,
+    "message": "Verification successful",
+    "success": {
+        "customer": {
+            "id": 94,
+            "email": "laurent.martin@yahoo.fr",
+            "firstName": "Laurent",
+            "lastName": "Martin",
+            "shortName": "Coco",
+            "address": "Lieu-dit kerfinous",
+            "zip": "29970",
+            "city": "TREGOUREZ",
+            "country": "FRANCE",
+            "phoneNumber": "0645877344",
+            "datesOfBirth": null,
+            "locale": "fr",
+            "uid": null,
+            "subscribedToNewsletter": true
         }
     }
+}
+
 
 If you try to login without giving a password or an email address, you will receive a ``400 Bad Request`` error.
 

@@ -95,7 +95,7 @@ LI.stats.attendance = function () {
                         csvData.splice(18, 1);
                     }
                     
-                    LI.csvData[name].push(csvData);
+                    LI.csvData[name].push('"'+csvData.join('","')+'"');
                 } 
             });
             
