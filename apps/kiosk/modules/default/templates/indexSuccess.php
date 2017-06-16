@@ -92,10 +92,10 @@
 			<div id="breadcrumbs-wrapper" class="">
 				<ul id="breadcrumbs" class="">
 					<li id="home-breadcrumb" class="breadcrumb mdl-shadow--2dp" data-target="product-menu">
-						<a href="#"><?php echo kioskConfiguration::getText('app_texts_breadcrumb_home', 'Home') ?></a>
+						<a href="#"><?php echo kioskConfiguration::getText('breadcrumb_home', 'Home') ?></a>
 					</li>
 					<li id="products-breadcrumb" class="breadcrumb mdl-shadow--2dp" data-target="products">
-						<a href="#"><?php echo kioskConfiguration::getText('app_texts_breadcrumb_products', 'Products') ?></a>
+						<a href="#"><?php echo kioskConfiguration::getText('breadcrumb_products', 'Products') ?></a>
 					</li>
 					<li id="details-breadcrumb" class="breadcrumb mdl-shadow--2dp" data-target="product-details">
 						<a href="#"></a>
@@ -138,7 +138,7 @@
 			<ul id="cart-lines"></ul>
 			<!-- total -->
 			<div id="cart-total" class="mdl-color--blue-grey-800">
-				<span id="cart-total-label"><?php echo kioskConfiguration::getText('app_texts_cart_total', 'Total') ?></span>
+				<span id="cart-total-label"><?php echo kioskConfiguration::getText('cart_total', 'Total') ?></span>
 				<span id="cart-total-value"></span>
 			</div>
 			<!-- confirm button -->
@@ -146,7 +146,7 @@
 				<button id="confirm-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-color--teal-600 waves-effect">
 					<span id="confirm-btn-wrapper">
 						<i class="material-icons light">check</i>
-						<?php echo kioskConfiguration::getText('app_texts_cart_validate', 'Checkout') ?>
+						<?php echo kioskConfiguration::getText('cart_validate', 'Checkout') ?>
 					</span>
 				</button>
 			</div>
@@ -157,17 +157,17 @@
 <!-- LOCATION DIALOG -->
 <dialog id="location" class="mdl-dialog">
   <form id="location-form" method="dialog">
-    <p class="mdl-dialog__title">Please enter your post code or country</p>
+    <p class="mdl-dialog__title"><?php echo kioskConfiguration::getText('location_title', 'Please enter your postcode or country') ?></p>
     <div class="mdl-dialog__content">
 	    <select id="countries"></select>
 	    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 	    	<input type="text" id="postcode" name="postcode" class="mdl-textfield__input" placeholder="">
-	    	<label class="mdl-textfield__label" for="postcode">Post code</label>
-	    	<span class="mdl-textfield__error">Post code should be all numbers</span>
+	    	<label class="mdl-textfield__label" for="postcode"><?php echo kioskConfiguration::getText('postcode', 'Post code') ?></label>
+	    	<span class="mdl-textfield__error"><?php echo kioskConfiguration::getText('postcode_validation', 'Post code must be all numbers') ?></span>
 	    </div>
 	</div>
 	<div class="mdl-dialog__actions mdl-dialog__actions">
-    	<button class="mdl-button" type="submit">Continue to payment</button>
+    	<button class="mdl-button" type="submit"><?php echo kioskConfiguration::getText('location_close', 'Continue to payment') ?></button>
     </div>
   </form>
   <div id="keypad" class="mdl-grid"></div>
@@ -179,11 +179,11 @@
 	  <h4 id="status-title" class="mdl-dialog__title"></h4>
 	  <div id="status-content" class="mdl-dialog__content">
   	  	<p id="status-details"></p>
-  	  	<img id="status-ept" src="/images/kiosk/ept.png" alt="<?php echo kioskConfiguration::getText('app_texts_ept_img', 'Payment terminal') ?>">
+  	  	<img id="status-ept" src="/images/kiosk/ept.png" alt="Payment terminal">
 	  </div>
 	  <div id="status-actions">
-  		<button type="submit" class="mdl-button" value="true">Retry</button>
-  	    <button type="submit" class="mdl-button close" value="false">Cancel</button>
+  		<button type="submit" class="mdl-button" value="true"><?php echo kioskConfiguration::getText('retry', 'Retry') ?></button>
+  	    <button type="submit" class="mdl-button close" value="false"><?php echo kioskConfiguration::getText('cancel', 'Cancel') ?></button>
 	  </div>
   </form>
 </dialog>
@@ -201,7 +201,7 @@
   data-log-print-failure="<?php echo cross_app_url_for('tck', 'transaction/directPrintLog?id=-666') ?>"
 ></div>
 
-<div class="js-data" id="devices" data-devices="<?php echo htmlspecialchars(json_encode(sfConfig::get('app_io_devices',
+<div class="js-data" id="kiosk-devices" data-devices="<?php echo htmlspecialchars(json_encode(sfConfig::get('app_io_devices',
 	[
 		'ept' => [
 			'type' => 'serial',
@@ -219,11 +219,18 @@
 				'pid' => '1',
 				'vid' => '1305'
 			]
+		],
+		'invoicePrinter' => [
+			'type' => 'usb',
+			'params' => [
+				'pid' => '14864',
+				'vid' => '7306'
+			]
 		]
 	]
 ))) ?>"></div>
 
-<div class="js-data" id="config"
+<div class="js-data" id="kiosk-config"
   data-culture="<?php echo sfContext::getInstance()->getUser()->getCulture(); ?>"
   data-idle-time="<?php echo sfConfig::get('app_idle_time', false); ?>"
   data-ui-labels="<?php echo htmlspecialchars(json_encode(sfConfig::get('app_ui_labels'))) ?>"
@@ -232,9 +239,8 @@
  ></div>
 
 <!-- JS I18N -->
-<div class="js-i18n" data-source="manifestations" data-target="<?php echo kioskConfiguration::getText('app_texts_menu_manifestation', 'Manifestations') ?>"></div>
-<div class="js-i18n" data-source="museum" data-target="<?php echo kioskConfiguration::getText('app_texts_menu_museum', 'Museum') ?>"></div>
-<div class="js-i18n" data-source="store" data-target="<?php echo kioskConfiguration::getText('app_texts_menu_store', 'Store') ?>"></div>
+<div class="js-i18n" id="kiosk-strings" data-strings="<?php echo htmlspecialchars(json_encode(kioskConfiguration::getTexts())) ?>"></div>
+
 
 <!-- HANDLEBARS TEMPLATES -->
 	<!-- menu item -->

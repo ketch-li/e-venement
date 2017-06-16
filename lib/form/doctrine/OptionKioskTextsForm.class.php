@@ -137,37 +137,32 @@ class OptionKioskTextsForm extends BaseOptionKioskTextsForm
       );
       
       $terms[$lang] = array(
-        'menu_manifestation' => '',
-        'menu_museum'        => '',
-        'menu_store'         => '',
-        'breadcrumb_home'    => '',
-        'breadcrumb_products'=> '',
-        'cart_total'         => '',
-        'cart_validate'      => '',
-
-//         'email_confirmation'      => '
-// Voici le récapitulatif de votre commande en date du %%DATE%% :
-
-// %%COMMAND%%
-
-// Au plaisir de vous accueillir,
-
-// %%NOTICES%%
-
-// --
-// Ma Structure
-// 27 avenue de la Libération
-// 99250 LIBERTALIA
-// +999 53 20 16 45
-
-// <a href="mailto:contact@mastructure.tld">mailto:contact@mastructure.tld</a>
-// <a href="http://www.mastructure.tld/">http://www.mastructure.tld</a>
-// ',
-        // TODO: complete like the previous example with all the texts from online sales, foundable in apps/pub/config/app.yml.template
-        // careful: the i18n of those terms have to be placed in the "ws" app, whereas their storage for production use will be located in the DB
+        'menu_manifestations'     => '',
+        'menu_museum'             => '',
+        'menu_store'              => '',
+        'breadcrumb_home'         => '',
+        'breadcrumb_products'     => '',
+        'cart_total'              => '',
+        'cart_validate'           => '',
+        'location_title'          => '',
+        'location_close'          => '',
+        'postcode'                => '',
+        'postcode_validation'     => '',
+        'retry'                   => '',
+        'cancel'                  => '',
+        'hardware_title'          => '',
+        'hardware_details'        => '',
+        'payment_title'           => '',
+        'payment_failure'         => '',
+        'payment_success_title'   => '',
+        'payment_success_details' => '',
+        'ticket_failure'          => '',
+        'final_title'             => '',
+        'final_details'           => '',
       );
       ksort($terms[$lang]);
     }
+    
     $langs = array_keys($langs);
     
     $defaults = array();

@@ -27,28 +27,78 @@ all:
         params:
           pid: 1,
           vid: '1305'
+      invoicePrinter:
+        type: 'usb'
+        params:
+          pid: '14864'
+          vid: '7306'
   ui:
     labels: 
       price: 'name'
-  texts:
-    menu_manifestation: 
-      fr: 'Activités'
-      en : 'Museum activities'
-    menu_museum: 
-      fr: 'Visites'
-      en: 'Museum visits'
-    menu_store: 
-      fr: 'Boutique'
-      en: 'Store'
-    breadcrumb_home:
-      fr: 'Accueil'
-      en: 'Home'
-    breadcrumb_products:
-      fr: 'Liste des produits'
-      en: 'Products'
-    cart_total:
-      fr: 'Total'
-      en: 'Total'
-    cart_validate:
-      fr: 'Valider'
-      en: 'Checkout' 
+    texts: # this config will override texts stored in database
+      menu_manifestations: 
+        fr: 'Activités'
+        en : 'Museum activities'
+      menu_museum: 
+        fr: 'Visites'
+        en: 'Museum visits'
+      menu_store: 
+        fr: 'Boutique'
+        en: 'Store'
+      breadcrumb_home:
+        fr: 'Accueil'
+        en: 'Home'
+      breadcrumb_products:
+        fr: 'Liste des produits'
+        en: 'Products'
+      cart_total:
+        fr: 'Total'
+        en: 'Total'
+      cart_validate:
+        fr: 'Valider'
+        en: 'Checkout'
+      location_title:
+        en: 'Please enter your post code or country'
+        fr: 'Veuillez entrer votre code postal ou votre pays'
+      location_close: 
+        en: 'Continue to payment'
+        fr: 'Continuer'
+      postcode:
+        en: 'Post code'
+        fr: 'Code postal'
+      postcode_validation:
+        en: 'Post code must onlay contain numbers'
+        fr: 'Le code postal doit être composé uniquement de chiffres'
+      retry: 
+        en: 'Retry'
+        fr: 'Réessayer'
+      cancel:
+        en: 'Cancel'
+        fr: 'Annuler'
+      hardware_title:
+        en: 'Out of order'
+        fr: 'Hors service'
+      hardware_details:
+        en: 'Please head to the front office for help'
+        fr: 'Veuillez vous diriger vers le poste d'accueil
+      payment_title:
+        en: 'Please follow payment terminal instructions'
+        fr: 'Veuillez suivre les instructions sur le terminal de paiement'
+      payment_failure:
+        en: 'Payment failed'
+        fr: 'Le paiement a échoué'
+      payment_success_title:
+        en: 'Payment successfull'
+        fr: 'Paiement accepté'
+      payment_success_details:
+        en: 'Please wait while your tickets are being printed'
+        fr: 'Veuillez patienter pendant l'impression de vos billets'
+      ticket_failure:
+        en: 'Ticket printing failed'
+        fr: 'Erreur d'impression'
+      final_title:
+        en: 'Thank you for your order'
+        fr: 'Merci pour votre commande'
+      final_details:
+        en: 'Please wait for your receipt'
+        fr: 'Veuillez attendre l'impression de votre reçu'
