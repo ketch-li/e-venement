@@ -12,7 +12,7 @@
   <?php
     $form = new GaugeForm($g);
     $form->setHidden()
-      ->setHidden(array('online', 'onsite', 'value'))
+      ->setHidden(array('online', 'onsite', 'value', 'onkiosk'))
       ->setUpdateOnly('group_name');
   ?>
   <form action="<?php echo url_for('gauge/update?id='.$g->id) ?>" method="post" title="<?php echo __("This field is updated automagically") ?>">
@@ -32,7 +32,7 @@
   <?php
     $form = new GaugeForm($g);
     $form->setHidden()
-      ->setHidden(array('online', 'onsite', 'group_name'))
+      ->setHidden(array('online', 'onsite', 'group_name', 'onkiosk'))
       ->setUpdateOnly('value');
     $form['value']->getWidget()->setLabel('');
   ?>
@@ -45,7 +45,7 @@
   <?php
     $form = new GaugeForm($g);
     $form->setHidden()
-      ->setHidden(array('value', 'online', 'group_name'))
+      ->setHidden(array('value', 'online', 'group_name', 'onkiosk'))
       ->setUpdateOnly('onsite');
   ?>
 <form action="<?php echo url_for('gauge/update?id='.$g->id) ?>" method="post" title="<?php echo __('This field is updated automagically') ?>">
@@ -57,7 +57,7 @@
   <?php
     $form = new GaugeForm($g);
     $form->setHidden()
-      ->setHidden(array('value', 'onsite', 'group_name'))
+      ->setHidden(array('value', 'onsite', 'group_name', 'onkiosk'))
       ->setUpdateOnly('online');
   ?>
 <form action="<?php echo url_for('gauge/update?id='.$g->id) ?>" method="post" title="<?php echo __("This field is updated automagically") ?>">

@@ -99,6 +99,10 @@ Postalcode:
     postalcode_postalcode_idx:
       fields: [postalcode]
   columns:
+    insee:
+      type: string(7)
+      notnull: true
+      notblank: true
     postalcode:
       type: string(7)
       notnull: true
