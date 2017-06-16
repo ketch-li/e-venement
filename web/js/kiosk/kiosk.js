@@ -53,39 +53,43 @@ LI.kiosk = {
         $('.culture[data-culture="' + LI.kiosk.config.culture + '"]').hide();
 
         // retrieve data then display menu
-        $.when(
+        LI.kiosk.utils.whenAlways(
             LI.kiosk.getCSRF(),
             LI.kiosk.getTransaction(),
             LI.kiosk.getManifestations(),
             LI.kiosk.getMuseum(),
             LI.kiosk.getStore()
          )
-         .then(function() {
+         .done(function() {
             LI.kiosk.menu();
-
-            //handle idle user
-            if(LI.kiosk.config.idleTime) {
-                $(this).idle({
-                    onIdle: function() {
-                        $('.culture[data-culture="fr"]')
-                            .trigger('click')
-                            // get native element as triggering click
-                            // doesn't work on jquery objects that  were
-                            // not previously bound with .click or .on
-                            .get(0)
-                            .click()
-                        ;
-                    },
-                    idle: LI.kiosk.config.idleTime
-                });
-            }
-
-            //Retrieve country list for location prompt
-            if(LI.kiosk.config.showLocationPrompt) {
-                LI.kiosk.getCountries();
-            }
+            LI.kiosk.afterInit();
          })
         ;
+    },
+    afterInit: function() {
+        LI.kiosk.menu();
+
+        //handle idle user
+        if(LI.kiosk.config.idleTime) {
+            $(this).idle({
+                onIdle: function() {
+                    $('.culture[data-culture="fr"]')
+                        .trigger('click')
+                        // get native element as triggering click
+                        // doesn't work on jquery objects that  were
+                        // not previously bound with .click or .on
+                        .get(0)
+                        .click()
+                    ;
+                },
+                idle: LI.kiosk.config.idleTime
+            });
+        }
+
+        //Retrieve country list for location prompt
+        if(LI.kiosk.config.showLocationPrompt) {
+            LI.kiosk.getCountries();
+        }
     },
     reset: function() {
         $(document).off();
@@ -331,10 +335,8 @@ LI.kiosk = {
 
         if( !$('#product-menu-items').children().length > 0 ) {
             var template = Handlebars.compile(LI.kiosk.templates.menuItem);
-            console.log(LI.kiosk.strings);
 
             $.each(LI.kiosk.products, function(type, length){   
-                 console.log(type);
                 var item = {
                     name: LI.kiosk.strings['menu_' + type],
                     type: type
@@ -446,6 +448,7 @@ LI.kiosk = {
         var declinationTemplate = Handlebars.compile(LI.kiosk.templates.declinationCard);
         
         declinationList.empty();
+
         $('#prices')
             .empty()
             .hide()
@@ -608,7 +611,7 @@ LI.kiosk = {
         var priceTemplate = $('#price-card-template').html();
         var prices = declination.available_prices;
 
-        $('#prices #declinations')
+        $('#prices, #declinations')
             .empty()
             .hide()
         ;
@@ -1167,6 +1170,8 @@ LI.kiosk = {
                 }
             });
 
+            $('#countries').material_select();
+
             $('#' + LI.kiosk.config.culture).prop('selected', true);
         },
         showPaymentPrompt: function() {
@@ -1265,6 +1270,23 @@ LI.kiosk = {
             if(LI.kiosk.dialogs.status.open) {
                 LI.kiosk.dialogs.status.close();
             }
+        },
+        //Wait for all requests to finish even if some fail
+        whenAlways: function() {
+            var chain = $.extend([], arguments);
+
+            return new $.Deferred(function(deferred) {
+                var callback = function() {
+                    if (chain.length == 0) {
+                        deferred.resolve();
+                        return;
+                    }
+                    var object = chain.shift();
+                    $.when(object).always(callback);
+                };
+
+                callback();
+            }).promise();
         }
     }
 }
