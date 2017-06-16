@@ -30,7 +30,7 @@
 <?php use_stylesheet('kiosk/toastr.min.css') ?>
 <?php use_stylesheet('/private/kiosk.css') ?>
 
-<?php use_javascript('/js/EveConnector/web/js/socket.io.js') ?>
+<?php use_javascript('/js/socket.io.js') ?>
 <?php use_javascript('/js/EveConnector/web/js/eve-connector.js') ?>
 <?php use_javascript('/js/EveConnector/web/js/concert-protocol.js') ?>
 <?php use_javascript('jquery') ?>
@@ -38,6 +38,7 @@
 <?php use_javascript('/js/tck-devices.js') ?>
 <?php use_javascript('/js/kiosk/keypad.js') ?>
 <?php use_javascript('/js/kiosk/dialog-polyfill.js') ?>
+<?php use_javascript('/js/kiosk/materialize-select.js') ?>
 <?php use_javascript('/sfAdminThemejRollerPlugin/js/jquery-ui.custom.min.js') ?>
 <?php use_javascript('/js/kiosk/toastr.min.js') ?>
 <?php use_javascript('/js/kiosk/waves.js') ?>
@@ -159,12 +160,16 @@
   <form id="location-form" method="dialog">
     <p class="mdl-dialog__title"><?php echo kioskConfiguration::getText('location_title', 'Please enter your postcode or country') ?></p>
     <div class="mdl-dialog__content">
-	    <select id="countries"></select>
-	    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-	    	<input type="text" id="postcode" name="postcode" class="mdl-textfield__input" placeholder="">
-	    	<label class="mdl-textfield__label" for="postcode"><?php echo kioskConfiguration::getText('postcode', 'Post code') ?></label>
-	    	<span class="mdl-textfield__error"><?php echo kioskConfiguration::getText('postcode_validation', 'Post code must be all numbers') ?></span>
+    	<div class="mdl-cell mdl-cell--6-col">
+	    	<select id="countries"></select>
 	    </div>
+	    <div class="mdl-cell mdl-cell--6-col">
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		    	<input type="text" id="postcode" name="postcode" class="mdl-textfield__input" placeholder="">
+		    	<label class="mdl-textfield__label" for="postcode"><?php echo kioskConfiguration::getText('postcode', 'Post code') ?></label>
+		    	<span class="mdl-textfield__error"><?php echo kioskConfiguration::getText('postcode_validation', 'Post code must be all numbers') ?></span>
+		    </div>
+		</div>
 	</div>
 	<div class="mdl-dialog__actions mdl-dialog__actions">
     	<button class="mdl-button" type="submit"><?php echo kioskConfiguration::getText('location_close', 'Continue to payment') ?></button>
