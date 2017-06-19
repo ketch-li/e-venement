@@ -68,6 +68,7 @@ header {
 
   #breadcrumbs {
     margin: 0;
+
     .breadcrumb:not(#home-breadcrumb) {
       display: none;
     }
@@ -432,36 +433,6 @@ ul{
   }
 }
 
-/* TOASTS */
-#toast-container.toast-bottom-full-width {
-  width: 60%;
-}
-
-#info-panel {
-  display: flex;
-  display: none;
-  align-items: center;
-  width: 62%;
-  padding: 10px;
-  z-index: 999;
-  border-radius: 15px;
-
-  p, a { color: #fff; }
-}
-
-
-/* LOADER */
-dialog {
-  z-index: 1000;
-}
-#spinner {
-  height: 25vh;
-  width: 25vh;
-  align-self: center;
-  margin-top: 30vh;
-  z-index: 1100;
-}
-
 /* DIALOGS */
 #status {
   height: 70vh;
@@ -478,10 +449,6 @@ dialog {
       display: none;
     }
   }
-}
-
-.backdrop {
-  z-index: 1000;
 }
 
 #location {
@@ -503,6 +470,61 @@ dialog {
       margin: 10px;
     }
   }
+
+  #location-submit {
+    height: 50px;
+  }
+
+  #country-field, #postcode-field {
+    width: 100%;
+  }
+
+  .mdl-selectfield__list-option-box {
+    max-height: 500px;
+  }
+
+  .mdl-textfield__label::after {
+    background-color: #4FC3F7;
+    margin-top: -3px;
+  }
+
+  .mdl-selectfield__label, .mdl-textfield__label {
+    color: #4FC3F7;
+    font-size: 1.2em;
+  }
+
+  .mdl-selectfield__box .mdl-selectfield__box-value, #postcode {
+    font-size: 1.3em; 
+    margin: 5px;
+
+  }
+}
+
+/* TOASTS */
+#toast-container.toast-bottom-full-width {
+  width: 60%;
+}
+
+#info-panel {
+  display: flex;
+  display: none;
+  align-items: center;
+  width: 62%;
+  padding: 10px;
+  z-index: 999;
+  border-radius: 15px;
+
+  p, a { color: #fff; }
+}
+
+
+/* LOADER */
+#spinner {
+  height: 25vh;
+  width: 25vh;
+  align-self: center;
+  margin-top: 30vh;
+  z-index: 1100;
 }
 
 .js-data, .js-i18n {
@@ -523,14 +545,6 @@ dialog {
 .app-drawer {
   border: none;
 }
-/* iOS Safari specific workaround */
-.app-drawer .mdl-menu__container {
-  z-index: -1;
-}
-.app-drawer .app-navigation {
-  z-index: -2;
-}
-/* END iOS Safari specific workaround */
 .app-drawer .mdl-menu .mdl-menu__item {
   display: -webkit-flex;
   display: -ms-flexbox;

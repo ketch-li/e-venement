@@ -26,6 +26,7 @@
 <?php use_stylesheet('material.min.css') ?>
 <?php use_stylesheet('kiosk/waves.css') ?>
 <?php use_stylesheet('kiosk/dialog-polyfill.css') ?>
+<?php use_stylesheet('kiosk/mdl-select.css') ?>
 <?php use_stylesheet('kiosk/kiosk.css') ?>
 <?php use_stylesheet('kiosk/toastr.min.css') ?>
 <?php use_stylesheet('/private/kiosk.css') ?>
@@ -38,12 +39,12 @@
 <?php use_javascript('/js/tck-devices.js') ?>
 <?php use_javascript('/js/kiosk/keypad.js') ?>
 <?php use_javascript('/js/kiosk/dialog-polyfill.js') ?>
-<?php use_javascript('/js/kiosk/materialize-select.js') ?>
 <?php use_javascript('/sfAdminThemejRollerPlugin/js/jquery-ui.custom.min.js') ?>
 <?php use_javascript('/js/kiosk/toastr.min.js') ?>
 <?php use_javascript('/js/kiosk/waves.js') ?>
 <?php use_javascript('/js/handlebars/handlebars-v4.0.5.js') ?>
 <?php use_javascript('/js/material/material.min.js') ?>
+<?php use_javascript('/js/kiosk/mdl-select.js') ?>
 <?php use_javascript('/js/kiosk/kiosk.js') ?>
 <?php use_javascript('/private/kiosk.js') ?>
 
@@ -160,11 +161,15 @@
   <form id="location-form" method="dialog">
     <p class="mdl-dialog__title"><?php echo kioskConfiguration::getText('location_title', 'Please enter your postcode or country') ?></p>
     <div class="mdl-dialog__content">
-    	<div class="mdl-cell mdl-cell--6-col">
-	    	<select id="countries"></select>
+    	<div class="mdl-cell mdl-cell--12-col">
+			<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" id="country-field">
+			  <select id="countries" name="myselect" class="mdl-selectfield__select">
+			  </select>
+			  <label class="mdl-selectfield__label" for="countries"><?php echo kioskConfiguration::getText('country', 'Country') ?></label>
+			</div>
 	    </div>
-	    <div class="mdl-cell mdl-cell--6-col">
-		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+	    <div class="mdl-cell mdl-cell--12-col">
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="postcode-field">
 		    	<input type="text" id="postcode" name="postcode" class="mdl-textfield__input" placeholder="">
 		    	<label class="mdl-textfield__label" for="postcode"><?php echo kioskConfiguration::getText('postcode', 'Post code') ?></label>
 		    	<span class="mdl-textfield__error"><?php echo kioskConfiguration::getText('postcode_validation', 'Post code must be all numbers') ?></span>
@@ -172,7 +177,10 @@
 		</div>
 	</div>
 	<div class="mdl-dialog__actions mdl-dialog__actions">
-    	<button class="mdl-button" type="submit"><?php echo kioskConfiguration::getText('location_close', 'Continue to payment') ?></button>
+    	<button id="location-submit" class="mdl-button mdl-button--raised mdl-button--colored mdl-color--light-blue-300" type="submit">
+    		<?php echo kioskConfiguration::getText('location_close', 'Continue to payment') ?>
+    		<i class="material-icons">arrow_forward</i>
+    	</button>
     </div>
   </form>
   <div id="keypad" class="mdl-grid"></div>
@@ -236,7 +244,8 @@
 ))) ?>"></div>
 
 <div class="js-data" id="kiosk-config"
-  data-culture="<?php echo sfContext::getInstance()->getUser()->getCulture(); ?>"
+  data-culture="<?php echo sfConfig::get('app_culture', 'FR') ?>"
+  data-user-culture="<?php echo sfContext::getInstance()->getUser()->getCulture() ?>"
   data-idle-time="<?php echo sfConfig::get('app_idle_time', false); ?>"
   data-ui-labels="<?php echo htmlspecialchars(json_encode(sfConfig::get('app_ui_labels'))) ?>"
   data-show-location-prompt="<?php echo sfConfig::get('app_location_prompt') ?>"

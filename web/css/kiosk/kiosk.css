@@ -346,6 +346,48 @@ ul {
   .cart-line .line-value {
     margin: auto 0  auto auto; }
 
+/* DIALOGS */
+#status {
+  height: 70vh;
+  width: 70vw; }
+  #status form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%; }
+    #status form #status-actions, #status form #status-ept {
+      display: none; }
+
+#location {
+  width: 60%;
+  height: 85%; }
+  #location #keypad {
+    width: 30%; }
+    #location #keypad .submit {
+      display: none; }
+    #location #keypad .key {
+      height: 80px;
+      width: 80px;
+      font-size: 3em;
+      border-radius: 15px;
+      margin: 10px; }
+  #location #location-submit {
+    height: 50px; }
+  #location #country-field, #location #postcode-field {
+    width: 100%; }
+  #location .mdl-selectfield__list-option-box {
+    max-height: 500px; }
+  #location .mdl-textfield__label::after {
+    background-color: #4FC3F7;
+    margin-top: -3px; }
+  #location .mdl-selectfield__label, #location .mdl-textfield__label {
+    color: #4FC3F7;
+    font-size: 1.2em; }
+  #location .mdl-selectfield__box .mdl-selectfield__box-value, #location #postcode {
+    font-size: 1.3em;
+    margin: 5px; }
+
 /* TOASTS */
 #toast-container.toast-bottom-full-width {
   width: 60%; }
@@ -362,45 +404,12 @@ ul {
     color: #fff; }
 
 /* LOADER */
-dialog {
-  z-index: 1000; }
-
 #spinner {
   height: 25vh;
   width: 25vh;
   align-self: center;
   margin-top: 30vh;
   z-index: 1100; }
-
-/* DIALOGS */
-#status {
-  height: 70vh;
-  width: 70vw; }
-  #status form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    height: 100%; }
-    #status form #status-actions, #status form #status-ept {
-      display: none; }
-
-.backdrop {
-  z-index: 1000; }
-
-#location {
-  width: 60%;
-  height: 85%; }
-  #location #keypad {
-    width: 30%; }
-    #location #keypad .submit {
-      display: none; }
-    #location #keypad .key {
-      height: 80px;
-      width: 80px;
-      font-size: 3em;
-      border-radius: 15px;
-      margin: 10px; }
 
 .js-data, .js-i18n {
   display: none; }
@@ -419,14 +428,6 @@ dialog {
 .app-drawer {
   border: none; }
 
-/* iOS Safari specific workaround */
-.app-drawer .mdl-menu__container {
-  z-index: -1; }
-
-.app-drawer .app-navigation {
-  z-index: -2; }
-
-/* END iOS Safari specific workaround */
 .app-drawer .mdl-menu .mdl-menu__item {
   display: -webkit-flex;
   display: -ms-flexbox;

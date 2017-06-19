@@ -50,7 +50,7 @@ LI.kiosk = {
         LI.kiosk.addListeners();
 
         //hide current culture from menu
-        $('.culture[data-culture="' + LI.kiosk.config.culture + '"]').hide();
+        $('.culture[data-culture="' + LI.kiosk.config.userCulture + '"]').hide();
 
         // retrieve data then display menu
         LI.kiosk.utils.whenAlways(
@@ -302,7 +302,7 @@ LI.kiosk = {
         });
     },
     getCountries: function() {
-        return $.get(LI.kiosk.urls.getCountries + '?culture=' + LI.kiosk.config.culture, function(data) {
+        return $.get(LI.kiosk.urls.getCountries + '?culture=' + LI.kiosk.config.userCulture, function(data) {
             LI.kiosk.countries = JSON.parse(data);
         });
     },
@@ -1150,7 +1150,7 @@ LI.kiosk = {
             });
 
             $('#postcode').change(function() {
-                $('#countries').val('FR');
+                $('#countries').val(LI.kiosk.config.culture);
             });
         },
         setupCountryField: function() {
@@ -1159,20 +1159,20 @@ LI.kiosk = {
             }
 
             $.each(LI.kiosk.countries, function(key, country) {
-                if(undefined !== country.Translation[LI.kiosk.config.culture]) {
+                if(undefined !== country.Translation[LI.kiosk.config.userCulture]) {
                     $('<option>')
                         .addClass('country')
                         .prop('id', country.codeiso2.toLowerCase())
                         .val(country.codeiso2)
-                        .html(country.Translation[LI.kiosk.config.culture].name)
+                        .html(country.Translation[LI.kiosk.config.userCulture].name)
                         .appendTo('#countries')
                     ;
                 }
             });
 
-            $('#countries').material_select();
+            $('#' + LI.kiosk.config.userCulture).prop('selected', true);
 
-            $('#' + LI.kiosk.config.culture).prop('selected', true);
+            new MaterialSelectfield($('#country-field').get(0));
         },
         showPaymentPrompt: function() {
             LI.kiosk.utils.resetStatusDialog();
