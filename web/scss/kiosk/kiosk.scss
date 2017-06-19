@@ -13,6 +13,8 @@ $a11y-color: $cart-validate-color;
 $text-color: #fff;
 $details-background-color: #f2f2f2;
 
+@import './../../private/kiosk/kiosk.scss';
+
 // Material icons
 @font-face {
     font-family: 'Material Icons';
