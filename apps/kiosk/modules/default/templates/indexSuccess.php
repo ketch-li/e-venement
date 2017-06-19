@@ -51,7 +51,7 @@
 <div id="app" class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-color--blue-grey-800">
 	<header class="app-header mdl-layout__header mdl-color--blue-grey-800 mdl-shadow--4dp">
 		<div class="mdl-layout__header-row">
-			<span class="mdl-layout-title"><img src="images/logo-evenement-small.png" alt="logo"/></span>
+			<span class="mdl-layout-title"><img src="<?php echo sfConfig::get('app_ui_logo', sfConfig::get('project_about_logo')) ?>" alt="logo"/></span>
 			<div class="mdl-layout-spacer"></div>
 			<!-- I18N LINKS -->
 			<i class="material-icons culture">language</i>

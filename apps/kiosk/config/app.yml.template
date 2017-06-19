@@ -34,6 +34,7 @@ all:
           pid: '14864'
           vid: '7306'
   ui:
+    logo: '/private/logo.png'
     labels: 
       price: 'name'
     texts: # this config will override texts stored in database
