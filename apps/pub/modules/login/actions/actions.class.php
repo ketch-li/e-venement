@@ -160,8 +160,15 @@ EOF
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
     $this->getUser()->logout();
     $this->getUser()->setFlash('notice',__('You have been logged out.'));
+    
     if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $this->getContext()->getConfiguration()->getPlugins()) )
-      $this->redirect('homepage');
+    {
+      $openid = new liOnlineExternalAuthOpenIDConnectActions($this, $request);
+      if ( $openid )
+      {
+        $openid->remoteLogout();
+      }
+    }
     else
       $this->redirect('login/index');
   }

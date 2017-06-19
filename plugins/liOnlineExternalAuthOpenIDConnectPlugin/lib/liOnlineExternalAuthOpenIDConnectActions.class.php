@@ -37,9 +37,23 @@ class liOnlineExternalAuthOpenIDConnectActions
     $this->request = $request;
   }
   
+  public function remoteLogout()
+  {
+    $homepage = url_for('@homepage', true);
+    
+    if ( $urlLogout = $this->provider->getBaseUrl() )
+    {
+      $this->action->redirect($urlLogout.'/?logout=1&url='.base64_encode($homepage));
+    }
+    else
+    {
+      $this->action->redirect($homepage);
+    }
+  }
+  
   public function remoteAuthenticate()
   {
-    $this->action->redirect($provider->getAuthorizationUrl());
+    $this->action->redirect($this->provider->getAuthorizationUrl());
   }
   
   public function getUserInformations()
