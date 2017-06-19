@@ -317,7 +317,7 @@ Example
     $ curl http://e-venement.local/api/v2/events/123 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X GET \
+        -X GET
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -328,7 +328,7 @@ Sample Response
 
 .. code-block:: json
 
-   [
+[
     {
         "id": 123,
         "metaEvent": {
@@ -424,5 +424,221 @@ Sample Response
                 ]
             }
          ]
-      }
-  ]
+     }
+]
+
+Creating an Event *Optional*
+------------------------------
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    POST /api/v2/events
+
++--------------------------+----------------+-----------------------------------------------------+
+| Parameter                | Parameter type | Description                                         |
++==========================+================+=====================================================+
+| Authorization            | header         | Token received during authentication                |
++--------------------------+----------------+-----------------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/events \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Content-Type: application/json" \
+        -X POST \
+        --data '
+        {
+            "metaEvent": { "id": 1 },
+            "translations": {
+                "fr": {
+                    "name": "Saut Homme",
+                    "subtitle": "",
+                    "short_name": "Juniors",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                },
+                "en": {
+                    "name": "Jump Men",
+                    "subtitle": "",
+                    "short_name": "Juniors",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                }
+            },
+            "imageId": 4
+       }'
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 201 Created
+
+.. code-block:: json
+
+    {
+        "id": 19,
+        "metaEvent": {
+            "id": 1,
+            "translations": {
+                "fr": {
+                    "name": "Semaine des ambassadeurs 2017",
+                    "description": "Semaine des ambassadeurs 2017"
+                }
+            }
+        },
+        "category": null,
+        "translations": {
+            "fr": {
+                "name": "Saut Homme",
+                "subtitle": "",
+                "short_name": "Juniors",
+                "description": "",
+                "extradesc": "",
+                "extraspec": ""
+            },
+            "en": {
+                "name": "Jump Men",
+                "subtitle": "",
+                "short_name": "Juniors",
+                "description": "",
+                "extradesc": "",
+                "extraspec": ""
+            }
+        },
+        "imageId": 4,
+        "imageURL": "\/tck_dev.php\/api\/v2\/picture\/19",
+        "manifestations": []
+    }
+
+If you try to create a customer without email, you will receive a ``400 Bad Request`` error.
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/customers \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Content-Type: application/json" \
+        -X POST
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 400 Bad Request
+
+Updating an Event *Optional*
+----------------------------
+
+You can request full or partial update of resource, using the POST method.
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    POST /api/v2/events/{id}
+
++--------------------------+----------------+---------------------------------------------------------------+
+| Parameter                | Parameter type | Description                                                   |
++==========================+================+===============================================================+
+| Authorization            | header         | Token received during authentication                          |
++--------------------------+----------------+---------------------------------------------------------------+
+| id                       | url attribute  | ID of the requested resource                                  |
++--------------------------+----------------+---------------------------------------------------------------+
+| metaEvent[id]            | request        | A valid MetaEvent ID                                          |
++--------------------------+----------------+---------------------------------------------------------------+
+| translations             | request        | Collection of Event Translations, with languages as keys      |
++--------------------------+----------------+---------------------------------------------------------------+
+| imageId                  | request        | A valid Image ID ame                                          |
++--------------------------+--------------------------------------------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/update/106 \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Content-Type: application/json" \
+        -X POST \
+        --data '
+            {
+                "metaEvent": { "id": 1 },
+                "translations": {
+                    "fr": {
+                        "name": "Course Homme",
+                        "subtitle": "",
+                        "short_name": "Juniors",
+                        "description": "",
+                        "extradesc": "",
+                        "extraspec": ""
+                    },
+                    "en": {
+                        "name": "Running Men",
+                        "subtitle": "",
+                        "short_name": "Juniors",
+                        "description": "",
+                        "extradesc": "",
+                        "extraspec": ""
+                    }
+                },
+                "imageId": 3
+           }'
+
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 200 OK
+
+.. code-block:: json
+
+        {
+            "id": 12,
+            "metaEvent": {
+                "id": 1,
+                "translations": {
+                    "fr": {
+                        "name": "Semaine des coureurs 2017",
+                        "description": "Semaine des coureurs 2017"
+                    }
+                }
+            },
+            "category": "S\u00e9ance pl\u00e9ni\u00e8re consacr\u00e9e \u00e0 l'Europe",
+            "translations": {
+                "en": {
+                    "name": "Running Men",
+                    "subtitle": "",
+                    "short_name": "Juniors",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                },
+                "fr": {
+                    "name": "Course Homme",
+                    "subtitle": "",
+                    "short_name": "Juniors",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                }
+            },
+            "imageId": 3,
+            "imageURL": "\/tck_dev.php\/api\/v2\/picture\/12",
+            "manifestations": []
+        }
