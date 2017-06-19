@@ -345,6 +345,7 @@ ul{
   height: 120px;
   min-height: 50px;
   border-radius: 5px;
+  background-color: $primary-color;
 
   .mdl-card__title {
     color: $text-color;
@@ -387,6 +388,11 @@ ul{
 
     #confirm-btn {
       background-color: $cart-validate-color;
+      font-size: 1.6em;
+
+      i {
+        font-size: 1.8em;
+      }
     }
   }
 
@@ -403,7 +409,7 @@ ul{
       padding: 8px 8px 8px 16px;
       height: 100px;
       max-height: 100px;
-      background-color: $background-color;
+      background-color: $cart-line-color;
 
       .line-qty, .line-name {
         font-weight: bold;

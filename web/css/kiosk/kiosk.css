@@ -256,7 +256,8 @@ ul {
   width: 120px;
   height: 120px;
   min-height: 50px;
-  border-radius: 5px; }
+  border-radius: 5px;
+  background-color: #4FC3F7; }
   .price-card-square .mdl-card__title, .declination-card .mdl-card__title {
     color: #fff;
     font-weight: bold;
@@ -289,7 +290,10 @@ ul {
   #cart #cart-confirm {
     padding: 5px; }
     #cart #cart-confirm #confirm-btn {
-      background-color: #00897B; }
+      background-color: #00897B;
+      font-size: 1.6em; }
+      #cart #cart-confirm #confirm-btn i {
+        font-size: 1.8em; }
   #cart #cart-lines {
     width: 100%;
     padding: 0;
@@ -302,7 +306,7 @@ ul {
       padding: 8px 8px 8px 16px;
       height: 100px;
       max-height: 100px;
-      background-color: #37474F;
+      background-color: #4FC3F7;
       /* Add and Remove buttons */ }
       #cart #cart-lines .cart-line .line-qty, #cart #cart-lines .cart-line .line-name {
         font-weight: bold; }

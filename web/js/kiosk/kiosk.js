@@ -647,16 +647,8 @@ LI.kiosk = {
 
         $.each(product.gauges, function(i, gauge){
 
-            var color = '#4FC3F7';
-
-            if ( gauge.color == undefined )
-                gauge.color = color;
 
             $.each(gauge.available_prices, function(key, price){
-                if( price.color == undefined || price.color == '0') {
-                    price.color = color;
-                }
-
                 if(LI.kiosk.config.uiLabels.price !== undefined) {
                     price.name = price[LI.kiosk.config.uiLabels.price]
                 }
@@ -711,16 +703,7 @@ LI.kiosk = {
 
             $.each(product.declinations, function(i, declination) {
 
-                var color = '#4FC3F7';
-
-                if ( declination.color == undefined || declination.color == '0')
-                    declination.color = color;
-
                 $.each(declination.available_prices, function(key, price) {
-                    if( price.color == undefined || price.color == '0') {
-                        price.color = color;
-                    }
-
                     if(LI.kiosk.config.uiLabels.price !== undefined) {
                         price.name = price[LI.kiosk.config.uiLabels.price]
                     }

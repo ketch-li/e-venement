@@ -139,7 +139,7 @@
 			<!-- lines -->
 			<ul id="cart-lines"></ul>
 			<!-- total -->
-			<div id="cart-total" class="mdl-color--blue-grey-800">
+			<div id="cart-total">
 				<span id="cart-total-label"><?php echo kioskConfiguration::getText('cart_total', 'Total') ?></span>
 				<span id="cart-total-value"></span>
 			</div>
