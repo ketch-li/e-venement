@@ -158,7 +158,7 @@
 
 <!-- LOCATION DIALOG -->
 <dialog id="location" class="mdl-dialog">
-  <form id="location-form" method="dialog">
+  <form id="location-form" method="dialog" autocomplete="off">
     <p class="mdl-dialog__title"><?php echo kioskConfiguration::getText('location_title', 'Please enter your postcode or country') ?></p>
     <div class="mdl-dialog__content">
     	<div class="mdl-cell mdl-cell--12-col">
