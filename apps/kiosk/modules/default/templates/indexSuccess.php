@@ -48,25 +48,25 @@
 <?php use_javascript('/js/kiosk/kiosk.js') ?>
 <?php use_javascript('/private/kiosk.js') ?>
 
-<div id="app" class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-color--blue-grey-800">
-	<header class="app-header mdl-layout__header mdl-color--blue-grey-800 mdl-shadow--4dp">
+<div id="app" class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+	<header id="app-header" class="mdl-layout__header mdl-shadow--4dp">
 		<div class="mdl-layout__header-row">
 			<span class="mdl-layout-title"><img src="<?php echo sfConfig::get('app_ui_logo', sfConfig::get('project_about_logo')) ?>" alt="logo"/></span>
 			<div class="mdl-layout-spacer"></div>
 			<!-- I18N LINKS -->
 			<i class="material-icons culture">language</i>
 			<?php foreach(sfConfig::get('project_internals_cultures', array('fr' => 'Français')) as $key => $culture): ?>
-	            <a href="<?php echo cross_app_url_for('kiosk', 'default/culture') ?>/lang/<?php echo $key ?>" class="culture mdl-color-text--white" data-culture="<?php echo $key ?>">
+	            <a href="<?php echo cross_app_url_for('kiosk', 'default/culture') ?>/lang/<?php echo $key ?>" class="culture" data-culture="<?php echo $key ?>">
 				  <?php echo $culture ?>
 	            </a>
 	        <?php endforeach ?>
 	        <div class="mdl-layout-spacer"></div>
 			<!-- RESET -->
-	        <button id="reset-btn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color-text--light-blue-300">
+	        <button id="reset-btn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
             	<i class="material-icons">replay</i>
           	</button>
 	        <!-- INFO -->
-	        <div id="info-panel" class="mdl-card__supporting-text mdl-shadow--6dp mdl-color--light-blue-300">
+	        <div id="info-panel" class="mdl-card__supporting-text mdl-shadow--6dp">
 				<p>
 					<a href="http://www.e-venement.org/">e-venement</a>
 					<span>la billetterie informatique, libre et open source - © 2006-2016</span>
@@ -82,13 +82,13 @@
 					<a href="http://www.postgresql.org/">PostgreSQL</a>
 				</p>
 			</div>
-            <button id="info-btn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color-text--light-blue-300">
+            <button id="info-btn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
             	<i class="material-icons">info_outline</i>
           	</button>
 		</div>
 	</header>
 
-	<main id="main" class="mdl-layout__content mdl-color--blue-grey-800">
+	<main id="main" class="mdl-layout__content">
 		<div id="content">
 			<!-- breadcrumbs -->
 			<div id="breadcrumbs-wrapper" class="">
@@ -107,11 +107,11 @@
 			<!-- loader -->
 			<div class="mdl-spinner mdl-js-spinner is-active" id="spinner"></div>
 			<!-- back fab -->
-			<button id="back-fab" class="mdl-button mdl-js-button mdl-button--fab mdl-color--light-blue-300 waves-effect">
+			<button id="back-fab" class="mdl-button mdl-js-button mdl-button--fab waves-effect">
 	  			<i class="material-icons light">keyboard_backspace</i>
 			</button>
 			<!-- access fab -->
-			<button id="access-fab" class="mdl-button mdl-js-button mdl-button--fab mdl-color--light-blue-300 waves-effect">
+			<button id="access-fab" class="mdl-button mdl-js-button mdl-button--fab waves-effect">
 	  			<i class="material-icons light">accessible</i>
 			</button>
 			<!-- Snackbar -->
@@ -135,7 +135,7 @@
 			</div>
 		</div>
 		<!-- cart panel -->
-		<div id="cart" class="mdl-color--blue-grey-600">
+		<div id="cart" class="">
 			<!-- lines -->
 			<ul id="cart-lines"></ul>
 			<!-- total -->
@@ -145,7 +145,7 @@
 			</div>
 			<!-- confirm button -->
 			<div id="cart-confirm" class="">
-				<button id="confirm-btn" class="mdl-button mdl-js-button mdl-button--raised mdl-color--teal-600 waves-effect">
+				<button id="confirm-btn" class="mdl-button mdl-js-button mdl-button--raised waves-effect">
 					<span id="confirm-btn-wrapper">
 						<i class="material-icons light">check</i>
 						<?php echo kioskConfiguration::getText('cart_validate', 'Checkout') ?>
@@ -177,7 +177,7 @@
 		</div>
 	</div>
 	<div class="mdl-dialog__actions mdl-dialog__actions">
-    	<button id="location-submit" class="mdl-button mdl-button--raised mdl-button--colored mdl-color--light-blue-300" type="submit">
+    	<button id="location-submit" class="mdl-button mdl-button--raised mdl-button--colored" type="submit">
     		<?php echo kioskConfiguration::getText('location_close', 'Continue to payment') ?>
     		<i class="material-icons">arrow_forward</i>
     	</button>
@@ -313,7 +313,7 @@
 		    		<div id="details-time">
 			    		<span>
 			    			<i class="material-icons" role="presentation">access_time</i>
-			    			<span class="mdl-color-text--pink">{{ start }} - {{ end }}</span>
+			    			<span class="">{{ start }} - {{ end }}</span>
 			    		</span>
 			    		<span>
 			    			<i class="material-icons" role="presentation">location_on</i>
@@ -358,12 +358,12 @@
 
 	<!-- cart line -->
 <script id="cart-line-template" type="text/x-handlebars-template" data-template-type="cartLine">
-	<li class="cart-line mdl-color--blue-grey-800" id="{{ id }}" style="border-right: 5px solid {{ color }};">
+	<li class="cart-line " id="{{ id }}" style="border-right: 5px solid {{ color }};">
 		<div class="line-controls">
-			<button class="add-item line-control mdl-button mdl-js-button mdl-button--fab mdl-color--pink-300">
+			<button class="add-item line-control mdl-button mdl-js-button mdl-button--fab">
 	  			<i class="material-icons light">add</i>
 			</button>
-			<button class="remove-item line-control mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+			<button class="remove-item line-control mdl-button mdl-js-button mdl-button--fab">
 	  			<i class="material-icons light">remove</i>
 			</button>
 	    </div>
