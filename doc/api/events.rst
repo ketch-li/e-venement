@@ -642,3 +642,39 @@ Sample Response
             "imageURL": "\/tck_dev.php\/api\/v2\/picture\/12",
             "manifestations": []
         }
+
+
+Deleting an Event *Optional*
+------------------------------
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    DELETE /api/v2/events/{id}
+
++---------------+----------------+-------------------------------------------+
+| Parameter     | Parameter type | Description                               |
++===============+================+===========================================+
+| Authorization | header         | Token received during authentication      |
++---------------+----------------+-------------------------------------------+
+| id            | url attribute  | Id of the requested resource              |
++---------------+----------------+-------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/events/399 \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Accept: application/json" \
+        -X DELETE
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 204 No Content
