@@ -334,7 +334,6 @@ Sample Response
 
 .. code-block:: json
 
-[
     {
         "id": 123,
         "metaEvent": {
@@ -431,7 +430,6 @@ Sample Response
             }
          ]
      }
-]
 
 Creating an Event *Optional*
 ------------------------------
