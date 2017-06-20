@@ -42,7 +42,7 @@
     </tfoot>
     <tbody>
       <?php $cpt = 0 ?>
-      <?php foreach ( $transactions as $t ): ?>
+      <?php foreach ( $contact->Transactions as $t ): ?>
       <?php
         // is related to a Hold
         if ( $t->getRaw('HoldTransaction') instanceof HoldTransaction && $t->HoldTransaction->id )
@@ -60,7 +60,7 @@
         if ( $cpt == 0 )
           continue;
       ?>
-      <?php if ( $t->Order->count() > 0 && $t->Tickets->count() > 0 || $cpt['sold'] > 0 || $t->getPrice() > 0  || ($t->closed == false && $current_transaction != $t->id) ): ?>
+      <?php if ( $t->Order->count() > 0 && $t->Tickets->count() > 0 || $cpt['sold'] > 0 || $t->getPrice() > 0 ): ?>
         <?php $config = sfConfig::get('app_tickets_vel', array()) ?>
         <?php if ( !(isset($config['auto_add_one_ticket_for_manifid']) && $t->Tickets->count() == 1 && $t->Tickets[0]->manifestation_id == $config['auto_add_one_ticket_for_manifid']) ): ?>
           <tr class="sf_admin_row <?php echo $cpt%2 == 0 ? '' : 'odd' ?> transaction-<?php echo $t->id ?>">

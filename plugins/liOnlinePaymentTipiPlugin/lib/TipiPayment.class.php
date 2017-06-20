@@ -143,18 +143,6 @@
       $r .= '<input type="submit" value="Tipi" />';
       $r .= '</form>';
 
-      // After the form because document.ready does not catch the submit event when auto mode is active
-      $r .= "
-      <script type='text/javascript'><!--
-        $('#payment-form-tipi').submit(function() {
-            var tipi = window.open('','popuptipi','height=700, width=900, toolbar=no, menubar=no, scrollbars=no, resizable=yes, location=no, directories=no, status=no');
-            this.target = 'popuptipi';
-
-            location.replace('".url_for('transaction/show?id='.$this->transaction->id)."');
-        });
-      --></script>
-      ";
-
       return $r;
     }
 
@@ -163,7 +151,7 @@
       try {
         return $this->render(array(
           'class' => sfConfig::get('app_payment_autosubmit',true) ? 'autosubmit' : '',
-          'id' => 'payment-form-tipi'
+          'id' => 'payment-form'
         ));
       }
       catch ( sfException $e )

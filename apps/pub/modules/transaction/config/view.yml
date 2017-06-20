@@ -10,8 +10,3 @@ contactsSuccess:
   http_metas:
     content-type: text/comma-separated-values
     content-disposition: attachment; filename=contacts-list.csv
-    
-ajaxJson:
-  has_layout: false
-  http_metas:
-    content-type: application/json
