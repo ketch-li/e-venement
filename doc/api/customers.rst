@@ -401,8 +401,8 @@ Sample Response
   }
 
 
-Deleting a Customer
--------------------
+Deleting a Customer *Optional*
+------------------------------
 
 Definition
 ^^^^^^^^^^
