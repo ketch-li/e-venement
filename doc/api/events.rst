@@ -56,6 +56,12 @@ Available actions to interact with an event
 +------------------+----------------------------------------------+
 | Show             | Getting a single event                       |
 +------------------+----------------------------------------------+
+| Create *optional*| Create a single event                        |
++------------------+----------------------------------------------+
+| Update *optional*| Update a single event                        |
++------------------+----------------------------------------------+
+| Delete *optional*| Delete a single event                        |
++------------------+----------------------------------------------+
 
 Collection of events
 --------------------
