@@ -21,7 +21,7 @@ A translation resource will be exposed as:
 +------------------+------------------------------------------------+
 | Field            | Description                                    |
 +==================+================================================+
-| id               | Id of the event                                |
+| id               | Id of the meta event                           |
 +------------------+------------------------------------------------+
 | name             | Meta Event name                                |
 +------------------+------------------------------------------------+
@@ -34,9 +34,9 @@ Available actions to interact with an event
 +------------------+----------------------------------------------+
 | Action           | Description                                  |
 +==================+==============================================+
-| List             | Retrieve a collection of events              |
+| List             | Retrieve a collection of meta events         |
 +------------------+----------------------------------------------+
-| Show             | Getting a single event                       |
+| Show             | Getting a single meta event                  |
 +------------------+----------------------------------------------+
 
 Collection of meta events
@@ -49,7 +49,7 @@ Definition
 
 .. code-block:: text
 
-    GET /api/v2/events
+    GET /api/v2/metaevents
 
 +---------------+----------------+-------------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                       |
@@ -115,8 +115,8 @@ Sample Response
   }
 
 
-Getting a single event
-----------------------
+Getting a single meta event
+---------------------------
 
 To retrieve the detail of a single meta event you will need to call the /api/v2/metaevents/{id} endpoint with the GET method.
 
@@ -140,7 +140,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/events/123 \
+    $ curl http://e-venement.local/api/v2/metaevents/1 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X GET
