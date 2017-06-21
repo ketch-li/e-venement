@@ -38,7 +38,9 @@ abstract class PluginTicket extends BaseTicket
   public function preSave($event)
   {
     if ( !$this->isModified() && !$this->isNew() )
+    {
       return parent::preSave($event);
+    }
     
     $is_auth = sfContext::hasInstance() && sfContext::getInstance()->getUser()->getGuardUser();
     

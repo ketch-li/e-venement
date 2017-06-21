@@ -164,16 +164,4 @@ class Contact extends PluginContact
       ))->getStatsSeatRank($meta_event_id);
     }
   }
-
-  public function preSave($event)
-  {
-    parent::preSave($event);
-
-    if (sfContext::hasInstance()) {
-        $serviceName = sfConfig::get('project_password_encryption_service', 'password_plain_text_service');
-        $salt = sfConfig::get('project_password_salt', '');
-        $encryptionService = sfContext::getInstance()->getContainer()->get($serviceName);
-        $this->password = $encryptionService->encrypt($this->password, $salt);
-    }
-  }
 }
