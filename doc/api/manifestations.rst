@@ -46,6 +46,8 @@ When you get a collection of resources, "Default" serialization group will be us
 |                  | To avoid information leaks, if more space is available than the maximum  |
 |                  | configured, the maximum is exposed instead of the really available space |
 +------------------+--------------------------------------------------------------------------+
+| totalUnits       | *Optional* The size of the gauge                                         |
++------------------+--------------------------------------------------------------------------+
 | prices           | Collection of Prices                                                     |
 +------------------+--------------------------------------------------------------------------+
 
