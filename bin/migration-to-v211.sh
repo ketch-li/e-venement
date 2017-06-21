@@ -86,7 +86,7 @@ echo 'DELETE FROM cache;' | psql
 ## DO STUFF IN THE DB HERE
 
 ## Remove the content before changing the structure of the table
-cities=`echo "SELECT count(*) FROM information_schema.columns WHERE table_name = 'postalcode' AND column_name = 'insee';" | psql $PGDATABASE | grep '[0-9]' | grep -v row`
+cities=`echo "SELECT count(*) FROM information_schema.columns WHERE table_name = 'postalcode' AND column_name = 'insee';" | psql $PGDATABASE | grep '[0-9]' | grep -v \(`
 if [ $cities -eq 0 ]
 then
 echo "Removing cities to add INSEE code."
