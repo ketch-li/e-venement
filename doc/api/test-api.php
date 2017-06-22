@@ -1,12 +1,13 @@
 <?php
 
 // ARG #1: base url
+// ARG #2: tests (comma separated list) to execute
 // ARG #2: identifier
 // ARG #3: secret
 // ARG #4: debug? (optional, no debug by default)
 
-$test = new Test($_SERVER['argv'][1], $_SERVER['argv'][2], $_SERVER['argv'][3], isset($_SERVER['argv'][4]));
-$test->testCustomers();
+$test = new Test($_SERVER['argv'][1], $_SERVER['argv'][3], $_SERVER['argv'][4], isset($_SERVER['argv'][5]));
+$test->executeTests($_SERVER['argv'][2]);
 //$test->testPictures();
 //$test->testEvents();
 
@@ -17,6 +18,7 @@ class Test
     private $secret = '';
     private $token = '';
     private $show_results = true;
+    private $lastCurlEquivalent = '';
     
     public function __construct($url, $identifier, $secret, $show_results = true)
     {
@@ -27,9 +29,26 @@ class Test
         $this->show_results = $show_results;
     }
     
+    public function executeTests($tests)
+    {
+        if ( !is_array($tests) ) {
+            $tests = explode(',', $tests);
+        }
+        
+        foreach ( $tests as $test ) {
+            if ( method_exists($this, $method = 'test'.ucfirst($test)) ) {
+                $this->$method();
+            }
+            else {
+                echo "Test $test is unavailable.\n\n";
+            }
+        }
+    }
+    
     protected function initToken()
     {
-        $res = $this->request("/api/oauth/v2/token?client_id=".$this->identifier."&client_secret=".$this->secret."&grant_type=password");
+        $res = $this->request(($endpoint = "/api/oauth/v2/token")."?client_id=".$this->identifier."&client_secret=".$this->secret."&grant_type=password");
+        $this->printResult($endpoint, 'token', $res);
         
         $json = json_decode($res->getData(), true);
         $this->token = $json['access_token'];
@@ -110,7 +129,6 @@ class Test
     
     protected function getOneFromList($data, $i = 0)
     {
-        print_r($data);
         return $data['_embedded']['items'][$i];
     }
     
@@ -119,8 +137,11 @@ class Test
         echo "$endpoint | $action | ";
         echo !$result->isSuccess() ? 'ERROR' : 'SUCCESS';
         echo ': HTTP '.$result->getStatus();
+        
         if ( $this->show_results ) {
             echo "\n".$result->getData();
+            echo "\n".$this->lastCurlEquivalent;
+            $this->lastCurlEquivalent = '';
         }
         
         echo "\n\n";
@@ -130,23 +151,32 @@ class Test
     protected function request($uri, $method = 'GET', array $data = [])
     {
         $ch = curl_init($this->base.$uri);
+        
+        if ( $data ) {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        }
+        
+        $headers = ['Content-Type: application/json'];
+        if ( $this->token ) {
+            $headers[] = 'Authorization: Bearer '.$this->token;
+        }
+        
         curl_setopt_array($ch, [
+            CURLOPT_HTTPHEADER     => $headers,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_SSL_VERIFYHOST => 0,
             CURLOPT_SSL_VERIFYPEER => 0,
             CURLOPT_CUSTOMREQUEST  => $method,
         ]);
-        if ( $data ) {
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-        }
-        if ( $this->token ) {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Authorization: Bearer '.$this->token,
-                'Content-Type: application/json',
-            ]);
-        }
         
-        $res = new HTTPResult(curl_exec($ch), curl_getinfo($ch, CURLINFO_HTTP_CODE));
+        $h = implode('" -H "', $headers);
+        $this->lastCurlEquivalent = sprintf('$ curl -k "%s" -H "%s" %s',
+            $this->base.$uri,
+            $h,
+            $data ? "--data '".json_encode($data)."'" : ''
+        );
+        
+        $res = new HTTPResult($ch);
         curl_close($ch);
         return $res;
     }
@@ -156,16 +186,23 @@ class HTTPResult
 {
     protected $data;
     protected $status;
+    protected $resource;
     
-    public function __construct($data, $status)
+    public function __construct($curl_resource)
     {
-        $this->data   = $data;
-        $this->status = $status;
+        $this->resource = $curl_resource;
+        $this->data = curl_exec($curl_resource);
+        $this->status = curl_getinfo($curl_resource, CURLINFO_HTTP_CODE);
+    }
+    
+    public function getCurlResource()
+    {
+        return $this->resource;
     }
     
     public function getData($json = false)
     {
-        return $json ? json_decode($this->data, true) : $this->data;
+            return $json ? json_decode($this->data, true) : $this->data;
     }
     
     public function getStatus()
