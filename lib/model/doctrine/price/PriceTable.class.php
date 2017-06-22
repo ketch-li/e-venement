@@ -26,14 +26,19 @@ class PriceTable extends PluginPriceTable
     return $q;
   }
   
-  public function createQuery($alias = 'p', $override_credentials = true)
+  protected function getCredentials($q, $alias, $override_credentials)
   {
-    $q = parent::createQuery($alias);
-    
     if ( sfContext::hasInstance() && ($user = sfContext::getInstance()->getUser()) && $user->getId()
       && (!$override_credentials || !$user->isSuperAdmin() && !$user->hasCredential('event-admin-price')) )
       $q->andWhere("$alias.id IN (SELECT up.price_id FROM UserPrice up WHERE up.sf_guard_user_id = ?) OR (SELECT count(up2.price_id) FROM UserPrice up2 WHERE up2.sf_guard_user_id = ?) = 0",array($user->getId(),$user->getId()));
     $q->leftJoin("$alias.Translation pt");
+    
+    return $q;
+  }
+  
+  public function createQuery($alias = 'p', $override_credentials = true)
+  {
+    $q = $this->getCredentials(parent::createQuery($alias), $alias, $override_credentials);
     
     if ( $dom = sfConfig::get('project_internals_users_domain', null) )
       $q->leftJoin("$alias.Ranks pr WITH pr.domain ILIKE '%$dom' OR pr.domain = '$dom'");
@@ -42,6 +47,17 @@ class PriceTable extends PluginPriceTable
       
     $q->orderBy("pr.rank, $alias.id");
 
+    return $q;
+  }
+  
+  public function getPriceList()
+  {
+    $q = parent::createQuery();
+    $alias = $q->getRootAlias();
+    
+    $q = $this->getCredentials($q, $alias, true)
+      ->orderBy("pt.name");
+      
     return $q;
   }
   
