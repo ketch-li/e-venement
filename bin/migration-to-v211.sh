@@ -49,11 +49,12 @@ echo "To cancel press CTRL+C NOW !!"
 read
 
 # Read Password
-echo -n Password:
-read -s password
-# Run Command
-export PGPASSWORD=$password
-
+if [ -n "$PGHOST" ]  && [ -z "$PGPASSWORD" ]; then
+    echo -n Password:
+    read -s password
+    # Run Command
+    export PGPASSWORD=$password
+fi
 
 # Checking data
 i=0; for elt in `echo 'SELECT count(*) FROM ticket WHERE (printed_at IS NOT NULL OR integrated_at IS NOT NULL);' | psql`
