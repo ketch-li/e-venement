@@ -38,6 +38,9 @@ class MemberCardTypeForm extends BaseMemberCardTypeForm
       ->setAttribute('type', 'number')
     ;
     
+    $this->widgetSchema['price_id']
+      ->setOption('table_method', 'getPriceList');
+    
     $tinymce = array(
       'config'  => array(
         'extended_valid_elements' => 'html,head,body,hr[class|width|size|noshade],iframe[src|width|height|name|align],style',
