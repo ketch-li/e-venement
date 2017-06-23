@@ -93,7 +93,7 @@ Example
         -X GET \'
          {
              'criteria[metaEvents.id][type]': 'equals',
-             'criteria[metaEvents.id][value]': app.config.metaEventId,
+             'criteria[metaEvents.id][value]': 12,
              'limit': 100
         }'
 
