@@ -293,7 +293,7 @@ Example
     $ curl http://e-venement.local/api/v2/manifestations/13 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X GET \
+        -X GET
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
