@@ -19,57 +19,15 @@ When you get a collection of resources, "Default" serialization group will be us
 +------------------+----------------------------------------------------------------------------------------------------------+
 | location         | Location object serialized                                                                               |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| event_id         | Id of related event                                                                                      |
+| event            | Event object serialized                                                                                  |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| event            | Translations for the related event                                                                       |
-+------------------+----------------------------------------------------------------------------------------------------------+
-| metaEvent        | Name of related meta-event                                                                               |
-+------------------+----------------------------------------------------------------------------------------------------------+
-| gauges           | Collection of gauges object serialized                                                                   |
+| gauges           | Collection of gauges objects serialized                                                                  |
 +------------------+----------------------------------------------------------------------------------------------------------+
 | timeSlots        | Collection of timeslot objects serialized                                                                |
 +------------------+----------------------------------------------------------------------------------------------------------+
 
-Gauges API response structure
-------------------------------
-
-When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
-
-+------------------+--------------------------------------------------------------------------+
-| Field            | Description                                                              |
-+==================+==========================================================================+
-| id               | Id of the gauge                                                          |
-+------------------+--------------------------------------------------------------------------+
-| name             | Name of the current Gauge (through its Workspace)                        |
-+------------------+--------------------------------------------------------------------------+
-| availableUnits   | The available space in this gauge                                        |
-|                  | To avoid information leaks, if more space is available than the maximum  |
-|                  | configured, the maximum is exposed instead of the really available space |
-+------------------+--------------------------------------------------------------------------+
-| totalUnits       | *Optional* The size of the gauge                                         |
-+------------------+--------------------------------------------------------------------------+
-| prices           | Collection of Prices                                                     |
-+------------------+--------------------------------------------------------------------------+
-
-Prices API response structure
-------------------------------
-
-When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
-
-+------------------+--------------------------------------------------------------------------+
-| Field            | Description                                                              |
-+==================+==========================================================================+
-| id               | Id of the price                                                          |
-+------------------+--------------------------------------------------------------------------+
-| translations     | Collection of translations                                               |
-+------------------+--------------------------------------------------------------------------+
-| value            | Amount of the price in the current currency                              |
-+------------------+--------------------------------------------------------------------------+
-| currencyCode     | Currency of the cart                                                     |
-+------------------+--------------------------------------------------------------------------+
-
-TimeSlots API response structure
---------------------------------
+TimeSlots API response structure *Optional*
+--------------------------------------------
 
 When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
 
@@ -115,12 +73,12 @@ Example
     $ curl http://e-venement.local/api/v2/manifestations \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X GET \'
-         {
-             'criteria[metaEvents.id][type]': 'equals',
-             'criteria[metaEvents.id][value]': app.config.metaEventId,
-             'limit': 100
-        }'
+        -X GET '
+            {
+                "criteria[metaEvents.id][type]": "equals",
+                "criteria[metaEvents.id][value]": 12,
+                "limit": 100
+            }'
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -138,16 +96,16 @@ Sample Response
     "total": 53,
     "_links": {
         "self": {
-            "href": "\/tck.php\/api\/v2\/manifestations?limit=10"
+            "href": "\/api\/v2\/manifestations?limit=10"
         },
         "first": {
-            "href": "\/tck.php\/api\/v2\/manifestations?limit=10&page=1"
+            "href": "\/api\/v2\/manifestations?limit=10&page=1"
         },
         "last": {
-            "href": "\/tck.php\/api\/v2\/manifestations?limit=10&page=6"
+            "href": "\/api\/v2\/manifestations?limit=10&page=6"
         },
         "next": {
-            "href": "\/tck.php\/api\/v2\/manifestations?limit=10&page=2"
+            "href": "\/api\/v2\/manifestations?limit=10&page=2"
         }
     },
     "_embedded": {
@@ -318,7 +276,7 @@ Example
     $ curl http://e-venement.local/api/v2/manifestations/13 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X GET \
+        -X GET
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -329,7 +287,6 @@ Sample Response
 
 .. code-block:: json
 
-   [
     {
         "id": 13,
         "startsAt": "20170801T173000+02:00",
@@ -400,4 +357,3 @@ Sample Response
             }
         ]
     }
-  ]

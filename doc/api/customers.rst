@@ -26,6 +26,8 @@ If you request for a more detailed data, you will receive an object with followi
 +-------------------------+-------------------------------------------------------------------------------------+
 | email                   | Customers email                                                                     |
 +-------------------------+-------------------------------------------------------------------------------------+
+| otherEmail              | *Optional* Customers email                                                          |
++-------------------------+-------------------------------------------------------------------------------------+
 | firstName               | Customers first name                                                                |
 +-------------------------+-------------------------------------------------------------------------------------+
 | lastName                | Customers last name                                                                 |
@@ -42,7 +44,7 @@ If you request for a more detailed data, you will receive an object with followi
 +-------------------------+-------------------------------------------------------------------------------------+
 | phoneNumber             | Customers phone number                                                              |
 +-------------------------+-------------------------------------------------------------------------------------+
-| datesOfBirth            | Dates of birth [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601 ) |
+| datesOfBirth            | Dates of birth [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601)  |
 +-------------------------+-------------------------------------------------------------------------------------+
 | locale                  | Spoken language                                                                     |
 +-------------------------+-------------------------------------------------------------------------------------+
@@ -282,16 +284,16 @@ Sample Response
     "total": 1,
     "_links": {
         "self": {
-            "href": "\/tck.php\/api\/v2\/customers?limit=10"
+            "href": "\/api\/v2\/customers?limit=10"
         },
         "first": {
-            "href": "\/tck.php\/api\/v2\/customers?limit=10&page=1"
+            "href": "\/api\/v2\/customers?limit=10&page=1"
         },
         "last": {
-            "href": "\/tck.php\/api\/v2\/customers?limit=10&page=1"
+            "href": "\/api\/v2\/customers?limit=10&page=1"
         },
         "next": {
-            "href": "\/tck.php\/api\/v2\/customers?limit=10&page=1"
+            "href": "\/api\/v2\/customers?limit=10&page=1"
         }
     },
     "_embedded": {

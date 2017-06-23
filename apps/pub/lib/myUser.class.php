@@ -461,7 +461,7 @@ class myUser extends pubUser
     return $this;
   }
   
-  public function getAvailableMCPrices(Manifestation $manifestation = NULL)
+  public function getAvailableMCPrices($manifestation = NULL)
   {
     $mcp = array();
     try {

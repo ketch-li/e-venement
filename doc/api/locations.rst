@@ -1,9 +1,9 @@
-MetaEvents API
+Locations API
 ==============
 
-These endpoints will allow you to get meta-events. Base URI is '/api/v2/metaevents'.
+These endpoints will allow you to get locations. Base URI is '/api/v2/locations'.
 
-MetaEvents API response structure
+Locations API response structure
 ----------------------------------
 
 When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
@@ -11,45 +11,41 @@ When you get a collection of resources, "Default" serialization group will be us
 +------------------+------------------------------------------------+
 | Field            | Description                                    |
 +==================+================================================+
-| id               | Id of the meta event                           |
+| id               | Id of the location                             |
 +------------------+------------------------------------------------+
-| translations     | Collection of translations, with langs as keys |
+| name             | Name of the location                           |
 +------------------+------------------------------------------------+
-
-A translation resource will be exposed as:
-
+| address          | Address of the location                        |
 +------------------+------------------------------------------------+
-| Field            | Description                                    |
-+==================+================================================+
-| id               | Id of the meta event                           |
+| zip              | Zip of the location                            |
 +------------------+------------------------------------------------+
-| name             | Meta Event name                                |
+| city             | City of the location                           |
 +------------------+------------------------------------------------+
-| description      | A description of the Meta Event                |
+| country          | Country of the location                        |
 +------------------+------------------------------------------------+
 
-Available actions to interact with a meta event
-------------------------------------------------
+Available actions to interact with a location
+----------------------------------------------
 
 +------------------+----------------------------------------------+
 | Action           | Description                                  |
 +==================+==============================================+
-| List             | Retrieve a collection of meta events         |
+| List             | Retrieve a collection of locations           |
 +------------------+----------------------------------------------+
-| Show             | Getting a single meta event                  |
+| Show             | Getting a single locations                   |
 +------------------+----------------------------------------------+
 
-Collection of meta events
---------------------------
+Collection of locations
+------------------------
 
-To retrieve a collection of meta events you will need to call the /api/v2/metaevents endpoint with the GET method.
+To retrieve a collection of locations you will need to call the /api/v2/locations endpoint with the GET method.
 
 Definition
 ^^^^^^^^^^
 
 .. code-block:: text
 
-    GET /api/v2/metaevents
+    GET /api/v2/locations
 
 +---------------+----------------+-------------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                       |
@@ -66,7 +62,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/metaevents \
+    $ curl http://e-venement.local/api/v2/locations \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X GET \
@@ -84,55 +80,85 @@ Sample Response
       "page": 1,
       "limit": 10,
       "pages": 1,
-      "total": 1,
+      "total": 5,
       "_links": {
           "self": {
-              "href": "\/tck_dev.php\/api\/v2\/metaevents?limit=10"
+              "href": "\/api\/v2\/locations?limit=10"
           },
           "first": {
-              "href": "\/tck_dev.php\/api\/v2\/metaevents?limit=10&page=1"
+              "href": "\/api\/v2\/locations?limit=10&page=1"
           },
           "last": {
-              "href": "\/tck_dev.php\/api\/v2\/metaevents?limit=10&page=1"
+              "href": "\/api\/v2\/locations?limit=10&page=1"
           },
           "next": {
-              "href": "\/tck_dev.php\/api\/v2\/metaevents?limit=10&page=1"
+              "href": "\/api\/v2\/locations?limit=10&page=1"
           }
       },
       "_embedded": {
           "items": [
               {
+                  "id": 5,
+                  "name": "Ext01",
+                  "address": "",
+                  "zip": null,
+                  "city": "",
+                  "country": ""
+              },
+              {
+                  "id": 4,
+                  "name": "Quay d'orsay",
+                  "address": "",
+                  "zip": null,
+                  "city": "",
+                  "country": ""
+              },
+              {
+                  "id": 3,
+                  "name": "CCM - Salle rouge",
+                  "address": "",
+                  "zip": null,
+                  "city": "",
+                  "country": ""
+              },
+              {
+                  "id": 2,
+                  "name": "CCM - Salle bleue",
+                  "address": "",
+                  "zip": null,
+                  "city": "",
+                  "country": ""
+              },
+              {
                   "id": 1,
-                  "translations": {
-                      "fr": {
-                          "name": "Semaine des ambassadeurs 2017",
-                          "description": "Semaine des ambassadeurs 2017"
-                      }
-                  }
+                  "name": "CCM - Grande salle",
+                  "address": "",
+                  "zip": null,
+                  "city": "",
+                  "country": ""
               }
           ]
       }
   }
 
-
-Getting a single meta event
+Getting a single location
 ---------------------------
 
-To retrieve the detail of a single meta event you will need to call the /api/v2/metaevents/{id} endpoint with the GET method.
+To retrieve the detail of a single location you will need to call the /api/v2/locations/{id} endpoint with the GET method.
 
 Definition
 ^^^^^^^^^^
 
 .. code-block:: text
 
-    GET /api/v2/metaevents/{id}
+    GET /api/v2/locations/{id}
 
 +---------------+----------------+-------------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                       |
 +===============+================+===================================================================+
 | Authorization | header         | Token received during authentication                              |
 +---------------+----------------+-------------------------------------------------------------------+
-| id            | query          | Id of the meta event                                                   |
+| id            | query          | Id of the location                                                |
 +---------------+----------------+-------------------------------------------------------------------+
 
 Example
@@ -140,7 +166,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/metaevents/1 \
+    $ curl http://e-venement.local/api/v2/locations/1 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X GET
@@ -154,12 +180,11 @@ Sample Response
 
 .. code-block:: json
 
-    {
-        "id": 1,
-        "translations": {
-            "fr": {
-                "name": "Semaine des ambassadeurs 2017",
-                "description": "Semaine des ambassadeurs 2017"
-            }
-        }
-    }
+  {
+      "id": 1,
+      "name": "CCM - Grande salle",
+      "address": "",
+      "zip": null,
+      "city": "",
+      "country": ""
+  }

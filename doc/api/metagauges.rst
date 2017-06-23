@@ -1,55 +1,41 @@
-MetaEvents API
+MetaGauges API
 ==============
 
-These endpoints will allow you to get meta-events. Base URI is '/api/v2/metaevents'.
+These endpoints will allow you to get meta-gauges. Base URI is '/api/v2/metagauges'.
 
-MetaEvents API response structure
+MetaGauges API response structure
 ----------------------------------
 
-When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
-
 +------------------+------------------------------------------------+
 | Field            | Description                                    |
 +==================+================================================+
-| id               | Id of the meta event                           |
+| id               | Id of the meta gauge                           |
 +------------------+------------------------------------------------+
-| translations     | Collection of translations, with langs as keys |
-+------------------+------------------------------------------------+
-
-A translation resource will be exposed as:
-
-+------------------+------------------------------------------------+
-| Field            | Description                                    |
-+==================+================================================+
-| id               | Id of the meta event                           |
-+------------------+------------------------------------------------+
-| name             | Meta Event name                                |
-+------------------+------------------------------------------------+
-| description      | A description of the Meta Event                |
+| name             | Meta Gauge name                                |
 +------------------+------------------------------------------------+
 
-Available actions to interact with a meta event
+Available actions to interact with a meta gauge
 ------------------------------------------------
 
 +------------------+----------------------------------------------+
 | Action           | Description                                  |
 +==================+==============================================+
-| List             | Retrieve a collection of meta events         |
+| List             | Retrieve a collection of meta gauges         |
 +------------------+----------------------------------------------+
-| Show             | Getting a single meta event                  |
+| Show             | Getting a single meta gauge                  |
 +------------------+----------------------------------------------+
 
-Collection of meta events
+Collection of meta gauges
 --------------------------
 
-To retrieve a collection of meta events you will need to call the /api/v2/metaevents endpoint with the GET method.
+To retrieve a collection of meta gauges you will need to call the /api/v2/metagauges endpoint with the GET method.
 
 Definition
 ^^^^^^^^^^
 
 .. code-block:: text
 
-    GET /api/v2/metaevents
+    GET /api/v2/metagauges
 
 +---------------+----------------+-------------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                       |
@@ -66,7 +52,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/metaevents \
+    $ curl http://e-venement.local/api/v2/metagauges \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X GET \
@@ -84,55 +70,57 @@ Sample Response
       "page": 1,
       "limit": 10,
       "pages": 1,
-      "total": 1,
+      "total": 3,
       "_links": {
           "self": {
-              "href": "\/tck_dev.php\/api\/v2\/metaevents?limit=10"
+              "href": "\/tck.php\/api\/v2\/metagauges?limit=10"
           },
           "first": {
-              "href": "\/tck_dev.php\/api\/v2\/metaevents?limit=10&page=1"
+              "href": "\/tck.php\/api\/v2\/metagauges?limit=10&page=1"
           },
           "last": {
-              "href": "\/tck_dev.php\/api\/v2\/metaevents?limit=10&page=1"
+              "href": "\/tck.php\/api\/v2\/metagauges?limit=10&page=1"
           },
           "next": {
-              "href": "\/tck_dev.php\/api\/v2\/metaevents?limit=10&page=1"
+              "href": "\/tck.php\/api\/v2\/metagauges?limit=10&page=1"
           }
       },
       "_embedded": {
           "items": [
               {
                   "id": 1,
-                  "translations": {
-                      "fr": {
-                          "name": "Semaine des ambassadeurs 2017",
-                          "description": "Semaine des ambassadeurs 2017"
-                      }
-                  }
+                  "name": "Semaine des ambassadeurs 2017"
+              },
+              {
+                  "id": 2,
+                  "name": "Test"
+              },
+              {
+                  "id": 3,
+                  "name": "TEST"
               }
           ]
       }
   }
 
-
-Getting a single meta event
+Getting a single meta gauge
 ---------------------------
 
-To retrieve the detail of a single meta event you will need to call the /api/v2/metaevents/{id} endpoint with the GET method.
+To retrieve the detail of a single meta gauge you will need to call the /api/v2/metagauges/{id} endpoint with the GET method.
 
 Definition
 ^^^^^^^^^^
 
 .. code-block:: text
 
-    GET /api/v2/metaevents/{id}
+    GET /api/v2/metagauges/{id}
 
 +---------------+----------------+-------------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                       |
 +===============+================+===================================================================+
 | Authorization | header         | Token received during authentication                              |
 +---------------+----------------+-------------------------------------------------------------------+
-| id            | query          | Id of the meta event                                                   |
+| id            | query          | Id of the meta gauge                                                   |
 +---------------+----------------+-------------------------------------------------------------------+
 
 Example
@@ -140,7 +128,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/metaevents/1 \
+    $ curl http://e-venement.local/api/v2/metagauges/1 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X GET
@@ -154,12 +142,7 @@ Sample Response
 
 .. code-block:: json
 
-    {
-        "id": 1,
-        "translations": {
-            "fr": {
-                "name": "Semaine des ambassadeurs 2017",
-                "description": "Semaine des ambassadeurs 2017"
-            }
-        }
-    }
+  {
+      "id": 1,
+      "name": "Semaine des ambassadeurs 2017"
+  }

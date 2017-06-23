@@ -111,16 +111,16 @@ Sample Response
     "total": 14,
     "_links": {
         "self": {
-            "href": "\/tck.php\/api\/v2\/events?limit=10"
+            "href": "\/api\/v2\/events?limit=10"
         },
         "first": {
-            "href": "\/tck.php\/api\/v2\/events?limit=10&page=1"
+            "href": "\/api\/v2\/events?limit=10&page=1"
         },
         "last": {
-            "href": "\/tck.php\/api\/v2\/events?limit=10&page=2"
+            "href": "\/api\/v2\/events?limit=10&page=2"
         },
         "next": {
-            "href": "\/tck.php\/api\/v2\/events?limit=10&page=2"
+            "href": "\/api\/v2\/events?limit=10&page=2"
         }
     },
     "_embedded": {
@@ -147,7 +147,7 @@ Sample Response
                         "extraspec": ""
                     }
                 },
-                "imageURL": "\/tck.php\/api\/v2\/picture\/6",
+                "imageURL": "\/api\/v2\/picture\/6",
                 "manifestations": [
                     {
                         "id": 14,
@@ -356,7 +356,7 @@ Sample Response
                 "extraspec": ""
             }
         },
-        "imageURL": "\/tck.php\/api\/v2\/picture\/6",
+        "imageURL": "\/api\/v2\/picture\/6",
         "manifestations": [
             {
                 "id": 14,

@@ -114,7 +114,7 @@ abstract class PluginTicket extends BaseTicket
       $this->price_name = $this->Price->name;
     
     if ( $this->price_id && $is_auth )
-    if ( !$this->Price->isAccessibleBy(sfContext::getInstance()->getUser(), array('manifestation' => $this->Manifestation)) )
+    if ( !$this->Price->isAccessibleBy(sfContext::getInstance()->getUser(), $this->Manifestation) )
       throw new liEvenementException('You tried to save a ticket with a price that you cannot access (user: #'.sfContext::getInstance()->getUser()->getId().', price: #'.$this->price_id.', manif: #'.$this->manifestation_id.')');
     
     // the transaction's last update
