@@ -83,16 +83,16 @@ Sample Response
         "total": 1,
         "_links": {
             "self": {
-                "href": "\/tck.php\/api\/v2\/vats?limit=10"
+                "href": "\/api\/v2\/vats?limit=10"
             },
             "first": {
-                "href": "\/tck.php\/api\/v2\/vats?limit=10&page=1"
+                "href": "\/api\/v2\/vats?limit=10&page=1"
             },
             "last": {
-                "href": "\/tck.php\/api\/v2\/vats?limit=10&page=1"
+                "href": "\/api\/v2\/vats?limit=10&page=1"
             },
             "next": {
-                "href": "\/tck.php\/api\/v2\/vats?limit=10&page=1"
+                "href": "\/api\/v2\/vats?limit=10&page=1"
             }
         },
         "_embedded": {

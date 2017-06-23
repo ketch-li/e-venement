@@ -134,16 +134,16 @@ Sample Response
     "total": 53,
     "_links": {
         "self": {
-            "href": "\/tck.php\/api\/v2\/manifestations?limit=10"
+            "href": "\/api\/v2\/manifestations?limit=10"
         },
         "first": {
-            "href": "\/tck.php\/api\/v2\/manifestations?limit=10&page=1"
+            "href": "\/api\/v2\/manifestations?limit=10&page=1"
         },
         "last": {
-            "href": "\/tck.php\/api\/v2\/manifestations?limit=10&page=6"
+            "href": "\/api\/v2\/manifestations?limit=10&page=6"
         },
         "next": {
-            "href": "\/tck.php\/api\/v2\/manifestations?limit=10&page=2"
+            "href": "\/api\/v2\/manifestations?limit=10&page=2"
         }
     },
     "_embedded": {

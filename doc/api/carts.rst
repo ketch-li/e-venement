@@ -267,16 +267,16 @@ Sample Response
     "total": 222,
     "_links": {
         "self": {
-            "href": "\/tck.php\/api\/v2\/carts?limit=10"
+            "href": "\/api\/v2\/carts?limit=10"
         },
         "first": {
-            "href": "\/tck.php\/api\/v2\/carts?limit=10&page=1"
+            "href": "\/api\/v2\/carts?limit=10&page=1"
         },
         "last": {
-            "href": "\/tck.php\/api\/v2\/carts?limit=10&page=23"
+            "href": "\/api\/v2\/carts?limit=10&page=23"
         },
         "next": {
-            "href": "\/tck.php\/api\/v2\/carts?limit=10&page=2"
+            "href": "\/api\/v2\/carts?limit=10&page=2"
         }
     },
     "_embedded": {

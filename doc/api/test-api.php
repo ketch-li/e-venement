@@ -8,8 +8,6 @@
 
 $test = new Test($_SERVER['argv'][1], $_SERVER['argv'][3], $_SERVER['argv'][4], isset($_SERVER['argv'][5]));
 $test->executeTests($_SERVER['argv'][2]);
-//$test->testPictures();
-//$test->testEvents();
 
 class Test
 {
@@ -120,31 +118,166 @@ class Test
         $this->printResult($endpoint, 'list', $res);
         
         // one
-        $data = $res->getData(true)['_embedded']['items'];
-        $res = $this->request($endpoint = '/api/v2/pictures/'.$this->getOneFromList($data, rand(0, count($data)-1))['id']);
-        $this->printResult($endpoint, 'display', $res);
+        $res = $this->request($route = $endpoint.'/'.$res->getOneFromList()['id']);
+        $this->printResult($route, 'resource', $res);
         
         return $this;
     }
     
-    protected function getOneFromList($data, $i = 0)
+    public function testLocations()
     {
-        return $data['_embedded']['items'][$i];
+        // list
+        $res = $this->request($endpoint = '/api/v2/locations');
+        $this->printResult($route, 'list', $res);
+        
+        // one
+        $res = $this->request($route = $endpoint.'/'.$res->getOneFromList()['id']);
+        $this->printResult($route, 'resource', $res);
+        
+        return $this;
+    }
+
+    public function testVats()
+    {
+        // list
+        $res = $this->request($endpoint = '/api/v2/vats');
+        $this->printResult($route, 'list', $res);
+        
+        // one
+        $res = $this->request($route = $endpoint.'/'.$res->getOneFromList()['id']);
+        $this->printResult($route, 'resource', $res);
+        
+        return $this;
+    }
+
+    public function testPrices()
+    {
+        // list
+        $res = $this->request($endpoint = '/api/v2/prices');
+        $this->printResult($route, 'list', $res);
+        
+        // one
+        $res = $this->request($route = $endpoint.'/'.$res->getOneFromList()['id']);
+        $this->printResult($route, 'resource', $res);
+        
+        return $this;
+    }
+
+    public function testManifestations()
+    {
+        // list
+        $res = $this->request($endpoint = '/api/v2/manifestations');
+        $this->printResult($route, 'list', $res);
+        
+        // one
+        $res = $this->request($route = $endpoint.'/'.$res->getOneFromList()['id']);
+        $this->printResult($route, 'resource', $res);
+        
+        // get available events
+        $events = $this->request($route = '/api/v2/metaevents');
+        // get available events
+        $locations = $this->request($route = '/api/v2/locations');
+        // get available events
+        $vats = $this->request($route = '/api/v2/vats');
+        
+        // create
+        $event = [
+            'startsAt'      => str_replace('-', 'T', date('Ymd-HisP', strtotime('+3 weeks'))),
+            'endsAt'        => str_replace('-', 'T', date('Ymd-HisP', strtotime('+3 weeks + 1 hour'))),
+            'eventId'       => $events->getOneFromList()['id'],
+            'locationId'    => $locations->getOneFromList()['id'],
+            'vatId'         => $vats->getOneFromList()['id'],
+        ];
+        $res = $this->request($route = $endpoint, 'POST', $event);
+        $this->printResult($route, 'create', $res);
+        $manifid = $res->getData(true)['id'];
+        
+        // get one
+        $res = $this->request($route = $endpoint.'/'.$manifid);
+        $this->printResult($route, 'resource', $res);
+        
+        // update
+        $res = $this->request($route = $endpoint.'/'.$manifid, 'POST', [
+            'endsAt'        => str_replace('-', 'T', date('Ymd-HisP', strtotime('+3 weeks + 1 hour 30 minutes'))),
+            'locationId'    => $locations->getOneFromList()['id'],
+        ]);
+        $this->printResult($route, 'update', $res);
+        
+        // get one
+        $res = $this->request($route = $endpoint.'/'.$manifid);
+        $this->printResult($route, 'resource', $res);
+        
+        // delete
+        $res = $this->request($route = $endpoint.'/'.$manifid, 'DELETE');
+        $this->printResult($route, 'delete', $res);
+        
+        // get one
+        $res = $this->request($route = $endpoint.'/'.$manifid);
+        $this->printResult($route, 'resource', $res);
+        
+        return $this;
+    }
+    
+    public function testEvents()
+    {
+        // list
+        $res = $this->request($endpoint = '/api/v2/events');
+        $this->printResult($endpoint, 'list', $res);
+        
+        // one
+        $res = $this->request($route = $endpoint.'/'.$res->getOneFromList()['id']);
+        $this->printResult($route, 'resource', $res);
+        
+        // get one meta-event
+        $metaevents = $this->request($route = '/api/v2/metaevents');
+        
+        // get one picture
+        $pics = $this->request($route = '/api/v2/pictures');
+        
+        // create
+        $event = [
+            'metaEvent' => [ 'id' => $metaevents->getOneFromList()['id'] ],
+            'translations' => [
+                'fr' => [ 'name' => 'MonTest' ],
+                'en' => [ 'name' => 'MyTest' ],
+            ],
+            'imageId' => $pics->getOneFromList()['id'],
+        ];
+        $res = $this->request($route = $endpoint, 'POST', $event);
+        $this->printResult($route, 'create', $res);
+        
+        // get one
+        $res = $this->request($route = $endpoint.'/'.$res->getData(true)['id']);
+        $this->printResult($route, 'resource', $res);
+        
+        // update
+        $res = $this->request($route = $endpoint.'/'.$res->getData(true)['id'], 'POST', ['imageId' => $pics->getOneFromList()['id']]);
+        $this->printResult($route, 'update', $res);
+        
+        // get one
+        $res = $this->request($route = $endpoint.'/'.$res->getData(true)['id']);
+        $this->printResult($route, 'resource', $res);
+        
+        // delete
+        $res = $this->request($route = $endpoint.'/'.$res->getData(true)['id'], 'DELETE');
+        $this->printResult($route, 'delete', $res);
+        
+        return $this;
     }
     
     protected function printResult($endpoint, $action, HTTPResult $result)
     {
+        if ( $this->show_results ) {
+            echo $result->getData()."\n";
+            echo $this->lastCurlEquivalent."\n\n";
+            $this->lastCurlEquivalent = '';
+        }
+        
         echo "$endpoint | $action | ";
         echo !$result->isSuccess() ? 'ERROR' : 'SUCCESS';
         echo ': HTTP '.$result->getStatus();
         
-        if ( $this->show_results ) {
-            echo "\n".$result->getData();
-            echo "\n".$this->lastCurlEquivalent;
-            $this->lastCurlEquivalent = '';
-        }
-        
-        echo "\n\n";
+        echo "\n\n\n";
         return $this;
     }
     
@@ -170,9 +303,10 @@ class Test
         ]);
         
         $h = implode('" -H "', $headers);
-        $this->lastCurlEquivalent = sprintf('$ curl -k "%s" -H "%s" %s',
+        $this->lastCurlEquivalent = sprintf('$ curl -k "%s" -H "%s" -X %s %s',
             $this->base.$uri,
             $h,
+            $method,
             $data ? "--data '".json_encode($data)."'" : ''
         );
         
@@ -218,5 +352,16 @@ class HTTPResult
     public function __toString()
     {
         return is_array($this->data) ? json_encode($this->data, JSON_PRETTY_PRINT) : $this->data;
+    }
+
+    /**
+     * Returns one entity from a list of entities
+     *
+     * $i   integer if < 0, it means that we are expecting a random result
+     */
+    public function getOneFromList($i = -1)
+    {
+        $data = $this->getData(true)['_embedded']['items'];
+        return $i < 0 ? $data[rand(0, count($data)-1)] : $data[$i];
     }
 }
