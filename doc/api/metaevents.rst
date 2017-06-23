@@ -28,8 +28,8 @@ A translation resource will be exposed as:
 | description      | A description of the Meta Event                |
 +------------------+------------------------------------------------+
 
-Available actions to interact with an event
--------------------------------------------
+Available actions to interact with a meta event
+------------------------------------------------
 
 +------------------+----------------------------------------------+
 | Action           | Description                                  |
