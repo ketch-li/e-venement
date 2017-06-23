@@ -26,23 +26,6 @@ When you get a collection of resources, "Default" serialization group will be us
 | timeSlots        | Collection of timeslot objects serialized                                                                |
 +------------------+----------------------------------------------------------------------------------------------------------+
 
-Prices API response structure
-------------------------------
-
-When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
-
-+------------------+--------------------------------------------------------------------------+
-| Field            | Description                                                              |
-+==================+==========================================================================+
-| id               | Id of the price                                                          |
-+------------------+--------------------------------------------------------------------------+
-| translations     | Collection of translations                                               |
-+------------------+--------------------------------------------------------------------------+
-| value            | Amount of the price in the current currency                              |
-+------------------+--------------------------------------------------------------------------+
-| currencyCode     | Currency of the cart                                                     |
-+------------------+--------------------------------------------------------------------------+
-
 TimeSlots API response structure *Optional*
 --------------------------------------------
 
