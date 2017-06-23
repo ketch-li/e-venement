@@ -304,7 +304,6 @@ Sample Response
 
 .. code-block:: json
 
-   [
     {
         "id": 13,
         "startsAt": "20170801T173000+02:00",
@@ -375,4 +374,3 @@ Sample Response
             }
         ]
     }
-  ]
