@@ -99,8 +99,8 @@ Sample Response
             "items": [
                 {
                     "id": 1,
-                    "name": "Exo",
-                    "value": "0.0000"
+                    "name": "Mini",
+                    "value": "0.0210"
                 }
             ]
         }
@@ -147,6 +147,6 @@ Sample Response
 
     {
         "id": 1,
-        "name": "Exo",
-        "value": "0.0000"
+        "name": "Mini",
+        "value": "0.0210"
     }
