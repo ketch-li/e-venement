@@ -76,35 +76,35 @@ Sample Response
 
 .. code-block:: json
 
-{
-    "page": 1,
-    "limit": 10,
-    "pages": 1,
-    "total": 1,
-    "_links": {
-        "self": {
-            "href": "\/tck.php\/api\/v2\/vats?limit=10"
-        },
-        "first": {
-            "href": "\/tck.php\/api\/v2\/vats?limit=10&page=1"
-        },
-        "last": {
-            "href": "\/tck.php\/api\/v2\/vats?limit=10&page=1"
-        },
-        "next": {
-            "href": "\/tck.php\/api\/v2\/vats?limit=10&page=1"
-        }
-    },
-    "_embedded": {
-        "items": [
-            {
-                "id": 1,
-                "name": "Exo",
-                "value": "0.0000"
+    {
+        "page": 1,
+        "limit": 10,
+        "pages": 1,
+        "total": 1,
+        "_links": {
+            "self": {
+                "href": "\/tck.php\/api\/v2\/vats?limit=10"
+            },
+            "first": {
+                "href": "\/tck.php\/api\/v2\/vats?limit=10&page=1"
+            },
+            "last": {
+                "href": "\/tck.php\/api\/v2\/vats?limit=10&page=1"
+            },
+            "next": {
+                "href": "\/tck.php\/api\/v2\/vats?limit=10&page=1"
             }
-        ]
+        },
+        "_embedded": {
+            "items": [
+                {
+                    "id": 1,
+                    "name": "Exo",
+                    "value": "0.0000"
+                }
+            ]
+        }
     }
-}
 
 Getting a single VAT
 ---------------------------
