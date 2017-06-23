@@ -29,7 +29,7 @@ class Price extends PluginPrice implements liUserAccessInterface
     return array_keys($this->Workspaces->getPrimaryKeys());
   }
   
-  public function isAccessibleBy(sfSecurityUser $user, $option = NULL)
+  public function isAccessibleBy(sfSecurityUser $user, $manifestation = NULL)
   {
     if ( $this->isNew() )
       return false;
@@ -45,12 +45,9 @@ class Price extends PluginPrice implements liUserAccessInterface
     // continue after this comment if we are in an online sales context
     
     // not linked to any member card
-    if ( !$this->member_card_linked || !$this->isNew() )
+    if ( !$this->member_card_linked )
       return true;
     
-    $manifestation = NULL;
-    if ( isset($option['manifestation']) && $option['manifestation'] instanceof Manifestation )
-      $manifestation = $option['manifestation'];
     $mcp = $user->getAvailableMCPrices($manifestation);
     
     if ( !isset($mcp[$this->id]) )
