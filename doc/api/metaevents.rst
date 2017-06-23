@@ -154,12 +154,12 @@ Sample Response
 
 .. code-block:: json
 
-{
-    "id": 1,
-    "translations": {
-        "fr": {
-            "name": "Semaine des ambassadeurs 2017",
-            "description": "Semaine des ambassadeurs 2017"
+    {
+        "id": 1,
+        "translations": {
+            "fr": {
+                "name": "Semaine des ambassadeurs 2017",
+                "description": "Semaine des ambassadeurs 2017"
+            }
         }
     }
-}
