@@ -46,7 +46,9 @@ class Test
     protected function initToken()
     {
         $res = $this->request(($endpoint = "/api/oauth/v2/token")."?client_id=".$this->identifier."&client_secret=".$this->secret."&grant_type=password");
-        $this->printResult($endpoint, 'token', $res);
+        if ( $this->show_results ) {
+            $this->printResult($endpoint, 'token', $res);
+        }
         
         $json = json_decode($res->getData(), true);
         $this->token = $json['access_token'];
@@ -162,6 +164,111 @@ class Test
         
         return $this;
     }
+    
+    public function testMetaEvents()
+    {
+        // list
+        $res = $this->request($endpoint = '/api/v2/metaevents');
+        $this->printResult($route, 'list', $res);
+        
+        // one
+        $res = $this->request($route = $endpoint.'/'.$res->getOneFromList()['id']);
+        $this->printResult($route, 'resource', $res);
+        
+        return $this;
+    }
+    
+    public function testMetaGauges()
+    {
+        // list
+        $res = $this->request($route = $endpoint = '/api/v2/metagauges');
+        $this->printResult($route, 'list', $res);
+        
+        // one
+        $res = $this->request($route = $endpoint.'/'.$res->getOneFromList()['id']);
+        $this->printResult($route, 'resource', $res);
+        
+        return $this;
+    }
+    
+    public function testGauges()
+    {
+        // base manif
+        $res = $this->request($endpoint = '/api/v2/manifestations');
+        $this->printResult($endpoint, 'list', $res);
+        
+        // list
+        $found = false;
+        for ( $i = 0 ; !$found && $i < 10 ; $i++ ) {
+            $res = $this->request($route = $endpoint = '/api/v2/manifestations/'.$res->getOneFromList()['id'].'/gauges');
+            $this->printResult($route, 'list', $res);
+            $found = count($res->getData(true)['_embedded']['items']) > 0;
+        }
+        // failure by lack of data
+        if ( !$found ) {
+            echo "The test failed due to no foundable gauge.\n\n";
+            return $this;
+        }
+        
+        $gauge = $res->getOneFromList();
+        
+        // base workspace
+        $ws = $this->request($tmp = '/api/v2/metagauges?criteria[id][type]=not equal&criteria[id][value]='.$gauge['metaGaugeId']);
+        $this->printResult($tmp, 'search gauge', $res);
+        
+        // one
+        $res = $this->request($route = $endpoint.'/'.$gauge['id']);
+        $this->printResult($route, 'resource', $res);
+        
+        // update
+        $res = $this->request($route = $endpoint.'/'.$gauge['id'], 'POST', ['total' => $gauge['total'] + rand(1,10)*(rand(0,1)*2-1)]);
+        $this->printResult($route, 'update', $res);
+        
+        // one
+        $res = $this->request($route = $endpoint.'/'.$gauge['id']);
+        $this->printResult($route, 'resource', $res);
+        
+        // create
+        $res = $this->request($route = $endpoint, 'POST', [
+            'metaGaugeId'       => 3,
+            'total'             => 42,
+            'manifestationId'   => 20,
+        ]);
+        $this->printResult($route, 'create', $res);
+        
+        $gauge = $res->getData(true);
+        
+        // add price to gauge
+        $prices = $this->request('/api/v2/prices');
+        $res = $this->request($route = $endpoint.'/'.$gauge['id'].'/price', 'POST', [
+            'priceId' => $price_id = $prices->getOneFromList()['id'],
+            'value'   => NULL,
+        ]);
+        $this->printResult($route, 'add price', $res);
+        
+        // one
+        $res = $this->request($route = $endpoint.'/'.$gauge['id']);
+        $this->printResult($route, 'resource', $res);
+        
+        // remove price from gauge
+        $prices = $this->request('/api/v2/prices');
+        $res = $this->request($route = $endpoint.'/'.$gauge['id'].'/price/'.$price_id, 'DELETE');
+        $this->printResult($route, 'remove price', $res);
+        
+        // one
+        $res = $this->request($route = $endpoint.'/'.$gauge['id']);
+        $this->printResult($route, 'resource', $res);
+        
+        // delete
+        $res = $this->request($route = $endpoint.'/'.$gauge['id'], 'DELETE');
+        $this->printResult($route, 'delete', $res);
+        
+        // one
+        $res = $this->request($route = $endpoint.'/'.$gauge['id']);
+        $this->printResult($route, 'resource', $res);
+        
+        return $this;
+    }
 
     public function testManifestations()
     {
@@ -202,6 +309,17 @@ class Test
             'locationId'    => $locations->getOneFromList()['id'],
         ]);
         $this->printResult($route, 'update', $res);
+        
+        // add price to manifestation
+        // TODO
+
+        // get one
+        $res = $this->request($route = $endpoint.'/'.$manifid);
+        $this->printResult($route, 'resource', $res);
+
+        // add gauge
+        // add price to gauge
+        // TODO
         
         // get one
         $res = $this->request($route = $endpoint.'/'.$manifid);
@@ -269,9 +387,9 @@ class Test
     {
         if ( $this->show_results ) {
             echo $result->getData()."\n";
-            echo $this->lastCurlEquivalent."\n\n";
-            $this->lastCurlEquivalent = '';
         }
+        echo $this->lastCurlEquivalent."\n\n";
+        $this->lastCurlEquivalent = '';
         
         echo "$endpoint | $action | ";
         echo !$result->isSuccess() ? 'ERROR' : 'SUCCESS';
@@ -304,7 +422,7 @@ class Test
         
         $h = implode('" -H "', $headers);
         $this->lastCurlEquivalent = sprintf('$ curl -k "%s" -H "%s" -X %s %s',
-            $this->base.$uri,
+            str_replace(['[', ']', ' '], ['\\[', '\\]', '%20'], $this->base.$uri),
             $h,
             $method,
             $data ? "--data '".json_encode($data)."'" : ''
