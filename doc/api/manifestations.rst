@@ -26,29 +26,6 @@ When you get a collection of resources, "Default" serialization group will be us
 | timeSlots        | Collection of timeslot objects serialized                                                                |
 +------------------+----------------------------------------------------------------------------------------------------------+
 
-Gauges API response structure
-------------------------------
-
-When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
-
-+------------------+--------------------------------------------------------------------------+
-| Field            | Description                                                              |
-+==================+==========================================================================+
-| id               | Id of the gauge                                                          |
-+------------------+--------------------------------------------------------------------------+
-| name             | Name of the current Gauge (through its Workspace)                        |
-+------------------+--------------------------------------------------------------------------+
-| metaGaugeId      | Id of the Meta Gauge (its Workspace id)                                  |
-+------------------+--------------------------------------------------------------------------+
-| availableUnits   | The available space in this gauge                                        |
-|                  | To avoid information leaks, if more space is available than the maximum  |
-|                  | configured, the maximum is exposed instead of the really available space |
-+------------------+--------------------------------------------------------------------------+
-| totalUnits       | *Optional* The size of the gauge                                         |
-+------------------+--------------------------------------------------------------------------+
-| prices           | Collection of Prices                                                     |
-+------------------+--------------------------------------------------------------------------+
-
 Prices API response structure
 ------------------------------
 
@@ -66,8 +43,8 @@ When you get a collection of resources, "Default" serialization group will be us
 | currencyCode     | Currency of the cart                                                     |
 +------------------+--------------------------------------------------------------------------+
 
-TimeSlots API response structure
---------------------------------
+TimeSlots API response structure *Optional*
+--------------------------------------------
 
 When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
 
