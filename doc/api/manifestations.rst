@@ -90,12 +90,12 @@ Example
     $ curl http://e-venement.local/api/v2/manifestations \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X GET \'
-         {
-             'criteria[metaEvents.id][type]': 'equals',
-             'criteria[metaEvents.id][value]': 12,
-             'limit': 100
-        }'
+        -X GET '
+            {
+                "criteria[metaEvents.id][type]": "equals",
+                "criteria[metaEvents.id][value]": 12,
+                "limit": 100
+            }'
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
