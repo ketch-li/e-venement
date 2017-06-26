@@ -54,7 +54,7 @@ To retrieve the payment 20, the following snippet can be used:
     $ curl http://e-venement.local/api/v2/payments/20 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X POST \
+        -X POST
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -112,7 +112,7 @@ To see the first page of the paginated list of payments with two payments on eac
     $ curl http://e-venement.local/api/v2/payments/?limit=2 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X POST \
+        -X POST
         
 Sample Response
 ^^^^^^^^^^^^^^^^^^
