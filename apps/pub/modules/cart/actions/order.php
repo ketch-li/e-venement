@@ -323,8 +323,13 @@
     }
     else
     {
-      $this->getUser()->saveCart();
-      
+      $currency = sfConfig::get('project_internals_currency', array());
+      if ( !isset($currency['conversions']) || 
+         (is_array($currency['conversions']) && $currency['conversions'] && $request->getPostParameter('currency', false)) )
+      {
+        $this->getUser()->saveCart();
+      }
+    
       // simple configuration
       if ( sfConfig::get('app_payment_type', false) )
       {
