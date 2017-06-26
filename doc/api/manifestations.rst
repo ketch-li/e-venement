@@ -51,15 +51,19 @@ Available actions to interact with a manifestation
 +------------------+----------------------------------------------+
 | Action           | Description                                  |
 +==================+==============================================+
-| List             | Getting a single manifestation               |
+| List             | List manifestations                          |
 +------------------+----------------------------------------------+
 | Show             | Getting a single manifestation               |
 +------------------+----------------------------------------------+
-| Create           | Getting a single manifestation               |
+| Create           | Create a manifestation                       |
 +------------------+----------------------------------------------+
-| Update           | Getting a single manifestation               |
+| Update           | Update a manifestation                       |
 +------------------+----------------------------------------------+
-| Delete           | Getting a single manifestation               |
+| Delete           | Delete a manifestation                       |
++------------------+----------------------------------------------+
+| Add Price        | Add a price to a manifestation               |
++------------------+----------------------------------------------+
+| Remove Price     | Remove a price from a manifestation          |
 +------------------+----------------------------------------------+
 
 
@@ -365,3 +369,275 @@ Sample Response
             }
         ]
     }
+
+Creating a manifestation
+-------------------------
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    POST /api/v2/manifestations
+
++--------------------------+----------------+-----------------------------------------------------+
+| Parameter                | Parameter type | Description                                         |
++==========================+================+=====================================================+
+| Authorization            | header         | Token received during authentication                |
++--------------------------+----------------+-----------------------------------------------------+
+| id                       | url attribute  | Id of the requested resource                        |
++--------------------------+----------------+-----------------------------------------------------+
+| startsAt                 | request        | Manifestation start date & time *Required*          |
++--------------------------+----------------+-----------------------------------------------------+
+| endsAt                   | request        | Manifestation end date & time *Required*            |
++--------------------------+----------------+-----------------------------------------------------+
+| eventId                  | request        | Manifestation event Id *Required*                   |
++--------------------------+----------------+-----------------------------------------------------+
+| locationId               | request        | Manifestation location Id *Required*                |
++--------------------------+----------------+-----------------------------------------------------+
+| vatId                    | request        | Manifestation appliable VAT Id *Required*           |
++--------------------------+----------------+-----------------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl -k "https://dev2.libre-informatique.fr/tck.php/api/v2/manifestations" \
+           -H "Content-Type: application/json" \
+           -H "Authorization: Bearer 00d22dd8b44673c16012f16d3d6bbe35" \
+           -X POST
+           --data '{
+                "startsAt":"20170717T120355+02:00",
+                "endsAt":"20170717T130355+02:00",
+                "eventId":1,
+                "locationId":5,
+                "vatId":1
+           }'
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 201 Created
+
+.. code-block:: json
+
+    {
+        "id": 89,
+        "startsAt": "20170717T120355+02:00",
+        "endsAt": "20170717T130355+02:00",
+        "vat": "0.0000",
+        "event": {
+            "id": 1,
+            "metaEvent": {
+                "id": 1,
+                "translations": {
+                    "fr": {
+                        "name": "Semaine des ambassadeurs 2017",
+                        "description": "Semaine des ambassadeurs 2017"
+                    }
+                }
+            },
+            "category": "Caf\u00e9 d'accueil",
+            "translations": {
+                "en": {
+                    "name": "",
+                    "subtitle": "",
+                    "short_name": "",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                },
+                "fr": {
+                    "name": "Caf\u00e9 d'accueil",
+                    "subtitle": "",
+                    "short_name": "Accueil",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                }
+            },
+            "imageId": 1,
+            "imageURL": "\/tck.php\/api\/v2\/pictures\/1"
+        },
+        "location": {
+            "id": 5,
+            "name": "Ext01",
+            "address": "",
+            "zip": "",
+            "city": "",
+            "country": ""
+        },
+        "gauges": []
+    }
+
+If you try to create a manifestation without a required field, you will receive a ``400 Bad Request`` error.
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl -k "https://dev2.libre-informatique.fr/tck.php/api/v2/manifestations" \
+           -H "Content-Type: application/json" \
+           -H "Authorization: Bearer 00d22dd8b44673c16012f16d3d6bbe35" \
+           -X POST
+           --data '{
+                "startsAt":"20170717T120355+02:00",
+                "endsAt":"20170717T130355+02:00",
+                "eventId":1,
+           }'
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 400 Bad Request
+
+.. code-block:: json
+
+    {
+        "code": 400,
+        "message": "Create failed"
+    }
+
+Updating a Manifestation
+-------------------------
+
+You can request full or partial update of resource, using the POST method.
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    POST /api/v2/manifestations/{id}
+
++--------------------------+----------------+-----------------------------------------------------+
+| Parameter                | Parameter type | Description                                         |
++==========================+================+=====================================================+
+| Authorization            | header         | Token received during authentication                |
++--------------------------+----------------+-----------------------------------------------------+
+| id                       | url attribute  | Id of the requested resource                        |
++--------------------------+----------------+-----------------------------------------------------+
+| startsAt                 | request        | Manifestation start date & time                     |
++--------------------------+----------------+-----------------------------------------------------+
+| endsAt                   | request        | Manifestation end date & time                       |
++--------------------------+----------------+-----------------------------------------------------+
+| eventId                  | request        | Manifestation event Id                              |
++--------------------------+----------------+-----------------------------------------------------+
+| locationId               | request        | Manifestation location Id                           |
++--------------------------+----------------+-----------------------------------------------------+
+| vatId                    | request        | Manifestation appliable VAT Id                      |
++--------------------------+----------------+-----------------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/manifestations/84 \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Content-Type: application/json" \
+        -X POST \
+        --data '
+            {
+                "endsAt":"20170717T111927+02:00",
+                "locationId":1
+           }'
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 200 OK
+
+.. code-block:: json
+
+    {
+        "id": 84,
+        "startsAt": "20170717T094924+02:00",
+        "endsAt": "20170717T111927+02:00",
+        "vat": "0.0000",
+        "event": {
+            "id": 1,
+            "metaEvent": {
+                "id": 1,
+                "translations": {
+                    "fr": {
+                        "name": "Semaine des ambassadeurs 2017",
+                        "description": "Semaine des ambassadeurs 2017"
+                    }
+                }
+            },
+            "category": "Caf\u00e9 d'accueil",
+            "translations": {
+                "en": {
+                    "name": "",
+                    "subtitle": "",
+                    "short_name": "",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                },
+                "fr": {
+                    "name": "Caf\u00e9 d'accueil",
+                    "subtitle": "",
+                    "short_name": "Accueil",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                }
+            },
+            "imageId": 1,
+            "imageURL": "\/tck.php\/api\/v2\/pictures\/1"
+        },
+        "location": {
+            "id": 1,
+            "name": "CCM - Grande salle",
+            "address": "",
+            "zip": "",
+            "city": "",
+            "country": ""
+        },
+        "gauges": []
+    }
+
+Deleting a Manifestation *Optional*
+------------------------------------
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    DELETE /api/v2/manifestations/{id}
+
++---------------+----------------+-------------------------------------------+
+| Parameter     | Parameter type | Description                               |
++===============+================+===========================================+
+| Authorization | header         | Token received during authentication      |
++---------------+----------------+-------------------------------------------+
+| id            | url attribute  | Id of the requested resource              |
++---------------+----------------+-------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/manifestations/84 \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Accept: application/json" \
+        -X DELETE
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 204 No Content
