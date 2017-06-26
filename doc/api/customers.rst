@@ -236,7 +236,7 @@ Sample Response
 
 .. code-block:: json
 
-   {
+  {
     "id": 94,
     "email": "laurent.martin@yahoo.fr",
     "firstName": "Laurent",
@@ -334,8 +334,6 @@ Sample Response
         ]
     }
   }
-
-     
 
 Updating a Customer
 -------------------
