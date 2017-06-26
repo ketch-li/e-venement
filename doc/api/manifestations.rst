@@ -17,6 +17,8 @@ When you get a collection of resources, "Default" serialization group will be us
 +------------------+----------------------------------------------------------------------------------------------------------+
 | endsAt           | Date when the manifestation ends  [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601)    |
 +------------------+----------------------------------------------------------------------------------------------------------+
+| endsAt           | Vat rate appliable for this manifestation                                                                |
++------------------+----------------------------------------------------------------------------------------------------------+
 | location         | Location object serialized                                                                               |
 +------------------+----------------------------------------------------------------------------------------------------------+
 | event            | Event object serialized                                                                                  |
@@ -49,7 +51,15 @@ Available actions to interact with a manifestation
 +------------------+----------------------------------------------+
 | Action           | Description                                  |
 +==================+==============================================+
+| List             | Getting a single manifestation               |
++------------------+----------------------------------------------+
 | Show             | Getting a single manifestation               |
++------------------+----------------------------------------------+
+| Create           | Getting a single manifestation               |
++------------------+----------------------------------------------+
+| Update           | Getting a single manifestation               |
++------------------+----------------------------------------------+
+| Delete           | Getting a single manifestation               |
 +------------------+----------------------------------------------+
 
 
@@ -73,8 +83,8 @@ Example
     $ curl http://e-venement.local/api/v2/manifestations \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X GET '
-            {
+        -X GET \
+        -- data '{
                 "criteria[metaEvents.id][type]": "equals",
                 "criteria[metaEvents.id][value]": 12,
                 "limit": 100
@@ -253,8 +263,6 @@ Sample Response
         ]
     }
 }
-
-
 
 Getting a single manifestation
 ------------------------------
