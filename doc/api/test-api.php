@@ -56,11 +56,17 @@ class Test
         return $this;
     }
     
+    public function testOrders()
+    {
+        // TODO
+        
+        return $this;
+    }
     public function testCustomers()
     {
         // create
         $customer = [
-            'email' => 'baptiste.simon@test.tld',
+            'email'     => 'baptiste.simon@test.tld',
             'firstName' => 'Baptiste',
             'lastName'  => 'SIMON',
             'address'   => 'TEST',
@@ -251,7 +257,6 @@ class Test
         $this->printResult($route, 'resource', $res);
         
         // remove price from gauge
-        $prices = $this->request('/api/v2/prices');
         $res = $this->request($route = $endpoint.'/'.$gauge['id'].'/price/'.$price_id, 'DELETE');
         $this->printResult($route, 'remove price', $res);
         
@@ -273,7 +278,7 @@ class Test
     public function testManifestations()
     {
         // list
-        $res = $this->request($endpoint = '/api/v2/manifestations');
+        $res = $this->request($route = $endpoint = '/api/v2/manifestations');
         $this->printResult($route, 'list', $res);
         
         // one
@@ -288,16 +293,24 @@ class Test
         $vats = $this->request($route = '/api/v2/vats');
         
         // create
-        $event = [
+        $manif = [
             'startsAt'      => str_replace('-', 'T', date('Ymd-HisP', strtotime('+3 weeks'))),
             'endsAt'        => str_replace('-', 'T', date('Ymd-HisP', strtotime('+3 weeks + 1 hour'))),
             'eventId'       => $events->getOneFromList()['id'],
             'locationId'    => $locations->getOneFromList()['id'],
             'vatId'         => $vats->getOneFromList()['id'],
         ];
-        $res = $this->request($route = $endpoint, 'POST', $event);
+        $res = $this->request($route = $endpoint, 'POST', $manif);
         $this->printResult($route, 'create', $res);
         $manifid = $res->getData(true)['id'];
+        
+        // add a gauge
+        $res = $this->request($route = '/api/v2/manifestations/'.$manifid.'/gauges', 'POST', [
+            'metaGaugeId'       => 3,
+            'total'             => 42,
+            'manifestationId'   => $manifid,
+        ]);
+        $this->printResult($route, 'create gauge', $res);
         
         // get one
         $res = $this->request($route = $endpoint.'/'.$manifid);
@@ -310,21 +323,26 @@ class Test
         ]);
         $this->printResult($route, 'update', $res);
         
+        // remove price from manifestation
+        $res = $this->request($route = $endpoint.'/'.$manifid.'/price/'.$price_id, 'DELETE');
+        $this->printResult($route, 'remove price', $res);
+        
+        // get one
+        $res = $this->request($route = $endpoint.'/'.$manifid);
+        $this->printResult($route, 'resource', $res);
+        
         // add price to manifestation
-        // TODO
+        $prices = $this->request('/api/v2/prices');
+        $res = $this->request($route = $endpoint.'/'.$manifid.'/price', 'POST', [
+            'priceId' => $price_id = $prices->getOneFromList()['id'],
+            'value'   => NULL,
+        ]);
+        $this->printResult($route, 'add price', $res);
 
         // get one
         $res = $this->request($route = $endpoint.'/'.$manifid);
         $this->printResult($route, 'resource', $res);
 
-        // add gauge
-        // add price to gauge
-        // TODO
-        
-        // get one
-        $res = $this->request($route = $endpoint.'/'.$manifid);
-        $this->printResult($route, 'resource', $res);
-        
         // delete
         $res = $this->request($route = $endpoint.'/'.$manifid, 'DELETE');
         $this->printResult($route, 'delete', $res);
