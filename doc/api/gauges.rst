@@ -90,42 +90,42 @@ Sample Response
 
 .. code-block:: json
 
-{
-    "page": 1,
-    "limit": 10,
-    "pages": 1,
-    "total": 1,
-    "_links": {
-        "self": {
-            "href": "\/tck.php\/osApiGauges?limit=10"
-        },
-        "first": {
-            "href": "\/tck.php\/osApiGauges?limit=10&page=1"
-        },
-        "last": {
-            "href": "\/tck.php\/osApiGauges?limit=10&page=1"
-        },
-        "next": {
-            "href": "\/tck.php\/osApiGauges?limit=10&page=1"
-        }
-    },
-    "_embedded": {
-        "items": [
-            {
-                "id": 20,
-                "name": "Semaine des ambassadeurs 2017",
-                "metaGaugeId": 1,
-                "availableUnits": 50,
-                "total": 50,
-                "manifestationId": 20,
-                "_link[manifestation]": null,
-                "_link": {
-                    "manifestation": "\/api\/v2\/manifestations\/20"
-                }
+    {
+        "page": 1,
+        "limit": 10,
+        "pages": 1,
+        "total": 1,
+        "_links": {
+            "self": {
+                "href": "\/tck.php\/osApiGauges?limit=10"
+            },
+            "first": {
+                "href": "\/tck.php\/osApiGauges?limit=10&page=1"
+            },
+            "last": {
+                "href": "\/tck.php\/osApiGauges?limit=10&page=1"
+            },
+            "next": {
+                "href": "\/tck.php\/osApiGauges?limit=10&page=1"
             }
-        ]
+        },
+        "_embedded": {
+            "items": [
+                {
+                    "id": 20,
+                    "name": "Semaine des ambassadeurs 2017",
+                    "metaGaugeId": 1,
+                    "availableUnits": 50,
+                    "total": 50,
+                    "manifestationId": 20,
+                    "_link[manifestation]": null,
+                    "_link": {
+                        "manifestation": "\/api\/v2\/manifestations\/20"
+                    }
+                }
+            ]
+        }
     }
-}
 
 Getting a single gauge
 -----------------------
