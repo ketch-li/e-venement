@@ -53,6 +53,23 @@ If you request for a more detailed data, you will receive an object with followi
 | subscribedToNewsletter  | Whether or not the customer is subscribed to newsletter                             |
 +-------------------------+-------------------------------------------------------------------------------------+
 
+Available actions to interact with a manifestation
+--------------------------------------------------
+
++------------------+----------------------------------------------+
+| Action           | Description                                  |
++==================+==============================================+
+| List             | List available customers                     |
++------------------+----------------------------------------------+
+| Show             | Getting a single customer                    |
++------------------+----------------------------------------------+
+| Create           | Create a customer                            |
++------------------+----------------------------------------------+
+| Update           | Update a customer                            |
++------------------+----------------------------------------------+
+| Delete           | Delete a customer                            |
++------------------+----------------------------------------------+
+
 Creating a Customer
 -------------------
 
