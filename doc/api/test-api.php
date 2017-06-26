@@ -56,9 +56,19 @@ class Test
         return $this;
     }
     
+    public function testPayments()
+    {
+        // list
+        $res = $this->request($endpoint = '/api/v2/payments');
+        $this->printResult($endpoint, 'list', $res);
+        
+        return $this;
+    }
     public function testOrders()
     {
-        // TODO
+        // list
+        $res = $this->request($endpoint = '/api/v2/orders');
+        $this->printResult($endpoint, 'list', $res);
         
         return $this;
     }
@@ -323,14 +333,6 @@ class Test
         ]);
         $this->printResult($route, 'update', $res);
         
-        // remove price from manifestation
-        $res = $this->request($route = $endpoint.'/'.$manifid.'/price/'.$price_id, 'DELETE');
-        $this->printResult($route, 'remove price', $res);
-        
-        // get one
-        $res = $this->request($route = $endpoint.'/'.$manifid);
-        $this->printResult($route, 'resource', $res);
-        
         // add price to manifestation
         $prices = $this->request('/api/v2/prices');
         $res = $this->request($route = $endpoint.'/'.$manifid.'/price', 'POST', [
@@ -339,6 +341,14 @@ class Test
         ]);
         $this->printResult($route, 'add price', $res);
 
+        // get one
+        $res = $this->request($route = $endpoint.'/'.$manifid);
+        $this->printResult($route, 'resource', $res);
+
+        // remove price from manifestation
+        $res = $this->request($route = $endpoint.'/'.$manifid.'/price/'.$price_id, 'DELETE');
+        $this->printResult($route, 'remove price', $res);
+        
         // get one
         $res = $this->request($route = $endpoint.'/'.$manifid);
         $this->printResult($route, 'resource', $res);
