@@ -175,10 +175,16 @@
     );
     
     $email = new Email;
-    if ( sfConfig::get('app_contact_professional', false) )
+    if ( sfConfig::get('app_contact_professional', false) ) {
       $email->Professionals[] = $transaction->Professional;
-    else
+    }
+    else {
       $email->Contacts[] = $transaction->Contact;
+    }
+    if ( sfConfig::get('app_contact_organism', false) && $transaction->professional_id ) {
+      $email->Professionals[] = $transaction->Professional;
+      $email->Organisms[] = $transaction->Professional->Organism;
+    }
     $email->setType('Order')->addDispatcherParameter('transaction', $transaction);
     $email->field_bcc = sfConfig::get('app_informations_email','admin@libre-informatique.fr');
     $email->field_subject = sfConfig::get('app_informations_title').': '.__('your order #').$transaction->id;

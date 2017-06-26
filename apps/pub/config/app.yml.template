@@ -53,7 +53,8 @@ all:
     email_products: always    # never | e-products | always (recommanded)
   contact:
     capitalize: [name, firstname, city, country, address]
-    #professional: true
+    #professional: false
+    #organism: false
     #modify_coordinates_first: true
     force_fields:
       phone_number: true
