@@ -19,6 +19,8 @@ When you get a collection of resources, "Default" serialization group will be us
 +------------------+----------------------------------------------------------------------------------------------------------+
 | endsAt           | Vat rate appliable for this manifestation                                                                |
 +------------------+----------------------------------------------------------------------------------------------------------+
+| confirmed        | Confirmation state (boolean) of this manifestation (excepted for specific cases, should be true)         |
++------------------+----------------------------------------------------------------------------------------------------------+
 | location         | Location object serialized                                                                               |
 +------------------+----------------------------------------------------------------------------------------------------------+
 | event            | Event object serialized                                                                                  |
