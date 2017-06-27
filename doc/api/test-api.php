@@ -64,6 +64,7 @@ class Test
         
         return $this;
     }
+    
     public function testOrders()
     {
         // list
@@ -72,7 +73,8 @@ class Test
         
         return $this;
     }
-    public function testCustomers()
+    
+    protected function createCustomer($password, $endpoint = '/api/v2/customers')
     {
         // create
         $customer = [
@@ -83,11 +85,30 @@ class Test
             'zip'       => '29000',
             'city'      => 'Quimper',
             'country'   => 'France',
-            'password'  => 'TesT',
+            'password'  => $password,
         ];
-        $res = $this->request($endpoint = '/api/v2/customers', 'POST', $customer);
+        $res = $this->request($endpoint, 'POST', $customer);
         $this->printResult($endpoint, 'create', $res);
+        return $res;
+    }
+    protected function deleteCustomer($id, $endpoint = '/api/v2/customers')
+    {
+        // delete
+        $res = $this->request($endpoint.'/'.$id, 'DELETE');
+        $this->printResult($endpoint, 'delete', $res);
+        return $res;
+    }
+    protected function loginCustomer($email, $password, $endpoint = '/api/v2/login')
+    {
+        $res = $this->request($endpoint = '/api/v2/login', 'POST', ['email' => $email, 'password' => $password]);
+        $this->printResult($endpoint, 'login', $res);
+    }
+    
+    public function testCustomers()
+    {
+        $res = $this->createCustomer($pwd = 'TesT');
         $data = $res->getData(true);
+        $data['password'] = $pwd;
         
         if ( !$res->isSuccess() ) {
             echo "Aborting...\n";
@@ -95,8 +116,7 @@ class Test
         }
         
         // login
-        $res = $this->request($endpoint = '/api/v2/login', 'POST', ['email' => $customer['email'], 'password' => $customer['password']]);
-        $this->printResult($endpoint, 'login', $res);
+        $this->loginCustomer($data['email'], $data['password']);
         
         // list
         $res = $this->request($endpoint = '/api/v2/customers', 'GET');
@@ -119,8 +139,7 @@ class Test
         $this->printResult($endpoint, 'resource', $res);
         
         // delete
-        $res = $this->request($endpoint = '/api/v2/customers/'.$data['id'], 'DELETE');
-        $this->printResult($endpoint, 'delete', $res);
+        $res = $this->deleteCustomer($data['id']);
         
         // list
         $res = $this->request($endpoint = '/api/v2/customers', 'GET');
@@ -302,6 +321,10 @@ class Test
         // get available events
         $vats = $this->request($route = '/api/v2/vats');
         
+        // create a customer & login
+        $customer = $this->createCustomer($pwd = 'TesT')->getData(true);
+        $this->loginCustomer($customer['email'], $pwd);
+        
         // create
         $manif = [
             'startsAt'      => str_replace('-', 'T', date('Ymd-HisP', strtotime('+3 weeks'))),
@@ -334,7 +357,8 @@ class Test
         $this->printResult($route, 'update', $res);
         
         // add price to manifestation
-        $prices = $this->request('/api/v2/prices');
+        $prices = $this->request($route = '/api/v2/prices');
+        $this->printResult($route, 'list prices', $prices);
         $res = $this->request($route = $endpoint.'/'.$manifid.'/price', 'POST', [
             'priceId' => $price_id = $prices->getOneFromList()['id'],
             'value'   => NULL,
@@ -349,13 +373,25 @@ class Test
         $res = $this->request($route = $endpoint.'/'.$manifid.'/price/'.$price_id, 'DELETE');
         $this->printResult($route, 'remove price', $res);
         
+        // add price to manifestation
+        $prices = $this->request($route = '/api/v2/prices');
+        $this->printResult($route, 'list prices', $prices);
+        $res = $this->request($route = $endpoint.'/'.$manifid.'/price', 'POST', [
+            'priceId' => $price_id = $prices->getOneFromList()['id'],
+            'value'   => NULL,
+        ]);
+        $this->printResult($route, 'add price', $res);
+
         // get one
         $res = $this->request($route = $endpoint.'/'.$manifid);
         $this->printResult($route, 'resource', $res);
-
+        
         // delete
         $res = $this->request($route = $endpoint.'/'.$manifid, 'DELETE');
         $this->printResult($route, 'delete', $res);
+        
+        // delete customer
+        $res = $this->deleteCustomer($customer['id']);
         
         // get one
         $res = $this->request($route = $endpoint.'/'.$manifid);
