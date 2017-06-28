@@ -159,23 +159,25 @@ Sample Response
 
 .. code-block:: json
 
-    {
-        "id":21,
-        "items":[
+    [
+        {
+            "id":21,
+            "items":[
 
-        ],
-        "itemsTotal":0,
-        "adjustments":[
+            ],
+            "itemsTotal":0,
+            "adjustments":[
 
-        ],
-        "adjustmentsTotal":0,
-        "total":0,
-        "customer":{},
-        "_links":{},
-        "currencyCode":"978",
-        "localeCode":"en_US",
-        "checkoutState":"cart"
-    }
+            ],
+            "adjustmentsTotal":0,
+            "total":0,
+            "customer":{},
+            "_links":{},
+            "currencyCode":"978",
+            "localeCode":"en_US",
+            "checkoutState":"cart"
+        }
+    ]
 
 .. note::
 
