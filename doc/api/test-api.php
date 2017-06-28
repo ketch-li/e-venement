@@ -62,6 +62,8 @@ class Test
         $res = $this->request($endpoint = '/api/v2/payments');
         $this->printResult($endpoint, 'list', $res);
         
+        // @todo more tests...
+        
         return $this;
     }
     
@@ -70,6 +72,195 @@ class Test
         // list
         $res = $this->request($endpoint = '/api/v2/orders');
         $this->printResult($endpoint, 'list', $res);
+        
+        // @todo more tests...
+        
+        return $this;
+    }
+    
+    public function testCarts()
+    {
+        // list
+        $res = $this->request($route = $endpoint = '/api/v2/carts', 'GET');
+        $this->printResult($endpoint, 'list', $res);
+        
+        // create
+        $res = $this->request($route = $endpoint, 'POST', [
+            "localeCode" => "fr_FR",
+        ]);
+        $this->printResult($route, 'create', $res);
+        
+        // list
+        $res = $this->request($route = $endpoint, 'GET');
+        $this->printResult($route, 'list', $res);
+        
+        // delete
+        $res = $this->request($route = $endpoint.'/'.$res->getOneFromList()['id'], 'DELETE');
+        $this->printResult($route, 'list', $res);
+
+        // list
+        $res = $this->request($route = $endpoint, 'GET');
+        $this->printResult($route, 'list', $res);
+        $cartId = $res->getOneFromList()['id'];
+        
+        // get a manifestation
+        $manifs = $this->request($route = '/api/v2/manifestations', 'GET');
+        if ( $this->show_results ) {
+            $this->printResult($route, 'search for manifestations', $manifs);
+        }
+        $gauge = NULL;
+        $manifs = $manifs->getData(true)['_embedded']['items'];
+        shuffle($manifs);
+        foreach ( $manifs as $manif ) {
+            if ( !$manif['gauges'] ) {
+                continue;
+            }
+            
+            shuffle($manif['gauges']);
+            foreach ( $manif['gauges'] as $gauge ) {
+                if ( count($gauge['prices']) > 0 ) {
+                    break(2);
+                }
+            }
+        }
+        
+        if ( !$gauge ) {
+            echo "No usable gauge found... break.\n\n";
+            return $this;
+        }
+        
+        // add a ticket on this manifestation
+        shuffle($gauge['prices']);
+        $res = $this->request($route = $endpoint.'/'.$cartId.'/items', 'POST', [
+            'type'          => 'ticket',
+            'declinationId' => $gauge['id'],
+            'quantity'      => 1,
+            'priceId'       => $gauge['prices'][0]['id'],
+        ]);
+        $this->printResult($route, 'add ticket', $res);
+        
+        // get one
+        $res = $this->request($route = $endpoint.'/'.$cartId, 'GET');
+        $this->printResult($route, 'get one', $res);
+        $cart = $res->getData(true);
+        $itemId = $cart['items'][rand(0, count($cart['items']))]['id'];
+        
+        // remove a ticket to this cart
+        $res = $this->request($route = $endpoint.'/'.$cartId.'/items/'.$itemId, 'DELETE', [
+            'type'          => 'ticket',
+        ]);
+        $this->printResult($route, 'remove ticket', $res);
+        
+        // get one
+        $res = $this->request($route = $endpoint.'/'.$cartId, 'GET');
+        $this->printResult($route, 'get one', $res);
+        
+        // add 3 tickets to this cart
+        shuffle($gauge['prices']);
+        $res = $this->request($route = $endpoint.'/'.$cartId.'/items', 'POST', [
+            'type'          => 'ticket',
+            'declinationId' => $gauge['id'],
+            'quantity'      => 3,
+            'priceId'       => $gauge['prices'][0]['id'],
+        ]);
+        $this->printResult($route, 'add 3 tickets', $res);
+        
+        // add a product to this cart
+        $products = $this->request($route = '/api/v2/products', 'GET');
+        if ( $this->show_results ) {
+            $this->printResult($route, 'search for products', $products);
+        }
+        $declination = NULL;
+        $products = $products->getData(true)['_embedded']['items'];
+        if ( !$products ) {
+            echo "No usable product found... break\n\n";
+            return $this;
+        }
+        
+        shuffle($products);
+        foreach ( $products as $product ) {
+            if ( !$product['declinations'] && !$product['prices'] ) {
+                echo "No usable product found... break\n\n";
+                return $this;
+            }
+        }
+        
+        shuffle($product['prices']);
+        $res = $this->request($route = $endpoint.'/'.$cartId.'/items', 'POST', [
+            'type' => 'product',
+            'declinationId' => $product['declinations'][0]['id'],
+            'quantity' => 1,
+            'priceId'  => $product['prices'][0]['id'],
+        ]);
+        $this->printResult($route, 'add 1 product', $res);
+        $itemId = $res->getData(true)['id'];
+        
+        // get one
+        $res = $this->request($route = $endpoint.'/'.$cartId, 'GET');
+        $this->printResult($route, 'get one', $res);
+        $cart = $res->getData(true);
+        
+        // remove a product to this cart
+        $res = $this->request($route = $endpoint.'/'.$cartId.'/items/'.$itemId, 'DELETE', [
+            'type'          => 'product',
+        ]);
+        $this->printResult($route, 'remove product', $res);
+        
+        // get one
+        $res = $this->request($route = $endpoint.'/'.$cartId, 'GET');
+        $this->printResult($route, 'get one', $res);
+        
+        // add 2 products
+        shuffle($product['prices']);
+        shuffle($product['declinations']);
+        $res = $this->request($route = $endpoint.'/'.$cartId.'/items', 'POST', [
+            'type' => 'product',
+            'declinationId' => $product['declinations'][0]['id'],
+            'quantity' => 2,
+            'priceId'  => $product['prices'][0]['id'],
+        ]);
+        $this->printResult($route, 'add 2 product', $res);
+        
+        // get one
+        $res = $this->request($route = $endpoint.'/'.$cartId, 'GET');
+        $this->printResult($route, 'get one', $res);
+        
+        // add a pass to this cart @todo
+        /*
+        $res = $this->request($route = $endpoint.'/'.$cartId.'/items', 'POST', [
+            'type'          => 'ticket',
+            'declinationId' => $gauge['id'],
+            'quantity'      => 1,
+            'priceId'       => $gauge['prices'][0]['id'],
+        ]);
+        $this->printResult($route, 'add ticket', $res);
+        */
+        
+        return $this;
+    }
+    
+    public function testProducts()
+    {
+        // list
+        $res = $this->request($route = $endpoint = '/api/v2/products', 'GET');
+        $this->printResult($route, 'list', $res);
+        
+        // stop here if no product found
+        if ( !$res->getOneFromList() ) {
+            echo "No usable product found... break.\n\n";
+            return $this;
+        }
+        
+        // get one
+        $res = $this->request($route = $endpoint.'/'.$res->getOneFromList()['id'], 'GET');
+        $this->printResult($route, 'get one', $res);
+        
+        $product = $res->getData(true);
+        if ( !$product['prices'] )
+        {
+            echo "No usable prices found... break.\n\n";
+            return $this;
+        }
         
         return $this;
     }
@@ -544,6 +735,9 @@ class HTTPResult
     public function getOneFromList($i = -1)
     {
         $data = $this->getData(true)['_embedded']['items'];
+        if ( !$data ) {
+            return new ArrayObject;
+        }
         return $i < 0 ? $data[rand(0, count($data)-1)] : $data[$i];
     }
 }
