@@ -143,7 +143,8 @@ class Test
         $res = $this->request($route = $endpoint.'/'.$cartId, 'GET');
         $this->printResult($route, 'get one', $res);
         $items = $res->getData(true)['items'];
-        $itemId = $items[rand(0, count($items))]['id'];
+        shuffle($items);
+        $itemId = $items[0]['id'];
         
         // remove a ticket to this cart
         $res = $this->request($route = $endpoint.'/'.$cartId.'/items/'.$itemId, 'DELETE', [
