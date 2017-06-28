@@ -906,8 +906,8 @@ Sample Response
    }
 
 
-Reordering Cart Items
----------------------
+Reordering Cart Items *Optional*
+--------------------------------
 
 To reorder cart items you can call the ``/api/v2/carts/{cartId}/items/reorder`` endpoint with the ``POST`` method.
 All the cart items you are reordering must belong to the same time slot. This feature is optional and can be unavailable, depending on business logic.
