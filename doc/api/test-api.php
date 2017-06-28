@@ -142,18 +142,14 @@ class Test
         // get one
         $res = $this->request($route = $endpoint.'/'.$cartId, 'GET');
         $this->printResult($route, 'get one', $res);
-        $cart = $res->getData(true);
-        $itemId = $cart['items'][rand(0, count($cart['items']))]['id'];
+        $items = $res->getData(true)['items'];
+        $itemId = $items[rand(0, count($items))]['id'];
         
         // remove a ticket to this cart
         $res = $this->request($route = $endpoint.'/'.$cartId.'/items/'.$itemId, 'DELETE', [
             'type'          => 'ticket',
         ]);
         $this->printResult($route, 'remove ticket', $res);
-        
-        // get one
-        $res = $this->request($route = $endpoint.'/'.$cartId, 'GET');
-        $this->printResult($route, 'get one', $res);
         
         // add 3 tickets to this cart
         shuffle($gauge['prices']);
@@ -164,6 +160,10 @@ class Test
             'priceId'       => $gauge['prices'][0]['id'],
         ]);
         $this->printResult($route, 'add 3 tickets', $res);
+        
+        // get one
+        $res = $this->request($route = $endpoint.'/'.$cartId, 'GET');
+        $this->printResult($route, 'get one', $res);
         
         // add a product to this cart
         $products = $this->request($route = '/api/v2/products', 'GET');
@@ -193,7 +193,7 @@ class Test
             'priceId'  => $product['prices'][0]['id'],
         ]);
         $this->printResult($route, 'add 1 product', $res);
-        $itemId = $res->getData(true)['id'];
+        $itemId = $res->getData(true)[0]['id'];
         
         // get one
         $res = $this->request($route = $endpoint.'/'.$cartId, 'GET');
@@ -205,10 +205,6 @@ class Test
             'type'          => 'product',
         ]);
         $this->printResult($route, 'remove product', $res);
-        
-        // get one
-        $res = $this->request($route = $endpoint.'/'.$cartId, 'GET');
-        $this->printResult($route, 'get one', $res);
         
         // add 2 products
         shuffle($product['prices']);
