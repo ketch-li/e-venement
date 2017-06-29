@@ -14,6 +14,7 @@ class ManifestationsService extends EvenementService
 {
     /**
      * @param $options  Array  defaults: ['strict' => true, 'onsite' => true, 'online' => null, 'onkiosk' => null]
+     */
     public function buildQuery(sfGuardUser $user, $transaction_id = 0, $alias = 'm', array $options = [])
     {
         // defaults options
