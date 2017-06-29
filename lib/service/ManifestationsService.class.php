@@ -37,7 +37,9 @@ class ManifestationsService extends EvenementService
           ->leftJoin('w.WorkspaceUsers wsu WITH wsu.sf_guard_user_id = '.$user->getId())
         ;
         if ( $strict ) {
-          $q->andWhere('wsu.sf_guard_user_id IS NOT NULL');
+          $q
+            ->andWhere('wsu.sf_guard_user_id IS NOT NULL')
+            ->andWhere('pgpup.sf_guard_user_id IS NOT NULL OR pmpup.sf_guard_user_id IS NOT NULL');
         }
         
         return $q;
@@ -45,7 +47,7 @@ class ManifestationsService extends EvenementService
     
     public function completeQueryWithContact(Doctrine_Query $q, $contact_id = NULL)
     {
-        if ( $contact_id !== NULL && $contact_id.'' !== ''.intval($contact_id) ) {
+        if (( $contact_id.'' === ''.intval($contact_id) )) {
             return $q;
         }
         
