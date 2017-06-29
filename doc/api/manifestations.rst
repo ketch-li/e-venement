@@ -29,6 +29,10 @@ When you get a collection of resources, "Default" serialization group will be us
 +------------------+----------------------------------------------------------------------------------------------------------+
 | timeSlots        | Collection of timeslot objects serialized                                                                |
 +------------------+----------------------------------------------------------------------------------------------------------+
+| createdAt        | *Optional* Datetime of creation [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601)      |
++------------------+----------------------------------------------------------------------------------------------------------+
+| updatedAt        | *Optional* Datetime of last update  [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601)  |
++------------------+----------------------------------------------------------------------------------------------------------+
 
 TimeSlots API response structure *Optional*
 --------------------------------------------
