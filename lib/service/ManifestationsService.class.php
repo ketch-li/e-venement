@@ -12,19 +12,40 @@
  */
 class ManifestationsService extends EvenementService
 {
-    public function buildQuery(sfGuardUser $user, $transaction_id = 0, $alias = 'm', $strict = true)
+    /**
+     * @param $options  Array  defaults: ['strict' => true, 'onsite' => true, 'online' => null, 'onkiosk' => null]
+    public function buildQuery(sfGuardUser $user, $transaction_id = 0, $alias = 'm', array $options = [])
     {
+        // defaults options
+        foreach ( array(
+            'strict' => true,
+            'onsite' => true,
+            'online' => null,
+            'onkiosk' => null
+        ) as $option => $default ) {
+            $options[$option] = !isset($options[$option]) ? $default : $options[$option];
+        }
+        
         // init
         $transaction_id = $transaction_id ? $transaction_id : 0;
         if ( $transaction_id.'' === ''.intval($transaction_id) ) {
             $transaction_id = 0;
         }
         
+        // onsite / online / onkiosk
+        $subq = array();
+        foreach ( array('onsite', 'online', 'onkiosk') as $option ) {
+            if ( $options[$option] !== null ) {
+                $subq[] = $option.' = '.($options[$option] ? 'TRUE' : 'FALSE');
+            }
+        }
+        $subq = $subq ? implode(' AND ', $subq).' OR ' : '';
+        
         // query
         $q = Doctrine::getTable('Manifestation')->createQuery($alias,true)
           ->leftJoin("$alias.PriceManifestations pm")
           ->leftJoin('pm.Price pmp WITH pmp.hide = FALSE')
-          ->leftJoin("$alias.Gauges g WITH g.onsite = TRUE OR g.id IN (SELECT tck.gauge_id FROM Ticket tck WHERE tck.transaction_id = $transaction_id)")
+          ->leftJoin("$alias.Gauges g WITH ".$subq." g.id IN (SELECT tck.gauge_id FROM Ticket tck WHERE tck.transaction_id = $transaction_id)")
           ->leftJoin('g.PriceGauges pg')
           ->leftJoin('pg.Price pgp WITH pgp.hide = FALSE')
           ->leftJoin('g.Workspace w')
@@ -36,7 +57,7 @@ class ManifestationsService extends EvenementService
           ->leftJoin('pgp.UserPrices      pgpup WITH pgpup.sf_guard_user_id = '.$user->getId())
           ->leftJoin('w.WorkspaceUsers wsu WITH wsu.sf_guard_user_id = '.$user->getId())
         ;
-        if ( $strict ) {
+        if ( $options['strict'] ) {
           $q
             ->andWhere('wsu.sf_guard_user_id IS NOT NULL')
             ->andWhere('pgpup.sf_guard_user_id IS NOT NULL OR pmpup.sf_guard_user_id IS NOT NULL');
