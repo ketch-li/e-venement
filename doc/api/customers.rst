@@ -52,9 +52,9 @@ If you request for a more detailed data, you will receive an object with followi
 +-------------------------+----------------------------------------------------------------------------------------------------------+
 | subscribedToNewsletter  | Whether or not the customer is subscribed to newsletter                                                  |
 +-------------------------+----------------------------------------------------------------------------------------------------------+
-| createdAt               | *Optional* Datetime of creation `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_       |
+| createdAt               | *Optional* Datetime of creation `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_     |
 +-------------------------+----------------------------------------------------------------------------------------------------------+
-| updatedAt               | *Optional* Datetime of last update `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_    |
+| updatedAt               | *Optional* Datetime of last update `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_  |
 +-------------------------+----------------------------------------------------------------------------------------------------------+
 
 Available actions to interact with a manifestation
