@@ -23,9 +23,9 @@ When you get a collection of resources, "Default" serialization group will be us
 +------------------+----------------------------------------------------------------------------------------------------------+
 | manifestations   | Collection of manifestations object serialized                                                           |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| createdAt        | *Optional* Datetime of creation [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601)      |
+| createdAt        | *Optional* Datetime of creation `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_     |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| updatedAt        | *Optional* Datetime of last update  [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601)  |
+| updatedAt        | *Optional* Datetime of last update  `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_ |
 +------------------+----------------------------------------------------------------------------------------------------------+
 
 If you request for more detailed data, you will receive an object with the following fields:

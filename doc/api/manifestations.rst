@@ -13,9 +13,9 @@ When you get a collection of resources, "Default" serialization group will be us
 +==================+==========================================================================================================+
 | id               | Id of the manifestation                                                                                  |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| startsAt         | Date when the manifestation starts [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601)   |
+| startsAt         | Date when the manifestation starts `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_  |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| endsAt           | Date when the manifestation ends  [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601)    |
+| endsAt           | Date when the manifestation ends  `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_   |
 +------------------+----------------------------------------------------------------------------------------------------------+
 | endsAt           | Vat rate appliable for this manifestation                                                                |
 +------------------+----------------------------------------------------------------------------------------------------------+
@@ -29,9 +29,9 @@ When you get a collection of resources, "Default" serialization group will be us
 +------------------+----------------------------------------------------------------------------------------------------------+
 | timeSlots        | Collection of timeslot objects serialized                                                                |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| createdAt        | *Optional* Datetime of creation [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601)      |
+| createdAt        | *Optional* Datetime of creation `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_     |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| updatedAt        | *Optional* Datetime of last update  [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601)  |
+| updatedAt        | *Optional* Datetime of last update  `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_ |
 +------------------+----------------------------------------------------------------------------------------------------------+
 
 TimeSlots API response structure *Optional*
