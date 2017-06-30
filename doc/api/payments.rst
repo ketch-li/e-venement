@@ -19,7 +19,7 @@ Product API response structure
 +------------------+----------------------------------------------------------------------------------------------------+
 | state            | State of the payment process (pending, "completed" is the only implementated state yet)            |
 +------------------+----------------------------------------------------------------------------------------------------+
-| createdAt         | The date and time of creation [ISO 8601 Extended Format](https://fr.wikipedia.org/wiki/ISO_8601)   |
+| createdAt        | The date and time of creation [ISO 8601 Extended Format](https://fr.wikipedia.org/wiki/ISO_8601)   |
 +------------------+----------------------------------------------------------------------------------------------------+
 | _link[order]     | Link to the related order                                                                          |
 +------------------+----------------------------------------------------------------------------------------------------+
