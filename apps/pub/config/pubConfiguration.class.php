@@ -107,15 +107,7 @@ class pubConfiguration extends sfApplicationConfiguration
   {
     $mcf = new MemberCardForm;
     $arr = array();
-    
-    $mct = Doctrine::getTable('MemberCardType')->createQuery('mct')
-      ->select('mct.*')
-      ->addSelect('(SELECT count(mcpm.id) FROM MemberCardPriceModel mcpm WHERE mcpm.member_card_type_id = mct.id) AS nb_available')
-      ->andWhere('mct.id = ?', $member_card_type_id)
-      ->fetchOne();
-    if ( $mct->nb_tickets_mini > $mct->nb_available )
-      return;
-    
+
     $arr['member_card_type_id'] = $member_card_type_id;
     $arr['created_at'] = date('Y-m-d');
     $arr['transaction_id'] = $transaction->id;

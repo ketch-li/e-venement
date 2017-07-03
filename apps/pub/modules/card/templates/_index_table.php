@@ -7,9 +7,7 @@
       <td class="details"><?php echo $type->getRawValue()->public_details ?></td>
       <td class="value"><?php echo format_currency($type->real_value,$sf_context->getConfiguration()->getCurrency()) ?></td>
       <td class="qty">
-        <?php if ( $type->nb_tickets_mini <= $type->MemberCardPriceModels->count() ): ?>
         x <input type="number" name="member_card_type[<?php echo $type->id ?>]" value="<?php echo isset($mct[$type->id]) ? $mct[$type->id] : 0 ?>" min="0" max="<?php echo sfConfig::get('app_member_cards_max_per_transaction', 3) ?>" />
-        <?php endif ?>
       </td>
       <td class="operand">=</td>
       <td class="total"><?php echo format_currency(0,$sf_context->getConfiguration()->getCurrency()) ?></td>

@@ -162,6 +162,43 @@ class cartActions extends sfActions
     // harden data
     $this->getContext()->getConfiguration()->hardenIntegrity();
 
+    // Membercard availability
+    $valid_tickets = 0;
+    $transaction = $this->getUser()->getTransaction();
+    
+    foreach ($transaction->MemberCards as $mc)
+    {
+      $MC_events = array();
+      foreach ($mc->MemberCardType->MemberCardPriceModels as $MC_price_model)
+      {
+        if ( $MC_price_model->event_id )
+        {
+          $MC_events[] = $MC_price_model->event_id;
+        }
+      }
+      
+      foreach ($transaction->Tickets as $ticket)
+      {
+        if ( count($MC_events) > 0 )
+        {
+          if ( in_array($ticket->Manifestation->event_id, $MC_events) )
+          {
+            $valid_tickets++;
+          }
+        }
+        else
+        {
+          $valid_tickets++;
+        }
+      }
+      
+      if ( $valid_tickets < $mc->MemberCardType->nb_tickets_mini )
+      {
+        $this->getUser()->setFlash('error', __("You do not have enough ticket for the membercard ").$mc->MemberCardType->name);
+        $this->redirect('transaction/show?id='.$this->getUser()->getTransactionId());
+      }
+    }
+
     // if every ticket needs a DirectContact
     if ( sfConfig::get('app_tickets_always_need_a_contact', false) && sfConfig::get('app_options_synthetic_plans', false)
       && in_array(NULL, $this->getUser()->getTransaction()->Tickets->toKeyValueArray('id', 'contact_id')) )
