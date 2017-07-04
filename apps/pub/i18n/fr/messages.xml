@@ -1085,7 +1085,8 @@ ou bien suivez ce lien&nbsp;:&lt;br/&gt;
       <trans-unit id="268">
         <source>Street number</source>
         <target>Numéro de la voie</target>
-      </trans-unit id="269">        
+      </trans-unit>                                                        
+      <trans-unit id="269">        
         <source>You do not have enough ticket for the membercard </source>
         <target>Vous n'avez pas assez de billets pour la carte </target>
       </trans-unit>
