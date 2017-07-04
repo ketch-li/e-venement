@@ -38,7 +38,7 @@ all:
       - Symfony Team
       - Sophie MICHEL
       - #symfony-fr
-    version: 2.11.1-dev "XI.I Samhain"
+    version: 2.11.2-dev "XI.I Samhain"
   internals:
     charset:
       old:    ISO-8859-1
