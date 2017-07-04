@@ -87,9 +87,9 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
         $contact = new Contact;
       if ( trim($line[$i++]) )
         $contact->id = trim($line[$i-1]);
-      foreach ( array('name', 'firstname', 'address', 'address', 'postalcode', 'city', 'country') as $field )
+      foreach ( array('title', 'name', 'firstname', 'address', 'address', 'postalcode', 'city', 'country') as $field )
         $contact->$field = trim($line[$i++]);
-      $contact->address = trim($line[3].($line[4] ? "\n".$line[4] : ''));
+      $contact->address = trim($line[4].($line[5] ? "\n".$line[5] : ''));
 
       for ( $j = 0 ; $j < 2 ; $j++ )
       {
@@ -166,7 +166,7 @@ class ContactOrganismCSVImportTask extends sfBaseTask{
       }
 
       // there is a professional
-      if ( trim($line[1]) && trim($line[$orgrank]) )
+      if ( trim($line[2]) && trim($line[$orgrank]) )
       {
         $pro = new Professional;
         $pro->Contact = $contact;

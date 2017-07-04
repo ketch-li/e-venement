@@ -149,7 +149,7 @@
         $('#payment-form-tipi').submit(function() {
             var tipi = window.open('','popuptipi','height=700, width=900, toolbar=no, menubar=no, scrollbars=no, resizable=yes, location=no, directories=no, status=no');
             this.target = 'popuptipi';
-
+      
             location.replace('".url_for('transaction/show?id='.$this->transaction->id)."');
         });
       --></script>

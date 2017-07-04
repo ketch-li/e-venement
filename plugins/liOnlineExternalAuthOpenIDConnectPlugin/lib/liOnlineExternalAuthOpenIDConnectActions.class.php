@@ -41,9 +41,9 @@ class liOnlineExternalAuthOpenIDConnectActions
   {
     $homepage = url_for('@homepage', true);
     
-    if ( $urlLogout = $this->provider->getBaseUrl() )
+    if ( $urlLogout = $this->provider->getLogoutUrl() )
     {
-      $this->action->redirect($urlLogout.'/?logout=1&url='.base64_encode($homepage));
+      $this->action->redirect($urlLogout.'?redirect_uri='.$homepage);
     }
     else
     {

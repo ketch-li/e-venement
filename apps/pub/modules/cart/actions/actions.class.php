@@ -137,8 +137,6 @@ class cartActions extends sfActions
   }
   public function executeCancel(sfWebRequest $request)
   {
-    $this->getUser()->restoreCart();
-    
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
     $this->getUser()->setFlash('error',__('You have just abandonned your payment, you can still empty / correct / validate your cart...'));
     $this->redirect('cart/show');

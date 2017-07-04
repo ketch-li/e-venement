@@ -159,23 +159,25 @@ Sample Response
 
 .. code-block:: json
 
-    {
-        "id":21,
-        "items":[
+    [
+        {
+            "id":21,
+            "items":[
 
-        ],
-        "itemsTotal":0,
-        "adjustments":[
+            ],
+            "itemsTotal":0,
+            "adjustments":[
 
-        ],
-        "adjustmentsTotal":0,
-        "total":0,
-        "customer":{},
-        "_links":{},
-        "currencyCode":"978",
-        "localeCode":"en_US",
-        "checkoutState":"cart"
-    }
+            ],
+            "adjustmentsTotal":0,
+            "total":0,
+            "customer":{},
+            "_links":{},
+            "currencyCode":"978",
+            "localeCode":"en_US",
+            "checkoutState":"cart"
+        }
+    ]
 
 .. note::
 
@@ -267,16 +269,16 @@ Sample Response
     "total": 222,
     "_links": {
         "self": {
-            "href": "\/tck.php\/api\/v2\/carts?limit=10"
+            "href": "\/api\/v2\/carts?limit=10"
         },
         "first": {
-            "href": "\/tck.php\/api\/v2\/carts?limit=10&page=1"
+            "href": "\/api\/v2\/carts?limit=10&page=1"
         },
         "last": {
-            "href": "\/tck.php\/api\/v2\/carts?limit=10&page=23"
+            "href": "\/api\/v2\/carts?limit=10&page=23"
         },
         "next": {
-            "href": "\/tck.php\/api\/v2\/carts?limit=10&page=2"
+            "href": "\/api\/v2\/carts?limit=10&page=2"
         }
     },
     "_embedded": {
@@ -906,8 +908,8 @@ Sample Response
    }
 
 
-Reordering Cart Items
----------------------
+Reordering Cart Items *Optional*
+--------------------------------
 
 To reorder cart items you can call the ``/api/v2/carts/{cartId}/items/reorder`` endpoint with the ``POST`` method.
 All the cart items you are reordering must belong to the same time slot. This feature is optional and can be unavailable, depending on business logic.

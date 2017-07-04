@@ -43,6 +43,6 @@
 <?php endif ?>
 
 <?php if ( $contact->Transactions->count() > 0 ): ?>
-<?php include_partial('index_transactions',array('transactions' => $transactions, 'current_transaction' => $current_transaction)) ?>
+<?php include_partial('index_transactions',array('contact' => $contact)) ?>
 <?php endif ?>
 

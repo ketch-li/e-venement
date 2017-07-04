@@ -36,8 +36,9 @@ all:
       - Très Tôt Théâtre
       - Le 3ème étage de l'Opéra de Paris
       - Symfony Team
-      - #symfony-fr    
-    version: 2.11-dev Capirinha Kerlagatu
+      - Sophie MICHEL
+      - #symfony-fr
+    version: 2.11.1-dev "XI.I Samhain"
   internals:
     charset:
       old:    ISO-8859-1
@@ -62,4 +63,3 @@ all:
     exec_path:
       cupsfilter: /usr/sbin/cupsfilter
       base64: /usr/bin/base64
-

@@ -8,7 +8,9 @@ $(document).ready(function(){
   <?php else: ?>
   window.print();
   <?php endif ?>
-
+  <?php if ( sfConfig::get('project_cards_auto_close', true) ): ?>
+  window.close();
+  <?php endif ?>
 });
 </script>
 <?php if ( !sfConfig::get('project_cards_pdf', false) ): ?>

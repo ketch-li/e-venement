@@ -43,6 +43,14 @@ abstract class PluginContact extends BaseContact
     if ( !$rel['to_contact_id'] )
       unset($this->Relationships[$key]);
     
+    if ( sfContext::hasInstance() )
+    {
+        $serviceName = sfConfig::get('project_password_encryption_service', 'password_plain_text_service');
+        $salt = sfConfig::get('project_password_salt', '');
+        $encryptionService = sfContext::getInstance()->getContainer()->get($serviceName);
+        $this->password = $encryptionService->encrypt($this->password, $salt);
+    }
+
     return parent::preSave($event);
   }
   

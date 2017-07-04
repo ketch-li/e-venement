@@ -8,21 +8,25 @@ Events API response structure
 
 When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
 
-+------------------+------------------------------------------------+
-| Field            | Description                                    |
-+==================+================================================+
-| id               | Id of the event                                |
-+------------------+------------------------------------------------+
-| metaEvent        | Meta-event object serialized                   |
-+------------------+------------------------------------------------+
-| category         | Category of the event                          |
-+------------------+------------------------------------------------+
-| translations     | Collection of translations                     |
-+------------------+------------------------------------------------+
-| imageURL         | URI of the image of the event                  |
-+------------------+------------------------------------------------+
-| manifestations   | Collection of manifestations object serialized |
-+------------------+------------------------------------------------+
++------------------+----------------------------------------------------------------------------------------------------------+
+| Field            | Description                                                                                              |
++==================+==========================================================================================================+
+| id               | Id of the event                                                                                          |
++------------------+----------------------------------------------------------------------------------------------------------+
+| metaEvent        | Meta-event object serialized                                                                             |
++------------------+----------------------------------------------------------------------------------------------------------+
+| category         | Category of the event                                                                                    |
++------------------+----------------------------------------------------------------------------------------------------------+
+| translations     | Collection of translations                                                                               |
++------------------+----------------------------------------------------------------------------------------------------------+
+| imageURL         | URI of the image of the event                                                                            |
++------------------+----------------------------------------------------------------------------------------------------------+
+| manifestations   | Collection of manifestations object serialized                                                           |
++------------------+----------------------------------------------------------------------------------------------------------+
+| createdAt        | *Optional* Datetime of creation `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_     |
++------------------+----------------------------------------------------------------------------------------------------------+
+| updatedAt        | *Optional* Datetime of last update  `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_ |
++------------------+----------------------------------------------------------------------------------------------------------+
 
 If you request for more detailed data, you will receive an object with the following fields:
 
@@ -55,6 +59,12 @@ Available actions to interact with an event
 | List             | Retrieve a collection of events              |
 +------------------+----------------------------------------------+
 | Show             | Getting a single event                       |
++------------------+----------------------------------------------+
+| Create *optional*| Create a single event                        |
++------------------+----------------------------------------------+
+| Update *optional*| Update a single event                        |
++------------------+----------------------------------------------+
+| Delete *optional*| Delete a single event                        |
 +------------------+----------------------------------------------+
 
 Collection of events
@@ -105,16 +115,16 @@ Sample Response
     "total": 14,
     "_links": {
         "self": {
-            "href": "\/tck.php\/api\/v2\/events?limit=10"
+            "href": "\/api\/v2\/events?limit=10"
         },
         "first": {
-            "href": "\/tck.php\/api\/v2\/events?limit=10&page=1"
+            "href": "\/api\/v2\/events?limit=10&page=1"
         },
         "last": {
-            "href": "\/tck.php\/api\/v2\/events?limit=10&page=2"
+            "href": "\/api\/v2\/events?limit=10&page=2"
         },
         "next": {
-            "href": "\/tck.php\/api\/v2\/events?limit=10&page=2"
+            "href": "\/api\/v2\/events?limit=10&page=2"
         }
     },
     "_embedded": {
@@ -141,7 +151,7 @@ Sample Response
                         "extraspec": ""
                     }
                 },
-                "imageURL": "\/tck.php\/api\/v2\/picture\/6",
+                "imageURL": "\/api\/v2\/picture\/6",
                 "manifestations": [
                     {
                         "id": 14,
@@ -317,7 +327,7 @@ Example
     $ curl http://e-venement.local/api/v2/events/123 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X GET \
+        -X GET
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -328,7 +338,6 @@ Sample Response
 
 .. code-block:: json
 
-   [
     {
         "id": 123,
         "metaEvent": {
@@ -351,7 +360,7 @@ Sample Response
                 "extraspec": ""
             }
         },
-        "imageURL": "\/tck.php\/api\/v2\/picture\/6",
+        "imageURL": "\/api\/v2\/picture\/6",
         "manifestations": [
             {
                 "id": 14,
@@ -424,5 +433,256 @@ Sample Response
                 ]
             }
          ]
-      }
-  ]
+     }
+
+Creating an Event *Optional*
+------------------------------
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    POST /api/v2/events
+
++--------------------------+----------------+-----------------------------------------------------+
+| Parameter                | Parameter type | Description                                         |
++==========================+================+=====================================================+
+| Authorization            | header         | Token received during authentication                |
++--------------------------+----------------+-----------------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/events \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Content-Type: application/json" \
+        -X POST \
+        --data '
+        {
+            "metaEvent": { "id": 1 },
+            "translations": {
+                "fr": {
+                    "name": "Saut Homme",
+                    "subtitle": "",
+                    "short_name": "Juniors",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                },
+                "en": {
+                    "name": "Jump Men",
+                    "subtitle": "",
+                    "short_name": "Juniors",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                }
+            },
+            "imageId": 4
+       }'
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 201 Created
+
+.. code-block:: json
+
+    {
+        "id": 19,
+        "metaEvent": {
+            "id": 1,
+            "translations": {
+                "fr": {
+                    "name": "Semaine des ambassadeurs 2017",
+                    "description": "Semaine des ambassadeurs 2017"
+                }
+            }
+        },
+        "category": null,
+        "translations": {
+            "fr": {
+                "name": "Saut Homme",
+                "subtitle": "",
+                "short_name": "Juniors",
+                "description": "",
+                "extradesc": "",
+                "extraspec": ""
+            },
+            "en": {
+                "name": "Jump Men",
+                "subtitle": "",
+                "short_name": "Juniors",
+                "description": "",
+                "extradesc": "",
+                "extraspec": ""
+            }
+        },
+        "imageId": 4,
+        "imageURL": "\/tck_dev.php\/api\/v2\/picture\/19",
+        "manifestations": []
+    }
+
+If you try to create a customer without email, you will receive a ``400 Bad Request`` error.
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/customers \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Content-Type: application/json" \
+        -X POST
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 400 Bad Request
+
+Updating an Event *Optional*
+----------------------------
+
+You can request full or partial update of resource, using the POST method.
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    POST /api/v2/events/{id}
+
++--------------------------+----------------+---------------------------------------------------------------+
+| Parameter                | Parameter type | Description                                                   |
++==========================+================+===============================================================+
+| Authorization            | header         | Token received during authentication                          |
++--------------------------+----------------+---------------------------------------------------------------+
+| id                       | url attribute  | ID of the requested resource                                  |
++--------------------------+----------------+---------------------------------------------------------------+
+| metaEvent[id]            | request        | A valid MetaEvent ID                                          |
++--------------------------+----------------+---------------------------------------------------------------+
+| translations             | request        | Collection of Event Translations, with languages as keys      |
++--------------------------+----------------+---------------------------------------------------------------+
+| imageId                  | request        | A valid Image ID ame                                          |
++--------------------------+--------------------------------------------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/update/106 \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Content-Type: application/json" \
+        -X POST \
+        --data '
+            {
+                "metaEvent": { "id": 1 },
+                "translations": {
+                    "fr": {
+                        "name": "Course Homme",
+                        "subtitle": "",
+                        "short_name": "Juniors",
+                        "description": "",
+                        "extradesc": "",
+                        "extraspec": ""
+                    },
+                    "en": {
+                        "name": "Running Men",
+                        "subtitle": "",
+                        "short_name": "Juniors",
+                        "description": "",
+                        "extradesc": "",
+                        "extraspec": ""
+                    }
+                },
+                "imageId": 3
+           }'
+
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 200 OK
+
+.. code-block:: json
+
+        {
+            "id": 12,
+            "metaEvent": {
+                "id": 1,
+                "translations": {
+                    "fr": {
+                        "name": "Semaine des coureurs 2017",
+                        "description": "Semaine des coureurs 2017"
+                    }
+                }
+            },
+            "category": "S\u00e9ance pl\u00e9ni\u00e8re consacr\u00e9e \u00e0 l'Europe",
+            "translations": {
+                "en": {
+                    "name": "Running Men",
+                    "subtitle": "",
+                    "short_name": "Juniors",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                },
+                "fr": {
+                    "name": "Course Homme",
+                    "subtitle": "",
+                    "short_name": "Juniors",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                }
+            },
+            "imageId": 3,
+            "imageURL": "\/tck_dev.php\/api\/v2\/picture\/12",
+            "manifestations": []
+        }
+
+
+Deleting an Event *Optional*
+------------------------------
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    DELETE /api/v2/events/{id}
+
++---------------+----------------+-------------------------------------------+
+| Parameter     | Parameter type | Description                               |
++===============+================+===========================================+
+| Authorization | header         | Token received during authentication      |
++---------------+----------------+-------------------------------------------+
+| id            | url attribute  | Id of the requested resource              |
++---------------+----------------+-------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/events/399 \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Accept: application/json" \
+        -X DELETE
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 204 No Content

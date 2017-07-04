@@ -10,6 +10,8 @@ all:
       abstract: true
     manifestations_service:
       class: ManifestationsService
+    member_cards_service:
+      class: MemberCardsService
     app_country_service:
       class: CountryService
     pub_service:

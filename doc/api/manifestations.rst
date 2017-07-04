@@ -13,61 +13,29 @@ When you get a collection of resources, "Default" serialization group will be us
 +==================+==========================================================================================================+
 | id               | Id of the manifestation                                                                                  |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| startsAt         | Date when the manifestation starts [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601)   |
+| startsAt         | Date when the manifestation starts `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_  |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| endsAt           | Date when the manifestation ends  [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601)    |
+| endsAt           | Date when the manifestation ends  `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_   |
++------------------+----------------------------------------------------------------------------------------------------------+
+| endsAt           | Vat rate appliable for this manifestation                                                                |
++------------------+----------------------------------------------------------------------------------------------------------+
+| confirmed        | Confirmation state (boolean) of this manifestation (excepted for specific cases, should be true)         |
 +------------------+----------------------------------------------------------------------------------------------------------+
 | location         | Location object serialized                                                                               |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| event_id         | Id of related event                                                                                      |
+| event            | Event object serialized                                                                                  |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| event            | Translations for the related event                                                                       |
-+------------------+----------------------------------------------------------------------------------------------------------+
-| metaEvent        | Name of related meta-event                                                                               |
-+------------------+----------------------------------------------------------------------------------------------------------+
-| gauges           | Collection of gauges object serialized                                                                   |
+| gauges           | Collection of gauges objects serialized                                                                  |
 +------------------+----------------------------------------------------------------------------------------------------------+
 | timeSlots        | Collection of timeslot objects serialized                                                                |
 +------------------+----------------------------------------------------------------------------------------------------------+
+| createdAt        | *Optional* Datetime of creation `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_     |
++------------------+----------------------------------------------------------------------------------------------------------+
+| updatedAt        | *Optional* Datetime of last update  `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_ |
++------------------+----------------------------------------------------------------------------------------------------------+
 
-Gauges API response structure
-------------------------------
-
-When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
-
-+------------------+--------------------------------------------------------------------------+
-| Field            | Description                                                              |
-+==================+==========================================================================+
-| id               | Id of the gauge                                                          |
-+------------------+--------------------------------------------------------------------------+
-| name             | Name of the current Gauge (through its Workspace)                        |
-+------------------+--------------------------------------------------------------------------+
-| availableUnits   | The available space in this gauge                                        |
-|                  | To avoid information leaks, if more space is available than the maximum  |
-|                  | configured, the maximum is exposed instead of the really available space |
-+------------------+--------------------------------------------------------------------------+
-| prices           | Collection of Prices                                                     |
-+------------------+--------------------------------------------------------------------------+
-
-Prices API response structure
-------------------------------
-
-When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
-
-+------------------+--------------------------------------------------------------------------+
-| Field            | Description                                                              |
-+==================+==========================================================================+
-| id               | Id of the price                                                          |
-+------------------+--------------------------------------------------------------------------+
-| translations     | Collection of translations                                               |
-+------------------+--------------------------------------------------------------------------+
-| value            | Amount of the price in the current currency                              |
-+------------------+--------------------------------------------------------------------------+
-| currencyCode     | Currency of the cart                                                     |
-+------------------+--------------------------------------------------------------------------+
-
-TimeSlots API response structure
---------------------------------
+TimeSlots API response structure *Optional*
+--------------------------------------------
 
 When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
 
@@ -89,7 +57,19 @@ Available actions to interact with a manifestation
 +------------------+----------------------------------------------+
 | Action           | Description                                  |
 +==================+==============================================+
+| List             | List manifestations                          |
++------------------+----------------------------------------------+
 | Show             | Getting a single manifestation               |
++------------------+----------------------------------------------+
+| Create           | Create a manifestation                       |
++------------------+----------------------------------------------+
+| Update           | Update a manifestation                       |
++------------------+----------------------------------------------+
+| Delete           | Delete a manifestation                       |
++------------------+----------------------------------------------+
+| Add Price        | Add a price to a manifestation               |
++------------------+----------------------------------------------+
+| Remove Price     | Remove a price from a manifestation          |
 +------------------+----------------------------------------------+
 
 
@@ -113,12 +93,12 @@ Example
     $ curl http://e-venement.local/api/v2/manifestations \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X GET \'
-         {
-             'criteria[metaEvents.id][type]': 'equals',
-             'criteria[metaEvents.id][value]': app.config.metaEventId,
-             'limit': 100
-        }'
+        -X GET \
+        -- data '{
+                "criteria[metaEvents.id][type]": "equals",
+                "criteria[metaEvents.id][value]": 12,
+                "limit": 100
+            }'
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -136,16 +116,16 @@ Sample Response
     "total": 53,
     "_links": {
         "self": {
-            "href": "\/tck.php\/api\/v2\/manifestations?limit=10"
+            "href": "\/api\/v2\/manifestations?limit=10"
         },
         "first": {
-            "href": "\/tck.php\/api\/v2\/manifestations?limit=10&page=1"
+            "href": "\/api\/v2\/manifestations?limit=10&page=1"
         },
         "last": {
-            "href": "\/tck.php\/api\/v2\/manifestations?limit=10&page=6"
+            "href": "\/api\/v2\/manifestations?limit=10&page=6"
         },
         "next": {
-            "href": "\/tck.php\/api\/v2\/manifestations?limit=10&page=2"
+            "href": "\/api\/v2\/manifestations?limit=10&page=2"
         }
     },
     "_embedded": {
@@ -294,8 +274,6 @@ Sample Response
     }
 }
 
-
-
 Getting a single manifestation
 ------------------------------
 
@@ -316,7 +294,7 @@ Example
     $ curl http://e-venement.local/api/v2/manifestations/13 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X GET \
+        -X GET
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -327,7 +305,6 @@ Sample Response
 
 .. code-block:: json
 
-   [
     {
         "id": 13,
         "startsAt": "20170801T173000+02:00",
@@ -398,4 +375,275 @@ Sample Response
             }
         ]
     }
-  ]
+
+Creating a manifestation
+-------------------------
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    POST /api/v2/manifestations
+
++--------------------------+----------------+-----------------------------------------------------+
+| Parameter                | Parameter type | Description                                         |
++==========================+================+=====================================================+
+| Authorization            | header         | Token received during authentication                |
++--------------------------+----------------+-----------------------------------------------------+
+| id                       | url attribute  | Id of the requested resource                        |
++--------------------------+----------------+-----------------------------------------------------+
+| startsAt                 | request        | Manifestation start date & time *Required*          |
++--------------------------+----------------+-----------------------------------------------------+
+| endsAt                   | request        | Manifestation end date & time *Required*            |
++--------------------------+----------------+-----------------------------------------------------+
+| eventId                  | request        | Manifestation event Id *Required*                   |
++--------------------------+----------------+-----------------------------------------------------+
+| locationId               | request        | Manifestation location Id *Required*                |
++--------------------------+----------------+-----------------------------------------------------+
+| vatId                    | request        | Manifestation appliable VAT Id *Required*           |
++--------------------------+----------------+-----------------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl -k "https://dev2.libre-informatique.fr/tck.php/api/v2/manifestations" \
+           -H "Content-Type: application/json" \
+           -H "Authorization: Bearer 00d22dd8b44673c16012f16d3d6bbe35" \
+           -X POST
+           --data '{
+                "startsAt":"20170717T120355+02:00",
+                "endsAt":"20170717T130355+02:00",
+                "eventId":1,
+                "locationId":5,
+                "vatId":1
+           }'
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 201 Created
+
+.. code-block:: json
+
+    {
+        "id": 89,
+        "startsAt": "20170717T120355+02:00",
+        "endsAt": "20170717T130355+02:00",
+        "vat": "0.0000",
+        "event": {
+            "id": 1,
+            "metaEvent": {
+                "id": 1,
+                "translations": {
+                    "fr": {
+                        "name": "Semaine des ambassadeurs 2017",
+                        "description": "Semaine des ambassadeurs 2017"
+                    }
+                }
+            },
+            "category": "Caf\u00e9 d'accueil",
+            "translations": {
+                "en": {
+                    "name": "",
+                    "subtitle": "",
+                    "short_name": "",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                },
+                "fr": {
+                    "name": "Caf\u00e9 d'accueil",
+                    "subtitle": "",
+                    "short_name": "Accueil",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                }
+            },
+            "imageId": 1,
+            "imageURL": "\/tck.php\/api\/v2\/pictures\/1"
+        },
+        "location": {
+            "id": 5,
+            "name": "Ext01",
+            "address": "",
+            "zip": "",
+            "city": "",
+            "country": ""
+        },
+        "gauges": []
+    }
+
+If you try to create a manifestation without a required field, you will receive a ``400 Bad Request`` error.
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl -k "https://dev2.libre-informatique.fr/tck.php/api/v2/manifestations" \
+           -H "Content-Type: application/json" \
+           -H "Authorization: Bearer 00d22dd8b44673c16012f16d3d6bbe35" \
+           -X POST
+           --data '{
+                "startsAt":"20170717T120355+02:00",
+                "endsAt":"20170717T130355+02:00",
+                "eventId":1,
+           }'
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 400 Bad Request
+
+.. code-block:: json
+
+    {
+        "code": 400,
+        "message": "Create failed"
+    }
+
+Updating a Manifestation
+-------------------------
+
+You can request full or partial update of resource, using the POST method.
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    POST /api/v2/manifestations/{id}
+
++--------------------------+----------------+-----------------------------------------------------+
+| Parameter                | Parameter type | Description                                         |
++==========================+================+=====================================================+
+| Authorization            | header         | Token received during authentication                |
++--------------------------+----------------+-----------------------------------------------------+
+| id                       | url attribute  | Id of the requested resource                        |
++--------------------------+----------------+-----------------------------------------------------+
+| startsAt                 | request        | Manifestation start date & time                     |
++--------------------------+----------------+-----------------------------------------------------+
+| endsAt                   | request        | Manifestation end date & time                       |
++--------------------------+----------------+-----------------------------------------------------+
+| eventId                  | request        | Manifestation event Id                              |
++--------------------------+----------------+-----------------------------------------------------+
+| locationId               | request        | Manifestation location Id                           |
++--------------------------+----------------+-----------------------------------------------------+
+| vatId                    | request        | Manifestation appliable VAT Id                      |
++--------------------------+----------------+-----------------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/manifestations/84 \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Content-Type: application/json" \
+        -X POST \
+        --data '
+            {
+                "endsAt":"20170717T111927+02:00",
+                "locationId":1
+           }'
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 200 OK
+
+.. code-block:: json
+
+    {
+        "id": 84,
+        "startsAt": "20170717T094924+02:00",
+        "endsAt": "20170717T111927+02:00",
+        "vat": "0.0000",
+        "event": {
+            "id": 1,
+            "metaEvent": {
+                "id": 1,
+                "translations": {
+                    "fr": {
+                        "name": "Semaine des ambassadeurs 2017",
+                        "description": "Semaine des ambassadeurs 2017"
+                    }
+                }
+            },
+            "category": "Caf\u00e9 d'accueil",
+            "translations": {
+                "en": {
+                    "name": "",
+                    "subtitle": "",
+                    "short_name": "",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                },
+                "fr": {
+                    "name": "Caf\u00e9 d'accueil",
+                    "subtitle": "",
+                    "short_name": "Accueil",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                }
+            },
+            "imageId": 1,
+            "imageURL": "\/tck.php\/api\/v2\/pictures\/1"
+        },
+        "location": {
+            "id": 1,
+            "name": "CCM - Grande salle",
+            "address": "",
+            "zip": "",
+            "city": "",
+            "country": ""
+        },
+        "gauges": []
+    }
+
+Deleting a Manifestation *Optional*
+------------------------------------
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    DELETE /api/v2/manifestations/{id}
+
++---------------+----------------+-------------------------------------------+
+| Parameter     | Parameter type | Description                               |
++===============+================+===========================================+
+| Authorization | header         | Token received during authentication      |
++---------------+----------------+-------------------------------------------+
+| id            | url attribute  | Id of the requested resource              |
++---------------+----------------+-------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/manifestations/84 \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Accept: application/json" \
+        -X DELETE
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 204 No Content
