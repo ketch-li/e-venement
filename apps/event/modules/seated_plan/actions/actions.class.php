@@ -160,7 +160,9 @@ class seated_planActions extends autoSeated_planActions
     $format = '/'.str_replace(array('%row%', '%rowm%', '%rown%', '%num%'), array('([a-zA-Z]+)', '(\w+)', '(\d+)', '([0-9]+)'), $params['format']).'/';
     $hop = isset($params['contiguous']) ? 1 : 2;
     
-    $this->getRoute()->getObject()->clearLinks();
+    if ( isset($params['additive']) )
+      $this->getRoute()->getObject()->clearLinks();
+      
     $q = Doctrine::getTable('Seat')->createQuery('s')
       ->andWhere('s.seated_plan_id = ?', $request->getParameter('id'))
       ->orderBy('s.name')
