@@ -1166,7 +1166,7 @@ EOF;
     if ( $value['text'] )
       $q->addWhere("$c.postalcode LIKE ?", $value['text'].'%');
     
-    if ( $value['is_empty'] )
+    if ( isset($values['is_empty']) && $values['is_empty'] )
       $q->andWhere("$c.postalcode IS NULL or $c.postalcode = ''");
       
     return $q;
