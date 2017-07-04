@@ -358,7 +358,7 @@
 
 	<!-- cart line -->
 <script id="cart-line-template" type="text/x-handlebars-template" data-template-type="cartLine">
-	<li class="cart-line " id="{{ id }}" style="border-right: 5px solid {{ color }};">
+	<li class="cart-line" id="{{ id }}" style="border-right: 5px solid {{ color }};">
 		<div class="line-controls">
 			<button class="add-item line-control mdl-button mdl-js-button mdl-button--fab">
 	  			<i class="material-icons light">add</i>
@@ -373,6 +373,9 @@
 				<span class="line-multiplier"> x </span>
 				<span class="line-name">{{ name }}</span>
 			</p>
+			{{#if product.isNecessaryTo}}
+				<p class="linked-product"><?php echo kioskConfiguration::getText('linked_product') ?>  {{ product.isNecessaryTo }}</p>
+			{{/if}}
 			<p class="line-second">
 				<span class="line-price">{{ price.description }} ({{ value }})</span>
 			</p>

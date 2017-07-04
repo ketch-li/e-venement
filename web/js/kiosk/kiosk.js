@@ -765,7 +765,7 @@ LI.kiosk = {
 
             $('#cart-total-value').text(LI.format_currency(LI.kiosk.cart.total, false));
         },
-        addItem: function(item, price, declination) {
+        addItem: function(item, price, declination, linked) {
             var newLine;
             var lineId;
             var lineExists = false;
@@ -863,9 +863,9 @@ LI.kiosk = {
             if(line.product.gauge_url !== undefined ) {
                 available = LI.kiosk.cart.checkAvailability(line.product.gauge_url, line.id, line.product.id);
             }
-                
+
             if(available) {
-                LI.kiosk.cart.updateTransaction({
+                $.when(LI.kiosk.cart.updateTransaction({
                     transaction: {
                         price_new: {
                             _csrf_token: LI.kiosk.CSRF,
@@ -877,6 +877,11 @@ LI.kiosk = {
                             state: '',
                             qty: '1'
                         }
+                    }
+                }))
+                .then(function() {
+                    if(!line.product.isNecessaryTo) {
+                        LI.kiosk.cart.checkForLinkedProducts(line);
                     }
                 });
             }
@@ -891,7 +896,6 @@ LI.kiosk = {
             });
 
             $.get(gaugeUrl, function(data) {
-
                 if(data.free < qty){
                     available = false;
                     $('#' + lineId + ' .remove-item').click();
@@ -900,6 +904,43 @@ LI.kiosk = {
             });
 
             return available;
+        },
+        checkForLinkedProducts: function(line) {
+            $.get(LI.kiosk.urls.getManifestations + '&id=' + LI.kiosk.transaction.id, function(data) {
+
+                $.each(data.success.success_fields[line.product.type].data.content, function(key, item) {
+                    if(item.id != line.product.id) {
+                        item.isNecessaryTo = line.product.name;
+
+                        LI.kiosk.cart.addLinkedProduct(item, line.price, line.declination);
+                    }
+                });
+            });
+        },
+        addLinkedProduct: function(item, linePrice, lineDeclination) {
+            item.type = 'manifestations';
+            item.noLink = true;
+            
+            LI.kiosk.rearrangeProperties(item);
+
+            var linkedDeclination;
+            var linkedPrice;
+
+            $.each(item.declinations, function(key, declination) {
+                if (declination.name == lineDeclination.name) {
+                    linkedDeclination = declination;
+                }
+            });
+
+            $.each(item.prices, function(key, price) {
+                if (price.name == linePrice.name) {
+                    linkedPrice = price;
+                }
+            });
+
+            if(linkedPrice && linkedDeclination) {
+                LI.kiosk.cart.addItem(item, linkedPrice, linkedDeclination, true);
+            }
         },
         updateTransaction: function(data, successCallback, errorCallback) {
             return $.ajax({
