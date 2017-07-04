@@ -2254,6 +2254,10 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>Organizers</source>
         <target>Organisateurs</target>
       </trans-unit>
+      <trans-unit id="563">
+        <source>Additive?</source>
+        <target>Cumulatif</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
