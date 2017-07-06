@@ -73,7 +73,21 @@ $(document).ready(function(){
     if ($('#li_transaction_field_contact_id').hasClass('simplified'))
     {
         $('#autocomplete_transaction_contact_id').attr('placeholder', 'Contact');
-        $('#transaction_postalcode').attr('placeholder', 'CP');
+        if ( LI.printingNeedsZipCode )
+        {
+          if($('#transaction_country').val() === "FRANCE" || $('#transaction_country').val().length === 0)
+          {
+            $('#transaction_postalcode').attr('placeholder', 'CP');
+          }
+          else
+          {
+            $('#transaction_postalcode').attr('placeholder', $("#transaction_country").val());
+          }
+       }
+       else
+       {
+         $('#transaction_postalcode').attr('placeholder', 'CP'); 
+       }
     } else {
         $('#autocomplete_transaction_contact_id').attr('placeholder', '');
         $('#transaction_postalcode').attr('placeholder', '');
