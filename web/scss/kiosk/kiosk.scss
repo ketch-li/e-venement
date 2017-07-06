@@ -374,12 +374,15 @@ ul{
   flex-direction: column;
   display: none;
   margin-left: auto;
-  height: 100%;
   width: 30%;
   min-width: 30%;
   max-width: 30%;
   background-color: $cart-background-color;
   overflow-y: auto;
+  //chrome compatibility workaround
+  height: 100vh;
+  position: relative;
+  top: -64px;
 
   .waves-ripple { background-color: rgba(255, 255, 255, 0.25); }
 
@@ -401,6 +404,8 @@ ul{
   padding: 0;
   margin-top: 5px;
   flex-grow: 1;
+  //chrome compatibility workaround
+  padding-top: 64px;
 
     .cart-line {
       display: flex;
