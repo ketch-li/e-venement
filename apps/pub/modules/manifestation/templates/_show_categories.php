@@ -46,6 +46,30 @@
   
   // to be sure...
   ksort($groups);
+  
+  if ( $sf_user->hasContact() && sfConfig::get('app_options_pass_price_first') )
+  foreach ($sf_user->getContact()->MemberCards as $MemberCard)
+  {
+    foreach (array_reverse($groups) as $name => $prices)
+    {
+      $gps = array();
+      
+      foreach ($prices as $id => $price)
+      {
+        if ( $price['price']->id == $MemberCard->MemberCardType->price_id )
+        {
+          $gps = array($id => $price) + $gps;
+        }
+        else
+        {
+          $gps[$id] = $price;
+        }
+      }
+      
+      $groups[$name] = $gps;
+    }
+  }
+
 ?>
 <ul><?php foreach ( $groups as $name => $prices ): ?>
   <?php if ( count($prices) > 0 ): ?>

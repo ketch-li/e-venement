@@ -78,6 +78,27 @@
     $pms[str_pad($pm->value,10,'0',STR_PAD_LEFT).'|'.$pm->Price->name.'|'.$i] = $pm;
   }
   krsort($pms);
+  
+  if ( $sf_user->hasContact() && sfConfig::get('app_options_pass_price_first') )
+  foreach ($sf_user->getContact()->MemberCards as $MemberCard)
+  {
+    $gps = array();
+    
+    foreach ($pms as $name => $price)
+    {
+      if ( $price->price_id == $MemberCard->MemberCardType->price_id )
+      {
+        $gps = array($name => $price) + $gps;
+      }
+      else
+      {
+        $gps[$name] = $price;
+      }
+    }
+    
+    $pms = $gps;
+  }
+  
 ?>
 <?php foreach ( $pms as $pm ): ?>
 <?php if ( in_array($gauge->workspace_id, $pm->getRawValue()->Price->Workspaces->getPrimaryKeys()) ): ?>
