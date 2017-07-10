@@ -5,6 +5,8 @@
 all:
   sf_guard:
     display_group_description: true
+  sf_guard_plugin:
+    success_signout_url: @homepage
   feed:
     url: http://www.e-venement.org/feed/
     name: e-venement.org
