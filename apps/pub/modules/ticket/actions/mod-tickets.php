@@ -233,8 +233,18 @@
     // setting the most expansive price by default, if none given
     if ( !$ticket->price_id )
     {
-      $q = Doctrine::getTable('price')->createQueryToFindTheMostExpansiveForGauge($tck['gauge_id']);
-      $ticket->Price = $q->andWhere('wsu.id = ?', $this->getUser()->getId())->fetchOne();
+      if ( $this->getUser()->hasContact() && sfConfig::get('app_options_pass_price_first') )
+      {
+        $manifestation = Doctrine::getTable('Manifestation')->findOneById($request->getParameter('manifestation_id'));
+        $mc_prices = $this->getUser()->getAvailableMCPrices($manifestation);
+
+        $ticket->Price = Doctrine::getTable('price')->findOneById(array_keys($mc_prices)[0]);
+      }
+      else
+      {
+        $q = Doctrine::getTable('price')->createQueryToFindTheMostExpansiveForGauge($tck['gauge_id']);
+        $ticket->Price = $q->andWhere('wsu.id = ?', $this->getUser()->getId())->fetchOne();  
+      }
     }
     $ticket->price_name = NULL;
     $ticket->value      = NULL;
