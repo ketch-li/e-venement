@@ -9,7 +9,7 @@
 <?php $total = array('nb+' => 0, 'nb-' => 0, 'value+' => 0, 'value-' => 0); $class = false; ?>
 <?php foreach ( $byPrice as $price ): ?>
   <tr class="<?php echo ($class = !$class) ? 'overlined' : '' ?>">
-    <td class="name"><?php echo $price->description ?></td>
+    <td class="name" data-name="<?php echo $price->name ?>"><?php echo $price->description ?></td>
     <?php $o = $price->tickets_cancelling_value; $i = $price->tickets_normal_value; $c = $price->nb_cancelling; ?>
     <td class="nb"><?php echo $c; $total['nb-'] += $c ?></td>
     <td class="outcomes amount"><?php echo format_currency($o,$sf_context->getConfiguration()->getCurrency()); $total['value-'] += $o ?></td>
@@ -22,7 +22,7 @@
 </tbody>
 <tfoot>
   <tr class="<?php echo ($class = !$class) ? 'overlined' : '' ?>">
-    <td class="name">Total</td>
+    <td class="name" data-name="Total">Total</td>
     <td class="nb"><?php echo $total['nb-'] ?></td>
     <td class="outcomes amount"><?php echo format_currency($total['value-'],$sf_context->getConfiguration()->getCurrency()) ?></td>
     <td class="nb"><?php echo $total['nb+'] ?></td>
