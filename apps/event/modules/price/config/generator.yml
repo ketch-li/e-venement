@@ -34,7 +34,7 @@ generator:
         object_actions:
           _edit: ~
           _delete: ~
-        max_per_page: 50
+        max_per_page: 500
         table_method: getEventPrice
       filter:
         display:
