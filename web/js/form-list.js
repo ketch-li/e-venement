@@ -93,6 +93,7 @@ LI.form_list_pager = function(widget)
     elt = $(this).closest('.sf_admin_form_list');
     $.get($(this).prop('href'),function(data){
       elt.html($($.parseHTML(data)).find('.sf_admin_list'));
+      LI.form_list_change(widget);
       LI.form_list_new(widget);
       LI.form_list_actions(widget);
       LI.form_list_more(widget);
