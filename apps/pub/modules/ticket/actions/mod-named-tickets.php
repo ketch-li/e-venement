@@ -245,23 +245,29 @@
       arsort($order);
       
       if ( $this->getUser()->hasContact() && sfConfig::get('app_options_pass_price_first') )
-      foreach ($this->getUser()->getContact()->MemberCards as $MemberCard)
       {
-        $gps = array();
+        $tmc = $this->getUser()->getTransaction()->MemberCards;
+        $cmc = $this->getUser()->getContact()->getActiveMembercards();
         
-        foreach ($order as $id => $value)
+        foreach ($cmc->merge($tmc) as $MemberCard)
         {
-          if ( $id == $MemberCard->MemberCardType->price_id )
+          $gps = array();
+          $pm = $MemberCard->MemberCardType->MemberCardPriceModels->toKeyValueArray('id', 'price_id');
+          
+          foreach ($order as $id => $value)
           {
-            $gps = array($id => $value) + $gps;
+            if ( in_array($id, $pm) )
+            {
+              $gps = array($id => $value) + $gps;
+            }
+            else
+            {
+              $gps[$id] = $value;
+            }
           }
-          else
-          {
-            $gps[$id] = $value;
-          }
-        }
-        
-        $order = $gps;
+          
+          $order = $gps;
+        }        
       }
 
       foreach ( $order as $pid => $value )
