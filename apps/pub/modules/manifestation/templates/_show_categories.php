@@ -48,15 +48,17 @@
   ksort($groups);
   
   if ( $sf_user->hasContact() && sfConfig::get('app_options_pass_price_first') )
-  foreach ($sf_user->getContact()->MemberCards as $MemberCard)
+  foreach ($sf_user->getContact()->getActiveMembercards()->merge($sf_user->getTransaction()->MemberCards->getRawValue()) as $MemberCard)
   {
+    $pm = $MemberCard->MemberCardType->MemberCardPriceModels->toKeyValueArray('id', 'price_id')->getRawValue();
+
     foreach (array_reverse($groups) as $name => $prices)
     {
       $gps = array();
       
       foreach ($prices as $id => $price)
       {
-        if ( $price['price']->id == $MemberCard->MemberCardType->price_id )
+        if ( in_array($price['price']->id, $pm) )
         {
           $gps = array($id => $price) + $gps;
         }
