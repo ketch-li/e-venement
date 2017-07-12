@@ -46,7 +46,7 @@ LI.kiosk = {
         LI.kiosk.strings = $('#kiosk-strings').data('strings');
         LI.kiosk.devices = $('#kiosk-devices').data('devices');
         LI.kiosk.initPlugins();
-        //LI.kiosk.checkDevices();
+      //  LI.kiosk.checkDevices();
         LI.kiosk.addListeners();
 
         //hide current culture from menu
@@ -626,7 +626,7 @@ LI.kiosk = {
     },
     addPriceListener: function(product, declination) {
         $('#prices').off('click').on('click', '.price', function(event) {
-            LI.kiosk.cart.addItem(product, product.prices[$(event.currentTarget.children).attr('id')], declination);
+            LI.kiosk.cart.addItem(product, product.prices[$(event.currentTarget.children).attr('id')], declination);    
         });
     },
     /********************* CACHE **************************/
@@ -741,13 +741,23 @@ LI.kiosk = {
             var lineTemplate = Handlebars.compile(LI.kiosk.templates.cartLine);
 
             $('#cart-lines').append(lineTemplate(line));
-            
-            $('#' + line.id + ' .remove-item').click(function(){
+
+            $('#' + line.id + ' .remove-item').click(function() {
                 LI.kiosk.cart.removeItem(line.id, item);
+
+                $.each(line.linkedLines, function(id, line) {
+                    LI.kiosk.cart.removeItem(id, line.product);
+                });  
             });
 
-            $('#' + line.id + ' .add-item').click(function(){
+            $('#' + line.id + ' .add-item').click(function() {
                 LI.kiosk.cart.addItem(item, price, declination);
+
+                if(line.linkedLines) {
+                    $.each(line.linkedLines, function(id, line) {
+                        LI.kiosk.cart.addItem(line.product, line.price, line.declination);
+                    });
+                }
             });
         },
         removeLine: function(htmlLine) {
@@ -765,13 +775,14 @@ LI.kiosk = {
 
             $('#cart-total-value').text(LI.format_currency(LI.kiosk.cart.total, false));
         },
-        addItem: function(item, price, declination, linked) {
+        addItem: function(item, price, declination, linkedLineId) {
             var newLine;
             var lineId;
             var lineExists = false;
 
             $.each(LI.kiosk.cart.lines, function(key, line) {
-                if(line.product.id == item.id && line.price.id == price.id && line.declination.id == declination.id){
+                if(line.product.id == item.id && line.price.id == price.id && line.declination.id == declination.id) {
+                            
                     var htmlLine = $('#' + line.id);
 
                     line.qty++;
@@ -787,8 +798,12 @@ LI.kiosk = {
             });
 
             if(!lineExists) {
-                newLine = LI.kiosk.cart.newLine(item, price, declination); 
+                newLine = LI.kiosk.cart.newLine(item, price, declination);
                 LI.kiosk.utils.flash('#' + newLine.id);
+            }
+
+            if(linkedLineId) {
+                LI.kiosk.cart.addLinkedLine(newLine, linkedLineId, item);
             }
 
             LI.kiosk.cart.cartTotal();
@@ -796,9 +811,24 @@ LI.kiosk = {
             if(!$('#cart').is(':visible')) {
                 $('#cart').show(500);
                 $('#cart').css('display', 'flex');
-            }
+            } 
 
             LI.kiosk.cart.validateItem(newLine);
+        },
+        addLinkedLine: function(line, owningLineId, item) {
+            var owningLine = LI.kiosk.cart.lines[owningLineId];
+
+            if(!owningLine.linkedLines) {
+                owningLine.linkedLines = {};
+            }
+
+            if(!owningLine.linkedLines[line.id]) {
+                owningLine.linkedLines[line.id] = line;
+            }
+
+            line.linked = true;
+            owningLine.linked = true;
+            owningLine.isOwner = true;
         },
         removeItem: function(lineId, item) {
             var line = LI.kiosk.cart.lines[lineId];
@@ -833,8 +863,9 @@ LI.kiosk = {
 
             LI.kiosk.cart.cartTotal();
 
-            if(Object.keys(LI.kiosk.cart.lines) < 1)
+            if(Object.keys(LI.kiosk.cart.lines) < 1) {
                 $('#cart').hide(200);
+            }
         },
         newLine: function(item, price, declination) {
             var newLine = {
@@ -860,7 +891,7 @@ LI.kiosk = {
                 available = true;
             }
 
-            if(line.product.gauge_url !== undefined ) {
+            if(line.product.gauge_url !== undefined) {
                 available = LI.kiosk.cart.checkAvailability(line.product.gauge_url, line.id, line.product.id);
             }
 
@@ -880,7 +911,7 @@ LI.kiosk = {
                     }
                 }))
                 .then(function() {
-                    if(!line.product.isNecessaryTo) {
+                    if(!line.product.isNecessaryTo && !line.linked) {
                         LI.kiosk.cart.checkForLinkedProducts(line);
                     }
                 });
@@ -891,12 +922,14 @@ LI.kiosk = {
             var available = true;
 
             $.each(LI.kiosk.cart.lines, function(key, line) {
-                if(line.product.id == productId)
+                if(line.product.id == productId) {
                     qty += line.qty;
+                }
             });
 
             $.get(gaugeUrl, function(data) {
                 if(data.free < qty){
+                    console.log(lineId);
                     available = false;
                     $('#' + lineId + ' .remove-item').click();
                     toastr.info('The last item added to the cart was removed as it wasn\'t available anymore');
@@ -907,18 +940,24 @@ LI.kiosk = {
         },
         checkForLinkedProducts: function(line) {
             $.get(LI.kiosk.urls.getManifestations + '&id=' + LI.kiosk.transaction.id, function(data) {
+                LI.kiosk.cart.handleLinkedProducts(data, line, 'manifestations');
+            });
 
-                $.each(data.success.success_fields[line.product.type].data.content, function(key, item) {
-                    if(item.id != line.product.id) {
-                        item.isNecessaryTo = line.product.name;
-
-                        LI.kiosk.cart.addLinkedProduct(item, line.price, line.declination);
-                    }
-                });
+            $.get(LI.kiosk.urls.getMuseum + '&id=' + LI.kiosk.transaction.id, function(data) {
+                LI.kiosk.cart.handleLinkedProducts(data, line, 'museum');
             });
         },
-        addLinkedProduct: function(item, linePrice, lineDeclination) {
-            item.type = 'manifestations';
+        handleLinkedProducts: function(data, line, productType) {
+            $.each(data.success.success_fields[productType].data.content, function(key, item) {
+                if(item.id != line.product.id) {
+                    item.isNecessaryTo = line.product.name;
+
+                    LI.kiosk.cart.addLinkedProduct(item, line);
+                }
+            });
+        },
+        addLinkedProduct: function(item, line, type) {
+            item.type = type;
             item.noLink = true;
             
             LI.kiosk.rearrangeProperties(item);
@@ -927,19 +966,19 @@ LI.kiosk = {
             var linkedPrice;
 
             $.each(item.declinations, function(key, declination) {
-                if (declination.name == lineDeclination.name) {
+                if (declination.name == line.declination.name) {
                     linkedDeclination = declination;
                 }
             });
 
             $.each(item.prices, function(key, price) {
-                if (price.name == linePrice.name) {
+                if (price.name == line.price.name) {
                     linkedPrice = price;
                 }
             });
 
             if(linkedPrice && linkedDeclination) {
-                LI.kiosk.cart.addItem(item, linkedPrice, linkedDeclination, true);
+                LI.kiosk.cart.addItem(item, linkedPrice, linkedDeclination, line.id);
             }
         },
         updateTransaction: function(data, successCallback, errorCallback) {
@@ -970,7 +1009,7 @@ LI.kiosk = {
             .doTransaction(message)
             .then(function(res) {
                 if(res.stat === '0') {
-                LI.kiosk.finalize();
+                    LI.kiosk.finalize();
                 } else {
                     console.error(res.stat + ' ' + res.getStatusText());
                     LI.kiosk.utils.showPaymentFailurePrompt();

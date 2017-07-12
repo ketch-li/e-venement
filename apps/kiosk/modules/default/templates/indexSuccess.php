@@ -255,7 +255,6 @@
 <!-- JS I18N -->
 <div class="js-i18n" id="kiosk-strings" data-strings="<?php echo htmlspecialchars(json_encode(kioskConfiguration::getTexts())) ?>"></div>
 
-
 <!-- HANDLEBARS TEMPLATES -->
 	<!-- menu item -->
 <script id="menu-item-template" type="text/x-handlebars-template" data-template-type="menuItem">
@@ -360,12 +359,15 @@
 <script id="cart-line-template" type="text/x-handlebars-template" data-template-type="cartLine">
 	<li class="cart-line" id="{{ id }}" style="border-right: 5px solid {{ color }};">
 		<div class="line-controls">
-			<button class="add-item line-control mdl-button mdl-js-button mdl-button--fab">
-	  			<i class="material-icons light">add</i>
-			</button>
-			<button class="remove-item line-control mdl-button mdl-js-button mdl-button--fab">
-	  			<i class="material-icons light">remove</i>
-			</button>
+			{{#if product.isNecessaryTo}}
+			{{else}}
+				<button class="add-item line-control mdl-button mdl-js-button mdl-button--fab">
+		  			<i class="material-icons light">add</i>
+				</button>
+				<button class="remove-item line-control mdl-button mdl-js-button mdl-button--fab">
+		  			<i class="material-icons light">remove</i>
+				</button>
+			{{/if}}
 	    </div>
 	    <div class="line-details">
 			<p class="line-main">
