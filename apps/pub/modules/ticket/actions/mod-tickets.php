@@ -237,10 +237,11 @@
       {
         $manifestation = Doctrine::getTable('Manifestation')->findOneById($request->getParameter('manifestation_id'));
         $mc_prices = $this->getUser()->getAvailableMCPrices($manifestation);
-
-        $ticket->Price = Doctrine::getTable('price')->findOneById(array_keys($mc_prices)[0]);
+        if ( count($mc_prices) > 0 ) 
+          $ticket->Price = Doctrine::getTable('price')->findOneById(array_keys($mc_prices)[0]);
       }
-      else
+
+      if ( !$ticket->price_id )
       {
         $q = Doctrine::getTable('price')->createQueryToFindTheMostExpansiveForGauge($tck['gauge_id']);
         $ticket->Price = $q->andWhere('wsu.id = ?', $this->getUser()->getId())->fetchOne();  
