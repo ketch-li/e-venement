@@ -47,7 +47,7 @@
   <?php endforeach ?>
   <tbody>
   <?php include_partial('show_tickets_list_table_footer',array('total' => $total['not_controlled'])) ?>
-  <?php include_partial('show_tickets_list_table_header')) ?>
+  <?php include_partial('show_tickets_list_table_header') ?>
 </table>
 
 <h2><?php echo __('Controlled tickets') ?></h2>

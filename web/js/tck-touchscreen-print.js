@@ -28,14 +28,25 @@
       }
       
       // Check if zip code is filled or contact is selected (when needed)
-      if ( LI.printingNeedsZipCode &&
-           $('#transaction_postalcode').val().length == 0 &&
-           $('#li_transaction_field_informations .adr .postal-code').text().length == 0 &&
-           !$('#transaction_contact_id').attr('value') )
+      if ( LI.printingNeedsZipCode )
       {
-        LI.alert($('#li_transaction_field_close .print .CP-print-error').html());
-        return false;
-      }       
+        if ( ($('#transaction_country').val().length === 0 || $('#transaction_country').val() === "FRANCE") && 
+          $('#transaction_postalcode').val().length == 0 &&
+          $('#li_transaction_field_informations .adr .postal-code').text().length == 0 &&
+          !$('#transaction_contact_id').attr('value') )
+        {
+          if ($('#li_fieldset_simplified').is(':hidden'))
+          {
+            LI.alert($('#li_transaction_field_close .print .CP-print-error').html());
+          }
+          else
+          {
+            LI.alert($('#li_transaction_field_close .print .CP-print-error-li').html());
+          }
+          
+          return false;
+        }
+      }
 
       if ( $('#li_transaction_manifestations .item.ui-state-highlight').length == 0
         && $(form).find('[name=manifestation_id]').prop('checked') )
