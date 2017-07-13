@@ -43,7 +43,7 @@ class liOnlineExternalAuthOpenIDConnectActions
     
     if ( $urlLogout = $this->provider->getLogoutUrl() )
     {
-      $this->action->redirect($urlLogout.'?redirect_uri='.$homepage);
+      $this->action->redirect($urlLogout.'?post_logout_redirect_uri='.$homepage);
     }
     else
     {
