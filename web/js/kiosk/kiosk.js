@@ -160,7 +160,7 @@ LI.kiosk = {
 
         //accessibility mode
         $('#access-fab').click(function() {
-            $('#access-fab, #app, #back-fab, .panel, #product-details-card').toggleClass('a11y');
+            $('#access-fab, #app, #back-fab, .panel, #product-details-card, #cart').toggleClass('a11y');
         });
 
         $('#reset-btn').click(function() {

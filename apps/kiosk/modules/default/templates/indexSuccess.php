@@ -62,7 +62,7 @@
 	        <?php endforeach ?>
 	        <div class="mdl-layout-spacer"></div>
 			<!-- RESET -->
-	        <button id="reset-btn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+	        <button id="reset-btn" class="mdl-button mdl-js-button mdl-button--icon">
             	<i class="material-icons">replay</i>
           	</button>
 	        <!-- INFO -->
@@ -82,7 +82,7 @@
 					<a href="http://www.postgresql.org/">PostgreSQL</a>
 				</p>
 			</div>
-            <button id="info-btn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+            <button id="info-btn" class="mdl-button mdl-js-button mdl-button--icon">
             	<i class="material-icons">info_outline</i>
           	</button>
 		</div>

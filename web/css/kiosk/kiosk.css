@@ -95,7 +95,7 @@
   #back-fab.a11y {
     top: 15vh; }
 
-/* INFO BUTTON */
+/* A11y BUTTON */
 #access-fab {
   height: 80px;
   width: 80px;
@@ -287,6 +287,8 @@ ul {
   height: 100vh;
   position: relative;
   top: -64px; }
+  #cart.a11y {
+    height: 50vh; }
   #cart .waves-ripple {
     background-color: rgba(255, 255, 255, 0.25); }
   #cart #cart-confirm {
@@ -414,7 +416,7 @@ ul {
   z-index: 999;
   border-radius: 15px; }
   #info-panel p, #info-panel a {
-    color: #fff; }
+    color: #F06292; }
 
 /* LOADER */
 #spinner {
