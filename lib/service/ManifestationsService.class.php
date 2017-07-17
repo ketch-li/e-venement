@@ -20,9 +20,9 @@ class ManifestationsService extends EvenementService
         // defaults options
         foreach ( array(
             'strict' => true,
-            'onsite' => true,
-            'online' => null,
-            'onkiosk' => null
+            'g.onsite' => true,
+            'g.online' => null,
+            'g.onkiosk' => null
         ) as $option => $default ) {
             $options[$option] = !isset($options[$option]) ? $default : $options[$option];
         }
@@ -35,7 +35,7 @@ class ManifestationsService extends EvenementService
         
         // onsite / online / onkiosk
         $subq = array();
-        foreach ( array('onsite', 'online', 'onkiosk') as $option ) {
+        foreach ( array('g.onsite', 'g.online', 'g.onkiosk') as $option ) {
             if ( $options[$option] !== null ) {
                 $subq[] = $option.' = '.($options[$option] ? 'TRUE' : 'FALSE');
             }
