@@ -345,6 +345,7 @@ ul{
   height: 120px;
   min-height: 50px;
   border-radius: 5px;
+  background-color: $primary-color;
 
   .mdl-card__title {
     color: $text-color;
@@ -373,12 +374,15 @@ ul{
   flex-direction: column;
   display: none;
   margin-left: auto;
-  height: 100%;
   width: 30%;
   min-width: 30%;
   max-width: 30%;
   background-color: $cart-background-color;
   overflow-y: auto;
+  //chrome compatibility workaround
+  height: 100vh;
+  position: relative;
+  top: -64px;
 
   .waves-ripple { background-color: rgba(255, 255, 255, 0.25); }
 
@@ -387,6 +391,11 @@ ul{
 
     #confirm-btn {
       background-color: $cart-validate-color;
+      font-size: 1.6em;
+
+      i {
+        font-size: 1.8em;
+      }
     }
   }
 
@@ -395,6 +404,8 @@ ul{
   padding: 0;
   margin-top: 5px;
   flex-grow: 1;
+  //chrome compatibility workaround
+  padding-top: 64px;
 
     .cart-line {
       display: flex;
@@ -403,7 +414,7 @@ ul{
       padding: 8px 8px 8px 16px;
       height: 100px;
       max-height: 100px;
-      background-color: $background-color;
+      background-color: $cart-line-color;
 
       .line-qty, .line-name {
         font-weight: bold;
@@ -413,6 +424,9 @@ ul{
       }
       .line-value {
         font-size: 1.8em;
+      }
+      .linked-product {
+        margin: 0;
       }
 
       /* Add and Remove buttons */

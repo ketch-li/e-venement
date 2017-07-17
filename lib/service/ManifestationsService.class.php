@@ -69,7 +69,7 @@ class ManifestationsService extends EvenementService
     
     public function completeQueryWithContact(Doctrine_Query $q, $contact_id = NULL)
     {
-        if (( $contact_id.'' === ''.intval($contact_id) )) {
+        if (( $contact_id.'' !== ''.intval($contact_id) )) {
             return $q;
         }
         

@@ -23,6 +23,12 @@ Gauges API response structure
 +------------------+--------------------------------------------------------------------------+
 | prices           | Collection of Prices                                                     |
 +------------------+--------------------------------------------------------------------------+
+| createdAt        | *Optional* Datetime of creation                                          |
+|                  | `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_     |
++------------------+--------------------------------------------------------------------------+
+| updatedAt        | *Optional* Datetime of last update                                       |
+|                  | `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_     |
++------------------+--------------------------------------------------------------------------+
 
 Prices API response structure
 ------------------------------

@@ -139,7 +139,7 @@
 			<!-- lines -->
 			<ul id="cart-lines"></ul>
 			<!-- total -->
-			<div id="cart-total" class="mdl-color--blue-grey-800">
+			<div id="cart-total">
 				<span id="cart-total-label"><?php echo kioskConfiguration::getText('cart_total', 'Total') ?></span>
 				<span id="cart-total-value"></span>
 			</div>
@@ -255,7 +255,6 @@
 <!-- JS I18N -->
 <div class="js-i18n" id="kiosk-strings" data-strings="<?php echo htmlspecialchars(json_encode(kioskConfiguration::getTexts())) ?>"></div>
 
-
 <!-- HANDLEBARS TEMPLATES -->
 	<!-- menu item -->
 <script id="menu-item-template" type="text/x-handlebars-template" data-template-type="menuItem">
@@ -358,14 +357,17 @@
 
 	<!-- cart line -->
 <script id="cart-line-template" type="text/x-handlebars-template" data-template-type="cartLine">
-	<li class="cart-line " id="{{ id }}" style="border-right: 5px solid {{ color }};">
+	<li class="cart-line" id="{{ id }}" style="border-right: 5px solid {{ color }};">
 		<div class="line-controls">
-			<button class="add-item line-control mdl-button mdl-js-button mdl-button--fab">
-	  			<i class="material-icons light">add</i>
-			</button>
-			<button class="remove-item line-control mdl-button mdl-js-button mdl-button--fab">
-	  			<i class="material-icons light">remove</i>
-			</button>
+			{{#if product.isNecessaryTo}}
+			{{else}}
+				<button class="add-item line-control mdl-button mdl-js-button mdl-button--fab">
+		  			<i class="material-icons light">add</i>
+				</button>
+				<button class="remove-item line-control mdl-button mdl-js-button mdl-button--fab">
+		  			<i class="material-icons light">remove</i>
+				</button>
+			{{/if}}
 	    </div>
 	    <div class="line-details">
 			<p class="line-main">
@@ -373,6 +375,9 @@
 				<span class="line-multiplier"> x </span>
 				<span class="line-name">{{ name }}</span>
 			</p>
+			{{#if product.isNecessaryTo}}
+				<p class="linked-product"><?php echo kioskConfiguration::getText('linked_product') ?>  {{ product.isNecessaryTo }}</p>
+			{{/if}}
 			<p class="line-second">
 				<span class="line-price">{{ price.description }} ({{ value }})</span>
 			</p>

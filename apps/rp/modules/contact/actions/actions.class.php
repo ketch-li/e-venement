@@ -152,9 +152,10 @@ class contactActions extends autoContactActions
       echo "\n$i: ".memory_get_usage(true);
       // new password
       $letters = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-      if ( !trim($contact->password) )
+      if ( !trim($contact->password) || sfConfig::get('app_contact_force_new', false) )
       {
-        $contact->password = substr(str_shuffle($letters), 0, sfConfig::get('app_contact_auto_password_size', 6));
+        $plain_password = substr(str_shuffle($letters), 0, sfConfig::get('app_contact_auto_password_size', 6));
+        $contact->password = $plain_password;
         $contact->save();
       }
 
@@ -164,13 +165,13 @@ class contactActions extends autoContactActions
         foreach ( $contact->Professionals as $pro )
         if ( $pro->contact_email ) try
         {
-          $this->sendPassword($pro);
+          $this->sendPassword($pro, $plain_password);
         }
         catch ( Swift_RfcComplianceException $e )
         { $errors[] = $pro->contact_email; }
       }
       elseif ( $contact->email )
-        $this->sendPassword($contact);
+        $this->sendPassword($contact, $plain_password);
     }
 
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
@@ -189,7 +190,7 @@ class contactActions extends autoContactActions
       $this->redirect('email/index');
     }
   }
-  protected function sendPassword($obj)
+  protected function sendPassword($obj, $plain_password = null)
   {
     if (!( $obj instanceof Contact ? $obj->email : $obj->contact_email ))
       return false;
@@ -202,7 +203,7 @@ class contactActions extends autoContactActions
     $content .= "<br/>";
     $content .= __('Login: %%login%%', array('%%login%%' => $obj instanceof Contact ? $obj->email : $obj->contact_email));
     $content .= "<br/>";
-    $content .= __('Password: %%password%%', array('%%password%%' => $obj instanceof Contact ? $obj->password : $obj->Contact->password));
+    $content .= __('Password: %%password%%', array('%%password%%' => $plain_password));
     $content .= "<br/>";
     $content .= "<br/>";
     $content .= __('Thanks for your attention');
@@ -376,7 +377,8 @@ class contactActions extends autoContactActions
   }
   public function executeShow(sfWebRequest $request)
   {
-    $this->contact = Doctrine::getTable('Contact')->findWithTickets($request->getParameter('id'));
+    //$this->contact = Doctrine::getTable('Contact')->findWithTickets($request->getParameter('id'));
+    $this->contact = Doctrine::getTable('Contact')->findOneById(intval($request->getParameter('id')));
     $this->forward404Unless($this->contact instanceof Contact);
     $this->form = $this->configuration->getForm($this->contact);
   }

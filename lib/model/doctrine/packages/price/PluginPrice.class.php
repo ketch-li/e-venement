@@ -32,6 +32,12 @@ abstract class PluginPrice extends BasePrice
     
     $this->Ranks[0] = $rank;
     
+    Doctrine_Query::create()
+      ->update('Price')
+      ->set('rank', 'id')
+      ->andWhere('id = ?', $this->id)
+      ->execute();
+
     if ( sfContext::hasInstance()
       && sfContext::getInstance()->getConfiguration()->getApplication() == 'pos' )
     {

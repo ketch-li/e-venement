@@ -57,7 +57,7 @@ generator:
         <?php endif ?><?php echo PHP_EOL ?>
       list:
         title: List of <?php echo $museum ? (sfConfig::get('project_museums_type', 'museum') == 'museum' ? 'visits' : 'openings') : 'events' ?><?php echo PHP_EOL ?>
-        display: [MetaEvent, name, EventCategory, duration_h_r, age_min_h_r, _list_manifestations, _list_manifestations_gauges, _list_manifestations_places<?php if ( !$museum ): ?>, _list_best_seats<?php endif ?>, _list_manifestations_extra_informations]
+        display: [MetaEvent, name, EventCategory, duration_h_r, age_min_h_r, _list_manifestations, _list_manifestations_gauges,_online,_list_manifestations_places<?php if ( !$museum ): ?>, _list_best_seats<?php endif ?>, _list_manifestations_extra_informations]
         table_method: <?php echo $museum ? 'retrieveMuseumList' : 'retrieveList' ?><?php echo PHP_EOL ?>
         max_per_page: <?php echo sfConfig::get('app_listing_max_per_page',20).PHP_EOL ?>
         object_actions:
@@ -88,7 +88,7 @@ generator:
           Details:   [duration, _form_duration_days, display_by_default, accounting_account, age_min, age_max, description]
           Files:     [_form_files_list]
           Web Content: [Picture, _show_picture, _form_picture_del, extradesc, extraspec]
-          <?php if ( sfConfig::get('app_ticketting_dematerialized',false) ): ?>Checkpoints: [_show_checkpoints_notice, _form_checkpoints]<?php endif; echo PHP_EOL; ?>
+#          <?php if( sfConfig::get('app_ticketting_dematerialized',false) ): ?> Checkpoints: [_show_checkpoints_notice, _form_checkpoints]<?php endif; echo PHP_EOL; ?>
       new:
         <?php if ( $museum ) echo 'title: New '.($type == 'museum' ? 'Visit' : 'Opening') ?><?php echo PHP_EOL ?>
         display:

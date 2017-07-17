@@ -19,7 +19,7 @@
   -moz-osx-font-smoothing: grayscale; }
 
 #app-header {
-  background-color: #37474F;
+  background-color: #fff;
   height: 62px; }
   #app-header a.culture {
     margin: 5px;
@@ -28,7 +28,7 @@
     color: #fff; }
 
 #app {
-  background-color: #37474F; }
+  background-color: #fff; }
   #app.a11y {
     height: 50vh;
     margin-top: 50vh; }
@@ -39,7 +39,7 @@
   align-items: flex-start;
   justify-content: center;
   overflow: hidden;
-  background-color: #37474F; }
+  background-color: #fff; }
 
 #content {
   width: 100%;
@@ -63,7 +63,7 @@
   #breadcrumbs-wrapper .breadcrumb {
     display: inline-block;
     padding: 5px;
-    background-color: #4FC3F7;
+    background-color: #960048;
     border-radius: 3px; }
     #breadcrumbs-wrapper .breadcrumb a {
       text-decoration: none;
@@ -88,7 +88,7 @@
   width: 80px;
   z-index: 998;
   margin-right: 0;
-  background-color: #4FC3F7; }
+  background-color: #960048; }
   #back-fab i {
     font-size: 36px;
     margin-left: -5px; }
@@ -103,9 +103,9 @@
   position: absolute;
   bottom: 20px;
   left: 35px;
-  background-color: #4FC3F7; }
+  background-color: #960048; }
   #access-fab.a11y {
-    background-color: #00897B !important; }
+    background-color: #009396 !important; }
   #access-fab .waves-ripple {
     border-radius: 50px; }
   #access-fab i {
@@ -118,7 +118,7 @@
   width: 70px;
   z-index: 998;
   background-color: transparent;
-  color: #4FC3F7; }
+  color: #960048; }
   #info-btn i, #reset-btn i {
     font-size: 2em; }
 
@@ -138,7 +138,7 @@ ul {
   margin: 30px;
   font-size: 2em;
   font-weight: bold;
-  background-color: #4FC3F7; }
+  background-color: #960048; }
   .menu-item-card .mdl-card__title {
     color: #fff; }
 
@@ -162,7 +162,7 @@ ul {
 .manif-card > .mdl-card__title {
   color: #fff;
   height: 140px;
-  background-color: #4FC3F7; }
+  background-color: #960048; }
 
 .manif-card > .mdl-card__title, #product-details-card > .mdl-card__title {
   background-repeat: no-repeat;
@@ -256,7 +256,8 @@ ul {
   width: 120px;
   height: 120px;
   min-height: 50px;
-  border-radius: 5px; }
+  border-radius: 5px;
+  background-color: #960048; }
   .price-card-square .mdl-card__title, .declination-card .mdl-card__title {
     color: #fff;
     font-weight: bold;
@@ -278,23 +279,29 @@ ul {
   flex-direction: column;
   display: none;
   margin-left: auto;
-  height: 100%;
   width: 30%;
   min-width: 30%;
   max-width: 30%;
-  background-color: #546E7A;
-  overflow-y: auto; }
+  background-color: #f2f2f2;
+  overflow-y: auto;
+  height: 100vh;
+  position: relative;
+  top: -64px; }
   #cart .waves-ripple {
     background-color: rgba(255, 255, 255, 0.25); }
   #cart #cart-confirm {
     padding: 5px; }
     #cart #cart-confirm #confirm-btn {
-      background-color: #00897B; }
+      background-color: #009396;
+      font-size: 1.6em; }
+      #cart #cart-confirm #confirm-btn i {
+        font-size: 1.8em; }
   #cart #cart-lines {
     width: 100%;
     padding: 0;
     margin-top: 5px;
-    flex-grow: 1; }
+    flex-grow: 1;
+    padding-top: 64px; }
     #cart #cart-lines .cart-line {
       display: flex;
       color: #fff;
@@ -302,7 +309,7 @@ ul {
       padding: 8px 8px 8px 16px;
       height: 100px;
       max-height: 100px;
-      background-color: #37474F;
+      background-color: #960048;
       /* Add and Remove buttons */ }
       #cart #cart-lines .cart-line .line-qty, #cart #cart-lines .cart-line .line-name {
         font-weight: bold; }
@@ -310,6 +317,8 @@ ul {
         margin-bottom: 5px; }
       #cart #cart-lines .cart-line .line-value {
         font-size: 1.8em; }
+      #cart #cart-lines .cart-line .linked-product {
+        margin: 0; }
       #cart #cart-lines .cart-line .remove-item, #cart #cart-lines .cart-line .add-item {
         height: 45px;
         width: 45px;
@@ -332,7 +341,7 @@ ul {
     font-size: 2.5em;
     padding: 16px;
     margin: 0 2px 5px;
-    background-color: #4FC3F7; }
+    background-color: #960048; }
   #cart #cart-total-label {
     margin-left: auto;
     margin-right: 15px; }
@@ -346,7 +355,7 @@ ul {
     height: 90px;
     font-size: 1,5em;
     font-weight: bold;
-    background-color: #00897B i;
+    background-color: #009396 i;
       background-color-margin-right: 20px;
       background-color-font-size: 48px; }
 
@@ -383,10 +392,10 @@ ul {
   #location .mdl-selectfield__list-option-box {
     max-height: 500px; }
   #location .mdl-textfield__label::after {
-    background-color: #4FC3F7;
+    background-color: #960048;
     margin-top: -3px; }
   #location .mdl-selectfield__label, #location .mdl-textfield__label {
-    color: #4FC3F7;
+    color: #960048;
     font-size: 1.2em; }
   #location .mdl-selectfield__box .mdl-selectfield__box-value, #location #postcode {
     font-size: 1.3em;

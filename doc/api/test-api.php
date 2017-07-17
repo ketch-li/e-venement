@@ -2,9 +2,9 @@
 
 // ARG #1: base url
 // ARG #2: tests (comma separated list) to execute
-// ARG #2: identifier
-// ARG #3: secret
-// ARG #4: debug? (optional, no debug by default)
+// ARG #3: identifier
+// ARG #4: secret
+// ARG #5: debug? (optional, no debug by default)
 
 $test = new Test($_SERVER['argv'][1], $_SERVER['argv'][3], $_SERVER['argv'][4], isset($_SERVER['argv'][5]));
 $test->executeTests($_SERVER['argv'][2]);

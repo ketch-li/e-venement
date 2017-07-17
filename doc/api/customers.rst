@@ -44,7 +44,7 @@ If you request for a more detailed data, you will receive an object with followi
 +-------------------------+----------------------------------------------------------------------------------------------------------+
 | phoneNumber             | Customers phone number                                                                                   |
 +-------------------------+----------------------------------------------------------------------------------------------------------+
-| datesOfBirth            | Dates of birth [ISO 8601 Extended Format] (https://fr.wikipedia.org/wiki/ISO_8601)                       |
+| datesOfBirth            | Dates of birth `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_                      |
 +-------------------------+----------------------------------------------------------------------------------------------------------+
 | locale                  | Spoken language                                                                                          |
 +-------------------------+----------------------------------------------------------------------------------------------------------+
@@ -52,9 +52,9 @@ If you request for a more detailed data, you will receive an object with followi
 +-------------------------+----------------------------------------------------------------------------------------------------------+
 | subscribedToNewsletter  | Whether or not the customer is subscribed to newsletter                                                  |
 +-------------------------+----------------------------------------------------------------------------------------------------------+
-| createdAt               | *Optional* Datetime of creation [ISO 8601 Extended Format](https://fr.wikipedia.org/wiki/ISO_8601)       |
+| createdAt               | *Optional* Datetime of creation `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_     |
 +-------------------------+----------------------------------------------------------------------------------------------------------+
-| updatedAt               | *Optional* Datetime of last update [ISO 8601 Extended Format](https://fr.wikipedia.org/wiki/ISO_8601)    |
+| updatedAt               | *Optional* Datetime of last update `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_  |
 +-------------------------+----------------------------------------------------------------------------------------------------------+
 
 Available actions to interact with a manifestation
