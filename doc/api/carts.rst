@@ -900,15 +900,7 @@ Sample Response
 
 .. code-block:: text
 
-    STATUS: 200 OK
-    
-.. code-block:: json
-
-   {
-    "code": 200,
-    "message": "Delete successful"
-   }
-
+    STATUS: 204 OK
 
 Reordering Cart Items *Optional*
 --------------------------------
