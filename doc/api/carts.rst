@@ -565,31 +565,33 @@ Sample Response
 
 .. code-block:: json
 
-   {
-    "id": 711,
-    "unitPrice": "0.00",
-    "rank": 1,
-    "state": "none",
-    "type": "ticket",
-    "quantity": 1,
-    "declination": {
-        "id": 14,
-        "code": "TODO",
-        "position": "TODO",
-        "translations": "TODO"
-    },
-    "units": [
-        {
-            "id": "XXX",
-            "adjustments": [],
-            "adjustmentsTotal": 0
-        }
-    ],
-    "unitsTotal": 0,
-    "adjustments": [],
-    "adjustmentsTotal": 0,
-    "total": 0
-  }
+    [
+       {
+        "id": 711,
+        "unitPrice": "0.00",
+        "rank": 1,
+        "state": "none",
+        "type": "ticket",
+        "quantity": 1,
+        "declination": {
+            "id": 14,
+            "code": "TODO",
+            "position": "TODO",
+            "translations": "TODO"
+        },
+        "units": [
+            {
+                "id": "XXX",
+                "adjustments": [],
+                "adjustmentsTotal": 0
+            }
+        ],
+        "unitsTotal": 0,
+        "adjustments": [],
+        "adjustmentsTotal": 0,
+        "total": 0
+      }
+    ]
 
 .. tip::
 
