@@ -40,10 +40,12 @@ class Gauge extends PluginGauge
       return $this->seats;
     
     $q = Doctrine::getTable('Seat')->createQuery('s')
-      ->leftJoin('s.Tickets tck WITH tck.manifestation_id = ?', $this->manifestation_id)
-      ->andWhere('tck.id IS NULL')
-      ->leftJoin('s.Holds h WITH h.manifestation_id = ?', $this->manifestation_id)
-      ->andWhere('h.id IS NOT NULL')
+      ->innerJoin('s.SeatedPlan sp')
+      ->innerJoin('sp.Workspaces w')
+      ->innerJoin('w.Gauges g')
+      ->innerJoin('s.Holds h')
+      ->andWhere('h.manifestation_id = g.manifestation_id')
+      ->andWhere('g.id = ?', $this->id)
       ->select('s.*')
     ;
     return $this->seats = $q->execute();
