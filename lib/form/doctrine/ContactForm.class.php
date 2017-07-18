@@ -53,7 +53,7 @@ class ContactForm extends BaseContactForm
     $this->widgetSchema   ['phone_number'] = new sfWidgetFormInputText();
     $this->validatorSchema['phone_number'] = new sfValidatorString(array('required' => false));
     
-    $this->widgetSchema   ['phone_type']   = new liWidgetFormDoctrineJQueryAutocompleterGuide(array(
+    $this->widgetSchema   ['phone_type']   = new liWidgetFormDoctrineJQueryAutocompleterMask(array(
       'model' => 'PhoneType',
       'url'   => url_for('phone_type/ajax'),
       'method_for_query' => 'findOneByName',
