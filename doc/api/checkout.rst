@@ -7,7 +7,7 @@ Base URI is `/api/v2/checkouts/`.
 After you create a cart (an empty order) and add some items to it, you can start the checkout via API.
 This basically means updating the order with concrete information, step by step, in a correct order.
 
-e-venement checkout flow is built from 4 steps, which have to be done in a certain order.
+e-venement checkout flow is built from 3 steps, which have to be done in a certain order :
 
 +------------+---------------------------------------------------------+
 | Step       | Description                                             |
@@ -27,54 +27,16 @@ Addressing step
 ---------------
 
 After you added some items to the cart, to start the checkout you simply need to authentify as a customer to get
-back needed informations about where to "ship" your order.
+back needed informations about where to "ship" your order. Refer to :doc:`the article about the login process </api/login>`.
 
-Definition
+Once logged in, you can check the state of the order, by asking for the checkout summary:
+
+DEFINITION
 ^^^^^^^^^^
 
 .. code-block:: text
 
-    POST /api/v2/checkouts/addressing/{id}
-
-+------------------------------+----------------+-----------------------------------------------------------------------------------------------------+
-| Parameter                    | Parameter type | Description                                                                                         |
-+==============================+================+=====================================================================================================+
-| Authorization                | header         | Token received during authentication                                                                |
-+------------------------------+----------------+-----------------------------------------------------------------------------------------------------+
-| id                           | url attribute  | Id of the requested cart                                                                            |
-+------------------------------+----------------+-----------------------------------------------------------------------------------------------------+
-| customerId                   | request        | Id of the customer                                                                                  |
-+------------------------------+----------------+-----------------------------------------------------------------------------------------------------+
-
-.. note::
-
-    Remember a cart with `id = 21` :doc:`for the Cart API documentation </api/carts>`? We will take the same cart as an exemplary cart for checkout process.
-
-Example
-^^^^^^^
-
-To address the cart to the customer 214, the following snippet can be used:
-
-.. code-block:: bash
-
-    $ curl http://e-venement.local/api/v2/checkouts/addressing/21 \
-        -H "Authorization: Bearer SampleToken" \
-        -H "Content-Type: application/json" \
-        -X POST \
-        --data '
-            {
-                "customerId": 214
-            }
-        '
-
-Sample Response
-^^^^^^^^^^^^^^^^^^
-
-.. code-block:: text
-
-    STATUS: 204 No Content
-
-Now you can check the state of the order, by asking for the checkout summary:
+  GET /api/v2/checkouts/21
 
 Example
 ^^^^^^^
@@ -218,26 +180,19 @@ To check available payment methods for the cart that has a shipping methods assi
 .. code-block:: json
 
     {
-        "payments":[
+        "methods": [
             {
-                "methods":[
-                    {
-                        "id":1,
-                        "code":"cash_on_delivery",
-                        "name":"Cash on delivery",
-                        "description":"Ipsum dolor non esse quia sit."
-                    },
-                    {
-                        "id":2,
-                        "code":"bank_transfer",
-                        "name":"Bank transfer",
-                        "description":"Perspiciatis itaque earum quisquam ut dolor."
-                    }
-                ]
+                "id": 1,
+                "name": "En Ligne",
+                "account": ""
+            },
+            {
+                "id": 2,
+                "name": "Carte Abo",
+                "account": ""
             }
         ]
     }
-
 
 With that information, another ``POST`` request with the id of payment method is enough to proceed:
 
@@ -255,7 +210,7 @@ Definition
 +----------------------+----------------+--------------------------------------+
 | id                   | url attribute  | Id of the requested cart             |
 +----------------------+----------------+--------------------------------------+
-| payment[X]['method'] | request        | Code of chosen payment method        |
+| payment_method_id    | request        | Id of chosen payment method          |
 +----------------------+----------------+--------------------------------------+
 
 Example
@@ -271,11 +226,7 @@ To choose the ``Bank transfer`` method for our shipment, simply use the followin
         -X POST \
         --data '
             {
-                "payments": [
-                    {
-                        "method": "bank_transfer"
-                    }
-                ]
+                "payment_method_id": 1
             }
         '
 
@@ -284,10 +235,24 @@ Sample Response
 
 .. code-block:: text
 
-    STATUS: 204 No Content
+    STATUS: 200 Success
 
-Finalize step
--------------
+.. code-block:: json
+
+    {
+        "url": "http://www.paybox.com/pay/",
+        "method": "GET",
+        "arguments": {
+            "PBX_SITE": "http://e-venement.local/",
+            "PBX_IDENTIFIANT": "123123123",
+            "PBX_HASH": "abcdefghijklmn",
+            "PBX_TOTAL": 100,
+            "PBX_REPONDRE_A": "http://e-venement.local/api/v2/checkouts/complete/21"
+        }
+    }
+
+Final step
+-----------
 
 After choosing the payment method we are ready to finalize the cart and make an order. Now, you can get its snapshot by calling a ``GET`` request:
 
@@ -432,68 +397,36 @@ To check the fully constructed cart with `id = 21`, use the following command:
         "checkoutState":"payment_selected"
     }
 
-This is how your final order will look like. If you are satisfied with that response, simply call another ``POST`` request to confirm the checkout, which will become a real order and appear in the backend.
+This is how your final order will look like. If you are satisfied with that response, simply call another request as defined in the ``select-payment`` POST call to follow with the bank to confirm the checkout, which will (according to the details given for payment) transform the current cart into a real order that will appear in the backend.
 
 Definition
 ^^^^^^^^^^
 
+Example:
+
 .. code-block:: text
 
-    POST /api/v2/checkouts/complete/{id}
+    POST http://www.paybox.com/pay/
 
-+---------------+----------------+---------------------------------------------------------+
-| Parameter     | Parameter type | Description                                             |
-+===============+================+=========================================================+
-| Authorization | header         | Token received during authentication                    |
-+---------------+----------------+---------------------------------------------------------+
-| id            | url attribute  | Id of the requested cart                                |
-+---------------+----------------+---------------------------------------------------------+
-| notes         | request        | *(optional)* Notes that should be attached to the order |
-+---------------+----------------+---------------------------------------------------------+
++---------------+----------------+---------------------------------------------------------------------------+
+| Parameter     | Parameter type | Description                                                               |
++===============+================+===========================================================================+
+| Authorization | header         | Token received during authentication                                      |
++---------------+----------------+---------------------------------------------------------------------------+
+| id            | url attribute  | Id of the requested cart                                                  |
++---------------+----------------+---------------------------------------------------------------------------+
+| arguments     | request        | Batch of arguments given in the select-payment POST response URL encoded  |
++---------------+----------------+---------------------------------------------------------------------------+
 
 Example
 ^^^^^^^
 
-To finalize the previously built order, execute the following command:
+To finalize the previously built order, execute the following URL in a browser, as usual clients should do:
+
+Note: this is an example using GET requests, it usually can be required to use POST...
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/checkouts/complete/21 \
-        -H "Authorization: Bearer SampleToken" \
-        -H "Content-Type: application/json" \
-        -X POST
+    $ firefox http://www.paybox.com/pay?PBX_SITE=http%3A%2F%2Fe-venement.local%2F&PBX_IDENTIFIANT=123123123&PBX_HASH=abcdefghijklmn&PBX_TOTAL=100&PBX_REPONDRE_A=http%3A%2F%2Fe-venement.local%2Fapi%2Fv2%2Fcheckouts%2Fcomplete%2F21"
 
-Sample Response
-^^^^^^^^^^^^^^^^^^
-
-.. code-block:: text
-
-    STATUS: 204 No Content
-
-The order has been placed, from now on you can manage it only via your backend.
-
-Of course the same result can be achieved when the order will be completed with some additional notes:
-
-Example
-^^^^^^^
-
-To finalize the previously built order (assuming that, the previous example has not been executed), try the following command:
-
-.. code-block:: bash
-
-    $ curl http://e-venement.local/api/v2/checkouts/complete/21 \
-        -H "Authorization: Bearer SampleToken" \
-        -H "Content-Type: application/json" \
-        -X POST \
-        --data '
-            {
-                "notes": "Please, call me before delivery"
-            }
-        '
-
-Sample Response
-^^^^^^^^^^^^^^^^^^
-
-.. code-block:: text
-
-    STATUS: 204 No Content
+At the end, if payment is successful, the bank system should have call the ``/api/v2/checkouts/complete/21`` URI with expected arguments. This call should have transformed the cart into an order, and created a new cart attached to the current customer. Then the previous order can be found back in the list of available carts calling ``/api/v2/carts`` while the customer is still known by the system.
