@@ -138,6 +138,7 @@ all:
     #  response: cart/response
     ################################
   texts:
+    #pub_message: #adding customize message on all online sales page
     #cart_resend_email: ''
     synthetic_plans: Cliquez sur le plan pour sélectionner vos places
     synthetic_categories: En choisissant votre catégorie et un nombre de billets à ajouter, vous obtiendrez les meilleures places côte-à-côte
