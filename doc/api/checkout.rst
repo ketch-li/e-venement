@@ -210,7 +210,7 @@ Definition
 +----------------------+----------------+--------------------------------------+
 | id                   | url attribute  | Id of the requested cart             |
 +----------------------+----------------+--------------------------------------+
-| payment_method_id    | request        | Id of chosen payment method          |
+| method_id            | request        | Id of chosen payment method          |
 +----------------------+----------------+--------------------------------------+
 
 Example
@@ -226,7 +226,7 @@ To choose the ``Bank transfer`` method for our shipment, simply use the followin
         -X POST \
         --data '
             {
-                "payment_method_id": 1
+                "method_id": 1
             }
         '
 
