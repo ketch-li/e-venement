@@ -114,6 +114,7 @@ class OptionPubTextsForm extends BaseOptionPubTextsForm
       );
       
       $terms[$lang] = array(
+        'pub_message'             => '',
         'manifestation_bottom'    => $i18n->__("Placement libre.\nPaiement par carte bancaire."),
         'payment_onthespot_info'  => $i18n->__('Thank you in advance to send us your payment as soon as possible so that we can confirm your order'),
         'cart_bottom'             => '',

@@ -20,9 +20,9 @@ class ManifestationsService extends EvenementService
         // defaults options
         foreach ( array(
             'strict' => true,
-            'onsite' => true,
-            'online' => null,
-            'onkiosk' => null
+            'g.onsite' => true,
+            'g.online' => null,
+            'g.onkiosk' => null
         ) as $option => $default ) {
             $options[$option] = !isset($options[$option]) ? $default : $options[$option];
         }
@@ -35,7 +35,7 @@ class ManifestationsService extends EvenementService
         
         // onsite / online / onkiosk
         $subq = array();
-        foreach ( array('onsite', 'online', 'onkiosk') as $option ) {
+        foreach ( array('g.onsite', 'g.online', 'g.onkiosk') as $option ) {
             if ( $options[$option] !== null ) {
                 $subq[] = $option.' = '.($options[$option] ? 'TRUE' : 'FALSE');
             }
@@ -50,7 +50,6 @@ class ManifestationsService extends EvenementService
           ->leftJoin('g.PriceGauges pg')
           ->leftJoin('pg.Price pgp WITH pgp.hide = FALSE')
           ->leftJoin('g.Workspace w')
-          ->orderBy("et.name, met.name, $alias.happens_at, $alias.duration, wuo.rank, w.name, $alias.id")
           ->leftJoin('w.Order wuo ON wuo.workspace_id = w.id AND wuo.sf_guard_user_id = '.$user->getId())
           ->leftJoin('pmp.WorkspacePrices pmpwp WITH pmpwp.workspace_id = w.id')
           ->leftJoin('pmp.UserPrices      pmpup WITH pmpup.sf_guard_user_id = '.$user->getId())
@@ -63,6 +62,14 @@ class ManifestationsService extends EvenementService
             ->andWhere('wsu.sf_guard_user_id IS NOT NULL')
             ->andWhere('pgpup.sf_guard_user_id IS NOT NULL OR pmpup.sf_guard_user_id IS NOT NULL');
         }
+        
+        if ( $dom = sfConfig::get('project_internals_users_domain', null) ) {
+          $q->leftJoin("pmp.Ranks r WITH r.domain ILIKE '%$dom' OR r.domain = '$dom'");
+        } else {
+          $q->leftJoin("pmp.Ranks r");
+        }
+        
+        $q->orderBy("r.rank, et.name, met.name, $alias.happens_at, $alias.duration, wuo.rank, w.name, $alias.id");
         
         return $q;
     }
