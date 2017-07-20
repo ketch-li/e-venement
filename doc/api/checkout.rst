@@ -230,7 +230,7 @@ To choose the ``Bank transfer`` method for our shipment, simply use the followin
             }
         '
 
-Sample Response
+Sample Responses
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -240,16 +240,46 @@ Sample Response
 .. code-block:: json
 
     {
-        "url": "http://www.paybox.com/pay/",
-        "method": "GET",
-        "arguments": {
-            "PBX_SITE": "http://e-venement.local/",
-            "PBX_IDENTIFIANT": "123123123",
-            "PBX_HASH": "abcdefghijklmn",
-            "PBX_TOTAL": 100,
-            "PBX_REPONDRE_A": "http://e-venement.local/api/v2/checkouts/complete/21"
+        "methods": {
+            "PayboxPayment": {
+                "url": "https:\/\/preprod-tpeweb.paybox.com\/cgi\/MYchoix_pagepaiement.cgi",
+                "method": "POST",
+                "arguments": {
+                    "PBX_SITE": "1999888",
+                    "PBX_RANG": "32",
+                    "PBX_IDENTIFIANT": "1",
+                    "PBX_TOTAL": "500",
+                    "PBX_DEVISE": "978",
+                    "PBX_CMD": "1168",
+                    "PBX_PORTEUR": "test@domain.tld",
+                    "PBX_RETOUR": "amount:M;transaction_id:R;card_type:C;ip_country:I;paybox_id:S;authorisation:A;error:E;signature:K",
+                    "PBX_HASH": "SHA512",
+                    "PBX_TIME": "2017-07-20T14:21:26+02:00",
+                    "PBX_EFFECTUE": "http:\/\/www.qwant.com\/?success",
+                    "PBX_ANNULE": "http:\/\/www.qwant.com\/?cancel",
+                    "PBX_REFUSE": "http:\/\/www.qwant.com\/?cancel",
+                    "PBX_REPONDRE_A": "https:\/\/e-venement.local\/api\/v2\/checkouts\/complete\/1168%3Fcurrency%3D978",
+                    "PBX_HMAC": "516C573A063158C23841DFAB56C6D37C141279A6C54083F75C20CE3919BCA862AAC16F0B3A533AA259FFCD6B208F8B321545241711E75F85CC4A750D3A241BF1"
+                },
+                "curl": "curl -k https:\/\/preprod-tpeweb.paybox.com\/cgi\/MYchoix_pagepaiement.cgi -X POST --data 'PBX_SITE=1999888&PBX_RANG=32&PBX_IDENTIFIANT=1&PBX_TOTAL=500&PBX_DEVISE=978&PBX_CMD=1168&PBX_PORTEUR=test%40domain.tld&PBX_RETOUR=amount%3AM%3Btransaction_id%3AR%3Bcard_type%3AC%3Bip_country%3AI%3Bpaybox_id%3AS%3Bauthorisation%3AA%3Berror%3AE%3Bsignature%3AK&PBX_HASH=SHA512&PBX_TIME=2017-07-20T14%3A21%3A26%2B02%3A00&PBX_EFFECTUE=http%3A%2F%2Fwww.qwant.com%2F%3Fsuccess&PBX_ANNULE=http%3A%2F%2Fwww.qwant.com%2F%3Fcancel&PBX_REFUSE=http%3A%2F%2Fwww.qwant.com%2F%3Fcancel&PBX_REPONDRE_A=https%3A%2F%2Fe-venement.local%2Ftck.php%2Fapi%2Fv2%2Fcheckouts%2Fcomplete%2F1168%253Fcurrency%253D978&PBX_HMAC=516C573A063158C23841DFAB56C6D37C141279A6C54083F75C20CE3919BCA862AAC16F0B3A533AA259FFCD6B208F8B321545241711E75F85CC4A750D3A241BF1'",
+                "html": "<form action=\"https:\/\/preprod-tpeweb.paybox.com\/cgi\/MYchoix_pagepaiement.cgi\" method=\"POST\" class=\"autosubmit\" id=\"payment-form\" target=\"_top\" >\n<input type=\"hidden\" name=\"PBX_SITE\" value=\"1999888\" \/>\n<input type=\"hidden\" name=\"PBX_RANG\" value=\"32\" \/>\n<input type=\"hidden\" name=\"PBX_IDENTIFIANT\" value=\"1\" \/>\n<input type=\"hidden\" name=\"PBX_TOTAL\" value=\"500\" \/>\n<input type=\"hidden\" name=\"PBX_DEVISE\" value=\"978\" \/>\n<input type=\"hidden\" name=\"PBX_CMD\" value=\"1168\" \/>\n<input type=\"hidden\" name=\"PBX_PORTEUR\" value=\"test@domain.tld\" \/>\n<input type=\"hidden\" name=\"PBX_RETOUR\" value=\"amount:M;transaction_id:R;card_type:C;ip_country:I;paybox_id:S;authorisation:A;error:E;signature:K\" \/>\n<input type=\"hidden\" name=\"PBX_HASH\" value=\"SHA512\" \/>\n<input type=\"hidden\" name=\"PBX_TIME\" value=\"2017-07-20T14:21:26+02:00\" \/>\n<input type=\"hidden\" name=\"PBX_EFFECTUE\" value=\"http:\/\/www.qwant.com\/?success\" \/>\n<input type=\"hidden\" name=\"PBX_ANNULE\" value=\"http:\/\/www.qwant.com\/?cancel\" \/>\n<input type=\"hidden\" name=\"PBX_REFUSE\" value=\"http:\/\/www.qwant.com\/?cancel\" \/>\n<input type=\"hidden\" name=\"PBX_REPONDRE_A\" value=\"https:\/\/e-venement.local\/api\/v2\/checkouts\/complete\/1168%3Fcurrency%3D978\" \/>\n<input type=\"hidden\" name=\"PBX_HMAC\" value=\"516C573A063158C23841DFAB56C6D37C141279A6C54083F75C20CE3919BCA862AAC16F0B3A533AA259FFCD6B208F8B321545241711E75F85CC4A750D3A241BF1\" \/><input type=\"image\" alt=\"P\" value=\"Paybox\" src=\"https:\/\/preprod-tpeweb.paybox.com\/favicon.ico\" \/><a href=\"#\" onclick=\"javascript: document.getElementById('payment-form').submit(); return false;\">aybox<\/a><\/form>"
+            }
         }
     }
+
+If the cart has a ``total`` of 0 or payment values equal to items total, you should get this :
+
+.. code-block:: text
+
+    STATUS: 200 Success
+
+.. code-block:: json
+
+{
+    "methods": {
+        "NothingToPay": null
+    }
+}
 
 Final step
 -----------
