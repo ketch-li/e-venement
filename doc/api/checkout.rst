@@ -275,11 +275,11 @@ If the cart has a ``total`` of 0 or payment values equal to items total, you sho
 
 .. code-block:: json
 
-{
-    "methods": {
-        "NothingToPay": null
+    {
+        "methods": {
+            "NothingToPay": null
+        }
     }
-}
 
 Final step
 -----------
