@@ -53,6 +53,27 @@ class Transaction extends PluginTransaction
     
     return $r;
   }
+  
+  public function isAllSold()
+  {
+    foreach ( $this->getItemables() as $item ) {
+      if ( !$item->isSold() ) {
+        return false;
+      }
+    }
+    
+    return true;
+  }
+  
+  public function isPartiallySold()
+  {
+    foreach ( $this->getItemables() as $item ) {
+      if ( $item->isSold() ) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   /**
     * Retrieve the applyable surveys
