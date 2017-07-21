@@ -41,6 +41,10 @@ interface OnlinePaymentInterface
     **/
   public static function getTransactionIdByResponse(sfWebRequest $parameters);
   
+  public function getUrl();
+  public function getArguments();
+  public function getMethod();
+  
   /**
     * Deal with the bank response, records a BankPayment, and returns if the payment is validated or not
     *
