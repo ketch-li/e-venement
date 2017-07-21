@@ -12,6 +12,7 @@ $fab-color: $primary-color;
 $a11y-color: $cart-validate-color;
 $text-color: #fff;
 $details-background-color: #f2f2f2;
+$info-panel-color: #fff;
 
 @import './../../private/kiosk/kiosk.scss';
 
@@ -143,7 +144,7 @@ $details-background-color: #f2f2f2;
   }
 }
 
-/* INFO BUTTON */
+/* A11y BUTTON */
 #access-fab {
   height: 80px;
   width: 80px;
@@ -384,6 +385,10 @@ ul{
   position: relative;
   top: -64px;
 
+  &.a11y {
+    height: 50vh;
+  }
+
   .waves-ripple { background-color: rgba(255, 255, 255, 0.25); }
 
   #cart-confirm {
@@ -575,7 +580,7 @@ ul{
   z-index: 999;
   border-radius: 15px;
 
-  p, a { color: $text-color; }
+  p, a { color: $info-panel-color; }
 }
 
 

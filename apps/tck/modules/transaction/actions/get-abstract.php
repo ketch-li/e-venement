@@ -105,7 +105,9 @@
         $fct = 'createQuery';
       $q = Doctrine::getTable('Transaction')->$fct('t');
       if ( $type == 'store' )
-        $q->andWhere('t.id = ? OR t.transaction_id = ? AND bp.integrated_at IS NOT NULL', array($request->getParameter('id'), $request->getParameter('id')));
+        $q->andWhere('t.id = ? OR t.transaction_id = ? AND bp.integrated_at IS NOT NULL', array($request->getParameter('id'), $request->getParameter('id')))
+          ->orderBy('bp.product_declination_id');
+    
       else
         $q->andWhere('t.id = ?', $request->getParameter('id'));
     }

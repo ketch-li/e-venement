@@ -18,6 +18,9 @@
     <?php include_component('layout', 'layoutSwitcher') ?>
     <div id="client-header"></div>
     <div id="content">
+      <div class="text_config pub_message">
+        <?php echo nl2br(pubConfiguration::getText('app_texts_pub_message')) ?>
+      </div>
       <?php include_partial('global/oplog') ?>
       <?php echo $sf_content ?>
       <?php if ( sfConfig::get('app_social_media_display', false) ): ?>

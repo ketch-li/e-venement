@@ -80,13 +80,14 @@
   krsort($pms);
   
   if ( $sf_user->hasContact() && sfConfig::get('app_options_pass_price_first') )
-  foreach ($sf_user->getContact()->MemberCards as $MemberCard)
+  foreach ($sf_user->getContact()->getActiveMembercards()->merge($sf_user->getTransaction()->MemberCards->getRawValue()) as $MemberCard)
   {
-    $gps = array();
+    $gps = array();    
+    $pm = $MemberCard->MemberCardType->MemberCardPriceModels->toKeyValueArray('id', 'price_id')->getRawValue();
     
     foreach ($pms as $name => $price)
     {
-      if ( $price->price_id == $MemberCard->MemberCardType->price_id )
+      if ( in_array($price->price_id, $pm) )
       {
         $gps = array($name => $price) + $gps;
       }

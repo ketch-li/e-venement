@@ -164,4 +164,13 @@ class Contact extends PluginContact
       ))->getStatsSeatRank($meta_event_id);
     }
   }
+  
+  public function getActiveMembercards()
+  {
+    return Doctrine::getTable('MemberCard')->createQuery('mc')
+      ->andWhere('mc.contact_id = ?', $this->id)
+      ->andWhere('mc.active = true')
+      ->andWhere('mc.expire_at >= now()')
+      ->execute();
+  }
 }

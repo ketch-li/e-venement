@@ -164,6 +164,10 @@
         <source>No transaction found.</source>
         <target>Pas d'opération identifiée.</target>
       </trans-unit>
+      <trans-unit id="41">
+        <source>Pub Message</source>
+        <target>Message de la vente en ligne</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

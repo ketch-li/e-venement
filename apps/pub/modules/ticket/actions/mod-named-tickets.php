@@ -243,8 +243,38 @@
         $tmp[$pg->price_id] = ($pg->Price->description ? $pg->Price->description : (string)$pg->Price).' ('.format_currency($pg->value,$this->getContext()->getConfiguration()->getCurrency()).')';
       }
       arsort($order);
+      
+      if ( $this->getUser()->hasContact() && sfConfig::get('app_options_pass_price_first') )
+      {
+        $tmc = $this->getUser()->getTransaction()->MemberCards;
+        $cmc = $this->getUser()->getContact()->getActiveMembercards();
+        
+        foreach ($cmc->merge($tmc) as $MemberCard)
+        {
+          $gps = array();
+          $pm = $MemberCard->MemberCardType->MemberCardPriceModels->toKeyValueArray('id', 'price_id');
+          
+          foreach ($order as $id => $value)
+          {
+            if ( in_array($id, $pm) )
+            {
+              $gps = array($id => $value) + $gps;
+            }
+            else
+            {
+              $gps[$id] = $value;
+            }
+          }
+          
+          $order = $gps;
+        }        
+      }
+
       foreach ( $order as $pid => $value )
-        $prices[''.$pid] = $tmp[$pid];
+      {
+        $price = array('id' => $pid, 'name' => $tmp[$pid]);
+        $prices[] = $price;
+      }
     }
     
     // the json data

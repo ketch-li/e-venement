@@ -88,7 +88,7 @@ generator:
           Details:   [duration, _form_duration_days, display_by_default, accounting_account, age_min, age_max, description]
           Files:     [_form_files_list]
           Web Content: [Picture, _show_picture, _form_picture_del, extradesc, extraspec]
-#          <?php if( sfConfig::get('app_ticketting_dematerialized',false) ): ?> Checkpoints: [_show_checkpoints_notice, _form_checkpoints]<?php endif; echo PHP_EOL; ?>
+          <?php if ( sfConfig::get('app_ticketting_dematerialized',false) ): ?>Checkpoints: [_show_checkpoints_notice, _form_checkpoints]<?php endif; echo PHP_EOL; ?>
       new:
         <?php if ( $museum ) echo 'title: New '.($type == 'museum' ? 'Visit' : 'Opening') ?><?php echo PHP_EOL ?>
         display:
