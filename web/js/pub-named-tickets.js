@@ -155,8 +155,10 @@ LI.pubNamedTicketsData = function(json, callback)
     if ( !ticket.seat_name )
       elt.find('.seat_label').hide();
     elt.find('input, select, button').each(function(){
-      $(this).attr('name', $(this).attr('name').replace('%%ticket_id%%', ticket.id));
-    });
+     if ($(this).attr('name')) {
+        $(this).attr('name', $(this).attr('name').replace('%%ticket_id%%', ticket.id));
+        }
+     });
     elt.find('.force').val(ticket['force']);
     
     // synthetic view or not
@@ -169,8 +171,8 @@ LI.pubNamedTicketsData = function(json, callback)
         .attr('data-ticket-id', ticket.id)
         .addClass('ordered').addClass('in-progress');
       $('<option value=""></option>').text('--'+$('#plans .infos .no-price').text()+'--').appendTo(elt.find('.price_name select'));
-      $.each(ticket.prices_list, function(id, name){
-        $('<option></option>').val(id).text(name)
+      $.each(ticket.prices_list, function(id, price){
+        $('<option></option>').val(price.id).text(price.name)
           .appendTo(elt.find('.price_name select'));
       });
       elt.find('.price_name select').val(ticket.price_id);
@@ -182,7 +184,7 @@ LI.pubNamedTicketsData = function(json, callback)
       elt.find('.delete').unbind('click').click(function(){
         // set ticket price to null (triggers form submission)
         $(this).closest('.ticket').find('.price_name select').val('');
-
+       
         // update the totals
         var gauge_id = $(this).closest('.ticket').data('gauge-id');
         var price_id = $(this).closest('.ticket').data('price-id');

@@ -6,21 +6,23 @@ These endpoints will allow you to easily present payments. Base URI is '/api/v2/
 Product API response structure
 ------------------------------
 
-+------------------+----------------------------------------------------------------------------------------+
-| Field            | Description                                                                            |
-+==================+========================================================================================+
-| id               | Unique id of the payment                                                               |
-+------------------+----------------------------------------------------------------------------------------+
-| method           | Payment method name                                                                    |
-+------------------+----------------------------------------------------------------------------------------+
-| amount           | The amount of payment                                                                  |
-+------------------+----------------------------------------------------------------------------------------+
-| state            | State of the payment process (pending, "completed" is the only implementated state yet)|
-+------------------+----------------------------------------------------------------------------------------+
-| createAt         | The date and time of creation (`ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`)|
-+------------------+----------------------------------------------------------------------------------------+
-| _link[order]     | Link to the related order                                                              |
-+------------------+----------------------------------------------------------------------------------------+
++------------------+----------------------------------------------------------------------------------------------------+
+| Field            | Description                                                                                        |
++==================+====================================================================================================+
+| id               | Unique id of the payment                                                                           |
++------------------+----------------------------------------------------------------------------------------------------+
+| method           | Payment method name                                                                                |
++------------------+----------------------------------------------------------------------------------------------------+
+| amount           | The amount of payment                                                                              |
++------------------+----------------------------------------------------------------------------------------------------+
+| orderId          | The linked order Id                                                                                |
++------------------+----------------------------------------------------------------------------------------------------+
+| state            | State of the payment process (pending, "completed" is the only implementated state yet)            |
++------------------+----------------------------------------------------------------------------------------------------+
+| createdAt        | The date and time of creation `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_ |
++------------------+----------------------------------------------------------------------------------------------------+
+| _link[order]     | Link to the related order                                                                          |
++------------------+----------------------------------------------------------------------------------------------------+
 
 Getting a single payment
 ------------------------
@@ -52,7 +54,7 @@ To retrieve the payment 20, the following snippet can be used:
     $ curl http://e-venement.local/api/v2/payments/20 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X POST \
+        -X POST
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -67,6 +69,7 @@ Sample Response
         "id":20,
         "method":"bank_transfer",
         "amount":4507,
+        "orderId": 5432,
         "state":"completed",
         "createdAt":"2017-04-07T12:42:02Z",
         "_links":{
@@ -109,7 +112,7 @@ To see the first page of the paginated list of payments with two payments on eac
     $ curl http://e-venement.local/api/v2/payments/?limit=2 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X POST \
+        -X POST
         
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -145,6 +148,7 @@ Sample Response
                     "id":20,
                     "method":"bank_transfer",
                     "amount":4507,
+                    "orderId": 5432,
                     "createdAt":"2017-04-07T12:42:02Z",
                     "state":"completed",
                     "_links":{
@@ -157,6 +161,7 @@ Sample Response
                     "id":21,
                     "method":"bank_transfer",
                     "amount":3812,
+                    "orderId": 5432,
                     "createdAt":"2017-03-05T10:01:04Z",
                     "state":"completed",
                     "_links":{

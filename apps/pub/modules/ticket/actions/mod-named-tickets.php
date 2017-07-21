@@ -215,7 +215,7 @@
         && $data[$ticket->id]['price_id'] != $ticket->price_id
         && in_array($ticket->price_id, $ticket->Gauge->Workspace->Prices->getPrimaryKeys())
         && ($price = Doctrine::getTable('Price')->find($data[$ticket->id]['price_id']))
-        && $price->isAccessibleBy($this->getUser(), array('manifestation' => $ticket->Manifestation)) )
+        && $price->isAccessibleBy($this->getUser(), $ticket->Manifestation) )
       {
         $ticket->value    = NULL;
         $ticket->price_id = $data[$ticket->id]['price_id'];
@@ -229,22 +229,52 @@
     if ( sfConfig::get('app_options_synthetic_plans', false) )
     {
       foreach ( $ticket->Manifestation->PriceManifestations as $pm )
-      if ( $pm->Price->isAccessibleBy($this->getUser(), array('manifestation' => $ticket->Manifestation)) )
+      if ( $pm->Price->isAccessibleBy($this->getUser(),  $ticket->Manifestation) )
       if ( in_array($ticket->Gauge->workspace_id, $pm->Price->Workspaces->getPrimaryKeys()) )
       {
         $order[$pm->price_id] = $pm->value;
         $tmp[$pm->price_id] = ($pm->Price->description ? $pm->Price->description : (string)$pm->Price).' ('.format_currency($pm->value,$this->getContext()->getConfiguration()->getCurrency()).')';
       }
       foreach ( $ticket->Gauge->PriceGauges as $pg )
-      if ( $pg->Price->isAccessibleBy($this->getUser(), array('manifestation' => $ticket->Manifestation)) )
+      if ( $pg->Price->isAccessibleBy($this->getUser(), $ticket->Manifestation) )
       if ( $ticket->gauge_id == $pg->gauge_id )
       {
         $order[$pg->price_id] = $pg->value;
         $tmp[$pg->price_id] = ($pg->Price->description ? $pg->Price->description : (string)$pg->Price).' ('.format_currency($pg->value,$this->getContext()->getConfiguration()->getCurrency()).')';
       }
       arsort($order);
+      
+      if ( $this->getUser()->hasContact() && sfConfig::get('app_options_pass_price_first') )
+      {
+        $tmc = $this->getUser()->getTransaction()->MemberCards;
+        $cmc = $this->getUser()->getContact()->getActiveMembercards();
+        
+        foreach ($cmc->merge($tmc) as $MemberCard)
+        {
+          $gps = array();
+          $pm = $MemberCard->MemberCardType->MemberCardPriceModels->toKeyValueArray('id', 'price_id');
+          
+          foreach ($order as $id => $value)
+          {
+            if ( in_array($id, $pm) )
+            {
+              $gps = array($id => $value) + $gps;
+            }
+            else
+            {
+              $gps[$id] = $value;
+            }
+          }
+          
+          $order = $gps;
+        }        
+      }
+
       foreach ( $order as $pid => $value )
-        $prices[''.$pid] = $tmp[$pid];
+      {
+        $price = array('id' => $pid, 'name' => $tmp[$pid]);
+        $prices[] = $price;
+      }
     }
     
     // the json data

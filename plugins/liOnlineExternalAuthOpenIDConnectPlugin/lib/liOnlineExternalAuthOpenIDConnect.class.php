@@ -25,7 +25,7 @@
 
 class liOnlineExternalAuthOpenIDConnect extends OpenIdConnectProvider
 {
-  protected $config, $redirectUri, $scopes = [], $scopeSeparator = ' ', $provider, $accessToken;
+  protected $config, $redirectUri, $scopes = [], $scopeSeparator = ' ', $provider, $accessToken, $baseurl, $logouturl;
   
   public function getConfig($key = NULL)
   {
@@ -57,6 +57,9 @@ class liOnlineExternalAuthOpenIDConnect extends OpenIdConnectProvider
     else
       $url = $urls;
     
+    $this->baseurl = $this->config['issuer'];
+    $this->logouturl = $this->config['end_session_endpoint'];
+    
     parent::__construct([
       'clientId'                => sfConfig::get('app_openidconnect_client_id', null),
       'clientSecret'            => sfConfig::get('app_openidconnect_client_secret', null),
@@ -68,6 +71,16 @@ class liOnlineExternalAuthOpenIDConnect extends OpenIdConnectProvider
       'scopeSeparator'          => sfConfig::get('app_openidconnect_scope_separator', ' '),
       'verify'                  => sfConfig::get('app_openidconnect_verify_ssl'),
     ]);
+  }
+  
+  public function getLogoutUrl()
+  {
+    return $this->logouturl;
+  }
+  
+  public function getBaseUrl()
+  {
+    return $this->baseurl;
   }
   
   /**

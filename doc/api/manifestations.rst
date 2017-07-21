@@ -13,61 +13,29 @@ When you get a collection of resources, "Default" serialization group will be us
 +==================+==========================================================================================================+
 | id               | Id of the manifestation                                                                                  |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| startsAt         | Date when the manifestation starts (`ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`) |
+| startsAt         | Date when the manifestation starts `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_  |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| endsAt           | Date when the manifestation ends (`ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`)   |
+| endsAt           | Date when the manifestation ends  `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_   |
++------------------+----------------------------------------------------------------------------------------------------------+
+| endsAt           | Vat rate appliable for this manifestation                                                                |
++------------------+----------------------------------------------------------------------------------------------------------+
+| confirmed        | Confirmation state (boolean) of this manifestation (excepted for specific cases, should be true)         |
 +------------------+----------------------------------------------------------------------------------------------------------+
 | location         | Location object serialized                                                                               |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| event_id         | Id of related event                                                                                      |
+| event            | Event object serialized                                                                                  |
 +------------------+----------------------------------------------------------------------------------------------------------+
-| event            | Translations for the related event                                                                       |
-+------------------+----------------------------------------------------------------------------------------------------------+
-| metaEvent        | Name of related meta-event                                                                               |
-+------------------+----------------------------------------------------------------------------------------------------------+
-| gauges           | Collection of gauges object serialized                                                                   |
+| gauges           | Collection of gauges objects serialized                                                                  |
 +------------------+----------------------------------------------------------------------------------------------------------+
 | timeSlots        | Collection of timeslot objects serialized                                                                |
 +------------------+----------------------------------------------------------------------------------------------------------+
+| createdAt        | *Optional* Datetime of creation `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_     |
++------------------+----------------------------------------------------------------------------------------------------------+
+| updatedAt        | *Optional* Datetime of last update  `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_ |
++------------------+----------------------------------------------------------------------------------------------------------+
 
-Gauges API response structure
-------------------------------
-
-When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
-
-+------------------+--------------------------------------------------------------------------+
-| Field            | Description                                                              |
-+==================+==========================================================================+
-| id               | Id of the gauge                                                          |
-+------------------+--------------------------------------------------------------------------+
-| name             | Name of the current Gauge (through its Workspace)                        |
-+------------------+--------------------------------------------------------------------------+
-| availableUnits   | The available space in this gauge                                        |
-|                  | To avoid information leaks, if more space is available than the maximum  |
-|                  | configured, the maximum is exposed instead of the really available space |
-+------------------+--------------------------------------------------------------------------+
-| prices           | Collection of Prices                                                     |
-+------------------+--------------------------------------------------------------------------+
-
-Prices API response structure
-------------------------------
-
-When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
-
-+------------------+--------------------------------------------------------------------------+
-| Field            | Description                                                              |
-+==================+==========================================================================+
-| id               | Id of the price                                                          |
-+------------------+--------------------------------------------------------------------------+
-| translations     | Collection of translations                                               |
-+------------------+--------------------------------------------------------------------------+
-| value            | Amount of the price in the current currency                              |
-+------------------+--------------------------------------------------------------------------+
-| currencyCode     | Currency of the cart                                                     |
-+------------------+--------------------------------------------------------------------------+
-
-TimeSlots API response structure
---------------------------------
+TimeSlots API response structure *Optional*
+--------------------------------------------
 
 When you get a collection of resources, "Default" serialization group will be used and the following fields will be exposed:
 
@@ -89,14 +57,26 @@ Available actions to interact with a manifestation
 +------------------+----------------------------------------------+
 | Action           | Description                                  |
 +==================+==============================================+
+| List             | List manifestations                          |
++------------------+----------------------------------------------+
 | Show             | Getting a single manifestation               |
++------------------+----------------------------------------------+
+| Create           | Create a manifestation                       |
++------------------+----------------------------------------------+
+| Update           | Update a manifestation                       |
++------------------+----------------------------------------------+
+| Delete           | Delete a manifestation                       |
++------------------+----------------------------------------------+
+| Add Price        | Add a price to a manifestation               |
++------------------+----------------------------------------------+
+| Remove Price     | Remove a price from a manifestation          |
 +------------------+----------------------------------------------+
 
 
 Getting a collection of manifestations
 ---------------------------------------
 
-To retrieve the full customers list, you will need to call the /api/v2/manifestations/{id} endpoint with the GET method.
+To retrieve the full customers list, you will need to call the /api/v2/manifestations endpoint with the GET method.
 
 Definition
 ^^^^^^^^^^
@@ -114,6 +94,11 @@ Example
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X GET \
+        -- data '{
+                "criteria[metaEvents.id][type]": "equals",
+                "criteria[metaEvents.id][value]": 12,
+                "limit": 100
+            }'
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -124,207 +109,170 @@ Sample Response
 
 .. code-block:: json
 
-    {
-        "page": 1,
-        "limit": 10,
-        "pages": 147,
-        "total": 1463,
-        "_links": {
-            "self": {
-                "href": "\/tck_dev.php\/api\/v2\/events?limit=10"
-            },
-            "first": {
-                "href": "\/tck_dev.php\/api\/v2\/events?limit=10&page=1"
-            },
-            "last": {
-                "href": "\/tck_dev.php\/api\/v2\/events?limit=10&page=147"
-            },
-            "next": {
-                "href": "\/tck_dev.php\/api\/v2\/events?limit=10&page=2"
-            }
+   {
+    "page": 1,
+    "limit": 10,
+    "pages": 6,
+    "total": 53,
+    "_links": {
+        "self": {
+            "href": "\/api\/v2\/manifestations?limit=10"
         },
-        "_embedded": {
-            "items": [
-                {
-                    "id": 1,
-                    "metaEvent": {
-                        "id": 3,
-                        "translations": {
-                            "en": {
-                                "name": "Talents en Sc\u00e8ne 2012",
-                                "description": ""
-                            },
-                            "fr": {
-                                "name": "Talents en Sc\u00e8ne 2012 ",
-                                "description": " "
-                            }
-                        }
-                    },
-                    "category": null,
-                    "translations": {
-                        "fr": {
-                            "name": "Talents en Sc\u00e8ne",
-                            "subtitle": null,
-                            "short_name": "",
-                            "description": "",
-                            "extradesc": "",
-                            "extraspec": ""
-                        }
-                    },
-                    "imageURL": "\/pub_dev.php\/picture\/1\/display",
-                    "manifestations": [
-                        {
-                            "id": 123,
-                            "startsAt": "2016-07-23 15:00:00",
-                            "endsAt": "2016-07-23 16:30:00",
-                            "event_id": 115,
-                            "event": {
-                                "fr": {
-                                    "name": "Sadorn Ar Vugale",
-                                    "subtitle": "",
-                                    "short_name": "",
-                                    "description": "",
-                                    "extradesc": "",
-                                    "extraspec": ""
-                                }
-                            },
-                            "metaEvent": {
-                                "fr": {
-                                    "name": "Cornouaille 2016",
-                                    "description": ""
-                                }
-                            },
-                            "location": {
-                                "id": 11,
-                                "name": "Cour du Coll\u00e8ge La Tour d'Auvergne",
-                                "address": "",
-                                "zip": "",
-                                "city": "",
-                                "country": "France"
-                            },
-                            "gauges": [
-                                {
-                                    "id": 314,
-                                    "name": "Placement libre assis",
-                                    "availableUnits": 10,
-                                    "prices": [
-                                        {
-                                            "id": 27,
-                                            "value": "20.000",
-                                            "currencyCode": 978,
-                                            "translations": {
-                                                "fr": {
-                                                    "name": "TP",
-                                                    "description": "Tarif Plein"
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                            ],
-                            "timeSlots": [
-                                {
-                                    "id":10001,
-                                    "title": "Créneau de l'après midi",
-                                    "startsAt": "2016-07-23 14:00:00",
-                                    "endsAt": "2016-07-23 18:00:00"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "metaEvent": {
-                        "id": 2,
-                        "translations": {
-                            "en": {
-                                "name": "Da\u00f1s 2012",
-                                "description": ""
-                            },
-                            "fr": {
-                                "name": "Da\u00f1s 2012 ",
-                                "description": " "
-                            }
-                        }
-                    },
-                    "category": "Danse traditionnelle",
-                    "translations": {
-                        "fr": {
-                            "name": "FESTIVAL DA\u00d1S ",
-                            "subtitle": null,
-                            "short_name": "",
-                            "description": "",
-                            "extradesc": "",
-                            "extraspec": ""
-                        }
-                    },
-                    "imageURL": "\/pub_dev.php\/picture\/2\/display",
-                    "manifestations": [
-                        {
-                            "id": 123,
-                            "startsAt": "2016-07-23 15:00:00",
-                            "endsAt": "2016-07-23 16:30:00",
-                            "event_id": 115,
-                            "event": {
-                                "fr": {
-                                    "name": "Sadorn Ar Vugale",
-                                    "subtitle": "",
-                                    "short_name": "",
-                                    "description": "",
-                                    "extradesc": "",
-                                    "extraspec": ""
-                                }
-                            },
-                            "metaEvent": {
-                                "fr": {
-                                    "name": "Cornouaille 2016",
-                                    "description": ""
-                                }
-                            },
-                            "location": {
-                                "id": 11,
-                                "name": "Cour du Coll\u00e8ge La Tour d'Auvergne",
-                                "address": "",
-                                "zip": "",
-                                "city": "",
-                                "country": "France"
-                            },
-                            "gauges": [
-                                {
-                                    "id": 314,
-                                    "name": "Placement libre assis",
-                                    "availableUnits": 10,
-                                    "prices": [
-                                        {
-                                            "id": 27,
-                                            "value": "20.000",
-                                            "currencyCode": 978,
-                                            "translations": {
-                                                "fr": {
-                                                    "name": "TP",
-                                                    "description": "Tarif Plein"
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                            ],
-                            "timeSlots": [
-                                {
-                                    "id":10002,
-                                    "title": "Début du festival",
-                                    "startsAt": "2016-07-23 15:00:00",
-                                    "endsAt": "2016-07-23 19:00:00"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+        "first": {
+            "href": "\/api\/v2\/manifestations?limit=10&page=1"
+        },
+        "last": {
+            "href": "\/api\/v2\/manifestations?limit=10&page=6"
+        },
+        "next": {
+            "href": "\/api\/v2\/manifestations?limit=10&page=2"
         }
+    },
+    "_embedded": {
+        "items": [
+            {
+                "id": 14,
+                "startsAt": "20170801T124500+02:00",
+                "endsAt": "20170801T144500+02:00",
+                "event": {
+                    "id": 8,
+                    "metaEvent": {
+                        "id": 1,
+                        "translations": {
+                            "fr": {
+                                "name": "Tournoi Foot saison 2000",
+                                "description": "Tournoi Foot saison 2000"
+                            }
+                        }
+                    },
+                    "category": "Moins de 18 ans",
+                    "translations": {
+                        "fr": {
+                            "name": "Tour 1",
+                            "subtitle": "",
+                            "short_name": "Tour 1",
+                            "description": "",
+                            "extradesc": "",
+                            "extraspec": ""
+                        }
+                    },
+                    "imageId": null,
+                    "imageURL": null
+                },
+                "location": {
+                    "id": 3,
+                    "name": "Terrain 10",
+                    "address": "",
+                    "zip": "",
+                    "city": "",
+                    "country": ""
+                },
+                "gauges": [
+                    {
+                        "id": 14,
+                        "name": "Tournoi Foot saison 2000",
+                        "availableUnits": 10,
+                        "prices": [
+                            {
+                                "id": 1,
+                                "value": "0.000",
+                                "currencyCode": 978,
+                                "translations": {
+                                    "en": {
+                                        "name": "Invitation",
+                                        "description": ""
+                                    },
+                                    "fr": {
+                                        "name": "Invitation",
+                                        "description": ""
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "timeSlots": [
+                    {
+                        "id": 5,
+                        "name": "Moins de 18 ans",
+                        "startsAt": "20170801T124500+02:00",
+                        "endsAt": "20170801T144500+02:00"
+                    }
+                ]
+            },
+            {
+                "id": 20,
+                "startsAt": "20170803T124500+02:00",
+                "endsAt": "20170803T144500+02:00",
+                "event": {
+                    "id": 8,
+                    "metaEvent": {
+                        "id": 1,
+                        "translations": {
+                            "fr": {
+                                "name": "Tournoi Foot saison 2000",
+                                "description": "Tournoi Foot saison 2000"
+                            }
+                        }
+                    },
+                    "category": "Moins de 18 ans",
+                    "translations": {
+                        "fr": {
+                            "name": "Tour 1",
+                            "subtitle": "",
+                            "short_name": "Tour 1",
+                            "description": "",
+                            "extradesc": "",
+                            "extraspec": ""
+                        }
+                    },
+                    "imageId": null,
+                    "imageURL": null
+                },
+                "location": {
+                    "id": 3,
+                    "name": "Terrain 10",
+                    "address": "",
+                    "zip": "",
+                    "city": "",
+                    "country": ""
+                },
+                "gauges": [
+                    {
+                        "id": 20,
+                        "name": "Tournoi Foot saison 2000",
+                        "availableUnits": 10,
+                        "prices": [
+                            {
+                                "id": 1,
+                                "value": "0.000",
+                                "currencyCode": 978,
+                                "translations": {
+                                    "en": {
+                                        "name": "Invitation",
+                                        "description": ""
+                                    },
+                                    "fr": {
+                                        "name": "Invitation",
+                                        "description": ""
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "timeSlots": [
+                    {
+                        "id": 9,
+                        "name": "Présentation du tournoi",
+                        "startsAt": "20170802T081500+02:00",
+                        "endsAt": "20180802T084500+02:00"
+                    }
+                ]
+            }
+        ]
     }
-
+}
 
 Getting a single manifestation
 ------------------------------
@@ -343,10 +291,10 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/manifestations/837 \
+    $ curl http://e-venement.local/api/v2/manifestations/13 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
-        -X GET \
+        -X GET
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -358,48 +306,60 @@ Sample Response
 .. code-block:: json
 
     {
-        "id": 123,
-        "startsAt": "2016-07-23 15:00:00",
-        "endsAt": "2016-07-23 16:30:00",
-        "event_id": 115,
+        "id": 13,
+        "startsAt": "20170801T173000+02:00",
+        "endsAt": "20170801T181500+02:00",
         "event": {
-            "fr": {
-                "name": "Sadorn Ar Vugale",
-                "subtitle": "",
-                "short_name": "",
-                "description": "",
-                "extradesc": "",
-                "extraspec": ""
-            }
-        },
-        "metaEvent": {
-            "fr": {
-                "name": "Cornouaille 2016",
-                "description": ""
-            }
+            "id": 13,
+            "metaEvent": {
+                "id": 1,
+                "translations": {
+                    "fr": {
+                        "name": "Tournoi Foot saison 2000",
+                        "description": "Tournoi Foot saison 2000"
+                    }
+                }
+            },
+            "category": "Moins de 20 ans",
+            "translations": {
+                "fr": {
+                    "name": "Tour 4",
+                    "subtitle": "",
+                    "short_name": "Tour 4",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                }
+            },
+            "imageId": null,
+            "imageURL": null
         },
         "location": {
-            "id": 11,
-            "name": "Cour du Coll\u00e8ge La Tour d'Auvergne",
+            "id": 4,
+            "name": "Terrain 12",
             "address": "",
             "zip": "",
             "city": "",
-            "country": "France"
+            "country": ""
         },
         "gauges": [
             {
-                "id": 314,
-                "name": "Placement libre assis",
+                "id": 13,
+                "name": "Tournoi Foot saison 2000",
                 "availableUnits": 10,
                 "prices": [
                     {
-                        "id": 27,
-                        "value": "20.000",
+                        "id": 1,
+                        "value": "0.000",
                         "currencyCode": 978,
                         "translations": {
+                            "en": {
+                                "name": "Invitation",
+                                "description": ""
+                            },
                             "fr": {
-                                "name": "TP",
-                                "description": "Tarif Plein"
+                                "name": "Invitation",
+                                "description": ""
                             }
                         }
                     }
@@ -408,10 +368,282 @@ Sample Response
         ],
         "timeSlots": [
             {
-                "id":10001,
-                "title": "Créneau de l'après midi",
-                "startsAt": "2016-07-23 14:00:00",
-                "endsAt": "2016-07-23 18:00:00"
+                "id": 7,
+                "name": "Présentation du tournoi",
+                "startsAt": "20170801T173000+02:00",
+                "endsAt": "20170801T181500+02:00"
             }
         ]
     }
+
+Creating a manifestation
+-------------------------
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    POST /api/v2/manifestations
+
++--------------------------+----------------+-----------------------------------------------------+
+| Parameter                | Parameter type | Description                                         |
++==========================+================+=====================================================+
+| Authorization            | header         | Token received during authentication                |
++--------------------------+----------------+-----------------------------------------------------+
+| id                       | url attribute  | Id of the requested resource                        |
++--------------------------+----------------+-----------------------------------------------------+
+| startsAt                 | request        | Manifestation start date & time *Required*          |
++--------------------------+----------------+-----------------------------------------------------+
+| endsAt                   | request        | Manifestation end date & time *Required*            |
++--------------------------+----------------+-----------------------------------------------------+
+| eventId                  | request        | Manifestation event Id *Required*                   |
++--------------------------+----------------+-----------------------------------------------------+
+| locationId               | request        | Manifestation location Id *Required*                |
++--------------------------+----------------+-----------------------------------------------------+
+| vatId                    | request        | Manifestation appliable VAT Id *Required*           |
++--------------------------+----------------+-----------------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl -k "https://dev2.libre-informatique.fr/tck.php/api/v2/manifestations" \
+           -H "Content-Type: application/json" \
+           -H "Authorization: Bearer 00d22dd8b44673c16012f16d3d6bbe35" \
+           -X POST
+           --data '{
+                "startsAt":"20170717T120355+02:00",
+                "endsAt":"20170717T130355+02:00",
+                "eventId":1,
+                "locationId":5,
+                "vatId":1
+           }'
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 201 Created
+
+.. code-block:: json
+
+    {
+        "id": 89,
+        "startsAt": "20170717T120355+02:00",
+        "endsAt": "20170717T130355+02:00",
+        "vat": "0.0000",
+        "event": {
+            "id": 1,
+            "metaEvent": {
+                "id": 1,
+                "translations": {
+                    "fr": {
+                        "name": "Semaine des ambassadeurs 2017",
+                        "description": "Semaine des ambassadeurs 2017"
+                    }
+                }
+            },
+            "category": "Caf\u00e9 d'accueil",
+            "translations": {
+                "en": {
+                    "name": "",
+                    "subtitle": "",
+                    "short_name": "",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                },
+                "fr": {
+                    "name": "Caf\u00e9 d'accueil",
+                    "subtitle": "",
+                    "short_name": "Accueil",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                }
+            },
+            "imageId": 1,
+            "imageURL": "\/tck.php\/api\/v2\/pictures\/1"
+        },
+        "location": {
+            "id": 5,
+            "name": "Ext01",
+            "address": "",
+            "zip": "",
+            "city": "",
+            "country": ""
+        },
+        "gauges": []
+    }
+
+If you try to create a manifestation without a required field, you will receive a ``400 Bad Request`` error.
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl -k "https://dev2.libre-informatique.fr/tck.php/api/v2/manifestations" \
+           -H "Content-Type: application/json" \
+           -H "Authorization: Bearer 00d22dd8b44673c16012f16d3d6bbe35" \
+           -X POST
+           --data '{
+                "startsAt":"20170717T120355+02:00",
+                "endsAt":"20170717T130355+02:00",
+                "eventId":1,
+           }'
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 400 Bad Request
+
+.. code-block:: json
+
+    {
+        "code": 400,
+        "message": "Create failed"
+    }
+
+Updating a Manifestation
+-------------------------
+
+You can request full or partial update of resource, using the POST method.
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    POST /api/v2/manifestations/{id}
+
++--------------------------+----------------+-----------------------------------------------------+
+| Parameter                | Parameter type | Description                                         |
++==========================+================+=====================================================+
+| Authorization            | header         | Token received during authentication                |
++--------------------------+----------------+-----------------------------------------------------+
+| id                       | url attribute  | Id of the requested resource                        |
++--------------------------+----------------+-----------------------------------------------------+
+| startsAt                 | request        | Manifestation start date & time                     |
++--------------------------+----------------+-----------------------------------------------------+
+| endsAt                   | request        | Manifestation end date & time                       |
++--------------------------+----------------+-----------------------------------------------------+
+| eventId                  | request        | Manifestation event Id                              |
++--------------------------+----------------+-----------------------------------------------------+
+| locationId               | request        | Manifestation location Id                           |
++--------------------------+----------------+-----------------------------------------------------+
+| vatId                    | request        | Manifestation appliable VAT Id                      |
++--------------------------+----------------+-----------------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/manifestations/84 \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Content-Type: application/json" \
+        -X POST \
+        --data '
+            {
+                "endsAt":"20170717T111927+02:00",
+                "locationId":1
+           }'
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 200 OK
+
+.. code-block:: json
+
+    {
+        "id": 84,
+        "startsAt": "20170717T094924+02:00",
+        "endsAt": "20170717T111927+02:00",
+        "vat": "0.0000",
+        "event": {
+            "id": 1,
+            "metaEvent": {
+                "id": 1,
+                "translations": {
+                    "fr": {
+                        "name": "Semaine des ambassadeurs 2017",
+                        "description": "Semaine des ambassadeurs 2017"
+                    }
+                }
+            },
+            "category": "Caf\u00e9 d'accueil",
+            "translations": {
+                "en": {
+                    "name": "",
+                    "subtitle": "",
+                    "short_name": "",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                },
+                "fr": {
+                    "name": "Caf\u00e9 d'accueil",
+                    "subtitle": "",
+                    "short_name": "Accueil",
+                    "description": "",
+                    "extradesc": "",
+                    "extraspec": ""
+                }
+            },
+            "imageId": 1,
+            "imageURL": "\/tck.php\/api\/v2\/pictures\/1"
+        },
+        "location": {
+            "id": 1,
+            "name": "CCM - Grande salle",
+            "address": "",
+            "zip": "",
+            "city": "",
+            "country": ""
+        },
+        "gauges": []
+    }
+
+Deleting a Manifestation *Optional*
+------------------------------------
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    DELETE /api/v2/manifestations/{id}
+
++---------------+----------------+-------------------------------------------+
+| Parameter     | Parameter type | Description                               |
++===============+================+===========================================+
+| Authorization | header         | Token received during authentication      |
++---------------+----------------+-------------------------------------------+
+| id            | url attribute  | Id of the requested resource              |
++---------------+----------------+-------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/manifestations/84 \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Accept: application/json" \
+        -X DELETE
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 204 No Content

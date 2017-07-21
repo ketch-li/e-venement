@@ -1189,8 +1189,8 @@
         <target>Imp./Int. partielle</target>
       </trans-unit>
       <trans-unit id="296">
-        <source>You must enter a postal code before printing the ticket(s).</source>
-        <target>Vous devez saisir un code postal avant d'imprimer le(s) billet(s).</target>
+        <source>You must enter a postal code or a country before printing the ticket(s).</source>
+        <target>Vous devez saisir un code postal ou un pays avant d'imprimer le(s) billet(s).</target>
       </trans-unit>
       <trans-unit id="297">
         <source>Unassociated</source>
@@ -2101,8 +2101,8 @@
         <target>Paramètrage de l'écran de vente</target>
       </trans-unit>      
       <trans-unit id="524">
-        <source>Force postal code</source>
-        <target>Imposer la saisie du code postal.</target>
+        <source>Force postal code or country</source>
+        <target>Imposer la saisie du code postal ou du pays.</target>
       </trans-unit>        
       <trans-unit id="525">
         <source>Excluded users</source>
@@ -2143,7 +2143,11 @@
       <trans-unit id="534">
         <source>List of transactions to be confirmed by email</source>
         <target>Liste des opérations à confirmer par email</target>
-      </trans-unit>                       
+      </trans-unit>  
+      <trans-unit id="535">
+        <source>You must enter a postal code before printing the ticket(s).</source>
+        <target>Vous devez saisir un code postal avant d'imprimer le(s) billet(s).</target>
+      </trans-unit>                     
     </body>
   </file>
 </xliff>

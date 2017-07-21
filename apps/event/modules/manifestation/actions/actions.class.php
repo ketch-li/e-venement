@@ -314,6 +314,10 @@ class manifestationActions extends autoManifestationActions
         $date->format('Y').'-'.$date->format('m').'-'.($date->format('d')+1),
       ));
     }
+    else
+    {
+      $q->andWhere("m.happens_at >= now() - INTERVAL '1 day'");
+    }
     if ( $eids )
       $q->andWhereIn('m.event_id',$eids);
     elseif ( $search )

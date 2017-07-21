@@ -276,7 +276,7 @@ $(document).ready(function(){
   });
   
   // vCard & co
-  $('#li_transaction_field_professional_id, #li_transaction_field_postalcode, #li_transaction_field_country, #li_transaction_field_contact_id, #li_transaction_field_more').click(function(){
+  $('#li_transaction_field_professional_id, #li_transaction_field_postalcode, #li_transaction_field_country, #li_transaction_field_contact_id, #li_transaction_field_more').click(function(event, callback = null){
     $('#li_transaction_field_professional_id, #li_transaction_field_postalcode, #li_transaction_field_country, #li_transaction_field_contact_id, #li_transaction_field_more').addClass('ui-state-highlight');
     if ( $('#li_transaction_field_contact_id .data a').length > 0
       && $('#li_transaction_field_informations .vcard').length == 0 )
@@ -288,6 +288,9 @@ $(document).ready(function(){
         $(data).find('.type').remove();
         $(data).find('.postal-code').each(function(){ $(this).insertBefore($(this).closest('address').find('.locality')); });
         $('#li_transaction_field_informations').prepend($(data));
+        
+        if ( callback ) 
+          callback();
       });
     }
     else
@@ -402,16 +405,15 @@ $(document).ready(function(){
   // reset the current transaction + resend the confirmation email + access to the simplified gui
   $('#abandon, #resend-email, #pay-online, #simplified-gui, #direct-surveys').appendTo($('#sf_admin_container .ui-widget-header h1'));
   $('#resend-email').click(function(){
-    $('#autocomplete_transaction_contact_id').click();
-    var anchor = this;
-    setTimeout(function(){
+    $('#autocomplete_transaction_contact_id').trigger('click', function() {
+      var anchor = '#resend-email';
       if ( !$.trim($('#li_transaction_field_informations .email a').text()) )
       {
         LI.alert($(anchor).attr('data-text-error'), 'error');
         return false;
       }
       window.open($(anchor).prop('href'));
-    },1500);
+    });
     return false;
   });
 });

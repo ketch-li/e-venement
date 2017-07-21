@@ -10,16 +10,45 @@ class kioskConfiguration extends sfApplicationConfiguration
 
   public static function getText($var, $default = '')
   { 
-    // DB loading
-    if ( !sfConfig::has($var) )
-    foreach ( OptionKioskTextsForm::getStructuredDBOptions() as $name => $value )
-      sfConfig::set('app_texts_'.$name, $value);
-    
-    $txt = sfConfig::get($var, $default);
-    $culture = sfContext::hasInstance() && sfContext::getInstance()->getUser() instanceof sfUser
-      ? sfContext::getInstance()->getUser()->getCulture()
-      : false;
+    self::checkConfig();
 
+    $texts = sfConfig::get('app_ui_texts');
+
+    if( isset($texts[$var]) )
+      return self::getAppropriateTranslation($texts[$var], self::getUserCulture());
+
+    return $default;
+  }
+
+  public static function getTexts()
+  {
+    $texts = array();
+    $culture = self::getUserCulture();
+
+    self::checkConfig();
+
+    foreach( sfConfig::get('app_ui_texts') as $name => $txt )
+    {  
+      $texts[$name] = self::getAppropriateTranslation($txt, $culture);
+    }
+
+    return $texts;
+  }
+
+  private static function checkConfig() {
+    if( !sfConfig::has('app_ui_texts') )
+    {
+      $texts = array();
+
+      foreach ( OptionKioskTextsForm::getStructuredDBOptions() as $name => $value )
+        $texts[$name] = $value;
+
+      sfConfig::set('app_ui_texts', $texts);
+    }
+  }
+
+  private static function getAppropriateTranslation($txt, $culture)
+  {
     // no translation
     if ( !is_array($txt) )
       return $txt;
@@ -39,5 +68,12 @@ class kioskConfiguration extends sfApplicationConfiguration
     
     // the first translation
     return array_shift($txt);
+  }
+
+  private static function getUserCulture()
+  {
+    return sfContext::hasInstance() && sfContext::getInstance()->getUser() instanceof sfUser
+      ? sfContext::getInstance()->getUser()->getCulture()
+      : false;
   }
 }

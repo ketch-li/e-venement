@@ -27,7 +27,7 @@ function cross_app_url_for($appname, $url, $absolute = false, $env = null, $debu
   $stack = sfContext::getInstance()->getActionStack();
   
   // get the environment
-  if (is_null($env))
+  if ( $env == null )
   {
     $env = sfContext::getInstance()->getConfiguration()->getEnvironment();
   }

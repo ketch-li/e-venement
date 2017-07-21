@@ -12,6 +12,17 @@
 <?php include_partial(
   'form_links_field',
   array(
+    'name'  => 'Additive',
+    'label' => __('Additive?'),
+    'type'  => 'checkbox',
+    'value' => 'yes',
+    'size'  => false,
+    'attributes' => array(),
+  )
+) ?>
+<?php include_partial(
+  'form_links_field',
+  array(
     'name'  => 'format',
     'label' => __('Format'),
     'value' => "%row%%num%",

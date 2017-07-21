@@ -2306,6 +2306,10 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>New Price color</source>
         <target>Nouvelle couleur pour les tarifs</target>
       </trans-unit>                       
+      <trans-unit id="576">
+        <source>Additive?</source>
+        <target>Cumulatif</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

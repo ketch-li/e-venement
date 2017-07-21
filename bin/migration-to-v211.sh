@@ -48,6 +48,13 @@ echo "To continue press ENTER"
 echo "To cancel press CTRL+C NOW !!"
 read
 
+# Read Password
+if [ -n "$PGHOST" ]  && [ -z "$PGPASSWORD" ]; then
+    echo -n Password:
+    read -s password
+    # Run Command
+    export PGPASSWORD=$password
+fi
 
 # Checking data
 i=0; for elt in `echo 'SELECT count(*) FROM ticket WHERE (printed_at IS NOT NULL OR integrated_at IS NOT NULL);' | psql`
@@ -74,7 +81,7 @@ name="$PGDATABASE"
 [ -z "$name" ] && name=db
 
 ## Deleting unwanted column
-echo 'ALTER TABLE price DROP COLUMN IF EXISTS target;' | psql
+echo 'ALTER TABLE price DROP COLUMN IF EXISTS target;' | psql $PGDATABASE
 
 ## preliminary modifications & backup
 echo "DUMPING DB..."
@@ -84,6 +91,14 @@ pg_dump -Fc > data/sql/$name-`date +%Y%m%d`.before.pgdump && echo "DB pre dumped
 
 echo 'DELETE FROM cache;' | psql
 ## DO STUFF IN THE DB HERE
+
+## Remove the content before changing the structure of the table
+cities=`echo "SELECT count(*) FROM information_schema.columns WHERE table_name = 'postalcode' AND column_name = 'insee';" | psql $PGDATABASE | grep '[0-9]' | grep -v \(`
+if [ $cities -eq 0 ]
+then
+echo "Removing cities to add INSEE code."
+echo 'DELETE FROM postalcode' | psql $PGDATABASE
+fi
 
 psql <<EOF
 EOF
@@ -107,8 +122,11 @@ echo "Resetting the DB"
 echo ""
 # recreation and data backup
 # those rm -rf cache/* are hacks to avoid cache related segfaults...
-dropdb $db;
-createdb $db
+#dropdb $db;
+#createdb $db
+echo "DROP SCHEMA IF EXISTS public CASCADE;" | psql $PGDATABASE
+echo "CREATE SCHEMA public;" | psql $PGDATABASE
+echo "GRANT ALL ON SCHEMA public TO $SFUSER;" | psql $PGDATABASE
 
 last=$?
 ./symfony cc
@@ -244,6 +262,12 @@ then
   ./symfony doctrine:data-load --append data/fixtures/50-geo-fr-district.yml
 fi
 
+if [ $cities -eq 0 ]
+then
+echo ""
+echo "Loading cities with INSEE code. It will take a couple of minutes..."
+  ./symfony doctrine:data-load data/fixtures/20-postalcodes.yml --application=default
+fi
 
 echo ""
 read -p "Do you want to add the new permissions? [Y/n] " add

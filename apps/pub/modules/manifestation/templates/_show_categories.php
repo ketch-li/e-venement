@@ -8,17 +8,17 @@
       $groups[$gauge->group_name] = array();
     
     foreach ( $gauge->getPriceManifestationsFiltered() as $pm )
-    if ( $pm->Price->isAccessibleBy($sf_user->getRawValue()) )
+    if ( $pm->Price->isAccessibleBy($sf_user->getRawValue(), $manifestation) )
     {
       $groups[$gauge->group_name][$pm->price_id] = array(
         'price'   => $pm->Price,
-        'values'  => array('manif' => format_currency($pm->value,$sf_context->getConfiguration()->getCurrency())),
+        'values'  => array('manif' => $pm->value),
       );
     }
     
     foreach ( $gauge->getPriceGaugesFiltered() as $pg )
-    if ( $pg->Price->isAccessibleBy($sf_user->getRawValue())
-      && in_array($gauge->workspace_id, array_keys($pg->getRaw('Price')->Workspaces->getPrimaryKeys())) )
+    if ( $pg->Price->isAccessibleBy($sf_user->getRawValue(), $manifestation)
+      && in_array($gauge->workspace_id, $pg->getRaw('Price')->Workspaces->getPrimaryKeys()) )
     {
       if ( !isset($groups[$gauge->group_name][$pg->price_id]) )
         $groups[$gauge->group_name][$pg->price_id] = array(
@@ -46,6 +46,32 @@
   
   // to be sure...
   ksort($groups);
+  
+  if ( $sf_user->hasContact() && sfConfig::get('app_options_pass_price_first') )
+  foreach ($sf_user->getContact()->getActiveMembercards()->merge($sf_user->getTransaction()->MemberCards->getRawValue()) as $MemberCard)
+  {
+    $pm = $MemberCard->MemberCardType->MemberCardPriceModels->toKeyValueArray('id', 'price_id')->getRawValue();
+
+    foreach (array_reverse($groups) as $name => $prices)
+    {
+      $gps = array();
+      
+      foreach ($prices as $id => $price)
+      {
+        if ( in_array($price['price']->id, $pm) )
+        {
+          $gps = array($id => $price) + $gps;
+        }
+        else
+        {
+          $gps[$id] = $price;
+        }
+      }
+      
+      $groups[$name] = $gps;
+    }
+  }
+
 ?>
 <ul><?php foreach ( $groups as $name => $prices ): ?>
   <?php if ( count($prices) > 0 ): ?>
@@ -57,7 +83,7 @@
       <input type="hidden" name="price_new[manifestation_id]" value="<?php echo $manifestation->id ?>" />
     </span>
     <select class="prices" name="price_new[price_id]"><?php foreach ( $prices as $id => $price ): ?>
-      <?php if ( $price['price']->isAccessibleBy($sf_user->getRawValue()) ): ?>
+      <?php if ( $price['price']->isAccessibleBy($sf_user->getRawValue(), $manifestation) ): ?>
       <option value="<?php echo $id ?>">
         <?php echo $price['price']->description ? $price['price']->description : $price['price'] ?>
         <?php foreach ( $price['values'] as $key => $value ) $price['values'][$key] = format_currency($value,$sf_context->getConfiguration()->getCurrency()); ?>

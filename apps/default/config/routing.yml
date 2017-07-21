@@ -86,6 +86,10 @@ sf_guard_password:
   url:   /request_password
   param: { module: sfGuardAuth, action: password }
 
+sf_gurad_login_csrf:
+  url: /guard/csrf
+  param: { module: sfGuardAuth, action: getLoginCSRF }
+
 # default rules
 homepage:
   url:   /

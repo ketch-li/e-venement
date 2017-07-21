@@ -27,7 +27,7 @@ class OptionTckForm extends BaseOptionTckForm
     }    
 
     $this->widgetSchema['tck-print-ticket-cp'] = new sfWidgetFormInputCheckbox(array(
-        'label' => __('Force postal code')), 
+        'label' => __('Force postal code or country')), 
         array('value' => 1)
     );      
     $this->validatorSchema['tck-print-ticket-cp'] = new sfValidatorBoolean(array(

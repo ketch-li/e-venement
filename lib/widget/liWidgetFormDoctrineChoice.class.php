@@ -54,12 +54,13 @@ class liWidgetFormDoctrineChoice extends sfWidgetFormDoctrineChoice
    */
   public function getChoices()
   {
-    $choices = parent::getChoices();
-    
     $empty = $this->getOption('add_empty');
     if ( false !== $empty && is_array($empty) )
     {
-      $shown = true === $this->getOption('add_empty') ? '' : $this->translate($empty[1]);
+      $this->setOption('add_empty', $empty[1]);
+      $choices = parent::getChoices();
+
+      $shown = true === $empty ? '' : $this->translate($empty[1]);
       if ( !$this->getOption('multiple') || !isset($empty[0]) )
         $choices[''] = $shown;
       else
@@ -69,6 +70,10 @@ class liWidgetFormDoctrineChoice extends sfWidgetFormDoctrineChoice
           = array($empty[0] => $shown)
           + $choices;
       }
+    }
+    else
+    {
+      $choices = parent::getChoices();
     }
     
     return $choices;

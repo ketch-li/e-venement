@@ -72,12 +72,13 @@ class ManifestationTable extends PluginManifestationTable
     $meu = $alias != 'meu' ? 'meu' : 'meu1';
     
     $culture = sfContext::hasInstance() ? sfContext::getInstance()->getUser()->getCulture() : 'fr';
+    $json = class_exists('jsonActions') && sfContext::getInstance()->getActionStack()->getLastEntry()->getActionInstance() instanceof jsonActions;
     
     $q = parent::createQuery($alias)
       ->leftJoin("$alias.Event $e")
-      ->leftJoin("$e.Translation $et WITH $et.lang = '$culture'")
+      ->leftJoin("$e.Translation $et".($json ? "" : " WITH $et.lang = '$culture'"))
       ->leftJoin("$e.MetaEvent $me")
-      ->leftJoin("$me.Translation $met WITH $met.lang = '$culture'")
+      ->leftJoin("$me.Translation $met".($json ? "" : " WITH $met.lang = '$culture'"))
       ->leftJoin("$alias.Location $l");
     
     // security features: limitating manifestation's access to owner, or confirmed manifestation, or confirmations administrator

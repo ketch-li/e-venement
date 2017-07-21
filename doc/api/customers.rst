@@ -19,37 +19,60 @@ When you get a collection of resources, "Default" serialization group will be us
 
 If you request for a more detailed data, you will receive an object with following fields:
 
-+-------------------------+-------------------------------------------------------------------------------------+
-| Field                   | Description                                                                         |
-+=========================+=====================================================================================+
-| id                      | Id of customer                                                                      |
-+-------------------------+-------------------------------------------------------------------------------------+
-| email                   | Customers email                                                                     |
-+-------------------------+-------------------------------------------------------------------------------------+
-| firstName               | Customers first name                                                                |
-+-------------------------+-------------------------------------------------------------------------------------+
-| lastName                | Customers last name                                                                 |
-+-------------------------+-------------------------------------------------------------------------------------+
-| shortName               | Customers short name                                                                |
-+-------------------------+-------------------------------------------------------------------------------------+
-| address                 | Customers postal address                                                            |
-+-------------------------+-------------------------------------------------------------------------------------+
-| zip                     | Customers ZIP                                                                       |
-+-------------------------+-------------------------------------------------------------------------------------+
-| city                    | Customers city                                                                      |
-+-------------------------+-------------------------------------------------------------------------------------+
-| country                 | Customers country                                                                   |
-+-------------------------+-------------------------------------------------------------------------------------+
-| phoneNumber             | Customers phone number                                                              |
-+-------------------------+-------------------------------------------------------------------------------------+
-| datesOfBirth            | Dates of birth (`ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`)|
-+-------------------------+-------------------------------------------------------------------------------------+
-| locale                  | Spoken language                                                                     |
-+-------------------------+-------------------------------------------------------------------------------------+
-| uid                     | Unique Identifier                                                                   |
-+-------------------------+-------------------------------------------------------------------------------------+
-| subscribedToNewsletter  | Whether or not the customer is subscribed to newsletter                             |
-+-------------------------+-------------------------------------------------------------------------------------+
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| Field                   | Description                                                                                              |
++=========================+==========================================================================================================+
+| id                      | Id of customer                                                                                           |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| email                   | Customers email                                                                                          |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| otherEmail              | *Optional* Customers email                                                                               |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| firstName               | Customers first name                                                                                     |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| lastName                | Customers last name                                                                                      |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| shortName               | Customers short name                                                                                     |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| address                 | Customers postal address                                                                                 |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| zip                     | Customers ZIP                                                                                            |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| city                    | Customers city                                                                                           |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| country                 | Customers country                                                                                        |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| phoneNumber             | Customers phone number                                                                                   |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| datesOfBirth            | Dates of birth `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_                      |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| locale                  | Spoken language                                                                                          |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| uid                     | Unique Identifier                                                                                        |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| subscribedToNewsletter  | Whether or not the customer is subscribed to newsletter                                                  |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| createdAt               | *Optional* Datetime of creation `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_     |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+| updatedAt               | *Optional* Datetime of last update `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_  |
++-------------------------+----------------------------------------------------------------------------------------------------------+
+
+Available actions to interact with a manifestation
+--------------------------------------------------
+
++------------------+----------------------------------------------+
+| Action           | Description                                  |
++==================+==============================================+
+| List             | List available customers                     |
++------------------+----------------------------------------------+
+| Show             | Getting a single customer                    |
++------------------+----------------------------------------------+
+| Create           | Create a customer                            |
++------------------+----------------------------------------------+
+| Update           | Update a customer                            |
++------------------+----------------------------------------------+
+| Delete           | Delete a customer                            |
++------------------+----------------------------------------------+
 
 Creating a Customer
 -------------------
@@ -61,31 +84,31 @@ Definition
 
     POST /api/v2/customers
 
-+--------------------------+----------------+-------------------------------------------+
-| Parameter                | Parameter type | Description                               |
-+==========================+================+===========================================+
-| Authorization            | header         | Token received during authentication      |
-+--------------------------+----------------+-------------------------------------------+
-| email                    | request        | Customer's email **required**             |
-+--------------------------+----------------+-------------------------------------------+
-| firstName                | request        | Customer's first name                     |
-+--------------------------+----------------+-------------------------------------------+
-| lastName                 | request        | Customer's last name                      |
-+--------------------------+------------------------------------------------------------+
-| address                  | request        | Customers postal address                  |
-+--------------------------+------------------------------------------------------------+
-| zip                      | request        | Customers ZIP                             |
-+--------------------------+------------------------------------------------------------+
-| city                     | request        | Customers city                            |
-+--------------------------+------------------------------------------------------------+
-| country                  | request        | Customers country                         |
-+--------------------------+------------------------------------------------------------+
-| phoneNumber              | request        | Customers phone number                    |
-+--------------------------+------------------------------------------------------------+
++--------------------------+----------------+-----------------------------------------------------+
+| Parameter                | Parameter type | Description                                         |
++==========================+================+=====================================================+
+| Authorization            | header         | Token received during authentication                |
++--------------------------+----------------+-----------------------------------------------------+
+| email                    | request        | Customer's email **required**                       |
++--------------------------+----------------+-----------------------------------------------------+
+| firstName                | request        | Customer's first name                               |
++--------------------------+----------------+-----------------------------------------------------+
+| lastName                 | request        | Customer's last name                                |
++--------------------------+----------------+-----------------------------------------------------+
+| address                  | request        | Customers postal address                            |
++--------------------------+----------------+-----------------------------------------------------+
+| zip                      | request        | Customers ZIP                                       |
++--------------------------+----------------+-----------------------------------------------------+
+| city                     | request        | Customers city                                      |
++--------------------------+----------------+-----------------------------------------------------+
+| country                  | request        | Customers country                                   |
++--------------------------+----------------+-----------------------------------------------------+
+| phoneNumber              | request        | Customers phone number                              |
++--------------------------+----------------+-----------------------------------------------------+
 | subscribedToNewsletter   | request        | Empty if not subscribed, else fulfilled by anything |
-+--------------------------+------------------------------------------------------------+
-| password                 | request        | Customers new password                    |
-+--------------------------+------------------------------------------------------------+
++--------------------------+----------------+-----------------------------------------------------+
+| password                 | request        | Customers new password                              |
++--------------------------+----------------+-----------------------------------------------------+
 
 Example
 ^^^^^^^
@@ -203,9 +226,10 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/customers/399 \
+    $ curl http://e-venement.local/api/v2/customers/94 \
         -H "Authorization: Bearer SampleToken" \
-        -H "Accept: application/json"
+        -H "Accept: application/json" \
+        -X GET \
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -216,18 +240,22 @@ Sample Response
 
 .. code-block:: json
 
-    {
-        "id":399,
-        "email":"jean.martin@linux.fr",
-        "firstName":"Jean",
-        "lastName":"Martin",
-        "address": "1a, Sunrise St.",
-        "zip": "F-29000",
-        "city": "Quimper",
-        "country": "France",
-        "phoneNumber": "+987654321",
-        "subscribedToNewsletter": "yes"
-    }
+  {
+    "id": 94,
+    "email": "laurent.martin@yahoo.fr",
+    "firstName": "Laurent",
+    "lastName": "Martin",
+    "shortName": "Coco",
+    "address": "Lieu-dit kerfinous",
+    "zip": "29970",
+    "city": "TREGOUREZ",
+    "country": "FRANCE",
+    "phoneNumber": "0645877344",
+    "datesOfBirth": null,
+    "locale": "fr",
+    "uid": null,
+    "subscribedToNewsletter": true
+  }
 
 Collection of Customers
 -----------------------
@@ -259,6 +287,7 @@ Example
     $ curl http://e-venement.local/api/v2/customers \
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
+        -X GET \
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -268,120 +297,47 @@ Sample Response
     STATUS: 200 OK
 
 .. code-block:: json
-
-    {
-        "page":1,
-        "limit":10,
-        "pages":21,
-        "total":205,
-        "_links":{
-            "self":{
-                 "href":"\/api\/v2\/customers\/?page=1&limit=10"
-            },
-            "first":{
-                 "href":"\/api\/v2\/customers\/?page=1&limit=10"
-            },
-            "last":{
-                 "href":"\/api\/v2\/customers\/?page=21&limit=10"
-            },
-            "next":{
-                 "href":"\/api\/v2\/customers\/?page=2&limit=10"
-            }
+   
+   {
+    "page": 1,
+    "limit": 10,
+    "pages": 1,
+    "total": 1,
+    "_links": {
+        "self": {
+            "href": "\/api\/v2\/customers?limit=10"
         },
-        "_embedded":{
-            "items":[
-                 {
-                        "id":407,
-                        "email":"random@gmail.com",
-                        "firstName":"Random",
-                        "lastName":"Doe"
-                 },
-                 {
-                        "id":406,
-                        "email":"customer@email.com",
-                        "firstName":"Alexanne",
-                        "lastName":"Blick"
-                 },
-                 {
-                        "id":405,
-                        "user":{
-                             "id":404,
-                             "username":"gaylord.bins@example.com",
-                             "enabled":true
-                        },
-                        "email":"gaylord.bins@example.com",
-                        "firstName":"Dereck",
-                        "lastName":"McDermott"
-                 },
-                 {
-                        "id":404,
-                        "user":{
-                             "id":403,
-                             "username":"lehner.gerhard@example.com",
-                             "enabled":false
-                        },
-                        "email":"lehner.gerhard@example.com",
-                        "firstName":"Benton",
-                        "lastName":"Satterfield"
-                 },
-                 {
-                        "id":403,
-                        "user":{
-                             "id":402,
-                             "username":"raheem.ratke@example.com",
-                             "enabled":false
-                        },
-                        "email":"raheem.ratke@example.com",
-                        "firstName":"Rusty",
-                        "lastName":"Jerde"
-                 },
-                 {
-                        "id":402,
-                        "user":{
-                             "id":401,
-                             "username":"litzy.morissette@example.com",
-                             "enabled":false
-                        },
-                        "email":"litzy.morissette@example.com",
-                        "firstName":"Omer",
-                        "lastName":"Schaden"
-                 },
-                 {
-                        "id":401,
-                        "user":{
-                             "id":400,
-                             "username":"bbeer@example.com",
-                             "enabled":true
-                        },
-                        "email":"bbeer@example.com",
-                        "firstName":"Willard",
-                        "lastName":"Hand"
-                 },
-                 {
-                        "id":400,
-                        "user":{
-                             "id":399,
-                             "username":"qtrantow@example.com",
-                             "enabled":false
-                        },
-                        "email":"qtrantow@example.com",
-                        "firstName":"Caterina",
-                        "lastName":"Koelpin"
-                 },
-                 {
-                        "id":399,
-                        "user":{
-                             "id":398,
-                             "username":"cgulgowski@example.com",
-                             "enabled":false
-                        },
-                        "email":"cgulgowski@example.com",
-                        "firstName":"Levi",
-                        "lastName":"Friesen"
-                 }
-            ]
+        "first": {
+            "href": "\/api\/v2\/customers?limit=10&page=1"
+        },
+        "last": {
+            "href": "\/api\/v2\/customers?limit=10&page=1"
+        },
+        "next": {
+            "href": "\/api\/v2\/customers?limit=10&page=1"
         }
+    },
+    "_embedded": {
+        "items": [
+            {
+                "id": 94,
+                "email": "laurent.martin@yahoo.fr",
+                "firstName": "Laurent",
+                "lastName": "Martin",
+                "shortName": "Coco",
+                "address": "Lieu-dit kerfinous",
+                "zip": "29970",
+                "city": "TREGOUREZ",
+                "country": "FRANCE",
+                "phoneNumber": "0645877344",
+                "datesOfBirth": null,
+                "locale": "fr",
+                "uid": null,
+                "subscribedToNewsletter": true
+            }
+        ]
     }
+  }
 
 Updating a Customer
 -------------------
@@ -395,50 +351,49 @@ Definition
 
     POST /api/v2/customers/{id}
 
-+--------------------------+----------------+-------------------------------------------+
-| Parameter                | Parameter type | Description                               |
-+==========================+================+===========================================+
-| Authorization            | header         | Token received during authentication      |
-+--------------------------+----------------+-------------------------------------------+
-| id                       | url attribute  | Id of the requested resource              |
-+--------------------------+----------------+-------------------------------------------+
-| email                    | request        | Customer's email **required**             |
-+--------------------------+----------------+-------------------------------------------+
-| firstName                | request        | Customer's first name                     |
-+--------------------------+----------------+-------------------------------------------+
-| lastName                 | request        | Customer's last name                      |
-+--------------------------+------------------------------------------------------------+
-| address                  | request        | Customers postal address                  |
-+--------------------------+------------------------------------------------------------+
-| zip                      | request        | Customers ZIP                             |
-+--------------------------+------------------------------------------------------------+
-| city                     | request        | Customers city                            |
-+--------------------------+------------------------------------------------------------+
-| country                  | request        | Customers country                         |
-+--------------------------+------------------------------------------------------------+
-| phoneNumber              | request        | Customers phone number                    |
-+--------------------------+------------------------------------------------------------+
++--------------------------+----------------+-----------------------------------------------------+
+| Parameter                | Parameter type | Description                                         |
++==========================+================+=====================================================+
+| Authorization            | header         | Token received during authentication                |
++--------------------------+----------------+-----------------------------------------------------+
+| id                       | url attribute  | Id of the requested resource                        |
++--------------------------+----------------+-----------------------------------------------------+
+| email                    | request        | Customer's email **required**                       |
++--------------------------+----------------+-----------------------------------------------------+
+| firstName                | request        | Customer's first name                               |
++--------------------------+----------------+-----------------------------------------------------+
+| lastName                 | request        | Customer's last name                                |
++--------------------------+----------------------------------------------------------------------+
+| address                  | request        | Customers postal address                            |
++--------------------------+----------------------------------------------------------------------+
+| zip                      | request        | Customers ZIP                                       |
++--------------------------+----------------------------------------------------------------------+
+| city                     | request        | Customers city                                      |
++--------------------------+----------------------------------------------------------------------+
+| country                  | request        | Customers country                                   |
++--------------------------+----------------------------------------------------------------------+
+| phoneNumber              | request        | Customers phone number                              |
++--------------------------+----------------------------------------------------------------------+
 | subscribedToNewsletter   | request        | Empty if not subscribed, else fulfilled by anything |
-+--------------------------+------------------------------------------------------------+
-| password                 | request        | Customers new password                    |
-+--------------------------+------------------------------------------------------------+
++--------------------------+----------------------------------------------------------------------+
+| password                 | request        | Customers new password                              |
++--------------------------+----------------------------------------------------------------------+
 
 Example
 ^^^^^^^
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/customers/399 \
+    $ curl http://e-venement.local/api/v2/customers/94 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X POST \
         --data '
             {
-                "firstName": "John",
-                "address": "7b, Sunset St.",
+                "lastName": "Martin",
+                "address": "Lieu-dit kerfinous",
                 "password": "secret"
-            }
-        '
+           }'
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^
@@ -449,21 +404,26 @@ Sample Response
 
 .. code-block:: json
 
-    {
-        "id":399,
-        "email":"jean.martin@linux.fr",
-        "firstName":"John",
-        "lastName":"Martin",
-        "address": "7b, Sunset St.",
-        "zip": "F-29000",
-        "city": "Quimper",
-        "country": "France",
-        "phoneNumber": "+987654321",
-        "subscribedToNewsletter": "yes"
-    }
+   {
+    "id": 94,
+    "email": "laurent.martin@yahoo.fr",
+    "firstName": "Laurent",
+    "lastName": "Martin",
+    "shortName": "Coco",
+    "address": "Lieu-dit kerfinous",
+    "zip": "29970",
+    "city": "TREGOUREZ",
+    "country": "FRANCE",
+    "phoneNumber": "0645877344",
+    "datesOfBirth": null,
+    "locale": "fr",
+    "uid": null,
+    "subscribedToNewsletter": true
+  }
 
-Deleting a Customer
--------------------
+
+Deleting a Customer *Optional*
+------------------------------
 
 Definition
 ^^^^^^^^^^
@@ -527,6 +487,7 @@ Example
     $ curl http://e-venement.local/api/v2/customers/7/orders \
         -H "Authorization: Bearer SampleToken" \
         -H "Accept: application/json"
+        -X GET \
 
 Sample Response
 ^^^^^^^^^^^^^^^^^^

@@ -81,7 +81,10 @@ class ContactPublicForm extends ContactForm
     else
       unset($this->widgetSchema['no_mailing'], $this->validatorSchema['no_mailing']);
       
-    if (pubConfiguration::getText('app_texts_terms_conditions'))
+    if ( sfContext::hasInstance() )
+      $ext_auth = in_array('liOnlineExternalAuthOpenIDConnectPlugin', sfContext::getInstance()->getConfiguration()->getPlugins());
+      
+    if ( pubConfiguration::getText('app_texts_terms_conditions') && !$ext_auth )
     {
         $this->widgetSchema   ['terms_conditions']      = new sfWidgetFormInputCheckbox(array(
             'default' => false,

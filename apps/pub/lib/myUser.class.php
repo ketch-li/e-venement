@@ -31,7 +31,6 @@ class myUser extends pubUser
   protected $metaevents = array();
   protected $workspaces = array();
   protected $transaction = NULL;
-  protected $cart = NULL;
   protected $auth_exceptions = array();
   protected $origin_id = NULL;
   
@@ -382,26 +381,6 @@ class myUser extends pubUser
     $this->setAttribute('transaction_id',$this->transaction->id);
   }
   
-  public function saveCart() 
-  {
-    $this->cart = $this->transaction;
-    $this->setAttribute('cart_id', $this->transaction->id);
-
-    $this->resetTransaction();
-  }
-  
-  public function restoreCart() 
-  {
-    $this->cart = Doctrine_Query::create()
-      ->from('Transaction t')
-      ->andWhere('t.contact_id = ?',$this->getContact()->id)
-      ->andWhere('t.id = ?', $this->getAttribute('cart_id'))
-      ->fetchOne();
-
-    if ( $this->cart )
-      $this->setTransaction($this->cart);
-  }
-  
   public function resetTransaction()
   {
     $professional_id = $contact = false;
@@ -482,67 +461,9 @@ class myUser extends pubUser
     return $this;
   }
   
-  public function getAvailableMCPrices(Manifestation $manifestation = NULL)
+  public function getAvailableMCPrices($manifestation = NULL)
   {
-    $mcp = array();
-    try {
-
-    $mcs = $this->getTransaction()->contact_id
-      ? $this->getContact()->MemberCards
-      : $this->getTransaction()->MemberCards;
-    if ( $mcs->count() == 0 )
-      return $mcp;
-    
-    // get back available prices
-    foreach ( $mcs as $mc )
-    if ( $mc->active || $mc->transaction_id == $this->getTransactionId() )
-    foreach ( $mc->MemberCardPrices as $price )
-    {
-      $event_id = is_null($price->event_id) ? '' : $price->event_id;
-      
-      if ( $event_id && $manifestation instanceof Manifestation && $price->event_id != $manifestation->event_id )
-        continue;
-      
-      if ( !isset($mcp[$price->price_id][$event_id]) )
-        $mcp[$price->price_id][$event_id] = 0;
-      
-      $mcp[$price->price_id][$event_id]++;
-    }
-    
-    // get back already booked tickets
-    $q = Doctrine_Query::create()->from('Ticket tck')
-      ->select('tck.*, m.event_id AS event_id')
-      ->andWhere('tck.printed_at IS NULL')
-      ->andWhere('tck.member_card_id IS NOT NULL OR t.id = ?', $this->getTransactionId())
-      ->leftJoin('tck.Manifestation m')
-      ->leftJoin('m.Event e')
-      ->leftJoin('e.Manifestations em')
-      ->leftJoin('tck.Price p')
-      ->andWhere('p.member_card_linked = ?',true)
-      ->leftJoin('tck.Transaction t')
-      ->andWhere('t.contact_id = ?',$this->getContact()->id)
-      ->leftJoin('t.Order o')
-    ;
-    if ( $manifestation )
-      $q->andWhere('em.id = ?', $manifestation->id)
-        ->andWhere('o.id IS NOT NULL OR t.id = ? AND tck.manifestation_id != em.id', $this->getTransactionId())
-      ;
-    else
-      $q->andWhere('o.id IS NOT NULL OR t.id = ?', $this->getTransactionId());
-      
-    $tickets_to_count = $q->execute();
-    foreach ( $tickets_to_count as $ticket )
-    {
-      if ( isset($mcp[$ticket->price_id][$ticket->event_id]) )
-        $mcp[$ticket->price_id][$ticket->event_id]--;
-      elseif ( isset($mpc[$ticket->price_id]['']) )
-        $mcp[$ticket->price_id]['']--;
-    }
-    
-    return $mcp;
-    
-    }
-    catch ( liEvenementException $e )
-    { return $mcp; }
+    return sfContext::getInstance()->getContainer()->get('member_cards_service')
+        ->getAvailableMCPrices($this->getTransaction(), $manifestation);
   }
 }
