@@ -165,6 +165,13 @@
               $params['ticket_id'] = $ticket->id;
             }
           }
+          else
+          {
+            $params['ticket_id'] = null;
+            $this->errors[] = __('The membercard "%%mc%%" is not valid for the event "%%event%%".', array('%%mc%%' => $card->MemberCardType, '%%event%%' => $manifestation->Event));
+            $this->success = false;
+            return 'Result';
+          }
         } catch ( liEvenementException $e ) {
           // error controling a MemberCard
           error_log('Error controlling a MemberCard on a Checkpoint: '.$e->getMessage());
