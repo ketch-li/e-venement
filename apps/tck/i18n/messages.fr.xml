@@ -2143,7 +2143,19 @@
       <trans-unit id="534">
         <source>List of transactions to be confirmed by email</source>
         <target>Liste des opérations à confirmer par email</target>
+<<<<<<< HEAD
       </trans-unit>                       
+=======
+      </trans-unit>  
+      <trans-unit id="535">
+        <source>You must enter a postal code before printing the ticket(s).</source>
+        <target>Vous devez saisir un code postal avant d'imprimer le(s) billet(s).</target>
+      </trans-unit>
+      <trans-unit id="536">
+        <source>The membercard "%%mc%%" is not valid for the event "%%event%%".</source>
+        <target>La carte "%%mc%%" n'est pas valable pour l'évènement "%%event%%".</target>
+      </trans-unit>         
+>>>>>>> 6a5bea2... (tck) - Fix a bug when a membercard is controlled for an event which it does not have access to - refs #4085 (#359)
     </body>
   </file>
 </xliff>
