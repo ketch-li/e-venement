@@ -110,9 +110,19 @@ class PayplugPayment extends OnlinePayment
     return $bank;
   }
   
-  protected function getUrl()
+  public function getUrl()
   {
     return $this->payplug->hosted_payment->payment_url;
+  }
+  
+  public function getArguments()
+  {
+    return [];
+  }
+  
+  public function getMethod()
+  {
+    return '';
   }
   
   public function getRequestOptions(Transaction $transaction = NULL, $amount = NULL)

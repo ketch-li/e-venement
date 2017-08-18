@@ -63,7 +63,7 @@
       foreach ( $attributes as $name => $value )
         $attrs .= " $name=\"$value\"";
       $info = $this->options['button_text'];
-      return '<a href="'.url_for('cart/onthespot?id='.$this->transaction->id).'" '.$attrs.'>'.$info.'</a>';
+      return '<a href="'.$this->getUrl().'" '.$attrs.'>'.$info.'</a>';
     }
 
     public function __toString()
@@ -78,6 +78,21 @@
       {
         return 'An error occurred creating the link with the bank';
       }
+    }
+    
+    public function getUrl()
+    {
+      return url_for('cart/onthespot?id='.$this->transaction->id);
+    }
+    
+    public function getArguments()
+    {
+      return [];
+    }
+    
+    public function getMethod()
+    {
+      return '';
     }
     
     public function createBankPayment(sfWebRequest $request)

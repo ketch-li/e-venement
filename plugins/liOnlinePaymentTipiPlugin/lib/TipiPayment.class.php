@@ -131,7 +131,7 @@
         return '<div class="'.$attributes['class'].'" id="'.$attributes['id'].'">Pas de serveur Paybox disponible...</div>';
       
       $r = '';
-      $r .= '<form action="'.$url.'" method="post" ';
+      $r .= '<form action="'.$url.'" method="'.$this->getMethod().'" ';
       $attributes = $attributes + array('target' => '_top');
       foreach ( $attributes as $key => $value )
         $r .= $key.'="'.$value.'" ';
@@ -186,6 +186,21 @@
       $arr['objet']   = $this->subject;
       
       return $arr;
+    }
+    
+    public function getUrl()
+    {
+      return $this->getTPEWebURL();
+    }
+    
+    public function getArguments()
+    {
+      return [];
+    }
+    
+    public function getMethod()
+    {
+      return 'POST';
     }
     
     // get a functionnal web server for bank requests
