@@ -26,7 +26,10 @@ class ControlForm extends BaseControlForm
     $this->validatorSchema['sf_guard_user_id']->setOption('required', false);
     $this->validatorSchema['version']->setOption('required', false);
     
-    $this->widgetSchema['checkpoint_id']->setOption('add_empty',true);
+    $this->widgetSchema['checkpoint_id']
+        ->setOption('add_empty',true)
+        //->setOption('multiple', true)
+    ;
     
     $this->widgetSchema['ticket_id'] = new sfWidgetFormInput();
     $this->widgetSchema['comment'] = new sfWidgetFormTextArea();

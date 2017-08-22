@@ -31,7 +31,7 @@
   </ul>
   <div style="display: none;"
     class="settings"
-    data-checkpoint-id="<?php echo $sf_user->getAttribute('control.checkpoint_id') ?>"
+    data-checkpoint-id="<?php echo htmlspecialchars(json_encode($sf_data->getRaw('sf_user')->getAttribute('control.checkpoint_id'))) ?>"
     data-transaction-label="<?php echo __('Transaction') ?>"
     data-ticket-label="<?php echo __('Ticket') ?>"
     data-cancel-label="<?php echo __('Cancellation') ?>"
