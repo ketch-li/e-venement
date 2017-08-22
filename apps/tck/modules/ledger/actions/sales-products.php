@@ -95,7 +95,7 @@
     
     // restrict the query if so...
     if ( $this->nb_products > sfConfig::get('app_ledger_max_tickets',5000) )
-      $q->select('e.*, m.*, l.*');
+      $q->select('e.*, m.*, l.*, bp.*');
     
     $this->products = $q->execute();
     $this->dates = $dates;
