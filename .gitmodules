@@ -43,3 +43,6 @@
 [submodule "plugins/liOnlineSalesPlugin"]
 	path = plugins/liOnlineSalesPlugin
 	url = https://github.com/betaglop/liOnlineSalesPlugin
+[submodule "plugins/liKioskElectronPlugin"]
+    path = plugins/liKioskElectronPlugin
+    url = https://github.com/e-venement/liKioskElectronPlugin.git
