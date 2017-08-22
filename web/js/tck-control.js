@@ -1,3 +1,7 @@
+if ( LI == undefined )
+  LI = {};
+LI.controlFadeOutTimeout = 20000; // overwrite this in your web/private/tck-control.js script to get an other value
+
 $(document).ready(function(){
   // the global input from keyboard(s)
   $('#checkpoint #control_checkpoint_id').keypress(function(e){
@@ -19,8 +23,15 @@ $(document).ready(function(){
     if ( $('#checkpoint #control_checkpoint_id option').length == 2 )
       $('#checkpoint #control_checkpoint_id option:last').prop('selected', true);
     else if ( $('#checkpoint .settings').attr('data-checkpoint-id') != '' )
-      $('#checkpoint #control_checkpoint_id option[value='+$('#checkpoint .settings').attr('data-checkpoint-id')+']')
-        .attr('selected','selected');
+    {
+      var checkpoints = JSON.parse($('#checkpoint .settings').attr('data-checkpoint-id'));
+      $.each(checkpoints, function(n, id){
+        setTimeout(function(){
+            $('#checkpoint #control_checkpoint_id option[value='+id+']')
+              .prop('selected','selected');
+        },500);
+      });
+    }
   }
   else
   {
@@ -66,7 +77,7 @@ $(document).ready(function(){
           setTimeout(function(){
             if ( window.location.hash != '#debug' )
               control.fadeOut(function(){ $(this).remove(); });
-          },20000);
+          }, LI.controlFadeOutTimeout);
           
           // displaying the errors
           if ( typeof json.details.control.errors == 'object' )

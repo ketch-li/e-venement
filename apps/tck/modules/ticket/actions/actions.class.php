@@ -265,9 +265,57 @@ class ticketActions extends sfActions
   }
   public function executeControl(sfWebRequest $request)
   {
-    return require('control.php');
+    // init
+    $this->errors = array();
+    $this->error_tickets  = new Doctrine_Collection('Ticket');
+    $this->tickets        = new Doctrine_Collection('Ticket');
+    $this->form = new ControlForm();
+    $this->form->getWidget('checkpoint_id')->setOption('default', $this->getUser()->getAttribute('control.checkpoint_id', array()));
+    
+    // validating input data for checkpoints
+    $p = $request->getParameter($this->form->getName());
+    $checkpoints = array();
+    if ( is_array($p['checkpoint_id']) ) {
+      $checkpoints = $p['checkpoint_id'];
+    }
+    elseif ( intval($p['checkpoint_id']).'' === ''.$p['checkpoint_id'] ) {
+      $checkpoints[] = $p['checkpoint_id'];
+    }
+    foreach ( $checkpoints as $k => $v ) {
+      if ( intval($v).'' !== ''.$v ) {
+          unset($checkpoints[$k]);
+      }
+    }
+    
+    // display the form
+    if ( !$checkpoints ) {
+      $request->setParameter($this->form->getName(), array());
+      return require(__DIR__.'/control.php');
+    }
+    
+    $multipleCheckpoints = count($checkpoints) > 1;
+    
+    $this->getUser()->setAttribute('control.checkpoint_id', $checkpoints);
+    $success = false;
+    
+    // process the form submission
+    foreach ( $checkpoints as $checkpoint ) {
+      $p['checkpoint_id'] = $checkpoint;
+      $request->setParameter($this->form->getName(), $p);
+      $r = require __DIR__.'/control.php';
+      if ( $r === 'Success' ) {
+        return 'Success';
+      }
+      if ( $this->success ) {
+        $success = true;
+      }
+    }
+    
+    $this->success = true;
+    return 'Result';
   }
-  public function executeGetControlCSRF(sfWebRequest $request) 
+
+  public function executeGetControlCSRF(sfWebRequest $request)
   {
     $this->form = new ControlForm();
 
