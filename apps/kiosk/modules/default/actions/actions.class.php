@@ -19,6 +19,8 @@ class defaultActions extends sfActions
   {
   	if( !sfContext::getInstance()->getUser()->getId() )
   		$this->dispatcher->notify(new sfEvent($this, 'kiosk.init'));
+
+    return 'KioskSuccess';
   }
 
   public function executeCulture(sfWebRequest $request)

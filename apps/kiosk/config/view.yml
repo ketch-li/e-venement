@@ -14,7 +14,7 @@ default:
 
   stylesheets:    []
 
-  javascripts:    [helper]
+  javascripts:    [helper, jquery]
 
   has_layout:     true
   layout: empty_layout

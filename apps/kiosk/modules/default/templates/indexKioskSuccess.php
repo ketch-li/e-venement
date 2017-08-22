@@ -31,22 +31,20 @@
 <?php use_stylesheet('kiosk/toastr.min.css') ?>
 <?php use_stylesheet('/private/kiosk.css') ?>
 
-<?php use_javascript('/js/socket.io.js') ?>
-<?php use_javascript('/js/EveConnector/web/js/eve-connector.js') ?>
-<?php use_javascript('/js/EveConnector/web/js/concert-protocol.js') ?>
-<?php use_javascript('jquery') ?>
-<?php use_javascript('/js/kiosk/jquery.idle.min.js') ?>
-<?php use_javascript('/js/tck-devices.js') ?>
-<?php use_javascript('/js/kiosk/keypad.js') ?>
-<?php use_javascript('/js/kiosk/dialog-polyfill.js') ?>
+<?php use_javascript('socket.io.js') ?>
+<?php use_javascript('EveConnector/web/js/eve-connector.js') ?>
+<?php use_javascript('EveConnector/web/js/concert-protocol.js') ?>
+<?php use_javascript('kiosk/jquery.idle.min.js') ?>
+<?php use_javascript('tck-devices.js') ?>
+<?php use_javascript('kiosk/keypad.js') ?>
+<?php use_javascript('kiosk/dialog-polyfill.js') ?>
 <?php use_javascript('/sfAdminThemejRollerPlugin/js/jquery-ui.custom.min.js') ?>
-<?php use_javascript('/js/kiosk/toastr.min.js') ?>
-<?php use_javascript('/js/kiosk/waves.js') ?>
-<?php use_javascript('/js/handlebars/handlebars-v4.0.5.js') ?>
-<?php use_javascript('/js/material/material.min.js') ?>
-<?php use_javascript('/js/kiosk/mdl-select.js') ?>
-<?php use_javascript('/js/kiosk/kiosk.js') ?>
-<?php use_javascript('/private/kiosk.js') ?>
+<?php use_javascript('kiosk/toastr.min.js') ?>
+<?php use_javascript('kiosk/waves.js') ?>
+<?php use_javascript('handlebars/handlebars-v4.0.5.js') ?>
+<?php use_javascript('material/material.min.js') ?>
+<?php use_javascript('kiosk/mdl-select.js') ?>
+<?php use_javascript('kiosk/kiosk.js') ?>
 
 <div id="app" class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 	<header id="app-header" class="mdl-layout__header mdl-shadow--4dp">
