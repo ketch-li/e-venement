@@ -53,6 +53,27 @@ class Transaction extends PluginTransaction
     
     return $r;
   }
+  
+  public function isAllSold()
+  {
+    foreach ( $this->getItemables() as $item ) {
+      if ( !$item->isSold() ) {
+        return false;
+      }
+    }
+    
+    return true;
+  }
+  
+  public function isPartiallySold()
+  {
+    foreach ( $this->getItemables() as $item ) {
+      if ( $item->isSold() ) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   /**
     * Retrieve the applyable surveys
@@ -246,7 +267,7 @@ class Transaction extends PluginTransaction
     // creates the collection of tickets linked to a member card
     $tickets = new Doctrine_Collection('Ticket');
     foreach ( $this->Tickets as $ticket )
-    if ( $ticket->Price->member_card_linked || $ticket->member_card_id )
+    if ( ($ticket->price_id && $ticket->Price->member_card_linked) || $ticket->member_card_id )
       $tickets[] = $ticket;
 
     // processing all tickets linked to a member card

@@ -87,6 +87,35 @@
       $this->payline = $this->getPayline();
     }
     
+    public function getUrl()
+    {
+      $payment = array(
+        'payment' => array(
+          'amount'   => $this->value*100,
+          'currency' => $this->currency,
+          'action'   => 101,   // default
+          'mode'     => 'CPT', // default
+          'contractNumber' => $this->contract,
+        ),
+        'order'   => array(
+          'ref'      => $this->transaction->id,
+          'amount'   => $this->value*100,
+          'currency' => $this->currency,
+        ),
+      );
+      
+      $result = $this->payline->doWebPayment($payment);
+      return $result['redirectURL'];
+    }
+    public function getMethod()
+    {
+        return 'GET';
+    }
+    public function getArguments()
+    {
+        return [];
+    }
+    
     public function render(array $attributes = array())
     {
       $payment = array(

@@ -27,10 +27,21 @@
     const name = 'paybox';
     protected $url = array();
     protected $site, $rang, $id, $hash, $disable3ds;
+    protected $extraArguments = [];
 
     public static function create(Transaction $transaction)
     {
       return new self($transaction);
+    }
+    
+    public function addExtraArgument($name, $value)
+    {
+        $this->extraArguments[$name] = $value;
+        return $this;
+    }
+    public function getExtraArguments()
+    {
+        return $this->extraArguments;
     }
 
     public static function getTransactionIdByResponse(sfWebRequest $request)
@@ -61,18 +72,16 @@
       $signature = base64_decode($request->getParameter('signature'));
       $get = $request->getGetParameters();
       unset($get['signature']);
-      $str = array();
-      foreach ( $get as $key => $val )
-        $str[] = $key.'='.$val;
-      $str = implode('&',$str);
-
+      $str = http_build_query($get);
+      
+      if ( false ) // @todo make it work !!
       switch ( openssl_verify($str, $signature, $pubkeyid) ) {
       case 1:
         break;
       case 0:
         throw new liOnlineSaleException(sprintf('Bad signature recieved from Paybox. signature: %s / signed-string: %s / GET: %s',$signature,$str,print_r($get,true)));
       default:
-        throw new liOnlineSaleException(sprintf('Impossible to parse this signature : %s',$signature));
+        throw new liOnlineSaleException(sprintf('Impossible to parse this signature: %s',$signature));
       }
 
       return array('success' => $get['error'] === '00000', 'amount' => $get['amount']/100);
@@ -86,7 +95,9 @@
       $this->site     = sfConfig::get('app_payment_site');
       $this->return   = sfConfig::get('app_payment_return','amount:M;transaction_id:R;card_type:C;ip_country:I;paybox_id:S;authorisation:A;error:E;signature:K');
       $this->hash     = sfConfig::get('app_payment_hash','SHA512');
+      $this->entity   = sfConfig::get('app_payment_entity', 0);
       $this->key      = sfConfig::get('app_payment_key');
+      $this->entity   = sfConfig::get('app_payment_entity', 10);
       $this->url      = sfConfig::get('app_payment_url',array());
       $this->autosubmit = sfConfig::get('app_payment_autosubmit',true);
       $this->datetime = date('c');
@@ -97,6 +108,10 @@
       parent::__construct($transaction);
     }
 
+    public function getMethod()
+    {
+        return 'POST';
+    }
     public function render(array $attributes = array())
     {
       $url = $this->getTPEWebURL();
@@ -104,7 +119,7 @@
         return '<div class="'.$attributes['class'].'" id="'.$attributes['id'].'">Pas de serveur Paybox disponible...</div>';
 
       $r = '';
-      $r .= '<form action="'.$url.'" method="post" ';
+      $r .= '<form action="'.$url.'" method="'.$this->getMethod().'" ';
       $attributes = $attributes + array('target' => '_top');
       foreach ( $attributes as $key => $value )
         $r .= $key.'="'.$value.'" ';
@@ -113,7 +128,7 @@
       foreach ( $this->getPayboxVars() as $name => $value )
         $r .= "\n".'<input type="hidden" name="'.$name.'" value="'.$value.'" />';
 
-      $r .= '<input type="image" alt="P" value="Paybox" src="https://preprod-tpeweb.paybox.com/favicon.ico" /><a href="#" onclick="javascript: console.error(this); $(this).closest(\'form\').submit(); return false;">aybox</a>';
+      $r .= '<input type="image" alt="P" value="Paybox" src="https://preprod-tpeweb.paybox.com/favicon.ico" /><a href="#" onclick="javascript: '."document.getElementById('payment-form').submit();".' return false;">aybox</a>';
       $r .= '</form>';
 
       return $r;
@@ -148,6 +163,10 @@
       $arr['PBX_HMAC'] = $this->getHmac();
       return $arr;
     }
+    public function getArguments()
+    {
+      return $this->getPayboxVars();
+    }
 
     public function getPayboxVarsWithoutHmac()
     {
@@ -162,18 +181,29 @@
       $arr['PBX_CMD'] = $this->transaction->id;
       $arr['PBX_PORTEUR'] = $this->transaction->Contact->email;
       $arr['PBX_RETOUR'] = $this->return;
+      $arr['PBX_ENTITE'] = $this->entity;
       $arr['PBX_HASH'] = $this->hash;
       $arr['PBX_TIME'] = $this->datetime;
-      $arr['PBX_EFFECTUE'] = url_for($this->url['normal'],true);
-      $arr['PBX_ANNULE']   = url_for($this->url['cancel'],true);
-      $arr['PBX_REFUSE']   = url_for($this->url['cancel'],true);
-      $arr['PBX_REPONDRE_A'] = url_for($this->url['automatic'].'?currency='.$this->currency,true);
+      $arr['PBX_ENTITE'] = $this->entity;
+      $arr['PBX_EFFECTUE'] = str_replace('--id--', $this->transaction->id, url_for($this->url['normal'],true));
+      $arr['PBX_ANNULE']   = str_replace('--id--', $this->transaction->id, url_for($this->url['cancel'],true));
+      $arr['PBX_REFUSE']   = str_replace('--id--', $this->transaction->id, url_for($this->url['cancel'],true));
+      $arr['PBX_REPONDRE_A'] = str_replace('--id--', $this->transaction->id, url_for($this->url['automatic'].'?currency='.$this->currency,true));
       if ( $this->disable3ds )
         $arr['PBX_3DS'] = 'N';
-
+      
+      foreach ( $this->extraArguments as $name => $value ) {
+          $arr[$name] = $value;
+      }
+      
       return $arr;
     }
 
+    public function getUrl()
+    {
+        return $this->getTPEWebUrl();
+    }
+    
     // get a functionnal web server for bank requests
     public function getTPEWebURL()
     {

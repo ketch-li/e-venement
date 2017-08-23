@@ -58,8 +58,8 @@ class HiPayPayment extends OnlinePayment
     if ( !$this->url )
       return '<div class="'.$attributes['class'].'" id="'.$attributes['id'].'">Pas de serveur HiPay disponible...</div>';
     
-    $attributes['method'] = 'get';
-    $attributes['action'] = $this->url;
+    $attributes['method'] = $this->getMethod();
+    $attributes['action'] = $this->getUrl();
     
     $r = '';
     $r .= '<form ';
@@ -227,6 +227,21 @@ class HiPayPayment extends OnlinePayment
       throw new liOnlineSaleException("Error when creating the HiPay Item object");
     
     return $this;
+  }
+  
+  public function getUrl()
+  {
+    return $this->url;
+  }
+  
+  public function getArguments()
+  {
+    return [];
+  }
+  
+  public function getMethod()
+  {
+    return 'GET';
   }
   
   public function config()

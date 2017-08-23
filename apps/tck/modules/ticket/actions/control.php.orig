@@ -16,8 +16,8 @@
 *    along with e-venement; if not, write to the Free Software
 *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 *
-*    Copyright (c) 2006-2017 Baptiste SIMON <baptiste.simon AT e-glop.net>
-*    Copyright (c) 2006-2017 Libre Informatique [http://www.libre-informatique.fr/]
+*    Copyright (c) 2006-2016 Baptiste SIMON <baptiste.simon AT e-glop.net>
+*    Copyright (c) 2006-2016 Libre Informatique [http://www.libre-informatique.fr/]
 *
 ***********************************************************************************/
 ?>
@@ -31,15 +31,16 @@
     else
       sfConfig::set('sf_web_debug', false);
     
-    // I18N helper
     $this->getContext()->getConfiguration()->loadHelpers(array('CrossAppLink','I18N'));
-    
-    // the parameters
-    $params = $request->getParameter($this->form->getName());
+    $this->form = new ControlForm();
     
     $past = sfConfig::get('app_control_past') ? sfConfig::get('app_control_past') : '6 hours';
     $future = sfConfig::get('app_control_future') ? sfConfig::get('app_control_future') : '1 day';
+    $this->errors = array();
+    $this->error_tickets  = new Doctrine_Collection('Ticket');
+    $this->tickets        = new Doctrine_Collection('Ticket');
     
+    $this->form->getWidget('checkpoint_id')->setOption('default', $this->getUser()->getAttribute('control.checkpoint_id'));
     $q = Doctrine::getTable('Checkpoint')->createQuery('c')->select('c.*');
     $q->leftJoin('c.Event e')
       ->leftJoin('e.Manifestations m')
@@ -66,10 +67,11 @@
         if ( isset($tmp['type']) && $tmp['type'] == 'MemberCard' )
         try
         {
+          $control = $request->getParameter('control');
           $card = Doctrine::getTable('MemberCard')->find($tmp['member_card_id']);
           $manifestation = Doctrine::getTable('Manifestation')->createQuery('m')
             ->leftJoin('e.Checkpoints c')
-            ->andWhere('c.id = ?', $params['checkpoint_id'])
+            ->andWhere('c.id = ?', $control['checkpoint_id'])
             ->orderBy('@extract(epoch from m.happens_at - now())')
             ->select('m.*')
             ->fetchOne();
@@ -231,7 +233,8 @@
         $q->andWhere('TRUE)');
       }
       
-      if ( $params['checkpoint_id'] && count($params['ticket_id']) > 0 )
+      if ( intval($params['checkpoint_id']).'' === ''.$params['checkpoint_id']
+        && count($params['ticket_id']) > 0 )
       {
         $q = Doctrine::getTable('Checkpoint')->createQuery('c')
           ->select('c.*')
@@ -250,7 +253,7 @@
         $cancontrol = $checkpoint instanceof Checkpoint;
         if ( !$cancontrol )
           $this->errors[] = __('The ticket #%%id%% is unfoundable in the list of available tickets', array('%%id%%' => implode(', #', $params['ticket_id'])));
-        else
+        else 
         {
           $q = Doctrine::getTable('Ticket')->createQuery('tck')
             ->leftJoin('tck.Controls c WITH c.checkpoint_id = ?', $params['checkpoint_id'])
@@ -270,7 +273,7 @@
             if ( $ticket->Manifestation->happens_at > date('Y-m-d H:i',strtotime('now + '.$future)) )
             {
               // It's too soon pal !
-              $this->error_tickets[$ticket->id] = $ticket;
+              $this->error_tickets[] = $ticket;
               $this->errors[] = __('Too soon for ticket #%%id%% (gates will open at %%datetime%%)', array(
                 '%%id%%' => $ticket->id,
                 '%%datetime%%' => date('Y-m-d H:i',strtotime($ticket->Manifestation->happens_at . ' - ' .$future))
@@ -279,13 +282,13 @@
             elseif ( $ticket->Manifestation->happens_at < date('Y-m-d H:i',strtotime('now - '.$past)) )
             {
                // It's too late man !
-               $this->error_tickets[$ticket->id] = $ticket;
+               $this->error_tickets[] = $ticket;
                $this->errors[] = __('Too late for ticket #%%id%% (gates closed at %%datetime%%)', array(
                  '%%id%%' => $ticket->id,
                  '%%datetime%%' => date('Y-m-d H:i',strtotime($ticket->Manifestation->happens_at . ' + ' .$past))
                ));
             }
-            else
+            else 
             {
               switch ($checkpoint->type)
               {
@@ -301,7 +304,7 @@
                   elseif ( $ticket->Controls->count() > 0 )
                   foreach ( $ticket->Controls as $control )
                   {
-                    $this->error_tickets[$ticket->id] = $ticket;
+                    $this->error_tickets[] = $ticket;
                     $this->errors[] = __('The ticket #%%id%% has been already controlled on this checkpoint before (%%datetime%% by %%user%%)', array(
                       '%%id%%' => $ticket->id,
                       '%%datetime%%' => $control->created_at,
@@ -327,6 +330,7 @@
             }
           }
         }
+        $this->getUser()->setAttribute('control.checkpoint_id',$params['checkpoint_id']);
         
         $comments = array();
         foreach ( $this->tickets as $ticket )
@@ -341,6 +345,7 @@
           if ( $checkpoint->id )
           {
             $err = $tck = array();
+            $ids = $params['ticket_id'];
             $ids = $this->tickets->getPrimaryKeys();
             foreach ( $ids as $id )
             {
@@ -379,10 +384,7 @@
                   $tck[$id] = $this->tickets[$id];
                   if ( !$this->form->getObject()->Checkpoint->mightControl($id) )
                   {
-                    // if in a single checkpoint verification, we should unset uncontrolable tickets
-                    if ( !$multipleCheckpoints ) {
-                      unset($this->tickets[$id]);
-                    }
+                    unset($this->tickets[$id]);
                     continue;
                   }
                 }
@@ -428,9 +430,7 @@
               $params['ticket_id'] = $ticket->id;
             $failure->complete($params);
           }
-          if ( $this->tickets->count() == 0 ) {
-            $this->tickets = $this->error_tickets;
-          }
+          $this->tickets = $this->error_tickets;
           return 'Result';
         }
       }

@@ -143,7 +143,7 @@ class SystempayPayment extends OnlinePayment
     }
     
     $r = '';
-    $r .= '<form action="'.$urls['bank'].'" method="post" ';
+    $r .= '<form action="'.$this->getUrl().'" method="'.$this->getMethod().'" ';
     $attributes = $attributes + array('target' => '_top');
     foreach ( $attributes as $key => $value )
       $r .= $key.'="'.$value.'" ';
@@ -196,4 +196,22 @@ class SystempayPayment extends OnlinePayment
     return $bank;
   }
   
+  public function getUrl()
+  {
+    $urls = sfConfig::get('app_payment_url', array());
+    if (!( isset($urls['bank']) && $urls['bank'] ))
+      throw new liOnlineSaleException('No URL found for the Systempay payment.');
+      
+    return $urls['bank'];
+  }
+  
+  public function getArguments()
+  {
+    return [];
+  }
+  
+  public function getMethod()
+  {
+    return 'POST';
+  }
 }
