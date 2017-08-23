@@ -112,6 +112,26 @@ class rpConfiguration extends sfApplicationConfiguration
   {
     $this->task = $task;
     
+    // Delete the pdf files generated to print membercards
+    $this->addGarbageCollector('membercard-files-removal', function(){
+      $section = 'clear-membercard-files';
+      $this->stdout($section, 'Removing old membercard files...', 'COMMAND');
+       
+      $interval = sfConfig::get('app_options_membercard_file_removal', '1 week');
+       
+      $res = 
+      Doctrine_Query::create()
+        ->delete()
+        ->from('Picture p')
+        ->where('p.name LIKE ?', 'db:Membercard%')
+        ->andWhere("p.created_at < now() - INTERVAL '$interval'")
+        ->execute(); 
+    
+      $msg = $res . ' file' . ($res > 1 ? 's' : '') . ' removed';
+    
+      $this->stdout($section, $msg, 'INFO');
+    });
+    
     // Bad indexes removal
     $this->addGarbageCollector('indexes-removal', function(){
       $section = 'Indexes removal';
