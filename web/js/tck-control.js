@@ -25,6 +25,10 @@ $(document).ready(function(){
     else if ( $('#checkpoint .settings').attr('data-checkpoint-id') != '' )
     {
       var checkpoints = JSON.parse($('#checkpoint .settings').attr('data-checkpoint-id'));
+      if (!( typeof(checkpoints) == 'object' && checkpoints !== null )) {
+        checkpoints = checkpoints === null ? [] : [checkpoints];
+      }
+      
       $.each(checkpoints, function(n, id){
         setTimeout(function(){
             $('#checkpoint #control_checkpoint_id option[value='+id+']')
