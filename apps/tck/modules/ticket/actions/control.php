@@ -67,6 +67,15 @@
         try
         {
           $card = Doctrine::getTable('MemberCard')->find($tmp['member_card_id']);
+          
+          if ( !$card )
+          {
+            $params['ticket_id'] = null;
+            $this->errors[] = __('The membercard "%%mc%%" does not exist.', array('%%mc%%' => $tmp['member_card_id']));
+            $this->success = false;
+            return 'Result';
+          }
+          
           $manifestation = Doctrine::getTable('Manifestation')->createQuery('m')
             ->leftJoin('e.Checkpoints c')
             ->andWhere('c.id = ?', $params['checkpoint_id'])
