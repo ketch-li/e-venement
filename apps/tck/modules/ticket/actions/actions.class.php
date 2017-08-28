@@ -311,7 +311,7 @@ class ticketActions extends sfActions
       }
     }
     
-    $this->success = true;
+    //$this->success = true;
     return 'Result';
   }
 
