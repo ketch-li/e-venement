@@ -18,8 +18,8 @@ generator:
       list:
         display: [name, _list_color]
         object_actions:
-          _delete: ~
           _edit: ~
+          _delete: ~
       filter:  ~
       form:
         display: [name, color, _show_color]
