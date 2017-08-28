@@ -7,7 +7,7 @@
   
   $pdf = new liPDFPlugin();
   
-  $options = sfConfig::get('app_tickets_pdf_options', array());
+  $options = sfConfig::get('project_tickets_pdf_options', array());
   foreach ($options as $key => $value) {
       $pdf->setOption($key, $value);
   }
