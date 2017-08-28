@@ -2152,6 +2152,10 @@
         <source>The membercard "%%mc%%" is not valid for the event "%%event%%".</source>
         <target>La carte "%%mc%%" n'est pas valable pour l'évènement "%%event%%".</target>
       </trans-unit>         
+      <trans-unit id="537">
+        <source>The membercard "%%mc%%" does not exist.</source>
+        <target>La carte d'abonnement "%%mc%%" n'existe pas.</target>
+      </trans-unit>         
     </body>
   </file>
 </xliff>
