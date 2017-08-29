@@ -44,7 +44,7 @@
 <?php use_javascript('handlebars/handlebars-v4.0.5.js') ?>
 <?php use_javascript('material/material.min.js') ?>
 <?php use_javascript('kiosk/mdl-select.js') ?>
-<?php use_javascript('kiosk/kiosk.js') ?>
+<?php use_javascript('kiosk/kiosk.js?' . time()) ?>
 
 <div id="app" class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 	<header id="app-header" class="mdl-layout__header mdl-shadow--4dp">
@@ -174,14 +174,14 @@
 		    </div>
 		</div>
 	</div>
-	<div class="mdl-dialog__actions mdl-dialog__actions">
+	<div class="mdl-dialog__actions">
     	<button id="location-submit" class="mdl-button mdl-button--raised mdl-button--colored" type="submit">
     		<?php echo kioskConfiguration::getText('location_close', 'Continue to payment') ?>
     		<i class="material-icons">arrow_forward</i>
     	</button>
     </div>
   </form>
-  <div id="keypad" class="mdl-grid"></div>
+  <div id="postcode-pad" class="keypad mdl-grid"></div>
 </dialog>
 
 <!-- STATUS DIALOG -->
@@ -192,11 +192,25 @@
   	  	<p id="status-details"></p>
   	  	<img id="status-ept" src="/images/kiosk/ept.png" alt="Payment terminal">
 	  </div>
-	  <div id="status-actions">
+	  <div id="status-actions" class="mdl-dialog__actions">
   		<button type="submit" class="mdl-button" value="true"><?php echo kioskConfiguration::getText('retry', 'Retry') ?></button>
   	    <button type="submit" class="mdl-button close" value="false"><?php echo kioskConfiguration::getText('cancel', 'Cancel') ?></button>
 	  </div>
   </form>
+
+</dialog>
+
+<!-- ADMIN PIN DIALOG -->
+<dialog id="pin" class="mdl-dialog">
+	<div id="pin-pad" class="keypad mdl-grid"></div>
+		<div class="mdl-dialog__content">
+			<div class="mdl-cell mdl-cell--12-col">
+			    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="postcode-field">
+			    	<input type="password" id="pin-input" name="pin-input" class="mdl-textfield__input" placeholder="">
+			    	<label class="mdl-textfield__label" for="pin-input"><?php echo kioskConfiguration::getText('pin', 'Pin') ?></label>
+			    </div>
+			</div>
+		</div>
 </dialog>
 
 <!-- JS DATA -->
@@ -210,6 +224,9 @@
   data-get-museum="<?php echo cross_app_url_for('tck', 'transaction/getPeriods?simplified=1') ?>"
   data-print-tickets="<?php echo cross_app_url_for('tck', 'ticket/print?id=-666') ?>"
   data-log-print-failure="<?php echo cross_app_url_for('tck', 'transaction/directPrintLog?id=-666') ?>"
+  data-save-payment-record="<?php echo cross_app_url_for('kiosk', 'default/savePaymentRecord') ?>"
+  data-get-payment-record="<?php echo cross_app_url_for('kiosk', 'default/getPaymentRecord') ?>"
+  data-get-task-list="<?php echo cross_app_url_for('kiosk', 'admin/getJsonTasks') ?>"
 ></div>
 
 <div class="js-data" id="kiosk-devices" data-devices="<?php echo htmlspecialchars(json_encode(sfConfig::get('app_io_devices',
@@ -267,34 +284,34 @@
 
 	<!-- manif card -->
 <script id="manif-card-template" type="text/x-handlebars-template"  data-template-type="productCard" data-product-type="manifestations">
-<li class="product" data-type="{{ type }}" data-id="{{ id }}"> 
-	<div class="manif-card mdl-card mdl-shadow--2dp waves-effect" id="{{ id }}">
-		<div class="mdl-card__title manif-title" style="{{ background }};">
-			<p class="mdl-card__title-text manif-name">{{ name }}</p>
-		{{#unless museum}}
-    		<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ start }}</p>
-  		{{/unless}}
-			<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ location }}</p>
+	<li class="product" data-type="{{ type }}" data-id="{{ id }}"> 
+		<div class="manif-card mdl-card mdl-shadow--2dp waves-effect" id="{{ id }}">
+			<div class="mdl-card__title manif-title" style="{{ background }};">
+				<p class="mdl-card__title-text manif-name">{{ name }}</p>
+			{{#unless museum}}
+	    		<p class="mdl-card__title-text manif-happens_at"><i class="material-icons" role="presentation">access_time</i>{{ start }}</p>
+	  		{{/unless}}
+				<p class="mdl-card__title-text manif-location"><i class="material-icons" role="presentation">location_on</i>{{ location }}</p>
+			</div>
+			<div class="mdl-card__supporting-text manif-description">
+				{{{ description }}}
+			</div>
 		</div>
-		<div class="mdl-card__supporting-text manif-description">
-			{{{ description }}}
-		</div>
-	</div>
-</li>
+	</li>
 </script>
 
 <!-- store card -->
 <script id="store-card-template" type="text/x-handlebars-template"  data-template-type="productCard" data-product-type="store">
-<li class="product" data-type="{{ type }}" data-id="{{ id }}"> 
-	<div class="manif-card mdl-card mdl-shadow--4dp waves-effect" id="{{ id }}">
-		<div class="mdl-card__title manif-title" style="{{ background }};">
-			<p class="mdl-card__title-text manif-name">{{ name }}</p>
+	<li class="product" data-type="{{ type }}" data-id="{{ id }}"> 
+		<div class="manif-card mdl-card mdl-shadow--4dp waves-effect" id="{{ id }}">
+			<div class="mdl-card__title manif-title" style="{{ background }};">
+				<p class="mdl-card__title-text manif-name">{{ name }}</p>
+			</div>
+			<div class="mdl-card__supporting-text manif-description">
+				{{{ description }}}
+			</div>
 		</div>
-		<div class="mdl-card__supporting-text manif-description">
-			{{{ description }}}
-		</div>
-	</div>
-</li>
+	</li>
 </script>
 
 	<!-- product details -->

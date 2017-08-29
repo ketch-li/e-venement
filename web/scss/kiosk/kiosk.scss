@@ -517,23 +517,35 @@ ul{
   }
 }
 
+#pin {
+  width: 60%;
+  height: 85%;
+
+  .mdl-selectfield__label, .mdl-textfield__label {
+    color: $primary-color;
+    font-size: 1.5em;
+  }
+}
+
+.keypad {
+  width: 30%;
+
+  .key {
+    height: 80px;
+    width: 80px;
+    font-size: 3em;
+    border-radius: 15px;
+    margin: 10px;
+  }
+}
+
 #location {
   width: 60%;
   height: 85%;
-  
-  #keypad {
-    width: 30%;
 
+  .keypad {
     .submit {
       display: none;
-    }
-
-    .key {
-      height: 80px;
-      width: 80px;
-      font-size: 3em;
-      border-radius: 15px;
-      margin: 10px;
     }
   }
 
