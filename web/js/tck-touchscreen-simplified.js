@@ -125,7 +125,8 @@ $(document).ready(function(){
   
   // USING THE NORMAL "PRINT" BUTTON IF CLICKING ON THE SIMPLIFIED ONE
   $('#li_fieldset_simplified .cart .print').click(function(){
-    $('#li_fieldset_content .bunch').find('.print, .store-print').submit();
+    $('#li_transaction_manifestations .print, #li_transaction_store .store-print').submit();
+    //$('#li_fieldset_content .bunch').find('.print, .store-print').submit();
     setTimeout(function(){ $('#transition .close').click(); },1000);
   });
   

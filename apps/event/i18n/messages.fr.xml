@@ -2310,6 +2310,10 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>Additive?</source>
         <target>Cumulatif</target>
       </trans-unit>
+      <trans-unit id="577">
+        <source>Edit Color "%%name%%" for manifestations</source>
+        <target>Modification de la couleur "%%name%%" pour les manifestations</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
