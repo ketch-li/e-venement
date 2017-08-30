@@ -2120,6 +2120,10 @@
         <source>Updated by</source>
         <target>Modifié par</target>
       </trans-unit>
+      <trans-unit id="529">
+        <source>[0]No transaction needed to be confirmed|[1]1 transaction has been confirmed by email to its backer|[1,+Inf]%%nb%% transactions have been confirmed by email to their backers</source>
+        <target>[0]Aucune opération à confirmer|[1]1 opération a été envoyée par email au client|[1,+Inf]%%nb%% opérations ont été envoyées par email aux clients</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
