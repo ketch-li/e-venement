@@ -2314,6 +2314,10 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>Edit Color "%%name%%" for manifestations</source>
         <target>Modification de la couleur "%%name%%" pour les manifestations</target>
       </trans-unit>
+       <trans-unit id="578">
+        <source>Online sales close before</source>
+        <target>Fermeture de la vente en ligne</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
