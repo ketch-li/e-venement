@@ -62,6 +62,7 @@ class cardsActions extends sfActions
           FROM member_card mc
           INNER JOIN member_card_type mct ON mct.id = mc.member_card_type_id
           WHERE mc.created_at BETWEEN :from AND :until
+          AND mc.contact_id IS NOT NULL
           GROUP BY mct.name
           ORDER BY mct.name
         ";
