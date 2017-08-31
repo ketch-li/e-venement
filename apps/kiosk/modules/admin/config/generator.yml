@@ -18,9 +18,10 @@ generator:
           label: 'Date'
       list:
         sort: [updated_at]
-        display: [=transaction_id, task, updated_at]
-      filter:  ~
+        display: [=transaction_id, type, updated_at]
+      filter:
+        display: [updated_at]
       form:
-        display: [transaction_id, task, updated_at]
+        display: [transaction_id, type, pin, updated_at]
       edit:    ~
       new:     ~

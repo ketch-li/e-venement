@@ -1,6 +1,6 @@
 default:
   stylesheets: [/sfAdminThemejRollerPlugin/css/reset.css, main: { media: all }, menu, content]
-  javascripts:    [jquery, menu, helper]
+  javascripts:    [menu, helper]
   has_layout:     true
   layout:         layout
 

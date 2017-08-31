@@ -1,22 +1,36 @@
+/**********************************************************************************
+*
+*       This file is part of e-venement.
+*
+*    e-venement is free software; you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation; either version 2 of the License.
+*
+*    e-venement is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with e-venement; if not, write to the Free Software
+*    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*
+*    Copyright (c) 2017 Romain SANCHEZ <romain.sanchez AT libre-informatique.fr>
+*    Copyright (c) 2017 Libre Informatique [http://www.libre-informatique.fr/]
+*
+***********************************************************************************/
 $(document).ready(function() {
-	swapInputs();
+	togglePin();
 
-	$('#admin_task_task').change(swapInputs);
+	$('#admin_task_type').change(togglePin);
 });
 
-var swapInputs = function() {
-	var select = $('#admin_task_task');
+var togglePin = function() {
+	var pinWidget = $('#admin_task_pin').parents('.sf_admin_form_row');
 
-	if(select.val() === 'pin') {
-		select.attr('name', 'temp');
-		
-		$('<input>')
-			.attr('type', 'text')
-			.attr('name', 'admin_task_task')
-			.insertAfter(select)
-		;
-	} else if(select.attr('name') === 'temp') {
-		$('#admin_task_task').remove();
-		select.attr('name', 'admin_task_task');
+	if($('#admin_task_type').val() === 'pin') {
+		pinWidget.show();
+	} else {
+		pinWidget.hide();
 	}
 }

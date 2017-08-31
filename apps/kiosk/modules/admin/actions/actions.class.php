@@ -1,11 +1,11 @@
 <?php
 
 /**
- * admin actions.
+ * Admin actions.
  *
- * @package    symfony
- * @subpackage admin
- * @author     Your name here
+ * @package    evenement
+ * @subpackage kiosk
+ * @author     Romain SANCHEZ <romain.sanchez AT libre-informatique.fr>
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class adminActions extends autoAdminActions

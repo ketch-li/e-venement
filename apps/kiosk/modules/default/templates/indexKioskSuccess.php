@@ -200,17 +200,30 @@
 
 </dialog>
 
+<!-- ADMIN DIALOG -->
+<dialog id="admin" class="mdl-dialog">
+	<div class="mdl-dialog__content">
+		<p Administration></p>
+		<button id="execute-tasks" class="mdl-button"><?php echo kioskConfiguration::getText('execute_tasks', 'Execute task list') ?></button>
+	</div>
+</dialog>
+
 <!-- ADMIN PIN DIALOG -->
 <dialog id="pin" class="mdl-dialog">
 	<div id="pin-pad" class="keypad mdl-grid"></div>
-		<div class="mdl-dialog__content">
-			<div class="mdl-cell mdl-cell--12-col">
-			    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="postcode-field">
-			    	<input type="password" id="pin-input" name="pin-input" class="mdl-textfield__input" placeholder="">
-			    	<label class="mdl-textfield__label" for="pin-input"><?php echo kioskConfiguration::getText('pin', 'Pin') ?></label>
-			    </div>
-			</div>
+	<div class="mdl-dialog__content">
+		<div class="mdl-cell mdl-cell--12-col">
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="postcode-field">
+		    	<p id="pin-error"><?php echo kioskConfiguration::getText('pin_failure', 'Wrong pin') ?></p>
+		    	<input type="password" id="pin-input" name="pin-input" class="mdl-textfield__input" placeholder="">
+		    	<label class="mdl-textfield__label" for="pin-input"><?php echo kioskConfiguration::getText('pin', 'Pin') ?></label>
+		    </div>
 		</div>
+	</div>
+	<div id="status-actions" class="mdl-dialog__actions">
+  		<button type="submit" id="pin-validate" class="mdl-button" value="true">Ok</button>
+  	    <button type="submit" class="mdl-button close" value="false"><?php echo kioskConfiguration::getText('cancel', 'Cancel') ?></button>
+  	</div>	
 </dialog>
 
 <!-- JS DATA -->
@@ -227,6 +240,7 @@
   data-save-payment-record="<?php echo cross_app_url_for('kiosk', 'default/savePaymentRecord') ?>"
   data-get-payment-record="<?php echo cross_app_url_for('kiosk', 'default/getPaymentRecord') ?>"
   data-get-task-list="<?php echo cross_app_url_for('kiosk', 'admin/getJsonTasks') ?>"
+  data-update-task="<?php echo cross_app_url_for('kiosk', 'admin/done') ?>"
 ></div>
 
 <div class="js-data" id="kiosk-devices" data-devices="<?php echo htmlspecialchars(json_encode(sfConfig::get('app_io_devices',
