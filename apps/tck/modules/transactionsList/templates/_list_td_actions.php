@@ -10,6 +10,7 @@
       ) ?>      
     </li>
     
+    <!-- create kiosk admin task -->
     <?php if( $transaction->closed && $transaction->User->username == 'kiosk' ): ?>
       <li class="sf_admin_action_admintask">
 	    <a 
