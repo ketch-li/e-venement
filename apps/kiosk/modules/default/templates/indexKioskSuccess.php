@@ -214,7 +214,7 @@
 	<div id="pin-pad" class="keypad mdl-grid"></div>
 	<div class="mdl-dialog__content">
 		<div class="mdl-cell mdl-cell--12-col">
-		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="postcode-field">
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="pin-field">
 		    	<p id="pin-error"><?php echo kioskConfiguration::getText('pin_failure', 'Wrong pin') ?></p>
 		    	<input type="password" id="pin-input" name="pin-input" class="mdl-textfield__input" placeholder="">
 		    	<label class="mdl-textfield__label" for="pin-input"><?php echo kioskConfiguration::getText('pin', 'Pin') ?></label>

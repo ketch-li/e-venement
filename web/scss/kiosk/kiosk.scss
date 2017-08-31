@@ -530,8 +530,21 @@ ul{
   width: 60%;
   height: 85%;
 
+  button {
+    font-size: 1.5em;
+  }
+
   #pin-error {
     display: none;
+  }
+
+  #pin-field {
+    width: 10%;
+    margin-left: 45%;
+
+    #pin-input {
+      font-size: 2em;
+    }
   }
 
   .mdl-selectfield__label, .mdl-textfield__label {

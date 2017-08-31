@@ -22,7 +22,7 @@
 $(document).ready(function() {
     //Initialize app
     LI.kiosk.init();
-    LI.kiosk.admin.init();
+    LI.kiosk.admin.executePinTask();
 });
 
 if ( LI === undefined )
@@ -77,21 +77,21 @@ LI.kiosk = {
         LI.kiosk.menu();
 
         //handle idle user
-        if(LI.kiosk.config.idleTime) {
-            $(this).idle({
-                onIdle: function() {
-                    $('.culture[data-culture="fr"]')
-                        .trigger('click')
-                        // get native element as triggering click
-                        // doesn't work on jquery objects that  were
-                        // not previously bound with .click or .on
-                        .get(0)
-                        .click()
-                    ;
-                },
-                idle: LI.kiosk.config.idleTime
-            });
-        }
+        // if(LI.kiosk.config.idleTime) {
+        //     $(this).idle({
+        //         onIdle: function() {
+        //             $('.culture[data-culture="fr"]')
+        //                 .trigger('click')
+        //                 // get native element as triggering click
+        //                 // doesn't work on jquery objects that  were
+        //                 // not previously bound with .click or .on
+        //                 .get(0)
+        //                 .click()
+        //             ;
+        //         },
+        //         idle: LI.kiosk.config.idleTime
+        //     });
+        // }
 
         //Retrieve country list for location prompt
         if(LI.kiosk.config.showLocationPrompt) {
