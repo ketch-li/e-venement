@@ -22,7 +22,7 @@
 $(document).ready(function() {
     //Initialize app
     LI.kiosk.init();
-    LI.kiosk.admin.executeTaskList();
+    LI.kiosk.admin.init();
 });
 
 if ( LI === undefined )
@@ -106,7 +106,9 @@ LI.kiosk = {
     initPlugins: function() {
         Waves.attach('.waves-effect');
         Waves.init();
+
         LI.kiosk.cacheTemplates();
+        
         toastr.options = {
             positionClass: 'toast-bottom-full-width',
             closeButton: true,
@@ -170,7 +172,7 @@ LI.kiosk = {
             $('#access-fab, #app, #back-fab, .panel, #product-details-card, #cart').toggleClass('a11y');
         });
 
-        $('#reset-btn').click(function() {
+        $('#reset-btn, #logo').click(function() {
             LI.kiosk.utils.showLoader();
             location.reload();
         });
@@ -670,59 +672,65 @@ LI.kiosk = {
         LI.kiosk.products.manifestations = {};
         var type = 'manifestations';
 
-        $.each(data.success.success_fields[type].data.content, function(key, manif) {
-            
-            if (LI.kiosk.debug)
-                console.log('Loading an item (#' + manif.id + ') from the ' + type);
+        if(data.success) {
+            $.each(data.success.success_fields[type].data.content, function(key, manif) {
+                
+                if (LI.kiosk.debug)
+                    console.log('Loading an item (#' + manif.id + ') from the ' + type);
 
-            manif.type = type;
-            LI.kiosk.rearrangeProperties(manif);
-            LI.kiosk.products.manifestations[manif.id] = manif;
-        });
+                manif.type = type;
+                LI.kiosk.rearrangeProperties(manif);
+                LI.kiosk.products.manifestations[manif.id] = manif;
+            });
+        }
     },
     cacheMuseum: function(data) {
         var type = 'museum';
         LI.kiosk.products.museum = {};
 
-        $.each(data.success.success_fields[type].data.content, function(key, manif) {
-            
-            if (LI.kiosk.debug)
-                console.log('Loading an item (#' + manif.id + ') from the ' + type);
+        if(data.success) {
+            $.each(data.success.success_fields[type].data.content, function(key, manif) {
+                
+                if (LI.kiosk.debug)
+                    console.log('Loading an item (#' + manif.id + ') from the ' + type);
 
-            manif.type = type;
-            manif.museum = true;
-            LI.kiosk.rearrangeProperties(manif);
-            LI.kiosk.products.museum[manif.id] = manif;
-        });
+                manif.type = type;
+                manif.museum = true;
+                LI.kiosk.rearrangeProperties(manif);
+                LI.kiosk.products.museum[manif.id] = manif;
+            });
+        }
     },
     cacheStore: function(data) {
         var type = 'store';
         LI.kiosk.products.store = {};
 
-        $.each(data.success.success_fields[type].data.content, function(key, product) {
-            
-            if (LI.kiosk.debug)
-                console.log('Loading an item (#' + product.id + ') from the ' + type);
+        if(data.success) {
+            $.each(data.success.success_fields[type].data.content, function(key, product) {
+                
+                if (LI.kiosk.debug)
+                    console.log('Loading an item (#' + product.id + ') from the ' + type);
 
-            product.prices = {};
-            product.type = type;
-            product.store = true;
+                product.prices = {};
+                product.type = type;
+                product.store = true;
 
-            $.each(product.declinations, function(i, declination) {
+                $.each(product.declinations, function(i, declination) {
 
-                $.each(declination.available_prices, function(key, price) {
-                    if(LI.kiosk.config.uiLabels.price !== undefined) {
-                        price.name = price[LI.kiosk.config.uiLabels.price]
-                    }
+                    $.each(declination.available_prices, function(key, price) {
+                        if(LI.kiosk.config.uiLabels.price !== undefined) {
+                            price.name = price[LI.kiosk.config.uiLabels.price]
+                        }
 
-                    product.prices[price.id] = price;
+                        product.prices[price.id] = price;
+                    });
+
+                    product.declinations[declination.id] = declination;
                 });
 
-                product.declinations[declination.id] = declination;
+                LI.kiosk.products.store[product.id] = product;
             });
-
-            LI.kiosk.products.store[product.id] = product;
-        });
+        }
     },
     cacheTemplates: function() {
         //make handlebars cache the templates for quicker future uses
@@ -1191,12 +1199,12 @@ LI.kiosk = {
         showLocationPrompt: function() {
             LI.kiosk.dialogs.location.showModal();
             LI.kiosk.utils.setupCountryField();         
-            LI.kiosk.utils.setupKeyPad('#postcode-pad', '#postcode');
+            LI.kiosk.utils.setupKeyPad($('#postcode-pad'), $('#postcode'));
             LI.kiosk.utils.addLocationDialogListeners();
         },
         setupKeyPad: function(element, input) {
-            $(element).keypad({
-                inputField: $(input),
+            element.keypad({
+                inputField: input,
                 deleteButtonText: '<i class="material-icons">keyboard_backspace</i>',
                 deleteButtonClass: 'mdl-cell--8-col',
                 buttonTemplate: '<button class="key mdl-button mdl-js-button mdl-button--raised waves-effect mdl-cell--4-col"></button>'
@@ -1341,9 +1349,19 @@ LI.kiosk = {
                 LI.kiosk.dialogs.status.close();
             }
         },
+        showAdminPrompt: function() {
+            LI.kiosk.dialogs.admin.showModal();
+
+            $('#execute-tasks').click(function() {
+                LI.kiosk.admin.executeTaskList();
+                if(LI.kiosk.dialogs.admin.open) {
+                    LI.kiosk.dialogs.admin.close();
+                }
+            });
+        },
         showPinPrompt: function() {
             LI.kiosk.dialogs.pin.showModal();       
-            LI.kiosk.utils.setupKeyPad('#pin-pad', '#pin-input');
+            LI.kiosk.utils.setupKeyPad($('#pin-pad'), $('#pin-input'));
         },
         //Wait for all requests to finish even if some fail
         whenAlways: function() {
@@ -1367,43 +1385,88 @@ LI.kiosk = {
         }
     },
     admin: {
+        clicks: 0,
+        queue: {},
         init: function() {
             LI.kiosk.admin.getTaskList();
-        },
-        executePrintTask: function(task) {
-            var receipt = Uint8Array.from(task.data);
 
-            LI.kiosk.printEptReceipt(receipt);
-            LI.kiosk.admin.updateTask();
-        },
-        executePinTask: function() {
-            LI.kiosk.utils.showPinPrompt();
-
-            $(LI.kiosk.dialogs.pin).find('button.key.submit').click(function(e) {
-                var pin = $('#pin-input').val();
-
-                // Validate pin
-                if(task.data === pin) {
-                    LI.kiosk.dialogs.pin.close();
-                    LI.kiosk.admin.updateTask();
+            // Trigger admin interface
+            $('#admin-trigger').click(function(e) {
+                if(++LI.kiosk.admin.clicks == 4) {
+                    LI.kiosk.utils.showAdminPrompt();
+                    LI.kiosk.admin.clicks = 0;
                 }
 
-                return false;
+                setTimeout(function() {
+                    LI.kiosk.admin.clicks = 0;
+                }, '700');
             });
         },
-        // Retrieve task list
+        // Execute admin task queue
         executeTaskList: function() {
-            $.get(LI.kiosk.urls.getTaskList, function(data) {
+            $.each(LI.kiosk.admin.queue, function(key, task) {
+                if(task.type == 'pin') {
+                    LI.kiosk.admin.executePinTask(task);
+
+                    return false;
+                }
+
+                LI.kiosk.admin.executePrintTask(task);
+
+                delete LI.kiosk.admin.queue[task.id];
+            });
+        },
+        // Retrieve AdminTask list on server
+        getTaskList: function() {
+            return $.get(LI.kiosk.urls.getTaskList, function(data) {
                 $.each(JSON.parse(data), function(key, task) {
-                    // Pin task
-                    if(Number.isInteger(task)) {
-                        LI.kiosk.admin.executePinTask();
-
-                        return;
-                    }
-
-                    LI.kiosk.admin.executePrintTask(JSON.parse(task));
+                    LI.kiosk.admin.queue[task.id] = task;
                 });
+            });
+        },
+        executePrintTask: function(task) {
+            task.receipt = Uint8Array.from(JSON.parse(task.receipt).data);
+
+            LI.kiosk.printEptReceipt(task.receipt);
+
+            LI.kiosk.admin.updateTask(task.id);
+        },
+        executePinTask: function(task) {
+            if(!$(LI.kiosk.dialogs.pin).is(':visible')) {
+                LI.kiosk.utils.showPinPrompt();
+            }
+
+            $(LI.kiosk.dialogs.pin).find('#pin-validate, button.key.submit').click(function(e) {
+                e.preventDefault();
+
+                LI.kiosk.admin.validatePin(task);
+
+                LI.kiosk.admin.executeTaskList();
+            });
+
+            $(LI.kiosk.dialogs.pin).find('.close').click(function(e) {
+                LI.kiosk.dialogs.pin.close();
+                $('#pin-input').val('');
+            });
+        },
+        validatePin: function(task) {
+            if(task.pin == $('#pin-input').val()) {
+                LI.kiosk.dialogs.pin.close();
+                LI.kiosk.admin.updateTask(task.id);
+
+                delete LI.kiosk.admin.queue[task.id];
+            } else {
+                $('#pin-error').show();
+                $('#pin-input').val('');
+                $('button.key').not('.input').click(function() {
+                    $('#pin-error').hide();
+                });
+            }
+        },
+        // Flag task as done on server
+        updateTask: function(taskId) {
+            $.get(LI.kiosk.urls.updateTask + '?task=' + taskId, function(result) {
+                console.log(result);
             });
         }
     }

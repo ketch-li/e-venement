@@ -84,6 +84,15 @@ $info-panel-color: #fff;
   &.light { color: $text-color; }
 }
 
+#admin-trigger {
+  width: 200px;
+  height: 100px;
+  background-color: transparent;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+}
+
 /* BREADCRUMBS */
 #breadcrumbs-wrapper {
   height: 7%;
@@ -520,6 +529,10 @@ ul{
 #pin {
   width: 60%;
   height: 85%;
+
+  #pin-error {
+    display: none;
+  }
 
   .mdl-selectfield__label, .mdl-textfield__label {
     color: $primary-color;

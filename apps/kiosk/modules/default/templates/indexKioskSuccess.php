@@ -27,7 +27,7 @@
 <?php use_stylesheet('kiosk/waves.css') ?>
 <?php use_stylesheet('kiosk/dialog-polyfill.css') ?>
 <?php use_stylesheet('kiosk/mdl-select.css') ?>
-<?php use_stylesheet('kiosk/kiosk.css') ?>
+<?php use_stylesheet('kiosk/kiosk.css') . time() ?>
 <?php use_stylesheet('kiosk/toastr.min.css') ?>
 <?php use_stylesheet('/private/kiosk.css') ?>
 
@@ -49,7 +49,7 @@
 <div id="app" class="app-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 	<header id="app-header" class="mdl-layout__header mdl-shadow--4dp">
 		<div class="mdl-layout__header-row">
-			<span class="mdl-layout-title"><img src="<?php echo sfConfig::get('app_ui_logo', sfConfig::get('project_about_logo')) ?>" alt="logo"/></span>
+			<span id="logo" class="mdl-layout-title"><img src="<?php echo sfConfig::get('app_ui_logo', sfConfig::get('project_about_logo')) ?>" alt="logo"/></span>
 			<div class="mdl-layout-spacer"></div>
 			<!-- I18N LINKS -->
 			<i class="material-icons culture">language</i>
@@ -63,6 +63,7 @@
 	        <button id="reset-btn" class="mdl-button mdl-js-button mdl-button--icon">
             	<i class="material-icons">replay</i>
           	</button>
+          	<div id="admin-trigger"></div>
 	        <!-- INFO -->
 	        <div id="info-panel" class="mdl-card__supporting-text mdl-shadow--6dp">
 				<p>
