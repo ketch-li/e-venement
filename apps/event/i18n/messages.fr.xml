@@ -2318,6 +2318,10 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>Online sales close before</source>
         <target>Fermeture de la vente en ligne</target>
       </trans-unit>
+       <trans-unit id="579">
+        <source>Price rank modified</source>
+        <target>Ordre des tarifs modifié</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
