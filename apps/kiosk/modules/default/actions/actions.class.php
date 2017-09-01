@@ -11,16 +11,24 @@
 class defaultActions extends sfActions
 {
   /**
-  * Executes index action
+  * Execute index action
   *
   * @param sfRequest $request A request object
   */
   public function executeIndex(sfWebRequest $request)
   {
-  	if( !sfContext::getInstance()->getUser()->getId() )
-  		$this->dispatcher->notify(new sfEvent($this, 'kiosk.init'));
+    return 'Success';	
+  }
 
-    return 'KioskSuccess';
+  /**
+  * Access public kiosk
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executePublic(sfWebRequest $request)
+  {
+    if( !sfContext::getInstance()->getUser()->getId() )
+      $this->dispatcher->notify(new sfEvent($this, 'kiosk.init'));
   }
 
   /**
