@@ -41,7 +41,7 @@ class PriceTable extends PluginPriceTable
     $q = $this->getCredentials(parent::createQuery($alias), $alias, $override_credentials);
     
     if ( $dom = sfConfig::get('project_internals_users_domain', null) )
-      $q->leftJoin("$alias.Ranks pr WITH pr.domain ILIKE '%$dom' OR pr.domain = '$dom'");
+      $q->leftJoin("$alias.Ranks pr WITH pr.domain = '$dom'");    // Root domain should not access sub domains
     else
       $q->leftJoin("$alias.Ranks pr");
       
