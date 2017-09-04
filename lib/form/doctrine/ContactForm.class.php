@@ -77,7 +77,7 @@ class ContactForm extends BaseContactForm
     ));
     
     $this->widgetSchema['nationality']
-      ->setOption('method', 'getNationality')
+      ->setOption('method', 'getName')
       ->setOption('table_method', 'retrieveNationalities');
     
     $this->widgetSchema   ['sf_guard_user_id'] =
