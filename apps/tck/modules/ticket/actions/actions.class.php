@@ -428,4 +428,27 @@ class ticketActions extends sfActions
     // tarif_names []
     require('transaction-form.php');
   }
+
+  public function executeJsonCheckpoints(sfWebRequest $request)
+  {
+    $past = sfConfig::get('app_control_past') ? sfConfig::get('app_control_past') : '6 hours';
+    $future = sfConfig::get('app_control_future') ? sfConfig::get('app_control_future') : '1 day';
+
+    $checkpoints = Doctrine::getTable('Checkpoint')
+      ->createQuery('c')
+      ->select('c.*')
+      ->leftJoin('c.Event e')
+      ->leftJoin('e.Manifestations m')
+      ->andWhereIn('e.meta_event_id',array_keys($this->getUser()->getMetaEventsCredentials()))
+      ->andWhere('m.happens_at < ?',date('Y-m-d H:i',strtotime('now + '.$future)))
+      ->andWhere('m.happens_at >= ?',date('Y-m-d H:i',strtotime('now - '.$past)))
+      ->fetchArray()
+    ;
+
+    $this->getResponse()->setHttpHeader('Content-type','application/json');
+
+    die(json_encode($checkpoints));
+
+    return sfView::NONE;
+  }
 }
