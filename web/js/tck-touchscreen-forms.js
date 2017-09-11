@@ -63,6 +63,15 @@ LI.formSubmit = function(){
         // any data to play with
         if ( value.data && value.data.type )
         switch ( value.data.type ) {
+        case 'seat':
+            $(value.data.tickets).each(function(){
+                var ticket = this;
+                $('#li_transaction_field_content .item[data-gauge-id='+ticket.gauge_id+'] .ticket-data .not-seated[data-id='+ticket.id+']')
+                    .addClass('seated')
+                    .append("\n"+ticket.seat_name)
+                ;
+            });
+            break;
         case 'manifestations_price':
         case 'museum_price':
         case 'store_price':

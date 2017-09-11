@@ -48,6 +48,7 @@
         .prop('id', id)
         .attr('style',widget.attr('style'))
         .append($('<div></div>').addClass('anti-handling'))
+        .append(widget.find('canvas'))
         .prepend($(this))
       ;
       
@@ -137,7 +138,10 @@
            .attr('data-scale', scale)
            .attr('data-scale-init', scale);
         if ( scale < 1 )
-          elt.css('margin-bottom', $(this).height()*(scale-1) + 50);
+        {
+          elt.css('margin-bottom', $(this).height()*(scale-1)); //+ 50);
+          LI.seatedPlanCenterOrigin(elt, elt.closest('.seated-plan-parent, .seats-allocation, .sf_admin_form').length == 0 ? null : { x: 0, y: 0 });
+        }
         
         // box resizing
         $(this).parent()
@@ -165,19 +169,27 @@
   
   LI.seatedPlanLoadData = function(url, extra_selector, no_reset)
   {
-    var selector = '.picture.seated-plan';
-    if ( extra_selector )
-    {
-      if ( typeof(extra_selector) == 'string' )
-        selector = $(extra_selector+selector);
-      else if ( typeof(extra_selector) == 'object' )
-        selector = $(extra_selector);
-    }
-    
     if ( typeof(LI.window_transition) == 'function' )
       LI.window_transition();
-    $(selector).find('.seat').remove();
+    //$(selector).find('.seat').remove();
     $.get(url,function(json){
+      LI.seatedPlanLoadDataRaw(json, no_reset, extra_selector);
+      $('#transition .close').click();
+    });
+    
+    setTimeout(function(){ $('#transition .close').click(); }, 1500);
+  }
+
+  LI.seatedPlanLoadDataRaw = function(json, no_reset, extra_selector) {
+      var selector = '.picture.seated-plan';
+      if ( extra_selector )
+      {
+        if ( typeof(extra_selector) == 'string' )
+          selector = $(extra_selector+selector);
+        else if ( typeof(extra_selector) == 'object' )
+          selector = $(extra_selector);
+      }
+    
       if ( !no_reset )
         $(selector).find('.seat').remove();
       for ( i = 0 ; i < json.length ; i++ )
@@ -192,13 +204,8 @@
         for ( var i = 0 ; fct = LI.seatedPlanInitializationFunctions[i] ; i++ )
           fct(selector);
       },200);
-      
-      $('#transition .close').click();
-    });
-    
-    setTimeout(function(){ $('#transition .close').click(); }, 1500);
   }
-
+  
   // the function that add a seat on every click (mouseup) or on data loading
   LI.seatedPlanMouseup = function(data) { setTimeout(function() // optimization !?
   {
@@ -316,7 +323,6 @@
             data: $(this).serialize(),
             success: function(json){
               // message
-              console.error(json);
               if ( json.message )
                 LI.alert(json.message, json.success ? 'success' : 'error');
               
@@ -503,7 +509,7 @@
         },
         object: $(this),
         'class': $('.sf_admin_form_field_show_picture .class input').val() ? $('.sf_admin_form_field_show_picture .class input').val() : '',
-        record: true,
+        record: true
       });
     });
     
@@ -513,3 +519,105 @@
         $('.sf_admin_form_field_show_picture .seat.txt:first').dblclick();
     });
   });
+
+  LI.seatedPlanMagnify = function(zoom){
+    $('.seated-plan.picture')
+      .css('transition-property', 'transform')
+      .css('transition-duration', '1s')
+      .each(function(){
+        var factor = 1.3;
+        var old_scale = parseFloat($(this).attr('data-scale'));
+        var new_scale = zoom == 'in' ? old_scale*factor : old_scale/factor;
+        if ( new_scale >= 1.3 ) {
+            new_scale = old_scale;
+        }
+
+        if ( zoom != 'in' && new_scale < parseFloat($(this).attr('data-scale-init'))*2/3 )
+          new_scale = parseFloat($(this).attr('data-scale'));
+        
+        $(this)
+            .css('transform', 'scale('+new_scale+')')
+            .attr('data-scale', new_scale)
+        ;
+      })
+    ;
+  }
+  
+  LI.seatedPlanCenterOrigin = function(plan, coords){setTimeout(function(){ // setTimeout() is a workaround for very speedy browsers...
+    $(plan == undefined ? '.seated-plan.picture' : plan).each(function(){
+        if ( !coords ) {
+            coords = {
+              x: $(this).width()/2,
+              y: $(this).height()/2
+            }
+        }
+        
+        if ( coords.x == 0 && coords.y == 0 ) {
+            return;
+        }
+        
+        $(this).css('transform-origin', coords.x+'px '+coords.y+'px');
+        
+        var parent = $(this).closest('.seated-plan-parent');
+        parent = parent.length > 0 ? parent : $(this).parent();
+        parent.scrollLeft(0).scrollTop(0);
+        LI.seatedPlanCenterScroll(parent);
+    });
+  },100)}
+  
+  LI.seatedPlanCenterScroll = function(container, event, coef){
+    var pic;
+    if ( container == undefined ) {
+        pic = $('.seated-plan.picture');
+        container = pic.parent();
+        container = container.length > 0 ? container : container.closest('.seated-plan-parent');
+    }
+    else {
+        pic = container.find('.seated-plan.picture');
+    }
+    if ( coef == undefined ) {
+        coef = 1;
+    }
+    
+    var center = {
+        x: $(container).width()/2,
+        y: $(container).height()/2
+    };
+
+    var click;
+    if ( event == undefined ) {
+        click = {
+            x: $(pic).width()/2,
+            y: $(pic).height()/2
+        };
+    }
+    else {
+        click = {
+            x: event.pageX - $(container).offset().left,
+            y: event.pageY - $(container).offset().top
+        };
+        
+        // multiply the coordinates of the future center by a coefficient to go
+        // farer than expected, maybe because of a zoom to come...
+        $.each(['x', 'y'], function(i, type){
+            click[type] = center[type] + (click[type]-center[type])*coef
+        });
+    }
+    
+    var scroll = {
+        scrollLeft: Math.round($(container).scrollLeft() + click.x - center.x),
+        scrollTop:  Math.round($(container).scrollTop()  + click.y - center.y)
+    };
+    
+    if ( scroll != undefined ) {
+        container.animate(scroll,500);
+        return scroll;
+    }
+    
+    var scroll = {
+      scrollLeft: (pic.width() /2 - center.x)+'px',
+      scrollTop:  (pic.height()/2 - center.y)+'px'
+    }
+    container.animate(scroll,500);
+    return scroll;
+  }

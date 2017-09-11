@@ -120,4 +120,45 @@
           $('#li_transaction_field_content .item.highlight .ids').removeClass('show');
       },100);
     });
+    
+    // auto-seat tickets
+    $('#li_transaction_field_price_new form.seat [type=submit]').mousedown(function(){
+        var gid = $('#li_transaction_field_content .item.ui-state-highlight').attr('data-gauge-id');
+        var input = $(this).closest('form').find('[name="transaction[seat][gauge_id]"]');
+        if ( !gid ) {
+            input.val(null);
+            return false;
+        }
+        input.val(gid);
+        
+        var qty = $('#li_transaction_field_content .item.ui-state-highlight .ticket-data .not-seated').length;
+        var input = $(this).closest('form').find('[name="transaction[seat][qty]"]');
+        if ( !qty ) {
+            input.val(null);
+            return false;
+        }
+        input.val(qty);
+    });
+    $('#li_transaction_field_content .item')
+        .focusin(function(){
+            // prerequisites to display the auto-seat form
+            var qty = $(this).find('input.qty');
+            if ( qty.length == 0 ) {
+                return;
+            }
+            if ( qty.val() <= 0 ) {
+                return;
+            }
+            if ( $(this).find('.data .gauge.seated').length == 0 ) {
+                return;
+            }
+            
+            // display the auto-seat form
+            $('#li_transaction_field_price_new .seat').fadeIn();
+        })
+        .focusout(function(){
+            $('#li_transaction_field_price_new .seat').fadeOut();
+        })
+        .first().focusout()
+    ;
   });
