@@ -19,6 +19,7 @@ class member_cardActions extends autoMember_cardActions
     $seat_name = trim($request->getParameter('seat_name', ''));
     
     $this->mc->privileged_seat_name = $seat_name ? $seat_name : NULL;
+    $this->privileged_seat_name = $seat_name;
     $this->mc->save();
   }
   

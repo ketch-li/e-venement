@@ -19,7 +19,7 @@ abstract class PluginMemberCard extends BaseMemberCard
     
     if ( $this->MemberCardType->product_declination_id
       && $this->MemberCardType->price_id
-      && $this->Transaction->MemberCards->count() > 0
+      && $this->countMemberCardsInCurrentTransaction() > 0
       && $this->BoughtProducts->count() == 0
     )
     {
@@ -43,6 +43,13 @@ abstract class PluginMemberCard extends BaseMemberCard
     }
     
     parent::preSave($event);
+  }
+  
+  private function countMemberCardsInCurrentTransaction()
+  {
+    return Doctrine::getTable('MemberCard')->createQuery('mc')
+        ->andWhere('mc.transaction_id = ?', $this->transaction_id)
+        ->count();
   }
   
   public function postSave($event)

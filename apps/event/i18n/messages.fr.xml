@@ -2334,6 +2334,26 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>Price rank modified</source>
         <target>Ordre des tarifs modifié</target>
       </trans-unit>
+      <trans-unit id="583">
+        <source>Member card type</source>
+        <target>Type de carte d'abonnement</target>
+      </trans-unit>
+      <trans-unit id="584">
+        <source>Associate member cards</source>
+        <target>Association de carte d'abonnement</target>
+      </trans-unit>
+      <trans-unit id="585">
+        <source>Quantity</source>
+        <target>Quantité</target>
+      </trans-unit>
+      <trans-unit id="585">
+        <source>Associate</source>
+        <target>Association</target>
+      </trans-unit>
+      <trans-unit id="585">
+        <source>Seat pass</source>
+        <target>Placement</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
