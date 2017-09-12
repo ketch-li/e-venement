@@ -110,20 +110,20 @@
     }).focusout(function(){
       var elt = this;
       setTimeout(function(){
-        if ( $('#li_transaction_field_content [data-gauge-id].ui-state-highlight, #li_transaction_field_content [data-declination-id].ui-state-highlight').length == 0 )
+        if ( $('#li_transaction_field_content [data-gauge-id].highlight, #li_transaction_field_content [data-declination-id].highlight').length == 0 )
         {
           $('#li_transaction_field_price_new').fadeOut('slow');
           $('#li_transaction_field_price_new .dispatchinput').toggle();
           $('#li_transaction_field_content .item.highlight .ids input').remove();
         }
-        if ( !$('#li_transaction_field_content .ui-state-highlight').is(elt) )
+        if ( !$('#li_transaction_field_content .highlight').is(elt) )
           $('#li_transaction_field_content .item.highlight .ids').removeClass('show');
       },100);
     });
     
     // auto-seat tickets
     $('#li_transaction_field_price_new form.seat [type=submit]').mousedown(function(){
-        var gid = $('#li_transaction_field_content .item.ui-state-highlight').attr('data-gauge-id');
+        var gid = $('#li_transaction_field_content .item.highlight').attr('data-gauge-id');
         var input = $(this).closest('form').find('[name="transaction[seat][gauge_id]"]');
         if ( !gid ) {
             input.val(null);
@@ -131,7 +131,7 @@
         }
         input.val(gid);
         
-        var qty = $('#li_transaction_field_content .item.ui-state-highlight .ticket-data .not-seated').length;
+        var qty = $('#li_transaction_field_content .item.highlight .ticket-data .not-seated').length;
         var input = $(this).closest('form').find('[name="transaction[seat][qty]"]');
         if ( !qty ) {
             input.val(null);
@@ -139,23 +139,26 @@
         }
         input.val(qty);
     });
+    
+    LI.checkAutoseatable = function(elt){
+        // prerequisites to display the auto-seat form
+        var qty = $(elt).find('input.qty');
+        var off = function(){ $('#li_transaction_field_price_new .seat').fadeOut(); }
+        if ( qty.length == 0 ) {
+            return off();
+        }
+        if ( qty.val() <= 0 ) {
+            return off();
+        }
+        if ( $(elt).find('.data .gauge.seated').length == 0 ) {
+            return off();
+        }
+        
+        // display the auto-seat form
+        $('#li_transaction_field_price_new .seat').fadeIn();
+    }
     $('#li_transaction_field_content .item')
-        .focusin(function(){
-            // prerequisites to display the auto-seat form
-            var qty = $(this).find('input.qty');
-            if ( qty.length == 0 ) {
-                return;
-            }
-            if ( qty.val() <= 0 ) {
-                return;
-            }
-            if ( $(this).find('.data .gauge.seated').length == 0 ) {
-                return;
-            }
-            
-            // display the auto-seat form
-            $('#li_transaction_field_price_new .seat').fadeIn();
-        })
+        .focusin(function(){ LI.checkAutoseatable(this) })
         .focusout(function(){
             $('#li_transaction_field_price_new .seat').fadeOut();
         })

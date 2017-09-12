@@ -76,6 +76,7 @@ LI.formSubmit = function(){
         case 'museum_price':
         case 'store_price':
           $('#li_transaction_field_price_new [name="transaction[price_new][qty]"]').val('');
+          LI.checkAutoseatable($('#li_transaction_field_content .item.highlight'));
           if ( !value.data.reset )
             return;
           
