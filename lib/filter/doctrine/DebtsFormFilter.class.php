@@ -51,6 +51,13 @@ class DebtsFormFilter extends TransactionFormFilter
     $this->values['date'] = '';
     
     parent::configure();
+    
+    $q = Doctrine::getTable('sfGuardUser')->createQuery('u')
+      ->andWhere('u.is_active = ?',true);
+    if ( !sfContext::getInstance()->getUser()->hasCredential('tck-ledger-all-users') )
+      $q->andWhere('u.id = ?',sfContext::getInstance()->getUser()->getId());
+    
+    $this->widgetSchema   ['created_by']->setOption('query', $q);
   }
   
   public function addDateColumnQuery(Doctrine_Query $q, $field, $values)
