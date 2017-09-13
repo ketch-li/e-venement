@@ -166,7 +166,7 @@
         && $request->hasParameter('simplified') )
       {
         // here we add the next manifestations if nothing is asked and the GUI is "simplified"
-        $conf = sfConfig::get('app_transaction_manifestations', array());
+        $conf = sfConfig::get('app_transaction_'.$type, array());
         if (!( isset($conf['max_display']) && is_int($conf['max_display']) ))
           $conf['max_display'] = 20;
         
