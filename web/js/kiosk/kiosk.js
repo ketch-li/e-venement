@@ -22,7 +22,6 @@
 $(document).ready(function() {
     //Initialize app
     LI.kiosk.init();
-    LI.kiosk.admin.executePinTask();
 });
 
 if ( LI === undefined )
