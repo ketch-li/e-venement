@@ -31,7 +31,7 @@ abstract class PluginEvent extends BaseEvent implements liMetaEventSecurityAcces
     if ( intval($this->close_before).'' != ''.$this->close_before )
     {
       $str = $this->close_before;
-      $this->close_before = intval(strtotime($this->duration.'+0',0));
+      $this->close_before = intval(strtotime($this->close_before.'+0',0));
       
       // for close_before > 24h
       if ( !$this->close_before )
