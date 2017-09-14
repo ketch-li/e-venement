@@ -16,9 +16,10 @@ generator:
       fields:
         all: { label: "Even closed transactions ?", help: "Needs a while for calculation..." }
         date: { type: date }
+        User: { label: "Last user" }
       list:
         title: Debts
-        display: [_id, _invoice_id, Contact, Professional, _debt, closed, updated_at]
+        display: [_id, _invoice_id, Contact, Professional, _debt, closed, updated_at, User]
         actions:
           _new: ~
           _extract:
@@ -31,7 +32,7 @@ generator:
         sort: [updated_at, desc]
         max_per_page: 500
       filter:
-        display: [date, all, name, city, contact_id, organism_id]
+        display: [created_by, date, all, name, city, contact_id, organism_id]
         class: DebtsFormFilter
       form:    ~
       edit:    ~

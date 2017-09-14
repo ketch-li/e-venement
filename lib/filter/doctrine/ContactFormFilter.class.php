@@ -104,7 +104,7 @@ class ContactFormFilter extends BaseContactFormFilter
     ));
     
     $this->widgetSchema['nationality']
-      ->setOption('method', 'getNationality')
+      ->setOption('method', 'getName')
       ->setOption('table_method', 'retrieveNationalities');
     
     // has postal address ?

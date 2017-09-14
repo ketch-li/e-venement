@@ -166,7 +166,7 @@
         && $request->hasParameter('simplified') )
       {
         // here we add the next manifestations if nothing is asked and the GUI is "simplified"
-        $conf = sfConfig::get('app_transaction_manifestations', array());
+        $conf = sfConfig::get('app_transaction_'.$type, array());
         if (!( isset($conf['max_display']) && is_int($conf['max_display']) ))
           $conf['max_display'] = 20;
         
@@ -565,7 +565,7 @@
               continue;
             
             // then add the price...
-            $this->json[$product->ordering_key][$this->json[$product->ordering_key]['declinations_name']][$declination->id]['available_prices'][str_pad(number_format($pp->Price->rank,5),20,'0',STR_PAD_LEFT).' || '.$pp->Price.' || '.$pp->price_id] = array(
+            $this->json[$product->ordering_key][$this->json[$product->ordering_key]['declinations_name']][$declination->id]['available_prices'][str_pad(number_format($pp->Price->Ranks[0]->rank,5),20,'0',STR_PAD_LEFT).' || '.$pp->Price.' || '.$pp->price_id] = array(
               'id'  => $pp->price_id,
               'name'  => (string)$pp->Price,
               'description'  => $pp->Price->description,

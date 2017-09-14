@@ -6,6 +6,11 @@
       'width' => $seated_plan->ideal_width ? $seated_plan->ideal_width : ''
     )) ?>
     <?php use_stylesheet('/private/event-seated-plan?'.date('Ymd')) ?>
+    <canvas
+        data-urls-get="<?php echo url_for('seated_plan/getZones?id='.$seated_plan->id) ?>"
+        data-urls-set="<?php echo url_for('seated_plan/setZones') ?>"
+        class="zones"
+    ></canvas>
   </a>
   <?php if ( isset($form->transaction_id) ): ?>
   <?php use_helper('CrossAppLink') ?>

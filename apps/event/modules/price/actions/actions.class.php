@@ -105,7 +105,7 @@ class priceActions extends autoPriceActions
     }
 
     if ( $dom && $dom != '.' )
-      $q->andWhere('pr.domain ILIKE ? OR pr.domain = ?', array('%.'.$dom, $dom));
+      $q->andWhere('pr.domain = ?', $dom);  // Root domain should not access sub domains
 
     if ( $update )
       $q->execute();

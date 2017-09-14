@@ -128,6 +128,10 @@ class TransactionTable extends PluginTransactionTable
         ->leftJoin('u.Domain d')
         ->andWhere('d.name ILIKE ? OR d.name = ?', array('%.'.$dom, $dom));
     
+    if ( !sfContext::getInstance()->getUser()->hasCredential('tck-ledger-all-users') )
+      $q->leftJoin('t.Version ctv WITH ctv.version = 1')
+        ->andWhere('ctv.sf_guard_user_id = ?',sfContext::getInstance()->getUser()->getId());
+    
     $this->setDebtsListCondition($q);
     return $q;
   }

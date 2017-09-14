@@ -42,6 +42,11 @@ class ControlFormFilter extends BaseControlFormFilter
   {
     parent::configure();
     
+    $this->widgetSchema['checkpoint_id']->setOption('query', Doctrine::getTable('Checkpoint')->createQuery('cp')
+      ->innerJoin('cp.Event e')
+      ->andWhereIn('e.meta_event_id',array_keys(sfContext::getInstance()->getUser()->getMetaEventsCredentials()))
+    );
+    
     $this->widgetSchema   ['manifestation_id'] = new sfWidgetFormDoctrineChoice(array(
       'model' => 'Manifestation',
       'add_empty' => true,

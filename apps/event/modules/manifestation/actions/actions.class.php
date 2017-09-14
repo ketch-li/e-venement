@@ -36,6 +36,38 @@ require_once dirname(__FILE__).'/../lib/manifestationGeneratorHelper.class.php';
  */
 class manifestationActions extends autoManifestationActions
 {
+  public function executeSeatMemberCards(sfWebRequest $request)
+  {
+    $this->manifestation = $this->getRoute()->getObject();
+    $services = array(
+        'mc'  => $this->getContext()->getContainer()->get('member_cards_service'),
+        'seater' => $this->getContext()->getContainer()->get('member_cards_seating_service'),
+    );
+    
+    $mcs = $services['mc']->getActiveMemberCardsForEvent($this->manifestation->Event);
+    $this->tickets = $services['seater']->seatManyMemberCardForOneManifestation($mcs, $this->manifestation);
+  }
+  
+  public function executeAssociateMemberCards(sfWebRequest $request)
+  {
+    $this->manifestation = $this->getRoute()->getObject();
+    
+    $this->form = new MemberCardPriceModelForm;
+    $this->form->bind($request->getParameter('member_card_price_model', array()) + array('_csrf_token' => $this->form->getCSRFToken()));
+    
+    if ( !$this->form->isValid() ) {
+        $this->errors = array();
+        foreach ( $this->form->getErrorSchema()->getErrors() as $name => $error ) {
+            $this->errors[$name] = (string)$error;
+        }
+        return 'Error';
+    }
+    
+    $service = $this->getContext()->getContainer()->get('member_cards_service');
+    $mcs = $service->completeMemberCardsWithMCPrice($this->form->getValues(), $this->manifestation->Event);
+    $this->mcs = $mcs->toArray();
+  }
+  
   public function executeClearPrices(sfWebRequest $request)
   {
     $this->forward404Unless($manifestation = $this->getRoute()->getObject());
@@ -309,14 +341,15 @@ class manifestationActions extends autoManifestationActions
     
     if ( $date && $date = DateTime::createFromFormat($pattern, $date) )
     {
-      $q->andWhere('m.happens_at >= ? AND m.happens_at < ?', array(
-        $date->format('Y').'-'.$date->format('m').'-'.$date->format('d'),
-        $date->format('Y').'-'.$date->format('m').'-'.($date->format('d')+1),
-      ));
+      $from = $date->format('Y-m-d');
+      $dateto = $date->add(new DateInterval('P1D'));
+      $to = $dateto->format('Y-m-d');
+      
+      $q->andWhere('m.happens_at >= ? AND manifestation_ends_at(m.happens_at, m.duration) < ?', array($from, $to));
     }
     else
     {
-      $q->andWhere("m.happens_at >= now() - INTERVAL '1 day'");
+      $q->andWhere("m.happens_at - INTERVAL '1 day' < now() OR manifestation_ends_at(m.happens_at, m.duration) + INTERVAL '6 hours' > now()");
     }
     if ( $eids )
       $q->andWhereIn('m.event_id',$eids);
@@ -563,6 +596,10 @@ class manifestationActions extends autoManifestationActions
       $this->redirect(cross_app_url_for('museum', 'manifestation/edit?id='.$this->manifestation->id));
     elseif ( !$this->manifestation->Event->museum && $museum )
       $this->redirect(cross_app_url_for('event', 'manifestation/edit?id='.$this->manifestation->id));
+    
+    $this->form->mcform = new MemberCardPriceModelForm;
+    $ws = $this->form->mcform->getWidgetSchema();
+    $ws['event_id'] = new sfWidgetFormInputHidden;
 
     //$this->form->prices = $this->getPrices();
     //$this->form->spectators = $this->getSpectators();
