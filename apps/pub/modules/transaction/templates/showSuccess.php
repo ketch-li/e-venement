@@ -235,7 +235,9 @@ $(document).ready(function(){
 </thead>
 </table>
 
-<?php if ( !$current_transaction && $transaction->getPaid().'' < ''.$transaction->getPrice(true, true) || $current_transaction ): // the .'' is a hack for float values ?>
+<?php if ( !$current_transaction && $transaction->getPaid().'' < ''.$transaction->getPrice(true, true) 
+  || $current_transaction
+  || $transaction->Tickets->count() == 0 && $transaction->BoughtProducts->count() == 0) : // the .'' is a hack for float values ?>
 <?php include_partial('show_order', array('transaction' => $transaction)) ?>
 <?php else: ?>
 <?php include_partial('show_resend_email', array('transaction' => $transaction)) ?>
