@@ -323,10 +323,10 @@
     }
     else
     {
-      $this->transaction->Order[] = new Order;
-      $this->transaction->save();
+      //$this->transaction->Order[] = new Order; // too much side effects ! Find something else
+      //$this->transaction->save();
       
-      $this->getUser()->resetTransaction();
+      //$this->getUser()->resetTransaction();
       
       // simple configuration
       if ( sfConfig::get('app_payment_type', false) )
