@@ -9,7 +9,7 @@
       <td class="transation_id">#<?php echo cross_app_link_to($bp->transaction_id,'tck','transaction/edit?id='.$bp->transaction_id) ?></td>
       <td class="ticket_id"><?php echo '#'.$bp->id ?></td>
       <td class="price_name"><?php echo $bp->price_name ?></td>
-      <td class="ticket_value"><?php echo format_currency($bp->value,$sf_context->getConfiguration()->getCurrency()); $value += $bp->value; ?></td>
+      <td class="ticket_value"><?php echo format_currency($bp->value,$sf_context->getConfiguration()->getCurrency()); ?></td>
       <td class="ticket_manifestation"><?php if ( $bp->product_declination_id ): ?>
         <?php echo cross_app_link_to($bp->Declination->Product,'pos','product/show?id='.$bp->Declination->product_id) ?>
       <?php endif ?></td>

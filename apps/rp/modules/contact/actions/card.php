@@ -132,6 +132,7 @@
         if (!( $this->transaction = $card->Transaction ))
         {
           $this->transaction = new Transaction;
+          $this->transaction->save();
           $this->transaction->MemberCards[] = $card;
         }
         
