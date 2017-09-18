@@ -27,7 +27,7 @@
     * ENCODING: UTF-8
     * SEPARATOR: ,
     * CONTENT STRUCTURE:
-    * Id,Nom,Prénom,Adresse1,Adresse2,CP,Ville,Pays,Type Tel1,Tel1,Type Tel2,Tel2,email_perso,no_newsletter,Mémo,org_id,Organisme,Type_Organisme,admin_number,site_web,Address,CP,Ville,Pays,org_type_tel1,org_tel1,org_type_tel2,org_tel2,org_email,org_no_newsletter,Fonction_Type,Fonction_libellé,Service,pro_tel,pro_email,pro_no_newsletter
+    * Id,titre,Nom,Prénom,Adresse1,Adresse2,CP,Ville,Pays,Type Tel1,Tel1,Type Tel2,Tel2,email_perso,no_newsletter,Mémo,org_id,Organisme,Type_Organisme,admin_number,site_web,Address,CP,Ville,Pays,org_type_tel1,org_tel1,org_type_tel2,org_tel2,org_email,org_no_newsletter,Fonction_Type,Fonction_libellé,Service,pro_tel,pro_email,pro_no_newsletter
     *
     **/
 ?>
