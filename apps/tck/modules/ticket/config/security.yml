@@ -18,6 +18,8 @@ duplicate:
   credentials: [tck-print-ticket, tck-duplicate-ticket]
 partial:
   credentials: [tck-print-ticket]
+getControlCSRF:
+  credentials: [tck-control]
 control:
   credentials: [tck-control]
 jsonCheckpoints:
