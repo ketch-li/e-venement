@@ -218,6 +218,7 @@
         && $price->isAccessibleBy($this->getUser(), $ticket->Manifestation) )
       {
         $ticket->value    = NULL;
+        $ticket->price_name = NULL;
         $ticket->price_id = $data[$ticket->id]['price_id'];
       }
       
