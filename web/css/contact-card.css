@@ -54,8 +54,9 @@ html body p { margin: 0; padding: 0 }
   width: 30mm;
   height: 30mm;
   float: left;
+  overflow:hidden;
 }
-.member_card .picture img { display: initial; width: 100%; }
+.member_card .picture img { display: initial; width: 100%;}
 .member_card .content .extra-card {
   clear: both;
   font-size: 8px;
