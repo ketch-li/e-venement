@@ -20,6 +20,8 @@ partial:
   credentials: [tck-print-ticket]
 control:
   credentials: [tck-control]
+jsonCheckpoints:
+  credentials: [[tck-control, tck-control-admin]]
 controlCancel:
   credentials: [[tck-control<?php if ( !sfConfig::get('app_control_permissive', false) ): ?>, tck-control-admin<?php endif ?>]]
 order:
