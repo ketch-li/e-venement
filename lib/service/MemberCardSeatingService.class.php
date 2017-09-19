@@ -67,6 +67,9 @@ class MemberCardSeatingService
         $ticket->Seat = $seat;
         $ticket->gauge_id = $seat->gauge_id;
         $ticket->Price = $price;
+        
+        $ticket->integrated_at = date('Y-m-d H:i:s'); // Remove if tickets need to be released. Beware of ticket control. A reservation can not be controlled
+        
         $ticket->Transaction = $transac instanceof Transaction ? $transac : new Transaction;
         
         return $ticket;
