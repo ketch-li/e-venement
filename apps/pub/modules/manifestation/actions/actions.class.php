@@ -190,16 +190,15 @@ class manifestationActions extends autoManifestationActions
     $this->getResponse()->setTitle($this->manifestation->Event.' - ');
     
     $second = $this->manifestation->Event->close_before;
-    $hour = $second * 3600 ;
-    if (!$hour) 
+    if (!$second) 
     {
         $delay = sfConfig::get('app_tickets_close_before','36 hours');
     } 
     else 
     {
-        $delay = $hour.' hours';        
+        $delay = $second.' seconds';        
     }
-    if ( strtotime('now + '.$delay) > strtotime($this->manifestation->happens_at) )
+      if ( strtotime('now + '.$delay) > strtotime($this->manifestation->happens_at) )
     return 'Closed';
   }
   
