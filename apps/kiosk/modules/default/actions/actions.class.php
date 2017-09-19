@@ -105,8 +105,7 @@ class defaultActions extends sfActions
 
     $this->getResponse()->setHttpHeader('Content-type','application/json');
 
-    // Evil
-    die('ok');
+    echo'ok';
 
     return sfView::NONE;
   }

@@ -447,7 +447,7 @@ class ticketActions extends sfActions
 
     $this->getResponse()->setHttpHeader('Content-type','application/json');
 
-    die(json_encode($checkpoints));
+    echo json_encode($checkpoints);
 
     return sfView::NONE;
   }
