@@ -65,4 +65,27 @@ class defaultActions extends sfActions
     $this->countries = $countryService->getAllCountries($request->getParameter('culture'));
   }
 
+  /**
+  * Persist transaction payment receipts
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeSavePaymentRecord(sfWebRequest $request)
+  {
+    $record = new EptRecord();
+
+    $record->transaction_id = $request->getParameter('transaction');
+    $record->client_receipt = base64_encode($request->getParameter('clientReceipt'));
+
+    if( $request->getParameter('sellerReceipt') )
+      $record->seller_receipt = base64_encode($request->getParameter('sellerReceipt'));
+
+    $record->save();
+
+    $this->getResponse()->setHttpHeader('Content-type','application/json');
+
+    echo'ok';
+
+    return sfView::NONE;
+  }
 }
