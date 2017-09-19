@@ -16,6 +16,15 @@ class transactionActions extends sfActions
     parent::preExecute();
   }
 
+  public function executePayment(sfWebRequest $request)
+  {
+    $transaction = Doctrine::getTable('Transaction')->find(intval($request->getParameter('id')));
+    
+    $this->paid = $transaction->Payments->count() > 0 ? 'true' : 'false';
+    
+    $this->setLayout(false);
+  }
+
   public function executeProducts(sfWebRequest $request)
   {
     $request->setParameter('target', 'products');

@@ -16,6 +16,27 @@ class PluginPriceTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('PluginPrice');
     }
+    
+    public function createQuery($alias = 'e')
+    {
+      $q = parent::createQuery($alias);
+      
+      if ( !sfContext::hasInstance() || !sfContext::getInstance()->getActionName() )
+        $q->leftJoin("$alias.Translation pt");
+      elseif (!( sfContext::hasInstance()
+        && sfContext::getInstance()->getActionName()
+        && in_array(sfContext::getInstance()->getActionName(), array('edit', 'update'))
+        ) && class_exists('jsonActions') && !sfContext::getInstance()->getActionStack()->getLastEntry()->getActionInstance() instanceof jsonActions
+      )
+      {
+        $culture = sfContext::hasInstance() ? sfContext::getInstance()->getUser()->getCulture() : 'fr';
+        $q->leftJoin("$alias.Translation pt WITH pt.lang = '$culture'");
+      }
+      else
+        $q->leftJoin("$alias.Translation pt");
+      
+      return $q;
+    }
 
   // Optimization for domain restrictions
   public function getRelation($alias, $recursive = true)

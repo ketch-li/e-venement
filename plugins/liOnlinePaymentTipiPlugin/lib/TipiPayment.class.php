@@ -128,7 +128,7 @@
     {
       $url = $this->getTPEWebURL();
       if ( !$url )
-        return '<div class="'.$attributes['class'].'" id="'.$attributes['id'].'">Pas de serveur Paybox disponible...</div>';
+        return '<div class="'.$attributes['class'].'" id="'.$attributes['id'].'">Pas de serveur Tipi disponible...</div>';
       
       $r = '';
       $r .= '<form action="'.$url.'" method="'.$this->getMethod().'" ';
