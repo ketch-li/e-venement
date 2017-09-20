@@ -6,12 +6,16 @@ return array(
   'plugins' => array(
     // add extra plugins that need to be loaded in the first pass here, one by line
     //'liLibsApiPlugin',
+    
     //'liOnlineChoicesPlugin',
+    //'liOnlineSalesPlugin',
+    
+    'sfDependencyInjectionPlugin',
   ),
   
   'filters' => array(
     // add extra filters here
-    //'name_of_filter' => 'options',
+    //'exceptionCatcherFilter' => true,
   ),
 
 );
