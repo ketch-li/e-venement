@@ -25,7 +25,8 @@
          ?>
     </p>
     <p class="extra-card"><?php echo nl2br(sfConfig::get('app_cards_extra')) ?></p>
-    <p class="seats"><span class="title"><?php echo __('Privileged seat') ?></span> <?php echo $card->privileged_seat_name ?></p>
+    <p class="seats"><span class="title"><?php echo __('Privileged seat') ?></span> <?php echo nl2br(__($card->privileged_seat_name)) ?></p>
+    <p class="status"><span class="title"><?php echo __('Status') ?></span> <?php echo nl2br(__($card->name)) ?></p>
   </div>
   <div class="content archive">
     <p class="cardid"><span class="title"><?php echo __('N° mumber card') ?></span><?php echo(' '.$card->id); ?></p>

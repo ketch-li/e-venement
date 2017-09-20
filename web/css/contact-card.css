@@ -90,6 +90,8 @@ html body p { margin: 0; padding: 0 }
 
 .member_card .content:first-child .name { height: 1em; }
 
+.member_card .card .seats, .member_card .card .status {display: none;}
+
 @media screen {
 
 .member_card {
