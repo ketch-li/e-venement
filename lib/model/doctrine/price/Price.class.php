@@ -28,6 +28,15 @@ class Price extends PluginPrice implements liUserAccessInterface
     return $this->Ranks[0]->rank;
   }
   
+  public function getRanks()
+  {
+    $ranks = Doctrine::getTable('PriceRank')->createQuery()
+      ->andWhere('price_id = ?', $this->id)
+      ->execute();
+
+    return $ranks;
+  }
+  
   public function getWorkspaceIds()
   {
     return array_keys($this->Workspaces->getPrimaryKeys());

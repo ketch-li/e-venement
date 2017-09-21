@@ -16,4 +16,14 @@ class PluginPriceRankTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('PluginPriceRank');
     }
+    
+    public function createQuery($alias = 'pr')
+    {
+      $q = parent::createQuery($alias);
+      
+      if ( $dom = sfConfig::get('project_internals_users_domain', null) )
+        $q->andWhere("$alias.domain = ?", $dom);    // Root domain should not access sub domains
+        
+      return $q;
+    }
 }
