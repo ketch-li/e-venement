@@ -23,20 +23,7 @@ class Price extends PluginPrice implements liUserAccessInterface
     sfApplicationConfiguration::getActive()->loadHelpers(array('Number'));
     return $this->description.' ('.$this->name.'), '.format_currency($this->value,sfContext::hasInstance() ? sfContext::getInstance()->getConfiguration()->getCurrency() : '€');
   }
-  
-  public function getRank() {
-    return $this->Ranks[0]->rank;
-  }
-  
-  public function getRanks()
-  {
-    $ranks = Doctrine::getTable('PriceRank')->createQuery()
-      ->andWhere('price_id = ?', $this->id)
-      ->execute();
-
-    return $ranks;
-  }
-  
+    
   public function getWorkspaceIds()
   {
     return array_keys($this->Workspaces->getPrimaryKeys());
