@@ -29,7 +29,15 @@
 
   <?php if ( isset($client['logo']) && $client['logo'] ): ?>
   <?php if (! (isset($client['logo_attributes']) && is_array($client['logo_attributes'])) ) $client['logo_attributes'] = array(); ?>
-  <p class="logo"><?php echo link_to(image_tag($client['logo'], array_merge($client['logo_attributes'], array('alt' => $client['name']))), $client['url'], array('target' => '_blank')) ?></p>
+  <p class="logo">
+    <?php 
+    $logo = image_tag($client['logo'], array_merge($client['logo_attributes'], array('alt' => $client['name'])));
+    if ( $client['url'] )
+      echo link_to($logo, $client['url'], array('target' => '_blank'));
+    else
+      echo $logo;
+    ?>
+  </p>
   <?php endif ?>
 
   <p class="name">
