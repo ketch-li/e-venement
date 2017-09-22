@@ -64,6 +64,7 @@ LI.formSubmit = function(){
         if ( value.data && value.data.type )
         switch ( value.data.type ) {
         case 'seat':
+            LI.alert(value.data.message, value.data.tickets.length > 0 ? 'notice' : 'error');
             $(value.data.tickets).each(function(){
                 var ticket = this;
                 $('#li_transaction_field_content .item[data-gauge-id='+ticket.gauge_id+'] .ticket-data .not-seated[data-id='+ticket.id+']')

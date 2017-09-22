@@ -227,6 +227,9 @@
         
         $this->json['success']['success_fields']['seat']['data']['tickets'] = $res;
         $this->json['success']['success_fields']['seat']['data']['type'] = 'seat';
+        $this->json['success']['success_fields']['seat']['data']['message'] = format_number_choice(
+          '[0]No ticket seated!|[1]1 ticket seated.|(1,+Inf]%%d%% tickets seated.', array('%%d%%' => count($res)), count($res)
+        );
         break;
       case 'price_new':
         if ( !$params[$field]['qty'] )

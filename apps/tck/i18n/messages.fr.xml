@@ -2167,6 +2167,10 @@
       <trans-unit id="540">
         <source>Last user</source>
         <target>Dernier utilisateur</target>
+      </trans-unit>    
+      <trans-unit id="541">
+        <source>[0]No ticket seated!|[1]1 ticket seated.|(1,+Inf]%%d%% tickets seated.</source>
+        <target>[0]Pas de billet placé !|[1]1 billet placé.|(1,+Inf]%%d%% billets placés.</target>
       </trans-unit>         
     </body>
   </file>
