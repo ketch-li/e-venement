@@ -93,12 +93,6 @@ echo 'DELETE FROM cache;' | psql
 ## DO STUFF IN THE DB HERE
 
 ## Remove the content before changing the structure of the table
-cities=`echo "SELECT count(*) FROM information_schema.columns WHERE table_name = 'postalcode' AND column_name = 'insee';" | psql $PGDATABASE | grep '[0-9]' | grep -v \(`
-if [ $cities -eq 0 ]
-then
-echo "Removing cities to add INSEE code."
-echo 'DELETE FROM postalcode' | psql $PGDATABASE
-fi
 
 psql <<EOF
 EOF
@@ -262,12 +256,7 @@ then
   ./symfony doctrine:data-load --append data/fixtures/50-geo-fr-district.yml
 fi
 
-if [ $cities -eq 0 ]
-then
-echo ""
-echo "Loading cities with INSEE code. It will take a couple of minutes..."
-  ./symfony doctrine:data-load data/fixtures/20-postalcodes.yml --application=default
-fi
+
 
 echo ""
 read -p "Do you want to add the new permissions? [Y/n] " add
