@@ -43,10 +43,5 @@ generator:
             ui-icon: plus
             label: Promo Code
             credentials: pr-card-promo-new
-          _clean:
-            action: clean
-            ui-icon: wrench
-            params: confirm=Are you sure?
-            credentials: pr-card-mod
           _save: ~
       new:     ~
