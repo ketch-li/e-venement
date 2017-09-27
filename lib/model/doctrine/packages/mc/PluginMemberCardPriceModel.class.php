@@ -16,4 +16,55 @@ abstract class PluginMemberCardPriceModel extends BaseMemberCardPriceModel
   {
     return strtolower(get_class($this));
   }
+  
+  public function postInsert($event)
+  {
+    parent::postInsert($event);
+    
+    $service = $this->getMCService();
+    
+    if ($this->quantity < 0)
+    {
+      $mcps = $service->AddNewUnlimitedMCPrices($this);
+    }
+    else
+    {
+      $mcps = $service->AddNewLimitedMCPrices($this);
+    }
+  }
+  
+  public function postDelete($event)
+  {
+    parent::postDelete($event);
+    
+    $service = $this->getMCService();
+    
+    $mcps = $service->deleteRemovedMCPrices($this);
+  }
+  
+  public function postUpdate($event)
+  {
+    parent::postSave($event);
+    
+    $service = $this->getMCService();
+    
+    $mcp = $service->deleteUpdatedMCPrices($this);
+    
+    switch ($this->quantity)
+    {
+      case -1:
+        $mcp = $service->AddNewUnlimitedMCPrices($this);
+        break;
+      case 0:
+        break;
+      default:
+        $mcp = $service->AddNewLimitedMCPrices($this);
+        break;
+    }
+  }
+  
+  protected function getMCService()
+  {
+    return sfContext::getInstance()->getContainer()->get('member_cards_service');
+  }
 }

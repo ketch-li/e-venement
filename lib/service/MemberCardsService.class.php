@@ -23,6 +23,151 @@
 
 class MemberCardsService extends EvenementService
 {
+  public function deleteRemovedMCPrices(MemberCardPriceModel $mcpm)
+  {
+    $q = "
+      DELETE 
+      FROM member_card_price mcp
+      WHERE mcp.id IN (
+      	SELECT mcp.id
+      	FROM member_card_price mcp
+      	LEFT JOIN member_card_price_model mcpm ON mcpm.event_id = mcp.event_id AND mcpm.price_id = mcp.price_id
+      	WHERE mcp.member_card_id IN (
+      		SELECT id
+      		FROM member_card
+      		WHERE member_card_type_id = $mcpm->member_card_type_id
+          AND expire_at > now()
+          AND active = true
+      	)
+      	AND mcpm.id IS NULL
+        AND mcp.event_id = $mcpm->event_id
+        AND mcp.price_id = $mcpm->price_id
+      )
+    ";
+    
+    $con = Doctrine_Manager::getInstance()->connection();
+    $st = $con->execute($q);
+  }
+  
+  public function deleteUpdatedMCPrices(MemberCardPriceModel $mcpm)
+  {
+    $q = "
+      DELETE
+      FROM member_card_price
+      WHERE id IN (
+      	SELECT mcpid
+      	FROM (
+      		SELECT prices.mcid, prices.mcpid, prices.quantity quantity, rank() OVER (
+      			PARTITION BY mcid
+      			ORDER BY mcpid DESC
+      		)
+      		FROM (
+      			SELECT mc.id mcid, null mcpid, mcpm.quantity, mcpm.member_card_type_id, mcpm.event_id, mcpm.price_id
+      			FROM member_card mc
+      			INNER JOIN member_card_price_model mcpm ON mcpm.member_card_type_id = mc.member_card_type_id
+      			INNER JOIN ticket t ON mc.id = t.member_card_id AND (t.printed_at IS NOT NULL OR t.integrated_at IS NOT NULL) AND t.duplicating IS NULL AND t.id NOT IN (SELECT duplicating FROM ticket WHERE duplicating IS NOT NULL) AND t.cancelling IS NULL AND t.id NOT IN (SELECT cancelling FROM ticket WHERE cancelling IS NOT NULL)
+      			INNER JOIN manifestation m ON m.id = t.manifestation_id
+            UNION
+      			SELECT mc.id mcid, mcp.id mcpid, mcpm.quantity, mcpm.member_card_type_id, mcpm.event_id, mcpm.price_id
+      			FROM member_card mc
+      			INNER JOIN member_card_price mcp ON mcp.member_card_id = mc.id
+      			INNER JOIN member_card_price_model mcpm ON mcpm.member_card_type_id = mc.member_card_type_id AND mcpm.event_id = mcp.event_id AND mcpm.price_id = mcp.price_id
+      			ORDER BY mcid, mcpid
+      		) prices
+      		WHERE member_card_type_id = $mcpm->member_card_type_id
+      		AND event_id = $mcpm->event_id
+      		AND price_id = $mcpm->price_id
+      	) topprices
+      	WHERE rank > quantity
+      )
+    ";
+    
+    $con = Doctrine_Manager::getInstance()->connection();
+    $st = $con->execute($q);
+  }
+  
+  public function AddNewUnlimitedMCPrices(MemberCardPriceModel $mcpm)
+  {
+    $q = "
+      INSERT INTO member_card_price
+      (sf_guard_user_id, automatic, member_card_id, price_id, event_id, created_at, updated_at, version)
+
+      SELECT mcpm.sf_guard_user_id, true, mc.id, mcpm.price_id, mcpm.event_id, now(), now(), 1
+      FROM member_card mc
+      INNER JOIN member_card_price_model mcpm ON mcpm.member_card_type_id = mc.member_card_type_id
+      WHERE mc.member_card_type_id = $mcpm->member_card_type_id
+      AND mc.expire_at > now()
+      AND mc.active = true
+      AND mcpm.event_id = $mcpm->event_id
+      AND mcpm.price_id = $mcpm->price_id
+      AND mcpm.quantity = -1
+      AND mc.id NOT IN (
+      	SELECT mc.id
+      	FROM member_card mc
+      	INNER JOIN member_card_price mcp ON mcp.member_card_id = mc.id
+      	WHERE mc.member_card_type_id = $mcpm->member_card_type_id
+      	AND mcp.event_id = $mcpm->event_id
+        AND mcp.price_id = $mcpm->price_id
+      )
+    ";
+    
+    $con = Doctrine_Manager::getInstance()->connection();
+    $st = $con->execute($q);
+    
+    $this->updateMCPMVersion($mcpm);
+  }
+  
+  public function AddNewlimitedMCPrices(MemberCardPriceModel $mcpm)
+  {
+    $q = "
+      INSERT INTO member_card_price
+      (sf_guard_user_id, automatic, member_card_id, price_id, event_id, created_at, updated_at, version)
+
+      SELECT mcpm.sf_guard_user_id, true, mc.id, mcpm.price_id, mcpm.event_id, now(), now(), 1 
+      FROM member_card mc
+      INNER JOIN member_card_price_model mcpm ON mcpm.member_card_type_id = mc.member_card_type_id
+      LEFT JOIN (
+      	SELECT mc.id, mc.member_card_type_id, m.event_id, count(t.*) tickets
+      	FROM member_card mc
+      	LEFT JOIN ticket t ON t.member_card_id = mc.id AND (t.printed_at IS NOT NULL OR t.integrated_at IS NOT NULL) AND t.duplicating IS NULL AND t.id NOT IN (SELECT duplicating FROM ticket WHERE duplicating IS NOT NULL) AND t.cancelling IS NULL AND t.id NOT IN (SELECT cancelling FROM ticket WHERE cancelling IS NOT NULL)
+      	LEFT JOIN manifestation m ON m.id = t.manifestation_id
+      	GROUP BY mc.id, mc.member_card_type_id, m.event_id
+      ) mct ON mct.member_card_type_id = mcpm.member_card_type_id AND mct.id = mc.id AND (mct.event_id = mcpm.event_id OR mct.event_id IS NULL)
+      LEFT JOIN (
+      	SELECT mc.id, mc.member_card_type_id, mcp.event_id, count(mcp.*) prices
+      	FROM member_card mc
+      	LEFT JOIN member_card_price mcp ON mc.id = mcp.member_card_id
+      	GROUP BY mc.id, mc.member_card_type_id, mcp.event_id 
+      ) amcp ON amcp.id = mc.id AND amcp.member_card_type_id = mcpm.member_card_type_id AND (amcp.event_id = mcpm.event_id OR amcp.event_id IS NULL)
+      CROSS JOIN generate_series(1, mcpm.quantity - coalesce(mct.tickets, 0) - coalesce(amcp.prices, 0)) as v
+      WHERE mcpm.member_card_type_id = $mcpm->member_card_type_id
+      AND mcpm.event_id = $mcpm->event_id
+      AND mcpm.price_id = $mcpm->price_id
+      AND mc.expire_at > now()
+      AND mc.active = true    
+    ";
+    
+    $con = Doctrine_Manager::getInstance()->connection();
+    $st = $con->execute($q);
+    
+    $this->updateMCPMVersion($mcpm);
+  }
+  
+  protected function updateMCPMVersion(MemberCardPriceModel $mcpm)
+  {
+    $q = "
+      INSERT INTO member_card_price_version
+      SELECT *
+      FROM member_card_price mcp
+      WHERE mcp.event_id = $mcpm->event_id
+      AND mcp.price_id = $mcpm->price_id
+      ON CONFLICT DO NOTHING
+    ";
+    
+    $con = Doctrine_Manager::getInstance()->connection();
+    $st = $con->execute($q);
+  }
+  
   public function completeMemberCardsWithMCPrice(array $values, Event $event = NULL)
   {
     $mcs = $this->getActiveMemberCards($values['member_card_type_id']);
@@ -55,7 +200,7 @@ class MemberCardsService extends EvenementService
   private function hasMemberCardTicketLinkedToEvent(MemberCard $mc, Event $event)
   {
      foreach ( $mc->Tickets as $ticket ) {
-        if ( $ticket->Manifestation->event_id == $event_id ) {
+        if ( $ticket->Manifestation->event_id == $event->id ) {
             return true;
         }
     }
