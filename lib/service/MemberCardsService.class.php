@@ -177,14 +177,20 @@ class MemberCardsService extends EvenementService
   
   protected function updateMCPMVersion(MemberCardPriceModel $mcpm)
   {
+    $con = Doctrine_Manager::getInstance()->connection();
+    
+    $q = "
+      DELETE FROM member_card_price_version
+    ";
+    
+    $st = $con->execute($q);
+    
     $q = "
       INSERT INTO member_card_price_version
       SELECT *
       FROM member_card_price mcp
-      ON CONFLICT DO NOTHING
     ";
-    
-    $con = Doctrine_Manager::getInstance()->connection();
+
     $st = $con->execute($q);
   }
   
