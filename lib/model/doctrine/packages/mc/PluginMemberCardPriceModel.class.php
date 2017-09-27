@@ -48,6 +48,7 @@ abstract class PluginMemberCardPriceModel extends BaseMemberCardPriceModel
     
     $service = $this->getMCService();
     
+    $mcp = $service->deleteRemovedMCPrices($this);
     $mcp = $service->deleteUpdatedMCPrices($this);
     
     switch ($this->quantity)
