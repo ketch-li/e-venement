@@ -27,6 +27,11 @@ class MemberCardsService extends EvenementService
 =======
   public function deleteRemovedMCPrices(MemberCardPriceModel $mcpm)
   {
+    if ( is_null($mcpm->event_id) )
+      $event_clause = " IS NULL";
+    else
+      $event_clause = " = $mcpm->event_id";
+    
     $q = "
       DELETE 
       FROM member_card_price mcp
@@ -42,7 +47,7 @@ class MemberCardsService extends EvenementService
           AND active = true
       	)
       	AND mcpm.id IS NULL
-        AND mcp.event_id = $mcpm->event_id
+        AND mcp.event_id ".$event_clause."
         AND mcp.price_id = $mcpm->price_id
       )
     ";
@@ -53,6 +58,11 @@ class MemberCardsService extends EvenementService
   
   public function deleteUpdatedMCPrices(MemberCardPriceModel $mcpm)
   {
+    if ( is_null($mcpm->event_id) )
+      $event_clause = " IS NULL";
+    else
+      $event_clause = " = $mcpm->event_id";
+    
     $q = "
       DELETE
       FROM member_card_price
@@ -77,7 +87,7 @@ class MemberCardsService extends EvenementService
       			ORDER BY mcid, mcpid
       		) prices
       		WHERE member_card_type_id = $mcpm->member_card_type_id
-      		AND event_id = $mcpm->event_id
+      		AND event_id ".$event_clause."
       		AND price_id = $mcpm->price_id
       	) topprices
       	WHERE rank > quantity
@@ -90,6 +100,11 @@ class MemberCardsService extends EvenementService
   
   public function AddNewUnlimitedMCPrices(MemberCardPriceModel $mcpm)
   {
+    if ( is_null($mcpm->event_id) )
+      $event_clause = " IS NULL";
+    else
+      $event_clause = " = $mcpm->event_id";
+    
     $q = "
       INSERT INTO member_card_price
       (sf_guard_user_id, automatic, member_card_id, price_id, event_id, created_at, updated_at, version)
@@ -100,7 +115,7 @@ class MemberCardsService extends EvenementService
       WHERE mc.member_card_type_id = $mcpm->member_card_type_id
       AND mc.expire_at > now()
       AND mc.active = true
-      AND mcpm.event_id = $mcpm->event_id
+      AND mcpm.event_id ".$event_clause."
       AND mcpm.price_id = $mcpm->price_id
       AND mcpm.quantity = -1
       AND mc.id NOT IN (
@@ -108,7 +123,7 @@ class MemberCardsService extends EvenementService
       	FROM member_card mc
       	INNER JOIN member_card_price mcp ON mcp.member_card_id = mc.id
       	WHERE mc.member_card_type_id = $mcpm->member_card_type_id
-      	AND mcp.event_id = $mcpm->event_id
+      	AND mcp.event_id ".$event_clause."
         AND mcp.price_id = $mcpm->price_id
       )
     ";
@@ -121,6 +136,11 @@ class MemberCardsService extends EvenementService
   
   public function AddNewlimitedMCPrices(MemberCardPriceModel $mcpm)
   {
+    if ( is_null($mcpm->event_id) )
+      $event_clause = " IS NULL";
+    else
+      $event_clause = " = $mcpm->event_id";
+    
     $q = "
       INSERT INTO member_card_price
       (sf_guard_user_id, automatic, member_card_id, price_id, event_id, created_at, updated_at, version)
@@ -143,7 +163,7 @@ class MemberCardsService extends EvenementService
       ) amcp ON amcp.id = mc.id AND amcp.member_card_type_id = mcpm.member_card_type_id AND (amcp.event_id = mcpm.event_id OR amcp.event_id IS NULL)
       CROSS JOIN generate_series(1, mcpm.quantity - coalesce(mct.tickets, 0) - coalesce(amcp.prices, 0)) as v
       WHERE mcpm.member_card_type_id = $mcpm->member_card_type_id
-      AND mcpm.event_id = $mcpm->event_id
+      AND mcpm.event_id ".$event_clause."
       AND mcpm.price_id = $mcpm->price_id
       AND mc.expire_at > now()
       AND mc.active = true    
@@ -161,8 +181,6 @@ class MemberCardsService extends EvenementService
       INSERT INTO member_card_price_version
       SELECT *
       FROM member_card_price mcp
-      WHERE mcp.event_id = $mcpm->event_id
-      AND mcp.price_id = $mcpm->price_id
       ON CONFLICT DO NOTHING
     ";
     
