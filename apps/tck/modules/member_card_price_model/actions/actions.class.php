@@ -15,9 +15,7 @@ class member_card_price_modelActions extends autoMember_card_price_modelActions
 {
   public function executeCreate(sfWebRequest $request)
   {
-    if ( sfConfig::get('sf_web_debug', false) )
-      parent::executeCreate($request);
-    else try
+    try
     { 
       parent::executeCreate($request); 
     }

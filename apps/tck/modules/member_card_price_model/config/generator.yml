@@ -26,6 +26,7 @@ generator:
         sort: [mct.name, desc]
         object_actions:
           _delete: ~
+        batch_actions: {}
       filter:
         display: [member_card_type_id, price_id, quantity, autoadd, event_id, meta_events_list, updated_at]
       form:
