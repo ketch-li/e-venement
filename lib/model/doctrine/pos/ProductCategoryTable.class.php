@@ -21,13 +21,10 @@ class ProductCategoryTable extends PluginProductCategoryTable
   
   public function addDomainRestriction($q, $alias) 
   {
-    return $q->andWhere("$alias.domain = ? OR $alias.domain = ?", sfConfig::get('project_internals_users_domain', '') && sfConfig::get('project_internals_users_domain', '') != '.'
-      ? array(
-          $domain = preg_replace('/\.$/', '', sfConfig::get('project_internals_users_domain', '')),
-          $domain.'.',
-        )
-      : array('', '.')
-    );
+    return $q->andWhere("$alias.domain = ? OR $alias.domain LIKE ?", array( // every users in the domain or subdomains
+              sfConfig::get('project_internals_users_domain', ''),
+              '%.'.sfConfig::get('project_internals_users_domain', ''),
+            ));
   }
   
   public static function getInstance()
