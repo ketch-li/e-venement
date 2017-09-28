@@ -158,6 +158,10 @@ class contactActions extends autoContactActions
         $contact->password = $plain_password;
         $contact->save();
       }
+      else
+      {
+        $plain_password = $contact->password;
+      }
 
       $params = OptionCsvForm::getDBOptions();
       if ( in_array('tunnel',$params['option']) ) // prefer professionals
@@ -197,22 +201,20 @@ class contactActions extends autoContactActions
 
     // format content
     $url = sfConfig::get('app_contact_password_reminder_url', str_replace('https', 'http', public_path('/pub.php',true)));
-    $content  = '';
-    $content .= __('To login to your private space, go to %%url%%', array('%%url%%' => '<a href="'.$url.'">'.$url.'</a>'));
-    $content .= "<br/>";
-    $content .= "<br/>";
-    $content .= __('Login: %%login%%', array('%%login%%' => $obj instanceof Contact ? $obj->email : $obj->contact_email));
-    $content .= "<br/>";
-    $content .= __('Password: %%password%%', array('%%password%%' => $plain_password));
-    $content .= "<br/>";
-    $content .= "<br/>";
-    $content .= __('Thanks for your attention');
-    $content .= "<br/>";
-    $content .= "<br/>";
-    $content .= '-- ';
-    $content .= "<br/>";
     $about = sfConfig::get('project_about_client');
-    $content .= $about['name'];
+    $config_content  = sfConfig::get('app_contact_password_reminder_content', '<br><br>To login to your private space, go to %%url%%<br><br>Login : %%login%%<br>Password : %%password%%<br><br>Thanks for your attention<br><br>--<br>%%about_name%%');
+    $content  = '';
+    
+    $c_url = '<a href="'.$url.'">'.$url.'</a>';
+    $c_email = $obj instanceof Contact ? $obj->email : $obj->contact_email;
+    $c_password = $plain_password;
+    $c_name = $about['name'];
+    
+    $content = $config_content;
+    $content = str_replace('%%url%%', $c_url, $content);
+    $content = str_replace('%%login%%', $c_email, $content);
+    $content = str_replace('%%password%%', $c_password, $content);
+    $content = str_replace('%%about_name%%', $c_name, $content);
 
     // send password
     $email = new Email;
