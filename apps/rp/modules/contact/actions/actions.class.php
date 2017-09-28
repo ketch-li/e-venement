@@ -202,26 +202,49 @@ class contactActions extends autoContactActions
     // format content
     $url = sfConfig::get('app_contact_password_reminder_url', str_replace('https', 'http', public_path('/pub.php',true)));
     $about = sfConfig::get('project_about_client');
-    $config_content  = sfConfig::get('app_contact_password_reminder_content', '<br><br>To login to your private space, go to %%url%%<br><br>Login : %%login%%<br>Password : %%password%%<br><br>Thanks for your attention<br><br>--<br>%%about_name%%');
+    $config_content  = sfConfig::get('app_contact_password_reminder_content', null);
     $content  = '';
     
     $c_url = '<a href="'.$url.'">'.$url.'</a>';
     $c_email = $obj instanceof Contact ? $obj->email : $obj->contact_email;
     $c_password = $plain_password;
     $c_name = $about['name'];
+    $c_subject = sfConfig::get('app_contact_password_reminder_subject', __('Password reminder for your private space at %%name%%'));
     
-    $content = $config_content;
-    $content = str_replace('%%url%%', $c_url, $content);
-    $content = str_replace('%%login%%', $c_email, $content);
-    $content = str_replace('%%password%%', $c_password, $content);
-    $content = str_replace('%%about_name%%', $c_name, $content);
+    if ( !$config_content )
+    {
+      $content .= "<br/>";
+      $content .= __('To login to your private space, go to %%url%%', array('%%url%%' => $c_url));
+      $content .= "<br/>";
+      $content .= "<br/>";
+      $content .= __('Login: %%login%%', array('%%login%%' => $c_email));
+      $content .= "<br/>";
+      $content .= __('Password: %%password%%', array('%%password%%' => $c_password));
+      $content .= "<br/>";
+      $content .= "<br/>";
+      $content .= __('Thanks for your attention');
+      $content .= "<br/>";
+      $content .= "<br/>";
+      $content .= '-- ';
+      $content .= "<br/>";
+      $content .= $c_name;
+    }
+    else
+    {
+      $content = $config_content;
+      $content = str_replace('%%url%%', $c_url, $content);
+      $content = str_replace('%%login%%', $c_email, $content);
+      $content = str_replace('%%password%%', $c_password, $content);
+      $content = str_replace('%%about_name%%', $c_name, $content);
+    }
+
 
     // send password
     $email = new Email;
     $email->not_a_test = true;
     $email->content = $content;
     $email->field_from = $this->getUser()->getGuardUser()->email_address;
-    $email->field_subject = __('Password reminder for your private space at %%name%%', array('%%name%%' => $about['name']));
+    $email->field_subject = str_replace('%%name%%', $c_name, $c_subject);
 
     if ( $obj instanceof Contact )
       $email->Contacts[] = $obj;
