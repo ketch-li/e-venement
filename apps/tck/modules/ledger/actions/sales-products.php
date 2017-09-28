@@ -81,8 +81,7 @@
       if ( !$q->contains('LEFT JOIN t.Payments p') )
         $q->leftJoin('t.Payments p');
       $q->leftJoin('p.User pu')
-        ->leftJoin('pu.Domain d')
-        ->andWhere('d.name ILIKE ? OR d.name = ?', array('%.'.$dom, $dom));
+        ->leftJoin('pu.Domain d WITH d.name ILIKE ? OR d.name = ?', array('%.'.$dom, $dom));
       }
         
     // contact/organism
