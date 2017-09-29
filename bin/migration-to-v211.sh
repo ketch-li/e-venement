@@ -130,9 +130,6 @@ echo "GRANT ALL ON SCHEMA public TO $SFUSER;" | psql $PGDATABASE
 
 last=$?
 ./symfony cc
-[ $last -eq 0 ] && ./symfony doctrine:drop-db --no-confirmation && ./symfony doctrine:build-db
-last=$?
-./symfony cc
 [ $last -eq 0 ] && ./symfony doctrine:build --model
 last=$?
 ./symfony cc
@@ -283,8 +280,6 @@ fi
 
 echo ''
 echo ''
-echo "Ensuring that permissions on directories are correct."
-sudo chmod a+rwx web/uploads/
 
 # Checking data...
 i=0; for elt in `echo 'SELECT count(*) FROM ticket WHERE (printed_at IS NOT NULL OR integrated_at IS NOT NULL);' | psql`
