@@ -27,6 +27,14 @@ require_once dirname(__FILE__).'../../../../config/autoload.inc.php';
 
 class eventConfiguration extends sfApplicationConfiguration
 {
+  // used for lib/helper/CrossAppLinkHelper.php
+  public function initialize()
+  {
+    if (!( sfContext::hasInstance() && get_class(sfContext::getInstance()->getConfiguration()) != get_class($this) ))
+      $this->enableSecondWavePlugins($arr = sfConfig::get('app_options_plugins', array()));
+    ProjectConfiguration::initialize();
+  }
+  
   public function configure()
   {
     parent::configure();
