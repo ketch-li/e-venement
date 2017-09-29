@@ -2172,6 +2172,10 @@
         <source>[0]No ticket seated!|[1]1 ticket seated.|(1,+Inf]%%d%% tickets seated.</source>
         <target>[0]Pas de billet placé !|[1]1 billet placé.|(1,+Inf]%%d%% billets placés.</target>
       </trans-unit>         
+      <trans-unit id="542">
+        <source>Tickets must be printed or integrated before sending them.</source>
+        <target>Les billets doivent être imprimés ou intégrés avant envoi.</target>
+      </trans-unit>         
     </body>
   </file>
 </xliff>

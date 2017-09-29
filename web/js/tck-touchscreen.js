@@ -417,7 +417,18 @@ $(document).ready(function(){
         LI.alert($(anchor).attr('data-text-error'), 'error');
         return false;
       }
-      window.open($(anchor).prop('href'));
+      
+      // Check if tickets are printed or integrated
+      $.get($(anchor).prop('href'), function(data) {
+        $('#transition .close').click();
+        if ( data.error == 'error' ) {
+          LI.alert(data.message, 'error');
+          return false;
+        } else {
+          window.open(data.url);
+        }
+      });
+      
     });
     return false;
   });
