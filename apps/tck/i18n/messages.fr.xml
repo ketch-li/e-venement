@@ -2156,6 +2156,26 @@
         <source>The membercard "%%mc%%" does not exist.</source>
         <target>La carte d'abonnement "%%mc%%" n'existe pas.</target>
       </trans-unit>         
+      <trans-unit id="538">
+        <source>Auto-seat</source>
+        <target>Placer auto</target>
+      </trans-unit>         
+      <trans-unit id="539">
+        <source>Auto-seat tickets of selected gauge</source>
+        <target>Placer automatiquement les billets de la jauge sélectionnée</target>
+      </trans-unit>         
+      <trans-unit id="540">
+        <source>Last user</source>
+        <target>Dernier utilisateur</target>
+      </trans-unit>    
+      <trans-unit id="541">
+        <source>[0]No ticket seated!|[1]1 ticket seated.|(1,+Inf]%%d%% tickets seated.</source>
+        <target>[0]Pas de billet placé !|[1]1 billet placé.|(1,+Inf]%%d%% billets placés.</target>
+      </trans-unit>         
+      <trans-unit id="542">
+        <source>Tickets must be printed or integrated before sending them.</source>
+        <target>Les billets doivent être imprimés ou intégrés avant envoi.</target>
+      </trans-unit>         
     </body>
   </file>
 </xliff>

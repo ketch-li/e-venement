@@ -568,6 +568,40 @@ class transactionActions extends autoTransactionActions
     return '';
   }
 
+  public function executeIsTransactionValid(sfWebRequest $request)
+  {
+    $this->getContext()->getConfiguration()->loadHelpers(array('CrossAppLink', 'I18N'));
+    $this->dealWithDebugMode($request);
+    $transaction = Doctrine::getTable('Transaction')->findOneById($request->getParameter('id'));
+    
+    $valid = true;
+    
+    foreach ($transaction->Tickets as $ticket)
+    {
+      $valid &= $ticket->printed_at || $ticket->integrated_at;
+    }
+
+    if ( !$valid )
+    {
+      $this->json = array();
+      $this->json['error'] = 'error';
+      $this->json['message'] = __('Tickets must be printed or integrated before sending them.');
+      
+      return '';
+    }
+    else
+    {
+      $tokenService = $this->getContext()->getContainer()->get('pub_service');
+      $url = cross_app_url_for('pub','transaction/sendEmail?id='.$transaction->id.'&token='.$tokenService->getToken($transaction->id));
+      
+      $this->json = array();
+      $this->json['error'] = 'success';
+      $this->json['url'] = $url;
+      
+      return '';
+    }
+  }
+
   public function executeGetPayments(sfWebRequest $request)
   {
     // initialization

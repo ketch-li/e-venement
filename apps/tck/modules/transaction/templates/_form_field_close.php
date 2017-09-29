@@ -60,7 +60,7 @@
 ><span class="ui-icon ui-icon-trash"></span></a>
 <a
   class="ui-widget-content ui-state-default ui-corner-all ui-widget fg-button"
-  href="<?php echo cross_app_url_for('pub','transaction/sendEmail?id='.$transaction->id.'&token='.$tokenService->getToken($transaction->id)) ?>"
+  href="<?php echo url_for('transaction/IsTransactionValid?id='.$transaction->id) ?>"
   title="<?php echo __('Resend confirmation email') ?>"
   id="resend-email"
   target="_blank"
