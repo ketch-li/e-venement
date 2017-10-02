@@ -452,7 +452,7 @@
             'description'   => $product->description,
             'category_url'  => cross_app_url_for('pos', 'category/show?id='.$product->product_category_id,true),
             'product_url'   => cross_app_url_for('pos', 'product/show?id='.$product->id, true),
-            'color'         => (string)$product->Category->Color,
+            'color'         => (string)($product->Category?$product->Category->Color:''),
             'declinations_url'  => NULL,
             'declinations_name' => $declinations_name,
           );
