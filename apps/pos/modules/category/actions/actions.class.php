@@ -35,9 +35,11 @@ class categoryActions extends autoCategoryActions
     $charset = sfConfig::get('software_internals_charset');
     $search  = iconv($charset['db'],$charset['ascii'],strtolower($request->getParameter('q')));
     
+    $lang = $this->getUser()->getCulture();
+    
     $q = Doctrine::getTable('ProductCategory')->createQuery('pc')
       ->select("pc.*, pct.*, (CASE WHEN ppc.id IS NULL THEN pct.name ELSE ppt.name||' ' END) AS parent")
-      ->leftJoin('ppc.Translation ppt WITH ppt.lang = ?', $this->getUser()->getCulture())
+      ->leftJoin("ppc.Translation ppt WITH ppt.lang = '$lang'")
       ->limit($request->getParameter('limit', $request->getParameter('max', 10)))
       ->orderBy("parent, pct.name")
     ;
