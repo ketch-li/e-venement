@@ -115,6 +115,11 @@ function cross_app_url_for($appname, $parameters, $absolute = false, $env = null
 
   $web_url = '/' . $script_name . $web_url;
 
+  if ($fragment)
+  {
+    $web_url .= '#'.$fragment;
+  }
+
   return $web_url;
 }
 
