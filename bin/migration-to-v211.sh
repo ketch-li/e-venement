@@ -243,14 +243,14 @@ if [ "$geo" != 'n' ]
 then
   echo 'DELETE FROM geo_fr_department' | psql $db
   echo 'DELETE FROM geo_fr_region' | psql $db
-  ./symfony doctrine:data-load --append data/fixtures/50-geo-fr-dpt+regions.yml
+  ./symfony doctrine:data-load --append data/fixtures/50-geo-fr-dpt+regions.yml --application=default
 fi
 echo ""
 read -p "Do you want to update your french geographical data, with districts (can take a while)? [Y/n] " geo
 if [ "$geo" != 'n' ]
 then
   echo 'DELETE FROM geo_fr_district_base' | psql $db
-  ./symfony doctrine:data-load --append data/fixtures/50-geo-fr-district.yml
+  ./symfony doctrine:data-load --append data/fixtures/50-geo-fr-districts.yml --application=default
 fi
 
 
