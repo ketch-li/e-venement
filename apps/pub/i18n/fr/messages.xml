@@ -1092,7 +1092,11 @@ ou bien suivez ce lien&nbsp;:&lt;br/&gt;
       </trans-unit>
       <trans-unit id="271">
         <source>Download all my pending tickets</source>
-        <target>Télécharger tous mes billets en attente</target>
+        <target>Mes prochains billets</target>
+      </trans-unit>
+      <trans-unit id="272">
+        <source>My full history</source>
+        <target>Mon historique complet</target>
       </trans-unit>
     </body>
   </file>

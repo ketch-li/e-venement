@@ -85,3 +85,6 @@
     <?php endif ?>
   </div>
 </div>
+<div class="text_config pub_message">
+  <?php echo nl2br(pubConfiguration::getText('app_texts_pub_message')) ?>
+</div>

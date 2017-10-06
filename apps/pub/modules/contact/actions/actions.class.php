@@ -20,12 +20,16 @@ class contactActions extends sfActions
   {
     $this->forward404If(sfConfig::get('app_tickets_pdf_attachments', false) !== true);
     
+    $max_date = sfConfig::get('app_tickets_max_date', '15 days');
+    
     $q = Doctrine::getTable('Ticket')->createQuery('tck')
         ->select('tck.*, t.*')
         
         ->leftJoin('tck.Manifestation m')
         ->leftJoin('tck.Transaction t')
         ->andWhere('t.contact_id = ?', $this->getUser()->getContactId())
+        ->andWhere("m.happens_at > now() - '1 hour'::interval")
+        ->andWhere("m.happens_at < now() + ?::interval", $max_date)
         
         ->leftJoin('t.Order o')
         ->andWhere('tck.printed_at IS NOT NULL OR tck.integrated_at IS NOT NULL OR tck.cancelling IS NOT NULL OR o.id IS NOT NULL')
@@ -38,6 +42,9 @@ class contactActions extends sfActions
         ->orderBy('m.happens_at, tck.id')
     ;
     $tickets = $q->execute();
+    
+    if ( $tickets->count() == 0 )
+      return '';
     
     $transaction = new Transaction;
     $transaction->Tickets = $tickets;
