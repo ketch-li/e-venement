@@ -96,7 +96,28 @@
             $mcps[] = $mcp;
           
           // if some prices have been found, we can continue...
-          if ( $mcps->count() > 0 )
+          if ( $mcps->count() == 0 )
+          {
+            $q = Doctrine::getTable('Ticket')->createQuery('t')
+              ->andWhere('t.printed_at IS NOT NULL OR t.integrated_at IS NOT NULL OR t.cancelling IS NOT NULL')
+              ->andWhere('t.duplicating IS NULL')
+              ->andWhere('t.member_card_id = ?', $card->id)
+              ->andWhere('t.manifestation_id = ?', $manifestation->id)
+              ->orderBy('t.created_at DESC')
+            ;
+            $ticket = $q->fetchOne();
+            
+            if ( !$ticket ) // nothing can be controled
+            {
+              $params['ticket_id'] = null;
+              $this->errors[] = __('The membercard "%%mc%%" is not valid for the event "%%event%%".', array('%%mc%%' => $card->MemberCardType, '%%event%%' => $manifestation->Event));
+              $this->success = false;
+              return 'Result';
+            }
+            
+            $params['ticket_id'] = $ticket->id;
+          }
+          else
           {
             $price = null;
             foreach ( $manifestation->PriceManifestations as $pm )
@@ -116,9 +137,13 @@
               ->andWhere('t.duplicating IS NULL')
               ->andWhere('t.member_card_id = ?', $card->id)
               ->andWhere('t.manifestation_id = ?', $manifestation->id)
+              ->leftJoin('t.Controls c')
+              ->leftJoin('c.Checkpoint cp WITH cp.type = ?', 'entrance')
+              ->andWhere('cp.id IS NULL')
               ->orderBy('t.created_at DESC')
               ->fetchOne();
             
+            // use a controlable ticket instead of creating any new one
             if ( $existing_ticket )
             {
               $params['ticket_id'] = $existing_ticket->id;
@@ -172,13 +197,6 @@
               
               $params['ticket_id'] = $ticket->id;
             }
-          }
-          else
-          {
-            $params['ticket_id'] = null;
-            $this->errors[] = __('The membercard "%%mc%%" is not valid for the event "%%event%%".', array('%%mc%%' => $card->MemberCardType, '%%event%%' => $manifestation->Event));
-            $this->success = false;
-            return 'Result';
           }
         } catch ( liEvenementException $e ) {
           // error controling a MemberCard
