@@ -28,8 +28,8 @@ class contactActions extends sfActions
         ->andWhere('t.contact_id = ?', $this->getUser()->getContactId())
         
         ->leftJoin('t.Order o')
-        ->andWhere('t.printed_at IS NOT NULL OR t.integrated_at IS NOT NULL OR t.cancelling IS NOT NULL OR o.id IS NOT NULL')
-        ->andWhere('t.duplicating IS NULL')
+        ->andWhere('tck.printed_at IS NOT NULL OR tck.integrated_at IS NOT NULL OR tck.cancelling IS NOT NULL OR o.id IS NOT NULL')
+        ->andWhere('tck.duplicating IS NULL')
         
         ->leftJoin('tck.Controls c')
         ->leftJoin('c.Checkpoint cp WITH cp.type = ?', 'entrance')
