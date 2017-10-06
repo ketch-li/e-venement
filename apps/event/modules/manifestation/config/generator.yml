@@ -92,6 +92,10 @@ generator:
             label: Change event
           _toggleOnlineGauges:
             label: Toggle online gauges
+          <?php if ( sfConfig::get('app_listing_show_batch_seat_member_cards', false) ): echo PHP_EOL; ?>
+          _seatMemberCards:
+            label: Seat member cards
+          <?php endif; echo PHP_EOL; ?>
       filter:
         display:
           Manifestation: [happens_at, day_of_the_week, participants_list, event_id, location_id, workspace_id, meta_event_id, event_categories_list, no_print, voucherized]

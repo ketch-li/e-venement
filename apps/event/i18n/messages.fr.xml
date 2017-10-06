@@ -274,7 +274,7 @@
       </trans-unit>
       <trans-unit id="68">
         <source>Member cards</source>
-        <target>Cartes d'abo</target>
+        <target>Cartes avantages</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Best free seat</source>
@@ -1196,11 +1196,11 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
       </trans-unit>
       <trans-unit id="298">
         <source>Member cards</source>
-        <target>Cartes d'abo.</target>
+        <target>Cartes avantages</target>
       </trans-unit>
       <trans-unit id="299">
         <source>Linked w/ MC</source>
-        <target>Lié cartes abo.</target>
+        <target>Lié cartes avantages</target>
       </trans-unit>
       <trans-unit id="300">
         <source>Edit Price</source>
@@ -2336,23 +2336,27 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
       </trans-unit>
       <trans-unit id="583">
         <source>Member card type</source>
-        <target>Type de carte d'abonnement</target>
+        <target>Type de carte avantages</target>
       </trans-unit>
       <trans-unit id="584">
         <source>Associate member cards</source>
-        <target>Association de carte d'abonnement</target>
+        <target>Association de carte avantages</target>
       </trans-unit>
       <trans-unit id="585">
         <source>Quantity</source>
         <target>Quantité</target>
       </trans-unit>
-      <trans-unit id="585">
+      <trans-unit id="586">
         <source>Associate</source>
         <target>Association</target>
       </trans-unit>
-      <trans-unit id="585">
+      <trans-unit id="587">
         <source>Seat pass</source>
         <target>Placement</target>
+      </trans-unit>
+      <trans-unit id="588">
+        <source>%%tck%% seats have been set for %%mcs%% member cards concerned by your batch action.</source>
+        <target>%%tck%% places ont été attribuées pour %%mcs%% cartes concernées par votre action groupée.</target>
       </trans-unit>
     </body>
   </file>

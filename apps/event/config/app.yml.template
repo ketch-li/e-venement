@@ -17,6 +17,7 @@ all:
     #max_per_page: 15
     #default_view: resourceDay
     #vertical_labels: true
+    #show_batch_seat_member_cards: false
   manifestation:
     depends_on_limit: 10
     #defaults:

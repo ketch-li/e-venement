@@ -36,16 +36,52 @@ require_once dirname(__FILE__).'/../lib/manifestationGeneratorHelper.class.php';
  */
 class manifestationActions extends autoManifestationActions
 {
-  public function executeSeatMemberCards(sfWebRequest $request)
+  public function executeBatchSeatMemberCards(sfWebRequest $request)
   {
-    $this->manifestation = $this->getRoute()->getObject();
     $services = array(
         'mc'  => $this->getContext()->getContainer()->get('member_cards_service'),
         'seater' => $this->getContext()->getContainer()->get('member_cards_seating_service'),
     );
     
-    $mcs = $services['mc']->getActiveMemberCardsForEvent($this->manifestation->Event);
-    $this->tickets = $services['seater']->seatManyMemberCardForOneManifestation($mcs, $this->manifestation);
+    $this->getContext()->getConfiguration()->loadHelpers('I18N');
+    
+    $ids = $request->getParameter('id', []);
+    $q = Doctrine::getTable('Manifestation')->createQuery('m')
+        ->andWhereIn('m.id', $ids)
+    ;
+    $manifs = $q->execute();
+    
+    $mcs = new Doctrine_Collection('MemberCard');
+    $tickets = new Doctrine_Collection('Ticket');
+    
+    foreach ( $manifs as $manif ) {
+        $mcs->merge($this->processSeatMemberCards($manif, $services));
+        $tickets->merge($this->tickets);
+    }
+    
+    $this->getUser()->setFlash('notice', __('%%tck%% seats have been set for %%mcs%% member cards concerned by your batch action.', array(
+        '%%mcs%%' => $mcs->count(),
+        '%%tck%%' => $tickets->count(),
+    )));
+  }
+  
+  public function executeSeatMemberCards(sfWebRequest $request)
+  {
+    $services = array(
+        'mc'  => $this->getContext()->getContainer()->get('member_cards_service'),
+        'seater' => $this->getContext()->getContainer()->get('member_cards_seating_service'),
+    );
+    
+    $this->manifestation = $this->getRoute()->getObject();
+    
+    $this->processSeatMemberCards($this->manifestation, $services);
+  }
+  
+  private function processSeatMemberCards(Manifestation $manif, $services)
+  {
+    $mcs = $services['mc']->getActiveMemberCardsHavingPrivilegedSeatForEvent($manif->Event);
+    $this->tickets = $services['seater']->seatManyMemberCardForOneManifestation($mcs, $manif);
+    return $mcs;
   }
   
   public function executeAssociateMemberCards(sfWebRequest $request)

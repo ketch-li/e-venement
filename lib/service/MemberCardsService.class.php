@@ -262,12 +262,18 @@ class MemberCardsService extends EvenementService
     return $q->execute();
   }
   
+  public function getActiveMemberCardsHavingPrivilegedSeatForEvent(Event $event, $type_id = NULL)
+  {
+    $q = $this->createQueryForActiveMemberCards($type_id);
+    $this->patchQueryWithMCPsAndFilterOnEvent($q, $event);
+    $q->andWhere('mc.privileged_seat_name IS NOT NULL AND mc.privileged_seat_name != ?', '');
+    return $q->execute();
+  }
+  
   public function getActiveMemberCardsForEvent(Event $event, $type_id = NULL)
   {
-    $q = $this->createQueryForActiveMemberCards($type_id)
-        ->leftJoin('mc.MemberCardPrices mcp')
-        ->andWhere('mcp.event_id = ?', $event->id)
-    ;
+    $q = $this->createQueryForActiveMemberCards($type_id);
+    $this->patchQueryWithMCPsAndFilterOnEvent($q, $event);
     return $q->execute();
   }
   
@@ -356,4 +362,13 @@ class MemberCardsService extends EvenementService
     
     return $q;
   }
+  
+  private function patchQueryWithMCPsAndFilterOnEvent(Doctrine_Query $q, Event $event)
+  {
+    return $q
+        ->leftJoin('mc.MemberCardPrices mcp')
+        ->andWhere('mcp.event_id = ?', $event->id)
+    ;
+  }
+
 }

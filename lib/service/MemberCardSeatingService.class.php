@@ -18,6 +18,10 @@ class MemberCardSeatingService
      */
     public function seatMemberCard(MemberCard $mc, Manifestation $manif, Transaction $transac = NULL)
     {
+        if ( !$mc->privileged_seat_name ) {
+            throw new liEvenementException('No privileged seat defined for member card #'.$mc->id);
+        }
+        
         $seat = $this->getSeatInGaugeFor($mc, $manif);
         $price = $this->getPriceFor($mc, $manif);
         
