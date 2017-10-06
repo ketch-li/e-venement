@@ -106,6 +106,7 @@ abstract class PluginBoughtProduct extends BaseBoughtProduct
     if ( $this->Declination->MemberCardTypes->count() == 1 && !$this->member_card_id && !is_null($this->integrated_at) )
     {
       $this->MemberCard = new MemberCard;
+      $this->MemberCard->BoughtProducts[] = $this;
       $this->MemberCard->active = true;
       $this->MemberCard->Transaction = $this->Transaction;
       $this->MemberCard->Contact = $this->Transaction->Contact;
