@@ -16,6 +16,69 @@ class contactActions extends sfActions
     parent::preExecute();
   }
   
+  public function executeDownloadTickets(sfWebRequest $request)
+  {
+    $this->forward404If(sfConfig::get('app_tickets_pdf_attachments', false) !== true);
+    
+    $q = Doctrine::getTable('Ticket')->createQuery('tck')
+        ->select('tck.*, t.*')
+        
+        ->leftJoin('tck.Manifestation m')
+        ->leftJoin('tck.Transaction t')
+        ->andWhere('t.contact_id = ?', $this->getUser()->getContactId())
+        
+        ->leftJoin('t.Order o')
+        ->andWhere('t.printed_at IS NOT NULL OR t.integrated_at IS NOT NULL OR t.cancelling IS NOT NULL OR o.id IS NOT NULL')
+        ->andWhere('t.duplicating IS NULL')
+        
+        ->leftJoin('tck.Controls c')
+        ->leftJoin('c.Checkpoint cp WITH cp.type = ?', 'entrance')
+        ->andWhere('cp.id IS NULL')
+        
+        ->orderBy('m.happens_at, tck.id')
+    ;
+    $tickets = $q->execute();
+    
+    $transaction = new Transaction;
+    $transaction->Tickets = $tickets;
+    
+    $this->setTemplate('tickets');
+    
+    // debugging ?
+    if ( sfConfig::get('sf_web_debug', false) && !$request->hasParameter('debug') )
+      sfConfig::set('sf_web_debug', false);
+    
+    // content, and treatment
+    $this->tickets_html = $transaction->renderSimplifiedTickets(
+      array('barcode' => $request->getParameter('format') === 'html' ? 'html' : 'png')
+    );
+    switch ( $format = $request->getParameter('format', 'pdf') ) {
+    case 'pdf':
+      // content type
+      $this->getResponse()->setContentType('application/pdf');
+      if ( !sfConfig::get('sf_web_debug', false) )
+        $this->getResponse()->setHttpHeader('Content-Disposition', 'attachment; filename="transaction-'.$transaction->id.'-tickets.pdf"');
+
+      $this->content = $this->getPartial('global/get_tickets_pdf', array('tickets_html' => $this->tickets_html));
+      $this->setLayout(false);
+      return 'PDF';
+    case 'html':
+      $this->setLayout(false);
+      return 'Success';
+    default:
+      $this->dispatcher->notify($event = new sfEvent($this, 'pub.transaction_generate_other_format', array(
+        'transaction' => $transaction,
+        'target'      => $target,
+        'format'      => $format,
+        'headers'     => NULL,
+        'content'     => NULL,
+      )));
+      foreach ( $event['headers'] as $key => $value )
+        $this->getResponse()->setHttpHeader($key, $value);
+      return $this->renderText($event['content']);
+    }
+  }
+  
   public function executeNewPicture(sfWebRequest $request)
   {
     $this->forward404Unless(intval($request->getParameter('id',0)) > 0);

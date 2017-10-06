@@ -24,6 +24,8 @@
 <?php include_partial('global/flashes') ?>
 <?php include_partial('global/ariane', array('active' => 0)) ?>
 <h1><?php echo __('My account') ?></h1>
+
+<?php include_partial('index_tickets') ?>
 <?php include_partial('index_contact',array('contact' => $contact)) ?>
 
 <?php if ( $active_member_cards->count() > 0 ): ?>

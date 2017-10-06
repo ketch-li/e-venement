@@ -8,7 +8,7 @@
         <source>Member card</source>
         <target>Carte d'abonnement</target>
       </trans-unit>
-      <trans-unit id="263">
+      <trans-unit id="270">
         <source>Expired member card</source>
         <target>Carte d'abonnement inactive</target>
       </trans-unit>
@@ -1089,6 +1089,10 @@ ou bien suivez ce lien&nbsp;:&lt;br/&gt;
       <trans-unit id="269">        
         <source>You do not have enough ticket for the membercard </source>
         <target>Vous n'avez pas assez de billets pour la carte </target>
+      </trans-unit>
+      <trans-unit id="271">
+        <source>Download all my pending tickets</source>
+        <target>Télécharger tous mes billets en attente</target>
       </trans-unit>
     </body>
   </file>
