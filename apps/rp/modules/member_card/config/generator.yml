@@ -31,13 +31,21 @@ generator:
         sort: [created_at, desc]
         object_actions:
           _show: ~
+          _print:
+            ui-icon: print
+            action: cardPrint
+            label: print
+            params:
+              target: _blank          
           _changeSeat:
             ui-icon: radio-off
             label: Change seat
             action: setSeat
           _delete:
             credentials: [pr-card-mod]
-        batch_actions: {}
+        batch_actions:
+          _print:
+            label: print
         table_method: retreiveListOfActivatedCards
         max_per_page: 50
       filter:

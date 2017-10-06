@@ -373,6 +373,10 @@
         <source>Seat member cards</source>
         <target>Placer les cartes avantages</target>
       </trans-unit>
+      <trans-unit id="91">
+        <source>Print</source>
+        <target>Imprimer</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

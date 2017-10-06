@@ -1,8 +1,8 @@
 default:
   stylesheets: [contact-card-form]
-  javascripts: [list-scroll]
+  javascripts: []
 indexSuccess:
-  javascripts: [rp-member-card-seat]
+  javascripts: [rp-member-card-seat, rp-member-card-batch]
 csvSuccess:
   has_layout: false
   http_metas:
@@ -12,3 +12,6 @@ setSeatSuccess:
   has_layout: false
   http_metas:
     content-type: application/json
+cardPrint:
+  javascripts: [-*]
+  stylesheets: [-*]

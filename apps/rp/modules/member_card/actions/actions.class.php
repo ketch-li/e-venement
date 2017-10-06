@@ -13,6 +13,33 @@ require_once dirname(__FILE__).'/../lib/member_cardGeneratorHelper.class.php';
  */
 class member_cardActions extends autoMember_cardActions
 {
+  public function executeCardPrint(sfWebRequest $request)
+  {
+    $this->getContext()->getConfiguration()->loadHelpers('Date');
+    
+    $this->cards = new Doctrine_Collection('MemberCard');
+    
+    if ( $ids = $request->getParameter('ids') )
+    {
+      $this->cards = Doctrine::getTable('MemberCard')->createQuery('mc')
+        ->andWhereIn('id', $ids)
+        ->execute();
+    }
+    else
+    {
+      $mc = $this->getRoute()->getObject();
+      $this->cards[0] = $mc;
+    }
+
+    $this->getResponse()->setContentType('application/pdf');
+    $this->setLayout(false);
+  }
+  
+  public function executeBatchPrint(sfWebRequest $request)
+  {
+    $this->forward('member_card', 'cardPrint');
+  }
+  
   public function executeSetSeat(sfWebRequest $request)
   {
     $this->mc = $this->getRoute()->getObject();
