@@ -91,10 +91,10 @@
       
       // second table engine
       $.ajax({
-        // initial data
-        url: $('#sf_fieldset_statistics .filling-data-url').prop('href'),
-        success: LI.statsCompleteFillingData,
-        error: function(){ LI.alert('An error occurred', 'error'); $('#transition .close').click(); }
+          // initial data
+          url: $('#sf_fieldset_statistics .filling-data-url').prop('href'),
+          success: LI.statsCompleteFillingData,
+          error: function(){ LI.alert('An error occurred', 'error'); $('#transition .close').click(); }
       });
       $('#sf_fieldset_statistics .tab-print a').click(function(){
         // force refresh
@@ -106,10 +106,87 @@
         });
         return false;
       });
+      
+      // third table engine
+      $('#sf_fieldset_statistics .tab-print a').click(function(){
+          $.ajax({
+            url: $('#sf_fieldset_statistics .controls-data-url').prop('href')+'?refresh=true',
+            success: LI.statsControlsData,
+            error: function(){ LI.alert('An error occurred', 'error'); $('#transition .close').click(); }
+          });
+          return false;
+      });
+      
+      $.ajax({
+        url: $('#sf_fieldset_statistics .controls-data-url').prop('href'),
+        success: LI.statsControlsData,
+        error: function(){ LI.alert('An error occurred', 'error'); $('#transition .close').click(); }
+      });
     });
 
 if ( LI == undefined )
   var LI = {};
+
+LI.statsControlsData = function(json)
+{
+    if ( json.prices == undefined ) {
+        console.error('Incorrect data for control statistics');
+        return;
+    }
+    
+    $('#sf_fieldset_statistics .sf_admin_list.controls tbody tr:not(:last)').remove();
+    var row = $('#sf_fieldset_statistics .sf_admin_list.controls tbody tr:first');
+    var col = $('#sf_fieldset_statistics .sf_admin_list.controls thead th.count:first');
+    var totals = {
+        entrance: { count: 0, amount: 0 },
+        info: { count: 0 },
+        exit: { count: 0 }
+    };
+    
+    var types = [];
+    $.each(json.prices, function(price, data) {
+        $.each(data.controls, function(type, subdata) {
+            if ( $.inArray(type, types) > -1 ) {
+                return;
+            }
+            types.push(type);
+        });
+    });
+    row.find('td.count').addClass('empty');
+    $.each(types, function(i, type){
+        col.clone(true).text(col.text()+' "'+type+'"').addClass(type).insertAfter(col);
+        row.find('td.count.empty').clone(true).addClass(type).removeClass('empty').insertAfter(row.find('td.count.empty'));
+    });
+    col.remove();
+    row.find('td.count.empty').remove();
+    
+    $.each(json.prices, function(price, controls) {
+        console.error(controls);
+        var add = row.clone(true);
+        var tds = add.find('td');
+        add.find('th').text(controls.description).data('name', controls.name);
+        
+        $.each(controls.controls, function(type, control){
+            totals[type].count += control.count;
+            if ( type == 'entrance' ) {
+                totals[type].amount += control.amount;
+            }
+            tds.siblings('.count.'+type).text(control.count);
+            tds.siblings('.amount').text(control.amount_txt).data('value', control.amount);
+        });
+        
+        add.appendTo(row.closest('tbody'));
+    });
+    row.addClass('total')
+        .find('td.amount')
+        .html(LI.format_currency(totals.entrance.amount))
+    ;
+    $.each(totals, function(type, total){
+        row.find('td.count.'+type).text(total.count);
+    });
+    row.closest('tbody').append(row);
+}
+
 LI.statsCompleteFillingData = function(json)
 {
   var currency = LI.get_currency($('#sf_fieldset_unbalanced tfoot .nb').html());

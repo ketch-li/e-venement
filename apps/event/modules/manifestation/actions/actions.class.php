@@ -160,6 +160,10 @@ class manifestationActions extends autoManifestationActions
     if (!( sfConfig::get('sf_web_debug', true) && $request->hasParameter('debug') ))
       return 'Json';
   }
+  public function executeStatsControlsData(sfWebRequest $request)
+  {
+    return require __DIR__.'/stats-controls-data.php';
+  }
   public function executeAddGaugePrice(sfWebRequest $request)
   {
     $this->json = array('success' => array(), 'error' => array());

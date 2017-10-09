@@ -83,3 +83,11 @@ statsFillingDataJson:
   has_layout: false
   http_metas:
     content-type: application/json
+statsControlsDataJson:
+  has_layout: false
+  http_metas:
+    content-type: application/json
+statsControlsDataCsv:
+  has_layout: false
+  http_metas:
+    content-type: text/csv
