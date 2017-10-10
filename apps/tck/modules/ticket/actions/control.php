@@ -95,7 +95,7 @@
           if ( !$mcp->event_id )
             $mcps[] = $mcp;
           
-          // if some prices have been found, we can continue...
+          // if no price has been found, we try to control an existing ticket...
           if ( $mcps->count() == 0 )
           {
             $q = Doctrine::getTable('Ticket')->createQuery('t')
@@ -103,6 +103,9 @@
               ->andWhere('t.duplicating IS NULL')
               ->andWhere('t.member_card_id = ?', $card->id)
               ->andWhere('t.manifestation_id = ?', $manifestation->id)
+              ->leftJoin('t.Controls c')
+              ->leftJoin('c.Checkpoint cp WITH cp.type = ?', 'entrance')
+              ->andWhere('cp.id IS NULL')
               ->orderBy('t.created_at DESC')
             ;
             $ticket = $q->fetchOne();
@@ -117,6 +120,7 @@
             
             $params['ticket_id'] = $ticket->id;
           }
+          // if some prices have been found, we can continue...
           else
           {
             $price = null;
@@ -148,15 +152,16 @@
             {
               $params['ticket_id'] = $existing_ticket->id;
             }
-            else 
+            else
             if ( $price )
             {
               $ticket = new Ticket;
               $ticket->Transaction = new Transaction;
-              $ticket->integrated_at = date('Y-m-d H:i:s');
               $ticket->automatic = true;
               $ticket->Manifestation = $manifestation;
               $ticket->MemberCard = $card;
+              $ticket->member_card_id = $card->id;
+              $ticket->integrated_at = date('Y-m-d H:i:s');
               
               $ticket->price_id = $price->price_id;
               $ticket->value = $price->value;
@@ -176,6 +181,7 @@
               
               // first pass for prerequisites
               $ticket->save();
+              $mcps->getFirst()->delete();
               
               // the payment
               if ( $ticket->value + $ticket->taxes > 0 )
