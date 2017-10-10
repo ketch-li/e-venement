@@ -6,7 +6,7 @@ class DumpDataFixtureTask extends sfBaseTask
     protected function configure() 
     {
       $this->addArguments(array(
-        new sfCommandArgument('table', sfCommandArgument::REQUIRED | sfCommandArgument::IS_ARRAY, 'The table to dump')
+        new sfCommandArgument('table', sfCommandArgument::REQUIRED, 'The table to dump')
       ));
       $this->addOptions(array(
         new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
@@ -35,25 +35,21 @@ EOF;
         $data = new Doctrine_Data();
         $parser = new Doctrine_Parser_Yml();
 
-        foreach ($arguments['table'] as $table_name) 
+        $table_name = $arguments['table'];
+
+        $this->logSection('Dump', 'Dumping table '.$table_name);
+        
+        $table = Doctrine::getTable($table_name);
+        $q = $table->createQuery('tn');
+                
+        if ( $table->hasRelation('Translation') ) 
         {
-          $this->logSection('Dump', 'Dumping table '.$table_name);
-          
-          $table = Doctrine::getTable($table_name);
-                  
-          if ( $table->hasRelation('Translation') ) 
-          {
-            $results = Doctrine::getTable($table_name)->createQuery('tn')
-              ->leftJoin("tn.Translation ct")
-              ->fetchArray();
-            
-            $parser->dumpData(array($table_name => $results), sfConfig::get('sf_root_dir').'/data/fixtures/dump/'.$table_name.'.yml');
-          } 
-          else 
-          {
-            $data->exportData(sfConfig::get('sf_root_dir').'/data/fixtures/dump', 'yml', array($table_name), true);
-          }
-        }
+          $q = $q->leftJoin("tn.Translation ct");
+        } 
+
+        $results = $q->fetchArray();
+        
+        $parser->dumpData(array($table_name => $results), sfConfig::get('sf_root_dir').'/data/fixtures/'.$table_name.'.yml');
 
         $this->logSection('Dump', 'Tables dumped');  
       }
