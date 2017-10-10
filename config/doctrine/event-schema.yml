@@ -370,7 +370,7 @@ Manifestation:
     reservation_confirmed:
       type: boolean
       notnull: true
-      default: true
+      default: false
     expected_income:
       type: decimal(15)
       scale: 3
