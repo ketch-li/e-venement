@@ -238,7 +238,8 @@
                 if ( $ticket->Price->member_card_linked || $ticket->Manifestation->Location->auto_control )
                 {
                   $cpt += 2; // because member cards treatments take a loong time
-                  $ticket->integrated_at = date('Y-m-d H:i:s');
+                  if ( !$ticket->printed_at && !$ticket->integrated_at )
+                    $ticket->integrated_at = date('Y-m-d H:i:s');
                   $ticket->vat = $ticket->Manifestation->Vat->value;
                   //$ticket->qrcode;
                   $ticket->save();
