@@ -224,7 +224,7 @@ class StreetBaseTask  extends sfBaseTask
     switch ($type) {
       case 'locality':
         $sb_array['locality'] = true;
-        $sb_array['city'] = $line[0];
+        $sb_array['city'] = preg_replace(array('/ST-/', '/STE-/'), array('SAINT-', 'SAINTE-'), $line[0]);
         $sb_array['zip'] = $line[4];
         $sb_array['address'] = $line[2];
         $sb_array['rivoli'] = $line[3];
@@ -236,7 +236,7 @@ class StreetBaseTask  extends sfBaseTask
       case 'street':
         $sb_array['locality'] = false;
         $sb_array['address'] = $line[0];
-        $sb_array['city'] = $line[1];
+        $sb_array['city'] = preg_replace(array('/ST-/', '/STE-/'), array('SAINT-', 'SAINTE-'), $line[1]);
         $sb_array['num'] = $line[3];
         $sb_array['rivoli'] = $line[4];
         $sb_array['zip'] = $line[5];
