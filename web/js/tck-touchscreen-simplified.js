@@ -125,6 +125,12 @@ $(document).ready(function(){
   
   // USING THE NORMAL "PRINT" BUTTON IF CLICKING ON THE SIMPLIFIED ONE
   $('#li_fieldset_simplified .cart .print').click(function(){
+    $.each($('#li_transaction_field_simplified .item'), function() {
+      $('#transaction_seat_gauge_id').val($(this).attr('data-declination-id'));
+      $('#transaction_seat_qty').val($(this).attr('data-qty'));
+      $('.seat').submit();
+    });
+    
     $('#li_transaction_manifestations .print, #li_transaction_store .store-print').submit();
     //$('#li_fieldset_content .bunch').find('.print, .store-print').submit();
     setTimeout(function(){ $('#transition .close').click(); },1000);
