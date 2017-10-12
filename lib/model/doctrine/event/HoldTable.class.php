@@ -9,8 +9,10 @@ class HoldTable extends PluginHoldTable
 {
   public function createQuery($alias = 'h', $light = false)
   {
+    $culture = sfContext::hasInstance() ? sfContext::getInstance()->getUser()->getCulture() : 'fr';
+    
     $q = parent::createQuery($alias)
-      ->leftJoin("$alias.Translation ht");
+      ->leftJoin("$alias.Translation ht WITH ht.lang = '$culture'");
     
     if ( !$light )
       $q->leftJoin("$alias.Manifestation m")
