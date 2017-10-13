@@ -10,14 +10,15 @@
     $prepare[] = '?';
     $seated_plan_workspaces[$sp->id] = $sp->Workspaces[0];
   }
-  
+  $arr = array_merge(array(0), $seated_plan_workspaces->getKeys());
+
   // optimized Seats fetching
   //$seat_records = new Doctrine_Collection('Seat');
   //foreach ( $seated_plans as $seated_plan )
   //  $seat_records->merge($seated_plan->Seats);
   $seat_records = Doctrine::getTable('Seat')->createQuery('s')
     ->leftJoin('s.Holds h')
-    ->leftJoin('s.SeatedPlan sp WITH sp.id IN ('.implode(',', $prepare).')', $arr = array_merge(array(0), $seated_plan_workspaces->getKeys())) // 0 is a workaround to avoid empty "IN" condition
+    ->leftJoin('s.SeatedPlan sp WITH sp.id IN ('.implode(',', $prepare).')', array_values($arr)) // 0 is a workaround to avoid empty "IN" condition
     ->andWhere('sp.id IS NOT NULL')
     ->execute()
   ;
