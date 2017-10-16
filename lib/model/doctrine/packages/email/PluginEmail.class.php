@@ -256,15 +256,16 @@ abstract class PluginEmail extends BaseEmail
 
   protected function compose()
   {
+    $replyto = $this->field_from;
+    $from = sfConfig::get('project_email_from', 'contact@libre-informatique.fr');
+    
     $this->addParts();
     $this->message
-      ->setFrom(array($this->field_from => $this->from_txt ? $this->from_txt : $this->field_from))
+      ->setFrom(array($this->field_from => $from))
+      ->setReplyTo($replyto)
       ->setSubject($this->field_subject)
     ;
-    
-    if ( $reply = sfConfig::get('project_email_replyto', false) ) 
-      $this->message->setReplyTo($reply);
-    
+
     if ( $this->read_receipt )
       $this->message->setReadReceiptTo($this->field_from);
     return $this->message;
