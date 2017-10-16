@@ -32,7 +32,9 @@ all:
     failover:
       url: http://www.e-venement.org/
   email:
+    from: noreply@e-venement.net
     replyto: noreply@yourdomain.net
+    admin: noreply@yourdomain.net
   #museums:
   #  enable: false
   #  type: museum # can be: pool, museum
