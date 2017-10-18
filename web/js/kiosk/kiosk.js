@@ -284,8 +284,11 @@ LI.kiosk = {
         $.each(LI.kiosk.products, function(key, productList) {
             var listLength = Object.keys(productList).length;
 
-            if( listLength > 0)
+            if( listLength > 0) {
                 lists[key] = listLength;
+            } else {
+              delete LI.kiosk.products[key];
+            }
         });
 
         if(Object.keys(lists).length > 1) {
@@ -344,7 +347,7 @@ LI.kiosk = {
         if( !$('#product-menu-items').children().length > 0 ) {
             var template = Handlebars.compile(LI.kiosk.templates.menuItem);
 
-            $.each(LI.kiosk.products, function(type, length){   
+            $.each(LI.kiosk.products, function(type, length){
                 var item = {
                     name: LI.kiosk.strings['menu_' + type],
                     type: type
