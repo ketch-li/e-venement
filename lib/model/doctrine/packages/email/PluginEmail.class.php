@@ -261,7 +261,7 @@ abstract class PluginEmail extends BaseEmail
     
     $this->addParts();
     $this->message
-      ->setFrom(array($this->field_from => $from))
+      ->setFrom(array($from => $from))
       ->setReplyTo($replyto)
       ->setSubject($this->field_subject)
     ;
