@@ -122,6 +122,17 @@ LI.kiosk = {
             LI.kiosk.dialogs[$(elem).prop('id')] = dialog;
         });
     },
+    getProduct: function(type, id) {
+        var found = null;
+
+        $.each(LI.kiosk.products[type], function(key, product) {
+            if(key.split('~~~').pop() == id) {
+                found = product;
+            }
+        });
+
+        return found;
+    },
     addListeners: function() {
         //UI transitions
         $(document)
@@ -214,7 +225,7 @@ LI.kiosk = {
             $(document).trigger({
                 type: 'product-list:unmount',
                 mode: 'forth',
-                product: LI.kiosk.products[type][id]
+                product: LI.kiosk.getProduct(type, id)
             });
         });
 
@@ -682,7 +693,7 @@ LI.kiosk = {
 
                 manif.type = type;
                 LI.kiosk.rearrangeProperties(manif);
-                LI.kiosk.products.manifestations[manif.id] = manif;
+                LI.kiosk.products.manifestations[key] = manif;
             });
         }
     },
@@ -699,7 +710,7 @@ LI.kiosk = {
                 manif.type = type;
                 manif.museum = true;
                 LI.kiosk.rearrangeProperties(manif);
-                LI.kiosk.products.museum[manif.id] = manif;
+                LI.kiosk.products.museum[key] = manif;
             });
         }
     },
@@ -730,7 +741,7 @@ LI.kiosk = {
                     product.declinations[declination.id] = declination;
                 });
 
-                LI.kiosk.products.store[product.id] = product;
+                LI.kiosk.products.store[key] = product;
             });
         }
     },
