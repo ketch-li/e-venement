@@ -26,3 +26,5 @@ all:
       class: PasswordPlainTextService
     password_md5_service:
       class: PasswordMD5Service
+    ticket_service:
+      class: TicketService
