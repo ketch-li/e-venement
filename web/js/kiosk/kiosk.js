@@ -1230,7 +1230,7 @@ LI.kiosk = {
             });
 
             $('#postcode').change(function() {
-                $('#countries').val(LI.kiosk.config.culture);
+                $('#countries').val(LI.kiosk.config.culture).trigger('change');
             });
         },
         setupCountryField: function() {
@@ -1243,7 +1243,7 @@ LI.kiosk = {
                     $('<option>')
                         .addClass('country')
                         .prop('id', country.codeiso2.toLowerCase())
-                        .val(country.codeiso2)
+                        .val(country.Translation[LI.kiosk.config.userCulture].name)
                         .html(country.Translation[LI.kiosk.config.userCulture].name)
                         .appendTo('#countries')
                     ;
