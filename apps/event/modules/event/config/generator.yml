@@ -77,7 +77,7 @@ generator:
       filter:
         display:
           Event:              [name, meta_event_id, event_category_id]
-          <?php echo $museum ? 'Periods' : 'Manifestations' ?>: [dates_range, day_of_the_week, location_id, workspaces_list, participants_list, duration, colors_list, voucherized]
+          <?php echo $museum ? 'Periods' : 'Manifestations' ?>: [dates_range, day_of_the_week, location_id, workspaces_list, duration, colors_list, voucherized]
           Bookings:           [contact_id, manif_confirmed, manif_blocking, manif_conflict, manif_optional]
           Extra informations: [age, age_min, age_max, companies_list, display_by_default]
       form: ~
