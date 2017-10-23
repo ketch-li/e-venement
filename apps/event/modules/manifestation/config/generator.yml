@@ -106,7 +106,7 @@ generator:
         title: %%name%% @ %%Location%%
         display:
           General:      [happens_at, ends_at, _id, event_id, location_id, _show_gauge_txt, expected_income, _show_possible_incomes, color_id, <?php if ( sfConfig::get('app_manifestation_price_manifestations', true) ): ?>_form_prices<?php endif ?>, <?php if ( sfConfig::get('app_manifestation_price_gauges', false) ): ?>_form_gauges_prices<?php endif ?>, _form_prices_delete_all]
-          Ticketting:   [duration, vat_id, online_limit, online_limit_per_transaction, depends_on, _show_is_necessary_to, organizers_list, participants_list, no_print, voucherized]
+          Ticketting:   [duration, vat_id, online_limit, online_limit_per_transaction, depends_on, _show_is_necessary_to, organizers_list, no_print, voucherized]
           Workspaces:   [_form_workspaces] #, _show_workspaces_list]
           <?php $config = sfConfig::get('app_manifestation_reservations',array('enable' => false)); if ( isset($config['enable']) && $config['enable'] ): echo PHP_EOL; ?>
           Resources:  [booking_list, _form_applicant_id, contact_id, _form_applicant_organism_id, organism_id, reservation_begins_at, reservation_ends_at, blocking, reservation_confirmed, reservation_optional, reservation_description]
@@ -129,7 +129,7 @@ generator:
       show:
         display:
           General:    [_show_event, id, _show_happens_at, _show_ends_at, _show_location, _show_gauge_txt, _show_expected_income, _show_possible_incomes, <?php if ( !$museum ): ?>_show_best_free_seat, <?php endif ?>_show_color, <?php if ( sfConfig::get('app_manifestation_price_manifestations', true) ): ?>_show_prices_list<?php endif ?>, <?php if ( sfConfig::get('app_manifestation_price_gauges', false) ): ?>_show_gauges_prices<?php endif ?>]
-          Ticketting: [<?php if ( !$museum ): ?>_show_duration, <?php endif ?>_show_vat, _show_online_limit, _show_online_limit_per_transaction, _show_depends_on, _show_is_necessary_to, _show_organizers_list, _show_participants_list, _show_no_print, _show_voucherized]
+          Ticketting: [<?php if ( !$museum ): ?>_show_duration, <?php endif ?>_show_vat, _show_online_limit, _show_online_limit_per_transaction, _show_depends_on, _show_is_necessary_to, _show_organizers_list, _show_no_print, _show_voucherized]
           Workspaces: [_show_workspaces_list]
           Statistics: [_show_stats_refresh, _show_stats_sales, _show_stats_filling, _show_stats_controls, _show_stats_engine]
           <?php $config = sfConfig::get('app_manifestation_reservations',array('enable' => false)); if ( isset($config['enable']) && $config['enable'] ): echo PHP_EOL; ?>
