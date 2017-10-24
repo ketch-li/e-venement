@@ -691,9 +691,16 @@ LI.kiosk = {
                 if (LI.kiosk.debug)
                     console.log('Loading an item (#' + manif.id + ') from the ' + type);
 
-                manif.type = type;
-                LI.kiosk.rearrangeProperties(manif);
-                LI.kiosk.products.manifestations[key] = manif;
+                if(LI.kiosk.config.displayLimit) {
+                    var displayLimit = new Date(LI.kiosk.config.displayLimit.replace(' ', 'T'));
+                    var manifDate = new Date(manif.happens_at.replace(' ', 'T'));
+
+                    if(manifDate.getTime() < displayLimit.getTime()) {
+                        manif.type = type;
+                        LI.kiosk.rearrangeProperties(manif);
+                        LI.kiosk.products.manifestations[key] = manif;
+                    }
+                }
             });
         }
     },
