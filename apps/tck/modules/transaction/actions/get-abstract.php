@@ -449,6 +449,8 @@
             'name'          => (string)$product,
             'category'      => (string)$product->Category,
             'category_id'   => $product->product_category_id,
+            'image_id'      => $product->Picture->id,
+            'image_url'     => $product->Picture->getUrl(array('absolute' => true)),
             'description'   => $product->description,
             'category_url'  => cross_app_url_for('pos', 'category/show?id='.$product->product_category_id,true),
             'product_url'   => cross_app_url_for('pos', 'product/show?id='.$product->id, true),
