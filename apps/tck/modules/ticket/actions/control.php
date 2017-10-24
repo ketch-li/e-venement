@@ -316,7 +316,7 @@
                $this->error_tickets[$ticket->id] = $ticket;
                $this->errors[] = __('Too late for ticket #%%id%% (gates closed at %%datetime%%)', array(
                  '%%id%%' => $ticket->id,
-                 '%%datetime%%' => date('Y-m-d H:i',strtotime($ticket->Manifestation->end_at . ' - ' .$past))
+                 '%%datetime%%' => date('Y-m-d H:i',strtotime($ticket->Manifestation->ends_at . ' - ' .$past))
                ));
             }
             else
