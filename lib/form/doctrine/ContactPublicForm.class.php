@@ -89,7 +89,7 @@ class ContactPublicForm extends ContactForm
         $this->widgetSchema   ['terms_conditions']      = new sfWidgetFormInputCheckbox(array(
             'default' => false,
             'value_attribute_value' => 'yes',
-            'label' => pubConfiguration::getText('app_texts_terms_conditions_url')?'<a href="cgv" target="_blank">'.__('Terms & Conditions').'</a>':pubConfiguration::getText('app_texts_terms_conditions'),
+            'label' => pubConfiguration::getText('app_texts_terms_conditions_url')?'<a href="' . url_for('cart/cgv') . '" target="_blank">'.__('Terms & Conditions').'</a>':pubConfiguration::getText('app_texts_terms_conditions'),
         ));
         $this->validatorSchema['terms_conditions']      = new sfValidatorBoolean(array(
             'true_values' => array('yes'),
