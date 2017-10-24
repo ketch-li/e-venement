@@ -673,8 +673,6 @@ LI.kiosk = {
         }
 
         $.each(product.gauges, function(i, gauge){
-
-
             $.each(gauge.available_prices, function(key, price) {
                 if(LI.kiosk.config.uiLabels.price !== undefined) {
                     price.name = price[LI.kiosk.config.uiLabels.price]
@@ -746,6 +744,12 @@ LI.kiosk = {
                 product.prices = {};
                 product.type = type;
                 product.store = true;
+
+                if(product.image_id != undefined) {
+                    product.background = 'background-image: url("' + product.image_url + '"); background-size: cover;';
+                } else {
+                    product.background = 'background-color: ' + product.color;
+                }
 
                 $.each(product.declinations, function(i, declination) {
 
