@@ -655,22 +655,27 @@ LI.kiosk = {
     rearrangeProperties: function(product) {
         var productDate = new Date(product.happens_at.replace(' ', 'T'));
         var endDate = new Date(product.ends_at);
+        var minutes = endDate.getMinutes();
 
         product.declinations = {};
         product.prices = {};
+
         product.start = productDate.toLocaleString().replace(/:\d\d( \w+){0,1}$/,'');
-        product.end = endDate.getHours() + ':' + endDate.getMinutes();
+        
+        product.end = endDate.getHours() + ':' + (minutes < 10 ? '0' + minutes : minutes);
+        
         product.name = product.name == null ? product.category : product.name;
 
-        if(product.image_id != undefined)
+        if(product.image_id != undefined) {
             product.background = 'background-image: url("' + product.image_url + '"); background-size: cover;';
-        else
+        } else {
             product.background = 'background-color: ' + product.color;
+        }
 
         $.each(product.gauges, function(i, gauge){
 
 
-            $.each(gauge.available_prices, function(key, price){
+            $.each(gauge.available_prices, function(key, price) {
                 if(LI.kiosk.config.uiLabels.price !== undefined) {
                     price.name = price[LI.kiosk.config.uiLabels.price]
                 }
@@ -687,9 +692,9 @@ LI.kiosk = {
 
         if(data.success) {
             $.each(data.success.success_fields[type].data.content, function(key, manif) {
-                
-                if (LI.kiosk.debug)
+                if (LI.kiosk.debug) {
                     console.log('Loading an item (#' + manif.id + ') from the ' + type);
+                }
 
                 if(LI.kiosk.config.displayLimit) {
                     var displayLimit = new Date(LI.kiosk.config.displayLimit.replace(' ', 'T'));
