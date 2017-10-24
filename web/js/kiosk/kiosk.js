@@ -305,6 +305,8 @@ LI.kiosk = {
         if(Object.keys(lists).length > 1) {
             $(document).trigger('menu:mount');
         }else {
+            $('#home-breadcrumb').hide();
+
             $(document).trigger({
                 type: 'product-list:mount',
                 productType: Object.keys(lists)[0]
