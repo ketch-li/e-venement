@@ -26,6 +26,12 @@
         || $sf_user->hasCredential('stats-prices')
         || $sf_user->hasCredential('stats-byGroup')
         || $sf_user->hasCredential('stats-pr-social')
+        || $sf_user->hasCredential('pos-product-stats')
+        || $sf_user->hasCredential('stats-control')
+        || $sf_user->hasCredential('stats-csv')
+        || $sf_user->hasCredential('stats-geo')
+        || $sf_user->hasCredential('stats-pr-groups')
+        || $sf_user->hasCredential('stats-pub')
         || $sf_user->hasCredential('stats-pr-cards') ): ?>
       <li class="menu-stats">
         <ul class="second">
