@@ -31,7 +31,7 @@ class StatsCriteriasForm extends BaseForm
   {
     $this->widgetSchema['Organism_Category'] = new sfWidgetFormDoctrineChoice(array(
       'model' => 'OrganismCategory',
-      'order_by' => array('name'),
+      'order_by' => array('name', ''),
       'multiple' => true,
       'label' => 'Organism Categories',
     ));

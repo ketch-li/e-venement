@@ -64,9 +64,9 @@ class ticketsActions extends sfActions
     // Organism category
     if ( isset($criterias['Organism_Category']) && is_array($criterias['Organism_Category']) && $pro ) 
     {
-      if ( !$q->contains('FROM Professional p') )
+      if ( !$q->contains('FROM Professional p') && !$q->contains('LEFT JOIN c.Professionals p') )
         $q->leftJoin('c.Professionals p WITH p.id = t.professional_id');
-      if ( !$q->contains('LEFT JOIN Organism o') )
+      if ( !$q->contains('LEFT JOIN p.Organism o') )
         $q->leftJoin('p.Organism o');
       $q->leftJoin('o.Category oc')
         ->andWhereIn('oc.id', $criterias['Organism_Category']);
