@@ -137,13 +137,13 @@ class geoActions extends sfActions
     
     if ( isset($criterias['dates']) && is_array($criterias['dates']) )
     {
-      foreach ( array('from' => '>=', 'to' => '<') as $margin => $operand )
+      foreach ( array('from' => '>=', 'to' => '<=') as $margin => $operand )
       if ( isset($criterias['dates'][$margin]) && is_array($criterias['dates'][$margin]) )
       if ( isset($criterias['dates'][$margin]['day']) && isset($criterias['dates'][$margin]['month']) && isset($criterias['dates'][$margin]['year']) )
       if ( $criterias['dates'][$margin]['day'] && $criterias['dates'][$margin]['month'] && $criterias['dates'][$margin]['year'])
       {
         $q->andWhere(
-          'tck.printed_at '.$operand.' ? OR tck.printed_at IS NULL AND tck.integrated_at '.$operand.' ?',
+          'DATE(tck.printed_at) '.$operand.' ? OR tck.printed_at IS NULL AND DATE(tck.integrated_at) '.$operand.' ?',
           array(
             $criterias['dates'][$margin]['year'].'-'.$criterias['dates'][$margin]['month'].'-'.$criterias['dates'][$margin]['day'],
             $criterias['dates'][$margin]['year'].'-'.$criterias['dates'][$margin]['month'].'-'.$criterias['dates'][$margin]['day']
