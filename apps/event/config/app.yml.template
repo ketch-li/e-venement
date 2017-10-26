@@ -5,6 +5,9 @@
 #all:
 
 all:
+  picture_kiosk:
+    width: 800
+    height: 600
   ticketting:
     dematerialized: true
     #gauge_small: false

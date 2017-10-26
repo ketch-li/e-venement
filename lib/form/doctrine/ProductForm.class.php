@@ -124,16 +124,22 @@ class ProductForm extends BaseProductForm
   
   public function doSave($con = NULL)
   {
-    foreach ( array('picture' => array('width' => 500, 'height' => 800),) as $picform_name => $dimensions )
+    $file = $this->values['picture']['content_file'];
+    unset($this->values['picture']['content_file']);
+    
+    if (!( $file instanceof sfValidatedFile ))
+      unset($this->embeddedForms['picture']);
+    else
     {
-      $file = $this->values[$picform_name]['content_file'];
-      unset($this->values[$picform_name]['content_file']);
+      $kiosk_width = sfConfig::get('app_picture_kiosk_width');
+      $kiosk_height = sfConfig::get('app_picture_kiosk_height');
       
-      if (!( $file instanceof sfValidatedFile ))
-        unset($this->embeddedForms[$picform_name]);
-      else
+      foreach ( array(
+        'picture' => array('width' => 500, 'height' => 800),
+        'PictureKiosk' => array('width' => $kiosk_width, 'height' => $kiosk_height),
+      ) as $picform_name => $dimensions )
       {
-        // data translation
+      // data translation
         $this->values[$picform_name]['content']  = base64_encode(file_get_contents($file->getTempName()));
         $this->values[$picform_name]['name']     = $file->getOriginalName();
         $this->values[$picform_name]['width']    = $dimensions['width'];

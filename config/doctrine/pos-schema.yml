@@ -99,6 +99,9 @@ Product:
     picture_id:
       type: integer
       unique: true
+    picture_kiosk_id:
+      type: integer
+      unique: true
     accounting_account: string(50)
     vat_id: integer
     shipping_fees:
@@ -141,6 +144,12 @@ Product:
       foreignType: one
       onDelete: SET NULL
       onUpdate: CASCADE
+    PictureKiosk:
+      foreignType: one
+      onDelete: SET NULL
+      onUpdate: CASCADE
+      class: Picture
+      local: picture_kiosk_id
     Prices:
       class: Price
       refClass: PriceProduct

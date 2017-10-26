@@ -1,4 +1,4 @@
-<?php $event = is_null($event) ? $form->getObject() : $event; ?>
+<?php $event = $form->getObject(); ?>
 <div class="sf_admin_form_row sf_admin_form_field_files_list">
   <div style="display:none;" id="template_lnk">
     <a title="" data-name="" data-id="" class="fg-button-mini fg-button ui-state-default fg-button-icon-left ui-priority-secondary sf_admin_form_field_file_del">

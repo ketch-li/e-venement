@@ -207,6 +207,9 @@ Event:
     picture_id:
       type: integer
       unique: true 
+    picture_kiosk_id:
+      type: integer
+      unique: true 
     display_by_default:
       type: boolean
       default: true
@@ -236,6 +239,12 @@ Event:
       foreignType: one
       onDelete: SET NULL
       onUpdate: CASCADE
+    PictureKiosk:
+      foreignType: one
+      onDelete: SET NULL
+      onUpdate: CASCADE
+      class: Picture
+      local: picture_kiosk_id
     Files:
       class: Picture
       refClass: EventPicture

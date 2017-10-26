@@ -157,14 +157,21 @@ class EventForm extends BaseEventForm
     }
     
     // picture
-    foreach ( array('Picture' => array('width' => 200, 'height' => 300)) as $picform_name => $dimensions )
+    
+    $file = $this->values['Picture']['content_file'];
+    unset($this->values['Picture']['content_file']);
+    
+    if (!( $file instanceof sfValidatedFile ))
+      unset($this->embeddedForms['Picture']);
+    else
     {
-      $file = $this->values[$picform_name]['content_file'];
-      unset($this->values[$picform_name]['content_file']);
+      $kiosk_width = sfConfig::get('app_picture_kiosk_width');
+      $kiosk_height = sfConfig::get('app_picture_kiosk_height');
       
-      if (!( $file instanceof sfValidatedFile ))
-        unset($this->embeddedForms[$picform_name]);
-      else
+      foreach ( array(
+        'Picture' => array('width' => 200, 'height' => 300),
+        'PictureKiosk' => array('width' => $kiosk_width, 'height' => $kiosk_height)
+      ) as $picform_name => $dimensions )
       {
         // data translation
         $this->values[$picform_name]['content']  = base64_encode(file_get_contents($file->getTempName()));
