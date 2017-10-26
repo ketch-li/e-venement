@@ -668,8 +668,8 @@ LI.kiosk = {
         
         product.name = product.name == null ? product.category : product.name;
 
-        if(product.image_id != undefined) {
-            product.background = 'background-image: url("' + product.image_url + '"); background-size: cover;';
+        if(product.image_kiosk_id != undefined) {
+            product.background = 'background-image: url("' + product.image_kiosk_url + '"); background-size: cover;';
         } else {
             product.background = 'background-color: ' + product.color;
         }
@@ -747,8 +747,8 @@ LI.kiosk = {
                 product.type = type;
                 product.store = true;
 
-                if(product.image_id != undefined) {
-                    product.background = 'background-image: url("' + product.image_url + '"); background-size: cover;';
+                if(product.image_kiosk_id != undefined) {
+                    product.background = 'background-image: url("' + product.image_kiosk_url + '"); background-size: cover;';
                 } else {
                     product.background = 'background-color: ' + product.color;
                 }
