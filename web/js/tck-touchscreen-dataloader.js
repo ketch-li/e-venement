@@ -61,6 +61,8 @@ LI.completeContent = function(data, type, replaceAll = true)
   
   // MANIFESTATIONS & PRODUCTS & MUSEUM
   case 'store':
+    var scan_product_code = $('#li_transaction_store').find('input[name="autocompleter"]').val();
+  
   case 'manifestations':
   case 'museum':
     var wglobal = $('#li_transaction_'+type+' .families:not(.sample)'); // first element, parent of all
@@ -184,6 +186,10 @@ LI.completeContent = function(data, type, replaceAll = true)
         
         if ( add )
           wdeclination.insertBefore(wpdt.find('.item.total'));
+        
+        if ( declination.code == scan_product_code ) {
+          $('.families .items div[data-declination-id="'+declination.id+'"]').click();
+        }
         
         // in progress: prices
         if ( declination['prices'] != undefined )
