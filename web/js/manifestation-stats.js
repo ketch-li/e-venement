@@ -91,10 +91,10 @@
       
       // second table engine
       $.ajax({
-        // initial data
-        url: $('#sf_fieldset_statistics .filling-data-url').prop('href'),
-        success: LI.statsCompleteFillingData,
-        error: function(){ LI.alert('An error occurred', 'error'); $('#transition .close').click(); }
+          // initial data
+          url: $('#sf_fieldset_statistics .filling-data-url').prop('href'),
+          success: LI.statsCompleteFillingData,
+          //error: function(){ LI.alert('An error occurred', 'error'); $('#transition .close').click(); }
       });
       $('#sf_fieldset_statistics .tab-print a').click(function(){
         // force refresh
