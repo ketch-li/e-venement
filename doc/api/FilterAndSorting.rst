@@ -32,7 +32,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/products/?sorting\[code\]=desc&limit=4 \
+    $ curl http://e-venement.local/api/v2/products?sorting\[code\]=desc&limit=4 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X GET
