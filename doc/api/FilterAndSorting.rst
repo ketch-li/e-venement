@@ -13,7 +13,7 @@ Definition
 
 .. code-block:: text
 
-    GET /api/v2/products/?sorting\[nameOfField\]={direction}
+    GET /api/v2/products?sorting\[nameOfField\]={direction}
 
 +---------------+----------------+-------------------------------------------------------------------+
 | Parameter     | Parameter type | Description                                                       |
