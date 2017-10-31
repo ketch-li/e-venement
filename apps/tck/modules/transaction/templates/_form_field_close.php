@@ -17,7 +17,7 @@
   <li class="partial-print-error"><?php echo __('You must have at least one manifestation selected.') ?></li>
   <li class="force-contact"><?php echo __('A contact is needed before closing the transaction.') ?></li>
 
-  <li class="CP-print-error"><?php echo __('You must enter a postal code or a country before printing the ticket(s).') ?></li>
+  <li class="CP-print-error"><?php echo __('You must enter a postal code or a foreign country before printing the ticket(s).') ?></li>
   <li class="CP-print-error-li"><?php echo __('You must enter a postal code before printing the ticket(s).') ?></li>
 
   <li class="give-price-to-wip"><?php echo __('You always need to give a price to every seated-only tickets before printing or booking.') ?></li>
