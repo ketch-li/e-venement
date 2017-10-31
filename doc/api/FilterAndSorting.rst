@@ -53,16 +53,16 @@ Sample Response
         "total": 2,
         "_links": {
             "self": {
-                "href": "\/api\/v2\/products\/?sorting%5Bcode%5D=desc&page=1&limit=4"
+                "href": "\/api\/v2\/products?sorting%5Bcode%5D=desc&page=1&limit=4"
             },
             "first": {
-                "href": "\/api\/v2\/products\/?sorting%5Bcode%5D=desc&page=1&limit=4"
+                "href": "\/api\/v2\/products?sorting%5Bcode%5D=desc&page=1&limit=4"
             },
             "last": {
-                "href": "\/api\/v2\/products\/?sorting%5Bcode%5D=desc&page=15&limit=4"
+                "href": "\/api\/v2\/products?sorting%5Bcode%5D=desc&page=15&limit=4"
             },
             "next": {
-                "href": "\/api\/v2\/products\/?sorting%5Bcode%5D=desc&page=2&limit=4"
+                "href": "\/api\/v2\/products?sorting%5Bcode%5D=desc&page=2&limit=4"
             }
         },
         "_embedded": {
@@ -221,16 +221,16 @@ Sample Response
         "total": 1,
         "_links": {
             "self": {
-                "href": "\/api\/v2\/products\/?sorting%5Bcode%5D=desc&page=1&limit=4"
+                "href": "\/api\/v2\/products?sorting%5Bcode%5D=desc&page=1&limit=4"
             },
             "first": {
-                "href": "\/api\/v2\/products\/?sorting%5Bcode%5D=desc&page=1&limit=4"
+                "href": "\/api\/v2\/products?sorting%5Bcode%5D=desc&page=1&limit=4"
             },
             "last": {
-                "href": "\/api\/v2\/products\/?sorting%5Bcode%5D=desc&page=15&limit=4"
+                "href": "\/api\/v2\/products?sorting%5Bcode%5D=desc&page=15&limit=4"
             },
             "next": {
-                "href": "\/api\/v2\/products\/?sorting%5Bcode%5D=desc&page=2&limit=4"
+                "href": "\/api\/v2\/products?sorting%5Bcode%5D=desc&page=2&limit=4"
             }
         },
         "_embedded": {
