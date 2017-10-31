@@ -6,7 +6,7 @@ A list of resources can be sorted and filtered by passed url query parameters. H
 How to sort resources?
 ----------------------
 
-Let’s assume that you want to sort products by code in descending order. In this case you should call the /api/v2/products/ endpoint with the GET method and provide sorting query parameters.
+Let’s assume that you want to sort products by code in descending order. In this case you should call the /api/v2/products endpoint with the GET method and provide sorting query parameters.
 
 Definition
 ^^^^^^^^^^
@@ -154,14 +154,14 @@ Sample Response
 How to filter resources?
 ----------------------
 
-Let’s assume that you want to find all products which contain the word 'linux' in the name. In this case you should call the /api/v2/products/ endpoint with the GET method and provide filter query parameters.
+Let’s assume that you want to find all products which contain the word 'linux' in the name. In this case you should call the /api/v2/products endpoint with the GET method and provide filter query parameters.
 
 Definition
 ^^^^^^^^^^
 
 .. code-block:: text
 
-    GET /api/v2/products/?criteria\[{nameOfCriterion}\]\[type\]={searchOption}&criteria\[{nameOfCriterion}\]\[value\]={searchPhrase}'
+    GET /api/v2/products?criteria\[{nameOfCriterion}\]\[type\]={searchOption}&criteria\[{nameOfCriterion}\]\[value\]={searchPhrase}'
 
 +-----------------+----------------+-------------------------------------------------------------------+
 | Parameter       | Parameter type | Description                                                       |
@@ -199,7 +199,7 @@ Example
 
 .. code-block:: bash
 
-    $ curl http://e-venement.local/api/v2/products/?criteria\[search\]\[type\]=contain&criteria\[search\]\[value\]=linux&limit=4 \
+    $ curl http://e-venement.local/api/v2/products?criteria\[search\]\[type\]=contain&criteria\[search\]\[value\]=linux&limit=4 \
         -H "Authorization: Bearer SampleToken" \
         -H "Content-Type: application/json" \
         -X GET
