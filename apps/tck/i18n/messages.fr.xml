@@ -1189,8 +1189,8 @@
         <target>Imp./Int. partielle</target>
       </trans-unit>
       <trans-unit id="296">
-        <source>You must enter a postal code or a country before printing the ticket(s).</source>
-        <target>Vous devez saisir un code postal ou un pays avant d'imprimer le(s) billet(s).</target>
+        <source>You must enter a postal code or a foreign country before printing the ticket(s).</source>
+        <target>Vous devez saisir un code postal ou un pays étranger avant d'imprimer le(s) billet(s).</target>
       </trans-unit>
       <trans-unit id="297">
         <source>Unassociated</source>
@@ -2175,7 +2175,7 @@
       <trans-unit id="542">
         <source>Tickets must be printed or integrated before sending them.</source>
         <target>Les billets doivent être imprimés ou intégrés avant envoi.</target>
-      </trans-unit>         
+      </trans-unit>  
     </body>
   </file>
 </xliff>
