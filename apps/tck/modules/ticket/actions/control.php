@@ -79,7 +79,8 @@
           $manifestation = Doctrine::getTable('Manifestation')->createQuery('m')
             ->leftJoin('e.Checkpoints c')
             ->andWhere('c.id = ?', $params['checkpoint_id'])
-            ->orderBy('@extract(epoch from m.happens_at - now())')
+            ->andWhere('now() > m.happens_at')
+            ->andWhere('now() <= manifestation_ends_at(m.happens_at, m.duration)')
             ->select('m.*')
             ->fetchOne();
           
