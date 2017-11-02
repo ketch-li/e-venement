@@ -1,6 +1,7 @@
 <?php use_helper('Date', 'CrossAppLink') ?>
 <?php
   $json = array(
+    'code' => $code,
     'success' => $success,
     'message' => $success ? __('Checkpoint: success.') : __('Checkpoint: failure!'),
     'timestamp' => format_datetime(date('Y-m-d H:i:s'), 'dd/MM/yyyy HH:mm:ss'),
