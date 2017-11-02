@@ -34,6 +34,8 @@
     // I18N helper
     $this->getContext()->getConfiguration()->loadHelpers(array('CrossAppLink','I18N'));
     
+    $this->code = 1000;
+    
     // the parameters
     $params = $request->getParameter($this->form->getName());
     
@@ -72,6 +74,7 @@
           {
             $params['ticket_id'] = null;
             $this->errors[] = __('The membercard "%%mc%%" does not exist.', array('%%mc%%' => $tmp['member_card_id']));
+            $this->code = 1001;
             $this->success = false;
             return 'Result';
           }
@@ -178,6 +181,7 @@
             $params['ticket_id'] = null;
             $this->errors[] = __('The membercard "%%mc%%" is not valid for the event "%%event%%".', array('%%mc%%' => $card->MemberCardType, '%%event%%' => $manifestation->Event));
             $this->success = false;
+            $this->code = 1002;
             return 'Result';
           }
         } catch ( liEvenementException $e ) {
@@ -186,6 +190,7 @@
           $ticket->delete();
           $params['ticket_id'] = null;
           $this->errors[] = __($e->getMessage());
+          $this->code = 1003;
         }
         
       }
@@ -258,8 +263,11 @@
         $checkpoint = $q->fetchOne();
         
         $cancontrol = $checkpoint instanceof Checkpoint;
-        if ( !$cancontrol )
+        if ( !$cancontrol ) 
+        {
           $this->errors[] = __('The ticket #%%id%% is unfoundable in the list of available tickets', array('%%id%%' => implode(', #', $params['ticket_id'])));
+          $this->code = 1004;
+        }
         else
         {
           $q = Doctrine::getTable('Ticket')->createQuery('tck')
@@ -281,6 +289,7 @@
             {
               // It's too soon pal !
               $this->error_tickets[$ticket->id] = $ticket;
+              $this->code = 1005;
               $this->errors[] = __('Too soon for ticket #%%id%% (gates will open at %%datetime%%)', array(
                 '%%id%%' => $ticket->id,
                 '%%datetime%%' => date('Y-m-d H:i',strtotime($ticket->Manifestation->happens_at . ' - ' .$future))
@@ -290,6 +299,7 @@
             {
                // It's too late man !
                $this->error_tickets[$ticket->id] = $ticket;
+               $this->code = 1006;
                $this->errors[] = __('Too late for ticket #%%id%% (gates closed at %%datetime%%)', array(
                  '%%id%%' => $ticket->id,
                  '%%datetime%%' => date('Y-m-d H:i',strtotime($ticket->Manifestation->happens_at . ' + ' .$past))
@@ -312,6 +322,7 @@
                   foreach ( $ticket->Controls as $control )
                   {
                     $this->error_tickets[$ticket->id] = $ticket;
+                    $this->code = 1007;
                     $this->errors[] = __('The ticket #%%id%% has been already controlled on this checkpoint before (%%datetime%% by %%user%%)', array(
                       '%%id%%' => $ticket->id,
                       '%%datetime%%' => $control->created_at,
@@ -406,8 +417,11 @@
               }
             }
             foreach ( $err as $e )
+            {
+              $this->code = 1008;
               $this->errors[] = __('An error occurred controlling your ticket #%%id%%.', array('%%id%%' => $e))
                 .($tck[$e] instanceof Ticket && !$tck[$e]->printed_at && !$tck[$e]->integrated_at ? ' '.__('This ticket is not sold yet.') : '');
+            }
             $this->success = count($err) < count($ids);
             return 'Result';
           }
@@ -448,6 +462,7 @@
       {
         $this->success = false;
         $this->errors[] = __("Don't forget to specify a checkpoint and a ticket id");
+        $this->code = 1009;
         return 'Result';
       }
     }
