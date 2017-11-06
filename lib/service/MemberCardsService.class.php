@@ -23,8 +23,6 @@
 
 class MemberCardsService extends EvenementService
 {
-<<<<<<< HEAD
-=======
   public function deleteRemovedMCPrices(MemberCardPriceModel $mcpm)
   {
     if ( is_null($mcpm->event_id) )
@@ -273,7 +271,6 @@ class MemberCardsService extends EvenementService
     return $q->execute();
   }
   
->>>>>>> 224760b... (tck) - Change the global behavior of member card associations - refs #4432 (#428)
   /**
    * This function returns available MemberCardPrices for a Transaction and optionaly a Manifestation
    *
