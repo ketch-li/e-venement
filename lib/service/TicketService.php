@@ -13,7 +13,7 @@
 class TicketService extends EvenementService
 {
   // Control one ticket with QRCode
-  public function singleControlDemat($user, $event_id, $ticket_code)
+  public function singleControlDemat($user, $event_id, $ticket_code, $post)
   {
     
     // Get ticket from code    
@@ -52,7 +52,6 @@ class TicketService extends EvenementService
       throw new liApiNotFoundException("The control for manifestation #" . $ticket->Manifestation->id . " is not available yet", 1005);
       
     // Check if the manifestation is over to allow control after the end
-    $post = sfConfig::get('app_control_after', false);
     if ( strtotime($ticket->Manifestation->ends_at) < strtotime('now - '.$past) && !$post )
       throw new liApiNotFoundException("The control for manifestation #" . $ticket->Manifestation->id . " is over", 1006);
     
