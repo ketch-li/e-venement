@@ -48,11 +48,18 @@ class TicketService extends EvenementService
     $past = sfConfig::get('app_control_past') ? sfConfig::get('app_control_past') : '6 hours';
     $future = sfConfig::get('app_control_future') ? sfConfig::get('app_control_future') : '1 day';
     
-    if ( $ticket->Manifestation->happens_at > date('Y-m-d H:i', strtotime('now + ' . $future)) )
+    $start = date('Y-m-d H:i', strtotime('now + ' . $future));
+    $end = strtotime('now - '.$past);
+    
+    if ( $ticket->Manifestation->happens_at > $start )
       throw new liApiNotFoundException("The control for manifestation #" . $ticket->Manifestation->id . " is not available yet", 1005);
       
+    if ( $ticket->Manifestation->happens_at < $start && strtotime($ticket->Manifestation->ends_at) > $end && $post ) {
+      throw new liApiNotFoundException("The manifestation " . $ticket->Manifestation->id . " is not over yet", 1008);
+    }
+      
     // Check if the manifestation is over to allow control after the end
-    if ( strtotime($ticket->Manifestation->ends_at) < strtotime('now - '.$past) && !$post )
+    if ( strtotime($ticket->Manifestation->ends_at) < $end && !$post )
       throw new liApiNotFoundException("The control for manifestation #" . $ticket->Manifestation->id . " is over", 1006);
     
     // Check if the ticket is already controled
