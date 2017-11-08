@@ -31,6 +31,9 @@
               <?php if ( $sf_user->hasCredential('tck-admin-member-cards') ): ?>
               <li><a href="<?php echo cross_app_url_for('tck','@member_card_price_model') ?>"><?php echo __("Prices association",array(),'menu') ?></a></li>
               <?php endif ?>
+              <?php if ( $sf_user->isSuperAdmin() ): ?>
+              <li><a href="<?php echo cross_app_url_for('rp','custom_card') ?>"><?php echo __("Templates",array(),'menu') ?></a></li>
+              <?php endif ?>
             </ul>
           </li>
 <?php endif ?>

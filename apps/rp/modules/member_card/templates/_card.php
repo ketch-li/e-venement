@@ -1,4 +1,10 @@
 <?php foreach ( $MemberCards as $card ): ?>
+  <?php 
+    if ( $card->MemberCardType->custom_card_id )
+    {
+      echo '<style type="text/css">' . sfOutputEscaper::unescape($card->MemberCardType->CustomCard->css) . '</style>';  
+    }
+  ?>
 <div class="page">
 <div class="member_card">
   <div class="content card">

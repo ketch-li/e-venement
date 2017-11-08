@@ -19,6 +19,7 @@ generator:
         nb_tickets_mini: { label: Minimum quantity of tickets needed in online sales, type: number }
         product_declination_id: { label: Product, help: This product will become the inner price of those member cards }
         price_id: { help: 'This price will be applied, as it is defined inside the product...' }
+        custom_card_id: { label: Template CSS }
       list:
         display: [name, description, _value, _real_value, nb_tickets_mini]
         fields:
@@ -30,7 +31,7 @@ generator:
       filter:  ~
       form:
         display:
-          NONE: [name, description, users_list, nb_tickets_mini, _show_url_public]
+          NONE: [name, description, custom_card_id, users_list, nb_tickets_mini, _show_url_public]
           Money: [value, product_declination_id, price_id]
           Online: [public_details]
           Promo Codes: [promo_codes, _form_promo_codes, _form_promo_code_del]

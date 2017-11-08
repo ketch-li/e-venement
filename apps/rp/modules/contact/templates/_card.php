@@ -1,9 +1,17 @@
 <?php foreach ( $transaction->MemberCards as $card ): ?>
+<?php 
+  $contact = $card->Contact;
+  if ( $card->MemberCardType->custom_card_id )
+  {
+    echo '<style type="text/css">' . sfOutputEscaper::unescape($card->MemberCardType->CustomCard->css) . '</style>';  
+  }
+?>
+
 <div class="page">
 <div class="member_card">
   <div class="content card">
     <p class="picture"><?php echo $contact->Picture->getRawValue()->getHtmlTagInline() ?> </p>
-    <p class="cardid"><span class="title"><?php echo __('N° mumber card') ?></span><?php echo(' '.$card->id); ?></p>
+    <p class="cardid"><span class="title"><?php echo __('N° mumber card') ?></span> <?php echo $card->id; ?></p>
     <p class="name"><span class="title"><?php echo __('Name') ?></span> <?php echo $contact->name ?></p>
     <p class="firstname"><span class="title"><?php echo __('Firstname') ?></span> <?php echo $contact->firstname ?></p>
     <p class="address"><span class="title"><?php echo __('Address') ?></span><?php echo nl2br(trim($contact->address)) ?></p>

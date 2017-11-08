@@ -1,0 +1,26 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           CustomCard
+    theme:                 jroller
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          custom_card
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+        custom_data: { label: "Style applied to the card" }
+      list:
+        display: [name, description, created_at]
+      filter:  ~
+      form:
+        display:
+          General: [name, description]
+          Template: [css, _template]
+      edit:    ~
+      new:     ~

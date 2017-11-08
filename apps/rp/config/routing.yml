@@ -1,3 +1,12 @@
+custom_card:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                CustomCard
+    module:               custom_card
+    prefix_path:          /custom_card
+    column:               id
+    with_wildcard_routes: true
+
 geo_fr_street_base:
   class: sfDoctrineRouteCollection
   options:

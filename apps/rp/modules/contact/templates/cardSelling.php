@@ -13,6 +13,3 @@ $(document).ready(function(){
   <?php endif ?>
 });
 </script>
-<?php if ( !sfConfig::get('project_cards_pdf', false) ): ?>
-<?php include_partial('card', array('transaction' => $transaction, 'contact' => $contact)) ?>
-<?php endif ?>

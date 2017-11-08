@@ -1,0 +1,3 @@
+default:
+  javascripts: [attrchange]
+  stylesheets: [custom-card]

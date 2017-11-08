@@ -2152,6 +2152,22 @@
         <source>Privilegied seat</source>
         <target>Place privilégiée</target>
       </trans-unit>  
+      <trans-unit id="538">
+        <source>Custom card List</source>
+        <target>Liste des templates</target>
+      </trans-unit>  
+      <trans-unit id="539">
+        <source>Custom_card</source>
+        <target>Templates de cartes</target>
+      </trans-unit>  
+      <trans-unit id="540">
+        <source>Edit Custom card</source>
+        <target>Edition du template</target>
+      </trans-unit>  
+      <trans-unit id="541">
+        <source>View Custom card</source>
+        <target>Template</target>
+      </trans-unit>  
     </body>
   </file>
 </xliff>

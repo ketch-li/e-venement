@@ -96,6 +96,7 @@ class liMemberCardPluginConfiguration extends sfPluginConfiguration
       $ticket = new Ticket;
       $ticket->price_id = $mcp->price_id;
       $ticket->gauge_id = $gauge->id;
+      $ticket->value = $ticket->Price->value;
       $ticket->transaction_id = $event['member_card']->transaction_id;
       $ticket->MemberCard = $event['member_card'];
       $event['member_card']->Tickets[] = $ticket;

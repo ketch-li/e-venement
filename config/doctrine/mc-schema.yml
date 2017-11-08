@@ -43,6 +43,7 @@ MemberCardType:
       type: integer
       notnull: true
       default: 0
+    custom_card_id: integer
   relations:
     Users:
       class: sfGuardUser
@@ -55,6 +56,10 @@ MemberCardType:
       onDelete: RESTRICT
       onUpdate: CASCADE
     Price:
+      foreignAlias: MemberCardTypes
+      onDelete: RESTRICT
+      onUpdate: CASCADE
+    CustomCard:
       foreignAlias: MemberCardTypes
       onDelete: RESTRICT
       onUpdate: CASCADE
@@ -208,3 +213,16 @@ MemberCardPriceModel:
       foreignAlias: MemberCardPriceModels
       onDelete: RESTRICT
       onUpdate: CASCADE
+      
+CustomCard:
+  package: mc
+  inheritance:
+    extends: Traceable
+    type: concrete
+  columns:
+    name:
+      type: string(255)
+      notnull: true
+      notblank: true
+    description: string(255)
+    css: string

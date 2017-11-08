@@ -39,6 +39,25 @@ class contactActions extends autoContactActions
 {
   private $force_classic_template_dir = false;
 
+  public function executeCardSample(sfWebRequest $request)
+  {
+    sfConfig::set('sf_web_debug', false);
+    
+    $this->duplicate = false;
+    
+    $mc = new MemberCard();
+    $mc->id = 666;
+    $mc->contact_id = 13388;
+    $mc->active = true;
+    $mc->member_card_type_id = 58;
+    $mc->expire_at = strtotime('+ 1 year');
+    
+    $this->transaction = new Transaction();
+    $this->transaction->MemberCards->add($mc);
+    
+    $this->setLayout('empty');
+  }
+
   public function executeDuplicate(sfWebRequest $request)
   {
     $this->executeShow($request);
