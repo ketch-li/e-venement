@@ -31,8 +31,9 @@ class ResendOldEmailsTask extends sfProjectSendEmailsTask
     $this->addOptions(array(
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'Application', 'rp'),
-      new sfCommandOption('message-limit', null, sfCommandOption::PARAMETER_OPTIONAL, 'The maximum number of messages to send', 1),
+      new sfCommandOption('message-limit', null, sfCommandOption::PARAMETER_OPTIONAL, 'The maximum number of messages to send', 0),
       new sfCommandOption('time-limit', null, sfCommandOption::PARAMETER_OPTIONAL, 'The time limit for sending messages (in seconds)', 3600),
+      new sfCommandOption('delay', null, sfCommandOption::PARAMETER_OPTIONAL, 'The delay to wait between 2 emails', sfConfig::get('app_options_email_delay',5)),
     ));
     
     $this->namespace = 'e-venement';
@@ -44,14 +45,29 @@ class ResendOldEmailsTask extends sfProjectSendEmailsTask
 EOF;
   }
 
+  protected function importCSV($path)
+  {
+    if (($handle = fopen($path, "r")) !== FALSE)
+    {
+      fgetcsv($handle, 0, ","); // skip first line
+      
+      while ( ($data = fgetcsv($handle, 0, ",") ) !== FALSE )
+      {
+        $id = $data[0];
+        $q = "INSERT INTO tmp_email (eid) VALUES ($id)";
+        $st = $this->con->execute($q);
+      }
+    }
+  }
+
   protected function execute($arguments = array(), $options = array())
   {
+    $path = $arguments['path'];
+
     sfContext::createInstance($this->configuration);
     $dbm = new sfDatabaseManager($this->configuration);
     $dbm->initialize($this->configuration);
-    $con = Doctrine_Manager::getInstance()->connection();
-
-    $path = $arguments['path'];
+    $this->con = Doctrine_Manager::getInstance()->connection();
 
     // Create temp table to store emails
     $q = "
@@ -59,13 +75,10 @@ EOF;
         eid integer
       );
     ";
-    $st = $con->execute($q);
+    $st = $this->con->execute($q);
 
     // Import data
-    $q = "
-      COPY tmp_email FROM '$path' WITH (FORMAT 'csv', DELIMITER ',', HEADER);
-    ";
-    $st = $con->execute($q);
+    $this->importCSV($path);
 
     // Set the sent property to false
     $q = "
@@ -76,30 +89,32 @@ EOF;
         FROM tmp_email
       );
     ";
-    $st = $con->execute($q);
+    $st = $this->con->execute($q);
     
     $q = "
       SELECT eid FROM tmp_email;
     ";
-    $st = $con->execute($q);
-    $ids = $st->fetchAll(Doctrine_Core::FETCH_ASSOC);
+    $st = $this->con->execute($q);
+    $ids = $st->fetchAll(Doctrine_Core::FETCH_COLUMN);
     
-    $this->logSection($this->name, print_r($ids, true));
+    //$this->logSection($this->name, print_r($ids, true));
     
     if ( count($ids) > 0 )
     {
       $emails = Doctrine_Query::create()
         ->from('Email e')
-        ->andWhereIn('e.id', implode(',', $ids[0]))
+        ->andWhereIn('e.id', $ids)
         ->execute();
       
-      $this->logSection($this->name, sprintf('send %d emails', $emails->count()));
+      $this->logSection($this->name, sprintf('sending %d emails', $emails->count()));
       
       foreach ($emails as $email) {
         $email->isATest(false);
         $email->save();
       }      
     }
+
+    $spool = $this->getMailer()->getSpool()->setFlushDelay($options['delay']);
 
     parent::execute($arguments, $options);
   }
