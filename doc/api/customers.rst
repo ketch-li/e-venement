@@ -52,27 +52,33 @@ If you request for a more detailed data, you will receive an object with followi
 +-------------------------+----------------------------------------------------------------------------------------------------------+
 | subscribedToNewsletter  | Whether or not the customer is subscribed to newsletter                                                  |
 +-------------------------+----------------------------------------------------------------------------------------------------------+
+| Organism                | Organism linked to the customer                                                                          |
++-------------------------+----------------------------------------------------------------------------------------------------------+
 | createdAt               | *Optional* Datetime of creation `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_     |
 +-------------------------+----------------------------------------------------------------------------------------------------------+
 | updatedAt               | *Optional* Datetime of last update `ISO 8601 Extended Format <https://fr.wikipedia.org/wiki/ISO_8601>`_  |
 +-------------------------+----------------------------------------------------------------------------------------------------------+
 
-Available actions to interact with a manifestation
+Available actions to interact with a customer
 --------------------------------------------------
 
-+------------------+----------------------------------------------+
-| Action           | Description                                  |
-+==================+==============================================+
-| List             | List available customers                     |
-+------------------+----------------------------------------------+
-| Show             | Getting a single customer                    |
-+------------------+----------------------------------------------+
-| Create           | Create a customer                            |
-+------------------+----------------------------------------------+
-| Update           | Update a customer                            |
-+------------------+----------------------------------------------+
-| Delete           | Delete a customer                            |
-+------------------+----------------------------------------------+
++------------------+-----------------------------------------------------+
+| Action           | Description                                         |
++==================+=====================================================+
+| List             | List available customers                            |
++------------------+-----------------------------------------------------+
+| Show             | Getting a single customer                           |
++------------------+-----------------------------------------------------+
+| Create           | Create a customer                                   |
++------------------+-----------------------------------------------------+
+| Update           | Update a customer                                   |
++------------------+-----------------------------------------------------+
+| Delete           | Delete a customer                                   |
++------------------+-----------------------------------------------------+
+| addOrganism      | Link an organism to a customer                      |
++------------------+-----------------------------------------------------+
+| Delete           | Remove the link between an organism and a customer  |
++------------------+-----------------------------------------------------+
 
 Creating a Customer
 -------------------
@@ -255,6 +261,10 @@ Sample Response
     "locale": "fr",
     "uid": null,
     "subscribedToNewsletter": true
+    "organism": [{
+        "id": 11,
+        "name": "Organism N° 11"
+    }]
   }
 
 Collection of Customers
@@ -571,3 +581,92 @@ Sample Response
             ]
         }
     }
+
+Add an organism to a customer
+-----------------------------
+
+To link an organism to a customer, you can do the following call:
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    POST /api/v2/customers/{id}/organism
+
++---------------+----------------+-------------------------------------------------------------------+
+| Parameter     | Parameter type | Description                                                       |
++===============+================+===================================================================+
+| Authorization | header         | Token received during authentication                              |
++---------------+----------------+-------------------------------------------------------------------+
+| organism_id   | query          | Id of the organism to link                                        |
++---------------+----------------+-------------------------------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/customers/7/organism \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Accept: application/json"
+        -X POST \
+        --data '
+            {
+                "organism_id": 11
+            }'
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 202 OK
+
+    {
+        message: "Organism added to the given customer"
+    }
+
+
+Remove the link between an organism and a customer
+-----------------------------
+
+To remove the link between an organism and a customer, you can do the following call:
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    DELETE /api/v2/customers/{id}/organism/{organism_id}
+
++---------------+----------------+-------------------------------------------------------------------+
+| Parameter     | Parameter type | Description                                                       |
++===============+================+===================================================================+
+| Authorization | header         | Token received during authentication                              |
++---------------+----------------+-------------------------------------------------------------------+
+| organism_id   | query          | Id of the organism to unlink                                        |
++---------------+----------------+-------------------------------------------------------------------+
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/customers/7/organism/11 \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Accept: application/json"
+        -X DELETE \
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 202 OK
+
+    {
+        message: "Organism removed from the given customer"
+    }
+
+
