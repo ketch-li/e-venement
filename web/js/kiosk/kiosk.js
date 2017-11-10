@@ -992,11 +992,11 @@ LI.kiosk = {
             return available;
         },
         checkForLinkedProducts: function(line) {
-            $.get(LI.kiosk.urls.getManifestations + '&id=' + LI.kiosk.transaction.id, function(data) {
+            $.get(LI.kiosk.urls.linkedManifestations.replace('-666', LI.kiosk.transaction.id), function(data) {
                 LI.kiosk.cart.handleLinkedProducts(data, line, 'manifestations');
             });
 
-            $.get(LI.kiosk.urls.getMuseum + '&id=' + LI.kiosk.transaction.id, function(data) {
+            $.get(LI.kiosk.urls.linkedMuseum.replace('-666', LI.kiosk.transaction.id), function(data) {
                 LI.kiosk.cart.handleLinkedProducts(data, line, 'museum');
             });
         },
