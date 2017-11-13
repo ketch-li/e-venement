@@ -23,6 +23,14 @@ class TicketTable extends PluginTicketTable
       ->leftJoin("$alias.Duplicatas duplicatas");
   }
   
+  public function createQueryRealTickets($alias = 'tck')
+  {
+    return parent::createQuery($alias)
+      ->andWhere("$alias.duplicating IS NULL AND $alias.id NOT IN (SELECT tck1.duplicating FROM ticket tck1 WHERE tck1.duplicating IS NOT NULL)")
+      ->andWhere("$alias.cancelling IS NULL AND $alias.id NOT IN (SELECT tck2.cancelling FROM ticket tck2 WHERE tck2.cancelling IS NOT NULL)")
+    ;
+  }
+  
   public function createQueryPreparedForRanks($alias = 'tck')
   {
     return parent::createQuery($alias)
