@@ -7,11 +7,11 @@
       	__('Show up', array(), 'messages'),
       	'transactionsList/show?id='.$transaction->getId(),
       	'class=fg-button-mini fg-button ui-state-default fg-button-icon-left '
-      ) ?>      
+      ) ?>
     </li>
-    
+
     <!-- create kiosk admin task -->
-    <?php if( $transaction->closed && $transaction->User->username == 'kiosk' ): ?>
+    <?php if( $transaction->closed && $transaction->User->username == sfConfig::get('app_user_templating',-1) ): ?>
       <li class="sf_admin_action_admintask">
 	    <a 
 	      href="<?php echo cross_app_url_for('kiosk', 'admin/new?transaction=' . $transaction->getId()) ?>"
