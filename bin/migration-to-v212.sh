@@ -262,9 +262,9 @@ then
   echo "If you get Symfony errors in the next few actions, it is not a problem, the permissions simply exist already in the DB"
   echo ""
   #echo "Permission to access the colors of the pos module"
-  ./symfony doctrine:data-load --append data/fixtures/11-permissions-v211-pos.yml
-  ./symfony doctrine:data-load --append data/fixtures/11-permissions-v211-stats.yml
-  ./symfony doctrine:data-load --append data/fixtures/11-permissions-v211-kiosk.yml
+  ./symfony doctrine:data-load --append data/fixtures/11-permissions-v211-pos.yml --application=default
+  ./symfony doctrine:data-load --append data/fixtures/11-permissions-v211-stats.yml --application=default
+  ./symfony doctrine:data-load --append data/fixtures/11-permissions-v211-kiosk.yml --application=default
   echo "INSERT INTO sf_guard_group_permission (group_id, permission_id, created_at, updated_at) (SELECT (SELECT id FROM sf_guard_group WHERE name = 'pos-admin'), (SELECT id FROM sf_guard_permission WHERE name = 'pos-admin-color'), now(), now());" | psql
   #echo ""
 fi
