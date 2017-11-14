@@ -4,6 +4,10 @@
     {
       echo '<style type="text/css">' . sfOutputEscaper::unescape($card->MemberCardType->CustomCard->css) . '</style>';  
     }
+    else
+    {
+      use_stylesheet('private/contact_card.css'); 
+    }
   ?>
 <div class="page">
 <div class="member_card">
