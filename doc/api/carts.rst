@@ -904,6 +904,68 @@ Sample Response
 
     STATUS: 204 OK
 
+Printing Cart Items
+-------------------
+
+To print tickets you can call the ``/api/v2/carts/{cartId}/items/print`` endpoint with the ``GET`` method.
+All tickets in the cart will be printed in one pdf. The endpoint will return a pdf file if everything is ok.
+(i.e. The customer is logged in and the cart belongs to him. The tickets are paid.)
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    GET /api/v2/carts/{cartId}/items/print
+
++---------------+----------------+----------------------------------------------------------------+
+| Parameter     | Parameter type | Description                                                    |
++===============+================+================================================================+
+| Authorization | header         | Token received during authentication                           |
++---------------+----------------+----------------------------------------------------------------+
+| cartId        | url attribute  | Id of the requested cart                                       |
++---------------+----------------+----------------------------------------------------------------+
+
+Example
+^^^^^^^
+
+To print cart items in cart id = 21 use the below method:
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/carts/21/items/print \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Content-Type: application/pdf" \
+        -X GET
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 200 OK
+    
+.. code-block:: pdf
+
+   a binary pdf file
+   
+   
+If an error occured
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 500 
+    
+.. code-block:: json
+
+   {
+    "code": 500,
+    "message": "This ticket is not paid yet."
+   }
+
 Reordering Cart Items *Optional*
 --------------------------------
 
