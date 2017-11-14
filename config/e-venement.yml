@@ -37,6 +37,7 @@ all:
       - Le 3ème étage de l'Opéra de Paris
       - Symfony Team
       - Sophie MICHEL
+      - Kévin ALLERME
       - #symfony-fr
     version: 2.12-dev "An Douar Du Minaki"
   internals:
