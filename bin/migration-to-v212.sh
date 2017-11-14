@@ -33,7 +33,7 @@ SFUSER="$1"
 [ -n "$5" ] && export PGPORT="$5"
 
 
-echo "Usage: bin/migration-to-v210.sh SFUSER [DB [USER [HOST [PORT]]]]"
+echo "Usage: bin/migration-to-v212.sh SFUSER [DB [USER [HOST [PORT]]]]"
 echo "Are you sure you want to continue with those parameters :"
 echo "The e-venement's DB user: $SFUSER"
 echo "Database: $PGDATABASE"
@@ -41,7 +41,6 @@ echo "User: $PGUSER"
 echo "Host: $PGHOST"
 echo "Port: $PGPORT"
 echo ""
-echo "- Please check config/autoload.inc.php.template and complete config/autoload.inc.php in that way..."
 echo "- Have you upgraded your submodules individually before running this migration script? If no, do it first!"
 echo ""
 echo "To continue press ENTER"
@@ -74,7 +73,7 @@ if [ "$subm" != "n" ]; then
 fi
 
 echo ""
-read -p "Do you want to reset your dump & patch your database for e-venement v2.11 ? [Y/n] " dump
+read -p "Do you want to reset your dump & patch your database for e-venement v2.12 ? [Y/n] " dump
 if [ "$dump" != "n" ]; then
 
 name="$PGDATABASE"
@@ -265,8 +264,6 @@ then
   ./symfony doctrine:data-load --append data/fixtures/11-permissions-v211-pos.yml --application=default
   ./symfony doctrine:data-load --append data/fixtures/11-permissions-v211-stats.yml --application=default
   ./symfony doctrine:data-load --append data/fixtures/11-permissions-v211-kiosk.yml --application=default
-  echo "INSERT INTO sf_guard_group_permission (group_id, permission_id, created_at, updated_at) (SELECT (SELECT id FROM sf_guard_group WHERE name = 'pos-admin'), (SELECT id FROM sf_guard_permission WHERE name = 'pos-admin-color'), now(), now());" | psql
-  #echo ""
 fi
 
 echo ''
