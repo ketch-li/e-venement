@@ -2370,6 +2370,10 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>Controls</source>
         <target>Contrôles</target>
       </trans-unit>
+      <trans-unit id="592">
+        <source>Pos price List</source>
+        <target>Liste des tarifs boutique</target>
+      </trans-unit>                       
     </body>
   </file>
 </xliff>
