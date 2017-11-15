@@ -63,6 +63,7 @@ EOF;
     $from     = sfConfig::get('app_synchronization_email_from');
     $tocome   = sfConfig::get('app_synchronization_alarms',false);
     $pendings = sfConfig::get('app_synchronization_pending_alarms',false);
+    $dom = sfConfig::get('project_internals_users_domain', false);
     
     // if last modification time is older than $period, then use its last modification time
     if ( file_exists($quitfile) && filemtime($quitfile) < strtotime($period) )
@@ -71,9 +72,16 @@ EOF;
     foreach ( array('tocome', 'pendings') as $type )
     {
       $q = Doctrine_Query::create()->from('Manifestation m')
+        ->innerJoin('m.User u')
+        ->leftJoin('u.Domain d')
         ->leftJoin('m.Event e')
         ->leftJoin('m.Applicant a')
         ->leftJoin('m.Organizers o');
+    
+      if ( $dom )
+      {
+        $q->andWhere('d.name = ?', $dom);
+      }
     
       $alarms = $$type;
       if (!( $alarms && in_array('email', $alarms['what']) ))
@@ -138,9 +146,16 @@ EOF;
         {
           $q = Doctrine::getTable('sfGuardUser')->createQuery('u')
             ->leftJoin('u.Groups g')
+            ->leftJoin('u.Domain d')
             ->andWhereIn('g.name', array('event-reservation-admin', 'event-reservation-super-admin'))
             ->leftJoin('u.Contact c')
           ;
+          
+          if ( $dom )
+          {
+            $q->andWhere('d.name = ?', $dom);
+          }
+          
           foreach ( $q->execute() as $user )
           {
             if ( !$user->Contact[0]->isNew() )
