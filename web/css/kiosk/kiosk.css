@@ -412,7 +412,7 @@ ul {
   height: 85%; }
   #location .keypad .submit {
     display: none; }
-  #location #location-submit {
+  #location #location-submit, #location #location-cancel {
     height: 50px; }
   #location #country-field, #location #postcode-field {
     width: 100%; }
@@ -441,7 +441,7 @@ ul {
   z-index: 999;
   border-radius: 15px; }
   #info-panel p, #info-panel a {
-    color: #000000; }
+    color: #fff; }
 
 /* LOADER */
 #spinner {
