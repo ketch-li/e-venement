@@ -1278,21 +1278,30 @@ LI.kiosk = {
                 LI.kiosk.getCountries();
             }
 
-            $.each(LI.kiosk.countries, function(key, country) {
-                if(undefined !== country.Translation[LI.kiosk.config.userCulture]) {
-                    $('<option>')
-                        .addClass('country')
-                        .prop('id', country.codeiso2.toLowerCase())
-                        .val(country.Translation[LI.kiosk.config.userCulture].name)
-                        .html(country.Translation[LI.kiosk.config.userCulture].name)
-                        .appendTo('#countries')
-                    ;
-                }
-            });
+            var empty = $('#countries').children().length == 0;
+            var select = $('#countries');
+
+            if(empty) {
+                $.each(LI.kiosk.countries, function(key, country) {
+                    if(undefined !== country.Translation[LI.kiosk.config.userCulture]) {
+                        $('<option>')
+                            .addClass('country')
+                            .prop('id', country.codeiso2.toLowerCase())
+                            .val(country.Translation[LI.kiosk.config.userCulture].name)
+                            .html(country.Translation[LI.kiosk.config.userCulture].name)
+                            .appendTo(select)
+                        ;
+                    }
+                });
+            }
 
             $('#' + LI.kiosk.config.userCulture).prop('selected', true);
 
-            new MaterialSelectfield($('#country-field').get(0));
+            if(empty) {
+                new MaterialSelectfield($('#country-field').get(0));
+            }
+
+            select.prop('disabled', false);
         },
         showPaymentPrompt: function() {
             LI.kiosk.utils.resetStatusDialog();
