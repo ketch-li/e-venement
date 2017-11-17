@@ -87,6 +87,9 @@ all:
       payment_title:
         en: 'Please follow payment terminal instructions'
         fr: 'Veuillez suivre les instructions sur le terminal de paiement'
+      payment_details:
+        en: 'To cancel your order, please press the red button (stop) on the payment terminal'
+        fr: 'Pour annuler votre commande, veuillez appuyer sur le bouton rouge (stop) du terminal de paiement'
       payment_failure:
         en: 'Payment failed'
         fr: 'Le paiement a échoué'
@@ -95,13 +98,13 @@ all:
         fr: 'Paiement accepté'
       payment_success_details:
         en: 'Please wait while your tickets are being printed'
-        fr: 'Veuillez patienter pendant l'impression de vos billets'
+        fr: 'Veuillez patienter pendant l''impression de vos billets'
       ticket_failure:
         en: 'Ticket printing failed'
-        fr: 'Erreur d'impression'
+        fr: 'Erreur d''impression'
       final_title:
         en: 'Thank you for your order'
         fr: 'Merci pour votre commande'
       final_details:
         en: 'Please wait for your receipt'
-        fr: 'Veuillez attendre l'impression de votre reçu'
+        fr: 'Veuillez attendre l''impression de votre reçu'
