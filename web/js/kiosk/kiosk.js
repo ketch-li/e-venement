@@ -1176,8 +1176,8 @@ LI.kiosk = {
     printEptReceipt: function() {
 
     },
-    close: function() {
-        LI.kiosk.utils.showFinalPrompt();
+    close: function(cancelled) {
+        LI.kiosk.utils.showFinalPrompt(cancelled);
         LI.kiosk.printEptReceipt();
         $.when(LI.kiosk.cart.updateTransaction({
             transaction: {
@@ -1187,7 +1187,6 @@ LI.kiosk = {
                 }
             }
         })).always(function() {
-            console.log("close");
             window.location.reload();
         });
     },
@@ -1314,7 +1313,7 @@ LI.kiosk = {
                 if(LI.kiosk.dialogs.status.returnValue == 'true') {
                     LI.kiosk.checkout();
                 } else {
-                    LI.kiosk.close();
+                    LI.kiosk.close(true);
                 }
             });
 
@@ -1337,11 +1336,15 @@ LI.kiosk = {
 
             LI.kiosk.utils.showLoader();
         },
-        showFinalPrompt: function() {
+        showFinalPrompt: function(cancelled) {
             LI.kiosk.utils.resetStatusDialog();
 
-            $('#status-title').text(LI.kiosk.strings.final_title);
-            $('#status-details').text(LI.kiosk.strings.final_details);
+            if(!cancelled) {
+                $('#status-title').text(LI.kiosk.strings.final_title);
+                $('#status-details').text(LI.kiosk.strings.final_details);
+            } else {
+                $('#status-title').text(LI.kiosk.strings.cancelled);
+            }
 
             LI.kiosk.utils.showStatusDialog();
         },
