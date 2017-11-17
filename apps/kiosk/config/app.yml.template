@@ -78,6 +78,9 @@ all:
       cancel:
         en: 'Cancel'
         fr: 'Annuler'
+      cencelled:
+        en: 'Order cancelled'
+        fr: 'Commande annulée'
       hardware_title:
         en: 'Out of order'
         fr: 'Hors service'
