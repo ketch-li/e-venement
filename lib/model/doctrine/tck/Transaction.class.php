@@ -185,8 +185,20 @@ class Transaction extends PluginTransaction
   {
     $price = 0;
     foreach ( $this->MemberCards as $mc )
-    if ( $including_not_activated === true || $mc->active )
-      $price += $mc->MemberCardType->value;
+    {
+      if ( $including_not_activated === true || $mc->active )
+      {
+        if ( $mc->BoughtProducts->count() == 0 )
+        {
+          $price += $mc->MemberCardType->Price->value;
+        }
+        else
+        {
+          $price += $mc->MemberCardType->value;
+        }
+      }
+    }
+
     return round($price,2);
   }
 
