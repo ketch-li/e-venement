@@ -965,6 +965,71 @@ Sample Response
     "code": 500,
     "message": "This ticket is not paid yet."
    }
+   
+
+Printing a single Cart Item
+-------------------
+
+To print one specific ticket, you can call the ``/api/v2/carts/{cartId}/items/{itemId}/print`` endpoint with the ``GET`` method.
+The specified ticket will be printed in one pdf. The endpoint will return a pdf file if everything is ok.
+(i.e. The customer is logged in and the cart belongs to him. The ticket is paid.)
+
+Definition
+^^^^^^^^^^
+
+.. code-block:: text
+
+    GET /api/v2/carts/{cartId}/items/{itemId}/print
+
++---------------+----------------+----------------------------------------------------------------+
+| Parameter     | Parameter type | Description                                                    |
++===============+================+================================================================+
+| Authorization | header         | Token received during authentication                           |
++---------------+----------------+----------------------------------------------------------------+
+| cartId        | url attribute  | Id of the requested cart                                       |
++---------------+----------------+----------------------------------------------------------------+
+| itemId        | url attribute  | Id of the requested ticket                                     |
++---------------+----------------+----------------------------------------------------------------+
+
+Example
+^^^^^^^
+
+To print ticket 42 in cart id 21 use the below method:
+
+.. code-block:: bash
+
+    $ curl http://e-venement.local/api/v2/carts/21/items/42/print \
+        -H "Authorization: Bearer SampleToken" \
+        -H "Content-Type: application/pdf" \
+        -X GET
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 200 OK
+    
+.. code-block:: pdf
+
+   a binary pdf file
+   
+   
+If an error occured
+
+Sample Response
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    STATUS: 500 
+    
+.. code-block:: json
+
+   {
+    "code": 500,
+    "message": "This ticket is not paid yet."
+   }
 
 Reordering Cart Items *Optional*
 --------------------------------
