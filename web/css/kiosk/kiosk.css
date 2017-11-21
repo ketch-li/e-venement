@@ -441,7 +441,7 @@ ul {
   z-index: 999;
   border-radius: 15px; }
   #info-panel p, #info-panel a {
-    color: #fff; }
+    color: #000000; }
 
 /* LOADER */
 #spinner {
