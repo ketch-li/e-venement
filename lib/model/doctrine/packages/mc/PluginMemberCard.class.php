@@ -19,7 +19,7 @@ abstract class PluginMemberCard extends BaseMemberCard
     
     if ( $this->MemberCardType->product_declination_id
       && $this->MemberCardType->price_id
-      && $this->countMemberCardsInCurrentTransaction() > 0
+      && $this->Transaction->MemberCards->count() > 0
       && $this->BoughtProducts->count() == 0
     )
     {
@@ -28,7 +28,7 @@ abstract class PluginMemberCard extends BaseMemberCard
       $bp->Price = $this->MemberCardType->Price;
       $bp->Transaction = $this->Transaction;
       $bp->Transaction->contact_id = $this->contact_id;
-      $bp->integrated_at = date('Y-m-d H:i:s');
+      //$bp->integrated_at = date('Y-m-d H:i:s');
       $this->BoughtProducts[] = $bp;
     }
     
