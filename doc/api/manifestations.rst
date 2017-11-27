@@ -76,7 +76,7 @@ Available actions to interact with a manifestation
 Getting a collection of manifestations
 ---------------------------------------
 
-To retrieve the full customers list, you will need to call the /api/v2/manifestations endpoint with the GET method.
+To retrieve the full list of manifestations, you will need to call the /api/v2/manifestations endpoint with the GET method.
 
 Definition
 ^^^^^^^^^^
