@@ -1,2 +1,23 @@
-all:
+index:
+  credentials: admin-phone
+filter:
+  credentials: admin-phone
+ajax:
+  credentials: pr-contact-edit
+show:
+  credentials: admin-phone
+
+new:
+  credentials: admin-phone
+create:
+  credentials: admin-phone
+
+edit:
+  credentials: admin-phone
+update:
+  credentials: admin-phone
+
+delete:
+  credentials: admin-phone
+batchDelete:
   credentials: admin-phone
