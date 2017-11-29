@@ -86,7 +86,7 @@ generator:
         title: Edit <?php echo $museum ? ($type == 'museum' ? 'Visit' : 'Opening') : 'Event' ?> %%name%%
         display:
           General:   [name, short_name, subtitle, meta_event_id, event_category_id, event_category_description, companies_list]
-          Details:   [duration, _form_duration_days, display_by_default, close_before, _form_close_before_days,accounting_account, age_min, age_max, description]
+          Details:   [duration, _form_duration_days, display_by_default, _form_close_before_days,accounting_account, age_min, age_max, description]
           Files:     [_form_files_list]
           Web Content: [Picture, _show_picture, _form_picture_del, extradesc, extraspec]
           <?php if ( sfConfig::get('app_ticketting_dematerialized',false) ): ?>Checkpoints: [_show_checkpoints_notice, _form_checkpoints]<?php endif; echo PHP_EOL; ?>

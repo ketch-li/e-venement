@@ -2328,7 +2328,7 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
       </trans-unit>
       <trans-unit id="581">
         <source>Online sales close before</source>
-        <target>Fermeture de la vente en ligne</target>
+        <target>Fermeture de la VEL avant la fin</target>
       </trans-unit>
        <trans-unit id="582">
         <source>Price rank modified</source>
