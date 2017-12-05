@@ -57,11 +57,6 @@ class ManifestationsService extends EvenementService
           ->leftJoin('pgp.UserPrices      pgpup WITH pgpup.sf_guard_user_id = '.$user->getId())
           ->leftJoin('w.WorkspaceUsers wsu WITH wsu.sf_guard_user_id = '.$user->getId())
         ;
-        if ( $options['strict'] ) {
-          $q
-            ->andWhere('wsu.sf_guard_user_id IS NOT NULL')
-            ->andWhere('pgpup.sf_guard_user_id IS NOT NULL OR pmpup.sf_guard_user_id IS NOT NULL');
-        }
         
         if ( $dom = sfConfig::get('project_internals_users_domain', null) ) {
           $q->leftJoin("pmp.Ranks r WITH r.domain ILIKE '%$dom' OR r.domain = '$dom'");
