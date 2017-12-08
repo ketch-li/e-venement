@@ -25,7 +25,7 @@
     margin: 5px;
     text-decoration: none;
     font-weight: bold;
-    color: #fff; }
+    color: #960048; }
 
 #app {
   background-color: #fff; }
@@ -441,7 +441,7 @@ ul {
   z-index: 999;
   border-radius: 15px; }
   #info-panel p, #info-panel a {
-    color: #000000; }
+    color: #fff; }
 
 /* LOADER */
 #spinner {
