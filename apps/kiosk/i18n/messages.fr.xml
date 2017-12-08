@@ -7,7 +7,135 @@
       <trans-unit id="1">
         <source>Kiosk app texts</source>
         <target>Textes de l'application Kiosk</target>
-	  </trans-unit>
-	</body>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Breadcrumb Home</source>
+        <target>Fil d'ariane d'accueil</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Breadcrumb Products</source>
+        <target>Fil d'ariane des produits</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Cancel</source>
+        <target>Bouton d'annulation</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Cancelled</source>
+        <target>Texte d'abandon de la commande</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Cart Total</source>
+        <target>Total du panier</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Cart Validate</source>
+        <target>Validation du panier</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Final Details</source>
+        <target>Texte commande terminée</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Final Title</source>
+        <target>Titre commande terminée</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Hardware Details</source>
+        <target>Texte panne du matériel</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Hardware Title</source>
+        <target>Titre panne du matériel</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Location Close</source>
+        <target>Bouton validation du code postal</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Location Title</source>
+        <target>Titre saisie du code postal</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Menu Manifestations</source>
+        <target>Menu des manifestations</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Menu Museum</source>
+        <target>Menu des visites musée</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Menu Store</source>
+        <target>Menu des produits</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Payment Details</source>
+        <target>Texte explicatif annulation de ma commande</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Payment Failure</source>
+        <target>Echec du paiement</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Payment Success Details</source>
+        <target>Texte au succès du paiement</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Payment Success Title</source>
+        <target>Titre au succès du paiement</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Payment Title</source>
+        <target>Titre pour procéder au paiement</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Postcode</source>
+        <target>Code postal</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Postcode Validation</source>
+        <target>Texte indicatif à la saisie du code postal</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Retry</source>
+        <target>Bouton réessayer</target>
+      </trans-unit>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+      <trans-unit id="25">
+        <source>Access kiosk</source>
+        <target>Accès au Kiosk</target>
+      </trans-unit> 
+      <trans-unit id="26">
+        <source>Admin tasks</source>
+        <target>Tâches de réimpression</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Edit kiosk texts</source>
+        <target>Edition des textes du kiosk</target>
+      </trans-unit>                                                          
+      <trans-unit id="28">
+        <source>Ticket Failure</source>
+        <target>Texte en cas d'erreur d'impression</target>
+      </trans-unit>                      
+      <trans-unit id="29">
+        <source>Admin List</source>
+        <target>Liste des tâches de réimpression</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>New Admin</source>
+        <target>Nouvelle tâche</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Client receipt</source>
+        <target>Reçu client</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Seller receipt</source>
+        <target>Reçu commerçant</target>
+      </trans-unit>                                  
+      <trans-unit id="33">
+        <source>Pin</source>
+        <target>Code PIN</target>
+      </trans-unit>                       
+    </body>
   </file>
 </xliff>
