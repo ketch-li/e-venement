@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd" >
+<xliff version="1.0">
+  <file original="global" source-language="en" target-language="fr" datatype="plaintext">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Ticket not found</source>
+        <target>Billet non trouvé</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>The ticket has not been printed</source>
+        <target>Le billet n'est pas imprimé</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>The ticket manifestation does not match the event id #%%EVENT_ID%%</source>
+        <target>La manifestation du billet ne correspond pas à l'évènement #%%EVENT_ID%%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>No ENTRANCE checkpoint configured for event #%%EVENT_ID%%</source>
+        <target>Aucun point de contrôle de type Entrée défini pour l'évènement #%%EVENT_ID%%</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>The control for manifestation #%%MANIFESTATION_ID%% is not available yet</source>
+        <target>Le contrôle pour la manifestation #%%MANIFESTATION_ID%% n'est pas encore ouvert</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>The manifestation #%%MANIFESTATION_ID%% is not over yet</source>
+        <target>La manifestation #%%MANIFESTATION_ID%% n'est pas encore terminée</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>The control for manifestation #%%MANIFESTATION_ID%% is over</source>
+        <target>Le contrôle pour la manifestation #%%MANIFESTATION_ID%% est terminé</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>The ticket #%%TICKET_ID%% has already been controled</source>
+        <target>Le billet #%%TICKET_ID%% est déjà contrôlé</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
