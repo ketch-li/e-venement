@@ -80,6 +80,15 @@
             return 'Result';
           }
           
+          if ( !$card->active || strtotime($card->expire_at) < time() )
+          {
+            $params['ticket_id'] = null;
+            $this->errors[] = __('The membercard "%%mc%%" is no longer valid.', array('%%mc%%' => $tmp['member_card_id']));
+            $this->code = 1010;
+            $this->success = false;
+            return 'Result';
+          }
+          
           $manifestation = Doctrine::getTable('Manifestation')->createQuery('m')
             ->leftJoin('e.Checkpoints c')
             ->andWhere('c.id = ?', $params['checkpoint_id'])

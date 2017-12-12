@@ -2176,6 +2176,10 @@
         <source>Tickets must be printed or integrated before sending them.</source>
         <target>Les billets doivent être imprimés ou intégrés avant envoi.</target>
       </trans-unit>  
+      <trans-unit id="543">
+        <source>The membercard "%%mc%%" is no longer valid.</source>
+        <target>La carte d'abonnement "%%mc%%" n'est plus valide.</target>
+      </trans-unit>  
     </body>
   </file>
 </xliff>
