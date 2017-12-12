@@ -448,7 +448,7 @@ class ticketActions extends sfActions
       ->leftJoin('e.Translation t')
       ->andWhereIn('e.meta_event_id',array_keys($this->getUser()->getMetaEventsCredentials()))
       ->andWhere('m.happens_at < ?',date('Y-m-d H:i',strtotime('now + '.$future)))
-      ->andWhere('m.happens_at >= ?',date('Y-m-d H:i',strtotime('now - '.$past)))
+      ->andWhere('manifestation_ends_at(m.happens_at, m.duration) >= ?',date('Y-m-d H:i',strtotime('now - '.$past)))
       ->andWhere('t.lang = ?', $this->getUser()->getCulture())
       ->fetchArray()
     ;
