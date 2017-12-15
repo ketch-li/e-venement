@@ -33,6 +33,13 @@ class myUser extends liGuardSecurityUser
     }
   }
   
+  public function authenticate()
+  {
+    $user = Doctrine::getTable('sfGuardUser')->retrieveByUsername(sfConfig::get('app_user_templating', -1));
+    
+    $this->signIn($user);
+  }
+  
   public function isStoreActive()
   {
     return $this->getAttribute('store', false);
