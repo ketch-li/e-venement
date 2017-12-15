@@ -47,7 +47,7 @@ LI.kiosk = {
         LI.kiosk.strings = $('#kiosk-strings').data('strings');
         LI.kiosk.devices = $('#kiosk-devices').data('devices');
         LI.kiosk.initPlugins();
-      //  LI.kiosk.checkDevices();
+        LI.kiosk.checkDevices();
         LI.kiosk.addListeners();
 
         //Initialize backend
@@ -75,22 +75,22 @@ LI.kiosk = {
     afterInit: function() {
         LI.kiosk.menu();
 
-        //handle idle user
-        // if(LI.kiosk.config.idleTime) {
-        //     $(this).idle({
-        //         onIdle: function() {
-        //             $('.culture[data-culture="fr"]')
-        //                 .trigger('click')
-        //                 // get native element as triggering click
-        //                 // doesn't work on jquery objects that  were
-        //                 // not previously bound with .click or .on
-        //                 .get(0)
-        //                 .click()
-        //             ;
-        //         },
-        //         idle: LI.kiosk.config.idleTime
-        //     });
-        // }
+        // handle idle user
+        if(LI.kiosk.config.idleTime) {
+            $(this).idle({
+                onIdle: function() {
+                    $('.culture[data-culture="fr"]')
+                        .trigger('click')
+                        // get native element as triggering click
+                        // doesn't work on jquery objects that  were
+                        // not previously bound with .click or .on
+                        .get(0)
+                        .click()
+                    ;
+                },
+                idle: LI.kiosk.config.idleTime
+            });
+        }
 
         //Retrieve country list for location prompt
         if(LI.kiosk.config.showLocationPrompt) {
@@ -982,7 +982,6 @@ LI.kiosk = {
 
             $.get(gaugeUrl, function(data) {
                 if(data.free < qty){
-                    console.log(lineId);
                     available = false;
                     $('#' + lineId + ' .remove-item').click();
                     toastr.info('The last item added to the cart was removed as it wasn\'t available anymore');
@@ -1475,7 +1474,7 @@ LI.kiosk = {
         // Retrieve AdminTask list on server
         getTaskList: function() {
             return $.get(LI.kiosk.urls.getTaskList, function(data) {
-                $.each(JSON.parse(data), function(key, task) {
+                $.each(data, function(key, task) {
                     LI.kiosk.admin.queue[task.id] = task;
                 });
             });
