@@ -195,7 +195,24 @@
               
               // first pass for prerequisites
               $ticket->save();
-              $mcps->getFirst()->delete();
+              
+              $mcpms = $card->MemberCardType->MemberCardPriceModels;
+              
+              // Don't delete mcp if quantity < 0
+              foreach ($mcpms as $mcpm)
+              {
+                if ( $mcpm->price_id == $price->price_id && (is_null($mcpm->event_id) || $mcpm->event_id == $manifestation->event_id) && $mcpm->quantity < 0 )
+                {
+                  unset($mcps);
+                  break;
+                }
+              }
+              
+              // Delete mcp if model quantity > 0
+              if ( $mcps )
+              {
+                $mcps->getFirst()->delete();
+              }
               
               // the payment
               if ( $ticket->value + $ticket->taxes > 0 )
