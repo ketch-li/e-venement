@@ -47,7 +47,6 @@ LI.kiosk = {
         LI.kiosk.strings = $('#kiosk-strings').data('strings');
         LI.kiosk.devices = $('#kiosk-devices').data('devices');
         LI.kiosk.initPlugins();
-        LI.kiosk.checkDevices();
         LI.kiosk.addListeners();
 
         //Initialize backend
@@ -73,6 +72,7 @@ LI.kiosk = {
         ;
     },
     afterInit: function() {
+    	LI.kiosk.checkDevices();
         LI.kiosk.menu();
 
         // handle idle user
