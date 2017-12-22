@@ -34,6 +34,11 @@ class Gauge extends PluginGauge
       - ($count_demands ? $this->asked : 0);
   }
   
+  public function getAvailableUnits()
+  {
+    return $this->getFree();
+  }
+  
   public function getHeldFreeSeats($refresh = false)
   {
     if ( $this->seats instanceof Doctrine_Collection )
