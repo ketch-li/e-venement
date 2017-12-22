@@ -223,6 +223,11 @@ class myUser extends pubUser
     return $this->getAttribute(sfConfig::get('app_user_session_ns').'_online_store', false);
   }
   
+  public function isMuseumActive()
+  {
+    return sfconfig::get('app_museum_enabled', false);
+  }
+  
   public function mustAuthenticate(sfEvent $event)
   {
     $sf_action = $event->getSubject();

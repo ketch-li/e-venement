@@ -52,6 +52,9 @@
       <?php if ( $sf_user->isStoreActive() ): ?>
       <li><?php echo link_to(pubConfiguration::getText('app_informations_store',__('Store')), 'store/index', array('class' => 'store')) ?></li>
       <?php endif ?>
+      <?php if ( $sf_user->isMuseumActive() ): ?>
+      <li><?php echo link_to(pubConfiguration::getText('app_informations_museum',__('Visits')), 'visit/index', array('class' => 'visit')) ?></li>
+      <?php endif ?>
       <?php if ( $sf_user->getGuardUser()->MemberCards->count() > 0 ): ?>
       <li><?php echo link_to(pubConfiguration::getText('app_member_cards_title', __('Member cards')), 'card/index', array('class' => 'mc')) ?></li>
       <?php endif ?>

@@ -106,6 +106,7 @@ body.mod-card { color: $base-text-color; }
     .with-store a { @include bg-image("icon_store.png"); }
     .event a.event { @include bg-image("icon_reservation.png"); }
     .event a.mc { @include bg-image("icon_cube.png"); }
+    .event a.visit { @include bg-image("icon_museum.png"); }
     .command { float: right; }
     #translation .i18n {
       display: inline-block;

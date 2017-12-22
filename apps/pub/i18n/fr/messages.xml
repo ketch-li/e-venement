@@ -1098,6 +1098,10 @@ ou bien suivez ce lien&nbsp;:&lt;br/&gt;
         <source>My full history</source>
         <target>Mon historique complet</target>
       </trans-unit>
+      <trans-unit id="273">
+        <source>Visits</source>
+        <target>Visites</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

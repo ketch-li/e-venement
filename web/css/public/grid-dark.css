@@ -140,6 +140,8 @@ body.mod-card {
       background-image: url("/images/vel/themes/icon_reservation.png"); }
     #sf_admin_header #ariane .event a.mc {
       background-image: url("/images/vel/themes/icon_cube.png"); }
+    #sf_admin_header #ariane .event a.visit {
+      background-image: url("/images/vel/themes/icon_museum.png"); }
     #sf_admin_header #ariane .command {
       float: right; }
     #sf_admin_header #ariane #translation .i18n {

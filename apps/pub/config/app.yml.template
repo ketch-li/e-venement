@@ -52,6 +52,8 @@ all:
     #disabled: false
     max_per_product: 9
     email_products: always    # never | e-products | always (recommanded)
+  museum:
+    enabled: false
   contact:
     capitalize: [name, firstname, city, country, address]
     #professional: false
