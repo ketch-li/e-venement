@@ -29,7 +29,7 @@ generator:
         actions: []
         display: [_list_picture, _month, =name, MetaEvent, EventCategory, _dates, _list_depends_on, _list_depends_on_dates, _list_locations, _age_min, _list_companies, _list_description]
         table_method: retrievePublicList
-        sort: ['min_date, m.happens_at', '']
+        sort: ['met.name, min_date, m.happens_at', '']
         title: <?php echo is_array(sfConfig::get('app_informations_index')) ? 'Events list' : sfConfig::get('app_informations_index', 'Events list') ?><?php echo PHP_EOL ?>
         max_per_page: <?php echo sfConfig::get('app_tickets_nb_manifestations_per_default',100).PHP_EOL ?>
       
