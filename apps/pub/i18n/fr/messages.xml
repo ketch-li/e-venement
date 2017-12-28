@@ -1102,6 +1102,10 @@ ou bien suivez ce lien&nbsp;:&lt;br/&gt;
         <source>Visits</source>
         <target>Visites</target>
       </trans-unit>
+      <trans-unit id="274">
+        <source>Sold Out</source>
+        <target>Complet</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
