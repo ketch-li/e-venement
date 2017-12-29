@@ -4,6 +4,7 @@
 <?php else: ?>
 <?php
   $arr = array();
+  if ( $order->Transaction->Contact )
   foreach ( $order->Transaction->Contact->Phonenumbers as $phone )
     $arr[] = (string)$phone;
 ?>
