@@ -63,11 +63,12 @@
     
     if ( $request->hasParameter('pdf') )
     {
-      $pdf = new sfDomPDFPlugin();
-      $pdf->setInput($this->getPartial('invoice_pdf', $this->data));
       $this->getResponse()->setContentType('application/pdf');
       $this->getResponse()->setHttpHeader('Content-Disposition', 'attachment; filename="invoice-'.$this->invoice->id.'.pdf"');
-      return $this->renderText($pdf->execute());
+            
+      $pdf = new liPDFPlugin($this->getPartial('invoice_pdf', $this->data));
+
+      return $this->renderText($pdf->getPDF());
     }
     
     if ( $request->hasParameter('email') )

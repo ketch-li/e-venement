@@ -1,9 +1,16 @@
+html {
+  background-color: white;
+  padding: 0; margin: 0;
+}
+
 body {
   width: 100%;
-  min-height: 270mm;
   font-family: arial, sans-serif;
   font-size: 13px;
 }
+
+html body p { margin: 0; padding: 0 }
+.page { page-break-after: always; min-height: 267mm; }
 
 #customer .transaction,
 #customer .bdcid { display: none; }
