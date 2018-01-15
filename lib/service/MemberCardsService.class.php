@@ -147,18 +147,18 @@ class MemberCardsService extends EvenementService
       FROM member_card mc
       INNER JOIN member_card_price_model mcpm ON mcpm.member_card_type_id = mc.member_card_type_id
       LEFT JOIN (
-      	SELECT mc.id, mc.member_card_type_id, m.event_id, count(t.*) tickets
+      	SELECT mc.id, mc.member_card_type_id, m.event_id, t.price_id, count(t.*) tickets
       	FROM member_card mc
       	LEFT JOIN ticket t ON t.member_card_id = mc.id AND (t.printed_at IS NOT NULL OR t.integrated_at IS NOT NULL) AND t.duplicating IS NULL AND t.id NOT IN (SELECT duplicating FROM ticket WHERE duplicating IS NOT NULL) AND t.cancelling IS NULL AND t.id NOT IN (SELECT cancelling FROM ticket WHERE cancelling IS NOT NULL)
       	LEFT JOIN manifestation m ON m.id = t.manifestation_id
-      	GROUP BY mc.id, mc.member_card_type_id, m.event_id
-      ) mct ON mct.member_card_type_id = mcpm.member_card_type_id AND mct.id = mc.id AND (mct.event_id = mcpm.event_id OR mct.event_id IS NULL)
+      	GROUP BY mc.id, mc.member_card_type_id, m.event_id, t.price_id
+      ) mct ON mct.member_card_type_id = mcpm.member_card_type_id AND mct.id = mc.id AND mct.price_id = mcpm.price_id AND (mct.event_id = mcpm.event_id OR mct.event_id IS NULL)
       LEFT JOIN (
-      	SELECT mc.id, mc.member_card_type_id, mcp.event_id, count(mcp.*) prices
+      	SELECT mc.id, mc.member_card_type_id, mcp.event_id, mcp.price_id, count(mcp.*) prices
       	FROM member_card mc
       	LEFT JOIN member_card_price mcp ON mc.id = mcp.member_card_id
-      	GROUP BY mc.id, mc.member_card_type_id, mcp.event_id 
-      ) amcp ON amcp.id = mc.id AND amcp.member_card_type_id = mcpm.member_card_type_id AND (amcp.event_id = mcpm.event_id OR amcp.event_id IS NULL)
+      	GROUP BY mc.id, mc.member_card_type_id, mcp.event_id, mcp.price_id
+      ) amcp ON amcp.id = mc.id AND amcp.member_card_type_id = mcpm.member_card_type_id AND amcp.price_id = mcpm.price_id AND (amcp.event_id = mcpm.event_id OR amcp.event_id IS NULL)
       CROSS JOIN generate_series(1, mcpm.quantity - coalesce(mct.tickets, 0) - coalesce(amcp.prices, 0)) as v
       WHERE mcpm.member_card_type_id = $mcpm->member_card_type_id
       AND mcpm.event_id ".$event_clause."
