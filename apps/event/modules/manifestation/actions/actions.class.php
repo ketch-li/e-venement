@@ -86,22 +86,30 @@ class manifestationActions extends autoManifestationActions
   
   public function executeAssociateMemberCards(sfWebRequest $request)
   {
-    $this->manifestation = $this->getRoute()->getObject();
+    $this->getContext()->getConfiguration()->loadHelpers('I18N');
     
+    $this->errors = [];
     $this->form = new MemberCardPriceModelForm;
     $this->form->bind($request->getParameter('member_card_price_model', array()) + array('_csrf_token' => $this->form->getCSRFToken()));
     
     if ( !$this->form->isValid() ) {
-        $this->errors = array();
         foreach ( $this->form->getErrorSchema()->getErrors() as $name => $error ) {
             $this->errors[$name] = (string)$error;
         }
         return 'Error';
     }
     
-    $service = $this->getContext()->getContainer()->get('member_cards_service');
-    $mcs = $service->completeMemberCardsWithMCPrice($this->form->getValues(), $this->manifestation->Event);
-    $this->mcs = $mcs->toArray();
+    try
+    {
+      $this->form->save();
+    }
+    catch(Exception $e)
+    {
+      $this->errors[] = __($e->getMessage());
+      return 'Error';
+    }
+    
+    $this->mcs = __('Member cards have been updated.');
   }
   
   public function executeClearPrices(sfWebRequest $request)
@@ -640,6 +648,7 @@ class manifestationActions extends autoManifestationActions
     $this->form->mcform = new MemberCardPriceModelForm;
     $ws = $this->form->mcform->getWidgetSchema();
     $ws['event_id'] = new sfWidgetFormInputHidden;
+    $ws['event_id']->setDefault($this->manifestation->event_id);
 
     //$this->form->prices = $this->getPrices();
     //$this->form->spectators = $this->getSpectators();

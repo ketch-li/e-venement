@@ -17,6 +17,20 @@ abstract class PluginMemberCardPriceModel extends BaseMemberCardPriceModel
     return strtolower(get_class($this));
   }
   
+  public function preInsert($event)
+  {
+    $mcpm = Doctrine::getTable('MemberCardPriceModel')->checkIfExists($this);
+    
+    if ( $mcpm > 0 )
+    {
+      throw new Exception("This association already exists.");
+    }
+    else
+    {
+      parent::preInsert($event);
+    }
+  }
+  
   public function postInsert($event)
   {
     parent::postInsert($event);

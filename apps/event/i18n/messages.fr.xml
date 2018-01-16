@@ -2374,6 +2374,14 @@ Attention cet outil a une limite : il ne fonctionne bien qu'avec les lots de pla
         <source>Pos price List</source>
         <target>Liste des tarifs boutique</target>
       </trans-unit>                       
+      <trans-unit id="593">
+        <source>This association already exists.</source>
+        <target>Cette association existe déjà.</target>
+      </trans-unit>                       
+      <trans-unit id="594">
+        <source>Member cards have been updated.</source>
+        <target>Cette manifestation a été ajoutée aux cartes d'abonnement.</target>
+      </trans-unit>                       
     </body>
   </file>
 </xliff>
