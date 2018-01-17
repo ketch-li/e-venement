@@ -24,6 +24,32 @@ class sfGuardUser extends PluginsfGuardUser
     $this->clearCache($event);
   }
   
+  public function postInsert($event)
+  {
+    if ( in_array('liOnlineSalesPlugin', sfContext::getInstance()->getConfiguration()->getPlugins()) )
+    {
+      $osApp = new OsApplication();
+      $osApp->User = $this;
+      $osApp->save();
+    }
+  }
+  
+  public function postUpdate($event)
+  {
+    parent::postUpdate($event);
+    
+    if ( in_array('liOnlineSalesPlugin', sfContext::getInstance()->getConfiguration()->getPlugins()) )
+    {
+      $osApp = Doctrine::getTable('OsApplication')->findOneByIdentifier($this->username);
+      
+      if ( $osApp->secret != $this->password )
+      {
+        $osApp->secret = $this->password;
+        $osApp->save();
+      }
+    }
+  }
+  
   public function preDelete($event)
   {
     parent::preDelete($event);
