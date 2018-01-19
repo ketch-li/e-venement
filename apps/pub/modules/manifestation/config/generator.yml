@@ -25,7 +25,7 @@ generator:
         object_actions: []
         actions: []
         batch_actions: []
-        sort: ['happens_at, w.name', '']
+        sort: ['happens_at', '']
         display: [_list_picture, _list_happens_at, _list_day_name, =formatted_date, happens_at_time_h_r, Event, Location, _MetaEvent, _list_tickets, _list_gauge]
         title: Dates
         table_method: retrievePublicList

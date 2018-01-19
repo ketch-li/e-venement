@@ -269,13 +269,33 @@ class ManifestationTable extends PluginManifestationTable
   
   public function retrievePublicList()
   {
-    return $this->createQuery('m')
-      ->removeDqlQueryPart('orderby')
-      ->andWhere('g.online = ?', true)
+    $culture = sfContext::hasInstance() ? sfContext::getInstance()->getUser()->getCulture() : 'fr';
+    
+    $q = parent::createQuery('m')
+      ->innerJoin('m.Event e')
+      ->innerJoin("e.MetaEvent me")
+      ->innerJoin("m.Location l")
+      ->innerJoin('m.Gauges g')
+      ->innerJoin("g.Workspace w")
+      ->leftJoin('m.Tickets tck WITH tck.gauge_id = g.id 
+        AND duplicating IS NULL 
+        AND cancelling IS NULL 
+        AND tck.id NOT IN (SELECT tck11.cancelling FROM Ticket tck11 WHERE tck11.cancelling IS NOT NULL)
+        AND (
+          (printed_at IS NOT NULL OR integrated_at IS NOT NULL) 
+        OR (
+          transaction_id IN (SELECT o2.transaction_id FROM Order o2)
+          AND printed_at IS NULL 
+          AND integrated_at IS NULL 
+        ))')
       ->andWhere('m.happens_at > NOW()')
       ->andWhere('e.display_by_default = ?', true)
       ->andWhere('reservation_confirmed = ?', true)
+      ->select('m.*, e.*, me.*, l.*, count(tck.id) AS tickets')
+      ->groupBy('m.id, e.id, me.id, l.id')
     ;
+
+    return $q;
   }
   
   public function slightlyFindOneById($value)

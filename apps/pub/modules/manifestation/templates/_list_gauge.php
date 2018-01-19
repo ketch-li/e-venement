@@ -1,12 +1,9 @@
 <?php 
 
-  $soldout = __('Sold Out');
+  $soldout = false;
 
-  foreach ($manifestation->Gauges as $gauge) {
-    if ( $gauge->availableUnits > 0 ) {
-      $soldout = false;
-      break;
-    }
+  if ( $manifestation->tickets > $manifestation->online_limit ) {
+    $soldout = __('Sold Out');
   }
 
   echo $soldout;
