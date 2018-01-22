@@ -42,7 +42,7 @@ class sfGuardUser extends PluginsfGuardUser
     {
       $osApp = Doctrine::getTable('OsApplication')->findOneByIdentifier($this->username);
       
-      if ( $osApp->secret != $this->password )
+      if ( $osApp && $osApp->secret != $this->password )
       {
         $osApp->secret = $this->password;
         $osApp->save();
