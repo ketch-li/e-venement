@@ -30,8 +30,7 @@ class MemberCardsService extends EvenementService
     else
       $event_clause = " = $mcpm->event_id";
     
-    $q = "
-      DELETE 
+    $q = "DELETE 
       FROM member_card_price mcp
       WHERE mcp.id IN (
       	SELECT mcp.id
@@ -61,8 +60,7 @@ class MemberCardsService extends EvenementService
     else
       $event_clause = " = $mcpm->event_id";
     
-    $q = "
-      DELETE
+    $q = "DELETE
       FROM member_card_price
       WHERE id IN (
       	SELECT mcpid
@@ -103,8 +101,7 @@ class MemberCardsService extends EvenementService
     else
       $event_clause = " = $mcpm->event_id";
     
-    $q = "
-      INSERT INTO member_card_price
+    $q = "INSERT INTO member_card_price
       (sf_guard_user_id, automatic, member_card_id, price_id, event_id, created_at, updated_at, version)
 
       SELECT mcpm.sf_guard_user_id, true, mc.id, mcpm.price_id, mcpm.event_id, now(), now(), 1
@@ -139,8 +136,7 @@ class MemberCardsService extends EvenementService
     else
       $event_clause = " = $mcpm->event_id";
     
-    $q = "
-      INSERT INTO member_card_price
+    $q = "INSERT INTO member_card_price
       (sf_guard_user_id, automatic, member_card_id, price_id, event_id, created_at, updated_at, version)
 
       SELECT mcpm.sf_guard_user_id, true, mc.id, mcpm.price_id, mcpm.event_id, now(), now(), 1 
@@ -177,18 +173,35 @@ class MemberCardsService extends EvenementService
   {
     $con = Doctrine_Manager::getInstance()->connection();
     
-    $q = "
-      DELETE FROM member_card_price_version
-    ";
+    $q = "DELETE FROM member_card_price_version";
     
     $st = $con->execute($q);
     
-    $q = "
-      INSERT INTO member_card_price_version
+    $q = "INSERT INTO member_card_price_version
       SELECT *
       FROM member_card_price mcp
     ";
 
+    $st = $con->execute($q);
+  }
+  
+  public function createMCPrices(MemberCard $mc)
+  {
+    $con = Doctrine_Manager::getInstance()->connection();
+    
+    $q = "INSERT INTO member_card_price
+    (sf_guard_user_id, member_card_id, price_id, event_id, created_at, updated_at, version)
+
+    SELECT mc.sf_guard_user_id, mc.id, price_id, event_id, now() AS created_at, now() AS updated_at, 1 AS version
+    FROM member_card_price_model mcpm
+    INNER JOIN member_card mc ON mc.member_card_type_id = mcpm.member_card_type_id
+    CROSS JOIN generate_series(1, 
+      CASE 
+      WHEN mcpm.quantity > 0 THEN mcpm.quantity 
+      WHEN mcpm.quantity < 0 THEN 1 
+      END)
+    WHERE mc.id = " . $mc->id;
+    
     $st = $con->execute($q);
   }
   

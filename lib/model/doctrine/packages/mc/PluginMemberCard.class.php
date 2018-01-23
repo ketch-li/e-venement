@@ -12,6 +12,11 @@
  */
 abstract class PluginMemberCard extends BaseMemberCard
 {
+  protected function getMCService()
+  {
+    return sfContext::getInstance()->getContainer()->get('member_cards_service');
+  }
+  
   public function preSave($event)
   {
     if ( !$this->transaction_id && $this->Payments->count() > 0 )
@@ -52,64 +57,14 @@ abstract class PluginMemberCard extends BaseMemberCard
         ->count();
   }
   
-  public function postSave($event)
-  {
-    parent::postSave($event);
-    $this->processInfinitePrices();
-  }
   public function postInsert($event)
   {
-    // prices
-    $q = Doctrine::getTable('MemberCardPriceModel')->createQuery('pm')
-      ->andWhere('pm.member_card_type_id = ?',$this->member_card_type_id)
-      ->andWhere('pm.quantity > 0');
-    $models = $q->execute();
-    
-    foreach ( $models as $model )
-    for ( $i = 0 ; $i < $model->quantity ; $i++ )
-    {
-      $mc_price = new MemberCardPrice;
-      $mc_price->price_id = $model->price_id;
-      $mc_price->event_id = $model->event_id;
-      $mc_price->member_card_id = $this->id;
-      $mc_price->save();
-    }
+    $service = $this->getMCService();
+    $service->createMCPrices($this);
     
     parent::postInsert($event);
   }
-  
-  protected function processInfinitePrices()
-  {
-    // prices
-    $q = Doctrine::getTable('MemberCardPriceModel')->createQuery('pm')
-      ->andWhere('pm.member_card_type_id = ?',$this->member_card_type_id)
-      ->andWhere('pm.quantity < 0');
-    $mcpms = $q->execute();
     
-    foreach ( $mcpms as $model )
-    {
-      $qty = -$model->quantity;
-      // do not add existing prices
-      foreach ( $this->MemberCardPrices as $mcp )
-      {
-        if ( $mcp->price_id == $model->price_id && $model->event_id == $mcp->event_id )
-          $qty--;
-      }
-      
-      for ( $i = 0 ; $i < $qty ; $i++ )
-      {
-        $mc_price = new MemberCardPrice;
-        $mc_price->price_id = $model->price_id;
-        $mc_price->event_id = $model->event_id;
-        $mc_price->member_card_id = $this->id;
-        $mc_price->save();
-        $this->MemberCardPrices[] = $mc_price;
-      }
-    }
-    
-    return $this;
-  }
-  
   public function getIndexesPrefix()
   {
     return strtolower(get_class($this));

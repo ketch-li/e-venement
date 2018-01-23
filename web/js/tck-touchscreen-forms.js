@@ -9,6 +9,12 @@ LI.formSubmit = function(){
     data: $(form).serialize(),
     type: $(form).prop('method'),
     success: function(data){
+      
+      if ( $(form).hasClass('ui-state-disabled') ) {
+        $(form).removeClass('ui-state-disabled');
+        $(form).find('input').prop('disabled', false);        
+      }
+      
       if ( data.error == undefined )
       { 
         console.log('No data... '+$(form).prop('action')+' ? '+$(form).serialize());

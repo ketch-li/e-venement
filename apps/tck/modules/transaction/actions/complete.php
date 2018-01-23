@@ -299,21 +299,23 @@
         }
         
         if ( $products->count() > 0 )
+        {
           $this->dispatcher->notify(new sfEvent($this, 'tck.products_integrate', array(
             'transaction' => $products[0]->Transaction,
             'products'    => $products,
             'duplicate'   => false,
             'user'        => $this->getUser(),
           )));
-        
-        // MemberCard created
-        $mc_conf = sfConfig::get('app_transaction_membercard', array('integrate' => false));
-        if ( $bp->member_card_id && $mc_conf['integrate'] )
-        {
-          $this->json['success']['success_fields']['member_card']['remote_content']['load']['type'] = 'member_card';
-          $this->json['success']['success_fields']['member_card']['remote_content']['load']['data']['member_card_type_id'] = $bp->MemberCard->member_card_type_id;
+          
+          // MemberCard created
+          $mc_conf = sfConfig::get('app_transaction_membercard', array('integrate' => false));
+          if ( $products[0]->member_card_id && $mc_conf['integrate'] )
+          {
+            $this->json['success']['success_fields']['member_card']['remote_content']['load']['type'] = 'member_card';
+            $this->json['success']['success_fields']['member_card']['remote_content']['load']['data']['member_card_type_id'] = $products[0]->MemberCard->member_card_type_id;
+          }
         }
-        
+
         if ( $error_stock > 0 )
           $this->json['error'] = array(
             true,

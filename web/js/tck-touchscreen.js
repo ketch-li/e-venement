@@ -29,6 +29,16 @@ $(document).ready(function(){
   });
   $('#sf_admin_content form:not(.noajax)').submit(LI.formSubmit);
 
+  $('#li_transaction_store .store-print').submit(function() {
+    if ( $(this).hasClass('ui-state-disabled') ) {
+      return false;
+    } else {
+      $(this).addClass('ui-state-disabled');
+      $(this).find('input').prop('disabled', true);
+      return true;
+    }
+  });
+
   // PLAYING W/ CART'S CONTENT
   // sliding content
   var settings = Cookie.has('tck.touchscreen.hidden-bunches')
