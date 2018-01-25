@@ -24,10 +24,37 @@ class PluginControlTable extends TraceableTable
       $q = parent::createQuery($alias);
       $a = $q->getRootAlias();
       $q->innerJoin("$a.Checkpoint cp")
-        ->innerJoin('cp.Event e')
-        ->andWhereIn('e.meta_event_id', array_keys($sf_user->getMetaEventsCredentials()))
+        ->innerJoin('cp.Event e');
+        
+      if ( $sf_user->getId() )
+      {
+        $q->andWhereIn('e.meta_event_id', array_keys($sf_user->getMetaEventsCredentials()));
+      }
+      
+      return $q;
+    }
+    
+    public function getEntrances($since)
+    {
+      $q = $this->createQuery('c')
+        ->innerJoin('c.Ticket tck')
+        ->leftJoin('tck.Controls c2 WITH c2.id != c.id')
+        ->leftJoin('c2.Checkpoint cp2 WITH cp2.type = ?', 'exit')
+        ->andWhere('cp.type = ?', 'entrance')
+        ->andWhere('c2.id IS NULL')
+        ->andWhere('c.created_at < ?', $since)
+        ->select('c.*, cp.*, e.*')
+      ;
+      
+      // Domain segmentation
+      if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
+      $q->leftJoin("tck.Transaction tr")
+        ->leftJoin("tr.User tvu ON tvu.id = (SELECT tv.sf_guard_user_id FROM TransactionVersion tv WHERE tv.id = tr.id AND tv.version = 1)")
+        ->leftJoin('tvu.Domain uvd')
+        ->andWhere('uvd.name ILIKE ? OR uvd.name = ?', array('%.'.$dom, $dom))
       ;
       
       return $q;
     }
+    
 }

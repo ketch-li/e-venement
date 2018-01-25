@@ -50,25 +50,8 @@ class gauge_timeoutActions extends sfActions
   {
     $since = date('Y-m-d H:i:s', (int)$request->getParameter('since'));
     $this->getContext()->getConfiguration()->loadHelpers('I18N');
-    
-    // find out every checkpoint which has no exit sibling
-    $q = Doctrine::getTable('Control')->createQuery('c')
-      ->leftJoin('c.Checkpoint cp WITH cp.type = ?', 'entrance')
-      ->leftJoin('cp.Event e')      
-      ->leftJoin('c.Ticket tck')
-      ->leftJoin('tck.Controls c2 WITH c2.id != c.id')
-      ->leftJoin('c2.Checkpoint cp2 WITH cp2.type = ?', 'exit')      
-      ->andWhere('c2.id IS NULL')
-      ->andWhere('c.created_at < ?', $since)
-      ->select('c.*, cp.*, e.*')
-    ;
-    
-    // Domain segmentation
-    if ( ($dom = sfConfig::get('project_internals_users_domain', false)) && $dom != '.' )
-    $q->leftJoin("tck.Transaction tr")
-      ->leftJoin("tr.User tvu ON tvu.id = (SELECT tv.sf_guard_user_id FROM TransactionVersion tv WHERE tv.id = tr.id AND tv.version = 1)")
-      ->leftJoin('tvu.Domain uvd')
-      ->andWhere('uvd.name ILIKE ? OR uvd.name = ?', array('%.'.$dom, $dom));
+
+    $q = Doctrine::getTable('Control')->getEntrances($since);
     
     foreach ( $q->execute() as $control )
     {
