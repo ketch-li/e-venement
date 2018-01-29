@@ -274,25 +274,32 @@ class ManifestationTable extends PluginManifestationTable
     $q = parent::createQuery('m')
       ->innerJoin('m.Event e')
       ->innerJoin("e.MetaEvent me")
+      ->innerJoin("m.Gauges g")
       ->innerJoin("m.Location l")
-      ->innerJoin('m.Gauges g')
-      ->innerJoin("g.Workspace w")
-      ->leftJoin('m.Tickets tck WITH tck.gauge_id = g.id 
-        AND duplicating IS NULL 
-        AND cancelling IS NULL 
-        AND tck.id NOT IN (SELECT tck11.cancelling FROM Ticket tck11 WHERE tck11.cancelling IS NOT NULL)
-        AND (
-          (printed_at IS NOT NULL OR integrated_at IS NOT NULL) 
-        OR (
-          transaction_id IN (SELECT o2.transaction_id FROM Order o2)
-          AND printed_at IS NULL 
-          AND integrated_at IS NULL 
-        ))')
       ->andWhere('m.happens_at > NOW()')
+      ->andWhere('g.online = true')
       ->andWhere('e.display_by_default = ?', true)
       ->andWhere('reservation_confirmed = ?', true)
-      ->select('m.*, e.*, me.*, l.*, count(tck.id) AS tickets')
-      ->groupBy('m.id, e.id, me.id, l.id')
+      ->select('m.*, e.id, me.id, g.*, l.*')
+      ->addSelect('(SELECT count(ta.id)
+        FROM Gauge ga
+        INNER JOIN ga.Manifestation ma 
+        LEFT JOIN ma.Tickets ta WITH ta.gauge_id = ga.id
+          AND ta.duplicating IS NULL
+          AND ta.cancelling IS NULL
+          AND ta.id NOT IN (SELECT t2.cancelling FROM Ticket t2 WHERE t2.cancelling IS NOT NULL)
+          AND (
+            (ta.printed_at IS NOT NULL OR ta.integrated_at IS NOT NULL)
+            OR (
+              ta.transaction_id IN (SELECT o2.transaction_id FROM Order o2) 
+              AND ta.printed_at IS NULL
+              AND ta.integrated_at IS NULL
+            )
+          )
+        WHERE ma.id = m.id
+        AND ga.online = true
+        GROUP BY ma.id
+        ) AS sold_tickets')
     ;
 
     return $q;
