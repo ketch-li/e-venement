@@ -26,7 +26,7 @@ class sfGuardUser extends PluginsfGuardUser
   
   public function postInsert($event)
   {
-    if ( in_array('liOnlineSalesPlugin', sfContext::getInstance()->getConfiguration()->getPlugins()) )
+    if ( sfContext::hasInstance() && in_array('liOnlineSalesPlugin', sfContext::getInstance()->getConfiguration()->getPlugins()) )
     {
       $osApp = new OsApplication();
       $osApp->User = $this;
@@ -38,7 +38,7 @@ class sfGuardUser extends PluginsfGuardUser
   {
     parent::postUpdate($event);
     
-    if ( in_array('liOnlineSalesPlugin', sfContext::getInstance()->getConfiguration()->getPlugins()) )
+    if ( sfContext::hasInstance() && in_array('liOnlineSalesPlugin', sfContext::getInstance()->getConfiguration()->getPlugins()) )
     {
       $osApp = Doctrine::getTable('OsApplication')->findOneByIdentifier($this->username);
       
