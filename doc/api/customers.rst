@@ -50,6 +50,8 @@ If you request for a more detailed data, you will receive an object with followi
 +-------------------------+----------------------------------------------------------------------------------------------------------+
 | uid                     | Unique Identifier                                                                                        |
 +-------------------------+----------------------------------------------------------------------------------------------------------+
+| externalId              | External Identifier                                                                                      |
++-------------------------+----------------------------------------------------------------------------------------------------------+
 | subscribedToNewsletter  | Whether or not the customer is subscribed to newsletter                                                  |
 +-------------------------+----------------------------------------------------------------------------------------------------------+
 | Organism                | Organism linked to the customer                                                                          |
@@ -260,6 +262,7 @@ Sample Response
     "datesOfBirth": null,
     "locale": "fr",
     "uid": null,
+    "externalId": "31337",
     "subscribedToNewsletter": true
     "organism": [{
         "id": 11,
@@ -343,6 +346,7 @@ Sample Response
                 "datesOfBirth": null,
                 "locale": "fr",
                 "uid": null,
+                "externalId": null,
                 "subscribedToNewsletter": true
             }
         ]
@@ -428,6 +432,7 @@ Sample Response
     "datesOfBirth": null,
     "locale": "fr",
     "uid": null,
+    "externalId": null,
     "subscribedToNewsletter": true
   }
 
