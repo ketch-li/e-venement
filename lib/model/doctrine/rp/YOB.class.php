@@ -29,6 +29,34 @@ class YOB extends PluginYOB
     return $this->getWithPadding('year',4);
   }
   
+  public function setFromString($yob)
+  {
+    $dob = DateTime::createFromFormat("Y-m-d\TH:i:sT", $yob);
+    
+    if ( $dob )
+    {
+      $this->year = $dob->format('Y');
+      $this->month = $dob->format('m');
+      $this->day = $dob->format('d');
+    }
+    
+    return boolval($dob);
+  }
+  
+  // ISO 8601
+  public function toXFormat()
+  {
+    $str = '';
+    $dob = DateTime::createFromFormat("Y-m-d H:i:s", $this->year.'-'.$this->month.'-'.$this->day.'00:00:00');
+    
+    if ( $dob )
+    {
+      $str = $dob->format('Y-m-d\TH:i:sT');
+    }
+    
+    return $str;
+  }
+  
   public function __toString()
   {
     sfApplicationConfiguration::getActive()->loadHelpers(array('Date'));
