@@ -28,7 +28,7 @@ generator:
       list:
         title: List of active member cards on the period (cf. filters)
         display: [_id, _name, _list_contact, privileged_seat_name, _list_email, _list_address, created_at, expire_at, _value, checks_count]
-        sort: [created_at, desc]
+        sort: ['created_at desc, id', desc]
         object_actions:
           _show: ~
           _print:

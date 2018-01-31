@@ -3,12 +3,29 @@
     var LI = {};
   
   $(document).ready(function(){
-    LI.get_member_card_index();
+    LI.get_member_card_index(1);
   });
   
-  LI.get_member_card_index = function()
+  LI.extractParam = function(url, param)
   {
-    $.get('<?php echo url_for('member_card/index?contact_id='.$contact->id.'&page=1') ?>',function(data){
+    var result = null;
+    var paramstr = url.split('?');
+    var params = paramstr[1].split('&');
+    
+    for(var i=0;i<params.length;i++) {
+      var value = params[i].split('=');
+      if (value[0] == param) {
+        result = value[1];
+        break;
+      }
+    }
+    
+    return result;
+  }
+  
+  LI.get_member_card_index = function(page_param)
+  {
+    $.get('<?php echo url_for('member_card/index?contact_id='.$contact->id.'&page=') ?>' + page_param, function(data) {
       data = $.parseHTML(data);
       
       if ( $('#member-cards .list > table').length > 0 )
@@ -19,8 +36,11 @@
       
       $('#member-cards .list').addClass('sf_admin_list');
       $('#member-cards .list > table').find('caption').remove();
-      $('#member-cards .list > table a').unbind('click').click(function(){
-        $.get($(this).attr('href')+'&contact_id=<?php echo $contact->id ?>',get_member_card_index);
+      $('#member-cards .list > table a').unbind('click').click(function() {
+
+        var page_param = LI.extractParam($(this).attr('href'), 'page');
+        LI.get_member_card_index(page_param);
+        
         return false;
       });
       
