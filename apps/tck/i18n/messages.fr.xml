@@ -2180,6 +2180,10 @@
         <source>The membercard "%%mc%%" is no longer valid.</source>
         <target>La carte d'abonnement "%%mc%%" n'est plus valide.</target>
       </trans-unit>  
+      <trans-unit id="544">
+        <source>EPT: transaction aborted</source>
+        <target>Transaction non aboutie</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
