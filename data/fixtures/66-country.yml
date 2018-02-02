@@ -1781,3 +1781,11 @@ country:
         name: ZIMBABWE
         nationality: null
         lang: fr
+  -
+    id: 158
+    codeiso2: TW
+    Translation:
+      fr:
+        id: 158
+        name: TAIWAN
+        lang: fr
