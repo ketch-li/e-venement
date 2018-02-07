@@ -152,24 +152,24 @@ class ControlService extends EvenementService
 
   public function control($code)
   {
-    if ( !$code )
+    if ( $code )
     {
-      throw new Exception(__('No valid code provided.'), 1100);
+      if ( $this->isExitCode($code) )
+      {
+        return $this->controlExit();
+      }
+      
+      if ( $card_code = $this->isMemberCardCode($code) )
+      {
+        return $this->controlCard($card_code);
+      }
+      
+      if ( $this->isTicketCode($code) )
+      {
+        return $this->controlTicket($code);
+      }
     }
     
-    if ( $this->isExitCode($code) )
-    {
-      return $this->controlExit();
-    }
-    
-    if ( $card_code = $this->isMemberCardCode($code) )
-    {
-      return $this->controlCard($card_code);
-    }
-    
-    if ( $this->isTicketCode($code) )
-    {
-      return $this->controlTicket($code);
-    }
+    throw new Exception(__('No valid code provided.'), 1100);
   }
 }
