@@ -16,4 +16,19 @@ class MemberCardPriceTable extends PluginMemberCardPriceTable
     {
         return Doctrine_Core::getTable('MemberCardPrice');
     }
+    
+    public function getOneByCard($card_id, $event_id, $manifestation_id)
+    {
+      return Doctrine_Query::create()
+        ->select('mcp.*')
+        ->from('MemberCardPrice mcp')
+        ->innerJoin('mcp.Price p')
+        ->innerJoin('p.PriceManifestations pm')
+        ->where('mcp.member_card_id = ?', $card_id)
+        ->andWhere('(mcp.event_id = ? OR event_id IS NULL)', $event_id)
+        ->andWhere('pm.manifestation_id = ?', $manifestation_id)
+        ->andWhere('p.value = 0')
+        ->orderBy('mcp.event_id DESC, mcp.id')
+        ->fetchOne();
+    }
 }

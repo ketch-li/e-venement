@@ -3,3 +3,8 @@ all:
 
 indexSuccess:
   javascripts: [tck-control-center]
+  
+checkSuccess:
+  has_layout: false
+  http_metas:
+    content-type: application/json

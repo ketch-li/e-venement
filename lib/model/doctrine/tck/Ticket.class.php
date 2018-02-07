@@ -234,4 +234,15 @@ EOF
       $name = $this->Transaction->HoldTransaction->Hold->on_ticket;
     return $name;
   }
+  
+  public function isControlled($type)
+  {
+    return Doctrine_Query::create()
+      ->select('c.id')
+      ->from('Control c')
+      ->innerJoin('c.Checkpoint cp')
+      ->where('c.ticket_id = ?', $this->id)
+      ->andWhere('cp.type = ?', $type)
+      ->count();
+  }
 }

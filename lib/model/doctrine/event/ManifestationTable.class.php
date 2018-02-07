@@ -305,6 +305,27 @@ class ManifestationTable extends PluginManifestationTable
     return $q;
   }
   
+  public function retrieveCurrent()
+  {
+    $culture = sfContext::hasInstance() ? sfContext::getInstance()->getUser()->getCulture() : 'fr';
+    
+    $past = sfConfig::get('app_control_past') ? sfConfig::get('app_control_past') : '6 hours';
+    $future = sfConfig::get('app_control_future') ? sfConfig::get('app_control_future') : '1 day';
+    
+    $start = date('Y-m-d H:i', strtotime('now + ' . $future));
+    $end = date('Y-m-d H:i', strtotime('now - '.$past));
+    
+    return Doctrine_Query::create()
+      ->select('m.id AS manifestation_id, e.id AS event_id, cp.id AS checkpoint_id')
+      ->from('Manifestation m')
+      ->innerJoin('m.Event e')
+      ->innerJoin('e.Translation et WITH lang = ?', $culture)
+      ->innerJoin('e.Checkpoints cp WITH cp.type = ?', 'entrance')
+      ->where('m.happens_at < ?', $start)
+      ->andWhere('manifestation_ends_at(m.happens_at, m.duration) > ?', $end)
+      ->fetchOne();
+  }
+  
   public function slightlyFindOneById($value)
   {
     return $this->createQuery('m', true)

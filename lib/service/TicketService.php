@@ -12,38 +12,44 @@
  */
 class TicketService extends EvenementService
 {
-  // Control one ticket with QRCode
-  public function singleControlDemat($user, $event_id, $ticket_code, $post)
+  protected function checkTicket(Ticket $ticket)
   {
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N'));
-    
-    // Get ticket from code    
-    $ticket = Doctrine::getTable('Ticket')->createQuery('tck')
-      ->leftJoin('tck.Manifestation m')
-      ->leftJoin('m.Event e')
-      ->leftJoin('e.Translation et')
-      ->leftJoin('e.Checkpoints cp WITH cp.type = ?', 'entrance')
-      ->leftJoin('tck.Controls c WITH c.checkpoint_id = cp.id')
-      ->andWhere('tck.barcode = ?', $ticket_code)
-      ->fetchOne();
-    
     if ( !$ticket )
       throw new liApiNotFoundException(__("Ticket not found", null, 'ticket_service'), 1001);
       
     // Check if ticket is integrated
     if ( !$ticket->integrated_at )
       throw new liApiNotFoundException(__("The ticket has not been printed", null, 'ticket_service'), 1002);
-      
+  }
+  
+  protected function createControl($user_id, $ticket_id, $checkpoint_id, $comment = '')
+  {
+    $control = new Control();
+    $control->sf_guard_user_id = $user_id;
+    $control->ticket_id = $ticket_id;
+    $control->checkpoint_id = $checkpoint_id;
+    $control->comment = $comment;
+    $control->save();
+    
+    return $control;
+  }
+  
+  // Control one ticket with QRCode
+  protected function controlDemat($user_id, $event_id, Ticket $ticket, $post)
+  {
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N'));
+    
+    $this->checkTicket($ticket);
+
     // Check if ticket manifestation matches event_id
     if ( $ticket->Manifestation->event_id != $event_id )
       throw new liApiBadRequestException(__("The ticket manifestation does not match the event id #%%EVENT_ID%%", array('%%EVENT_ID%%' => $event_id), 'ticket_service'), 1003);
       
-    $checkpoint = null;
     // Get the checkpoint of the event
-    if ( $ticket->Manifestation->Event->Checkpoints->count() == 0 )
+    $checkpoint = Doctrine::getTable('Checkpoint')->getFromManifestation($ticket->manifestation_id);
+    
+    if ( $checkpoint->event_id != $event_id )
       throw new liApiNotFoundException(__("No ENTRANCE checkpoint configured for event #%%EVENT_ID%%", array('%%EVENT_ID%%', $event_id), 'ticket_service'), 1004);
-    else
-      $checkpoint = $ticket->Manifestation->Event->Checkpoints[0];
       
     // Check if the control checking is available for the manifestation
     $past = sfConfig::get('app_control_past') ? sfConfig::get('app_control_past') : '6 hours';
@@ -63,7 +69,7 @@ class TicketService extends EvenementService
     if ( strtotime($ticket->Manifestation->ends_at) < $end && !$post )
       throw new liApiNotFoundException(__("The control for manifestation #%%MANIFESTATION_ID%% is over", array('%%MANIFESTATION_ID%%' => $ticket->Manifestation->id), 'ticket_service'), 1006);
     
-    // Check if the ticket is already controled
+    // Check if the ticket is already controlled
     if ( $ticket->Controls->count() > 0 )
     {
       $failure = new FailedControl;
@@ -72,20 +78,48 @@ class TicketService extends EvenementService
         'checkpoint_id' => $checkpoint->id
       ]);
       
-      throw new liApiNotFoundException(__("The ticket #%%TICKET_ID%% has already been controled", array('%%TICKET_ID%%' => $ticket->id), 'ticket_service'), 1007);
+      throw new liApiNotFoundException(__("The ticket #%%TICKET_ID%% has already been controlled", array('%%TICKET_ID%%' => $ticket->id), 'ticket_service'), 1007);
     }
     
     // The ticket is valid
-    $control = new Control();
-    $control->sf_guard_user_id = $user->getId();
-    $control->ticket_id = $ticket->id;
-    $control->checkpoint_id = $checkpoint->id;
-    $control->comment = $post ? 'A posteriori' : '';
-    $control->save();
-    
+    $control = $this->createControl($user_id, $ticket->id, $checkpoint->id, $post ? 'A posteriori' : '');
     $ticket->Controls->add($control);
     
-    return $ticket->id;
+    return $ticket;
+  }
+  
+  public function singleAutoControlDemat($user_id, $ticket_code)
+  {
+    $ticket = Doctrine::getTable('Ticket')->getOneFromCode($ticket_code, 'entrance');
+    $event_id = $ticket->Manifestation->event_id;
+    
+    return $this->controlDemat($user_id, $event_id, $ticket, false);
+  }
+
+  public function singleControlDemat($user_id, $event_id, $ticket_code, $post)
+  {
+    $ticket = Doctrine::getTable('Ticket')->getOneFromCode($ticket_code, 'entrance');
+    
+    return $this->controlDemat($user_id, $event_id, $ticket, $post);
+  }
+
+  public function controlExit($user_id, Ticket $ticket, $checkpoint_id)
+  {
+    $this->checkTicket($ticket);
+    
+    if ( !$ticket->isControlled('entrance') )
+    {
+      throw new Exception(__('The ticket #%%TICKET_ID%% has not been controlled at the entrance.', array('%%TICKET_ID%%' => $ticket->id), 'ticket_service'));
+    }
+    
+    if ( $ticket->isControlled('exit') )
+    {
+      throw new Exception(__('The ticket #%%TICKET_ID%% has already been controlled at the exit.', array('%%TICKET_ID%%' => $ticket->id), 'ticket_service'));
+    }
+    
+    $this->createControl($user_id, $ticket->id, $checkpoint_id);
+    
+    return $ticket;
   }
   
 }

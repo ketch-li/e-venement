@@ -28,3 +28,5 @@ all:
       class: PasswordMD5Service
     ticket_service:
       class: TicketService
+    control_service:
+      class: ControlService

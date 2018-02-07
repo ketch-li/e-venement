@@ -2184,6 +2184,22 @@
         <source>EPT: transaction aborted</source>
         <target>Transaction non aboutie</target>
       </trans-unit>
+      <trans-unit id="545">
+        <source>No gauge available at the moment.</source>
+        <target>Aucune jauge disponible.</target>
+      </trans-unit>
+      <trans-unit id="546">
+        <source>No manifestation currently available</source>
+        <target>Aucune manifestation en cours.</target>
+      </trans-unit>
+      <trans-unit id="547">
+        <source>No ticket to control.</source>
+        <target>Aucun ticket à contrôler.</target>
+      </trans-unit>
+      <trans-unit id="548">
+        <source>No valid code provided.</source>
+        <target>Aucun code valide fourni.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

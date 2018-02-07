@@ -44,4 +44,46 @@ class TicketTable extends PluginTicketTable
       //->groupBy("{$alias}_t.contact_id')
     ;
   }
+  
+  public function getOneFromMembercard($card_id, $manifestation_id)
+  {
+    return Doctrine_Query::create()
+      ->select('tck.*')
+      ->from('Ticket tck')
+      ->innerJoin('tck.Manifestation m')
+      ->innerJoin('m.Event e')
+      ->innerJoin('e.Checkpoints cp WITH cp.type = ?', 'entrance')
+      ->leftJoin('tck.Controls c WITH c.checkpoint_id = cp.id')
+      ->where('c.id IS NULL')
+      ->andWhere('(tck.printed_at IS NOT NULL OR tck.integrated_at IS NOT NULL)')
+      ->andWhere('tck.manifestation_id = ?', $manifestation_id)
+      ->andWhere('tck.member_card_id = ?', $card_id)
+      ->orderBy('tck.created_at')
+      ->fetchOne();
+  }
+  
+  public function getOneFromCode($ticket_code, $check_type)
+  {
+    return Doctrine::getTable('Ticket')->createQuery('tck')
+      ->innerJoin('tck.Manifestation m')
+      ->innerJoin('m.Event e')
+      ->innerJoin('e.Translation et')
+      ->innerJoin('e.Checkpoints cp WITH cp.type = ?', $check_type)
+      ->leftJoin('tck.Controls c WITH c.checkpoint_id = cp.id')
+      ->andWhere('tck.barcode = ?', $ticket_code)
+      ->fetchOne();
+  }
+  
+  public function getLastControlled($manifestation_id)
+  {
+    return Doctrine::getTable('Ticket')->createQuery('tck')
+      ->innerJoin('tck.Controls c')
+      ->innerJoin('c.Checkpoint cp WITH cp.type = ?', 'entrance')
+      ->leftJoin('tck.Controls ce WITH ce.id != c.id')
+      ->leftJoin('ce.Checkpoint cpe WITH cpe.type = ?', 'exit')
+      ->where('tck.manifestation_id = ?', $manifestation_id)
+      ->andWhere('ce.id IS NULL')
+      ->orderBy('c.created_at')
+      ->fetchOne();
+  }
 }

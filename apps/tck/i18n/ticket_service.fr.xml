@@ -33,7 +33,7 @@
         <target>Le contrôle pour la manifestation #%%MANIFESTATION_ID%% est terminé</target>
       </trans-unit>
       <trans-unit id="8">
-        <source>The ticket #%%TICKET_ID%% has already been controled</source>
+        <source>The ticket #%%TICKET_ID%% has already been controlled</source>
         <target>Le billet #%%TICKET_ID%% est déjà contrôlé</target>
       </trans-unit>
     </body>

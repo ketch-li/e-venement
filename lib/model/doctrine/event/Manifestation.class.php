@@ -327,6 +327,39 @@ class Manifestation extends PluginManifestation implements liUserAccessInterface
     return true;
   }
 
+  public function getGlobalGauge()
+  {
+    $global_gauge = 0;
+    
+    foreach ($this->Gauges as $gauge)
+    {
+      $global_gauge += $gauge->value;
+    }
+    
+    return $global_gauge;
+  }
+
+  public function getCurrentEntries()
+  {
+    $q = "SELECT sum(entry) - sum(exit) AS entries
+      FROM (
+        SELECT tck.id, 
+          CASE WHEN cp.type = 'entrance' THEN 1 ELSE 0 END AS entry, 
+          CASE WHEN cp.type = 'exit' THEN 1 ELSE 0 END AS exit
+        FROM ticket tck
+        INNER JOIN control c ON c.ticket_id = tck.id
+        INNER JOIN checkpoint cp ON cp.id = c.checkpoint_id
+        WHERE tck.manifestation_id = ?
+      ) AS controls"
+    ;
+    
+    $pdo = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
+    $st = $pdo->prepare($q);    
+    $st->execute([$this->id]);
+    
+    return $st->fetchAll(Doctrine_Core::FETCH_ASSOC)[0]['entries'];
+  }
+
   public function getIcalPartial(vevent $e, $full = true, $only_pending = false, $options = array())
   {
     // settings

@@ -16,4 +16,17 @@ class PluginCheckpointTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('PluginCheckpoint');
     }
+    
+    public function getFromManifestation($manifestation_id, $type = 'entrance')
+    {
+      return Doctrine_Query::create()
+        ->select('cp.id')
+        ->from('Checkpoint cp')
+        ->innerJoin('cp.Event e')
+        ->innerJoin('e.Manifestations m')
+        ->andWhere('cp.type = ?', $type)
+        ->andWhere('m.id = ?', $manifestation_id)
+        ->fetchOne();
+    }
+    
 }
