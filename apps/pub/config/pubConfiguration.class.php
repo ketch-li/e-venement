@@ -262,18 +262,16 @@ class pubConfiguration extends sfApplicationConfiguration
       ->delete()
       ->execute();
     
-    $gauges = Doctrine_Query::create()->from('Gauge g')
+    $gauges = Doctrine_Query::create()
       ->select('g.*, tck.*')
-      ->leftJoin('g.Manifestation m')
-      ->leftJoin('m.Event e')
-      
-      ->leftJoin('g.Tickets tck WITH tck.printed_at IS NULL AND tck.integrated_at IS NULL AND tck.duplicating IS NULL AND tck.cancelling IS NULL')
-      ->andWhere('tck.transaction_id = ?', $sf_action->getUser()->getTransactionId())
-      
-      ->leftJoin('tck.Price p')
-      ->leftJoin('p.Manifestations pm WITH pm.id = m.id')
-      ->leftJoin('p.Users pu')
-      
+      ->from('Gauge g')
+      ->innerJoin('g.Manifestation m')
+      ->innerJoin('m.Prices pm')
+      ->innerJoin('g.Tickets tck')
+      ->where('tck.transaction_id = ?', $sf_action->getUser()->getTransactionId())
+      ->andWhere('tck.printed_at IS NULL AND tck.integrated_at IS NULL AND tck.duplicating IS NULL AND tck.cancelling IS NULL')
+      ->andWhere('tck.manifestation_id = m.id')
+      ->andWhere('tck.price_id = pm.id')
       ->execute()
     ;
     
