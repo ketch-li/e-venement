@@ -5,3 +5,5 @@ show:
   credentials: [tck-control-overview]
 index:
   credentials: [tck-control-overview]
+check:
+  credentials: [tck-control]
