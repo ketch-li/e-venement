@@ -115,15 +115,15 @@ class rpConfiguration extends sfApplicationConfiguration
     // Delete the pdf files generated to print membercards
     $this->addGarbageCollector('membercard-files-removal', function(){
       $section = 'clear-membercard-files';
-      $this->stdout($section, 'Removing old membercard files...', 'COMMAND');
+      $this->stdout($section, 'Removing old membercard and ticket files...', 'COMMAND');
        
-      $interval = sfConfig::get('app_options_membercard_file_removal', '1 week');
+      $interval = sfConfig::get('app_options_membercard_file_removal', '1 day');
        
       $res = 
       Doctrine_Query::create()
         ->delete()
         ->from('Picture p')
-        ->where('p.name LIKE ?', 'db:Membercard%')
+        ->where('p.name LIKE ?', 'db:%')
         ->andWhere("p.created_at < now() - INTERVAL '$interval'")
         ->execute(); 
     
