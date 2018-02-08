@@ -40,17 +40,19 @@ class controlActions extends autoControlActions
       'success' => false,
       'message' => null,
       'timestamp' => format_datetime(date('Y-m-d H:i:s'), 'dd/MM/yyyy HH:mm:ss'),
+      'memberCardPrices' => null,
       'ticket' => []
     ];
     $code = $request->getParameter('code');
     
     try
     {
-      $control = $this->getControlService()->Control($code);
+      $ticket = $this->getControlService()->Control($code);
       
       $data['success'] = true;
       $data['message'] = __('Checkpoint: success.');
-      $data['ticket'] = $this->formatControl($control);
+      $data['ticket'] = $this->formatControl($ticket);
+      $data['memberCardPrices'] = $ticket->MemberCard->MemberCardPrices->count();
     }
     catch(Exception $e)
     {
