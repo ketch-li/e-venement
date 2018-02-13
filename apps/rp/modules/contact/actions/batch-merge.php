@@ -52,6 +52,8 @@
         {
           $base_contact->name       = $contact->name;
           $base_contact->firstname  = $contact->firstname;
+          $base_contact->external_id = $contact->external_id;
+          $base_contact->nationality = $contact->nationality;
         }
         
         // address
