@@ -68,7 +68,7 @@ class TicketTable extends PluginTicketTable
       ->innerJoin('tck.Manifestation m')
       ->innerJoin('m.Event e')
       ->innerJoin('e.Translation et')
-      ->innerJoin('e.Checkpoints cp WITH cp.type = ?', $check_type)
+      ->leftJoin('e.Checkpoints cp WITH cp.type = ?', $check_type)
       ->leftJoin('tck.Controls c WITH c.checkpoint_id = cp.id')
       ->andWhere('tck.barcode = ?', $ticket_code)
       ->fetchOne();
