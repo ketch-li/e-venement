@@ -72,7 +72,7 @@ class Addressable extends PluginAddressable
   
   public function getSearchedVersion($v)
   {
-    if ( $v <= 1 )
+    if ( $v < 1 )
       return NULL;
     
     foreach ( $this->Version as $version )
