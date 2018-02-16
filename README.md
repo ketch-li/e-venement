@@ -1,4 +1,8 @@
-- e-venement-2.12.2 - 
+- e-venement-2.12.2 - 16/02/2018
+  - #5745 - Add external_id field to contacts merge
+  - #5728 - Extend the removal of old files to tickets
+  - #5425 - Add a webservice to control tickets and member cards
+  - #5720 - Fix a bug when converting a price
   - #5712 - Rewrite a query when displaying the cart
 - e-venement-2.12.1 - 02/2018
   - Add version tag handling
