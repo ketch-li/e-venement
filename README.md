@@ -1,4 +1,4 @@
-- e-venement-2.12.2 - 16/02/2018
+- v2.12.2 - 16/02/2018
   - #5745 - Add external_id field to contacts merge
   - #5728 - Extend the removal of old files to tickets
   - #5425 - Add a webservice to control tickets and member cards
