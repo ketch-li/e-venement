@@ -9,7 +9,7 @@
   <tbody>
     <?php foreach ( $transactions as $transaction ): ?>
     <tr class="transaction">
-      <td class="id"><?php echo __('Transaction') ?>: #<?php echo $sf_user->hasCredential('tck-transaction') )
+      <td class="id"><?php echo __('Transaction') ?>: #<?php echo $sf_user->hasCredential('tck-transaction')
         ? link_to($transaction,'ticket/sell?id='.$transaction->id)
         : $transaction
       ?></td>

@@ -16,9 +16,9 @@ class PluginEventTable extends Doctrine_Table implements CompositeSearchableTabl
     {
         return Doctrine_Core::getTable('PluginEvent');
     }
-    public function __constructor(string $name, Doctrine_Connection $conn, boolean $initDefinition)
+    public function __construct($name, Doctrine_Connection $conn, $initDefinition)
     {
-      parent::__constructor($name,$conn,$initDefinition);
+      parent::__construct($name,$conn,$initDefinition);
       $this->getTemplate('Doctrine_Template_Searchable')->getPlugin()
         ->setOption('analyzer', new MySearchAnalyzer());
     }

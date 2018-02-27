@@ -7,6 +7,5 @@
   );
   echo str_replace(array_keys($translate),array_values($translate),nl2br(sfConfig::get('app_seller_invoice_bodypart2')));
 ?>
-<?php endif ?>
 </div>
 
