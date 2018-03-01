@@ -186,6 +186,7 @@ Phonenumber:
   columns:
     name:
       type: string(255)
+      default: ''
     number:
       type: string(255)
       notnull: true
