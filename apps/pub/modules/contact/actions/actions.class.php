@@ -106,6 +106,14 @@ class contactActions extends sfActions
   
   public function executeNew(sfWebRequest $request)
   {
+    // redirect to the identification provider
+
+    if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $this->getContext()->getConfiguration()->getPlugins()) )
+    {
+      $provider = new liOnlineExternalAuthOpenIDConnect;
+      $this->redirect($provider->getConfig('issuer'));
+    }
+
     $this->executeEdit($request);
     $this->setTemplate('edit');
   }
@@ -152,26 +160,21 @@ class contactActions extends sfActions
   }
   public function executeEdit(sfWebRequest $request)
   {
-    // redirect to the identification provider
-/*
-    if ( in_array('liOnlineExternalAuthOpenIDConnectPlugin', $this->getContext()->getConfiguration()->getPlugins()) )
-    {
-      $provider = new liOnlineExternalAuthOpenIDConnect;
-      $this->redirect($provider->getConfig('issuer'));
-    }
-*/
-    
     try {
       $contact = $this->getUser()->getContact();
       $this->form = new ContactPublicForm($contact);
       $pns = array();
       foreach ( $contact->Phonenumbers as $pn )
         $pns[$pn->updated_at.' '.$pn->id] = $pn;
-      ksort($pns);
+
+      if (count($pns) > 0)
+      {
+        ksort($pns);
       
-      $pn = array_pop($pns);
-      $this->form->setDefault('phone_type',$pn->name);
-      $this->form->setDefault('phone_number',$pn->number);
+        $pn = array_pop($pns);
+        $this->form->setDefault('phone_type',$pn->name);
+        $this->form->setDefault('phone_number',$pn->number);
+      }
       
       $q = Doctrine::getTable('GeoFrStreetBase')->createQueryStreetName($contact->address, $contact->postalcode, $contact->city);
       $address = $q->fetchOne();
