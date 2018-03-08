@@ -128,10 +128,12 @@ class ManifestationForm extends BaseManifestationForm
   
   public function configureEvent(Event $event)
   {
+    $culture = sfContext::hasInstance() ? sfContext::getInstance()->getUser()->getCulture() : 'fr';
     $q = EventFormFilter::addCredentialsQueryPart(Doctrine::getTable('Event')->createQuery('e'));
+    $q->andWhere('translation.lang = ?', $culture);
     $this->widgetSchema   ['event_id']
       ->setOption('query', $q)
-      ->setOption('order_by', array('translation.name', ''));
+      ->setOption('order_by', array('translation.name, e.created_at', ''));
     $this->validatorSchema['event_id']
       ->setOption('query', $q);
     if ( sfContext::hasInstance() )
