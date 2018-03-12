@@ -50,9 +50,9 @@ class liValidatorDoctrineGeoFrStreetBase extends sfValidatorString
     // get back the values
     $values = $form->getTaintedValues();
     
-    $city       = strtolower(str_replace(array('STE-', 'ST-'), array('SAINTE-', 'SAINT-'), GeoFrStreetBaseForm::sanitizeSearch($values['city'], false)));
+    $city       = mb_strtolower(str_replace(array('STE-', 'ST-'), array('SAINTE-', 'SAINT-'), GeoFrStreetBaseForm::sanitizeSearch($values['city'], false)));
     $postalcode = GeoFrStreetBaseForm::sanitizeSearch($values['postalcode'], false);
-    $address    = strtolower(GeoFrStreetBaseForm::sanitizeSearch($value, false));
+    $address    = mb_strtolower(GeoFrStreetBaseForm::sanitizeSearch($value, false));
     
     // if no address can be found in the DB
     $q = Doctrine::getTable('GeoFrStreetBase')->createQuery('sb')
