@@ -72,9 +72,9 @@
       $signature = base64_decode($request->getParameter('signature'));
       $get = $request->getGetParameters();
       unset($get['signature']);
+      unset($get['currency']);
       $str = http_build_query($get);
       
-      if ( false ) // @todo make it work !!
       switch ( openssl_verify($str, $signature, $pubkeyid) ) {
       case 1:
         break;
