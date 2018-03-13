@@ -1,3 +1,10 @@
+- v2.12.3 - 13/03/2018
+  - #5828 - Fix a bug when validating an address in online sale
+  - #5947 - Fix a bug when controlling a paybox signature
+  - #5941 - Fix a bug in the manifestation events list
+  - #5827 - Update account creation with openid
+  - #5772 - Fix a bug with survey in the back office
+  - #5783 - Fix a bug in contact versioning
 - v2.12.2 - 16/02/2018
   - #5745 - Add external_id field to contacts merge
   - #5728 - Extend the removal of old files to tickets
