@@ -28,6 +28,7 @@ class filterActions extends autoFilterActions
   public function executeShow(sfWebRequest $request)
   {
     parent::executeShow($request);
-    $this->getUser()->setAttribute($this->filter->type.'.filters', unserialize($this->filter->filter), 'admin_module');
+    $this->getUser()->setAttribute(strtolower($this->filter->type).'.filters', unserialize($this->filter->filter), 'admin_module');
+
   }
 }
